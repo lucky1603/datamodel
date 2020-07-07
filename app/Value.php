@@ -27,6 +27,9 @@ class Value extends Model
             case 'select':
                 $tablename = 'select_values';
                 break;
+            case 'file':
+                $tablename = 'file_values';
+                break;
             default:
                 $tablename = 'bool_values';
                 break;
@@ -59,6 +62,9 @@ class Value extends Model
                 break;
             case 'select':
                 $tablename = 'select_values';
+                break;
+            case 'file':
+                $tablename = 'file_values';
                 break;
             default:
                 $tablename = 'bool_values';
