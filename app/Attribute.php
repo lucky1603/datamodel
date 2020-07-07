@@ -15,4 +15,8 @@ class Attribute extends Model
     public function instances() {
         return $this->belongsToMany(Instance::class)->withPivot('id');
     }
+
+    public function attribute_options() {
+        return $this->hasMany(AttributeOption::class);
+    }
 }

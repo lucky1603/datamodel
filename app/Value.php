@@ -24,6 +24,9 @@ class Value extends Model
             case 'datetime':
                 $tablename = 'datetime_values';
                 break;
+            case 'select':
+                $tablename = 'select_values';
+                break;
             default:
                 $tablename = 'bool_values';
                 break;
@@ -53,6 +56,9 @@ class Value extends Model
                 break;
             case 'datetime':
                 $tablename = 'datetime_values';
+                break;
+            case 'select':
+                $tablename = 'select_values';
                 break;
             default:
                 $tablename = 'bool_values';
