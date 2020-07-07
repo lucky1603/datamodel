@@ -19,4 +19,16 @@ class Attribute extends Model
     public function attribute_options() {
         return $this->hasMany(AttributeOption::class);
     }
+
+    public function getValue() {
+        if(isset($this->pivot)) {
+            return Value::get($this->pivot->instance_id, $this);
+        }
+    }
+
+    public function setValue($value) {
+        if(isset($this->pivot)) {
+            Value::put($this->pivot->instance_id, $this, $value);
+        }
+    }
 }

@@ -108,7 +108,7 @@ class Instance extends Model
     public function getAttributeValues() {
         $attributeValues = [];
         foreach ($this->attributes()->get() as $attribute) {
-            $value = Value::get($this, $attribute);
+            $value = $attribute->getValue();
             $attributeValues[$attribute->label] = $value;
         }
 
@@ -141,7 +141,7 @@ class Instance extends Model
                         $value = false;
                         break;
                 }
-                Value::put($this, $attribute, $value);
+                Value::put($this->id, $attribute, $value);
             }
         }
     }

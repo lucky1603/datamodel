@@ -7,9 +7,7 @@ use App\Attribute;
 use App\Entity;
 use App\Instance;
 use App\Value;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\Test\Constraint\RequestAttributeValueSame;
 
 class Contract
 {
@@ -29,7 +27,7 @@ class Contract
         if(isset($data['instance_id'])) {
             $this->instance = Instance::find($data['instance_id']);
         } else {
-            $this->instance = Instance::create(['entity_id' => Entity::where('name','Contract')->first()->id, 'code' => $data['code']]);
+            $this->instance = Instance::create(['entity_id' => $this->entity->id, 'code' => $data['code']]);
             $this->setAttributes();
         }
 
@@ -58,9 +56,8 @@ class Contract
 
         $attributeValues = [];
         foreach($data as $key) {
-            $attribute = Attribute::where('name', $key)->first();
-            $value = Value::get($this->instance, $attribute);
-            $attributeValues[$attribute->name] = $value;
+            $attribute = $this->instance->attributes->where('name', 'key')->first();
+            $attributeValues[$attribute->name] = $attribute->getValue();
         }
 
         return $attributeValues;
@@ -75,9 +72,10 @@ class Contract
             return;
 
         foreach($data as $key => $value) {
-            $attribute = Attribute::where('name', $key)->first();
-            Value::put($this->instance, $attribute, $value);
+            $attribute = $this->instance->attributes->where('name', $key)->first();
+            $attribute->setValue($value);
         }
+
     }
 
     /**
@@ -109,11 +107,25 @@ class Contract
      * @param $query Array of key/value pairs.
      * @return Contract|\Illuminate\Support\Collection
      */
-    public static function find($query) {
+    public static function find($query=null) {
+        if(!isset($query)) {
+            $contracts = [];
+            $entity_id = Entity::where('name', 'Contract')->first()->id;
+            $instances = Instance::where(['entity_id' => $entity_id])->get();
+            foreach ($instances as $instance) {
+                $contracts[] = new Contract(['instance_id' => $instance->id]);
+            }
+
+            return collect($contracts);
+        }
+
         foreach($query as $key => $value) {
             if($key === 'code') {
                 $instance = Instance::where('code', $value)->first();
-                return new Contract(['instance' => $instance]);
+                if($instance->entity->name === 'Contract') {
+                    return new Contract(['instance_id' => $instance->id]);
+                } else
+                    return null;
             } else {
                 $attribute = Attribute::where('name', $key)->first();
                 $tableName = $attribute->type.'_values';
@@ -140,7 +152,6 @@ class Contract
 
         return collect($results_array);
     }
-
 
     /**
      * Initializes the attributes.
@@ -190,36 +201,36 @@ class Contract
         }
 
         // Set contract name.
-        Value::put($this->instance,
+        Value::put($this->instance->id,
             Attribute::where('name','name')->first(),
             isset($this->data['name']) ? $this->data['name'] : 'Some contract');
 
         // Set description of contract.
-        Value::put($this->instance,
+        Value::put($this->instance->id,
             Attribute::where('name','description')->first(),
             isset($this->data['description']) ? $this->data['description'] : 'Some description');
 
         // Set the first contract party.
-        Value::put($this->instance,
+        Value::put($this->instance->id,
             Attribute::where('name','first_party')->first(),
             isset($this->data['first_party']) ? $this->data['first_party'] : 'First party');
 
         // Set the second contract party.
-        Value::put($this->instance,
+        Value::put($this->instance->id,
             Attribute::where('name','second_party')->first(),
             isset($this->data['second_party']) ? $this->data['second_party'] : 'Second party');
 
-        Value::put($this->instance,
+        Value::put($this->instance->id,
             Attribute::where('name','contract_subject')->first(),
             isset($this->data['contract_subject']) ? $this->data['contract_subject'] : 'Predmet ugovora');
 
         // Set the amount of contract
-        Value::put($this->instance,
+        Value::put($this->instance->id,
             Attribute::where('name','amount')->first(),
             isset($this->data['amount']) ? $this->data['amount'] : 0.0);
 
         // Set the currency of the amount.
-        Value::put($this->instance,
+        Value::put($this->instance->id,
             Attribute::where('name','currency')->first(),
             isset($this->data['currency']) ? $this->data['currency'] : 'RSD');
 
@@ -250,6 +261,7 @@ class Contract
 
         return $entity;
     }
+
 
 
 }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Value extends Model
 {
-    public static function get(Instance $instance, Attribute $attribute) {
+    public static function get($instance_id, Attribute $attribute) {
         switch($attribute->type) {
             case 'text':
                 $tablename = 'text_values';
@@ -34,13 +34,13 @@ class Value extends Model
 
         $value = DB::table($tablename)->where([
             'attribute_id' => $attribute->id,
-            'instance_id' => $instance->id
+            'instance_id' => $instance_id
         ])->value('value');
 
         return $value;
     }
 
-    public static function put(Instance $instance, Attribute $attribute, $value) {
+    public static function put($instance_id, Attribute $attribute, $value) {
         switch($attribute->type) {
             case 'text':
                 $tablename = 'text_values';
@@ -68,10 +68,12 @@ class Value extends Model
         return DB::table($tablename)->updateOrInsert(
             [
                'attribute_id' => $attribute->id,
-               'instance_id' => $instance->id
+               'instance_id' => $instance_id
             ],
             [
                 'value' => $value
             ]);
     }
+
+
 }
