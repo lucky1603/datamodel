@@ -31,11 +31,19 @@ class Contract extends BusinessModel
         return collect($events);
     }
 
+    /**
+     * Adds event to contract.
+     * @param Event $event
+     */
     public function addEvent(Event $event) {
         $this->instance->instances()->save($event->instance);
         $this->instance->refresh();
     }
 
+    /**
+     * Removes event from contract.
+     * @param Event $event
+     */
     public function removeEvent(Event $event) {
         $event->instance->delete();
         $this->instance->refresh();
