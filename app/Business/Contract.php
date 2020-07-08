@@ -9,73 +9,11 @@ use App\Instance;
 use App\Value;
 use Illuminate\Support\Facades\DB;
 
-class Contract
+class Contract extends BusinessModel
 {
-    private $entity;
-    private $instance;
-    private $data;
-
-    /**
-     * Contract constructor.
-     * @param $data An array of key=>value pairs. One option is to provide the 'instance_id' and you get the existing
-     * object. If you provide 'code' with some new value not in the database, you create the new contract.
-     */
     public function __construct($data)
     {
-        $this->data = $data;
-        $this->entity = $this->getEntity();
-        if(isset($data['instance_id'])) {
-            $this->instance = Instance::find($data['instance_id']);
-        } else {
-            $this->instance = Instance::create(['entity_id' => $this->entity->id, 'code' => $data['code']]);
-            $this->setAttributes();
-        }
-
-    }
-
-    /**
-     * Gets back the contract code.
-     * @return string
-     */
-    public function getCode() {
-        return $this->instance->code;
-    }
-
-    /**
-     * Gets the attribute values.
-     * @param array $data (default null)
-     * @return array
-     */
-    public function getData($data = null) {
-
-        // If the $data is null, return simply all.
-        $attributeValues = $this->instance->getAttributeValues();
-        if(!$data) {
-            return $attributeValues;
-        }
-
-        $attributeValues = [];
-        foreach($data as $key) {
-            $attribute = $this->instance->attributes->where('name', 'key')->first();
-            $attributeValues[$attribute->name] = $attribute->getValue();
-        }
-
-        return $attributeValues;
-    }
-
-    /**
-     * Sets one or more attribute values.
-     * @param $data array of input key=>value pairs.
-     */
-    public function setData($data) {
-        if(!$data)
-            return;
-
-        foreach($data as $key => $value) {
-            $attribute = $this->instance->attributes->where('name', $key)->first();
-            $attribute->setValue($value);
-        }
-
+        parent::__construct($data);
     }
 
     /**
@@ -83,23 +21,24 @@ class Contract
      * @return mixed
      */
     public function getEvents() {
-        return $this->instance->children();
+        $events = [];
+        foreach($this->instance->instances as $instance) {
+            if($instance->entity->name === 'Event') {
+                $events[] = new Event(['instance_id' => $instance->id]);
+            }
+        }
+
+        return collect($events);
     }
 
-    /**
-     * Adds attribute to the instance of contract.
-     * @param Attribute $attribute
-     */
-    public function addAttribute(Attribute $attribute) {
-        $this->instance->addAttribute($attribute);
+    public function addEvent(Event $event) {
+        $this->instance->instances()->save($event->instance);
+        $this->instance->refresh();
     }
 
-    /**
-     * Removes attribute from this instance of contract.
-     * @param Attribute $attribute
-     */
-    public function removeAttribute(Attribute $attribute) {
-        $this->instance->removeAttribute($attribute);
+    public function removeEvent(Event $event) {
+        $event->instance->delete();
+        $this->instance->refresh();
     }
 
     /**
@@ -108,6 +47,8 @@ class Contract
      * @return Contract|\Illuminate\Support\Collection
      */
     public static function find($query=null) {
+
+        // If it's empty.
         if(!isset($query)) {
             $contracts = [];
             $entity_id = Entity::where('name', 'Contract')->first()->id;
@@ -119,6 +60,13 @@ class Contract
             return collect($contracts);
         }
 
+        // If it's id.
+        if(!is_array($query)) {
+            $instance = Instance::find($query);
+            return new Contract(['instance_id' => $instance->id]);
+        }
+
+        // If it's really array.
         foreach($query as $key => $value) {
             if($key === 'code') {
                 $instance = Instance::where('code', $value)->first();
@@ -154,12 +102,19 @@ class Contract
     }
 
     /**
+     * Returns the short preview of the collection.
+     * @return \Illuminate\Support\Collection
+     */
+    public static function all() {
+        return Contract::find()->map(function($contract) {
+            return $contract->instance->id.'-'.$contract->instance->code;
+        });
+    }
+
+    /**
      * Initializes the attributes.
      */
     protected function setAttributes() {
-        // Get the attributes from entity.
-        $this->instance->getTemplateAttributes();
-
         if($this->instance->attributes()->where('name', 'first_party')->count() == 0) {
             $first_party = Attribute::where('name', 'first_party')->first();
             if(!$first_party) {
@@ -240,7 +195,7 @@ class Contract
      * Gets template.
      * @return mixed
      */
-    private function getEntity()
+    protected function getEntity()
     {
         $entity = Entity::where('name', 'Contract')->first();
         if(!$entity) {
