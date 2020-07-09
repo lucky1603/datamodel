@@ -47,6 +47,23 @@ class Attribute extends Model
     }
 
     /**
+     * Return textual version of the value.
+     * @return string|null
+     */
+    public function getText() {
+        $value = $this->getValue();
+        if(!$value)
+            return null;
+
+        if($this->type === 'select') {
+            $option = $this->attribute_options->where('value', $value)->first();
+            return isset($option) ? $option->text : "No valid text";
+        } else {
+            return strval($value);
+        }
+    }
+
+    /**
      * Sets the attribute value in the context of the given instance.
      * @param $value
      */
@@ -76,8 +93,8 @@ class Attribute extends Model
      * Adds the single option.
      * @param array $optionProperties
      */
-    public function addOption(Array $optionProperties) {
-        $this->instance->attfibute_options()->save($optionProperties);
+    public function addOption(Array $option) {
+        $this->attribute_options()->create($option);
         $this->refresh();
     }
 
