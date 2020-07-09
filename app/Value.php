@@ -30,15 +30,25 @@ class Value extends Model
             case 'file':
                 $tablename = 'file_values';
                 break;
-            default:
+            case 'bool':
                 $tablename = 'bool_values';
+                break;
+            default:
                 break;
         }
 
-        $value = DB::table($tablename)->where([
+        $query = DB::table($tablename)->where([
             'attribute_id' => $attribute->id,
             'instance_id' => $instance_id
-        ])->value('value');
+        ]);
+
+        if($query->count() > 1) {
+            $value = $query->get('value')->map(function($item) {
+               return $item->value;
+            })->toArray();
+        } else {
+            $value = $query->value('value');
+        }
 
         return $value;
     }
@@ -71,14 +81,34 @@ class Value extends Model
                 break;
         }
 
-        return DB::table($tablename)->updateOrInsert(
-            [
-               'attribute_id' => $attribute->id,
-               'instance_id' => $instance_id
-            ],
-            [
-                'value' => $value
-            ]);
+        $query = DB::table($tablename)->where([
+            'attribute_id' => $attribute->id,
+            'instance_id' => $instance_id
+        ]);
+
+        if($query->count() > 1) {
+            $query->delete();
+        }
+
+        if(!is_array($value)) {
+            return DB::table($tablename)->updateOrInsert(
+                [
+                    'attribute_id' => $attribute->id,
+                    'instance_id' => $instance_id
+                ],
+                [
+                    'value' => $value
+                ]);
+        } else {
+            $query->delete();
+            foreach ($value as $item) {
+                DB::table($tablename)->insert([
+                    'attribute_id' => $attribute->id,
+                    'instance_id' => $instance_id,
+                    'value' => $item]);
+            }
+        }
+
     }
 
 
