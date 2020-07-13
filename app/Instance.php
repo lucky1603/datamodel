@@ -109,7 +109,7 @@ class Instance extends Model
         $attributeValues = [];
         foreach ($this->attributes()->get() as $attribute) {
             $value = $attribute->getValue();
-            $attributeValues[$attribute->label] = $value;
+            $attributeValues[$attribute->name] = $value;
         }
 
         return $attributeValues;

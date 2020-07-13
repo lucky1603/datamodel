@@ -90,8 +90,7 @@ class Event extends BusinessModel
             return $event->instance->id.'-'.$event->instance->code;
         });
     }
-
-    /**
+        /**
      * Gets template.
      * @return mixed
      */
