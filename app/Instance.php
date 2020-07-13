@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Instance extends Model
 {
-    protected $fillable = ['entity_id', 'code'];
+    protected $fillable = ['entity_id'];
 
     /**
      * Must be called after the constructor, in order
@@ -53,6 +53,7 @@ class Instance extends Model
      */
     public function addAttribute(Attribute $attribute) {
         $this->attributes()->attach([$attribute->id]);
+        return Attribute::find($attribute->id);
     }
 
     public function removeAttribute(Attribute $attribute)
@@ -93,9 +94,9 @@ class Instance extends Model
         foreach($this->instances()->get() as $instance) {
             $childItem = [];
             $childItem['type'] = $instance->entity()->get()->first()->name;
-            $childItem['code'] = $instance->code;
+            $childItem['id'] = $instance->id;
             $attributeValues = $instance->getAttributeValues();
-            $children[$instance->code] = array_merge($childItem, $attributeValues);
+            $children[$instance->id] = array_merge($childItem, $attributeValues);
         }
 
         return $children;

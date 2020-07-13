@@ -48,27 +48,20 @@ class Event extends BusinessModel
 
         // If it's array.
         foreach($query as $key => $value) {
-            if($key === 'code') {
-                $instance = Instance::where('code', $value)->first();
-                if($instance->entity->name === 'Event') {
-                    return new Event(['instance_id' => $instance->id]);
-                } else
-                    return null;
+
+            $attribute = Attribute::where('name', $key)->first();
+            $tableName = $attribute->type.'_values';
+            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id]);
+            if(!isset($results)) {
+                $results = $temporary_results;
             } else {
-                $attribute = Attribute::where('name', $key)->first();
-                $tableName = $attribute->type.'_values';
-                $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id]);
-                if(!isset($results)) {
-                    $results = $temporary_results;
-                } else {
-                    $results = $temporary_results->intersect($temporary_results);
-                }
-
-                if($results->count() === 0) {
-                    return $results->get();
-                }
-
+                $results = $temporary_results->intersect($temporary_results);
             }
+
+            if($results->count() === 0) {
+                return $results->get();
+            }
+
         }
 
         $results_array = [];
@@ -86,9 +79,7 @@ class Event extends BusinessModel
      * @return \Illuminate\Support\Collection
      */
     public static function all() {
-        return Event::find()->map(function($event) {
-            return $event->instance->id.'-'.$event->instance->code;
-        });
+        return Event::find();
     }
         /**
      * Gets template.
@@ -103,14 +94,14 @@ class Event extends BusinessModel
             // Name of the event.
             $name = Attribute::where('name', 'name')->first();
             if(!$name) {
-                Attribute::create(['name' => 'name', 'label' => 'Naziv', 'type' => 'varchar']);
+                $name = Attribute::create(['name' => 'name', 'label' => 'Naziv', 'type' => 'varchar']);
             }
             $entity->addAttribute($name);
 
             // What is it about?
             $description = Attribute::where('name', 'description')->first();
             if(!$description) {
-                Attribute::create(['name' => 'description', 'label' => 'Opis', 'type' => 'text']);
+                $description = Attribute::create(['name' => 'description', 'label' => 'Opis', 'type' => 'text']);
             }
             $entity->addAttribute($description);
 
@@ -141,17 +132,13 @@ class Event extends BusinessModel
             isset($this->data['name']) ? $this->data['name'] : 'Event'
         );
 
-        $this->instance->attributes->where('name', 'description')->first()->setValue(
-            isset($this->data['description']) ? $this->data['description'] : 'Event description'
-        );
-
         $this->instance->attributes->where('name', 'occurred_at')->first()->setValue(
             isset($this->data['occurred_at']) ? $this->data['occurred_at'] : now()
         );
 
         $this->instance->attributes->where('name', 'sender')->first()->setValue(
             isset($this->instance->instance) ?
-                $this->instance->instance->entity->name.'-'.$this->instance->instance->code : "Unknown"
+                $this->instance->instance->entity->name.' - '.$this->instance->instance->id : "Unknown"
         );
 
     }

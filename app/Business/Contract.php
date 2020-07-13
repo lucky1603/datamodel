@@ -23,12 +23,26 @@ class Contract extends BusinessModel
     public function getEvents() {
         $events = [];
         foreach($this->instance->instances as $instance) {
-            if($instance->entity->name === 'Event') {
+            if($instance->entity->name === 'Event' && $instance->instance->entity->name === 'Contract') {
                 $events[] = new Event(['instance_id' => $instance->id]);
             }
         }
 
         return collect($events);
+    }
+
+    /**
+     * Return events in the form of an array.
+     * @return mixed
+     */
+    public function getEventsData() {
+        $results = [];
+        $events = $this->getEvents();
+        foreach($events as $event) {
+            $results[$event->getId()] = $event->getData();
+        }
+
+        return $results;
     }
 
     /**
@@ -38,6 +52,34 @@ class Contract extends BusinessModel
     public function addEvent(Event $event) {
         $this->instance->instances()->save($event->instance);
         $this->instance->refresh();
+    }
+
+    public function addEventByData($eventType, $params = null) {
+
+        $data = [];
+        switch($eventType) {
+            case 'prva_rata':
+                $event = new Event();
+                $amount = Attribute::where(['name' => 'amount'])->first();
+                if(!$amount) {
+                    $amount = Attribute::create(['name' => 'amount', 'label' => 'Iznos', 'type' => 'double']);
+                }
+                $event->addAttribute($amount);
+
+                $data = [
+                    'name' => 'Event - Isplata prve rate',
+                    'sender' => 'NTP Beograd',
+                    'amount' => '25000'
+                ];
+                $event->setData($data);
+                $this->addEvent($event);
+                break;
+            default:
+                break;
+        }
+
+        return $event;
+
     }
 
     /**
@@ -76,28 +118,21 @@ class Contract extends BusinessModel
 
         // If it's really array.
         foreach($query as $key => $value) {
-            if($key === 'code') {
-                $instance = Instance::where('code', $value)->first();
-                if($instance->entity->name === 'Contract') {
-                    return new Contract(['instance_id' => $instance->id]);
-                } else
-                    return null;
+
+            $attribute = Attribute::where('name', $key)->first();
+            $tableName = $attribute->type.'_values';
+            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id]);
+
+            if(!isset($results)) {
+                $results = $temporary_results;
             } else {
-                $attribute = Attribute::where('name', $key)->first();
-                $tableName = $attribute->type.'_values';
-                $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id]);
-
-                if(!isset($results)) {
-                    $results = $temporary_results;
-                } else {
-                    $results = $temporary_results->intersect($temporary_results);
-                }
-
-                if($results->count() === 0) {
-                    return $results->get();
-                }
-
+                $results = $temporary_results->intersect($temporary_results);
             }
+
+            if($results->count() === 0) {
+                return $results->get();
+            }
+
         }
 
         $results_array = [];
@@ -114,9 +149,7 @@ class Contract extends BusinessModel
      * @return \Illuminate\Support\Collection
      */
     public static function all() {
-        return Contract::find()->map(function($contract) {
-            return $contract->instance->id.'-'.$contract->instance->code;
-        });
+        return Contract::find();
     }
 
     /**
@@ -168,10 +201,6 @@ class Contract extends BusinessModel
             Attribute::where('name','name')->first(),
             isset($this->data['name']) ? $this->data['name'] : 'Some contract');
 
-        // Set description of contract.
-        Value::put($this->instance->id,
-            Attribute::where('name','description')->first(),
-            isset($this->data['description']) ? $this->data['description'] : 'Some description');
 
         // Set the first contract party.
         Value::put($this->instance->id,
@@ -207,24 +236,23 @@ class Contract extends BusinessModel
     {
         $entity = Entity::where('name', 'Contract')->first();
         if(!$entity) {
-            $entity = App\Entity::create(['name' => 'Contract', 'description' => 'The document that bounds two or more parties.']);
+            $entity = Entity::create(['name' => 'Contract', 'description' => 'The document that bounds two or more parties.']);
 
             $name = Attribute::where('name', 'name')->first();
             if(!$name) {
-                Attribute::create(['name' => 'name', 'label' => 'Naziv', 'type' => 'varchar']);
+                $name = Attribute::create(['name' => 'name', 'label' => 'Naziv', 'type' => 'varchar']);
             }
             $entity->addAttribute($name);
 
             $description = Attribute::where('name', 'description')->first();
             if(!$description) {
-                Attribute::create(['name' => 'description', 'label' => 'Opis', 'type' => 'text']);
+                $description = Attribute::create(['name' => 'description', 'label' => 'Opis', 'type' => 'text']);
             }
-            $entity->addAttribute($name);
+            $entity->addAttribute($description);
         }
 
         return $entity;
     }
-
 
 
 }

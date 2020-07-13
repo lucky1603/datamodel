@@ -18,29 +18,28 @@ class BusinessModel
     protected $entity;
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data = null)
     {
         $this->data = $data;
         $this->entity = $this->getEntity();
         if(isset($data['instance_id'])) {
             $this->instance = Instance::find($data['instance_id']);
         } else {
-            $this->instance = Instance::create(['entity_id' => $this->entity->id, 'code' => $data['code']]);
+            $this->instance = Instance::create(['entity_id' => $this->entity->id]);
             $this->instance->getTemplateAttributes();
             $this->setAttributes();
         }
     }
 
-    /**
-     * Gets back the contract code.
-     * @return string
-     */
-    public function getCode() {
-        return $this->instance->code;
-    }
-
     public function getId() {
         return $this->instance->id;
+    }
+
+    /**
+     * Saves the changes.
+     */
+    public function save() {
+        $this->instance->save();
     }
 
     /**

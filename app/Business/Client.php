@@ -20,12 +20,26 @@ class Client extends BusinessModel
     public function getEvents() {
         $events = [];
         foreach($this->instance->instances as $instance) {
-            if($instance->entity->name === 'Event') {
+            if($instance->entity->name === 'Event' && $instance->instance->entity->name === 'Client') {
                 $events[] = new Event(['instance_id' => $instance->id]);
             }
         }
 
         return collect($events);
+    }
+
+    /**
+     * Return events in the form of an array.
+     * @return mixed
+     */
+    public function getEventsData() {
+        $results = [];
+        $events = $this->getEvents();
+        foreach($events as $event) {
+            $results[$event->getId()] = $event->getData();
+        }
+
+        return $results;
     }
 
     /**
@@ -35,6 +49,82 @@ class Client extends BusinessModel
     public function addEvent(Event $event) {
         $this->instance->instances()->save($event->instance);
         $this->instance->refresh();
+        return $event;
+    }
+
+    public function addEventByData($eventType, $params) {
+        $event = new Event();
+        $data = [];
+        switch($eventType) {
+            case 'interesovanje':
+                $data = [
+                    'name' => 'Event - Interesovanje',
+                    'sender' => $this->getData(['name']),
+                ];
+                $event = new Event($data);
+                $this->addEvent($event);
+                break;
+            case 'registracija':
+                $data = [
+                   'name' => 'Event - registracija',
+                   'sender' => $this->getData(['name'])
+                ];
+                $event = new Event($data);
+                $this->addEvent($event);
+                break;
+            case 'evaluacija':
+                $event = new Event();
+                $datumEvaluacije = Attribute::where('name', 'eval_date')->first();
+                if(!$datumEvaluacije) {
+                    $datumEvaluacije = Attribute::create([
+                        'name' => 'eval_date',
+                        'label' => 'Datum evaluacije',
+                        'type' => 'datetime'
+                    ]);
+                }
+                $event->addAttribute($datumEvaluacije);
+                $event->setData([
+                    'name' => 'Event - Zakazan datum evaluacije',
+                    'sender' => $this->getData(['name']),
+                    'eval_date' => isset($params['eval_date']) ? params['eval_date'] : now()
+                ]);
+                $this->addEvent($event);
+                break;
+            case 'odbijanje':
+                $event = new Event();
+                $razlog_odbijanja = Attribute::where('name', 'razlog_odbijanja')->first();
+                if(!$razlog_odbijanja) {
+                    $razlog_odbijanja = Attribute::create([
+                        'name' => 'razlog_odbijanja',
+                        'label' => 'Razlog odbijanja',
+                        'type' => 'text'
+                    ]);
+                }
+                $event->addAttribute($razlog_odbijanja);
+
+                $datum_sednice = Attribute::where('name', 'datum_sednice')->first();
+                if(!$datum_sednice) {
+                    $datum_sednice = Attribute::create([
+                        'name' => 'datum_sednice',
+                        'label' => 'Datum zasedanja komisije',
+                        'type' => 'datetime'
+                    ]);
+                }
+                $event->addAttribute($datum_sednice);
+                $event->setData([
+                   'name' => 'Event - odbijanje kandidature',
+                   'sender' => 'NTP Beograd',
+                   'datum_sednice' => isset($params['datum_sednice']) ? $params['datum_sednice'] : now(),
+                   'razlog_odbijanja' =>  isset($params['razlog_odbijanja']) ? $params['razlog_odbijanja'] : 'Nije dat.',
+                ]);
+                $this->addEvent($event);
+                break;
+            default:
+                break;
+        }
+
+        return $event;
+
     }
 
     /**
@@ -73,28 +163,21 @@ class Client extends BusinessModel
 
         // If it's really array.
         foreach($query as $key => $value) {
-            if($key === 'code') {
-                $instance = Instance::where('code', $value)->first();
-                if($instance->entity->name === 'Client') {
-                    return new Client(['instance_id' => $instance->id]);
-                } else
-                    return null;
+
+            $attribute = Attribute::where('name', $key)->first();
+            $tableName = $attribute->type.'_values';
+            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id]);
+
+            if(!isset($results)) {
+                $results = $temporary_results;
             } else {
-                $attribute = Attribute::where('name', $key)->first();
-                $tableName = $attribute->type.'_values';
-                $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id]);
-
-                if(!isset($results)) {
-                    $results = $temporary_results;
-                } else {
-                    $results = $temporary_results->intersect($temporary_results);
-                }
-
-                if($results->count() === 0) {
-                    return $results->get();
-                }
-
+                $results = $temporary_results->intersect($temporary_results);
             }
+
+            if($results->count() === 0) {
+                return $results->get();
+            }
+
         }
 
         $results_array = [];
@@ -111,9 +194,7 @@ class Client extends BusinessModel
      * @return \Illuminate\Support\Collection
      */
     public static function all() {
-        return Client::find()->map(function($client) {
-            return $client->instance->id.'-'.$client->instance->code;
-        });
+        return Client::find();
     }
 
     // Protected methods. //
@@ -283,4 +364,5 @@ class Client extends BusinessModel
         );
 
     }
+
 }

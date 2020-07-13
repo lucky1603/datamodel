@@ -16,7 +16,6 @@ class CreateInstancesTable extends Migration
         Schema::create('instances', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('entity_id');
-            $table->string('code', 20);
             $table->unsignedBigInteger('parent_id')->nullable(true);
             $table->timestamps();
 
