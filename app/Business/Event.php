@@ -137,8 +137,7 @@ class Event extends BusinessModel
         );
 
         $this->instance->attributes->where('name', 'sender')->first()->setValue(
-            isset($this->instance->instance) ?
-                $this->instance->instance->entity->name.' - '.$this->instance->instance->id : "Unknown"
+            isset($this->data['sender']) ? $this->data['sender'] : 'Unknown'
         );
 
     }

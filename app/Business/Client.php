@@ -61,6 +61,13 @@ class Client extends BusinessModel
                     'name' => 'Event - Interesovanje',
                     'sender' => $this->getData(['name']),
                 ];
+
+                if(isset($params)) {
+                    foreach($params as $key => $value) {
+                        $data[$key] = $value;
+                    }
+                }
+
                 $event = new Event($data);
                 $this->addEvent($event);
                 break;
@@ -69,6 +76,13 @@ class Client extends BusinessModel
                    'name' => 'Event - registracija',
                    'sender' => $this->getData(['name'])
                 ];
+
+                if(isset($params)) {
+                    foreach($params as $key => $value) {
+                        $data[$key] = $value;
+                    }
+                }
+
                 $event = new Event($data);
                 $this->addEvent($event);
                 break;
@@ -83,11 +97,19 @@ class Client extends BusinessModel
                     ]);
                 }
                 $event->addAttribute($datumEvaluacije);
-                $event->setData([
+                $data = [
                     'name' => 'Event - Zakazan datum evaluacije',
                     'sender' => $this->getData(['name']),
                     'eval_date' => isset($params['eval_date']) ? params['eval_date'] : now()
-                ]);
+                ];
+
+                if(isset($params)) {
+                    foreach($params as $key => $value) {
+                        $data[$key] = $value;
+                    }
+                }
+
+                $event->setData($data);
                 $this->addEvent($event);
                 break;
             case 'odbijanje':
@@ -111,12 +133,20 @@ class Client extends BusinessModel
                     ]);
                 }
                 $event->addAttribute($datum_sednice);
-                $event->setData([
-                   'name' => 'Event - odbijanje kandidature',
-                   'sender' => 'NTP Beograd',
-                   'datum_sednice' => isset($params['datum_sednice']) ? $params['datum_sednice'] : now(),
-                   'razlog_odbijanja' =>  isset($params['razlog_odbijanja']) ? $params['razlog_odbijanja'] : 'Nije dat.',
-                ]);
+                $data = [
+                    'name' => 'Event - odbijanje kandidature',
+                    'sender' => 'NTP Beograd',
+                    'datum_sednice' => isset($params['datum_sednice']) ? $params['datum_sednice'] : now(),
+                    'razlog_odbijanja' =>  isset($params['razlog_odbijanja']) ? $params['razlog_odbijanja'] : 'Nije dat.',
+                ];
+
+                if(isset($params)) {
+                    foreach($params as $key => $value) {
+                        $data[$key] = $value;
+                    }
+                }
+
+                $event->setData($data);
                 $this->addEvent($event);
                 break;
             default:
@@ -341,7 +371,7 @@ class Client extends BusinessModel
                 $membership->addOption(['value' => 3, 'text' => 'Alumni']);
 
             }
-            $entity->addAttribute($program);
+            $entity->addAttribute($membership);
 
             // Prijava za članstvo - dokument.
             $application_form = Attribute::where('name', 'application_form')->first();
