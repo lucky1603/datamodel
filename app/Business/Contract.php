@@ -60,17 +60,34 @@ class Contract extends BusinessModel
         switch($eventType) {
             case 'prva_rata':
                 $event = new Event();
-                $amount = Attribute::where(['name' => 'amount'])->first();
+                $amount = Attribute::where('name', 'amount')->first();
                 if(!$amount) {
                     $amount = Attribute::create(['name' => 'amount', 'label' => 'Iznos', 'type' => 'double']);
                 }
                 $event->addAttribute($amount);
 
+                $currency = Attribute::where('name', 'currency')->first();
+                if(!$currency) {
+                    $currency = Attribute::create(['name' => 'currency', 'label' => 'Valuta', 'type' => 'varchar']);
+                }
+                $event->addAttribute($currency);
+
+
+                // Default values.
                 $data = [
                     'name' => 'Event - Isplata prve rate',
                     'sender' => 'NTP Beograd',
-                    'amount' => '25000'
+                    'amount' => 25000,
+                    'currency' => 'EUR'
                 ];
+
+                // Take the input values, if any.
+                if(isset($params)) {
+                    foreach($params as $key => $value) {
+                        $data[$key] = $value;
+                    }
+                }
+
                 $event->setData($data);
                 $this->addEvent($event);
                 break;

@@ -74,6 +74,9 @@ class BusinessModel
 
         foreach($data as $key => $value) {
             $attribute = $this->instance->attributes->where('name', $key)->first();
+            if(!$attribute) {
+                dd($key);
+            }
             $attribute->setValue($value);
         }
 
@@ -85,6 +88,7 @@ class BusinessModel
      */
     public function addAttribute(Attribute $attribute) {
         $this->instance->addAttribute($attribute);
+        $this->instance->refresh();
     }
 
     /**
@@ -93,6 +97,7 @@ class BusinessModel
      */
     public function removeAttribute(Attribute $attribute) {
         $this->instance->removeAttribute($attribute);
+        $this->instance->refresh();
     }
 
     protected function getEntity() {}
