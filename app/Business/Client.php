@@ -305,6 +305,52 @@ class Client extends BusinessModel
             }
             $entity->addAttribute($notes);
 
+            // Status člana.
+            $status = Attribute::where('name', 'status')->first();
+            if(!$status) {
+                $status = Attribute::create(['name' => 'status', 'label' => 'Status člana', 'type' => 'select']);
+                $status->addOption(['value' => 1, 'text' => 'Zainteresovan']);
+                $status->addOption(['value' => 2, 'text' => 'Prijavljen']);
+                $status->addOption(['value' => 3, 'text' => 'Pre-selektovan']);
+                $status->addOption(['value' => 4, 'text' => 'Prihvaćena prijava']);
+                $status->addOption(['value' => 5, 'text' => 'Odbijena prijava']);
+            }
+            $entity->addAttribute($status);
+
+            // Program.
+            $program = Attribute::where('name', 'program')->first();
+            if(!$program) {
+                $program = Attribute::create(['name' => 'program', 'label' => 'Program', 'type' => 'select']);
+                $program->addOption(['value' => 1, 'text' => 'ParkUp']);
+                $program->addOption(['value' => 2, 'text' => 'Colosseum']);
+                $program->addOption(['value' => 3, 'text' => 'ImagineIF']);
+                $program->addOption(['value' => 4, 'text' => 'Predinkubacija']);
+                $program->addOption(['value' => 5, 'text' => 'Inkubacija NTP']);
+                $program->addOption(['value' => 6, 'text' => 'Inkubacija BITF']);
+                $program->addOption(['value' => 7, 'text' => 'Rastuće kompanije']);
+                $program->addOption(['value' => 8, 'text' => 'Pre-seed']);
+            }
+            $entity->addAttribute($program);
+
+            // Vrsta članstva
+            $membership = Attribute::where('name', 'membership')->first();
+            if(!$membership) {
+                $membership = Attribute::create(['name' => 'membership', 'label' => 'Članstvo', 'type' => 'select']);
+                $membership->addOption(['value' => 1, 'text' => 'Virtuelni član']);
+                $membership->addOption(['value' => 2, 'text' => 'Punopravni član']);
+                $membership->addOption(['value' => 3, 'text' => 'Alumni']);
+
+            }
+            $entity->addAttribute($program);
+
+            // Prijava za članstvo - dokument.
+            $application_form = Attribute::where('name', 'application_form')->first();
+            if(!$application_form) {
+                $application_form = Attribute::create(['name' => 'application_form', 'label' => 'Obrazac za prijavu', 'type' => 'file']);
+            }
+            $entity->addAttribute($application_form);
+
+
         }
 
         return $entity;
@@ -361,6 +407,18 @@ class Client extends BusinessModel
 
         $this->instance->attributes->where('name', 'notes')->first()->setValue(
             isset($this->data['notes']) ? $this->data['notes'] : ''
+        );
+
+        $this->instance->attributes->where('name', 'status')->first()->setValue(
+            isset($this->data['status']) ? $this->data['status'] : 1
+        );
+
+        $this->instance->attributes->where('name', 'program')->first()->setValue(
+            isset($this->data['program']) ? $this->data['program'] : 1
+        );
+
+        $this->instance->attributes->where('name', 'membership')->first()->setValue(
+            isset($this->data['membership']) ? $this->data['membership'] : 1
         );
 
     }
