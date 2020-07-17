@@ -104,6 +104,28 @@ class BusinessModel
         $this->instance->refresh();
     }
 
+    /**
+     * Returns the attributes collection for this instance.
+     * @return mixed
+     */
+    public function getAttributes() {
+        return $this->instance->attributes;
+    }
+
+    /**
+     * Returns the textual interpretations of the attribute values.
+     * @return array
+     */
+    public function getAttributeTexts() {
+        $retval = [];
+        $attributes = $this->getAttributes();
+        foreach ($attributes as $attribute) {
+            $retval[$attribute->name] = $attribute->getText();
+        }
+
+        return $retval;
+    }
+
     protected function getEntity() {}
     protected function setAttributes() {}
 
