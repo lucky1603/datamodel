@@ -122,6 +122,7 @@ class BusinessModel
         foreach ($attributes as $attribute) {
             $retval[$attribute->name] = $attribute->getText();
         }
+        $retval['id'] = $this->instance->id;
 
         return $retval;
     }
