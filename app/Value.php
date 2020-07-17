@@ -43,6 +43,7 @@ class Value extends Model
         ]);
 
         if($attribute->type === 'select') {
+
             $value = $query->get('value')->map(function($item) {
                 return $item->value;
             })->toArray();
@@ -60,6 +61,7 @@ class Value extends Model
         }
 
         return $value;
+
     }
 
     public static function put($instance_id, Attribute $attribute, $value) {

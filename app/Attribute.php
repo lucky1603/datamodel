@@ -58,8 +58,10 @@ class Attribute extends Model
         if($this->type === 'select') {
             $returnText = '';
             if(is_array($value)) {
+
                 foreach ($value as $key) {
                     $option = $this->attribute_options->where('value', $key)->first();
+
                     if(strlen($returnText) > 0) {
                         $returnText = $returnText.';';
                     }
