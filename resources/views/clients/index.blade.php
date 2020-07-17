@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <h1>Lista klijenata</h1>
             @if(count($clients) === 0)
                 <p>No clients yet!</p>
@@ -15,6 +15,7 @@
                         <th>Kontakt osoba</th>
                         <th>E-Mail</th>
                         <th>Telefon</th>
+                        <th>Status</th>
                     </tr>
                     @foreach($clients as $client)
                         <tr>
@@ -23,6 +24,7 @@
                             <td>{{ $client['contact_person'] }}</td>
                             <td>{{ $client['email'] }}</td>
                             <td>{{ $client['telephone'] }}</td>
+                            <td>{{ $client['status'] }}</td>
                         </tr>
                     @endforeach
                 </table>

@@ -17,7 +17,7 @@ class ClientController extends Controller
         $clients = Client::find()->toArray();
         $clientsArray = [];
         foreach($clients as $client) {
-            $clientsArray[$client->getId()] = $client->getData();
+            $clientsArray[$client->getId()] = $client->getAttributeTexts();
         }
 
         return view('clients.index', ['clients' => $clientsArray]);
