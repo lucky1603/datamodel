@@ -52,7 +52,7 @@ class Attribute extends Model
      */
     public function getText() {
         $value = $this->getValue();
-        if(!$value)
+        if(!isset($value))
             return null;
 
         if($this->type === 'select') {
@@ -73,7 +73,7 @@ class Attribute extends Model
 
             return $returnText;
         } else if ($this->type === 'bool') {
-            return $value === 0 ? 'false' : 'true';
+            return $value === false ? 'false' : 'true';
         }else
         {
             return strval($value);
