@@ -42,15 +42,27 @@ class Value extends Model
             'instance_id' => $instance_id
         ]);
 
-        if($query->count() > 1) {
-            $value = $query->get('value')->map(function($item) {
-               return $item->value;
+        if($attribute->type === 'select') {
+            $value = [];
+            $values = $query->get('value')->map(function($item) {
+                return $item->value;
             })->toArray();
-        } else {
-            $value = $query->value('value');
+
+            foreach ($values as $val) {
+                $option = $attribute->attribute_options->where('value', $val)->first();
+                $value[$option->value] = $option->text;
+            }
+
+            return $value;
+        }
+
+        $value = $query->value('value');
+        if($attribute->type === 'bool') {
+            $value = $value === 0 ? false : true;
         }
 
         return $value;
+
     }
 
     public static function put($instance_id, Attribute $attribute, $value) {

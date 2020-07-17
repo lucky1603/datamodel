@@ -290,7 +290,7 @@ class Client extends BusinessModel
             // Fields of interest
             $fields_of_interest = Attribute::where('name', 'interests')->first();
             if(!$fields_of_interest) {
-                $fields_of_interest = Attribute::create(['name' => 'interests', 'label' => 'Polja interesovanja', 'type' => 'select']);
+                $fields_of_interest = Attribute::create(['name' => 'interests', 'label' => 'Polja interesovanja', 'type' => 'select', 'extra' => 'multiselect']);
                 $fields_of_interest->addOption(['value' => 1, 'text' => 'IoT и паметни градови']);
                 $fields_of_interest->addOption(['value' => 2, 'text' => 'Енергетска ефикасност, зелене, чисте технологије и екологија']);
                 $fields_of_interest->addOption(['value' => 3, 'text' => 'Вештачка интелигенција, базе података и аналитика']);
