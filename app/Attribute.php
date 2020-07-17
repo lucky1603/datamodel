@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attribute extends Model
 {
-    protected $fillable = ['name', 'label', 'type'];
+    protected $fillable = ['name', 'label', 'type', 'extra'];
 
     // ORM things.
 
@@ -56,9 +56,26 @@ class Attribute extends Model
             return null;
 
         if($this->type === 'select') {
-            $option = $this->attribute_options->where('value', $value)->first();
-            return isset($option) ? $option->text : "No valid text";
-        } else {
+            $returnText = '';
+            if(is_array($value)) {
+                foreach ($value as $key) {
+                    $option = $this->attribute_options->where('value', $key)->first();
+                    if(strlen($returnText) > 0) {
+                        $returnText = $returnText.';';
+                    }
+
+                    $returnText = $returnText.' '.$option->text;
+                }
+            } else {
+                $option = $this->attribute_options->where('value', $value)->first();
+                $returnText = $option->text;
+            }
+
+            return $returnText;
+        } else if ($this->type === 'bool') {
+            return $value === 0 ? 'false' : 'true';
+        }else
+        {
             return strval($value);
         }
     }
