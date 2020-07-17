@@ -21,6 +21,7 @@ class CreateAttributesTable extends Migration
             $table->boolean('nullable')->default(true);
             $table->boolean('unique')->default(false);
             $table->integer('sort_order')->default(0);
+            $table->string('extra')->nullable(true);
             $table->timestamps();
         });
 
