@@ -43,14 +43,13 @@ class Value extends Model
         ]);
 
         if($attribute->type === 'select') {
-            $value = [];
-            $values = $query->get('value')->map(function($item) {
+
+            $value = $query->get('value')->map(function($item) {
                 return $item->value;
             })->toArray();
 
-            foreach ($values as $val) {
-                $option = $attribute->attribute_options->where('value', $val)->first();
-                $value[$option->value] = $option->text;
+            if(count($value) === 1) {
+                $value = $value[0];
             }
 
             return $value;

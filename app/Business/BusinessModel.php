@@ -51,14 +51,19 @@ class BusinessModel
 
         // If the $data is null, return simply all.
         $attributeValues = $this->instance->getAttributeValues();
+        $attributeValues['id'] = $this->instance->id;
         if(!$data) {
             return $attributeValues;
         }
 
         $attributeValues = [];
         foreach($data as $key) {
-            $attribute = $this->instance->attributes->where('name', $key)->first();
-            $attributeValues[$attribute->name] = $attribute->getValue();
+            if($key === 'id') {
+                $attributeValues['id'] = $this->instance->id;
+            } else {
+                $attribute = $this->instance->attributes->where('name', $key)->first();
+                $attributeValues[$attribute->name] = $attribute->getValue();
+            }
         }
 
         return $attributeValues;
