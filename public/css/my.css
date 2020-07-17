@@ -1,0 +1,44 @@
+.row.zebra:nth-of-type(even){
+    background-color: #dcdcdc;
+}
+
+.event-time {
+    color: blue;
+}
+
+.event-name {
+    color: #4e555b;
+    font-weight: bold;
+}
+
+.page-title {
+    margin-bottom: 40px;
+}
+
+.column-title {
+    margin-bottom: 20px;
+    margin-right: 1px;
+    margin-left: 1px;
+    text-align: center;
+    color: white;
+    background-color: midnightblue;
+    width: 100%;
+}
+
+.button-bar {
+    margin-bottom: 0px;
+    horiz-align: center;
+    width: 100%;
+    float: bottom;
+    text-align: center;
+    padding: 20px;
+}
+
+.preview-column {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+/*.row.zebra:first-of-type {*/
+/*    background-color: #1d643b;*/
+/*}*/

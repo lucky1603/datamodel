@@ -7,6 +7,11 @@ use App\Business\Client;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -53,7 +58,9 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //
+        $client = new Client(['instance_id' => $id]);
+        $events = $client->getEvents();
+        return view('clients.show', ['client' => $client, 'events' => $events]);
     }
 
     /**
