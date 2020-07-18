@@ -81,6 +81,46 @@ class Event extends BusinessModel
     public static function all() {
         return Event::find();
     }
+
+    /**
+     * Returns the collection of attributes typical for this type of instance.
+     * @return array
+     */
+    public static function getAttributesDefinition()
+    {
+        $attributes = [];
+
+        // Name of the event.
+        $name = Attribute::where('name', 'name')->first();
+        if(!$name) {
+            $name = Attribute::create(['name' => 'name', 'label' => 'Naziv', 'type' => 'varchar']);
+        }
+        $attributes[] = $name;
+
+        // What is it about?
+        $description = Attribute::where('name', 'description')->first();
+        if(!$description) {
+            $description = Attribute::create(['name' => 'description', 'label' => 'Opis', 'type' => 'text']);
+        }
+        $attributes[] = $description;
+
+        // Time of happening.
+        $occurred_at = Attribute::where('name', 'occurred_at')->first();
+        if(!$occurred_at) {
+            $occurred_at = Attribute::create(['name' => 'occurred_at', 'label' => "Vreme dešavanja", 'type' => 'datetime']);
+        }
+        $attributes[] = $occurred_at;
+
+        // Event sender.
+        $sender = Attribute::where('name', 'sender')->first();
+        if(!$sender) {
+            $sender = Attribute::create(['name' => 'sender', 'label' => 'Pošiljalac', 'type' => 'varchar']);
+        }
+        $attributes[] = $sender;
+
+        return $attributes;
+
+    }
         /**
      * Gets template.
      * @return mixed
@@ -91,33 +131,10 @@ class Event extends BusinessModel
         if(!$entity) {
             $entity = Entity::create(['name' => 'Event', 'description' => 'The data which will be connected to a specific event.']);
 
-            // Name of the event.
-            $name = Attribute::where('name', 'name')->first();
-            if(!$name) {
-                $name = Attribute::create(['name' => 'name', 'label' => 'Naziv', 'type' => 'varchar']);
+            $attributes = self::getAttributesDefinition();
+            foreach ($attributes as $attribute) {
+                $entity->addAttribute($attribute);
             }
-            $entity->addAttribute($name);
-
-            // What is it about?
-            $description = Attribute::where('name', 'description')->first();
-            if(!$description) {
-                $description = Attribute::create(['name' => 'description', 'label' => 'Opis', 'type' => 'text']);
-            }
-            $entity->addAttribute($description);
-
-            // Time of happening.
-            $occurred_at = Attribute::where('name', 'occurred_at')->first();
-            if(!$occurred_at) {
-                $occurred_at = Attribute::create(['name' => 'occurred_at', 'label' => "Vreme dešavanja", 'type' => 'datetime']);
-            }
-            $entity->addAttribute($occurred_at);
-
-            // Event sender.
-            $sender = Attribute::where('name', 'sender')->first();
-            if(!$sender) {
-                $sender = Attribute::create(['name' => 'sender', 'label' => 'Pošiljalac', 'type' => 'varchar']);
-            }
-            $entity->addAttribute($sender);
         }
 
         return $entity;
@@ -130,6 +147,10 @@ class Event extends BusinessModel
 
         $this->instance->attributes->where('name', 'name')->first()->setValue(
             isset($this->data['name']) ? $this->data['name'] : 'Event'
+        );
+
+        $this->instance->attributes->where('name', 'description')->first()->setValue(
+            isset($this->data['description']) ? $this->data['description'] : ''
         );
 
         $this->instance->attributes->where('name', 'occurred_at')->first()->setValue(

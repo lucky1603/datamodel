@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class Contract extends BusinessModel
 {
-    public function __construct($data)
-    {
-        parent::__construct($data);
-    }
-
     /**
      * Gets the collection of belonging events.
      * @return mixed
@@ -169,55 +164,64 @@ class Contract extends BusinessModel
         return Contract::find();
     }
 
+    public static function getAttributeDefinitions() {
+        $attributes = [];
+
+        $name = Attribute::where('name', 'name')->first();
+        if(!$name) {
+            $name = Attribute::create(['name' => 'name', 'label' => 'Naziv', 'type' => 'varchar']);
+        }
+        $attributes[] = $name;
+
+        $description = Attribute::where('name', 'description')->first();
+        if(!$description) {
+            $description = Attribute::create(['name' => 'description', 'label' => 'Opis', 'type' => 'text']);
+        }
+        $attributes[] = $description;
+
+        $first_party = Attribute::where('name', 'first_party')->first();
+        if(!$first_party) {
+            $first_party = Attribute::create(['name' => 'first_party', 'label' => 'Prva strana', 'type' => 'varchar']);
+        }
+        $attributes[] = $first_party;
+
+        $second_party = Attribute::where('name', 'second_party')->first();
+        if(!$second_party) {
+            $second_party = Attribute::create(['name' => 'second_party', 'label' => 'Druga strana', 'type' => 'varchar']);
+        }
+        $attributes[] = $second_party;
+
+        $amount = Attribute::where('name', 'amount')->first();
+        if(!$amount) {
+            $amount = Attribute::create(['name' => 'amount', 'label' => 'Iznos', 'type' => 'double']);
+        }
+        $attributes[] = $amount;
+
+        $currency = Attribute::where('name', 'currency')->first();
+        if(!$currency) {
+            $currency = Attribute::create(['name' => 'currency', 'label' => 'Valuta', 'type' => 'varchar']);
+        }
+        $attributes[] = $currency;
+
+        $contract_subject = Attribute::where('name', 'contract_subject')->first();
+        if(!$contract_subject) {
+            $contract_subject = Attribute::create(['name' => 'contract_subject', 'label' => 'Predmet ugovora', 'type' => 'text']);
+        }
+        $attributes[] = $contract_subject;
+
+        return $attributes;
+
+    }
+
     /**
      * Initializes the attributes.
      */
     protected function setAttributes() {
-        if($this->instance->attributes()->where('name', 'first_party')->count() == 0) {
-            $first_party = Attribute::where('name', 'first_party')->first();
-            if(!$first_party) {
-                $first_party = Attribute::create(['name' => 'first_party', 'label' => 'Prva strana', 'type' => 'varchar']);
-            }
-            $this->instance->addAttribute($first_party);
-        }
-
-        if($this->instance->attributes()->where('name', 'second_party')->count() == 0) {
-            $second_party = Attribute::where('name', 'second_party')->first();
-            if (!$second_party) {
-                $second_party = Attribute::create(['name' => 'second_party', 'label' => 'Druga strana', 'type' => 'varchar']);
-            }
-            $this->instance->addAttribute($second_party);
-        }
-
-        if($this->instance->attributes()->where('name', 'amount')->count() == 0) {
-            $amount = Attribute::where('name', 'amount')->first();
-            if (!$amount) {
-                $amount = Attribute::create(['name' => 'amount', 'label' => 'Iznos', 'type' => 'double']);
-            }
-            $this->instance->addAttribute($amount);
-        }
-
-        if($this->instance->attributes()->where('name', 'currency')->count() == 0) {
-            $currency = Attribute::where('name', 'currency')->first();
-            if (!$currency) {
-                $currency = Attribute::create(['name' => 'currency', 'label' => 'Valuta', 'type' => 'varchar']);
-            }
-            $this->instance->addAttribute($currency);
-        }
-
-        if($this->instance->attributes()->where('name', 'contract_subject')->count() == 0) {
-            $subject = Attribute::where('name', 'contract_subject')->first();
-            if (!$subject) {
-                $subject = Attribute::create(['name' => 'contract_subject', 'label' => 'Predmet ugovora', 'type' => 'text']);
-            }
-            $this->instance->addAttribute($subject);
-        }
 
         // Set contract name.
         Value::put($this->instance->id,
             Attribute::where('name','name')->first(),
             isset($this->data['name']) ? $this->data['name'] : 'Some contract');
-
 
         // Set the first contract party.
         Value::put($this->instance->id,
@@ -254,18 +258,11 @@ class Contract extends BusinessModel
         $entity = Entity::where('name', 'Contract')->first();
         if(!$entity) {
             $entity = Entity::create(['name' => 'Contract', 'description' => 'The document that bounds two or more parties.']);
-
-            $name = Attribute::where('name', 'name')->first();
-            if(!$name) {
-                $name = Attribute::create(['name' => 'name', 'label' => 'Naziv', 'type' => 'varchar']);
+            $attributes = self::getAttributeDefinitions();
+            foreach($attributes as $attribute) {
+                $entity->addAttribute($attribute);
             }
-            $entity->addAttribute($name);
 
-            $description = Attribute::where('name', 'description')->first();
-            if(!$description) {
-                $description = Attribute::create(['name' => 'description', 'label' => 'Opis', 'type' => 'text']);
-            }
-            $entity->addAttribute($description);
         }
 
         return $entity;

@@ -70,7 +70,7 @@ class Attribute extends Model
                 }
             } else {
                 $option = $this->attribute_options->where('value', $value)->first();
-                $returnText = $option->text;
+                $returnText = $option != null ? $option->text : $value;
             }
 
             return $returnText;
