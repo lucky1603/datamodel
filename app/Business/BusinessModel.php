@@ -79,6 +79,10 @@ class BusinessModel
 
         foreach($data as $key => $value) {
             $attribute = $this->instance->attributes->where('name', $key)->first();
+            if($attribute->type === 'bool') {
+                if($value === 'on')
+                    $value = true;
+            }
             if(isset($attribute)) {
                 $attribute->setValue($value);
             }
