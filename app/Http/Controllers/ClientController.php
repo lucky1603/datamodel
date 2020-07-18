@@ -36,7 +36,9 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        $attributes = Client::getAttributesDefinition();
+        $action = route('clients.store');
+        return view('clients.create', ['attributes' => $attributes, 'action' => $action]);
     }
 
     /**
@@ -47,7 +49,18 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->post();
+
+        $client = new Client($data);
+        if($client != null) {
+            $client->addEventByData('interesovanje',
+                [
+                    'name' => 'Interesovanje',
+                    'description' => 'Klijent je zainteresovan za saradnju'
+                ]);
+        }
+
+        return redirect(route('clients.index'));
     }
 
     /**
