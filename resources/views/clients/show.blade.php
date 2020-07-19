@@ -13,10 +13,18 @@
                 </div>
 
                 @foreach($client->getAttributes() as $attribute)
-                    <div class="row zebra">
-                        <div class="col-md-3">{{ $attribute->label }} : </div>
-                        <div class="col-md-5"><strong>{{$attribute->getText()}}</strong></div>
-                    </div>
+                    @if($attribute->type === 'file')
+                        <div class="row zebra">
+                            <div class="col-md-3">{{ $attribute->label }} : </div>
+                            <div class="col-md-5"><a href="{{'/uploads/'.$attribute->getValue()}}"><strong>{{$attribute->getText()}}</strong></a></div>
+                        </div>
+                    @else
+                        <div class="row zebra">
+                            <div class="col-md-3">{{ $attribute->label }} : </div>
+                            <div class="col-md-5"><strong>{{$attribute->getText()}}</strong></div>
+                        </div>
+                    @endif
+
                 @endforeach
             </div>
 

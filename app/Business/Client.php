@@ -466,6 +466,10 @@ class Client extends BusinessModel
             isset($this->data['membership']) ? $this->data['membership'] : 1
         );
 
+        $this->instance->attributes->where('name', 'application_form')->first()->setValue(
+            isset($this->data['application_form']) ? $this->data['application_form'] : ''
+        );
+
     }
 
 }

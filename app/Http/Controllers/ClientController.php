@@ -51,6 +51,15 @@ class ClientController extends Controller
     {
         $data = $request->post();
 
+        // Handle the uploaded file
+//        $path = $request->file('application_form')->store('uploads');
+        $file = $request->file('application_form');
+        $destinationPath = 'uploads/';
+        $originalFile = $file->getClientOriginalName();
+        $file->move($destinationPath, $originalFile);
+
+        $data['application_form'] = $originalFile;
+
         $client = new Client($data);
         if($client != null) {
             $client->addEventByData('interesovanje',

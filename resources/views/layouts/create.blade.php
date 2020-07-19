@@ -6,7 +6,7 @@
             @yield('title')
         </div>
 
-        <form method="post" action="{{ $action }}" method="post">
+        <form method="post" enctype="multipart/form-data" action="{{ $action }}" method="post">
             @csrf
             @foreach($attributes as $attribute)
                 @if($attribute->type === 'varchar')
@@ -55,7 +55,22 @@
                         </div>
                     @endif
                 @endif
-
+                @if($attribute->type === 'text')
+                    <div class="form-group row">
+                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3"></textarea>
+                        </div>
+                    </div>
+                @endif
+                @if($attribute->type === 'file')
+                    <div class="form-group row">
+                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{$attribute->name}}">
+                        </div>
+                    </div>
+                @endif
             @endforeach
             <div class="form-group row">
                 <div class="col-sm-6" style="text-align: right">
