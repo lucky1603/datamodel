@@ -19,7 +19,7 @@
                         @foreach($contracts as $contract)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td><a href="#">{{ $contract['name'] }}</a></td>
+                                <td><a href="{{ route('contracts.show', $contract['id']) }}">{{ $contract['name'] }}</a></td>
                                 <td>{{ $contract['first_party'] }}</td>
                                 <td>{{ $contract['second_party'] }}</td>
                                 <td>{{ $contract['amount'] }}</td>

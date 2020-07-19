@@ -74,7 +74,9 @@ class ContractsController extends Controller
      */
     public function show($id)
     {
-        //
+        $contract = new Contract(['instance_id' => $id]);
+        $events = $contract->getEvents();
+        return view('contracts.show', ['model' => $contract, 'events' => $events]);
     }
 
     /**

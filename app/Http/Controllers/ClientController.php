@@ -84,7 +84,7 @@ class ClientController extends Controller
     {
         $client = new Client(['instance_id' => $id]);
         $events = $client->getEvents();
-        return view('clients.show', ['client' => $client, 'events' => $events]);
+        return view('clients.show', ['model' => $client, 'events' => $events]);
     }
 
     /**
