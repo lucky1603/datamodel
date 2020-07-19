@@ -175,6 +175,8 @@ class Client extends BusinessModel
         // If it's empty.
         if(!isset($query)) {
             $clients = [];
+            if(Entity::where('name','Client')->get()->count() == 0)
+                return collect($clients);
             $entity_id = Entity::where('name', 'Client')->first()->id;
             $instances = Instance::where(['entity_id' => $entity_id])->get();
             foreach ($instances as $instance) {
@@ -326,7 +328,7 @@ class Client extends BusinessModel
         // Notes (mi unosimo)
         $notes = Attribute::where('name', 'notes')->first();
         if(!$notes) {
-            $notes = Attribute::create(['name' => 'notes', 'label' => 'Zašto nas kontaktirate?', 'type' => 'text']);
+            $notes = Attribute::create(['name' => 'notes', 'label' => 'Naša napomena', 'type' => 'text']);
         }
         $attributes[] = $notes;
 
@@ -467,7 +469,10 @@ class Client extends BusinessModel
         );
 
         $this->instance->attributes->where('name', 'application_form')->first()->setValue(
-            isset($this->data['application_form']) ? $this->data['application_form'] : ''
+            isset($this->data['application_form']) ? $this->data['application_form'] : [
+                'filename' => '',
+                'filelink' => '',
+            ]
         );
 
     }

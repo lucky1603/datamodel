@@ -18,6 +18,7 @@ class CreateFileValuesTable extends Migration
             $table->foreignId('attribute_id');
             $table->foreignId('instance_id');
             $table->string("value");
+            $table->string('link');
             $table->timestamps();
 
             $table->foreign('attribute_id')->on('attributes')->references('id')->onDelete('cascade');

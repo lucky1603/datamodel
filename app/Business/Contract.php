@@ -53,6 +53,43 @@ class Contract extends BusinessModel
 
         $data = [];
         switch($eventType) {
+            case 'potpis_ugovora':
+                $event = new Event();
+
+                // Amount.
+                $amount = Attribute::where('name', 'amount')->first();
+                if(!$amount) {
+                    $amount = Attribute::create(['name' => 'amount', 'label' => 'Iznos', 'type' => 'double']);
+                }
+                $event->addAttribute($amount);
+
+                // Currency.
+                $currency = Attribute::where('name', 'currency')->first();
+                if(!$currency) {
+                    $currency = Attribute::create(['name' => 'currency', 'label' => 'Valuta', 'type' => 'varchar']);
+                }
+                $event->addAttribute($currency);
+
+                // Contract document.
+                $document = Attribute::where('name', 'contract_document')->first();
+                if(!$document) {
+                    $document = Attribute::create(['name' => 'contract_document', 'label' => 'Priloženi ugovor', 'type' => 'file']);
+                }
+                $event->addAttribute($document);
+
+                // Default values.
+                $data['name'] = 'Potpis ugovora';
+                $data['description'] = 'Potpisan ugovor sa NTP';
+                if(isset($params)) {
+                    foreach($params as $key => $value) {
+                        $data[$key] = $value;
+                    }
+                }
+
+                $event->setData($data);
+                $this->addEvent($event);
+
+                break;
             case 'prva_rata':
                 $event = new Event();
                 $amount = Attribute::where('name', 'amount')->first();
@@ -66,7 +103,6 @@ class Contract extends BusinessModel
                     $currency = Attribute::create(['name' => 'currency', 'label' => 'Valuta', 'type' => 'varchar']);
                 }
                 $event->addAttribute($currency);
-
 
                 // Default values.
                 $data = [
@@ -113,6 +149,10 @@ class Contract extends BusinessModel
         // If it's empty.
         if(!isset($query)) {
             $contracts = [];
+            if(Entity::where('name', 'Contract')->get()->count() == 0) {
+                return collect([]);
+            }
+
             $entity_id = Entity::where('name', 'Contract')->first()->id;
             $instances = Instance::where(['entity_id' => $entity_id])->get();
             foreach ($instances as $instance) {
@@ -164,7 +204,7 @@ class Contract extends BusinessModel
         return Contract::find();
     }
 
-    public static function getAttributeDefinitions() {
+    public static function getAttributesDefinition() {
         $attributes = [];
 
         $name = Attribute::where('name', 'name')->first();
@@ -209,6 +249,24 @@ class Contract extends BusinessModel
         }
         $attributes[] = $contract_subject;
 
+        $signed_at = Attribute::where('name', 'signed_at')->first();
+        if(!$signed_at) {
+            $signed_at = Attribute::create(['name' => 'signed_at', 'label' => 'Potpisan dana', 'type' => 'datetime']);
+        }
+        $attributes[] = $signed_at;
+
+        $valid_through = Attribute::where('name', 'valid_through')->first();
+        if(!$valid_through) {
+            $valid_through = Attribute::create(['name' => 'valid_through', 'label' => 'Važi do', 'type' => 'datetime']);
+        }
+        $attributes[] = $valid_through;
+
+        $contract_document = Attribute::where('name', 'contract_document')->first();
+        if(!$contract_document) {
+            $contract_document = Attribute::create(['name' => 'contract_document', 'label' => 'Dokument ugovora', 'type' => 'file']);
+        }
+        $attributes[] = $contract_document;
+
         return $attributes;
 
     }
@@ -247,6 +305,10 @@ class Contract extends BusinessModel
             Attribute::where('name','currency')->first(),
             isset($this->data['currency']) ? $this->data['currency'] : 'RSD');
 
+        $this->instance->attributes->where('name', 'contract_document')->first()->setValue(
+            isset($this->data['contract_document']) ? $this->data['contract_document'] : ''
+        );
+
     }
 
     /**
@@ -258,7 +320,7 @@ class Contract extends BusinessModel
         $entity = Entity::where('name', 'Contract')->first();
         if(!$entity) {
             $entity = Entity::create(['name' => 'Contract', 'description' => 'The document that bounds two or more parties.']);
-            $attributes = self::getAttributeDefinitions();
+            $attributes = self::getAttributesDefinition();
             foreach($attributes as $attribute) {
                 $entity->addAttribute($attribute);
             }

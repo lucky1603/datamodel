@@ -42,6 +42,14 @@ class Value extends Model
             'instance_id' => $instance_id
         ]);
 
+        if($attribute->type === 'file') {
+            $file = $query->get(['value', 'link'])->first();
+            $value = [];
+            $value['filename'] = isset($file->value) ? $file->value : '';
+            $value['filelink'] = isset($file->link) ? $file->link: '';
+            return $value;
+        }
+
         if($attribute->type === 'select') {
             $value = $query->get('value')->map(function($item) {
                 return $item->value;
@@ -84,7 +92,17 @@ class Value extends Model
                 $tablename = 'select_values';
                 break;
             case 'file':
-                $tablename = 'file_values';
+                $filename = $value['filename'];
+                $filelink = $value['filelink'];
+                return DB::table('file_values')->updateOrInsert(
+                    [
+                        'attribute_id' => $attribute->id,
+                        'instance_id' => $instance_id
+                    ],
+                    [
+                        'value' => $filename,
+                        'link' => $filelink,
+                    ]);
                 break;
             default:
                 $tablename = 'bool_values';
