@@ -17,6 +17,22 @@
                         </div>
                     </div>
                 @endif
+                @if($attribute->type === 'integer' || $attribute->type === 'double')
+                    <div class="form-group row">
+                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="{{ $attribute->name }}" name="{{$attribute->name}}">
+                        </div>
+                    </div>
+                @endif
+                @if($attribute->type === 'datetime')
+                    <div class="form-group row">
+                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
+                        <div class="col-sm-6">
+                            <input type="datetime-local" class="form-control" id="{{ $attribute->name }}" name="{{$attribute->name}}">
+                        </div>
+                    </div>
+                @endif
                 @if($attribute->type === 'bool')
                     <div class="form-group row">
                         <div class="col-sm-2">{{ $attribute->label }}</div>

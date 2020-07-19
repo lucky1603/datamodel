@@ -6,7 +6,7 @@
         <div class="col-md-10">
             <h1>Lista klijenata</h1>
             @if(count($clients) === 0)
-                <p>No clients yet!</p>
+                <p>Još uvek nema klijenata!</p>
             @else
                 <table class="table">
                     <tr>

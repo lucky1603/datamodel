@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Business\Client;
+use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
@@ -52,13 +53,14 @@ class ClientController extends Controller
         $data = $request->post();
 
         // Handle the uploaded file
-//        $path = $request->file('application_form')->store('uploads');
         $file = $request->file('application_form');
-        $destinationPath = 'uploads/';
-        $originalFile = $file->getClientOriginalName();
-        $file->move($destinationPath, $originalFile);
-
-        $data['application_form'] = $originalFile;
+        $originalFileName = $file->getClientOriginalName();
+        $path = $file->store('documents');
+        $path = asset($path);
+        $data['application_form'] = [
+            'filename' => $originalFileName,
+            'filelink' => $path,
+        ];
 
         $client = new Client($data);
         if($client != null) {

@@ -16,7 +16,7 @@
                     @if($attribute->type === 'file')
                         <div class="row zebra">
                             <div class="col-md-3">{{ $attribute->label }} : </div>
-                            <div class="col-md-5"><a href="{{'/uploads/'.$attribute->getValue()}}"><strong>{{$attribute->getText()}}</strong></a></div>
+                            <div class="col-md-5"><a href="{{ $attribute->getValue()['filelink']}}"><strong>{{$attribute->getValue()['filename']}}</strong></a></div>
                         </div>
                     @else
                         <div class="row zebra">
