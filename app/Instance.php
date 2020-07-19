@@ -138,6 +138,12 @@ class Instance extends Model
                     case 'double':
                         $value = 0.0;
                         break;
+                    case 'file':
+                        $value = [
+                            'filename' => '',
+                            'filelink' => '',
+                        ];
+                        break;
                     default:
                         $value = false;
                         break;
