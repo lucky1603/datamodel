@@ -57,7 +57,7 @@ class ContractsController extends Controller
 
         $contract = new Contract($data);
         if($contract != null) {
-            $event = $contract->addEventByData('potpis_ugovora', [
+            $event = $contract->addSituationByData('potpis_ugovora', [
                'name' => 'Potpis ugovora',
                 'description' => "Klijent je potpisao ugovor"
             ]);
@@ -75,8 +75,8 @@ class ContractsController extends Controller
     public function show($id)
     {
         $contract = new Contract(['instance_id' => $id]);
-        $events = $contract->getEvents();
-        return view('contracts.show', ['model' => $contract, 'events' => $events]);
+        $situations = $contract->getSituations();
+        return view('contracts.show', ['model' => $contract, 'situations' => $situations]);
     }
 
     /**

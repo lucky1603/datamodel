@@ -30,12 +30,12 @@
 
             <div class="col-md-4">
                 <div class="row justify-content-center">
-                    <p class="column-title">Aktivnosti</p>
+                    <p class="column-title">Situacije</p>
                 </div>
-                @foreach($events as $event)
+                @foreach($situations as $situation)
                     <div class="row">
-                        <div class="col event-time">{{$event->getData()['occurred_at']}}</div>
-                        <div class="col event-name">{{ $event->getData()['name'] }}</div>
+                        <div class="col event-time">{{ $situation->getData()['occurred_at'] }}</div>
+                        <div class="col event-name">{{ $situation->getData()['name'] }}</div>
                     </div>
                 @endforeach
             </div>

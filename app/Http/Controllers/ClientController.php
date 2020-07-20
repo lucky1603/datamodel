@@ -64,7 +64,7 @@ class ClientController extends Controller
 
         $client = new Client($data);
         if($client != null) {
-            $client->addEventByData('interesovanje',
+            $client->addSituationByData('interesovanje',
                 [
                     'name' => 'Interesovanje',
                     'description' => 'Klijent je zainteresovan za saradnju'
@@ -83,8 +83,8 @@ class ClientController extends Controller
     public function show($id)
     {
         $client = new Client(['instance_id' => $id]);
-        $events = $client->getEvents();
-        return view('clients.show', ['model' => $client, 'events' => $events]);
+        $situations = $client->getSituations();
+        return view('clients.show', ['model' => $client, 'situations' => $situations]);
     }
 
     /**
