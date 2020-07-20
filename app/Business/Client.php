@@ -56,6 +56,14 @@ class Client extends BusinessModel
         $data = [];
         switch($situationType) {
             case 'interesovanje':
+                $situation = new Situation();
+                $application_form = Attribute::where('name', 'application_form')->first();
+                if(!$application_form) {
+                    $application_form = Attribute::create(['name' => 'application_form', 'label' => 'Obrazac za prijavu', 'type' => 'file']);
+                }
+                $situation->addAttribute($application_form);
+
+
                 $data = [
                     'name' => 'Situation - Interesovanje',
                     'sender' => $this->getData(['name']),
@@ -67,7 +75,8 @@ class Client extends BusinessModel
                     }
                 }
 
-                $situation = new Situation($data);
+//                $situation = new Situation($data);
+                $situation->setData($data);
                 $this->addSituation($situation);
                 break;
             case 'registracija':

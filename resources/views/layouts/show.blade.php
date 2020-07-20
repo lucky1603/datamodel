@@ -35,7 +35,7 @@
                 @foreach($situations as $situation)
                     <div class="row">
                         <div class="col event-time">{{ $situation->getData()['occurred_at'] }}</div>
-                        <div class="col event-name">{{ $situation->getData()['name'] }}</div>
+                        <div class="col event-name"><a href="{{ route('situations.show', $situation->getData()['id']) }}">{{ $situation->getData()['name'] }}</a></div>
                     </div>
                 @endforeach
             </div>

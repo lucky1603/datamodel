@@ -67,7 +67,8 @@ class ClientController extends Controller
             $client->addSituationByData('interesovanje',
                 [
                     'name' => 'Interesovanje',
-                    'description' => 'Klijent je zainteresovan za saradnju'
+                    'description' => 'Klijent je zainteresovan za saradnju',
+                    'application_form' => $data['application_form']
                 ]);
         }
 
@@ -80,8 +81,10 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        $request->session()->put('backroute', route('clients.show', $id));
+
         $client = new Client(['instance_id' => $id]);
         $situations = $client->getSituations();
         return view('clients.show', ['model' => $client, 'situations' => $situations]);

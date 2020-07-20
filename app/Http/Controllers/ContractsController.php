@@ -72,8 +72,10 @@ class ContractsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        $request->session()->put('backroute', route('contracts.show', $id));
+
         $contract = new Contract(['instance_id' => $id]);
         $situations = $contract->getSituations();
         return view('contracts.show', ['model' => $contract, 'situations' => $situations]);

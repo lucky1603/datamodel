@@ -26,6 +26,7 @@
 }
 
 .button-bar {
+    margin-top : 20px;
     margin-bottom: 0px;
     horiz-align: center;
     width: 100%;
