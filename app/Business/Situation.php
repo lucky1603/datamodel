@@ -10,7 +10,7 @@ use App\Instance;
 use App\Value;
 use Illuminate\Support\Facades\DB;
 
-class Event extends BusinessModel
+class Situation extends BusinessModel
 {
 
 
@@ -31,10 +31,10 @@ class Event extends BusinessModel
         // If it's empty.
         if(!isset($query)) {
             $contracts = [];
-            $entity_id = Entity::where('name', 'Event')->first()->id;
+            $entity_id = Entity::where('name', 'Situation')->first()->id;
             $instances = Instance::where(['entity_id' => $entity_id])->get();
             foreach ($instances as $instance) {
-                $events[] = new Event(['instance_id' => $instance->id]);
+                $events[] = new Situation(['instance_id' => $instance->id]);
             }
 
             return collect($events);
@@ -43,7 +43,7 @@ class Event extends BusinessModel
         // If it's id.
         if(!is_array($query)) {
             $instance = Instance::find($query);
-            return new Event(['instance_id' => $instance->id]);
+            return new Situation(['instance_id' => $instance->id]);
         }
 
         // If it's array.
@@ -66,7 +66,7 @@ class Event extends BusinessModel
 
         $results_array = [];
         foreach ($results->get() as $item) {
-            $event = new Event(['instance_id' => $item->instance_id]);
+            $event = new Situation(['instance_id' => $item->instance_id]);
             $results_array[] = $event;
         }
 
@@ -79,7 +79,7 @@ class Event extends BusinessModel
      * @return \Illuminate\Support\Collection
      */
     public static function all() {
-        return Event::find();
+        return Situation::find();
     }
 
     /**
@@ -111,7 +111,7 @@ class Event extends BusinessModel
         }
         $attributes[] = $occurred_at;
 
-        // Event sender.
+        // Situation sender.
         $sender = Attribute::where('name', 'sender')->first();
         if(!$sender) {
             $sender = Attribute::create(['name' => 'sender', 'label' => 'Pošiljalac', 'type' => 'varchar']);
@@ -127,9 +127,9 @@ class Event extends BusinessModel
      */
     protected function getEntity()
     {
-        $entity = Entity::where('name', 'Event')->first();
+        $entity = Entity::where('name', 'Situation')->first();
         if(!$entity) {
-            $entity = Entity::create(['name' => 'Event', 'description' => 'The data which will be connected to a specific event.']);
+            $entity = Entity::create(['name' => 'Situation', 'description' => 'The data which will be connected to a specific event.']);
 
             $attributes = self::getAttributesDefinition();
             foreach ($attributes as $attribute) {
@@ -146,7 +146,7 @@ class Event extends BusinessModel
     protected function setAttributes() {
 
         $this->instance->attributes->where('name', 'name')->first()->setValue(
-            isset($this->data['name']) ? $this->data['name'] : 'Event'
+            isset($this->data['name']) ? $this->data['name'] : 'Situation'
         );
 
         $this->instance->attributes->where('name', 'description')->first()->setValue(
