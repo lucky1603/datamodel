@@ -17,26 +17,26 @@ class Client extends BusinessModel
      * Gets the collection of belonging events.
      * @return mixed
      */
-    public function getEvents() {
-        $events = [];
+    public function getSituations() {
+        $situations = [];
         foreach($this->instance->instances as $instance) {
-            if($instance->entity->name === 'Event' && $instance->instance->entity->name === 'Client') {
-                $events[] = new Event(['instance_id' => $instance->id]);
+            if($instance->entity->name === 'Situation' && $instance->instance->entity->name === 'Client') {
+                $situations[] = new Situation(['instance_id' => $instance->id]);
             }
         }
 
-        return collect($events);
+        return collect($situations);
     }
 
     /**
      * Return events in the form of an array.
      * @return mixed
      */
-    public function getEventsData() {
+    public function getSituationsData() {
         $results = [];
-        $events = $this->getEvents();
-        foreach($events as $event) {
-            $results[$event->getId()] = $event->getData();
+        $situations = $this->getSituations();
+        foreach($situations as $situation) {
+            $results[$situation->getId()] = $situation->getData();
         }
 
         return $results;
@@ -44,20 +44,20 @@ class Client extends BusinessModel
 
     /**
      * Adds event to contract.
-     * @param Event $event
+     * @param Situation $situation
      */
-    public function addEvent(Event $event) {
-        $this->instance->instances()->save($event->instance);
+    public function addSituation(Situation $situation) {
+        $this->instance->instances()->save($situation->instance);
         $this->instance->refresh();
-        return $event;
+        return $situation;
     }
 
-    public function addEventByData($eventType, $params) {
+    public function addSituationByData($situationType, $params) {
         $data = [];
-        switch($eventType) {
+        switch($situationType) {
             case 'interesovanje':
                 $data = [
-                    'name' => 'Event - Interesovanje',
+                    'name' => 'Situation - Interesovanje',
                     'sender' => $this->getData(['name']),
                 ];
 
@@ -67,12 +67,12 @@ class Client extends BusinessModel
                     }
                 }
 
-                $event = new Event($data);
-                $this->addEvent($event);
+                $situation = new Situation($data);
+                $this->addSituation($situation);
                 break;
             case 'registracija':
                 $data = [
-                   'name' => 'Event - registracija',
+                   'name' => 'Situation - registracija',
                    'sender' => $this->getData(['name'])
                 ];
 
@@ -82,11 +82,11 @@ class Client extends BusinessModel
                     }
                 }
 
-                $event = new Event($data);
-                $this->addEvent($event);
+                $situation = new Situation($data);
+                $this->addSituation($situation);
                 break;
             case 'evaluacija':
-                $event = new Event();
+                $situation = new Situation();
                 $datumEvaluacije = Attribute::where('name', 'eval_date')->first();
                 if(!$datumEvaluacije) {
                     $datumEvaluacije = Attribute::create([
@@ -95,9 +95,9 @@ class Client extends BusinessModel
                         'type' => 'datetime'
                     ]);
                 }
-                $event->addAttribute($datumEvaluacije);
+                $situation->addAttribute($datumEvaluacije);
                 $data = [
-                    'name' => 'Event - Zakazan datum evaluacije',
+                    'name' => 'Situation - Zakazan datum evaluacije',
                     'sender' => $this->getData(['name']),
                     'eval_date' => isset($params['eval_date']) ? params['eval_date'] : now()
                 ];
@@ -108,11 +108,11 @@ class Client extends BusinessModel
                     }
                 }
 
-                $event->setData($data);
-                $this->addEvent($event);
+                $situation->setData($data);
+                $this->addSituation($situation);
                 break;
             case 'odbijanje':
-                $event = new Event();
+                $situation = new Situation();
                 $razlog_odbijanja = Attribute::where('name', 'razlog_odbijanja')->first();
                 if(!$razlog_odbijanja) {
                     $razlog_odbijanja = Attribute::create([
@@ -121,7 +121,7 @@ class Client extends BusinessModel
                         'type' => 'text'
                     ]);
                 }
-                $event->addAttribute($razlog_odbijanja);
+                $situation->addAttribute($razlog_odbijanja);
 
                 $datum_sednice = Attribute::where('name', 'datum_sednice')->first();
                 if(!$datum_sednice) {
@@ -131,9 +131,9 @@ class Client extends BusinessModel
                         'type' => 'datetime'
                     ]);
                 }
-                $event->addAttribute($datum_sednice);
+                $situation->addAttribute($datum_sednice);
                 $data = [
-                    'name' => 'Event - odbijanje kandidature',
+                    'name' => 'Situation - odbijanje kandidature',
                     'sender' => 'NTP Beograd',
                     'datum_sednice' => isset($params['datum_sednice']) ? $params['datum_sednice'] : now(),
                     'razlog_odbijanja' =>  isset($params['razlog_odbijanja']) ? $params['razlog_odbijanja'] : 'Nije dat.',
@@ -145,23 +145,23 @@ class Client extends BusinessModel
                     }
                 }
 
-                $event->setData($data);
-                $this->addEvent($event);
+                $situation->setData($data);
+                $this->addSituation($situation);
                 break;
             default:
                 break;
         }
 
-        return $event;
+        return $situation;
 
     }
 
     /**
      * Removes event from contract.
-     * @param Event $event
+     * @param Situation $situation
      */
-    public function removeEvent(Event $event) {
-        $event->instance->delete();
+    public function removeSituation(Situation $situation) {
+        $situation->instance->delete();
         $this->instance->refresh();
     }
 

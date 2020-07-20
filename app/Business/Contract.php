@@ -15,26 +15,26 @@ class Contract extends BusinessModel
      * Gets the collection of belonging events.
      * @return mixed
      */
-    public function getEvents() {
-        $events = [];
+    public function getSituations() {
+        $situations = [];
         foreach($this->instance->instances as $instance) {
-            if($instance->entity->name === 'Event' && $instance->instance->entity->name === 'Contract') {
-                $events[] = new Event(['instance_id' => $instance->id]);
+            if($instance->entity->name === 'Situation' && $instance->instance->entity->name === 'Contract') {
+                $situations[] = new Situation(['instance_id' => $instance->id]);
             }
         }
 
-        return collect($events);
+        return collect($situations);
     }
 
     /**
      * Return events in the form of an array.
      * @return mixed
      */
-    public function getEventsData() {
+    public function getSituationData() {
         $results = [];
-        $events = $this->getEvents();
-        foreach($events as $event) {
-            $results[$event->getId()] = $event->getData();
+        $situations = $this->getSituations();
+        foreach($situations as $situation) {
+            $results[$situation->getId()] = $situation->getData();
         }
 
         return $results;
@@ -42,40 +42,40 @@ class Contract extends BusinessModel
 
     /**
      * Adds event to contract.
-     * @param Event $event
+     * @param Situation $situation
      */
-    public function addEvent(Event $event) {
-        $this->instance->instances()->save($event->instance);
+    public function addSituation(Situation $situation) {
+        $this->instance->instances()->save($situation->instance);
         $this->instance->refresh();
     }
 
-    public function addEventByData($eventType, $params = null) {
+    public function addSituationByData($situationType, $params = null) {
 
         $data = [];
-        switch($eventType) {
+        switch($situationType) {
             case 'potpis_ugovora':
-                $event = new Event();
+                $situation = new Situation();
 
                 // Amount.
                 $amount = Attribute::where('name', 'amount')->first();
                 if(!$amount) {
                     $amount = Attribute::create(['name' => 'amount', 'label' => 'Iznos', 'type' => 'double']);
                 }
-                $event->addAttribute($amount);
+                $situation->addAttribute($amount);
 
                 // Currency.
                 $currency = Attribute::where('name', 'currency')->first();
                 if(!$currency) {
                     $currency = Attribute::create(['name' => 'currency', 'label' => 'Valuta', 'type' => 'varchar']);
                 }
-                $event->addAttribute($currency);
+                $situation->addAttribute($currency);
 
                 // Contract document.
                 $document = Attribute::where('name', 'contract_document')->first();
                 if(!$document) {
                     $document = Attribute::create(['name' => 'contract_document', 'label' => 'Priloženi ugovor', 'type' => 'file']);
                 }
-                $event->addAttribute($document);
+                $situation->addAttribute($document);
 
                 // Default values.
                 $data['name'] = 'Potpis ugovora';
@@ -86,27 +86,27 @@ class Contract extends BusinessModel
                     }
                 }
 
-                $event->setData($data);
-                $this->addEvent($event);
+                $situation->setData($data);
+                $this->addSituation($situation);
 
                 break;
             case 'prva_rata':
-                $event = new Event();
+                $situation = new Situation();
                 $amount = Attribute::where('name', 'amount')->first();
                 if(!$amount) {
                     $amount = Attribute::create(['name' => 'amount', 'label' => 'Iznos', 'type' => 'double']);
                 }
-                $event->addAttribute($amount);
+                $situation->addAttribute($amount);
 
                 $currency = Attribute::where('name', 'currency')->first();
                 if(!$currency) {
                     $currency = Attribute::create(['name' => 'currency', 'label' => 'Valuta', 'type' => 'varchar']);
                 }
-                $event->addAttribute($currency);
+                $situation->addAttribute($currency);
 
                 // Default values.
                 $data = [
-                    'name' => 'Event - Isplata prve rate',
+                    'name' => 'Situation - Isplata prve rate',
                     'sender' => 'NTP Beograd',
                     'amount' => 25000,
                     'currency' => 'EUR'
@@ -119,23 +119,23 @@ class Contract extends BusinessModel
                     }
                 }
 
-                $event->setData($data);
-                $this->addEvent($event);
+                $situation->setData($data);
+                $this->addSituation($situation);
                 break;
             default:
                 break;
         }
 
-        return $event;
+        return $situation;
 
     }
 
     /**
      * Removes event from contract.
-     * @param Event $event
+     * @param Situation $situation
      */
-    public function removeEvent(Event $event) {
-        $event->instance->delete();
+    public function removeSituation(Situation $situation) {
+        $situation->instance->delete();
         $this->instance->refresh();
     }
 
