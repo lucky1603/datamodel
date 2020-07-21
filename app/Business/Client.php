@@ -56,6 +56,14 @@ class Client extends BusinessModel
         $data = [];
         switch($situationType) {
             case 'interesovanje':
+                $situation = new Situation();
+                $application_form = Attribute::where('name', 'application_form')->first();
+                if(!$application_form) {
+                    $application_form = Attribute::create(['name' => 'application_form', 'label' => 'Obrazac za prijavu', 'type' => 'file']);
+                }
+                $situation->addAttribute($application_form);
+
+
                 $data = [
                     'name' => 'Situation - Interesovanje',
                     'sender' => $this->getData(['name']),
@@ -67,7 +75,7 @@ class Client extends BusinessModel
                     }
                 }
 
-                $situation = new Situation($data);
+                $situation->setData($data);
                 $this->addSituation($situation);
                 break;
             case 'registracija':
@@ -236,58 +244,29 @@ class Client extends BusinessModel
         $attributes = [];
 
         // Name.
-        $name = Attribute::where('name','name')->first();
-        if(!isset($name)) {
-            $name = Attribute::create(['name' => 'name', 'label' => 'Naziv', 'type' => 'varchar']);
-        }
-        $attributes[] = $name;
+        $attributes[] = self::selectOrCreateAttribute(['name', 'Naziv', 'varchar']);
 
         // Is is registered?
-        $is_registered = Attribute::where('name', 'is_registered')->first();
-        if(!$is_registered) {
-            $is_registered = Attribute::create(['name' => 'is_registered', 'label' => 'Da li je registrovana', 'type' => 'bool']);
-        }
-        $attributes[] = $is_registered;
+        $attributes[] = self::selectOrCreateAttribute(['is_registered', 'Da li je registrovan(a)', 'bool']);
 
         // Contact person.
-        $contact_person = Attribute::where('name', 'contact_person')->first();
-        if(!$contact_person) {
-            $contact_person = Attribute::create(['name' => 'contact_person', 'label' => 'Kontakt osoba', 'type' => 'varchar']);
-        }
-        $attributes[] = $contact_person;
+        $attributes[] = self::selectOrCreateAttribute(['contact_person', 'Osoba za kontakt', 'varchar']);
 
         // E-mail
-        $email = Attribute::where('name', 'email')->first();
-        if(!$email) {
-            $email = Attribute::create(['name' => 'email', 'label' => 'E-mail', 'type' => 'varchar']);
-        }
-        $attributes[] = $email;
+        $attributes[] = self::selectOrCreateAttribute(['email', 'E-mail', 'varchar']);
 
         // Telephone.
-        $telephone = Attribute::where('name', 'telephone')->first();
-        if(!$telephone) {
-            $telephone = Attribute::create(['name' => 'telephone', 'label' => 'Telefon', 'type' => 'varchar']);
-        }
-        $attributes[] = $telephone;
+        $attributes[] = self::selectOrCreateAttribute(['telephone', 'Telefon', 'varchar']);
 
         // University.
-        $university = Attribute::where('name', 'university')->first();
-        if(!$university) {
-            $university = Attribute::create(['name' => 'university', 'label' => 'Fakultet', 'type' => 'varchar']);
-        }
-        $attributes[] = $university;
+        $attributes[] = self::selectOrCreateAttribute(['university', 'Fakultet', 'varchar']);
 
         // Date interested.
-        $date_interested = Attribute::where('name', 'date_interested')->first();
-        if(!$date_interested) {
-            $date_interested = Attribute::create(['name' => 'date_interested', 'label' => 'Datum interesovanja', 'type' => 'datetime']);
-        }
-        $attributes[] = $date_interested;
+        $attributes[] = self::selectOrCreateAttribute(['date_interested', 'Datum interesovanja', 'datetime']);
 
         // Fields of interest
-        $fields_of_interest = Attribute::where('name', 'interests')->first();
-        if(!$fields_of_interest) {
-            $fields_of_interest = Attribute::create(['name' => 'interests', 'label' => 'Polja interesovanja', 'type' => 'select', 'extra' => 'multiselect']);
+        $fields_of_interest = self::selectOrCreateAttribute(['interests', 'Oblast poslovanja', 'select']);
+        if(count($fields_of_interest->getOptions()) == 0) {
             $fields_of_interest->addOption(['value' => 1, 'text' => 'IoT и паметни градови']);
             $fields_of_interest->addOption(['value' => 2, 'text' => 'Енергетска ефикасност, зелене, чисте технологије и екологија']);
             $fields_of_interest->addOption(['value' => 3, 'text' => 'Вештачка интелигенција, базе података и аналитика']);
@@ -305,37 +284,20 @@ class Client extends BusinessModel
         $attributes[] = $fields_of_interest;
 
         // Short inovation desc.
-        $ino_desc = Attribute::where('name', 'ino_desc')->first();
-        if(!$ino_desc) {
-            $ino_desc = Attribute::create(['name' => 'ino_desc', 'label' => 'Opis inovacije', 'type' => 'text']);
-        }
-        $attributes[] = $ino_desc;
+        $attributes[] = self::selectOrCreateAttribute(['ino_desc', 'Opis inovacije', 'text']);
 
         // Why contact us?
-        $reason_of_contact = Attribute::where('name', 'reason_contact')->first();
-        if(!$reason_of_contact) {
-            $reason_of_contact = Attribute::create(['name' => 'reason_contact', 'label' => 'Zašto nas kontaktirate?', 'type' => 'text']);
-        }
-        $attributes[] = $reason_of_contact;
+        $attributes[] = self::selectOrCreateAttribute(['reason_contact', 'Zašto nas kontaktirate?', 'text']);
 
         // Napomena (oni unose)
-        $remark = Attribute::where('name', 'remark')->first();
-        if(!$remark) {
-            $remark = Attribute::create(['name' => 'remark', 'label' => 'Napomena kandidata', 'type' => 'text']);
-        }
-        $attributes[] = $remark;
+        $attributes[] = self::selectOrCreateAttribute(['remark', 'Napomena kandidata', 'text']);
 
         // Notes (mi unosimo)
-        $notes = Attribute::where('name', 'notes')->first();
-        if(!$notes) {
-            $notes = Attribute::create(['name' => 'notes', 'label' => 'Naša napomena', 'type' => 'text']);
-        }
-        $attributes[] = $notes;
+        $attributes[] = self::selectOrCreateAttribute(['notes', 'Naša napomena', 'text']);
 
         // Status člana.
-        $status = Attribute::where('name', 'status')->first();
-        if(!$status) {
-            $status = Attribute::create(['name' => 'status', 'label' => 'Status člana', 'type' => 'select']);
+        $status = self::selectOrCreateAttribute(['status', 'Status člana', 'select']);
+        if(count($status->getOptions()) == 0) {
             $status->addOption(['value' => 1, 'text' => 'Zainteresovan']);
             $status->addOption(['value' => 2, 'text' => 'Prijavljen']);
             $status->addOption(['value' => 3, 'text' => 'Pre-selektovan']);
@@ -360,8 +322,8 @@ class Client extends BusinessModel
         $attributes[] = $program;
 
         // Vrsta članstva
-        $membership = Attribute::where('name', 'membership')->first();
-        if(!$membership) {
+        $membership = self::selectOrCreateAttribute(['membership', 'Članstvo', 'select']);
+        if(count($membership->getOptions()) == 0) {
             $membership = Attribute::create(['name' => 'membership', 'label' => 'Članstvo', 'type' => 'select']);
             $membership->addOption(['value' => 1, 'text' => 'Virtuelni član']);
             $membership->addOption(['value' => 2, 'text' => 'Punopravni član']);
@@ -371,11 +333,7 @@ class Client extends BusinessModel
         $attributes[] = $membership;
 
         // Prijava za članstvo - dokument.
-        $application_form = Attribute::where('name', 'application_form')->first();
-        if(!$application_form) {
-            $application_form = Attribute::create(['name' => 'application_form', 'label' => 'Obrazac za prijavu', 'type' => 'file']);
-        }
-        $attributes[] = $application_form;
+        $attributes[] = self::selectOrCreateAttribute(['application_form', 'Obrazac za prijavu', 'file']);
 
         return $attributes;
     }
