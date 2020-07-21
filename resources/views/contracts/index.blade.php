@@ -20,8 +20,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td><a href="{{ route('contracts.show', $contract['id']) }}">{{ $contract['name'] }}</a></td>
-                                <td>{{ $contract['first_party'] }}</td>
-                                <td>{{ $contract['second_party'] }}</td>
+                                <td>{{ $contract['contractor1'] }}</td>
+                                <td>{{ $contract['contractor2'] }}</td>
                                 <td>{{ $contract['amount'] }}</td>
                             </tr>
                         @endforeach
