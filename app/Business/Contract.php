@@ -207,65 +207,16 @@ class Contract extends BusinessModel
     public static function getAttributesDefinition() {
         $attributes = [];
 
-        $name = Attribute::where('name', 'name')->first();
-        if(!$name) {
-            $name = Attribute::create(['name' => 'name', 'label' => 'Naziv', 'type' => 'varchar']);
-        }
-        $attributes[] = $name;
-
-        $description = Attribute::where('name', 'description')->first();
-        if(!$description) {
-            $description = Attribute::create(['name' => 'description', 'label' => 'Opis', 'type' => 'text']);
-        }
-        $attributes[] = $description;
-
-        $first_party = Attribute::where('name', 'first_party')->first();
-        if(!$first_party) {
-            $first_party = Attribute::create(['name' => 'first_party', 'label' => 'Prva strana', 'type' => 'varchar']);
-        }
-        $attributes[] = $first_party;
-
-        $second_party = Attribute::where('name', 'second_party')->first();
-        if(!$second_party) {
-            $second_party = Attribute::create(['name' => 'second_party', 'label' => 'Druga strana', 'type' => 'varchar']);
-        }
-        $attributes[] = $second_party;
-
-        $amount = Attribute::where('name', 'amount')->first();
-        if(!$amount) {
-            $amount = Attribute::create(['name' => 'amount', 'label' => 'Iznos', 'type' => 'double']);
-        }
-        $attributes[] = $amount;
-
-        $currency = Attribute::where('name', 'currency')->first();
-        if(!$currency) {
-            $currency = Attribute::create(['name' => 'currency', 'label' => 'Valuta', 'type' => 'varchar']);
-        }
-        $attributes[] = $currency;
-
-        $contract_subject = Attribute::where('name', 'contract_subject')->first();
-        if(!$contract_subject) {
-            $contract_subject = Attribute::create(['name' => 'contract_subject', 'label' => 'Predmet ugovora', 'type' => 'text']);
-        }
-        $attributes[] = $contract_subject;
-
-        $signed_at = Attribute::where('name', 'signed_at')->first();
-        if(!$signed_at) {
-            $signed_at = Attribute::create(['name' => 'signed_at', 'label' => 'Potpisan dana', 'type' => 'datetime']);
-        }
-        $attributes[] = $signed_at;
-
-        $valid_through = Attribute::where('name', 'valid_through')->first();
-        if(!$valid_through) {
-            $valid_through = Attribute::create(['name' => 'valid_through', 'label' => 'Važi do', 'type' => 'datetime']);
-        }
-        $attributes[] = $valid_through;
-
-        $contract_document = Attribute::where('name', 'contract_document')->first();
-        if(!$contract_document) {
-            $contract_document = Attribute::create(['name' => 'contract_document', 'label' => 'Dokument ugovora', 'type' => 'file']);
-        }
-        $attributes[] = $contract_document;
+        $attributes[] = self::selectOrCreateAttribute(['name', 'Naziv', 'varchar']);
+        $attributes[] = self::selectOrCreateAttribute(['description', 'Opis', 'varchar']);
+        $attributes[] = self::selectOrCreateAttribute(['contractor1', 'Prvi potpisnik', 'varchar']);
+        $attributes[] = self::selectOrCreateAttribute(['contractor2', 'Drugi potpisnik', 'varchar']);
+        $attributes[] = self::selectOrCreateAttribute(['amount', 'Iznos', 'varchar']);
+        $attributes[] = self::selectOrCreateAttribute(['currency', 'Valuta', 'varchar']);
+        $attributes[] = self::selectOrCreateAttribute(['contract_subject', 'Predmet ugovora', 'text']);
+        $attributes[] = self::selectOrCreateAttribute(['signet_at', 'Potpisan dana', 'datetime']);
+        $attributes[] = self::selectOrCreateAttribute(['valid_through', 'Važi do', 'datetime']);
+        $attributes[] = self::selectOrCreateAttribute(['contract_document', 'Dokument ugovora', 'file']);
 
         return $attributes;
 
@@ -281,15 +232,13 @@ class Contract extends BusinessModel
             Attribute::where('name','name')->first(),
             isset($this->data['name']) ? $this->data['name'] : 'Some contract');
 
-        // Set the first contract party.
-        Value::put($this->instance->id,
-            Attribute::where('name','first_party')->first(),
-            isset($this->data['first_party']) ? $this->data['first_party'] : 'First party');
+        $this->getAttribute('contractor1')->setValue(
+            isset($this->data['contractor1']) ? $this->data['contractor1'] : 'Prvi ugovarač'
+        );
 
-        // Set the second contract party.
-        Value::put($this->instance->id,
-            Attribute::where('name','second_party')->first(),
-            isset($this->data['second_party']) ? $this->data['second_party'] : 'Second party');
+        $this->getAttribute('contractor2')->setValue(
+            isset($this->data['contractor2']) ? $this->data['contractor2'] : 'Drugi ugovarač'
+        );
 
         Value::put($this->instance->id,
             Attribute::where('name','contract_subject')->first(),

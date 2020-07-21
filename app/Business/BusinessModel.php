@@ -117,6 +117,19 @@ class BusinessModel
     }
 
     /**
+     * Returns the attribute, which satisfies the query.
+     * @param $query
+     * @return mixed
+     */
+    public function getAttribute($query) {
+        if(!is_array($query)) {
+            return $this->getAttributes()->where('name', $query)->first();
+        }
+
+        return $this->getAttributes()->where($query)->first();
+    }
+
+    /**
      * Returns the textual interpretations of the attribute values.
      * @return array
      */
@@ -129,6 +142,25 @@ class BusinessModel
         $retval['id'] = $this->instance->id;
 
         return $retval;
+    }
+
+    /**
+     * Gets the attibute from the collection of attributes or create the new one.
+     * @param array $array
+     * @return mixed
+     */
+    public static function selectOrCreateAttribute(Array $array) {
+        $attribute = Attribute::where('name', $array[0])->first();
+        if(!isset($attribute)) {
+            if(isset($array[3])) {
+                $attribute = Attribute::create(['name' => $array[0], 'label' => $array[1], 'type' => $array[2], 'extra' => $array[3]]);
+            } else {
+                $attribute = Attribute::create(['name' => $array[0], 'label' => $array[1], 'type' => $array[2]]);
+            }
+
+        }
+
+        return $attribute;
     }
 
     protected function getEntity() {}
