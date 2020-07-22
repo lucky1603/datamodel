@@ -37,7 +37,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        $attributes = Client::getAttributesDefinition();
+        $attributes = Client::getAttributesDefinition('start');
         $action = route('clients.store');
         return view('clients.create', ['attributes' => $attributes, 'action' => $action]);
     }
@@ -104,7 +104,7 @@ class ClientController extends Controller
     public function edit($id)
     {
         $client = new Client(['instance_id' => $id]);
-        $action = route('clients.update');
+        $action = route('clients.update', $client->getId());
         return view('clients.edit', ['model' => $client, 'action' => $action]);
     }
 
@@ -117,7 +117,44 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->post();
+
+        // Handle the uploaded file
+        $file = $request->file('application_form');
+        if($file != null) {
+            $originalFileName = $file->getClientOriginalName();
+            $path = $file->store('documents');
+            $path = asset($path);
+            $data['application_form'] = [
+                'filename' => $originalFileName,
+                'filelink' => $path,
+            ];
+        }
+
+        // Upgrade the status.
+        $data['status'] = 2;
+
+        // Find the client with the given id.
+        $client = new Client(['instance_id' => $id]);
+        if($client != null) {
+
+            // Update the client with changes.
+            $client->setData($data);
+
+            // Register the situation.
+            $eventData = [
+                'name' => 'Registracija',
+                'description' => 'Klijent je registrovan',
+                'client' => $client->getAttribute('name')->getValue()
+            ];
+            if($file != null) {
+                $eventData['application_form'] = $data['application_form'];
+            }
+
+            $client->addSituationByData('registracija',$eventData);
+        }
+
+        return redirect(route('clients.index'));
     }
 
     /**

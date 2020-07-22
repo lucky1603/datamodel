@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             @yield('title')
         </div>
-        <form method="post" enctype="multipart/form-data" action="{{ $action }}" method="post">
+        <form method="post" enctype="multipart/form-data" action="{{ $action }}" >
             @csrf
             @foreach($model->getAttributes() as $attribute)
                 @if($attribute->type === 'varchar')
@@ -99,6 +99,25 @@
                         <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
                         <div class="col-sm-10">
                         <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+                        </div>
+                    </div>
+                @endif
+                @if($attribute->type === 'file')
+                    <div class="form-group row">
+                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
+                        <div class="col-sm-10">
+                            @if($attribute->getValue() != null)
+                                <table class="table table-responsive">
+                                    <tr>
+                                        <td><a href="{{ $attribute->getValue()['filelink'] }}">{{ $attribute->getValue()['filename'] }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
+                                    </tr>
+                                </table>
+                            @else
+                                <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
+                            @endif
                         </div>
                     </div>
                 @endif
