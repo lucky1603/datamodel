@@ -79,6 +79,9 @@ class BusinessModel
 
         foreach($data as $key => $value) {
             $attribute = $this->instance->attributes->where('name', $key)->first();
+            if($attribute == null)
+                continue;
+
             if($attribute->type === 'bool') {
                 if($value === 'on')
                     $value = true;
@@ -95,8 +98,30 @@ class BusinessModel
      * @param Attribute $attribute
      */
     public function addAttribute(Attribute $attribute) {
-        $this->instance->addAttribute($attribute);
+        $att = $this->instance->addAttribute($attribute);
         $this->instance->refresh();
+        return $att;
+    }
+
+    /**
+     * Adds the additional attributes to the instance.
+     * @param $attributes
+     * @param null $values
+     */
+    public function addExtraAttributes($attributes, $values=null) {
+        $counter = 0;
+        foreach ($attributes as $attribute) {
+            if($this->getAttribute($attribute->name) == null) {
+                $this->addAttribute($attribute);
+            }
+
+            $attr = $this->getAttribute($attribute->name);
+            if($values != null && is_array($values) && isset($values[$counter])) {
+                $attr->setValue($values[$counter]);
+                $counter++;
+            }
+        }
+
     }
 
     /**

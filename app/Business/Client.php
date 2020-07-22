@@ -79,6 +79,7 @@ class Client extends BusinessModel
                 $this->addSituation($situation);
                 break;
             case 'registracija':
+                $situation = new Situation();
                 $data = [
                    'name' => 'Situation - registracija',
                    'sender' => $this->getData(['name'])
@@ -90,7 +91,23 @@ class Client extends BusinessModel
                     }
                 }
 
-                $situation = new Situation($data);
+                if(isset($data['application_form'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['application_form', 'Obrazac za prijavu','file'])
+                    ],[
+                        $data['application_form']
+                    ]);
+                }
+
+                if(isset($data['client'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['client', 'Klijent', 'varchar'])
+                    ],[
+                        $data['client']
+                    ]);
+                }
+
+                $situation->setData($data);
                 $this->addSituation($situation);
                 break;
             case 'evaluacija':
@@ -240,14 +257,11 @@ class Client extends BusinessModel
      * Returns the collection of attributes typical for this type of instance.
      * @return array Attributes array.
      */
-    public static function getAttributesDefinition() {
+    public static function getAttributesDefinition($filter=null) {
         $attributes = [];
 
         // Name.
         $attributes[] = self::selectOrCreateAttribute(['name', 'Naziv', 'varchar']);
-
-        // Is is registered?
-        $attributes[] = self::selectOrCreateAttribute(['is_registered', 'Da li je registrovan(a)', 'bool']);
 
         // Contact person.
         $attributes[] = self::selectOrCreateAttribute(['contact_person', 'Osoba za kontakt', 'varchar']);
@@ -263,6 +277,27 @@ class Client extends BusinessModel
 
         // Date interested.
         $attributes[] = self::selectOrCreateAttribute(['date_interested', 'Datum interesovanja', 'datetime']);
+
+        // Short inovation desc.
+        $attributes[] = self::selectOrCreateAttribute(['ino_desc', 'Kratak opis inovacije', 'text']);
+
+        // Why contact us?
+        $reason_contact = self::selectOrCreateAttribute(['reason_contact', 'Zašto nas kontaktirate?', 'select']);
+        if(count($reason_contact->getOptions()) == 0) {
+            $reason_contact->addOption(['value' => 1, 'text' => 'Opcija 1']);
+            $reason_contact->addOption(['value' => 2, 'text' => 'Opcija 2']);
+            $reason_contact->addOption(['value' => 3, 'text' => 'Opcija 3']);
+        }
+        $attributes[] = $reason_contact;
+
+        // Notes (mi unosimo)
+        $attributes[] = self::selectOrCreateAttribute(['notes', 'Naša napomena', 'text']);
+
+        if(isset($filter) && $filter === 'start')
+            return $attributes;
+
+        // Is is registered?
+        $attributes[] = self::selectOrCreateAttribute(['is_registered', 'Da li je registrovan(a)', 'bool']);
 
         // Fields of interest
         $fields_of_interest = self::selectOrCreateAttribute(['interests', 'Oblast poslovanja', 'select']);
@@ -283,17 +318,8 @@ class Client extends BusinessModel
         }
         $attributes[] = $fields_of_interest;
 
-        // Short inovation desc.
-        $attributes[] = self::selectOrCreateAttribute(['ino_desc', 'Opis inovacije', 'text']);
-
-        // Why contact us?
-        $attributes[] = self::selectOrCreateAttribute(['reason_contact', 'Zašto nas kontaktirate?', 'text']);
-
         // Napomena (oni unose)
         $attributes[] = self::selectOrCreateAttribute(['remark', 'Napomena kandidata', 'text']);
-
-        // Notes (mi unosimo)
-        $attributes[] = self::selectOrCreateAttribute(['notes', 'Naša napomena', 'text']);
 
         // Status člana.
         $status = self::selectOrCreateAttribute(['status', 'Status člana', 'select']);
