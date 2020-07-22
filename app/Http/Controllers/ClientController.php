@@ -54,22 +54,27 @@ class ClientController extends Controller
 
         // Handle the uploaded file
         $file = $request->file('application_form');
-        $originalFileName = $file->getClientOriginalName();
-        $path = $file->store('documents');
-        $path = asset($path);
-        $data['application_form'] = [
-            'filename' => $originalFileName,
-            'filelink' => $path,
-        ];
+        if($file != null) {
+            $originalFileName = $file->getClientOriginalName();
+            $path = $file->store('documents');
+            $path = asset($path);
+            $data['application_form'] = [
+                'filename' => $originalFileName,
+                'filelink' => $path,
+            ];
+        }
 
         $client = new Client($data);
         if($client != null) {
-            $client->addSituationByData('interesovanje',
-                [
-                    'name' => 'Interesovanje',
-                    'description' => 'Klijent je zainteresovan za saradnju',
-                    'application_form' => $data['application_form']
-                ]);
+            $eventData = [
+                'name' => 'Interesovanje',
+                'description' => 'Klijent je zainteresovan za saradnju',
+            ];
+            if($file != null) {
+                $eventData['application_form'] = $data['application_form'];
+            }
+
+            $client->addSituationByData('interesovanje',$eventData);
         }
 
         return redirect(route('clients.index'));
@@ -98,7 +103,9 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $client = new Client(['instance_id' => $id]);
+        $action = route('clients.update');
+        return view('clients.edit', ['model' => $client, 'action' => $action]);
     }
 
     /**

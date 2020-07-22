@@ -20,7 +20,7 @@
                     @foreach($clients as $client)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td><a href="/clients/{{ $client['id'] }}">{{ $client['name'] }}</a></td>
+                            <td><a href="{{ route('clients.show', $client['id'])}}">{{ $client['name'] }}</a></td>
                             <td>{{ $client['contact_person'] }}</td>
                             <td>{{ $client['email'] }}</td>
                             <td>{{ $client['telephone'] }}</td>

@@ -10,7 +10,19 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" ></script>
+    <script src="{{ asset('js/jquery-1.12.4.js') }}" ></script>
+    <script src="{{ asset('js/jquery-ui.js') }}" ></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#datepicker').datepicker({
+                changeMonth:true,
+                changeYear:true,
+                dateFormat:'yy-mm-dd'
+            });
+        });
+    </script>
+    @yield('scripts')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,6 +31,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/my.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
+
+
 </head>
 <body>
     <div id="app">

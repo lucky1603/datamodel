@@ -2,4 +2,5 @@
 
 @section('returns')
     <a href="{{ route('clients.index') }}" class="btn btn-lg btn-link btn-outline-info">Back</a>
+    <a href="{{ route('clients.edit', $model->getId() ) }}" class="btn btn-lg btn-secondary">Edit</a>
 @endsection
