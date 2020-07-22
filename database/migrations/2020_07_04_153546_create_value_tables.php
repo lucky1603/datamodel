@@ -18,7 +18,7 @@ class CreateValueTables extends Migration
             $table->id();
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('instance_id');
-            $table->string('value');
+            $table->string('value')->nullable(true);
             $table->timestamps();
 
             $table->unique(['attribute_id','instance_id']);
@@ -31,7 +31,7 @@ class CreateValueTables extends Migration
             $table->id();
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('instance_id');
-            $table->text('value');
+            $table->text('value')->nullable(true);
             $table->timestamps();
 
             $table->unique(['attribute_id','instance_id']);
@@ -44,7 +44,7 @@ class CreateValueTables extends Migration
             $table->id();
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('instance_id');
-            $table->integer('value');
+            $table->integer('value')->nullable(true);
             $table->timestamps();
 
             $table->unique(['attribute_id','instance_id']);
@@ -57,7 +57,7 @@ class CreateValueTables extends Migration
             $table->id();
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('instance_id');
-            $table->double('value');
+            $table->double('value')->nullable(true);
             $table->timestamps();
 
             $table->unique(['attribute_id','instance_id']);
@@ -70,7 +70,7 @@ class CreateValueTables extends Migration
             $table->id();
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('instance_id');
-            $table->date('value');
+            $table->date('value')->nullable(true);
             $table->timestamps();
 
             $table->unique(['attribute_id','instance_id']);
@@ -83,7 +83,33 @@ class CreateValueTables extends Migration
             $table->id();
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('instance_id');
-            $table->boolean('value');
+            $table->boolean('value')->nullable(true);
+            $table->timestamps();
+
+            $table->unique(['attribute_id','instance_id']);
+            $table->foreign('attribute_id')->on('attributes')->references('id')->onDelete('cascade');
+            $table->foreign('instance_id')->on('instances')->references('id')->onDelete('cascade');
+        });
+
+        // Timestamps.
+        Schema::create('timestamp_values', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('attribute_id');
+            $table->unsignedBigInteger('instance_id');
+            $table->timestamp('value')->nullable(true);
+            $table->timestamps();
+
+            $table->unique(['attribute_id','instance_id']);
+            $table->foreign('attribute_id')->on('attributes')->references('id')->onDelete('cascade');
+            $table->foreign('instance_id')->on('instances')->references('id')->onDelete('cascade');
+        });
+
+        // Dates.
+        Schema::create('date_values', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('attribute_id');
+            $table->unsignedBigInteger('instance_id');
+            $table->date('value')->nullable(true);
             $table->timestamps();
 
             $table->unique(['attribute_id','instance_id']);
@@ -106,5 +132,7 @@ class CreateValueTables extends Migration
         Schema::dropIfExists('double_values');
         Schema::dropIfExists('datetime_values');
         Schema::dropIfExists('bool_values');
+        Schema::dropIfExists('timestamp_values');
+        Schema::dropIfExists('date_values');
     }
 }

@@ -73,7 +73,6 @@ class Situation extends BusinessModel
         return collect($results_array);
     }
 
-
     /**
      * Returns the short preview of the collection.
      * @return \Illuminate\Support\Collection
