@@ -70,7 +70,7 @@ class CreateValueTables extends Migration
             $table->id();
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('instance_id');
-            $table->timestamp('value');
+            $table->date('value');
             $table->timestamps();
 
             $table->unique(['attribute_id','instance_id']);
