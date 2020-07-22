@@ -65,7 +65,7 @@ class Value extends Model
 
         $value = $query->value('value');
         if($attribute->type === 'bool') {
-            $value = $value === 0 ? false : true;
+            $value = $value === null || $value === 0 ? false : true;
         }
 
         return $value;
