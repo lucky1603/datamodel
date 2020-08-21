@@ -110,7 +110,7 @@ class Client extends BusinessModel
                 $situation->setData($data);
                 $this->addSituation($situation);
                 break;
-            case 'evaluacija':
+            case 'predselekcija':
                 $situation = new Situation();
                 $datumEvaluacije = Attribute::where('name', 'eval_date')->first();
                 if(!$datumEvaluacije) {
