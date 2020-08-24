@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Business\Situation;
 use Illuminate\Http\Request;
 use App\Business\Client;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+
 
 class ClientController extends Controller
 {
@@ -20,6 +24,8 @@ class ClientController extends Controller
      */
     public function index()
     {
+        $this->authorize('manage_user_profiles');
+
         $clients = Client::find()->toArray();
         $clientsArray = [];
         foreach($clients as $client) {
@@ -37,6 +43,8 @@ class ClientController extends Controller
      */
     public function create()
     {
+        $this->authorize('manage_user_profiles');
+
         $attributes = Client::getAttributesDefinition('start');
         $action = route('clients.store');
         return view('clients.create', ['attributes' => $attributes, 'action' => $action]);
@@ -64,18 +72,52 @@ class ClientController extends Controller
             ];
         }
 
+        // Hash code the password.
+        if(isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
+
+        // Create new client.
         $client = new Client($data);
         if($client != null) {
+
+            // Create 'interested' situation.
             $eventData = [
                 'name' => 'Interesovanje',
                 'description' => 'Klijent je zainteresovan za saradnju',
             ];
+
+            // Add file to the situation.
             if($file != null) {
                 $eventData['application_form'] = $data['application_form'];
             }
 
+            // Add situation to the client.
             $client->addSituationByData('interesovanje',$eventData);
         }
+
+        // Check if the user already exists.
+        $user = User::where(['email' => $data['email']])->first();
+
+        // If not, create one.
+        if($user === null) {
+
+            // Create user.
+            $user = User::create([
+                'name' => $data['contact_person'],
+                'email' => $data['email'],
+                'password' => $data['password']
+            ]);
+
+            // Define it as the client.
+            $user->assignRole('client');
+        }
+
+        // Attach default user to the instance.
+        $client->attachUser($user);
+
+        // TODO - Send email to the user.
+
 
         return redirect(route('clients.index'));
     }
@@ -88,7 +130,13 @@ class ClientController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $request->session()->put('backroute', route('clients.show', $id));
+        $this->authorize('read_user_profile', $id);
+
+        if(auth()->user()->isAdmin()) {
+            $request->session()->put('backroute', route('clients.index'));
+        } else {
+            $request->session()->put('backroute', route('home'));
+        }
 
         $client = new Client(['instance_id' => $id]);
         $situations = $client->getSituations();
@@ -141,20 +189,26 @@ class ClientController extends Controller
             // Update the client with changes.
             $client->setData($data);
 
-            // Register the situation.
-            $eventData = [
-                'name' => 'Registracija',
-                'description' => 'Klijent je registrovan',
-                'client' => $client->getAttribute('name')->getValue()
-            ];
-            if($file != null) {
-                $eventData['application_form'] = $data['application_form'];
+            // Find out if the client is already registered.
+            $registration = Situation::find(['name' => 'Registracija'])->first();
+            if($registration == null) {
+                // Register the situation.
+                $eventData = [
+                    'name' => 'Registracija',
+                    'description' => 'Klijent je registrovan',
+                    'client' => $client->getAttribute('name')->getValue()
+                ];
+
+                if($file != null) {
+                    $eventData['application_form'] = $data['application_form'];
+                }
+
+                $client->addSituationByData('registracija',$eventData);
             }
 
-            $client->addSituationByData('registracija',$eventData);
         }
 
-        return redirect(route('clients.index'));
+        return redirect(route('clients.show', $id));
     }
 
     /**
@@ -165,6 +219,8 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('manage_user_profiles');
+
+        // delete client.
     }
 }

@@ -9,7 +9,7 @@
         <form method="post" enctype="multipart/form-data" action="{{ $action }}" method="post">
             @csrf
             @foreach($attributes as $attribute)
-                @if($attribute->type === 'varchar')
+                @if($attribute->type === 'varchar' && !isset($attribute->extra))
                     <div class="form-group row">
                         <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
                         <div class="col-sm-10">
@@ -17,6 +17,36 @@
                         </div>
                     </div>
                 @endif
+                @if($attribute->type === 'varchar' && $attribute->extra === 'email')
+                    <div class="form-group row">
+                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
+                        <div class="col-sm-10">
+                            <input type="email"
+                                   class="form-control @error($attribute->name) is-invalid @enderror"
+                                   id="{{ $attribute->name }}"
+                                   name="{{$attribute->name}}"
+                                   value="{{ old($attribute->name) }}"
+                                   required
+                                   autocomplete="{{ $attribute->name }}"
+                            >
+                        </div>
+                    </div>
+                @endif
+                    @if($attribute->type === 'varchar' && $attribute->extra === 'password')
+                        <div class="form-group row">
+                            <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
+                            <div class="col-sm-10">
+                                <input type="password"
+                                       class="form-control @error($attribute->name) is-invalid @enderror"
+                                       id="{{ $attribute->name }}"
+                                       name="{{$attribute->name}}"
+                                       value="{{ old($attribute->name) }}"
+                                       required
+                                       autocomplete="{{ $attribute->name }}"
+                                >
+                            </div>
+                        </div>
+                    @endif
                 @if($attribute->type === 'integer' || $attribute->type === 'double')
                     <div class="form-group row">
                         <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
@@ -88,6 +118,7 @@
                     </div>
                 @endif
             @endforeach
+
             <div class="form-group row">
                 <div class="col-sm-6" style="text-align: right">
                     <button type="submit" class="btn btn-primary">Dodaj</button>

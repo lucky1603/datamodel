@@ -4,8 +4,14 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <h1>Lista klijenata</h1>
+
+            <div style="margin: auto 0; height: 50px">
+                <h1 style="float: left">Lista klijenata</h1>
+                <a href="{{ route('clients.create') }}" class="btn btn-primary" style="float: right;margin-top: 5px">Novi klijent</a>
+            </div>
+
             @if(count($clients) === 0)
+                <hr/>
                 <p>Još uvek nema klijenata!</p>
             @else
                 <table class="table">

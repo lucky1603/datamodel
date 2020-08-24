@@ -267,7 +267,10 @@ class Client extends BusinessModel
         $attributes[] = self::selectOrCreateAttribute(['contact_person', 'Osoba za kontakt', 'varchar']);
 
         // E-mail
-        $attributes[] = self::selectOrCreateAttribute(['email', 'E-mail', 'varchar']);
+        $attributes[] = self::selectOrCreateAttribute(['email', 'E-mail', 'varchar', 'email']);
+
+        // Password
+        $attributes[] = self::selectOrCreateAttribute(['password', 'Lozinka', 'varchar', 'password']);
 
         // Telephone.
         $attributes[] = self::selectOrCreateAttribute(['telephone', 'Telefon', 'varchar']);
@@ -459,5 +462,14 @@ class Client extends BusinessModel
         );
 
     }
+
+    /**
+     * Attaches user to the client.
+     * @param $user
+     */
+    public function attachUser($user) {
+        $this->instance->attachUser($user);
+    }
+
 
 }

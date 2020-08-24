@@ -21,10 +21,10 @@ class BusinessModel
     public function __construct($data = null)
     {
         $this->data = $data;
-        $this->entity = $this->getEntity();
         if(isset($data['instance_id'])) {
             $this->instance = Instance::find($data['instance_id']);
         } else {
+            $this->entity = $this->getEntity();
             $this->instance = Instance::create(['entity_id' => $this->entity->id]);
             $this->instance->getTemplateAttributes();
             $this->setAttributes();

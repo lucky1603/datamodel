@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Business\Client;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -61,6 +62,37 @@ class User extends Authenticatable
      * Get all abilities assigned by the attached roles.
      */
     public function abilities() {
-        $this->roles->map->abilities->flatten()->pluck('name');
+        return $this->roles->map->abilities->flatten()->pluck('name');
+    }
+
+    /**
+     * Return the collection of all instances for this user.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function instances() {
+        return $this->belongsToMany(Instance::class)->withTimestamps();
+    }
+
+    /**
+     * Checks whether the current user is administrator or not.
+     * @return bool
+     */
+    public function isAdmin() {
+        return $this->roles()->whereName('administrator')->count() != 0;
+    }
+
+    /**
+     * Checks whether the current user has the particular role.
+     * @param $role
+     * @return bool
+     */
+    public function isRole($role) {
+        return $this->roles()->whereName($role)->count() != 0;
+    }
+
+
+    public function client() {
+        $instance = $this->instances()->first();
+        return Client::find($instance->id);
     }
 }

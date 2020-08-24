@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Business\Client;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,18 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        if(auth()->user()->isAdmin() === false) {
+            $instance = auth()->user()->instances->first();
+            if(isset($instance) && $instance->entity->name === 'Client') {
+                $client = Client::find($instance->id);
+                return view('clients.home', ['client' => $client]);
+            } else {
+
+                return view('welcome');
+            }
+        }
+
         return view('home');
     }
 }

@@ -63,6 +63,24 @@ class CreateRolesTable extends Migration
                 ->onDelete('cascade');
         });
 
+        Schema::create('instance_user', function (Blueprint $table) {
+            $table->primary(['instance_id', 'user_id']);
+
+            $table->unsignedBigInteger('instance_id');
+            $table->unsignedBigInteger('user_id');
+            $table->timestamps();
+
+            $table->foreign('instance_id')
+                ->references('id')
+                ->on('instances')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+        });
+
     }
 
     /**

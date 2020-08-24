@@ -152,4 +152,20 @@ class Instance extends Model
             }
         }
     }
+
+    /**
+     * Return all users of this instance.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users() {
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
+
+    /**
+     * Attaches user to the instance.
+     * @param $user
+     */
+    public function attachUser($user) {
+        $this->users()->sync($user, false);
+    }
 }

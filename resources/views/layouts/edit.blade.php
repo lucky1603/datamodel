@@ -12,7 +12,7 @@
         <form method="post" enctype="multipart/form-data" action="{{ $action }}" >
             @csrf
             @foreach($model->getAttributes() as $attribute)
-                @if($attribute->type === 'varchar')
+                @if($attribute->type === 'varchar' && !isset($attribute->extra))
                     <div class="form-group row">
                         <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
                         <div class="col-sm-10">
@@ -22,6 +22,21 @@
                                 id="{{ $attribute->name }}"
                                 name="{{$attribute->name}}"
                                 value="{{ $attribute->getValue() }}">
+                        </div>
+                    </div>
+                @endif
+                @if($attribute->type === 'varchar' && $attribute->extra === 'email')
+                    <div class="form-group row">
+                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
+                        <div class="col-sm-10">
+                            <input type="email"
+                                   class="form-control @error($attribute->name) is-invalid @enderror"
+                                   id="{{ $attribute->name }}"
+                                   name="{{$attribute->name}}"
+                                   value="{{ $attribute->getValue() }}"
+                                   required
+                                   autocomplete="{{ $attribute->name }}"
+                            >
                         </div>
                     </div>
                 @endif
@@ -123,12 +138,24 @@
                 @endif
             @endforeach
             <div class="form-group row">
-                <div class="col-sm-6" style="text-align: right">
-                    <button type="submit" class="btn btn-primary">Prihvati</button>
-                </div>
-                <div class="col-sm-6" style="text-align: left">
-                    @yield('back')
-                </div>
+                @if(auth()->user()->isAdmin())
+                    <div class="col-sm-4" style="text-align: right">
+                        <button type="submit" class="btn btn-primary">Prihvati</button>
+                    </div>
+                    <div class="col-sm-4" style="text-align: center">
+                        <a href="#" class="btn btn-primary">Promeni lozinku</a>
+                    </div>
+                    <div class="col-sm-4" style="text-align: left">
+                        @yield('back')
+                    </div>
+                @else
+                    <div class="col-sm-6" style="text-align: right">
+                        <button type="submit" class="btn btn-primary">Prihvati</button>
+                    </div>
+                    <div class="col-sm-6" style="text-align: left">
+                        @yield('back')
+                    </div>
+                @endif
             </div>
         </form>
     </div>

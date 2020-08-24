@@ -4,8 +4,13 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <h1>Lista ugovora</h1>
+                <div style="height: 50px;">
+                    <h1 style="float: left">Lista ugovora</h1>
+                    <a href="{{ route('contracts.create') }}" class="btn btn-primary" style="float: right;margin-top: 5px">Novi ugovor</a>
+                </div>
+
                 @if(count($contracts) === 0)
+                    <hr/>
                     <p>Lista je prazna!</p>
                 @else
                     <table class="table">
