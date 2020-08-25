@@ -8,6 +8,7 @@ use App\Attribute;
 use App\Entity;
 use App\Instance;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\SingleCommandApplication;
 
 class Client extends BusinessModel
 {
@@ -26,6 +27,19 @@ class Client extends BusinessModel
         }
 
         return collect($situations);
+    }
+
+    /**
+     * Get situation with given key.
+     * @param $key
+     * @return mixed
+     */
+    public function getSituation($key) {
+        return Situation::find(['name' => $key])->filter(function($item, $key) {
+            if($item->instance->parent_id == $this->getId())
+                return $item;
+        })->first();
+
     }
 
     /**
@@ -112,20 +126,11 @@ class Client extends BusinessModel
                 break;
             case 'predselekcija':
                 $situation = new Situation();
-                $datumEvaluacije = Attribute::where('name', 'eval_date')->first();
-                if(!$datumEvaluacije) {
-                    $datumEvaluacije = Attribute::create([
-                        'name' => 'eval_date',
-                        'label' => 'Datum evaluacije',
-                        'type' => 'datetime'
-                    ]);
-                }
-                $situation->addAttribute($datumEvaluacije);
-                $data = [
-                    'name' => 'Situation - Zakazan datum evaluacije',
-                    'sender' => $this->getData(['name']),
-                    'eval_date' => isset($params['eval_date']) ? params['eval_date'] : now()
-                ];
+
+                $data['name'] = "Predselekcija";
+                $data['description'] = "Prvi krug selekcije";
+
+                $situation->setData($data);
 
                 if(isset($params)) {
                     foreach($params as $key => $value) {
@@ -133,7 +138,54 @@ class Client extends BusinessModel
                     }
                 }
 
-                $situation->setData($data);
+                // Datum evaluacije.
+                if(isset($data['eval_date'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['eval_date', 'Datum evaluacije', 'datetime'])
+                    ],[
+                        $data['eval_date']
+                    ]);
+                }
+
+                // Prosecna ocena.
+                if(isset($data['mark'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['mark', 'Prosečna ocena', 'double'])
+                    ],[
+                        $data['mark']
+                    ]);
+                }
+
+                $data['decision'] = $data['decision'] == 'da';
+
+                // Odluka
+                if(isset($data['decision'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['decision', 'Da li je prošao', 'bool'])
+                    ],[
+                        $data['decision']
+                    ]);
+                }
+
+                // Primedba.
+                if(isset($data['remark'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['remark', 'Primedba komisije', 'text'])
+                    ],[
+                        $data['remark']
+                    ]);
+                }
+
+                // Fajl koji je koriscen za procenu.
+                if(isset($data['assertion_file'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['assertion_file', 'Fajl za evaluaciju','file'])
+                    ],[
+                        $data['assertion_file']
+                    ]);
+                }
+
+
                 $this->addSituation($situation);
                 break;
             case 'odbijanje':

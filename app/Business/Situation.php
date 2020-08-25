@@ -52,6 +52,7 @@ class Situation extends BusinessModel
             $attribute = Attribute::where('name', $key)->first();
             $tableName = $attribute->type.'_values';
             $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id]);
+
             if(!isset($results)) {
                 $results = $temporary_results;
             } else {

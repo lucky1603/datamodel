@@ -27,6 +27,9 @@ Route::post('/clients/create', 'ClientController@store')->name('clients.store');
 Route::get('/clients/{client}', 'ClientController@show')->name('clients.show');
 Route::get('/clients/edit/{client}', 'ClientController@edit')->name('clients.edit');
 Route::post('/clients/update/{client}', 'ClientController@update')->name('clients.update');
+Route::get('/clients/preselect/{client}', 'ClientController@preselect')->name('clients.preselect');
+Route::post('/clients/preselect/{client}', 'ClientController@preselected')->name('clients.preselected');
+Route::get('/clients/register/{client}', 'ClientController@register')->name('clients.register');
 
 Route::get('/contracts', 'ContractsController@index')->name('contracts.index');
 Route::get('/contracts/create', 'ContractsController@create')->name('contracts.create');

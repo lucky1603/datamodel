@@ -46,10 +46,11 @@ class SituationsController extends Controller
      */
     public function show(Request $request,$id)
     {
-        $backroute = $request->session()->get('backroute');
         $situation = new Situation(['instance_id' => $id]);
         $parent = $situation->instance->instance;
-        return view('situations.show', ['situation' => $situation, 'backroute' => $backroute, 'parent' => $parent]);
+
+        $request->session()->put('backroute', route('clients.show', $parent->id));
+        return view('situations.show', ['situation' => $situation, 'parent' => $parent]);
     }
 
     /**

@@ -179,33 +179,42 @@ class ClientController extends Controller
             ];
         }
 
-        // Upgrade the status.
-        $data['status'] = 2;
-
         // Find the client with the given id.
         $client = new Client(['instance_id' => $id]);
         if($client != null) {
 
             // Update the client with changes.
             $client->setData($data);
+        }
 
-            // Find out if the client is already registered.
-            $registration = Situation::find(['name' => 'Registracija'])->first();
-            if($registration == null) {
-                // Register the situation.
-                $eventData = [
-                    'name' => 'Registracija',
-                    'description' => 'Klijent je registrovan',
-                    'client' => $client->getAttribute('name')->getValue()
-                ];
+        return redirect(route('clients.show', $id));
+    }
 
-                if($file != null) {
-                    $eventData['application_form'] = $data['application_form'];
+    /**
+     * Change the status of the client from 'interested' to 'registered'
+     * @param $id
+     */
+    public function register($id) {
+        if(auth()->user()->isAdmin()) {
+            $client = Client::find($id);
+            if($client != null && $client->getData()['status'] == 1) {
+                // Change status
+                $client->setData(['status' => 2]);
+
+                // Find out if the client is already registered.
+                $registration = $client->getSituation('registracija');
+                if($registration == null) {
+                    // Register the situation.
+                    $eventData = [
+                        'name' => 'Registracija',
+                        'description' => 'Klijent je registrovan',
+                        'client' => $client->getAttribute('name')->getValue()
+                    ];
+
+                    $eventData['application_form'] = $client->getData()['application_form'];
+                    $client->addSituationByData('registracija',$eventData);
                 }
-
-                $client->addSituationByData('registracija',$eventData);
             }
-
         }
 
         return redirect(route('clients.show', $id));
@@ -222,5 +231,42 @@ class ClientController extends Controller
         $this->authorize('manage_user_profiles');
 
         // delete client.
+    }
+
+    public function preselect($id) {
+        $client = Client::find($id);
+        return view('clients.preselect', ['client' => $client]);
+    }
+
+    public function preselected(Request $request, $id) {
+        $data = $request->post();
+        $client = Client::find($id);
+
+        // Handle the uploaded file
+        $file = $request->file('assertion_file');
+        if($file != null) {
+            $originalFileName = $file->getClientOriginalName();
+            $path = $file->store('documents');
+            $path = asset($path);
+            $data['assertion_file'] = [
+                'filename' => $originalFileName,
+                'filelink' => $path,
+            ];
+        }
+
+        $data['name'] = 'Predselekcija';
+        $data['description'] = 'Izbor klijenta u predselekciju';
+
+        // Add situation to the client.
+        $client->addSituationByData('predselekcija',$data);
+
+        if($data['decision'] === 'da') {
+            // Lift status.
+            $client->setData(['status' => 3]);
+        } else {
+            $client->setData(['status' => 5]);
+        }
+
+        return redirect(route('clients.show', $id));
     }
 }

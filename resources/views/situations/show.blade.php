@@ -29,7 +29,7 @@
                     @endif
                 @endforeach
                 <div class="button-bar">
-                    <a href="{{ $backroute }}" class="btn btn-primary">Nazad</a>
+                    <a href="{{ request()->session()->get('backroute') }}" class="btn btn-primary">Nazad</a>
                 </div>
             </div>
             <div class="col-md-2"></div>
