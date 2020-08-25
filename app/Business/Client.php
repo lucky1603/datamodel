@@ -159,7 +159,7 @@ class Client extends BusinessModel
                     ]);
                 }
 
-                $data['decision'] = $data['decision'] == 'da';
+                $data['decision'] = $data['decision'] === 'yes';
 
                 // Odluka
                 if(isset($data['decision'])) {
@@ -249,6 +249,47 @@ class Client extends BusinessModel
                         self::selectOrCreateAttribute(['meeting_date', 'Datum sastanka','datetime'])
                     ],[
                         $data['meeting_date']
+                    ]);
+                }
+
+                $situation->setData($data);
+                $this->addSituation($situation);
+                break;
+            case 'odluka':
+                $situation = new Situation();
+
+                $data['name'] = $situationType;
+                $data['description'] = 'Konačna odluka';
+                $data['sender'] = 'NTP';
+
+                foreach($params as $key => $value) {
+                    $data[$key] = $value;
+                }
+
+                // Beleske sa sastanka.
+                if(isset($data['meeting_notes'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['meeting_notes', 'Beleške sa sastanka','text'])
+                    ],[
+                        $data['meeting_notes']
+                    ]);
+                }
+
+                // Ocena
+                if(isset($data['mark'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['mark', 'Ocena', 'double'])
+                    ],[
+                        $data['mark']
+                    ]);
+                }
+
+                // Odluka
+                if(isset($data['decision'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['decision', 'Odluka','bool'])
+                    ],[
+                        $data['decision']
                     ]);
                 }
 

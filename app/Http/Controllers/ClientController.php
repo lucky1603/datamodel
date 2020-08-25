@@ -322,6 +322,12 @@ class ClientController extends Controller
         return view('clients.confirm', ['client' => $client]);
     }
 
+    /**
+     * Date of the meeting is confirmed.
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function confirmed(Request $request, $id) {
         $client = Client::find($id);
         $data = $request->post();
@@ -339,5 +345,38 @@ class ClientController extends Controller
         // TODO: Notify the client via email.
 
         return redirect(route('clients.show', $id));
+    }
+
+    /**
+     * Perform the the final selection.
+     * @param $id
+     */
+    public function select($id) {
+        $client = Client::find($id);
+        return view('clients.select', ['client' => $client]);
+    }
+
+    public function selected(Request $request, $id) {
+        $client = Client::find($id);
+
+        $data = $request->post();
+        if($data['decision'] === 'yes') {
+            $data['decision'] = true;
+            $client->setData(['status' => 6]);
+
+        } else {
+            $data['decision'] = false;
+            $client->setData(['status' => 7]);
+        }
+
+        $situation = $client->getSituation('odluka');
+        if($situation == null) {
+            $client->addSituationByData('odluka', $data);
+        }
+
+        // TODO: Notify the client by email.
+
+        return redirect(route('clients.show', $id));
+
     }
 }

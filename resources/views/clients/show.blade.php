@@ -17,6 +17,12 @@
             @case('4')
                 <a href="{{ route('clients.confirm', $model->getId()) }}" class="btn btn-lg btn-primary">Potvrda datuma</a>
                 @break
+            @case('5')
+                <a href="{{ route('clients.select', $model->getId()) }}" class="btn btn-lg btn-primary">Finalna selekcija</a>
+                @break
+            @case('6')
+                <a href="#" class="btn btn-lg btn-primary">Dodela prostora</a>
+                @break
         @endswitch
     @endif
 @endsection

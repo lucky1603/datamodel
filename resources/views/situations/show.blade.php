@@ -27,7 +27,11 @@
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-3">{{ $attribute->label }} : </div>
-                            <div class="col-md-5"><strong>{{$attribute->getText()}}</strong></div>
+                            @if($attribute->type === 'bool')
+                                <div class="col-md-5"><strong>{{$attribute->getText() === 'true' ? 'Da' : 'Ne'}}</strong></div>
+                            @else
+                                <div class="col-md-5"><strong>{{$attribute->getText()}}</strong></div>
+                            @endif
                             <div class="col-md-2"></div>
                         </div>
                     @endif
