@@ -12,7 +12,10 @@
                 <a href="{{ route('clients.preselect', $model->getId()) }}" class="btn btn-lg btn-primary">Predselekcija</a>
                 @break
             @case('3')
-                <a href="#" class="btn btn-lg btn-primary">Poziv na sastanak</a>
+                <a href="{{ route('clients.invite', $model->getId()) }}" class="btn btn-lg btn-primary">Poziv na sastanak</a>
+                @break
+            @case('4')
+                <a href="{{ route('clients.confirm', $model->getId()) }}" class="btn btn-lg btn-primary">Potvrda datuma</a>
                 @break
         @endswitch
     @endif

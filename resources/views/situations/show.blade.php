@@ -9,9 +9,13 @@
                     <p>Pregled situacije za <strong>{{ $parent->getAttributeValues()['name'] }}</strong></p>
                 </div>
                 <div class="row justify-content-center" style="margin-bottom: 30px">
-                    <h1>{{ $situation->getData()['name'] }}</h1>
+                    <h1>{{ $situation->getData()['description'] }}</h1>
                 </div>
                 @foreach($situation->getAttributes() as $attribute)
+                    @if($attribute->name === 'name' || $attribute->name === 'description')
+                        @continue
+                    @endif
+
                     @if($attribute->type === 'file')
                         <div class="row">
                             <div class="col-md-2"></div>

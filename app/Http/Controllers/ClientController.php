@@ -215,6 +215,8 @@ class ClientController extends Controller
                     $client->addSituationByData('registracija',$eventData);
                 }
             }
+
+            // TODO: Inform the client, send a mail.
         }
 
         return redirect(route('clients.show', $id));
@@ -260,12 +262,81 @@ class ClientController extends Controller
         // Add situation to the client.
         $client->addSituationByData('predselekcija',$data);
 
-        if($data['decision'] === 'da') {
+        if($data['decision'] === 'yes') {
             // Lift status.
             $client->setData(['status' => 3]);
         } else {
-            $client->setData(['status' => 5]);
+            $client->setData(['status' => 7]);
         }
+
+        // TODO: Inform the client, send a mail.
+
+        return redirect(route('clients.show', $id));
+    }
+
+    /**
+     * Ivite client to meeting form.
+     * @param Client $client
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function invite($id) {
+        $client = Client::find($id);
+        return view('clients.invite', ['client' => $client]);
+    }
+
+    /**
+     * Confirm the client is invited.
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function invited(Request $request, $id) {
+        $client = Client::find($id);
+        $data = $request->post();
+
+        $client->setData(['status' => 4]);
+
+        $situacija = $client->getSituation('sastanak_poziv');
+        if($situacija == null) {
+            $client->addSituationByData('sastanak_poziv', $data);
+        }
+
+        // TODO: Inform the client, send a mail.
+
+        return redirect(route('clients.show', $id));
+    }
+
+    /**
+     * Opens the confirmation form.
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function confirm($id) {
+        $client = Client::find($id);
+        $meeting = $client->getSituation('sastanak_poziv');
+        if($meeting != null) {
+            $date = $meeting->getData()['meeting_date'];
+            return view('clients.confirm', ['client' => $client, 'date' => $date]);
+        }
+
+        return view('clients.confirm', ['client' => $client]);
+    }
+
+    public function confirmed(Request $request, $id) {
+        $client = Client::find($id);
+        $data = $request->post();
+
+        // Change status and save changes.
+        $data['status'] = 5;
+        $client->setData($data);
+
+        // Create situation
+        $situation = $client->getSituation('sastanak_potvrda');
+        if($situation == null) {
+            $client->addSituationByData('sastanak_potvrda', $data);
+        }
+
+        // TODO: Notify the client via email.
 
         return redirect(route('clients.show', $id));
     }

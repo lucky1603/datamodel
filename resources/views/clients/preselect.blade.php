@@ -24,9 +24,9 @@
             <div class="form-group row">
                 <label for="decision" class="col-sm-2 col-form-label">Odluka</label>
                 <div class="col-sm-10" style="margin-top:10px">
-                    <input type="radio" id="da" name="decision" value="da" style="margin-right: 10px">
+                    <input type="radio" id="da" name="decision" value="yes" style="margin-right: 10px">
                     <label for="da">Prošao</label>
-                    <input type="radio" id="ne" name="decision" value="ne" style="margin-left: 20px; margin-right: 10px" checked>
+                    <input type="radio" id="ne" name="decision" value="no" style="margin-left: 20px; margin-right: 10px" checked>
                     <label for="ne">Nije prošao</label>
                 </div>
             </div>

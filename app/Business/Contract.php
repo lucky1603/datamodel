@@ -78,8 +78,8 @@ class Contract extends BusinessModel
                 $situation->addAttribute($document);
 
                 // Default values.
-                $data['name'] = 'Potpis ugovora';
-                $data['description'] = 'Potpisan ugovor sa NTP';
+                $data['name'] = $situationType;
+                $data['description'] = 'Potpis ugovora';
                 if(isset($params)) {
                     foreach($params as $key => $value) {
                         $data[$key] = $value;
@@ -106,7 +106,8 @@ class Contract extends BusinessModel
 
                 // Default values.
                 $data = [
-                    'name' => 'Situation - Isplata prve rate',
+                    'name' => $situationType,
+                    'description' => 'Isplata prve rate',
                     'sender' => 'NTP Beograd',
                     'amount' => 25000,
                     'currency' => 'EUR'

@@ -30,6 +30,10 @@ Route::post('/clients/update/{client}', 'ClientController@update')->name('client
 Route::get('/clients/preselect/{client}', 'ClientController@preselect')->name('clients.preselect');
 Route::post('/clients/preselect/{client}', 'ClientController@preselected')->name('clients.preselected');
 Route::get('/clients/register/{client}', 'ClientController@register')->name('clients.register');
+Route::get('/clients/invite/{client}', 'ClientController@invite')->name('clients.invite');
+Route::post('/clients/invited/{client}', 'ClientController@invited')->name('clients.invited');
+Route::get('/clients/confirm/{client}', 'ClientController@confirm')->name('clients.confirm');
+Route::post('/clients/confirm/{client}', 'ClientController@confirmed')->name('clients.confirmed');
 
 Route::get('/contracts', 'ContractsController@index')->name('contracts.index');
 Route::get('/contracts/create', 'ContractsController@create')->name('contracts.create');

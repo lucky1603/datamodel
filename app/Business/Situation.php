@@ -107,7 +107,7 @@ class Situation extends BusinessModel
         // Time of happening.
         $occurred_at = Attribute::where('name', 'occurred_at')->first();
         if(!$occurred_at) {
-            $occurred_at = Attribute::create(['name' => 'occurred_at', 'label' => "Vreme dešavanja", 'type' => 'datetime']);
+            $occurred_at = Attribute::create(['name' => 'occurred_at', 'label' => "Vreme događaja", 'type' => 'datetime']);
         }
         $attributes[] = $occurred_at;
 

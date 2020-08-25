@@ -79,7 +79,8 @@ class Client extends BusinessModel
 
 
                 $data = [
-                    'name' => 'Situation - Interesovanje',
+                    'name' => $situationType,
+                    'description' => 'Interesovanje',
                     'sender' => $this->getData(['name']),
                 ];
 
@@ -95,8 +96,9 @@ class Client extends BusinessModel
             case 'registracija':
                 $situation = new Situation();
                 $data = [
-                   'name' => 'Situation - registracija',
-                   'sender' => $this->getData(['name'])
+                    'name' => $situationType,
+                    'description' => 'Registracija',
+                    'sender' => 'NTP'
                 ];
 
                 if(isset($params)) {
@@ -127,8 +129,9 @@ class Client extends BusinessModel
             case 'predselekcija':
                 $situation = new Situation();
 
-                $data['name'] = "Predselekcija";
-                $data['description'] = "Prvi krug selekcije";
+                $data['name'] = $situationType;
+                $data['description'] = "Predselekcija";
+                $data['sender'] = 'NTP';
 
                 $situation->setData($data);
 
@@ -188,6 +191,70 @@ class Client extends BusinessModel
 
                 $this->addSituation($situation);
                 break;
+            case 'sastanak_poziv':
+                $situation = new Situation();
+
+                $data['name'] = $situationType;
+                $data['description'] = "Poziv na sastanak";
+                $data['sender'] = 'NTP';
+
+                foreach ($params as $key => $value) {
+                    $data[$key] = $value;
+                }
+
+                // Datum sastanka.
+                if(isset($data['meeting_date'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['meeting_date', 'Datum sastanka','datetime'])
+                    ],[
+                        $data['meeting_date']
+                    ]);
+                }
+
+                // Mesto sastanka.
+                if(isset($data['meeting_place'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['meeting_place', 'Mesto sastanka','varchar'])
+                    ],[
+                        $data['meeting_place']
+                    ]);
+                }
+
+                // Prisutni na sastanku
+                if(isset($data['meeting_participants'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['meeting_participants', 'Prisutni na sastanku','text'])
+                    ],[
+                        $data['meeting_participants']
+                    ]);
+                }
+
+                $situation->setData($data);
+                $this->addSituation($situation);
+                break;
+            case 'sastanak_potvrda':
+                $situation = new Situation();
+
+                $data['name'] = $situationType;
+                $data['description'] = "Potvrda datuma sastanka";
+
+                foreach($params as $key => $value) {
+                    $data[$key] = $value;
+                }
+
+
+                // Datum sastanka.
+                if(isset($data['meeting_date'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['meeting_date', 'Datum sastanka','datetime'])
+                    ],[
+                        $data['meeting_date']
+                    ]);
+                }
+
+                $situation->setData($data);
+                $this->addSituation($situation);
+                break;
             case 'odbijanje':
                 $situation = new Situation();
                 $razlog_odbijanja = Attribute::where('name', 'razlog_odbijanja')->first();
@@ -210,7 +277,8 @@ class Client extends BusinessModel
                 }
                 $situation->addAttribute($datum_sednice);
                 $data = [
-                    'name' => 'Situation - odbijanje kandidature',
+                    'name' => $situationType,
+                    'description' => 'Klijent je odbijen',
                     'sender' => 'NTP Beograd',
                     'datum_sednice' => isset($params['datum_sednice']) ? $params['datum_sednice'] : now(),
                     'razlog_odbijanja' =>  isset($params['razlog_odbijanja']) ? $params['razlog_odbijanja'] : 'Nije dat.',
@@ -382,8 +450,12 @@ class Client extends BusinessModel
             $status->addOption(['value' => 1, 'text' => 'Zainteresovan']);
             $status->addOption(['value' => 2, 'text' => 'Prijavljen']);
             $status->addOption(['value' => 3, 'text' => 'Pre-selektovan']);
-            $status->addOption(['value' => 4, 'text' => 'Prihvaćena prijava']);
-            $status->addOption(['value' => 5, 'text' => 'Odbijena prijava']);
+            $status->addOption(['value' => 4, 'text' => 'Pozvan na sastanak']);
+            $status->addOption(['value' => 5, 'text' => 'Datum sastanka potvrđen']);
+            $status->addOption(['value' => 6, 'text' => 'Prihvaćena prijava']);
+            $status->addOption(['value' => 7, 'text' => 'Odbijena prijava']);
+            $status->addOption(['value' => 8, 'text' => 'Dodeljen prostor']);
+            $status->addOption(['value' => 9, 'text' => 'Potpisan ugovor']);
         }
         $attributes[] = $status;
 
