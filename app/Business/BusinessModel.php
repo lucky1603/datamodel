@@ -178,9 +178,14 @@ class BusinessModel
         $attribute = Attribute::where('name', $array[0])->first();
         if(!isset($attribute)) {
             if(isset($array[3])) {
-                $attribute = Attribute::create(['name' => $array[0], 'label' => $array[1], 'type' => $array[2], 'extra' => $array[3]]);
+                if(is_array($array[3])) {
+                    $collection = collect($array[3]);
+                    $attribute = Attribute::create(['name' => $array[0], 'label' => $array[1], 'type' => $array[2], 'extra' => $collection->toJson(), 'sort_order' => (isset($array[4]) ? $array[4] : 0)]);
+                } else {
+                    $attribute = Attribute::create(['name' => $array[0], 'label' => $array[1], 'type' => $array[2], 'extra' => $array[3], 'sort_order' => (isset($array[4]) ? $array[4] : 0)]);
+                }
             } else {
-                $attribute = Attribute::create(['name' => $array[0], 'label' => $array[1], 'type' => $array[2]]);
+                $attribute = Attribute::create(['name' => $array[0], 'label' => $array[1], 'type' => $array[2] , 'sort_order' => (isset($array[4]) ? $array[4] : 0) ]);
             }
 
         }

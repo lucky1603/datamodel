@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttributesTable extends Migration
+class CreateAttributeGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,32 +13,28 @@ class CreateAttributesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attributes', function (Blueprint $table) {
+        Schema::create('attribute_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('label');
-            $table->string('type');
-            $table->boolean('nullable')->default(true);
-            $table->boolean('unique')->default(false);
-            $table->unsignedInteger('sort_order')->nullable();
-            $table->string('extra')->nullable(true);
+            $table->unsignedInteger("sort_order")->nullable();
             $table->timestamps();
         });
 
-        Schema::create("attribute_entity", function (Blueprint $table) {
+        Schema::create('attribute_attribute_group', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('attribute_id');
-            $table->unsignedBigInteger('entity_id');
+            $table->unsignedBigInteger('attribute_group_id');
             $table->timestamps();
 
-            $table->unique(['attribute_id', 'entity_id']);
+            $table->unique(['attribute_id', 'attribute_group_id']);
             $table->foreign('attribute_id')
+                ->references('id')
                 ->on('attributes')
-                ->references('id')
                 ->onDelete('cascade');
-            $table->foreign('entity_id')
-                ->on('entities')
+            $table->foreign('attribute_group_id')
                 ->references('id')
+                ->on('attribute_groups')
                 ->onDelete('cascade');
         });
     }
@@ -50,7 +46,7 @@ class CreateAttributesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attribute_entity');
-        Schema::dropIfExists('attributes');
+        Schema::dropIfExists('attribute_groups');
+        Schema::dropIfExists('attribute_attribute_group');
     }
 }

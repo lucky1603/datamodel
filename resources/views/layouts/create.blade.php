@@ -10,111 +10,93 @@
             @csrf
             @foreach($attributes as $attribute)
                 @if($attribute->type === 'varchar' && !isset($attribute->extra))
-                    <div class="form-group row">
-                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="{{ $attribute->name }}" name="{{$attribute->name}}">
-                        </div>
+                    <div class="form-group">
+                        <label for="{{ $attribute->name }}">{{ $attribute->label }}</label>
+                        <input type="text" class="form-control" id="{{ $attribute->name }}" name="{{$attribute->name}}">
                     </div>
                 @endif
-                @if($attribute->type === 'varchar' && $attribute->extra === 'email')
-                    <div class="form-group row">
-                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
-                        <div class="col-sm-10">
+                @if(isset($attribute->extra) )
+                    @if($attribute->type === 'varchar' && json_decode($attribute->extra)->ui === 'email')
+                        <div class="form-group">
+                            <label for="{{ $attribute->name }}" >{{ $attribute->label }}</label>
                             <input type="email"
                                    class="form-control @error($attribute->name) is-invalid @enderror"
                                    id="{{ $attribute->name }}"
                                    name="{{$attribute->name}}"
                                    value="{{ old($attribute->name) }}"
                                    required
-                                   autocomplete="{{ $attribute->name }}"
-                            >
-                        </div>
-                    </div>
-                @endif
-                    @if($attribute->type === 'varchar' && $attribute->extra === 'password')
-                        <div class="form-group row">
-                            <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
-                            <div class="col-sm-10">
-                                <input type="password"
-                                       class="form-control @error($attribute->name) is-invalid @enderror"
-                                       id="{{ $attribute->name }}"
-                                       name="{{$attribute->name}}"
-                                       value="{{ old($attribute->name) }}"
-                                       required
-                                       autocomplete="{{ $attribute->name }}"
-                                >
-                            </div>
+                                   autocomplete="{{ $attribute->name }}" >
                         </div>
                     @endif
-                @if($attribute->type === 'integer' || $attribute->type === 'double')
-                    <div class="form-group row">
-                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" id="{{ $attribute->name }}" name="{{$attribute->name}}">
+                    @if($attribute->type === 'varchar' && json_decode($attribute->extra)->ui === 'password')
+                        <div class="form-group">
+                            <label for="{{ $attribute->name }}">{{ $attribute->label }}</label>
+                            <input type="password"
+                                   class="form-control @error($attribute->name) is-invalid @enderror"
+                                   id="{{ $attribute->name }}"
+                                   name="{{$attribute->name}}"
+                                   value="{{ old($attribute->name) }}"
+                                   required
+                                   autocomplete="{{ $attribute->name }}">
                         </div>
+                    @endif
+                @endif
+
+                @if($attribute->type === 'integer' || $attribute->type === 'double')
+                    <div class="form-group">
+                        <label for="{{ $attribute->name }}">{{ $attribute->label }}</label>
+                        <input type="text" class="form-control" id="{{ $attribute->name }}" name="{{$attribute->name}}">
                     </div>
                 @endif
                 @if($attribute->type === 'datetime')
-                    <div class="form-group row">
-                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="datepicker" name="{{$attribute->name}}">
-                        </div>
+                    <div class="form-group">
+                        <label for="{{ $attribute->name }}" >{{ $attribute->label }}</label>
+                        <input type="text" class="form-control" id="datepicker" name="{{$attribute->name}}">
                     </div>
                 @endif
                 @if($attribute->type === 'bool')
-                    <div class="form-group row">
-                        <div class="col-sm-2">{{ $attribute->label }}</div>
-                        <div class="col-sm-10">
+                    <div class="form-group">
+                        {{ $attribute->label }}
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="{{ $attribute->name }}" name="{{$attribute->name}}">
                             </div>
-                        </div>
                     </div>
                 @endif
                 @if($attribute->type === 'select')
                     @if(isset($attribute->extra) && $attribute->extra === 'multiselect')
-                            <div class="form-group row">
-                                <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{$attribute->label}}</label>
-                                <div class="col-sm-10">
-                                    <select id="{{$attribute->name}}[]" name="{{$attribute->name}}[]" class="form-control" multiple>
-                                        @foreach($attribute->getOptions() as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
+                            <div class="form-group">
+                                <label for="{{ $attribute->name }}" >{{$attribute->label}}</label>
+                                <select id="{{$attribute->name}}[]" name="{{$attribute->name}}[]" class="form-control" multiple>
+                                    @foreach($attribute->getOptions() as $key => $value)
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                     @else
-                        <div class="form-group row">
-                            <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{$attribute->label}}</label>
-                            <div class="col-sm-10">
+                        <div class="form-group">
+                            <label for="{{ $attribute->name }}">{{$attribute->label}}</label>
+
                                 <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control">
                                     <option selected>Choose...</option>
                                     @foreach($attribute->getOptions() as $key => $value)
                                         <option value="{{$key}}">{{$value}}</option>
                                     @endforeach
                                 </select>
-                            </div>
+
 
                         </div>
                     @endif
                 @endif
                 @if($attribute->type === 'text')
-                    <div class="form-group row">
-                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3"></textarea>
-                        </div>
+                    <div class="form-group">
+                        <label for="{{ $attribute->name }}">{{ $attribute->label }}</label>
+                        <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3"></textarea>
                     </div>
                 @endif
                 @if($attribute->type === 'file')
                     <div class="form-group row">
-                        <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label">{{ $attribute->label }}</label>
-                        <div class="col-sm-10">
-                            <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{$attribute->name}}">
-                        </div>
+                        <label for="{{ $attribute->name }}">{{ $attribute->label }}</label>
+                        <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{$attribute->name}}">
                     </div>
                 @endif
             @endforeach

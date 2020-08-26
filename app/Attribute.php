@@ -34,7 +34,23 @@ class Attribute extends Model
         return $this->hasMany(AttributeOption::class);
     }
 
+    /**
+     * List groups the attribute belongs to.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function attribute_groups() {
+        return $this->belongsToMany(AttributeGroup::class);
+    }
+
     // Methods.
+
+    /**
+     * Add attribute to group.
+     * @param $group
+     */
+    public function addToGroup($group) {
+        $this->attribute_groups()->sync($group, false);
+    }
 
     /**
      * Gets attribute value in the context of the containing instance.
