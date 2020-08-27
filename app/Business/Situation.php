@@ -93,28 +93,28 @@ class Situation extends BusinessModel
         // Name of the event.
         $name = Attribute::where('name', 'name')->first();
         if(!$name) {
-            $name = Attribute::create(['name' => 'name', 'label' => 'Naziv', 'type' => 'varchar']);
+            $name = Attribute::create(['name' => 'name', 'label' => 'Naziv', 'type' => 'varchar', 'sort_order' => 1]);
         }
         $attributes[] = $name;
 
         // What is it about?
         $description = Attribute::where('name', 'description')->first();
         if(!$description) {
-            $description = Attribute::create(['name' => 'description', 'label' => 'Opis', 'type' => 'text']);
+            $description = Attribute::create(['name' => 'description', 'label' => 'Opis', 'type' => 'text', 'sort_order' => 4]);
         }
         $attributes[] = $description;
 
         // Time of happening.
         $occurred_at = Attribute::where('name', 'occurred_at')->first();
         if(!$occurred_at) {
-            $occurred_at = Attribute::create(['name' => 'occurred_at', 'label' => "Vreme događaja", 'type' => 'datetime']);
+            $occurred_at = Attribute::create(['name' => 'occurred_at', 'label' => "Vreme događaja", 'type' => 'datetime', 'sort_order' => 2]);
         }
         $attributes[] = $occurred_at;
 
         // Situation sender.
         $sender = Attribute::where('name', 'sender')->first();
         if(!$sender) {
-            $sender = Attribute::create(['name' => 'sender', 'label' => 'Pošiljalac', 'type' => 'varchar']);
+            $sender = Attribute::create(['name' => 'sender', 'label' => 'Pošiljalac', 'type' => 'varchar', 'sort_order' => 3]);
         }
         $attributes[] = $sender;
 

@@ -20,4 +20,8 @@ class AttributeGroup extends Model
     public static function get($attributeName) {
         return AttributeGroup::whereName($attributeName)->first();
     }
+
+//    public function getAttributes() {
+//        return $this->attributes()->get()->sortBy('sort_order');
+//    }
 }

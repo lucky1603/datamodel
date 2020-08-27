@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attribute extends Model
 {
-    protected $fillable = ['name', 'label', 'type', 'extra'];
+    protected $fillable = ['name', 'label', 'type', 'extra', 'sort_order'];
 
     // ORM things.
 

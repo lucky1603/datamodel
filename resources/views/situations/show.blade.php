@@ -11,7 +11,7 @@
                 <div class="row justify-content-center" style="margin-bottom: 30px">
                     <h1>{{ $situation->getData()['description'] }}</h1>
                 </div>
-                @foreach($situation->getAttributes() as $attribute)
+                @foreach($situation->getAttributes()->sortBy('sort_order') as $attribute)
                     @if($attribute->name === 'name' || $attribute->name === 'description')
                         @continue
                     @endif

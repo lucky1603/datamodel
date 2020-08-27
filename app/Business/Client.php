@@ -74,7 +74,7 @@ class Client extends BusinessModel
                 $situation = new Situation();
                 $application_form = Attribute::where('name', 'application_form')->first();
                 if(!$application_form) {
-                    $application_form = Attribute::create(['name' => 'application_form', 'label' => 'Obrazac za prijavu', 'type' => 'file']);
+                    $application_form = Attribute::create(['name' => 'application_form', 'label' => 'Obrazac za prijavu', 'type' => 'file', 'sort_order' => 100]);
                 }
                 $situation->addAttribute($application_form);
 
@@ -110,7 +110,7 @@ class Client extends BusinessModel
 
                 if(isset($data['application_form'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['application_form', 'Obrazac za prijavu','file'])
+                        self::selectOrCreateAttribute(['application_form', 'Obrazac za prijavu','file', NULL, 100])
                     ],[
                         $data['application_form']
                     ]);
@@ -118,7 +118,7 @@ class Client extends BusinessModel
 
                 if(isset($data['client'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['client', 'Klijent', 'varchar'])
+                        self::selectOrCreateAttribute(['client', 'Klijent', 'varchar', NULL, 5])
                     ],[
                         $data['client']
                     ]);
@@ -145,7 +145,7 @@ class Client extends BusinessModel
                 // Datum evaluacije.
                 if(isset($data['eval_date'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['eval_date', 'Datum evaluacije', 'datetime'])
+                        self::selectOrCreateAttribute(['eval_date', 'Datum evaluacije', 'datetime', NULL, 5])
                     ],[
                         $data['eval_date']
                     ]);
@@ -154,7 +154,7 @@ class Client extends BusinessModel
                 // Prosecna ocena.
                 if(isset($data['mark'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['mark', 'Prosečna ocena', 'double'])
+                        self::selectOrCreateAttribute(['mark', 'Prosečna ocena', 'double', NULL, 6])
                     ],[
                         $data['mark']
                     ]);
@@ -165,7 +165,7 @@ class Client extends BusinessModel
                 // Odluka
                 if(isset($data['decision'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['decision', 'Da li je prošao', 'bool'])
+                        self::selectOrCreateAttribute(['decision', 'Da li je prošao', 'bool', NULL, 7])
                     ],[
                         $data['decision']
                     ]);
@@ -174,7 +174,7 @@ class Client extends BusinessModel
                 // Primedba.
                 if(isset($data['remark'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['remark', 'Primedba komisije', 'text'])
+                        self::selectOrCreateAttribute(['remark', 'Primedba komisije', 'text', NULL, 8])
                     ],[
                         $data['remark']
                     ]);
@@ -183,7 +183,7 @@ class Client extends BusinessModel
                 // Fajl koji je koriscen za procenu.
                 if(isset($data['assertion_file'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['assertion_file', 'Fajl za evaluaciju','file'])
+                        self::selectOrCreateAttribute(['assertion_file', 'Fajl za evaluaciju','file', NULL, 9])
                     ],[
                         $data['assertion_file']
                     ]);
@@ -206,7 +206,7 @@ class Client extends BusinessModel
                 // Datum sastanka.
                 if(isset($data['meeting_date'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['meeting_date', 'Datum sastanka','datetime'])
+                        self::selectOrCreateAttribute(['meeting_date', 'Datum sastanka','datetime', NULL, 4])
                     ],[
                         $data['meeting_date']
                     ]);
@@ -215,7 +215,7 @@ class Client extends BusinessModel
                 // Mesto sastanka.
                 if(isset($data['meeting_place'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['meeting_place', 'Mesto sastanka','varchar'])
+                        self::selectOrCreateAttribute(['meeting_place', 'Mesto sastanka','varchar', NULL, 5])
                     ],[
                         $data['meeting_place']
                     ]);
@@ -224,7 +224,7 @@ class Client extends BusinessModel
                 // Prisutni na sastanku
                 if(isset($data['meeting_participants'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['meeting_participants', 'Prisutni na sastanku','text'])
+                        self::selectOrCreateAttribute(['meeting_participants', 'Prisutni na sastanku','text', NULL, 6])
                     ],[
                         $data['meeting_participants']
                     ]);
@@ -238,6 +238,7 @@ class Client extends BusinessModel
 
                 $data['name'] = $situationType;
                 $data['description'] = "Potvrda datuma sastanka";
+                $data['sender'] = "NTP";
 
                 foreach($params as $key => $value) {
                     $data[$key] = $value;
@@ -247,7 +248,7 @@ class Client extends BusinessModel
                 // Datum sastanka.
                 if(isset($data['meeting_date'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['meeting_date', 'Datum sastanka','datetime'])
+                        self::selectOrCreateAttribute(['meeting_date', 'Datum sastanka','datetime', NULL, 4])
                     ],[
                         $data['meeting_date']
                     ]);
@@ -270,7 +271,7 @@ class Client extends BusinessModel
                 // Beleske sa sastanka.
                 if(isset($data['meeting_notes'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['meeting_notes', 'Beleške sa sastanka','text'])
+                        self::selectOrCreateAttribute(['meeting_notes', 'Beleške sa sastanka','text', NULL, 4])
                     ],[
                         $data['meeting_notes']
                     ]);
@@ -279,7 +280,7 @@ class Client extends BusinessModel
                 // Ocena
                 if(isset($data['mark'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['mark', 'Ocena', 'double'])
+                        self::selectOrCreateAttribute(['mark', 'Ocena', 'double', NULL, 6])
                     ],[
                         $data['mark']
                     ]);
@@ -288,7 +289,7 @@ class Client extends BusinessModel
                 // Odluka
                 if(isset($data['decision'])) {
                     $situation->addExtraAttributes([
-                        self::selectOrCreateAttribute(['decision', 'Odluka','bool'])
+                        self::selectOrCreateAttribute(['decision', 'Odluka','bool', NULL, 7])
                     ],[
                         $data['decision']
                     ]);
@@ -304,7 +305,8 @@ class Client extends BusinessModel
                     $razlog_odbijanja = Attribute::create([
                         'name' => 'razlog_odbijanja',
                         'label' => 'Razlog odbijanja',
-                        'type' => 'text'
+                        'type' => 'text',
+                        'sort_order' => 5
                     ]);
                 }
                 $situation->addAttribute($razlog_odbijanja);
@@ -314,14 +316,15 @@ class Client extends BusinessModel
                     $datum_sednice = Attribute::create([
                         'name' => 'datum_sednice',
                         'label' => 'Datum zasedanja komisije',
-                        'type' => 'datetime'
+                        'type' => 'datetime',
+                        'sort_order' => 4
                     ]);
                 }
                 $situation->addAttribute($datum_sednice);
                 $data = [
                     'name' => $situationType,
                     'description' => 'Klijent je odbijen',
-                    'sender' => 'NTP Beograd',
+                    'sender' => 'NTP',
                     'datum_sednice' => isset($params['datum_sednice']) ? $params['datum_sednice'] : now(),
                     'razlog_odbijanja' =>  isset($params['razlog_odbijanja']) ? $params['razlog_odbijanja'] : 'Nije dat.',
                 ];
@@ -421,6 +424,8 @@ class Client extends BusinessModel
      */
     public static function getAttributesDefinition($filter=null) {
         $attributes = [];
+
+        // Set GENERAL attributes.
 
         $grupaOpstiPodaci = AttributeGroup::get('general');
         if($grupaOpstiPodaci == null) {
@@ -523,7 +528,6 @@ class Client extends BusinessModel
         // Vrsta članstva
         $membership = self::selectOrCreateAttribute(['membership', 'Članstvo', 'select', NULL, 16]);
         if(count($membership->getOptions()) == 0) {
-            $membership = Attribute::create(['name' => 'membership', 'label' => 'Članstvo', 'type' => 'select']);
             $membership->addOption(['value' => 1, 'text' => 'Virtuelni član']);
             $membership->addOption(['value' => 2, 'text' => 'Punopravni član']);
             $membership->addOption(['value' => 3, 'text' => 'Alumni']);
@@ -534,15 +538,54 @@ class Client extends BusinessModel
         // Prijava za članstvo - dokument.
         $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['application_form', 'Obrazac za prijavu', 'file', NULL, 17]));
 
+        // Set SUPPORT attributes.
 
         $podrska = AttributeGroup::get('support');
         if($podrska == null) {
             $podrska = AttributeGroup::create(['name' => 'support', 'label' => 'Potrebna podrška i dodatne napomene', 'sort_order' => 2]);
         }
 
+        $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
+            'kvadratura',
+            'Kancelarijski poslovni prostor - navedite &#13217',
+            'double',
+            NULL,
+            1
+        ]));
 
+        $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
+            'zajednicke_prostorije',
+            'Korišćenje zajedničkih prostorija',
+            'bool',
+            NULL,
+            2
+        ]));
+
+        $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
+            'inovaciona_laboratorija',
+            'Korišćenje inovacione laboratorije',
+            'bool',
+            NULL,
+            3
+        ]));
+
+        $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
+            'konsalting_usluge',
+            'Konsalting usluge',
+            'bool',
+            NULL,
+            4
+        ]));
 
         return $attributes;
+    }
+
+    public function getAttributeGroups() {
+
+        $groups[] = AttributeGroup::get('general');
+        $groups[] = AttributeGroup::get('support');
+
+        return collect($groups);
     }
 
     // Protected methods. //
@@ -650,5 +693,15 @@ class Client extends BusinessModel
         $this->instance->attachUser($user);
     }
 
+    public function getAttributesForGroup($group) {
+        $groupAttributes = $group->attributes()->get();
+        $clientAttributes = [];
+        foreach($groupAttributes as $groupAttribute) {
+            $clientAttribute = $this->getAttribute($groupAttribute->name);
+            $clientAttributes[] = $clientAttribute;
+        }
+
+        return collect($clientAttributes);
+    }
 
 }

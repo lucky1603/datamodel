@@ -185,7 +185,7 @@ class BusinessModel
                     $attribute = Attribute::create(['name' => $array[0], 'label' => $array[1], 'type' => $array[2], 'extra' => $array[3], 'sort_order' => (isset($array[4]) ? $array[4] : 0)]);
                 }
             } else {
-                $attribute = Attribute::create(['name' => $array[0], 'label' => $array[1], 'type' => $array[2] , 'sort_order' => (isset($array[4]) ? $array[4] : 0) ]);
+                $attribute = Attribute::create(['name' => $array[0], 'label' => $array[1], 'type' => $array[2] ,'extra' => NULL,  'sort_order' => (isset($array[4]) ? $array[4] : 0) ]);
             }
 
         }
@@ -193,7 +193,10 @@ class BusinessModel
         return $attribute;
     }
 
+    public function getAttributeGrups() {}
+
     protected function getEntity() {}
     protected function setAttributes() {}
+
 
 }
