@@ -36,6 +36,7 @@ Route::get('/clients/confirm/{client}', 'ClientController@confirm')->name('clien
 Route::post('/clients/confirm/{client}', 'ClientController@confirmed')->name('clients.confirmed');
 Route::get('/clients/select/{client}', 'ClientController@select')->name('clients.select');
 Route::post('/clients/select/{client}', 'ClientController@selected')->name('clients.selected');
+Route::get('/clients/assign/{client}', 'ClientController@assign')->name('clients.assign');
 
 Route::get('/contracts', 'ContractsController@index')->name('contracts.index');
 Route::get('/contracts/create', 'ContractsController@create')->name('contracts.create');

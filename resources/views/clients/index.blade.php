@@ -30,7 +30,7 @@
                             <td>{{ $client['contact_person'] }}</td>
                             <td>{{ $client['email'] }}</td>
                             <td>{{ $client['telephone'] }}</td>
-                            <td>{{ $client['status'] }}</td>
+                            <td class="@if($client['status'] === 'Odbijena prijava') bad-looking @else good-looking @endif">{{ $client['status'] }}</td>
                         </tr>
                     @endforeach
                 </table>

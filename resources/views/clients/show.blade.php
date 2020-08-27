@@ -21,7 +21,10 @@
                 <a href="{{ route('clients.select', $model->getId()) }}" class="btn btn-lg btn-primary">Finalna selekcija</a>
                 @break
             @case('6')
-                <a href="#" class="btn btn-lg btn-primary">Dodela prostora</a>
+                <a href="{{ route('clients.assign', $model->getId()) }}" class="btn btn-lg btn-primary">Dodela prostora</a>
+                @break
+            @case('8')
+                <a href="#" class="btn btn-lg btn-primary">Potpisivanje ugovora</a>
                 @break
         @endswitch
     @endif

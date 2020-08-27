@@ -379,4 +379,33 @@ class ClientController extends Controller
         return redirect(route('clients.show', $id));
 
     }
+
+    /**
+     * Assigns the infrastructure and support services to the client.
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function assign($id) {
+        $client = Client::find($id);
+
+        // Prepare situation parameters.
+        $data = $client->getData(
+            [
+                'kvadratura',
+                'zajednicke_prostorije',
+                'inovaciona_laboratorija',
+                'konsalting_usluge'
+            ]);
+
+        // Create the situation.
+        $client->addSituationByData('dodela_prostora', $data);
+
+
+        // Shift status up.
+        $client->setData(['status' => 7]);
+
+        // TODO: Notify client per e-mail.
+
+        return redirect(route('clients.show', $id));
+    }
 }

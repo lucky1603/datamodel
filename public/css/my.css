@@ -40,6 +40,14 @@
     margin-right: 2px;
 }
 
+.good-looking {
+    color: #2a9055;
+}
+
+.bad-looking {
+    color: red;
+}
+
 /*.row.zebra:first-of-type {*/
 /*    background-color: #1d643b;*/
 /*}*/

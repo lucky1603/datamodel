@@ -19,14 +19,14 @@
                     @if($attribute->type === 'file')
                         <div class="row">
                             <div class="col-md-2"></div>
-                            <div class="col-md-3">{{ $attribute->label }} : </div>
+                            <div class="col-md-3">{!! $attribute->label !!} : </div>
                             <div class="col-md-5"><a href="{{ $attribute->getValue()['filelink']}}"><strong>{{$attribute->getValue()['filename']}}</strong></a></div>
                             <div class="col-md-2"></div>
                         </div>
                     @else
                         <div class="row">
                             <div class="col-md-2"></div>
-                            <div class="col-md-3">{{ $attribute->label }} : </div>
+                            <div class="col-md-3">{!! $attribute->label !!} : </div>
                             @if($attribute->type === 'bool')
                                 <div class="col-md-5"><strong>{{$attribute->getText() === 'true' ? 'Da' : 'Ne'}}</strong></div>
                             @else

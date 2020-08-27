@@ -298,6 +298,90 @@ class Client extends BusinessModel
                 $situation->setData($data);
                 $this->addSituation($situation);
                 break;
+            case 'dodela_prostora':
+                $situation = new Situation();
+
+                $data['name'] = $situationType;
+                $data['description'] = 'Klijentu se dodeljuju zahtevani servisi i infrastruktura';
+                $data['sender'] = 'NTP';
+
+                foreach ($params as $key => $value) {
+                    $data[$key] = $value;
+                }
+
+
+                if(isset($data['kvadratura'])) {
+                    $attribute = self::selectOrCreateAttribute([
+                        'kvadratura',
+                        'Kancelarijski poslovni prostor - navedite &#13217',
+                        'double',
+                        NULL,
+                        4
+                    ]);
+
+                    // In the case that attribute exists, it has oder sort_order
+                    // and will not take the value from the argument. We have to
+                    // adjust it for the current use.
+                    $attribute->sort_order = 4;
+                    $attribute->save();
+                    $situation->addExtraAttributes([$attribute], [$data['kvadratura']]);
+                }
+
+                if(isset($data['zajednicke_prostorije'])) {
+                    $attribute = self::selectOrCreateAttribute([
+                        'zajednicke_prostorije',
+                        'Korišćenje zajedničkih prostorija',
+                        'bool',
+                        NULL,
+                        5
+                    ]);
+
+                    // In the case that attribute exists, it has oder sort_order
+                    // and will not take the value from the argument. We have to
+                    // adjust it for the current use.
+                    $attribute->sort_order = 5;
+                    $attribute->save();
+                    $situation->addExtraAttributes([$attribute], [$data['zajednicke_prostorije']]);
+                }
+
+                if(isset($data['inovaciona_laboratorija']))
+                {
+                    $attribute = self::selectOrCreateAttribute([
+                        'inovaciona_laboratorija',
+                        'Korišćenje inovacione laboratorije',
+                        'bool',
+                        NULL,
+                        6
+                    ]);
+
+                    // In the case that attribute exists, it has oder sort_order
+                    // and will not take the value from the argument. We have to
+                    // adjust it for the current use.
+                    $attribute->sort_order = 6;
+                    $attribute->save();
+                    $situation->addExtraAttributes([$attribute], [$data['inovaciona_laboratorija']]);
+                }
+
+                if(isset($data['konsalting_usluge'])) {
+                    $attribute = self::selectOrCreateAttribute([
+                        'konsalting_usluge',
+                        'Konsalting usluge',
+                        'bool',
+                        NULL,
+                        7
+                    ]);
+
+                    // In the case that attribute exists, it has oder sort_order
+                    // and will not take the value from the argument. We have to
+                    // adjust it for the current use.
+                    $attribute->sort_order = 7;
+                    $attribute->save();
+                    $situation->addExtraAttributes([$attribute], [$data['konsalting_usluge']]);
+                }
+
+                $situation->setData($data);
+                $this->addSituation($situation);
+                break;
             case 'odbijanje':
                 $situation = new Situation();
                 $razlog_odbijanja = Attribute::where('name', 'razlog_odbijanja')->first();
