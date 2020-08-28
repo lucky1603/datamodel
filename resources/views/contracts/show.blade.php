@@ -1,12 +1,13 @@
 @extends('layouts.show')
 
 @section('head')
-    <p style="text-align: center">između</p>
+    <div style="text-align: center">između</div>
     <h3 style="text-align: center">NTP Beograd</h3>
-    <p style="text-align: center">i</p>
-    <h3 style="text-align: center">{{ $client->getData()['name'] }}</h3>
+    <div style="text-align: center">i</div>
+    <h3 style="text-align: center"><a href="{{ route('clients.show', $client->getId()) }}">{{ $client->getData()['name'] }}</a></h3>
+    <div style="height: 30px"></div>
 @endsection
 
 @section('returns')
-    <a href="{{ route('contracts.index') }}" class="btn btn-lg btn-link btn-outline-info">Back</a>
+    <a href="{{ request()->session()->get('backroute') }}" class="btn btn-lg btn-link btn-outline-info">Back</a>
 @endsection

@@ -42,6 +42,7 @@ Route::get('/clients/assign_contract_date/{client}', 'ClientController@assignCon
 Route::post('/clients/assign_contract_date/{client}', 'ClientController@assignedContractDate')->name('clients.assignedContractDate');
 Route::get('/clients/confirm_contract_date/{client}', 'ClientController@confirmContractDate')->name('clients.confirmContractDate');
 Route::post('/clients/confirm_contract_date/{client}', 'ClientController@confirmedContractDate')->name('clients.confirmedContractDate');
+Route::get('/clients/show_contract/{client}', 'ClientController@showContract')->name('clients.showContract');
 
 Route::get('/contracts', 'ContractsController@index')->name('contracts.index');
 Route::get('/contracts/create/{client}', 'ContractsController@create')->name('contracts.create');

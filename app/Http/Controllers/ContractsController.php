@@ -84,7 +84,7 @@ class ContractsController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $request->session()->put('backroute', route('contracts.show', $id));
+        $request->session()->put('backroute', route('contracts.index'));
 
         $contract = new Contract(['instance_id' => $id]);
         $situations = $contract->getSituations();

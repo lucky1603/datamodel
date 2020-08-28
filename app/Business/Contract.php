@@ -234,6 +234,19 @@ class Contract extends BusinessModel
     }
 
     /**
+     * Returns the client that owns the contract.
+     * @return Client|Contract|\Illuminate\Support\Collection|null
+     */
+    public function getClient() {
+        if($this->instance->instance != null) {
+            $client = Client::find($this->instance->instance->id);
+            return $client;
+        }
+
+        return null;
+    }
+
+    /**
      * Initializes the attributes.
      */
     protected function setAttributes() {
@@ -281,6 +294,5 @@ class Contract extends BusinessModel
 
         return $entity;
     }
-
 
 }

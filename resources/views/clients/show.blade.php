@@ -6,7 +6,7 @@
     </div>
     @if($model->getContracts()->count() > 0)
         <?php $contract = $model->getContracts()->first();?>
-        <a href="{{ route('contracts.show', $contract->instance->id) }}">{{ $contract->getData()['name'] }}</a>
+        <a href="{{ route('clients.showContract', $model->getId()) }}">{{ $contract->getData()['name'] }}</a>
     @endif
 @endsection
 

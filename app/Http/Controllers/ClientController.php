@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Business\Contract;
 use App\Business\Situation;
 use Illuminate\Http\Request;
 use App\Business\Client;
@@ -460,5 +461,20 @@ class ClientController extends Controller
         // TODO: Notify the client via email.
 
         return redirect(route('clients.show', $id));
+    }
+
+    /**
+     * Shows the contract of the given client.
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showContract(Request $request, $id) {
+        $client = Client::find($id);
+        $contract = $client->getContracts()->first();
+        $request->session()->put('backroute', route('clients.show', $id));
+        $situations = $contract->getSituations();
+        return view('contracts.show', ['model' => $contract, 'situations' => $situations, 'client' => $client]);
+
     }
 }
