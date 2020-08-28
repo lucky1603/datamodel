@@ -31,6 +31,21 @@ class Client extends BusinessModel
     }
 
     /**
+     * Gets the collection of belonging contracts.
+     * @return \Illuminate\Support\Collection
+     */
+    public function getContracts() {
+        $contracts = [];
+        foreach($this->instance->instances as $instance) {
+            if($instance->entity->name === 'Contract' && $instance->instance->entity->name === 'Client') {
+                $contracts[] = new Contract(['instance_id' => $instance->id]);
+            }
+        }
+
+        return collect($contracts);
+    }
+
+    /**
      * Get situation with given key.
      * @param $key
      * @return mixed
@@ -65,6 +80,13 @@ class Client extends BusinessModel
         $this->instance->instances()->save($situation->instance);
         $this->instance->refresh();
         return $situation;
+    }
+
+
+    public function addContract(Contract $contract) {
+        $this->instance->instances()->save($contract->instance);
+        $this->instance->refresh();
+        return $contract;
     }
 
     public function addSituationByData($situationType, $params) {
@@ -382,6 +404,108 @@ class Client extends BusinessModel
                 $situation->setData($data);
                 $this->addSituation($situation);
                 break;
+            case 'ugovor_poziv':
+                $situation = new Situation();
+
+                $data['name'] = $situationType;
+                $data['description'] = "Poziv na potpis ugovora";
+                $data['sender'] = 'NTP';
+
+                foreach ($params as $key => $value) {
+                    $data[$key] = $value;
+                }
+
+                // Datum sastanka.
+                if(isset($data['meeting_date'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['meeting_date', 'Datum sastanka','datetime', NULL, 4])
+                    ],[
+                        $data['meeting_date']
+                    ]);
+                }
+
+                // Mesto sastanka.
+                if(isset($data['meeting_place'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['meeting_place', 'Mesto sastanka','varchar', NULL, 5])
+                    ],[
+                        $data['meeting_place']
+                    ]);
+                }
+
+                // Prisutni na sastanku
+                if(isset($data['meeting_participants'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['meeting_participants', 'Prisutni na sastanku','text', NULL, 6])
+                    ],[
+                        $data['meeting_participants']
+                    ]);
+                }
+
+                $situation->setData($data);
+                $this->addSituation($situation);
+                break;
+            case 'ugovor_potvrda':
+                $situation = new Situation();
+
+                $data['name'] = $situationType;
+                $data['description'] = "Potvrda datuma potpisa ugovora";
+                $data['sender'] = "NTP";
+
+                foreach($params as $key => $value) {
+                    $data[$key] = $value;
+                }
+
+                // Datum sastanka.
+                if(isset($data['meeting_date'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['meeting_date', 'Datum sastanka','datetime', NULL, 4])
+                    ],[
+                        $data['meeting_date']
+                    ]);
+                }
+
+                $situation->setData($data);
+                $this->addSituation($situation);
+                break;
+            case 'ugovor_potpis':
+                $situation = new Situation();
+                $data['name'] = $situationType;
+                $data['description'] = 'Potpisivanje ugovora';
+                $data['sender'] = 'NTP';
+                foreach ($params as $key => $value) {
+                    $data[$key] = $value;
+                }
+
+                if(isset($data['signed_at'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['signed_at', 'Potpisan dana', 'datetime', NULL, 6])
+                    ],
+                    [
+                        $data['signed_at']
+                    ]);
+                }
+
+                if(isset($data['valid_through'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['valid_through', 'Važi do', 'datetime', NULL, 7])
+                    ],[
+                        $data['valid_through']
+                    ]);
+                }
+
+                if(isset($data['contract_document'])) {
+                    $situation->addExtraAttributes([
+                        self::selectOrCreateAttribute(['contract_document', 'Dokument ugovora', 'file', NULL, 8])
+                    ],[
+                        $data['contract_document']
+                    ]);
+                }
+
+                $situation->setData($data);
+                $this->addSituation($situation);
+
+                break;
             case 'odbijanje':
                 $situation = new Situation();
                 $razlog_odbijanja = Attribute::where('name', 'razlog_odbijanja')->first();
@@ -591,7 +715,9 @@ class Client extends BusinessModel
             $status->addOption(['value' => 6, 'text' => 'Prihvaćena prijava']);
             $status->addOption(['value' => 7, 'text' => 'Odbijena prijava']);
             $status->addOption(['value' => 8, 'text' => 'Dodeljen prostor']);
-            $status->addOption(['value' => 9, 'text' => 'Potpisan ugovor']);
+            $status->addOption(['value' => 9, 'text' => 'Pozvan na potpis ugovora']);
+            $status->addOption(['value' => 10, 'text' => 'Potvrdjen datum potpisa ugovora']);
+            $status->addOption(['value' => 11, 'text' => 'Potpisan ugovor']);
         }
         $attributes[] = $grupaOpstiPodaci->addAttribute($status);
 

@@ -15,7 +15,7 @@
     <script src="{{ asset('js/jquery-ui.js') }}" ></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#datepicker').datepicker({
+            $('.datepicker').datepicker({
                 changeMonth:true,
                 changeYear:true,
                 dateFormat:'yy-mm-dd'

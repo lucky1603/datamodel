@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Business\Client;
 use App\Business\Contract;
+use App\Business\Situation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,13 +17,8 @@ class ContractsController extends Controller
      */
     public function index()
     {
-        $contracts = Contract::find()->all();
-        $contractsArray = [];
-        foreach($contracts as $contract) {
-            $contractsArray[$contract->getId()] = $contract->getAttributeTexts();
-        }
-
-        return view('contracts.index', ['contracts' => $contractsArray]);
+        $contracts = collect(Contract::find()->all());
+        return view('contracts.index', ['contracts' => $contracts]);
     }
 
     /**
@@ -30,11 +26,12 @@ class ContractsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
+        $client = Client::find($id);
         $attributes = Contract::getAttributesDefinition();
-        $action = route('contracts.store');
-        return view('contracts.create', ['attributes' => $attributes, 'action' => $action]);
+        $action = route('contracts.store', $client->getId());
+        return view('contracts.create', ['attributes' => $attributes, 'action' => $action, 'client' => $client]);
     }
 
     /**
@@ -43,7 +40,7 @@ class ContractsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $data = $request->post();
         $file = $request->file('contract_document');
@@ -61,9 +58,22 @@ class ContractsController extends Controller
                'name' => 'Potpis ugovora',
                 'description' => "Klijent je potpisao ugovor"
             ]);
+
         }
 
-        return redirect(route('contracts.index'));
+        $client = Client::find($id);
+        $client->setData(['status' => 11]);
+        if($contract != null) {
+            $client->addContract($contract);
+        }
+
+        // Create situation
+        $situation = $client->getSituation('ugovor_potpis');
+        if($situation == null) {
+            $client->addSituationByData('ugovor_potpis', $data);
+        }
+
+        return redirect(route('clients.show', $id));
     }
 
     /**
@@ -78,7 +88,8 @@ class ContractsController extends Controller
 
         $contract = new Contract(['instance_id' => $id]);
         $situations = $contract->getSituations();
-        return view('contracts.show', ['model' => $contract, 'situations' => $situations]);
+        $client = Client::find($contract->instance->parent_id);
+        return view('contracts.show', ['model' => $contract, 'situations' => $situations, 'client' => $client]);
     }
 
     /**

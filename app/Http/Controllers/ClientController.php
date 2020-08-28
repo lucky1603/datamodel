@@ -402,9 +402,62 @@ class ClientController extends Controller
 
 
         // Shift status up.
-        $client->setData(['status' => 7]);
+        $client->setData(['status' => 8]);
 
         // TODO: Notify client per e-mail.
+
+        return redirect(route('clients.show', $id));
+    }
+
+    public function assignContractDate($id) {
+        $client = Client::find($id);
+        return view('clients.assigncontractdate', ['client' => $client]);
+    }
+
+    public function assignedContractDate(Request $request, $id) {
+
+        $client = Client::find($id);
+        $data = $request->post();
+
+        $client->setData(['status' => 9]);
+
+        $situacija = $client->getSituation('ugovor_poziv');
+        if($situacija == null) {
+            $client->addSituationByData('ugovor_poziv', $data);
+        }
+
+        // TODO: Inform the client, send a mail.
+
+        return redirect(route('clients.show', $id));
+
+    }
+
+    public function confirmContractDate($id) {
+        $client = Client::find($id);
+        $meeting = $client->getSituation('ugovor_poziv');
+        if($meeting != null) {
+            $date = $meeting->getData()['meeting_date'];
+            return view('clients.confirmContractDate', ['client' => $client, 'date' => $date]);
+        }
+
+        return view('clients.confirmContractDate', ['client' => $client]);
+    }
+
+    public function confirmedContractDate(Request $request, $id) {
+        $client = Client::find($id);
+        $data = $request->post();
+
+        // Change status and save changes.
+        $data['status'] = 10;
+        $client->setData($data);
+
+        // Create situation
+        $situation = $client->getSituation('ugovor_potvrda');
+        if($situation == null) {
+            $client->addSituationByData('ugovor_potvrda', $data);
+        }
+
+        // TODO: Notify the client via email.
 
         return redirect(route('clients.show', $id));
     }

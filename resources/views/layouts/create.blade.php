@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="justify-content-center">
             @yield('title')
         </div>
 
@@ -51,7 +51,7 @@
                 @if($attribute->type === 'datetime')
                     <div class="form-group">
                         <label for="{{ $attribute->name }}" >{{ $attribute->label }}</label>
-                        <input type="text" class="form-control" id="datepicker" name="{{$attribute->name}}">
+                        <input type="text" class="form-control datepicker" name="{{$attribute->name}}">
                     </div>
                 @endif
                 @if($attribute->type === 'bool')

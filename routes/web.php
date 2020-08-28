@@ -37,10 +37,15 @@ Route::post('/clients/confirm/{client}', 'ClientController@confirmed')->name('cl
 Route::get('/clients/select/{client}', 'ClientController@select')->name('clients.select');
 Route::post('/clients/select/{client}', 'ClientController@selected')->name('clients.selected');
 Route::get('/clients/assign/{client}', 'ClientController@assign')->name('clients.assign');
+Route::post('/clients/assign/{client}', 'ClientController@assigned')->name('clients.assigned');
+Route::get('/clients/assign_contract_date/{client}', 'ClientController@assignContractDate')->name('clients.assignContractDate');
+Route::post('/clients/assign_contract_date/{client}', 'ClientController@assignedContractDate')->name('clients.assignedContractDate');
+Route::get('/clients/confirm_contract_date/{client}', 'ClientController@confirmContractDate')->name('clients.confirmContractDate');
+Route::post('/clients/confirm_contract_date/{client}', 'ClientController@confirmedContractDate')->name('clients.confirmedContractDate');
 
 Route::get('/contracts', 'ContractsController@index')->name('contracts.index');
-Route::get('/contracts/create', 'ContractsController@create')->name('contracts.create');
-Route::post('/contracts/create', 'ContractsController@store')->name('contracts.store');
+Route::get('/contracts/create/{client}', 'ContractsController@create')->name('contracts.create');
+Route::post('/contracts/create/{client}', 'ContractsController@store')->name('contracts.store');
 Route::get('/contracts/{contract}', 'ContractsController@show')->name('contracts.show');
 
 Route::get('/files/create', 'FileController@create')->name('files.create');

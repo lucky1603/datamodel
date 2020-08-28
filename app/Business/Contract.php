@@ -208,19 +208,29 @@ class Contract extends BusinessModel
     public static function getAttributesDefinition() {
         $attributes = [];
 
-        $attributes[] = self::selectOrCreateAttribute(['name', 'Naziv', 'varchar']);
-        $attributes[] = self::selectOrCreateAttribute(['description', 'Opis', 'varchar']);
-        $attributes[] = self::selectOrCreateAttribute(['contractor1', 'Prvi potpisnik', 'varchar']);
-        $attributes[] = self::selectOrCreateAttribute(['contractor2', 'Drugi potpisnik', 'varchar']);
-        $attributes[] = self::selectOrCreateAttribute(['amount', 'Iznos', 'varchar']);
-        $attributes[] = self::selectOrCreateAttribute(['currency', 'Valuta', 'varchar']);
-        $attributes[] = self::selectOrCreateAttribute(['contract_subject', 'Predmet ugovora', 'text']);
-        $attributes[] = self::selectOrCreateAttribute(['signet_at', 'Potpisan dana', 'datetime']);
-        $attributes[] = self::selectOrCreateAttribute(['valid_through', 'Važi do', 'datetime']);
-        $attributes[] = self::selectOrCreateAttribute(['contract_document', 'Dokument ugovora', 'file']);
+        $attributes[] = self::selectOrCreateAttribute(['name', 'Naziv', 'varchar', NULL, 1]);
+        $attributes[] = self::selectOrCreateAttribute(['description', 'Opis', 'varchar', NULL, 2]);
+        $attributes[] = self::selectOrCreateAttribute(['amount', 'Iznos', 'varchar', NULL, 3]);
+        $attributes[] = self::selectOrCreateAttribute(['currency', 'Valuta', 'varchar', NULL, 4]);
+        $attributes[] = self::selectOrCreateAttribute(['contract_subject', 'Predmet ugovora', 'text', NULL, 5]);
+        $attributes[] = self::selectOrCreateAttribute(['signed_at', 'Potpisan dana', 'datetime', NULL, 6]);
+        $attributes[] = self::selectOrCreateAttribute(['valid_through', 'Važi do', 'datetime', NULL, 7]);
+        $attributes[] = self::selectOrCreateAttribute(['contract_document', 'Dokument ugovora', 'file', NULL, 8]);
 
         return $attributes;
 
+    }
+
+    public function getAttributeGroups() {
+
+        // Empty, for now.
+        return collect([]);
+    }
+
+    public function getAttributesForGroup($group) {
+
+        // Empty, for now.
+        return collect([]);
     }
 
     /**
@@ -232,14 +242,6 @@ class Contract extends BusinessModel
         Value::put($this->instance->id,
             Attribute::where('name','name')->first(),
             isset($this->data['name']) ? $this->data['name'] : 'Some contract');
-
-        $this->getAttribute('contractor1')->setValue(
-            isset($this->data['contractor1']) ? $this->data['contractor1'] : 'Prvi ugovarač'
-        );
-
-        $this->getAttribute('contractor2')->setValue(
-            isset($this->data['contractor2']) ? $this->data['contractor2'] : 'Drugi ugovarač'
-        );
 
         Value::put($this->instance->id,
             Attribute::where('name','contract_subject')->first(),

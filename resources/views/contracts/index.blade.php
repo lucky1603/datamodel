@@ -6,10 +6,9 @@
             <div class="col-md-10">
                 <div style="height: 50px;">
                     <h1 style="float: left">Lista ugovora</h1>
-                    <a href="{{ route('contracts.create') }}" class="btn btn-primary" style="float: right;margin-top: 5px">Novi ugovor</a>
                 </div>
 
-                @if(count($contracts) === 0)
+                @if($contracts->count() === 0)
                     <hr/>
                     <p>Lista je prazna!</p>
                 @else
@@ -24,10 +23,14 @@
                         @foreach($contracts as $contract)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td><a href="{{ route('contracts.show', $contract['id']) }}">{{ $contract['name'] }}</a></td>
-                                <td>{{ $contract['contractor1'] }}</td>
-                                <td>{{ $contract['contractor2'] }}</td>
-                                <td>{{ $contract['amount'] }}</td>
+                                <td><a href="{{ route('contracts.show', $contract->getId()) }}">{{ $contract->getData()['name'] }}</a></td>
+                                <td>NTP Beograd</td>
+                                <?php
+                                    $clientId = $contract->instance->parent_id;
+                                    $client = App\Business\Client::find($clientId);
+                                ?>
+                                <td>{{ $client->getData()['name'] }} </td>
+                                <td>{{ $contract->getData()['amount'] }}</td>
                             </tr>
                         @endforeach
                     </table>
