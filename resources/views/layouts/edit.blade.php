@@ -14,6 +14,9 @@
             @foreach($model->getAttributeGroups()->sortBy('sort_order') as $attributeGroup)
                 <h3 style="text-align: center">{{ $attributeGroup->label }}</h3>
                 @foreach($model->getAttributesForGroup($attributeGroup)->sortBy('sort_order') as $attribute)
+                    @if($attribute->name == 'status')
+                        @continue
+                    @endif
                     @if($attribute->type === 'varchar' && !isset($attribute->extra))
                         <div class="form-group">
                             <label for="{{ $attribute->name }}">{!! $attribute->label !!}</label>

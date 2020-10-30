@@ -46,7 +46,13 @@ class ClientController extends Controller
     {
         $this->authorize('manage_user_profiles');
 
-        $attributes = Client::getAttributesDefinition('start');
+        $attributes = collect(Client::getAttributesDefinition('start'));
+
+        // Remove 'status' attribute.
+        $attributes = $attributes->reject(function($item, $key) {
+             return $item->name == 'status';
+        });
+
         $action = route('clients.store');
         return view('clients.create', ['attributes' => $attributes, 'action' => $action]);
     }
@@ -77,6 +83,9 @@ class ClientController extends Controller
         if(isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         }
+
+        // Initial status value - 'interested'.
+        $data['status'] = 1;
 
         // Create new client.
         $client = new Client($data);

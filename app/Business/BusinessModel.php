@@ -154,6 +154,14 @@ class BusinessModel
         return $this->getAttributes()->where($query)->first();
     }
 
+    /** Returns the attribute set for the creation form.
+     * @return mixed
+     */
+    public function getInitialAttributes() {
+        $initAttributesNamesCollection = $this->getInitAttributesNamesCollection();
+        return $this->getAttributes()->whereIn('name', $initAttributesNamesCollection);
+    }
+
     /**
      * Returns the textual interpretations of the attribute values.
      * @return array
@@ -194,7 +202,7 @@ class BusinessModel
     }
 
     public function getAttributeGrups() {}
-
+    protected function getInitAttributesNamesCollection() {}
     protected function getEntity() {}
     protected function setAttributes() {}
 
