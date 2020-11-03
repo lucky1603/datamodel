@@ -89,7 +89,7 @@ class Attribute extends Model
 
             return $returnText;
         } else if ($this->type === 'bool') {
-            return $value === false ? 'false' : 'true';
+            return $value === false ? 'ne' : 'da';
         } else if ($this->type === 'file') {
             return isset($value['filename']) ? $value['filename'] : '';
         } else

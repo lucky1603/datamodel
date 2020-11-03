@@ -626,7 +626,118 @@ class Client extends BusinessModel
         return Client::find();
     }
 
+    /**
+     * Returns the set of attributes, neccessary for the creation.
+     * @return array
+     */
+    public static function getCreateAttributesDefinitions() {
+        $attributes = [];
 
+        // Name.
+        $attributes[] = self::selectOrCreateAttribute(['name', 'Naziv', 'varchar', NULL, 1]);
+
+        // Contact person.
+        $attributes[] = self::selectOrCreateAttribute(['contact_person', 'Osoba za kontakt', 'varchar', NULL, 2]);
+
+        // E-mail
+        $attributes[] = self::selectOrCreateAttribute(['email', 'E-mail', 'varchar', ['ui' => 'email'], 3]);
+
+        // Password
+        $attributes[] = self::selectOrCreateAttribute(['password', 'Lozinka', 'varchar', ['ui' => 'password'], 4]);
+
+        // Telephone.
+        $attributes[] = self::selectOrCreateAttribute(['telephone', 'Telefon', 'varchar', NULL, 5]);
+
+        // University.
+        $attributes[] = self::selectOrCreateAttribute(['university', 'Fakultet', 'varchar', NULL, 6]);
+
+        // Short inovation desc.
+        $attributes[] = self::selectOrCreateAttribute(['ino_desc', 'Kratak opis inovacije', 'text', NULL, 7]);
+
+        // Fields of interest
+        $fields_of_interest = self::selectOrCreateAttribute(['interests', 'Oblast poslovanja', 'select', NULL, 8]);
+        if(count($fields_of_interest->getOptions()) == 0) {
+            $fields_of_interest->addOption(['value' => 1, 'text' => 'IoT и паметни градови']);
+            $fields_of_interest->addOption(['value' => 2, 'text' => 'Енергетска ефикасност, зелене, чисте технологије и екологија']);
+            $fields_of_interest->addOption(['value' => 3, 'text' => 'Вештачка интелигенција, базе података и аналитика']);
+            $fields_of_interest->addOption(['value' => 4, 'text' => 'Прехрана, суплементи и фармацеутски производи']);
+            $fields_of_interest->addOption(['value' => 5, 'text' => 'Нови материјали и 3Д штампа']);
+            $fields_of_interest->addOption(['value' => 6, 'text' => 'Технологија у спорту']);
+            $fields_of_interest->addOption(['value' => 7, 'text' => 'Економске трансакције, финансије, маркетинг и продаја']);
+            $fields_of_interest->addOption(['value' => 8, 'text' => 'Роботика и аутоматизација']);
+            $fields_of_interest->addOption(['value' => 9, 'text' => 'Туризам и путовања']);
+            $fields_of_interest->addOption(['value' => 10, 'text' => 'Едукација, образовање и усавршавање']);
+            $fields_of_interest->addOption(['value' => 11, 'text' => 'Медији, комуникације и друштвене мреже/  Гејминг  и забава']);
+            $fields_of_interest->addOption(['value' => 12, 'text' => 'Медицинске технологије']);
+            $fields_of_interest->addOption(['value' => 13, 'text' => 'Остало']);
+        }
+        $attributes[] = $fields_of_interest;
+
+        $attributes[] = self::selectOrCreateAttribute(["ostalo_opis", 'Ako ste izabrali "Ostalo" napišite koja je to oblast poslovanja','varchar', NULL, 9]);
+
+        // Why contact us?
+        $reason_contact = self::selectOrCreateAttribute(['reason_contact', 'Zašto nas kontaktirate?', 'select', NULL, 10]);
+        if(count($reason_contact->getOptions()) == 0) {
+            $reason_contact->addOption(['value' => 1, 'text' => 'Opcija 1']);
+            $reason_contact->addOption(['value' => 2, 'text' => 'Opcija 2']);
+            $reason_contact->addOption(['value' => 3, 'text' => 'Opcija 3']);
+        }
+        $attributes[] = $reason_contact;
+
+        // Notes (mi unosimo)
+        $attributes[] = self::selectOrCreateAttribute(['notes', 'Naša napomena', 'text', NULL, 11]);
+
+        return $attributes;
+    }
+
+    /**
+     * Get support attributes definitions.
+     * @return array
+     */
+    private static function getSupportAttributes() {
+        $attributes = [];
+
+        // Set SUPPORT attributes.
+
+        $podrska = AttributeGroup::get('support');
+        if($podrska == null) {
+            $podrska = AttributeGroup::create(['name' => 'support', 'label' => 'Potrebna podrška i dodatne napomene', 'sort_order' => 2]);
+        }
+
+        $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
+            'kvadratura',
+            'Kancelarijski poslovni prostor - navedite &#13217',
+            'double',
+            NULL,
+            1
+        ]));
+
+        $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
+            'zajednicke_prostorije',
+            'Korišćenje zajedničkih prostorija',
+            'bool',
+            NULL,
+            2
+        ]));
+
+        $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
+            'inovaciona_laboratorija',
+            'Korišćenje inovacione laboratorije',
+            'bool',
+            NULL,
+            3
+        ]));
+
+        $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
+            'konsalting_usluge',
+            'Konsalting usluge',
+            'bool',
+            NULL,
+            4
+        ]));
+
+        return $attributes;
+    }
 
     /**
      * Returns the collection of attributes typical for this type of instance.
@@ -729,7 +840,11 @@ class Client extends BusinessModel
         );
 
         $this->instance->attributes->where('name', 'date_interested')->first()->setValue(
-            isset($this->data['date_interested']) ? $this->data['date_interested'] : now()
+            isset($this->data['date_interested']) ? $this->data['date_interested'] : NULL
+        );
+
+        $this->instance->attributes->where('name', 'date_registered')->first()->setValue(
+            isset($this->data['date_registered']) ? $this->data['date_registered'] : NULL
         );
 
         $this->instance->attributes->where('name', 'interests')->first()->setValue(
@@ -764,12 +879,12 @@ class Client extends BusinessModel
             isset($this->data['membership']) ? $this->data['membership'] : 1
         );
 
-        $this->instance->attributes->where('name', 'application_form')->first()->setValue(
-            isset($this->data['application_form']) ? $this->data['application_form'] : [
-                'filename' => '',
-                'filelink' => '',
-            ]
-        );
+//        $this->instance->attributes->where('name', 'application_form')->first()->setValue(
+//            isset($this->data['application_form']) ? $this->data['application_form'] : [
+//                'filename' => '',
+//                'filelink' => '',
+//            ]
+//        );
 
     }
 
@@ -813,44 +928,8 @@ class Client extends BusinessModel
         // Short inovation desc.
         $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['ino_desc', 'Kratak opis inovacije', 'text', NULL, 2]));
 
-        // Contact person.
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['contact_person', 'Osoba za kontakt', 'varchar', NULL, 3]));
-
-        // E-mail
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['email', 'E-mail', 'varchar', ['ui' => 'email'], 4]));
-
-        // Password
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['password', 'Lozinka', 'varchar', ['ui' => 'password'], 5]));
-
-        // Telephone.
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['telephone', 'Telefon', 'varchar', NULL, 6]));
-
-        // University.
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['university', 'Fakultet', 'varchar', NULL, 7]));
-
-        // Date interested.
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['date_interested', 'Datum interesovanja', 'datetime', NULL, 8]));
-
-        // Why contact us?
-        $reason_contact = self::selectOrCreateAttribute(['reason_contact', 'Zašto nas kontaktirate?', 'select', NULL, 9]);
-        if(count($reason_contact->getOptions()) == 0) {
-            $reason_contact->addOption(['value' => 1, 'text' => 'Opcija 1']);
-            $reason_contact->addOption(['value' => 2, 'text' => 'Opcija 2']);
-            $reason_contact->addOption(['value' => 3, 'text' => 'Opcija 3']);
-        }
-        $attributes[] = $grupaOpstiPodaci->addAttribute($reason_contact);
-
-        // Notes (mi unosimo)
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['notes', 'Naša napomena', 'text', NULL, 10]));
-
-        if(isset($filter) && $filter === 'start')
-            return $attributes;
-
-        // Is is registered?
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['is_registered', 'Da li je registrovan(a)', 'bool', NULL, 11]));
-
         // Fields of interest
-        $fields_of_interest = self::selectOrCreateAttribute(['interests', 'Oblast poslovanja', 'select', NULL, 12]);
+        $fields_of_interest = self::selectOrCreateAttribute(['interests', 'Oblast poslovanja', 'select', NULL, 3]);
         if(count($fields_of_interest->getOptions()) == 0) {
             $fields_of_interest->addOption(['value' => 1, 'text' => 'IoT и паметни градови']);
             $fields_of_interest->addOption(['value' => 2, 'text' => 'Енергетска ефикасност, зелене, чисте технологије и екологија']);
@@ -868,11 +947,86 @@ class Client extends BusinessModel
         }
         $attributes[] = $grupaOpstiPodaci->addAttribute($fields_of_interest);
 
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(["ostalo_opis", 'Ako ste izabrali "Ostalo" napišite koja je to oblast poslovanja','varchar', NULL, 4]));
+
+        // Contact person.
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['contact_person', 'Osoba za kontakt', 'varchar', NULL, 5]));
+
+        // E-mail
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['email', 'E-mail', 'varchar', ['ui' => 'email'], 6]));
+
+        // Password
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['password', 'Lozinka', 'varchar', ['ui' => 'password'], 7]));
+
+        // Telephone.
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['telephone', 'Telefon', 'varchar', NULL, 8]));
+
+        // University.
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['university', 'Fakultet', 'varchar', NULL, 9]));
+
+        // Date interested.
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['date_interested', 'Datum interesovanja', 'datetime', NULL, 10]));
+
+
+        // O S N I V A C I
+        // I Osnivac
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_1_imeprezime', 'Osnivac 1 - Ime i prezime', 'varchar', ['ui' => 'hide'], 11]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_1_fakultet', 'Osnivac 1 - Fakultet', 'varchar', ['ui' => 'hide'], 12]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_1_udeo', 'Osnivac 1 - Udeo u društvu', 'varchar', ['ui' => 'hide'], 13]));
+
+        // II Osnivac
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_2_imeprezime', 'Osnivac 2 - Ime i prezime', 'varchar', ['ui' => 'hide'], 14]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_2_fakultet', 'Osnivac 2 - Fakultet','varchar', ['ui' => 'hide'], 15]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_2_udeo', 'Osnivac 2 - Udeo u društvu', 'varchar', ['ui' => 'hide'], 16]));
+
+        // III Osnivac
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_3_imeprezime', 'Osnivac 3 - Ime i prezime', 'varchar', ['ui' => 'hide'], 17]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_3_fakultet', 'Osnivac 3 - Fakultet', 'varchar', ['ui' => 'hide'], 18]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_3_udeo', 'Osnivac 3 - Udeo u društvu', 'varchar', ['ui' => 'hide'], 19]));
+
+        // IV Osnivac
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_4_imeprezime', 'Osnivac 4 - Ime i prezime', 'varchar', ['ui' => 'hide'], 20]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_4_fakultet', 'Osnivac 4 - Fakultet', 'varchar', ['ui' => 'hide'], 21]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_4_udeo', 'Osnivac 4 - Udeo u društvu', 'varchar', ['ui' => 'hide'], 22]));
+
+        // V Osnivac
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_5_imeprezime', 'Osnivac 5 - Ime i prezime', 'varchar', ['ui' => 'hide'], 23]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_5_fakultet', 'Osnivac 5 - Fakultet', 'varchar', ['ui' => 'hide'], 24]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_5_udeo', 'Osnivac 5 - Udeo u društvu', 'varchar', ['ui' => 'hide'], 25]));
+
+        // VI Osnivac
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_6_imeprezime', 'Osnivac 6 - Ime i prezime', 'varchar', ['ui' => 'hide'], 26]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_6_fakultet', 'Osnivac 6 - Fakultet', 'varchar', ['ui' => 'hide'], 27]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_6_udeo', 'Osnivac 6 - Udeo u društvu', 'varchar', ['ui' => 'hide'], 28]));
+
+
+        // Why contact us?
+        $reason_contact = self::selectOrCreateAttribute(['reason_contact', 'Zašto nas kontaktirate?', 'select', NULL, 29]);
+        if(count($reason_contact->getOptions()) == 0) {
+            $reason_contact->addOption(['value' => 1, 'text' => 'Opcija 1']);
+            $reason_contact->addOption(['value' => 2, 'text' => 'Opcija 2']);
+            $reason_contact->addOption(['value' => 3, 'text' => 'Opcija 3']);
+        }
+        $attributes[] = $grupaOpstiPodaci->addAttribute($reason_contact);
+
+        // Notes (mi unosimo)
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['notes', 'Naša napomena', 'text', NULL, 30]));
+
+        if(isset($filter) && $filter === 'start')
+            return $attributes;
+
+        // Is is registered?
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['is_registered', 'Da li je registrovan(a)', 'bool', NULL, 31]));
+
+        // Ako je registrovano, kada?
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['date_registered', 'Datum registracije, ako je društvo registrovano', 'datetime', NULL, 32]));
+
+
         // Napomena (oni unose)
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['remark', 'Napomena kandidata', 'text', NULL, 13]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['remark', 'Napomena kandidata', 'text', NULL, 33]));
 
         // Status člana.
-        $status = self::selectOrCreateAttribute(['status', 'Status člana', 'select', NULL, 14]);
+        $status = self::selectOrCreateAttribute(['status', 'Status člana', 'select', NULL, 34]);
         if(count($status->getOptions()) == 0) {
             $status->addOption(['value' => 1, 'text' => 'Zainteresovan']);
             $status->addOption(['value' => 2, 'text' => 'Prijavljen']);
@@ -888,8 +1042,38 @@ class Client extends BusinessModel
         }
         $attributes[] = $grupaOpstiPodaci->addAttribute($status);
 
+
+
+        // Vrsta članstva
+        $membership = self::selectOrCreateAttribute(['membership', 'Članstvo', 'select', NULL, 36]);
+        if(count($membership->getOptions()) == 0) {
+            $membership->addOption(['value' => 1, 'text' => 'Virtuelni član']);
+            $membership->addOption(['value' => 2, 'text' => 'Punopravni član']);
+            $membership->addOption(['value' => 3, 'text' => 'Alumni']);
+
+        }
+        $attributes[] = $grupaOpstiPodaci->addAttribute($membership);
+
+        // Prijava za članstvo - dokument.
+//        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['application_form', 'Obrazac za prijavu', 'file', NULL, 37]));
+
+        // Matični broj.
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['maticni_broj', "Matični broj", 'varchar', NULL, 38]));
+
+        // Broj zaposlenih, od koga broj žena.
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['broj_zaposlenih', "Broj zaposlenih", 'varchar', NULL, 39]));
+
+        // Adresa društva.
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['address', 'Adresa', 'varchar', NULL, 40]));
+
+        // Sajt.
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['website', 'Sajt', 'varchar', NULL, 41]));
+
+        // Da li se planira registracija u sledećih 3 meseca?
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['registration_planned', 'Da li se planira registracija u sledećih 3 meseca?', 'bool', NULL, 43]));
+
         // Program.
-        $program = self::selectOrCreateAttribute(['program', 'Program', 'select', NULL, 15]);
+        $program = self::selectOrCreateAttribute(['program', 'Konkurišete za:', 'select', NULL, 44]);
         if(count($program->getOptions()) == 0) {
             $program->addOption(['value' => 1, 'text' => 'ParkUp']);
             $program->addOption(['value' => 2, 'text' => 'Colosseum']);
@@ -902,76 +1086,9 @@ class Client extends BusinessModel
         }
         $attributes[] = $grupaOpstiPodaci->addAttribute($program);
 
-        // Vrsta članstva
-        $membership = self::selectOrCreateAttribute(['membership', 'Članstvo', 'select', NULL, 16]);
-        if(count($membership->getOptions()) == 0) {
-            $membership->addOption(['value' => 1, 'text' => 'Virtuelni član']);
-            $membership->addOption(['value' => 2, 'text' => 'Punopravni član']);
-            $membership->addOption(['value' => 3, 'text' => 'Alumni']);
-
-        }
-        $attributes[] = $grupaOpstiPodaci->addAttribute($membership);
-
-        // Prijava za članstvo - dokument.
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['application_form', 'Obrazac za prijavu', 'file', NULL, 17]));
-
-        // Matični broj
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['maticni_broj', "Matični broj", 'varchar', NULL, 18]));
-
-        // Broj zaposlenih, od koga broj žena
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['broj_zaposlenih', "Broj zaposlenih", 'varchar', NULL, 19]));
-
         return $attributes;
     }
 
-    /**
-     * Get support attributes definitions.
-     * @return array
-     */
-    private static function getSupportAttributes() {
-        $attributes = [];
 
-        // Set SUPPORT attributes.
-
-        $podrska = AttributeGroup::get('support');
-        if($podrska == null) {
-            $podrska = AttributeGroup::create(['name' => 'support', 'label' => 'Potrebna podrška i dodatne napomene', 'sort_order' => 2]);
-        }
-
-        $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
-            'kvadratura',
-            'Kancelarijski poslovni prostor - navedite &#13217',
-            'double',
-            NULL,
-            1
-        ]));
-
-        $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
-            'zajednicke_prostorije',
-            'Korišćenje zajedničkih prostorija',
-            'bool',
-            NULL,
-            2
-        ]));
-
-        $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
-            'inovaciona_laboratorija',
-            'Korišćenje inovacione laboratorije',
-            'bool',
-            NULL,
-            3
-        ]));
-
-        $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
-            'konsalting_usluge',
-            'Konsalting usluge',
-            'bool',
-            NULL,
-            4
-        ]));
-
-        return $attributes;
-
-    }
 
 }

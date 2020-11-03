@@ -22,6 +22,7 @@ class ClientController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
@@ -41,12 +42,13 @@ class ClientController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
         $this->authorize('manage_user_profiles');
 
-        $attributes = collect(Client::getAttributesDefinition('start'));
+        $attributes = collect(Client::getCreateAttributesDefinitions());
 
         // Remove 'status' attribute.
         $attributes = $attributes->reject(function($item, $key) {
