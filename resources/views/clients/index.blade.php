@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('content')
 <div class="container">
@@ -41,3 +41,22 @@
 
 </div>
 @endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if($('#link_home').hasClass('active')) {
+                $('#link_home').removeClass('active');
+            }
+
+            if(!$('#link_clients').hasClass('active')) {
+                $('#link_clients').addClass('active');
+            }
+
+            if($('#link_contracts').hasClass('active')) {
+                $('#link_contracts').removeClass('active');
+            }
+        })
+    </script>
+@endsection
+
