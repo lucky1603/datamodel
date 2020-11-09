@@ -31,6 +31,7 @@
             </div>
         </div>
     </div>
+{{--    <example-component style="margin-top: 20px">Anything else.</example-component>--}}
 </div>
 @endsection
 

@@ -20,7 +20,14 @@
                 changeYear:true,
                 dateFormat:'yy-mm-dd'
             });
+
+            const app = new Vue({
+                el: '#app',
+            });
+
         });
+
+
     </script>
     @yield('scripts')
 
@@ -38,6 +45,7 @@
 
 </head>
 <body>
+    <div id="app">
     <div class="wrapper">
         <nav id="sidebar">
             <div class="sidebar-header">
@@ -109,6 +117,8 @@
                 @yield('content')
             </main>
         </div>
+    </div>
+{{--    <script src="{{ asset('js/app.js') }}" ></script>--}}
     </div>
 </body>
 </html>
