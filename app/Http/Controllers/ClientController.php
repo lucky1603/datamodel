@@ -28,13 +28,9 @@ class ClientController extends Controller
     {
         $this->authorize('manage_user_profiles');
 
-        $clients = Client::find()->toArray();
-        $clientsArray = [];
-        foreach($clients as $client) {
-            $clientsArray[$client->getId()] = $client->getAttributeTexts();
-        }
+        $clients = Client::find();
 
-        return view('clients.index', ['clients' => $clientsArray]);
+        return view('clients.index', ['clients' => $clients]);
 
     }
 
@@ -76,6 +72,30 @@ class ClientController extends Controller
             $path = $file->store('documents');
             $path = asset($path);
             $data['application_form'] = [
+                'filename' => $originalFileName,
+                'filelink' => $path,
+            ];
+        }
+
+        // Handle the logo file.
+        $logo = $request->file('logo');
+        if($logo != null) {
+            $originalFileName = $logo->getClientOriginalName();
+            $path = $logo->store('documents');
+            $path = asset($path);
+            $data['logo'] = [
+                'filename' => $originalFileName,
+                'filelink' => $path,
+            ];
+        }
+
+        // Handle the logo file.
+        $profile_background = $request->file('profile_background');
+        if($profile_background != null) {
+            $originalFileName = $profile_background->getClientOriginalName();
+            $path = $profile_background->store('documents');
+            $path = asset($path);
+            $data['profile_background'] = [
                 'filename' => $originalFileName,
                 'filelink' => $path,
             ];
@@ -186,6 +206,30 @@ class ClientController extends Controller
             $path = $file->store('documents');
             $path = asset($path);
             $data['application_form'] = [
+                'filename' => $originalFileName,
+                'filelink' => $path,
+            ];
+        }
+
+        // Handle the logo file.
+        $logo = $request->file('logo');
+        if($logo != null) {
+            $originalFileName = $logo->getClientOriginalName();
+            $path = $logo->store('documents');
+            $path = asset($path);
+            $data['logo'] = [
+                'filename' => $originalFileName,
+                'filelink' => $path,
+            ];
+        }
+
+        // Handle the logo file.
+        $profile_background = $request->file('profile_background');
+        if($profile_background != null) {
+            $originalFileName = $profile_background->getClientOriginalName();
+            $path = $profile_background->store('documents');
+            $path = asset($path);
+            $data['profile_background'] = [
                 'filename' => $originalFileName,
                 'filelink' => $path,
             ];

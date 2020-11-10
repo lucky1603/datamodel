@@ -690,6 +690,9 @@ class Client extends BusinessModel
         // Notes (mi unosimo)
         $attributes[] = self::selectOrCreateAttribute(['notes', 'Naša napomena', 'text', NULL, 11]);
 
+        $attributes[] = self::selectOrCreateAttribute(['logo', 'Logo klijenta', 'file', NULL, 12]);
+        $attributes[] = self::selectOrCreateAttribute(['profile_background', 'Profilna slika', 'file', NULL, 12]);
+
         return $attributes;
     }
 
@@ -889,6 +892,19 @@ class Client extends BusinessModel
 //            ]
 //        );
 
+        $this->instance->attributes->where('name', 'logo')->first()->setValue(
+            isset($this->data['logo']) ? $this->data['logo'] : [
+                'filename' => '',
+                'filelink' => '',
+            ]
+        );
+
+        $this->instance->attributes->where('name', 'profile_background')->first()->setValue(
+            isset($this->data['profile_background']) ? $this->data['profile_background'] : [
+                'filename' => '',
+                'filelink' => '',
+            ]
+        );
     }
 
     /**
@@ -1088,6 +1104,9 @@ class Client extends BusinessModel
             $program->addOption(['value' => 8, 'text' => 'Pre-seed']);
         }
         $attributes[] = $grupaOpstiPodaci->addAttribute($program);
+
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['logo', 'Logo klijenta', 'file', NULL, 45]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['profile_background', 'Profilna slika', 'file', NULL, 46]));
 
         return $attributes;
     }
