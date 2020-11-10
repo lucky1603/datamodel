@@ -587,6 +587,9 @@ class Client extends BusinessModel
         // If it's id.
         if(!is_array($query)) {
             $instance = Instance::find($query);
+            if($instance == null)
+                return null;
+
             return new Client(['instance_id' => $instance->id]);
         }
 

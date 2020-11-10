@@ -166,6 +166,9 @@ class Contract extends BusinessModel
         // If it's id.
         if(!is_array($query)) {
             $instance = Instance::find($query);
+            if($instance == null)
+                return null;
+
             return new Contract(['instance_id' => $instance->id]);
         }
 
