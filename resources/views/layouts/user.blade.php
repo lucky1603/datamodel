@@ -49,7 +49,7 @@
     <div class="wrapper">
         <nav id="sidebar">
             <div class="sidebar-header">
-                <img src="images/HP-Startup-icon.png" width="100%"/>
+                <img src="/images/HP-Startup-icon.png" width="100%"/>
                 <h3 style="text-align: center;margin-top: 40px">{{ __('Accelerator') }}</h3>
             </div>
             <ul id="links_list" class="list-unstyled components" style="text-align: center">
@@ -66,7 +66,7 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" href="{{ url('/') }}">
 {{--                        {{ config('app.name', 'Laravel') }}--}}
-                        <img src="images/logo-lat.png" height="80"/>
+                        <img src="/images/logo-lat.png" height="80"/>
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
