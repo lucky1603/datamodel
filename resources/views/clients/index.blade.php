@@ -5,11 +5,11 @@
     <div class="row" style="padding: 20px; margin-top: 0px;">
         <div class="col-12" style="text-align: center">
             <a href="{{ route("clients.create") }}" title="Dodaj novog klijenta"><img id="addUser" src="/images/adduser.png" class="shadow-lg" style="height: 45px"/></a>
-Y            <hr/>
+            <hr/>
         </div>
     </div>
     @foreach($clients as $client)
-        @if($loop->iteration % 3 == 1)
+        @if($loop->iteration % 4 == 1)
             <div class="row">
         @endif
 
@@ -32,7 +32,7 @@ Y            <hr/>
             </a>
         </div>
 
-        @if($loop->iteration % 3 == 0 || $loop->iteration == $clients->count())
+        @if($loop->iteration % 4 == 0 || $loop->iteration == $clients->count())
             </div>
         @endif
 
