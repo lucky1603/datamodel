@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header"><slot name="header"></slot></div>
+        <div class="card-header">{{ title }}</div>
         <div class="card-body">
             <div id="card_header">
 
@@ -13,8 +13,14 @@
 <script>
     export default {
         name: "ProfileCard",
+        props : ['title', 'image', 'company_name', 'company_web'],
         mounted() {
 
+        },
+        data() {
+            return {
+
+            }
         }
     }
 </script>

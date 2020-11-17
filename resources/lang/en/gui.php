@@ -11,5 +11,6 @@ return [
 
     'Clients' => 'Clients',
     'Contracts' => 'Contracts',
-    'Home' => 'Home'
+    'Home' => 'Home',
+    'EnterName' => 'Enter the name or its part ...'
 ];

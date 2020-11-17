@@ -11,5 +11,6 @@ return [
 
     'Clients' => 'Klijenti',
     'Contracts' => 'Ugovori',
-    'Home' => 'Početna'
+    'Home' => 'Početna',
+    'EnterName' => 'Unesite ime ili njeov deo ...'
 ];

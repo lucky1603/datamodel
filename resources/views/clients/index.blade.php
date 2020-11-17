@@ -2,12 +2,23 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row" style="padding: 20px; margin-top: 0px;">
-        <div class="col-12" style="text-align: center">
-            <a href="{{ route("clients.create") }}" title="Dodaj novog klijenta"><img id="addUser" src="/images/adduser.png" class="shadow-lg" style="height: 45px"/></a>
-            <hr/>
+    <div class="row">
+        <div class="card shadow-sm" style="width: 100%">
+            <div class="card-body">
+                <span style="float: left; margin-right: 20px">{{ __("SEARCH FILTER:") }}</span>
+                <span style="float: left; margin-right: 10px;margin-left: 10px">{{ __("By Status:") }}</span>
+                <select name="filter" class="shadow-sm" style="float: left;margin-top:1px;">
+                    <option value="1">{{ __("All") }}</option>
+                    <option value="2">{{ __("Interested") }}</option>
+                    <option value="3">{{ __("Registered") }}</option>
+                </select>
+                <span style="float: left; margin-right: 10px;margin-left: 20px">{{ __("By Name:") }}</span>
+                <input type="text" class="shadow-sm" style="float: left" placeholder="{{ __('gui.EnterName') }}">
+                <a href="{{ route("clients.create") }}" title="Dodaj novog klijenta" class="shadow" style="float: right"><img id="addUser" src="/images/adduser.png" class="shadow-sm" style="height: 25px"/></a>
+            </div>
         </div>
     </div>
+
     @foreach($clients as $client)
         @if($loop->iteration % 4 == 1)
             <div class="row">
@@ -15,7 +26,7 @@
 
         <div class="col-md-3">
             <a href="{{ route('clients.show', $client->getId()) }}">
-                <div class="card shadow-sm" data-id="{{ $loop->iteration }}">
+                <div class="card shadow-sm" data-id="{{ $loop->iteration }}" style="margin-top:10px; margin-bottom: 10px">
 
                     <div class="card-body" style="padding: 0" >
                         <div id="img-container" style="position: relative">

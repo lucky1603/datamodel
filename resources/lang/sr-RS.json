@@ -3,5 +3,9 @@
     "Contracts" : "Ugovori",
     "Clients" : "Klijenti",
     "Else" : "Ostalo",
-    "Accelerator" : "Akcelerator"
+    "Accelerator" : "Akcelerator",
+    "Search ..." : "Pretraga ...",
+    "SEARCH FILTER:" : "PRETRAGA PO FILTERU:",
+    "By Name:" : "Po imenu:",
+    "By Status:" : "Po statusu:"
 }

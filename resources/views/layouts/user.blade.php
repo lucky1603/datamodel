@@ -47,10 +47,12 @@
 <body>
     <div id="app">
     <div class="wrapper">
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <img src="/images/HP-Startup-icon.png" width="100%"/>
-                <h3 style="text-align: center;margin-top: 40px">{{ __('Accelerator') }}</h3>
+        <nav id="sidebar" style="min-width: 300px; max-width: 300px">
+            <div class="sidebar-header" style="text-align: center">
+{{--                <img src="/images/HP-Startup-icon.png" width="50%"/>--}}
+                <img src="/images/white-logo-transparent.png" width="50%"/>
+                <h5 style="text-align: center;margin-top:40px">NTP Beograd</h5>
+                <h6>{{ __('Accelerator') }}</h6>
             </div>
             <ul id="links_list" class="list-unstyled components" style="text-align: center">
                 <li id="link_home" class="active">
@@ -66,7 +68,7 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" href="{{ url('/') }}">
 {{--                        {{ config('app.name', 'Laravel') }}--}}
-                        <img src="/images/logo-lat.png" height="80"/>
+{{--                        <img src="/images/logo-lat.png" height="80"/>--}}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
@@ -113,7 +115,7 @@
                     </div>
                 </div>
             </nav>
-            <main class="py-4">
+            <main>
                 @yield('content')
             </main>
         </div>
