@@ -707,7 +707,7 @@ class Client extends BusinessModel
 
         $podrska = AttributeGroup::get('support');
         if($podrska == null) {
-            $podrska = AttributeGroup::create(['name' => 'support', 'label' => 'Potrebna podrška i dodatne napomene', 'sort_order' => 2]);
+            $podrska = AttributeGroup::create(['name' => 'support', 'label' => 'Potrebna podrška i dodatne napomene', 'sort_order' => 10]);
         }
 
         $attributes[] = $podrska->addAttribute(self::selectOrCreateAttribute([
@@ -749,16 +749,29 @@ class Client extends BusinessModel
      * Returns the collection of attributes typical for this type of instance.
      * @return array Attributes array.
      */
-    public static function getAttributesDefinition($filter=null) {
+    public static function getAttributesDefinition() {
         $attributes = [];
 
         // Set GENERAL attributes.
         $attributes = self::getGeneralAttributes();
-        if($filter != null) {
-            return $attributes;
-        }
 
-        // Faza razvoja
+        // Problem i ciljna grupa.
+        $attributes = array_merge($attributes, self::getTargetGroupAttributes());
+
+        // Inovativnost.
+        $attributes = array_merge($attributes, self::getInnovationAttributes());
+
+        // Tim.
+        $attributes = array_merge($attributes, self::getTeamAttributes());
+
+        // Finansiranje i nagrade.
+        $attributes = array_merge($attributes, self::getFinancingAndPrizesAttributes());
+
+        // Poslovni model.
+        $attributes = array_merge($attributes, self::getBusinessModelAttributes());
+
+        // Poslovna preduzetnost.
+        $attributes = array_merge($attributes, self::getEnterpreneurReadynessAttributes());
 
         // Set SUPPORT attributes.
         $attributes = array_merge($attributes, self::getSupportAttributes());
@@ -766,9 +779,19 @@ class Client extends BusinessModel
         return $attributes;
     }
 
+    /**
+     * Vraća grupe atributa.
+     * @return \Illuminate\Support\Collection
+     */
     public function getAttributeGroups() {
 
         $groups[] = AttributeGroup::get('general');
+        $groups[] = AttributeGroup::get('target_group');
+        $groups[] = AttributeGroup::get('innovation_group');
+        $groups[] = AttributeGroup::get('team_group');
+        $groups[] = AttributeGroup::get('financing_prizing_group');
+        $groups[] = AttributeGroup::get('business_model_group');
+        $groups[] = AttributeGroup::get('enterpreneur_readyness');
         $groups[] = AttributeGroup::get('support');
 
         return collect($groups);
@@ -795,6 +818,7 @@ class Client extends BusinessModel
     }
 
     // Protected methods. //
+
     /**
      * Gets or creates template.
      */
@@ -1111,6 +1135,176 @@ class Client extends BusinessModel
         return $attributes;
     }
 
+    /**
+     * Returns the group of attributes connected with the groups - 'Problem i ciljna grupa'
+     * @return array
+     */
+    private static function getTargetGroupAttributes() {
+        $attributes = [];
+
+        $grupaOpstiPodaci = AttributeGroup::get('target_group');
+        if($grupaOpstiPodaci == null) {
+            $grupaOpstiPodaci = AttributeGroup::create(['name' => 'target_group', 'label' => 'Problem i ciljna grupa', 'sort_order' => 2]);
+        }
+
+        $fazarazvoja = self::selectOrCreateAttribute(['development_phase', 'Faza razvoja', 'select', NULL, 1]);
+        if($fazarazvoja != null && count($fazarazvoja->getOptions()) == 0) {
+            $fazarazvoja->addOption(['value' => 1, 'text' => 'Ideja']);
+            $fazarazvoja->addOption(['value' => 2, 'text' => 'Proof of Concept']);
+            $fazarazvoja->addOption(['value' => 3, 'text' => 'Minimal Viable Product']);
+        }
+        $attributes[] = $grupaOpstiPodaci->addAttribute($fazarazvoja);
+
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['poblems', 'Problemi koji se rešavaju vašim proizvodom/uslugom', 'text', NULL, 2]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['target_group_solution_and_competition', 'Navedite kako ciljna grupa sada rešava problem i bar jednog konkurenta', 'text', NULL, 3]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['target_groups', 'Наведите и опишите своје циљне групе (кориснике и купце) са профилом раног усвајача, уз осврт на активности и комуникацију коју сте имали са циљном групом до сада. Такође, наведите уколико имате купце који плаћају. * ', 'text', NULL,4]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['target_markets', 'Наведите која су ваша циљна тржишта, на којим тржиштима сада послујете (ако имате продају) и на којима намеравате.Наведите која је Ваша стратегија изласка на страна тржишта и које су вам предикције за наредних три, шест и девет месеци  (која тржишта планирате да освојите, колико плаћајућих купаца,
+        MRR***, директну продају итд). * ', 'text', NULL, 5]));
+
+        return $attributes;
+
+    }
+
+    /**
+     * Vraca grupu inovacionih atributa.
+     * @return array
+     */
+    private static function getInnovationAttributes() {
+        $attributes = [];
+
+        $grupaInovativnost = AttributeGroup::get('innovation_group');
+        if($grupaInovativnost == null) {
+            $grupaInovativnost = AttributeGroup::create(['name' => 'innovation_group', 'label' => 'Inovativnost', 'sort_order' => 3]);
+        }
+
+        $attributes[] = $grupaInovativnost->addAttribute(self::selectOrCreateAttribute(['product_description', 'Опишите свој производ/услугу/процес и дефинишите елементе и шта је то што га чини важним алатом за корисникове потребе. Наведите и докле сте стигли са развојем иновације уз таксативан осврт на активности које сте предузели до сада: *', 'text', NULL, 1]));
+
+        $inovationType = self::selectOrCreateAttribute(['inovation_type', 'Tip inovacije', 'select', NULL, 2]);
+        if($inovationType != null && count($inovationType->getOptions()) == 0) {
+            $inovationType->addOption(['value' => 1,  'text' => 'Већ примењено решење ']);
+            $inovationType->addOption(['value' => 2,  'text' => 'Познато али недовољно примењено решење ']);
+            $inovationType->addOption(['value' => 3,  'text' => 'Унапређено постојеће решење']);
+            $inovationType->addOption(['value' => 4,  'text' => 'Значајно унапређено постојеће решење ']);
+            $inovationType->addOption(['value' => 5,  'text' => 'Потпуно ново решење ']);
+        }
+        $attributes[] = $grupaInovativnost->addAttribute($inovationType);
+
+        $attributes[] = $grupaInovativnost->addAttribute(self::selectOrCreateAttribute(['inovativity', 'Наведите и опишите иновативност Вашег решењa (технолошка иновација, иновација у пословном моделу, процесу, итд) * ', 'text', NULL, 3]));
+        $attributes[] = $grupaInovativnost->addAttribute(self::selectOrCreateAttribute(['intelectual_property_protection', 'Наведите да ли сте истраживали могућности заштите интелектуалне својине и, ако јесте, опишите ваше даље планове у овом смеру или сте већ заштитили интелектуалну својину и на који начин (патент, мали патент, индустријски дизајн, жиг и др.): * ', 'text', NULL, 4]));
+        $attributes[] = $grupaInovativnost->addAttribute(self::selectOrCreateAttribute(['mvp_testing', 'Наведите искуства са тестирања МVP или прототипа (уколико га имате):', 'text', NULL, 5]));
+
+        return $attributes;
+    }
+
+
+    /**
+     * Vraća grupu tim i pripadajuće atribute.
+     * @return array
+     */
+    private static function getTeamAttributes() {
+        $attributes = [];
+
+        $grupaTim = AttributeGroup::get('team_group');
+        if($grupaTim == null) {
+           $grupaTim = AttributeGroup::create(['name' => 'team_group', 'label' => 'Tim', 'sort_order' => 4]);
+        }
+
+        $attributes[] = $grupaTim->addAttribute(self::selectOrCreateAttribute(['team_members', 'Članovi tima', 'text', NULL, 1]));
+        $attributes[] = $grupaTim->addAttribute(self::selectOrCreateAttribute(['team_members_file', 'Подаци о оснивачима привредног друштва (лични подаци и кратке професионалне биографије за свако лице) или линкови ка LinkedIn профилима: ', 'file', NULL, 2]));
+        $attributes[] = $grupaTim->addAttribute(self::selectOrCreateAttribute(['linkedin_link_1', 'Линк ка LinkedIn профилу:', 'varchar', NULL, 3 ]));
+        $attributes[] = $grupaTim->addAttribute(self::selectOrCreateAttribute(['linkedin_link_2', 'Линк ка LinkedIn профилу:', 'varchar', NULL, 4 ]));
+        $attributes[] = $grupaTim->addAttribute(self::selectOrCreateAttribute(['linkedin_link_3', 'Линк ка LinkedIn профилу:', 'varchar', NULL, 5 ]));
+        $attributes[] = $grupaTim->addAttribute(self::selectOrCreateAttribute(['linkedin_link_4', 'Линк ка LinkedIn профилу:', 'varchar', NULL, 6 ]));
+        $attributes[] = $grupaTim->addAttribute(self::selectOrCreateAttribute(['linkedin_link_5', 'Линк ка LinkedIn профилу:', 'varchar', NULL, 7 ]));
+        $attributes[] = $grupaTim->addAttribute(self::selectOrCreateAttribute(['linkedin_link_6', 'Линк ка LinkedIn профилу:', 'varchar', NULL, 8 ]));
+
+        return $attributes;
+    }
+
+    /**
+     * Vraća grupu attributa iz grupe finansiranja i nagrada.
+     * @return array
+     */
+    private static function getFinancingAndPrizesAttributes() {
+        $attributes = [];
+
+        $grupaFinansiranjeINagrade = AttributeGroup::get('financing_prizing_group');
+        if($grupaFinansiranjeINagrade == null) {
+            $grupaFinansiranjeINagrade = AttributeGroup::create(['name' => 'financing_prizing_group', 'label' => 'Finansiranje i nagrade', 'sort_order' => 5]);
+        }
+
+        $attributes[] = $grupaFinansiranjeINagrade->addAttribute(self::selectOrCreateAttribute(['prizes', 'Наведите да ли сте добили награде за иновативну идеју: *', 'text', NULL, 1]));
+        $attributes[] = $grupaFinansiranjeINagrade->addAttribute(self::selectOrCreateAttribute(['financing_type', 'Наведите како сте финансирали свој развој до сада и како планирате да финансирате развој у будућности (улагање оснивача тима, пријатељи, инвестициони фондови, награде и сл.). Такође, наведите износ расположивих средстава и потребних средстава за развој стартапа, имајући у виду трошкове. * ', 'text', NULL, 2]));
+        $attributes[]  =$grupaFinansiranjeINagrade->addAttribute(self::selectOrCreateAttribute(['looking_for_financing', 'Да ли тренутно тражите финансирање? * ', 'bool', NULL, 3]));
+
+        return $attributes;
+
+    }
+
+    /**
+     * Vraća grupu poslovni model i pripadajuće atribute.
+     * @return array
+     */
+    private static function getBusinessModelAttributes() {
+        $attributes = [];
+
+        $grupaPoslovniModel = AttributeGroup::get('business_model_group');
+        if($grupaPoslovniModel == null) {
+            $grupaPoslovniModel = AttributeGroup::create(['name' => 'business_model_group', 'label' => 'Poslovni model', 'sort_order' => 6]);
+        }
+
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['business_model', 'Образложите који модел приходовања планирате или остварујете (продаја производа, лиценци, услуга, модел претплате, франшизе, чланарина, или сл.). Како ћете генерисати приходе? * ', 'text', NULL, 1]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['fiksni_troskovi_1', 'Fiksni troškovi I godina', 'varchar', NULL, 2]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['fiksni_troskovi_2', 'Fiksni troškovi II godina', 'varchar', NULL, 3]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['naknada_angazovanih_1', 'Naknada angažovanih I godina', 'varchar', NULL, 4]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['naknada_angazovanih_2', 'Naknada angažovanih II godina', 'varchar', NULL, 5]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['knjigovodstvo_1', 'Knjigovodstvo I godina', 'varchar', NULL, 6]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['knjigovodstvo_2', 'Knjigovodstvo II godina', 'varchar', NULL, 7]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['advokat_1', 'Advokat I godina', 'varchar', NULL, 8]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['advokat_2', 'Advokat II godina', 'varchar', NULL, 9]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['zakup_kancelarije_1', 'Zakup kancelarije I godina', 'varchar', NULL, 10]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['zakup_kancelarije_2', 'Zakup kancelarije II godina', 'varchar', NULL, 11]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['rezijski_troskovi_1', 'Režijski troškovi I godina', 'varchar', NULL, 12]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['rezijski_troskovi_2', 'Režijski troškovi II godina', 'varchar', NULL, 13]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ostali_fini_troskovi_1', 'Ostali fini troškovi I godina', 'varchar', NULL, 14]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ostali_fini_troskovi_2', 'Ostali fini troškovi II godina', 'varchar', NULL, 15]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ukupni_varijabilni_troskovi_1', 'Ukupni varijabilni troškovi I godina', 'varchar', NULL, 17]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ukupni_varijabilni_troskovi_2', 'Ukupni varijabilni troškovi II godina', 'varchar', NULL, 18]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['troskovi_materijala_1', 'Troškovi materijala I godina', 'varchar', NULL, 19]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['troskovi_materijala_2', 'Troškovi materijala II godina', 'varchar', NULL, 20]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['troskovi_alata_1', 'Troškovi alata za rad I godina', 'varchar', NULL, 21]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['troskovi_alata_2', 'Troškovi alata za rad II godina', 'varchar', NULL, 22]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ostali_varijabilni_troskovi_1', 'Ostali varijabilni troškovi I godina', 'varchar', NULL, 23]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ostali_varijabilni_troskovi_2', 'Ostali varijabilni troškovi II godina', 'varchar', NULL, 24]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['finansijski_plan_dokument', 'Finansijski plan', 'file', NULL, 25]));
+
+        return $attributes;
+
+    }
+
+    /**
+     * Vraća atribute iz grupe 'preduzetnička preduzetnost'.
+     * @return array
+     */
+    private static function getEnterpreneurReadynessAttributes() {
+        $attributes = [];
+
+        $grupaPreduzetnickaSpremnost = AttributeGroup::get('enterpreneur_readyness');
+        if($grupaPreduzetnickaSpremnost == null) {
+            $grupaPreduzetnickaSpremnost = AttributeGroup::create(['name' => 'enterpreneur_readyness', 'label' => 'Preduzetnička spremnost', 'sort_order' => 6]);
+        }
+
+        $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['have_skills', 'Које вештине тренутно поседујете и које ћете користити да бисте успешно водили свој бизнис? * ', 'text', NULL, 1]));
+        $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['improve_skills', 'Које вештине сматрате да треба да унапредите да бисте успешно водили свој бизнис? * ', 'text', NULL, 2]));
+        $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['regular_menthor_sessions', 'Редовно ћу са менторима радити на развоју свог бизнис плана', 'bool', NULL, 3]));
+        $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['regular_workshops', 'Редовно ћу похађати радионице релеватне за ваш бизнис ', 'bool', NULL, 4]));
+        $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['will_evaluate_work', 'Евалуираћу прогрес и рад ', 'bool', NULL, 5]));
+        $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['establish_company', 'Основаћу привредно друштво у Београду, уколико привредно друштво већ није основана ', 'bool', NULL, 6]));
+        $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['fulfill_contract_obligations', 'Испуњаваћу све уговорне обавезе ', 'bool', NULL, 7]));
+        $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['motiv', 'Наведите шта вас је мотивисало да се пријавите за инкубацију ? *', 'text', NULL, 8]));
+
+        return $attributes;
+    }
 
 
 }
