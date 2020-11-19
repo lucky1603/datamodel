@@ -1,9 +1,22 @@
 @extends('layouts.user')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <h1 style="text-align: center">{{ $model->getData()['name'] }}</h1>
+            <div class="col-12 column-no-padding">
+                <div class="card" style="margin-bottom: 10px">
+                    <div class="card-body">
+                        <div class="clearfix">
+                            <p style="margin: 0px">CLIENT PROFILE</p>
+                            <h1 class="float-left" style="margin: 0px">{{ $model->getData()['name'] }}</h1>
+                            @yield('returns')
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
         </div>
         <div class="justify-content-center">
             @yield('head')
@@ -16,18 +29,18 @@
                 </div>
                 @if($model->getAttributeGroups()->count() > 0)
                     @foreach($model->getAttributeGroups()->sortBy('sort_order') as $attributeGroup)
-                        <h3 style="text-align: center">{{ $attributeGroup->label }}</h3>
+                        <h3 class="group-title">{{ $attributeGroup->label }}</h3>
                         @foreach($model->getAttributesForGroup($attributeGroup)->sortBy('sort_order') as $attribute)
                             @if($attribute->type === 'file')
                                 <div class="row zebra">
-                                    <div class="col-md-3">{!! $attribute->label !!} : </div>
-                                    <div class="col-md-5"><a href="{{ $attribute->getValue()['filelink']}}"><strong>{{$attribute->getValue()['filename']}}</strong></a></div>
+                                    <div class="col-md-3"><strong>{!! $attribute->label !!} : </strong></div>
+                                    <div class="col-md-5"><a href="{{ $attribute->getValue()['filelink']}}">{{$attribute->getValue()['filename']}}</a></div>
                                 </div>
                             @else
                                 @if($attribute->name != 'password')
                                     <div class="row zebra">
-                                        <div class="col-md-3">{!! $attribute->label !!} : </div>
-                                        <div class="col-md-5"><strong>{{$attribute->getText()}}</strong></div>
+                                        <div class="col-md-3"><strong>{!! $attribute->label !!} : </strong></div>
+                                        <div class="col-md-5">{{$attribute->getText()}}</div>
                                     </div>
                                 @endif
                             @endif
@@ -39,14 +52,14 @@
                     @foreach($model->getAttributes() as $attribute)
                         @if($attribute->type === 'file')
                             <div class="row zebra">
-                                <div class="col-md-3">{!! $attribute->label !!} : </div>
-                                <div class="col-md-5"><a href="{{ $attribute->getValue()['filelink']}}"><strong>{{$attribute->getValue()['filename']}}</strong></a></div>
+                                <div class="col-md-3"><strong>{!! $attribute->label !!} : </strong></div>
+                                <div class="col-md-5"><a href="{{ $attribute->getValue()['filelink']}}">{{$attribute->getValue()['filename']}}</a></div>
                             </div>
                         @else
                             @if($attribute->name != 'password')
                                 <div class="row zebra">
-                                    <div class="col-md-3">{!! $attribute->label !!} : </div>
-                                    <div class="col-md-5"><strong>{{$attribute->getText()}}</strong></div>
+                                    <div class="col-md-3"><strong>{!! $attribute->label !!} : </strong></div>
+                                    <div class="col-md-5">{{$attribute->getText()}}</div>
                                 </div>
                             @endif
                         @endif
@@ -68,9 +81,7 @@
                 @yield('extras')
             </div>
         </div>
-        <div class="button-bar" style="text-align: center">
-            @yield('returns')
-        </div>
+
 
     </div>
 @endsection

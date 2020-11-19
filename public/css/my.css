@@ -48,6 +48,28 @@
     color: red;
 }
 
+.group-title {
+
+    background-color:#007CBB;
+    color: #D0CECD;
+    text-align: center;
+    padding: 10px;
+}
+
+.column-no-padding {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.card-link-icon-container {
+    margin-left: 5px;
+    margin-right: 5px
+}
+
+.card-link-icon {
+    height: 50px;
+}
+
 /*.row.zebra:first-of-type {*/
 /*    background-color: #1d643b;*/
 /*}*/

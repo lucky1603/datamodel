@@ -38,13 +38,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/my.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/my.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
 
 
 </head>
-<body>
+<body style="background-color: #f8f8f8">
     <div id="app">
     <div class="wrapper">
         <nav id="sidebar" style="min-width: 300px; max-width: 300px">
