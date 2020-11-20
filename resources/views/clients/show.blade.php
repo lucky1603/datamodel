@@ -1,5 +1,16 @@
 @extends('layouts.show')
 
+@section('title')
+    <div>
+        <h1 style="color: gray">{{ __('CLIENT PROFILE') }}</h1>
+    </div>
+@endsection
+
+@section('commands')
+    <a class="float-right card-link-icon-container" href="{{ route('clients.edit', $model->getId()) }}"><img class="shadow card-link-icon" src="/images/edit-validated-icon.png" title="{{__('Edit')}}"/></a>
+    <a class="float-right card-link-icon-container" href="{{  request()->session()->get('backroute')}}"><img class="shadow card-link-icon" src="/images/go-back-icon.png" title="{{ __('Back') }}"/></a>
+@endsection
+
 @section('extras')
     <div class="row justify-content-center">
         <p class="column-title">Ugovori</p>

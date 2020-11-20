@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.userwithoutsidebar')
 
 @section('content')
     <div class="container-fluid">
@@ -27,10 +27,35 @@
                 <div class="row justify-content-center">
                     <p class="column-title">Detalji</p>
                 </div>
-                @if($model->getAttributeGroups()->count() > 0)
-                    @foreach($model->getAttributeGroups()->sortBy('sort_order') as $attributeGroup)
-                        <h3 class="group-title">{{ $attributeGroup->label }}</h3>
-                        @foreach($model->getAttributesForGroup($attributeGroup)->sortBy('sort_order') as $attribute)
+
+                    @if($model->getAttributeGroups()->count() > 0)
+                    <div id="accordion" style="max-height: 400px">
+                        @foreach($model->getAttributeGroups()->sortBy('sort_order') as $attributeGroup)
+                            <h5 style="background-color: #00336D;color: white; padding: 5px">{{ $attributeGroup->label }}</h5>
+                            <div style="overflow: auto;max-height: 300px">
+                                @foreach($model->getAttributesForGroup($attributeGroup)->sortBy('sort_order') as $attribute)
+                                    @if($attribute->type === 'file')
+                                        <div class="row zebra">
+                                            <div class="col-md-3"><strong>{!! $attribute->label !!} : </strong></div>
+                                            <div class="col-md-5"><a href="{{ $attribute->getValue()['filelink']}}">{{$attribute->getValue()['filename']}}</a></div>
+                                        </div>
+                                    @else
+                                        @if($attribute->name != 'password')
+                                            <div class="row zebra">
+                                                <div class="col-md-3"><strong>{!! $attribute->label !!} : </strong></div>
+                                                <div class="col-md-5">{{$attribute->getText()}}</div>
+                                            </div>
+                                        @endif
+                                    @endif
+
+                                @endforeach
+                            </div>
+
+                        @endforeach
+                    </div>
+                    <div style="margin-bottom: 20px"></div>
+                    @else
+                        @foreach($model->getAttributes() as $attribute)
                             @if($attribute->type === 'file')
                                 <div class="row zebra">
                                     <div class="col-md-3"><strong>{!! $attribute->label !!} : </strong></div>
@@ -46,26 +71,8 @@
                             @endif
 
                         @endforeach
-                        <div style="margin-bottom: 20px"></div>
-                    @endforeach
-                @else
-                    @foreach($model->getAttributes() as $attribute)
-                        @if($attribute->type === 'file')
-                            <div class="row zebra">
-                                <div class="col-md-3"><strong>{!! $attribute->label !!} : </strong></div>
-                                <div class="col-md-5"><a href="{{ $attribute->getValue()['filelink']}}">{{$attribute->getValue()['filename']}}</a></div>
-                            </div>
-                        @else
-                            @if($attribute->name != 'password')
-                                <div class="row zebra">
-                                    <div class="col-md-3"><strong>{!! $attribute->label !!} : </strong></div>
-                                    <div class="col-md-5">{{$attribute->getText()}}</div>
-                                </div>
-                            @endif
-                        @endif
+                    @endif
 
-                    @endforeach
-                @endif
             </div>
 
             <div class="col-md-4">
@@ -84,4 +91,11 @@
 
 
     </div>
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#accordion').accordion();
+        });
+    </script>
 @endsection

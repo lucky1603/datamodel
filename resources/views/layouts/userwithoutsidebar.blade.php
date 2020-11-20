@@ -47,22 +47,6 @@
 <body style="background-color: #f8f8f8">
     <div id="app">
     <div class="wrapper">
-        <nav id="sidebar" style="min-width: 300px; max-width: 300px">
-            <div class="sidebar-header" style="text-align: center">
-{{--                <img src="/images/HP-Startup-icon.png" width="50%"/>--}}
-                <img src="/images/white-logo-transparent.png" width="50%"/>
-                <h5 style="text-align: center;margin-top:40px">NTP Beograd</h5>
-                <h6>{{ __('Accelerator') }}</h6>
-            </div>
-            <ul id="links_list" class="list-unstyled components" style="text-align: center">
-                <li id="link_home" class="active">
-                    <a href="{{ route('home') }}">{{ __('Home') }}</a>
-                </li>
-                <li id="link_clients"><a href="{{ route('clients.index') }}">{{ __('Clients') }}</a></li>
-                <li id="link_contracts"><a href="{{ route('contracts.index') }}">{{ __('Contracts') }}</a></li>
-                <li id="link_else"><a href="#">{{ __('Else') }}</a></li>
-            </ul>
-        </nav>
         <div id="content">
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container-fluid">
@@ -78,7 +62,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-                            @yield('commands')
+
                         </ul>
 
                         <!-- Right Side Of Navbar -->
@@ -94,7 +78,9 @@
                                     </li>
                                 @endif
                             @else
-                                <li class="nav-item dropdown">
+                                @yield('returns')
+                                <li class="nav-item dropdown" style="float: right">
+
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
@@ -111,6 +97,7 @@
                                         </form>
                                     </div>
                                 </li>
+
                             @endguest
                         </ul>
                     </div>
