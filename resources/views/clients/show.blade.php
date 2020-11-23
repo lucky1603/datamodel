@@ -1,14 +1,44 @@
-@extends('layouts.show')
+@extends('layouts.profile')
 
 @section('title')
     <div>
-        <h1 style="color: gray">{{ __('CLIENT PROFILE') }}</h1>
+        <h3>{{ __('CLIENT PROFILE') }}</h3>
     </div>
+@endsection
+
+@section('profile_image')
+    {{ $model->getAttribute('profile_background')->getValue()['filelink'] }}
+@endsection
+
+@section('logo_image')
+    {{ $model->getAttribute('logo')->getValue()['filelink'] }}
+@endsection
+
+@section('client_short_data')
+    <div style="margin-top: 50px;text-align: center">
+        <h4 style="margin-bottom: 20px">{{ $model->getData()['name'] }}</h4>
+        <p>{{__('APPLYING FOR:')}}<br>
+        <button type="button" class="btn btn-primary" style="width: 100%">{{ $model->getAttribute('program')->getText() }}</button>
+    </div>
+
 @endsection
 
 @section('commands')
     <a class="float-right card-link-icon-container" href="{{ route('clients.edit', $model->getId()) }}"><img class="shadow card-link-icon" src="/images/edit-validated-icon.png" title="{{__('Edit')}}"/></a>
     <a class="float-right card-link-icon-container" href="{{  request()->session()->get('backroute')}}"><img class="shadow card-link-icon" src="/images/go-back-icon.png" title="{{ __('Back') }}"/></a>
+@endsection
+
+@section('users')
+    @foreach($model->instance->users as $user)
+        <div class="row" style="display: flex;align-items: center">
+            <div class="col-4" style="text-align: center">
+                <img src="{{ $user->photo }}" height="75px" />
+            </div>
+            <div class="col" style="text-align: center">
+                <p><strong></string>{{ $user->name }}</strong><br>{{ $user->position }}
+            </div>
+        </div>
+    @endforeach
 @endsection
 
 @section('extras')

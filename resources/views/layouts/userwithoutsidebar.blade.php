@@ -38,7 +38,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+{{--    <link href="{{ asset('css/style.css') }}" rel="stylesheet">--}}
     <link href="{{ asset('css/my.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/jquery.ui.1.10.0.ie.css') }}" rel="stylesheet">
 
@@ -82,14 +82,14 @@
                                 <li class="nav-item dropdown" style="float: right">
 
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }} <span class="caret"></span>
+                                        <img src="{{ asset(Auth::user()->photo) }}" height="25px"/> {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                            <img src="/images/switch-turn-off-icon.png" style="height: 25px" title="{{__('Logout')}}"/><span style="margin-left: 15px">{{__('Logout')}}</span>
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

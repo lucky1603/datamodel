@@ -65,6 +65,9 @@ class ClientController extends Controller
     {
         $data = $request->post();
 
+        var_dump($request->files);
+        die();
+
         // Handle the uploaded file
         $file = $request->file('application_form');
         if($file != null) {
@@ -96,6 +99,19 @@ class ClientController extends Controller
             $path = $profile_background->store('documents');
             $path = asset($path);
             $data['profile_background'] = [
+                'filename' => $originalFileName,
+                'filelink' => $path,
+            ];
+        }
+
+        // Handle the user photo file.
+        $photo = $request->file('photo');
+
+        if($photo != null) {
+            $originalFileName = $photo->getClientOriginalName();
+            $path = $photo->store('documents');
+            $path = asset($path);
+            $data['photo'] = [
                 'filename' => $originalFileName,
                 'filelink' => $path,
             ];
@@ -138,7 +154,9 @@ class ClientController extends Controller
             $user = User::create([
                 'name' => $data['contact_person'],
                 'email' => $data['email'],
-                'password' => $data['password']
+                'password' => $data['password'],
+                'photo' => isset($data['photo']) ? $data['photo']['filelink'] : null,
+                'position' => isset($data['position']) ? $data['position'] : null,
             ]);
 
             // Define it as the client.
