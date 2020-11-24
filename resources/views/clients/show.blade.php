@@ -35,7 +35,7 @@
                 <img src="{{ $user->photo }}" height="75px" />
             </div>
             <div class="col" style="text-align: center">
-                <p><strong></string>{{ $user->name }}</strong><br>{{ $user->position }}
+                <p><strong>{{ $user->name }}</strong><br>{{ $user->position }}
             </div>
         </div>
     @endforeach

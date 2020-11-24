@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="height:100%;">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -21,9 +22,9 @@
                 dateFormat:'yy-mm-dd'
             });
 
-            const app = new Vue({
-                el: '#app',
-            });
+            // const app = new Vue({
+            //     el: '#app',
+            // });
 
         });
 
@@ -44,11 +45,10 @@
 
 
 </head>
-<body style="background-color: #f8f8f8">
+<body style="background-color: #f8f8f8;">
     <div id="app">
-    <div class="wrapper">
-        <div id="content">
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <div id="content" >
+            <nav id="mainMenu" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="{{ url('/') }}">
 {{--                        {{ config('app.name', 'Laravel') }}--}}
@@ -103,12 +103,24 @@
                     </div>
                 </div>
             </nav>
-            <main>
+            <main style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px">
                 @yield('content')
             </main>
+
         </div>
-    </div>
+
 {{--    <script src="{{ asset('js/app.js') }}" ></script>--}}
     </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+       var navHeight = $('nav').height();
+       var paddingTop = $('nav').css('padding-top');
+       var paddingBottom = $('nav').css('padding-bottom');
+       var marginTop = $('nav').css('margin-top');
+       var marginBottom = $('nav').css('margin-bottom');
+       var newPos = parseInt(navHeight) + parseInt(paddingBottom) + parseInt(paddingTop) + parseInt(marginTop) + parseInt(marginBottom);
+       $('main').css('top', newPos);
+    });
+</script>
 </body>
 </html>
