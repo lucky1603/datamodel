@@ -50,7 +50,7 @@
         <nav id="sidebar" style="min-width: 300px; max-width: 300px">
             <div class="sidebar-header" style="text-align: center">
 {{--                <img src="/images/HP-Startup-icon.png" width="50%"/>--}}
-                <img src="/images/white-logo-transparent.png" width="50%"/>
+                <img src="/images/custom/white-logo-transparent.png" width="50%"/>
                 <h5 style="text-align: center;margin-top:40px">NTP Beograd</h5>
                 <h6>{{ __('Accelerator') }}</h6>
             </div>

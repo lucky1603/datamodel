@@ -14,7 +14,7 @@
                 </select>
                 <span style="float: left; margin-right: 10px;margin-left: 20px">{{ __("By Name:") }}</span>
                 <input type="text" class="shadow-sm" style="float: left" placeholder="{{ __('gui.EnterName') }}">
-                <a href="{{ route("clients.create") }}" title="Dodaj novog klijenta" class="shadow" style="float: right"><img id="addUser" src="/images/adduser.png" class="shadow-sm" style="height: 25px"/></a>
+                <a href="{{ route("clients.create") }}" title="Dodaj novog klijenta" class="shadow" style="float: right"><img id="addUser" src="/images/custom/adduser.png" class="shadow-sm" style="height: 25px"/></a>
             </div>
         </div>
     </div>

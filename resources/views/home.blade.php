@@ -8,14 +8,14 @@
                 <div class="card-header">{{ __('Clients') }}</div>
 
                 <div class="card-body">
-                    <a href="{{ route('clients.index') }}"><img src="images/clients.png"/></a>
+                    <a href="{{ route('clients.index') }}"><img src="images/custom/clients.png"/></a>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">{{ __('Contracts') }}</div>
-                    <a href="{{ route('contracts.index') }}"><img src="images/contract.png"/></a>
+                    <a href="{{ route('contracts.index') }}"><img src="images/custom/contract.png"/></a>
                 <div class="card-body">
 
                 </div>
@@ -24,7 +24,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">{{ __('Events') }}</div>
-                    <img src="images/events.png"/>
+                    <img src="images/custom/events.png"/>
                 <div class="card-body">
 
                 </div>
