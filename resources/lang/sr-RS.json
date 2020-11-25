@@ -1,7 +1,8 @@
 {
     "Home" : "Početna",
-    "Contracts" : "Ugovori",
-    "Clients" : "Klijenti",
+    "DASHBOARD" : "KONTROLNA TABLA",
+    "CONTRACTS" : "UGOVORI",
+    "CLIENTS" : "KLIJENTI",
     "Else" : "Ostalo",
     "Accelerator" : "Akcelerator",
     "Search ..." : "Pretraga ...",
@@ -10,5 +11,7 @@
     "By Status:" : "Po statusu:",
     "CLIENT PROFILE" : "PROFIL KLIJENTA",
     "APPLYING FOR:" : "Prijavljuje se za",
-    "SUPPORT TEAM" : "TIM ZA PODRŠKU"
+    "SUPPORT TEAM" : "TIM ZA PODRŠKU",
+    "EVENTS" : "DOGAĐAJI",
+    "LINKS" : "LINKOVI"
 }
