@@ -10,29 +10,22 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" ></script>
-    <script src="{{ asset('js/jquery-1.12.4.js') }}" ></script>
-    <script src="{{ asset('js/jquery-ui.js') }}" ></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('.datepicker').datepicker({
-                changeMonth:true,
-                changeYear:true,
-                dateFormat:'yy-mm-dd'
-            });
-        });
-    </script>
-    @yield('scripts')
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/my.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
+{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+{{--    <link href="{{ asset('css/my.css') }}" rel="stylesheet">--}}
+{{--    <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">--}}
+
+    <!-- App css -->
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/app-creative.min.css" rel="stylesheet" type="text/css" id="light-style" />
+    <link href="/assets/css/app-creative-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
+    <link href="/css/my.css" rel="stylesheet" type="text/css" />
 
 
 </head>
@@ -93,5 +86,25 @@
             @yield('content')
         </main>
     </div>
+    <!-- Scripts -->
+{{--    <script src="{{ asset('js/app.js') }}" ></script>--}}
+{{--    <script src="{{ asset('js/jquery-1.12.4.js') }}" ></script>--}}
+{{--    <script src="{{ asset('js/jquery-ui.js') }}" ></script>--}}
+
+    <!-- bundle -->
+    <script src="/assets/js/vendor.min.js"></script>
+    <script src="/assets/js/app.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // alert('ready');
+            // $('.datepicker').datepicker({
+            //     changeMonth:true,
+            //     changeYear:true,
+            //     dateFormat:'yy-mm-dd'
+            // });
+        });
+    </script>
+    @yield('scripts')
 </body>
 </html>

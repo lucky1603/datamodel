@@ -3,17 +3,18 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Profile | Hyper - Responsive Bootstrap 4 Admin Dashboard</title>
+    <title>{{ __('Accelerator') }} - {{__('CLIENT PROFILE') }} - @yield('client-name')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
     <!-- App css -->
     <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/app-creative.min.css" rel="stylesheet" type="text/css" id="light-style" />
     <link href="/assets/css/app-creative-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
+    <link href="/css/my.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -34,50 +35,38 @@
                     <!-- LOGO -->
                     <a href="" class="topnav-logo">
                                 <span class="topnav-logo-lg">
-                                    <img src="assets/images/logo-light.png" alt="" height="16">
+                                    <img src="/assets/images/logo-light.png" alt="" height="16">
                                 </span>
                         <span class="topnav-logo-sm">
-                                    <img src="assets/images/logo_sm_dark.png" alt="" height="16">
+                                    <img src="/assets/images/logo_sm_dark.png" alt="" height="16">
                                 </span>
                     </a>
 
                     <ul class="list-unstyled topbar-right-menu float-right mb-0">
-
-                        <li class="dropdown notification-list d-lg-none">
-                            <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <i class="dripicons-search noti-icon"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
-                                <form class="p-3">
-                                    <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
-                                </form>
-                            </div>
-                        </li>
-
                         <li class="dropdown notification-list topbar-dropdown d-none d-lg-block">
                             <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" id="topbar-languagedrop" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img src="assets/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">English</span> <i class="mdi mdi-chevron-down align-middle"></i>
+                                <img src="/assets/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">English</span> <i class="mdi mdi-chevron-down align-middle"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu" aria-labelledby="topbar-languagedrop">
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/germany.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">German</span>
+                                    <img src="/assets/images/flags/germany.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">German</span>
                                 </a>
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/italy.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Italian</span>
+                                    <img src="/assets/images/flags/italy.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Italian</span>
                                 </a>
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/spain.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Spanish</span>
+                                    <img src="/assets/images/flags/spain.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Spanish</span>
                                 </a>
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/russia.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Russian</span>
+                                    <img src="/assets/images/flags/russia.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Russian</span>
                                 </a>
 
                             </div>
@@ -125,7 +114,7 @@
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                                         <div class="notify-icon">
-                                            <img src="assets/images/users/avatar-2.jpg" class="img-fluid rounded-circle" alt="" /> </div>
+                                            <img src="/assets/images/users/avatar-2.jpg" class="img-fluid rounded-circle" alt="" /> </div>
                                         <p class="notify-details">Cristina Pride</p>
                                         <p class="text-muted mb-0 user-msg">
                                             <small>Hi, How are you? What about our next meeting</small>
@@ -145,7 +134,7 @@
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                                         <div class="notify-icon">
-                                            <img src="assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt="" /> </div>
+                                            <img src="/assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt="" /> </div>
                                         <p class="notify-details">Karen Robinson</p>
                                         <p class="text-muted mb-0 user-msg">
                                             <small>Wow ! this admin looks good and awesome design</small>
@@ -172,75 +161,15 @@
                             </div>
                         </li>
 
-                        <li class="dropdown notification-list d-none d-sm-inline-block">
-                            <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <i class="dripicons-view-apps noti-icon"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-lg p-0">
-
-                                <div class="p-2">
-                                    <div class="row no-gutters">
-                                        <div class="col">
-                                            <a class="dropdown-icon-item" href="#">
-                                                <img src="assets/images/brands/slack.png" alt="slack">
-                                                <span>Slack</span>
-                                            </a>
-                                        </div>
-                                        <div class="col">
-                                            <a class="dropdown-icon-item" href="#">
-                                                <img src="assets/images/brands/github.png" alt="Github">
-                                                <span>GitHub</span>
-                                            </a>
-                                        </div>
-                                        <div class="col">
-                                            <a class="dropdown-icon-item" href="#">
-                                                <img src="assets/images/brands/dribbble.png" alt="dribbble">
-                                                <span>Dribbble</span>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="row no-gutters">
-                                        <div class="col">
-                                            <a class="dropdown-icon-item" href="#">
-                                                <img src="assets/images/brands/bitbucket.png" alt="bitbucket">
-                                                <span>Bitbucket</span>
-                                            </a>
-                                        </div>
-                                        <div class="col">
-                                            <a class="dropdown-icon-item" href="#">
-                                                <img src="assets/images/brands/dropbox.png" alt="dropbox">
-                                                <span>Dropbox</span>
-                                            </a>
-                                        </div>
-                                        <div class="col">
-                                            <a class="dropdown-icon-item" href="#">
-                                                <img src="assets/images/brands/g-suite.png" alt="G Suite">
-                                                <span>G Suite</span>
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </li>
-
-                        <li class="notification-list">
-                            <a class="nav-link right-bar-toggle" href="javascript: void(0);">
-                                <i class="dripicons-gear noti-icon"></i>
-                            </a>
-                        </li>
-
                         <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" id="topbar-userdrop" href="#" role="button" aria-haspopup="true"
                                aria-expanded="false">
                                         <span class="account-user-avatar">
-                                            <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                                            <img src="@if(\Illuminate\Support\Facades\Auth::user()->photo == null) /assets/images/users/avatar-1.jpg @else {{ \Illuminate\Support\Facades\Auth::user()->photo }} @endif" alt="user-image" class="rounded-circle">
                                         </span>
                                 <span>
-                                            <span class="account-user-name">Dominic Keller</span>
-                                            <span class="account-position">Founder</span>
+                                            <span class="account-user-name">{{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
+                                            <span class="account-position">{{ \Illuminate\Support\Facades\Auth::user()->position }}</span>
                                         </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
@@ -290,73 +219,6 @@
                             <span></span>
                         </div>
                     </a>
-                    <div class="app-search dropdown">
-                        <form>
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="top-search">
-                                <span class="mdi mdi-magnify search-icon"></span>
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit">Search</button>
-                                </div>
-                            </div>
-
-                        </form>
-
-                        <div class="dropdown-menu dropdown-menu-animated dropdown-lg" id="search-dropdown">
-                            <!-- item-->
-                            <div class="dropdown-header noti-title">
-                                <h5 class="text-overflow mb-2">Found <span class="text-danger">17</span> results</h5>
-                            </div>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="uil-notes font-16 mr-1"></i>
-                                <span>Analytics Report</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="uil-life-ring font-16 mr-1"></i>
-                                <span>How can I help you?</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="uil-cog font-16 mr-1"></i>
-                                <span>User profile settings</span>
-                            </a>
-
-                            <!-- item-->
-                            <div class="dropdown-header noti-title">
-                                <h6 class="text-overflow mb-2 text-uppercase">Users</h6>
-                            </div>
-
-                            <div class="notification-list">
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="media">
-                                        <img class="d-flex mr-2 rounded-circle" src="assets/images/users/avatar-2.jpg" alt="Generic placeholder image" height="32">
-                                        <div class="media-body">
-                                            <h5 class="m-0 font-14">Erwin Brown</h5>
-                                            <span class="font-12 mb-0">UI Designer</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="media">
-                                        <img class="d-flex mr-2 rounded-circle" src="assets/images/users/avatar-5.jpg" alt="Generic placeholder image" height="32">
-                                        <div class="media-body">
-                                            <h5 class="m-0 font-14">Jacob Deo</h5>
-                                            <span class="font-12 mb-0">Developer</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
             </div>
             <!-- end Topbar -->
@@ -636,10 +498,10 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
-                                    <li class="breadcrumb-item active">Profile 2</li>
+                                    <li class="breadcrumb-item active"></li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Profile 2</h4>
+                            <h4 class="page-title">{{ __('CLIENT PROFILE') }} - {{ $model->getData()['name'] }}</h4>
                         </div>
                     </div>
                 </div>
@@ -649,32 +511,7 @@
                     <div class="col-xl-4 col-lg-5">
                         <div class="card text-center">
                             <div class="card-body">
-                                <img src="assets/images/users/avatar-1.jpg" class="rounded-circle avatar-lg img-thumbnail"
-                                     alt="profile-image">
-
-                                <h4 class="mb-0 mt-2">Dominic Keller</h4>
-                                <p class="text-muted font-14">Founder</p>
-
-                                <button type="button" class="btn btn-success btn-sm mb-2">Follow</button>
-                                <button type="button" class="btn btn-danger btn-sm mb-2">Message</button>
-
-                                <div class="text-left mt-3">
-                                    <h4 class="font-13 text-uppercase">About Me :</h4>
-                                    <p class="text-muted font-13 mb-3">
-                                        Hi I'm Johnathn Deo,has been the industry's standard dummy text ever since the
-                                        1500s, when an unknown printer took a galley of type.
-                                    </p>
-                                    <p class="text-muted mb-2 font-13"><strong>Full Name :</strong> <span class="ml-2">Geneva
-                                                    D. McKnight</span></p>
-
-                                    <p class="text-muted mb-2 font-13"><strong>Mobile :</strong><span class="ml-2">(123)
-                                                    123 1234</span></p>
-
-                                    <p class="text-muted mb-2 font-13"><strong>Email :</strong> <span class="ml-2 ">user@email.domain</span></p>
-
-                                    <p class="text-muted mb-1 font-13"><strong>Location :</strong> <span class="ml-2">USA</span></p>
-                                </div>
-
+                                @yield('profile-images')
                                 <ul class="social-list list-inline mt-3 mb-0">
                                     <li class="list-inline-item">
                                         <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
@@ -698,7 +535,7 @@
 
                         <!-- Messages-->
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-header">
                                 <div class="dropdown float-right">
                                     <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
                                         <i class="mdi mdi-dots-vertical"></i>
@@ -710,51 +547,10 @@
                                         <a href="javascript:void(0);" class="dropdown-item">Action</a>
                                     </div>
                                 </div>
-                                <h4 class="header-title mb-3">Messages</h4>
-
-                                <div class="inbox-widget">
-                                    <div class="inbox-item">
-                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-2.jpg" class="rounded-circle" alt=""></div>
-                                        <p class="inbox-item-author">Tomaslau</p>
-                                        <p class="inbox-item-text">I've finished it! See you so...</p>
-                                        <p class="inbox-item-date">
-                                            <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
-                                        </p>
-                                    </div>
-                                    <div class="inbox-item">
-                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-3.jpg" class="rounded-circle" alt=""></div>
-                                        <p class="inbox-item-author">Stillnotdavid</p>
-                                        <p class="inbox-item-text">This theme is awesome!</p>
-                                        <p class="inbox-item-date">
-                                            <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
-                                        </p>
-                                    </div>
-                                    <div class="inbox-item">
-                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-4.jpg" class="rounded-circle" alt=""></div>
-                                        <p class="inbox-item-author">Kurafire</p>
-                                        <p class="inbox-item-text">Nice to meet you</p>
-                                        <p class="inbox-item-date">
-                                            <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
-                                        </p>
-                                    </div>
-
-                                    <div class="inbox-item">
-                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-5.jpg" class="rounded-circle" alt=""></div>
-                                        <p class="inbox-item-author">Shahedk</p>
-                                        <p class="inbox-item-text">Hey! there I'm available...</p>
-                                        <p class="inbox-item-date">
-                                            <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
-                                        </p>
-                                    </div>
-                                    <div class="inbox-item">
-                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-6.jpg" class="rounded-circle" alt=""></div>
-                                        <p class="inbox-item-author">Adhamdannaway</p>
-                                        <p class="inbox-item-text">This theme is awesome!</p>
-                                        <p class="inbox-item-date">
-                                            <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
-                                        </p>
-                                    </div>
-                                </div> <!-- end inbox-widget -->
+                                <h4 class="header-title">{{__('SUPPORT TEAM')}}</h4>
+                            </div>
+                            <div class="card-body">
+                                @yield('users')
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
 
@@ -782,10 +578,50 @@
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane" id="aboutme">
+                                        <h5 class="text-uppercase"><i class="mdi mdi-face-profile mr-1"></i>{{ __('General Data') }}</h5>
+
+                                        <div class="display-pair font-14 mt-2">
+                                            <span class="text-muted"><strong>{{ $model->getAttribute('interests')->label }}:</strong></span>
+                                            @if($model->getAttribute('interests')->getText() === 'Остало')
+                                                <span class="text-muted ml-2">{{ $model->getAttribute('ostalo_opis')->getValue() }}</span>
+                                            @else
+                                                <span class="text-muted ml-2">{{ $model->getAttribute('interests')->getText() }}</span>
+                                            @endif
+                                        </div>
+
+                                        <div class="display-pair font-14 mt-2">
+                                            <span class="text-muted"><strong>{{ $model->getAttribute('date_interested')->label }}:</strong></span>
+                                            <span class="text-muted ml-2">{{ $model->getAttribute('date_interested')->getValue() }}</span>
+                                        </div>
+
+                                        @if($model->getAttribute('osnivac_1_imeprezime')->getValue() != null && strlen($model->getAttribute('osnivac_1_imeprezime')->getValue()) > 0)
+                                            <div class="display-pair font-14 mt-2">
+                                                <span class="text-muted"><strong>{{ __('Founders') }}</strong></span>
+                                                <table class="table table-bordered table-centered mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>{{ __('First Name and Last Name') }}</th>
+                                                            <th>{{ __('University') }}</th>
+                                                            <th>{{ __('Share [%]') }}</th>
+                                                        </tr>
+                                                    @for($i = 1; $i <= 6; $i++)
+                                                        @if($model->getAttribute('osnivac_'.$i.'_imeprezime')->getValue() != null)
+                                                            <tr>
+                                                                <td>{{ $model->getAttribute('osnivac_'.$i.'_imeprezime')->getValue() }}</td>
+                                                                <td>{{ $model->getAttribute('osnivac_'.$i.'_fakultet')->getValue() }}</td>
+                                                                <td>{{ $model->getAttribute('osnivac_'.$i.'_udeo')->getValue() }}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endfor
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        @endif
+
+
 
                                         <h5 class="text-uppercase"><i class="mdi mdi-briefcase mr-1"></i>
                                             Experience</h5>
-
                                         <div class="timeline-alt pb-0">
                                             <div class="timeline-item">
                                                 <i class="mdi mdi-circle bg-info-lighten text-info timeline-icon"></i>
@@ -844,7 +680,7 @@
                                                 <tbody>
                                                 <tr>
                                                     <td>1</td>
-                                                    <td><img src="assets/images/users/avatar-2.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Halette Boivin</td>
+                                                    <td><img src="/assets/images/users/avatar-2.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Halette Boivin</td>
                                                     <td>App design and development</td>
                                                     <td>01/01/2015</td>
                                                     <td>10/15/2018</td>
@@ -852,7 +688,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>2</td>
-                                                    <td><img src="assets/images/users/avatar-3.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Durandana Jolicoeur</td>
+                                                    <td><img src="/assets/images/users/avatar-3.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Durandana Jolicoeur</td>
                                                     <td>Coffee detail page - Main Page</td>
                                                     <td>21/07/2016</td>
                                                     <td>12/05/2018</td>
@@ -860,7 +696,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>3</td>
-                                                    <td><img src="assets/images/users/avatar-4.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Lucas Sabourin</td>
+                                                    <td><img src="/assets/images/users/avatar-4.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Lucas Sabourin</td>
                                                     <td>Poster illustation design</td>
                                                     <td>18/03/2018</td>
                                                     <td>28/09/2018</td>
@@ -868,7 +704,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>4</td>
-                                                    <td><img src="assets/images/users/avatar-6.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Donatien Brunelle</td>
+                                                    <td><img src="/assets/images/users/avatar-6.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Donatien Brunelle</td>
                                                     <td>Drinking bottle graphics</td>
                                                     <td>02/10/2017</td>
                                                     <td>07/05/2018</td>
@@ -876,7 +712,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>5</td>
-                                                    <td><img src="assets/images/users/avatar-5.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Karel Auberjo</td>
+                                                    <td><img src="/assets/images/users/avatar-5.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Karel Auberjo</td>
                                                     <td>Landing page design - Home</td>
                                                     <td>17/01/2017</td>
                                                     <td>25/05/2021</td>
@@ -912,7 +748,7 @@
                                         <!-- Story Box-->
                                         <div class="border border-light rounded p-2 mb-3">
                                             <div class="media">
-                                                <img class="mr-2 rounded-circle" src="assets/images/users/avatar-3.jpg"
+                                                <img class="mr-2 rounded-circle" src="/assets/images/users/avatar-3.jpg"
                                                      alt="Generic placeholder image" height="32">
                                                 <div class="media-body">
                                                     <h5 class="m-0">Jeremy Tomlinson</h5>
@@ -921,11 +757,11 @@
                                             </div>
                                             <p>Story based around the idea of time lapse, animation to post soon!</p>
 
-                                            <img src="assets/images/small/small-1.jpg" alt="post-img" class="rounded mr-1"
+                                            <img src="/assets/images/small/small-1.jpg" alt="post-img" class="rounded mr-1"
                                                  height="60" />
-                                            <img src="assets/images/small/small-2.jpg" alt="post-img" class="rounded mr-1"
+                                            <img src="/assets/images/small/small-2.jpg" alt="post-img" class="rounded mr-1"
                                                  height="60" />
-                                            <img src="assets/images/small/small-3.jpg" alt="post-img" class="rounded"
+                                            <img src="/assets/images/small/small-3.jpg" alt="post-img" class="rounded"
                                                  height="60" />
 
                                             <div class="mt-2">
@@ -941,7 +777,7 @@
                                         <!-- Story Box-->
                                         <div class="border border-light rounded p-2 mb-3">
                                             <div class="media">
-                                                <img class="mr-2 rounded-circle" src="assets/images/users/avatar-4.jpg"
+                                                <img class="mr-2 rounded-circle" src="/assets/images/users/avatar-4.jpg"
                                                      alt="Generic placeholder image" height="32">
                                                 <div class="media-body">
                                                     <h5 class="m-0">Thelma Fridley</h5>
@@ -958,7 +794,7 @@
 
                                             <div class="mx-n2 p-2 mt-3 bg-light">
                                                 <div class="media">
-                                                    <img class="mr-2 rounded-circle" src="assets/images/users/avatar-3.jpg"
+                                                    <img class="mr-2 rounded-circle" src="/assets/images/users/avatar-3.jpg"
                                                          alt="Generic placeholder image" height="32">
                                                     <div class="media-body">
                                                         <h5 class="mt-0">Jeremy Tomlinson <small class="text-muted">3 hours ago</small></h5>
@@ -970,7 +806,7 @@
 
                                                         <div class="media mt-3">
                                                             <a class="pr-2" href="#">
-                                                                <img src="assets/images/users/avatar-4.jpg" class="rounded-circle"
+                                                                <img src="/assets/images/users/avatar-4.jpg" class="rounded-circle"
                                                                      alt="Generic placeholder image" height="32">
                                                             </a>
                                                             <div class="media-body">
@@ -983,7 +819,7 @@
 
                                                 <div class="media mt-2">
                                                     <a class="pr-2" href="#">
-                                                        <img src="assets/images/users/avatar-1.jpg" class="rounded-circle"
+                                                        <img src="/assets/images/users/avatar-1.jpg" class="rounded-circle"
                                                              alt="Generic placeholder image" height="32">
                                                     </a>
                                                     <div class="media-body">
@@ -1003,7 +839,7 @@
                                         <!-- Story Box-->
                                         <div class="border border-light p-2 mb-3">
                                             <div class="media">
-                                                <img class="mr-2 rounded-circle" src="assets/images/users/avatar-6.jpg"
+                                                <img class="mr-2 rounded-circle" src="/assets/images/users/avatar-6.jpg"
                                                      alt="Generic placeholder image" height="32">
                                                 <div class="media-body">
                                                     <h5 class="m-0">Martin Williamson</h5>

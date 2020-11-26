@@ -57,11 +57,11 @@
                         <div class="form-group">
                             <label for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
                             <input
-                                type="text"
+                                type="date"
                                 class="form-control"
-                                id="datepicker"
                                 name="{{$attribute->name}}"
-                                value="{{ $attribute->getValue() }}" >
+                                value="{{ $attribute->getValue() }}"
+                                >
                         </div>
                     @endif
                     @if($attribute->type === 'bool')

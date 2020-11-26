@@ -1,8 +1,12 @@
 @extends('layouts.hyper-profile')
 
+@section('client-name')
+    {{ $model->getData()['name'] }}
+@endsection
+
 @section('title')
     <div>
-        <h3>{{ __('CLIENT PROFILE') }}</h3>
+        <h3>{{ __('CLIENT PROFILE') }} </h3>
     </div>
 @endsection
 
@@ -12,6 +16,37 @@
 
 @section('logo_image')
     {{ $model->getAttribute('logo')->getValue()['filelink'] }}
+@endsection
+
+@section('profile-images')
+    <div id="img-container" class="image-container">
+        <img src="@if( $model->getAttribute('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $model->getAttribute('profile_background')->getValue()['filelink'] }} @else '/images/backdefault.jpg' @endif" class="image-container-profile"/>
+        <img class="shadow image-container-logo" src="{{ $model->getAttribute('logo') != null && strlen($model->getAttribute('logo')->getValue()['filelink']) > 0 ? $model->getAttribute('logo')->getValue()['filelink'] : 'images/avatar-default.png' }}" />
+    </div>
+
+    <h4 class="mb-0 mt-5">{{ $model->getData()['name']}}</h4>
+    <p class="text-muted font-14 mt-2">{{ __('Competes For') }}:</p>
+{{--    <button type="button" class="btn btn-success btn-sm mb-2">Follow</button>--}}
+{{--    <button type="button" class="btn btn-danger btn-sm mb-2">Message</button>--}}
+    <button type="button" class="btn btn-primary" style="width: 100%">{{ $model->getAttribute('program')->getText() }}</button>
+
+    <div class="text-left mt-3">
+        <h4 class="font-13 text-uppercase">{{ $model->getAttribute('ino_desc')->label }}</h4>
+        <p class="text-muted font-13 mb-3">{{ $model->getAttribute('ino_desc')->getValue() }}
+        </p>
+        <p class="text-muted mb-2 font-13"><strong>{{ $model->getAttribute('contact_person')->label }}</strong>
+            <span class="ml-2">{{ $model->getAttribute('contact_person')->getValue() }}</span></p>
+
+        <p class="text-muted mb-2 font-13"><strong>{{ $model->getAttribute('telephone')->label }}</strong>
+            <span class="ml-2">{{ $model->getAttribute('telephone')->getValue() }}</span></p>
+
+        <p class="text-muted mb-2 font-13"><strong>{{ $model->getAttribute('email')->label }}</strong>
+            <span class="ml-2">{{ $model->getAttribute('email')->getValue() }}</span></p>
+
+        <p class="text-muted mb-2 font-13"><strong>{{ $model->getAttribute('university')->label }}</strong>
+            <span class="ml-2">{{ $model->getAttribute('university')->getValue() }}</span></p>
+
+    </div>
 @endsection
 
 @section('client_short_data')
@@ -29,16 +64,19 @@
 @endsection
 
 @section('users')
+    <div class="inbox-widget">
     @foreach($model->instance->users as $user)
-        <div class="row" style="display: flex;align-items: center">
-            <div class="col-4" style="text-align: center">
-                <img src="{{ $user->photo }}" height="75px" />
-            </div>
-            <div class="col" style="text-align: center">
-                <p><strong>{{ $user->name }}</strong><br>{{ $user->position }}
-            </div>
+        <div class="inbox-item">
+            <div class="inbox-item-img"><img src="{{ $user->photo }}" class="rounded-circle" alt=""></div>
+            <p class="inbox-item-author">{{ $user->name }}</p>
+            <p class="inbox-item-text">{{ $user->position }}</p>
+            <p class="inbox-item-date">
+                <a href="#" class="btn btn-sm btn-link text-info font-13"> {{__('Edit')}} </a>
+            </p>
         </div>
     @endforeach
+    </div> <!-- end inbox-widget -->
+
 @endsection
 
 @section('extras')

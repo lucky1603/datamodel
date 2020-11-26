@@ -1,23 +1,34 @@
-@extends('layouts.user')
+@extends('layouts.hyper-vertical')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="card shadow-sm" style="width: 100%">
-            <div class="card-body">
-                <span style="float: left; margin-right: 20px">{{ __("SEARCH FILTER:") }}</span>
-                <span style="float: left; margin-right: 10px;margin-left: 10px">{{ __("By Status:") }}</span>
-                <select name="filter" class="shadow-sm" style="float: left;margin-top:1px;">
-                    <option value="1">{{ __("All") }}</option>
-                    <option value="2">{{ __("Interested") }}</option>
-                    <option value="3">{{ __("Registered") }}</option>
-                </select>
-                <span style="float: left; margin-right: 10px;margin-left: 20px">{{ __("By Name:") }}</span>
-                <input type="text" class="shadow-sm" style="float: left" placeholder="{{ __('gui.EnterName') }}">
-                <a href="{{ route("clients.create") }}" title="Dodaj novog klijenta" class="shadow" style="float: right"><img id="addUser" src="/images/custom/adduser.png" class="shadow-sm" style="height: 25px"/></a>
-            </div>
-        </div>
-    </div>
+
+            <ul class="nav shadow frame-padding" style="background-color: white; padding: 10px;">
+                <li class="nav-item"><label style="margin-top: 8px"><strong>{{ __('CLIENT FILTER') }}:</strong></label></li>
+                <li class="nav-item" style="margin-left: 40px">
+                    <div class="input-group input-group-sm" style="margin-top: 2px">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text small">{{ __('By Status') }}</span>
+                        </div>
+                        <select name="clientStatus" id="clientStatus" class="form-control form-control-sm">
+                            <option value="1">{{ __('All') }}</option>
+                            <option value="2">{{ __('Interested') }}</option>
+                            <option value="3">{{ __('Registered') }}</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="nav-item" style="margin-left: 20px">
+                    <div class="input-group input-group-sm" style="margin-top: 2px;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">{{ __('By Name') }}</span>
+                        </div>
+                        <input type="text" id="clientSearch" name="clientSearch" class="form-control" placeholder="{{ __('Search...') }}" >
+{{--                        <span class="mdi mdi-search-web" style="font-size: 22px;position: absolute; left:90px; top:0px; color: lightgray; z-index: 9"></span>--}}
+                        <div class="input-group-append">
+                            <span class="mdi mdi-search-web input-group-text"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
 
     @foreach($clients as $client)
         @if($loop->iteration % 4 == 1)
