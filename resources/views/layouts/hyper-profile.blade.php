@@ -580,47 +580,9 @@
                                     <div class="tab-pane" id="aboutme">
                                         <h5 class="text-uppercase"><i class="mdi mdi-face-profile mr-1"></i>{{ __('General Data') }}</h5>
 
-                                        <div class="display-pair font-14 mt-2">
-                                            <span class="text-muted"><strong>{{ $model->getAttribute('interests')->label }}:</strong></span>
-                                            @if($model->getAttribute('interests')->getText() === 'Остало')
-                                                <span class="text-muted ml-2">{{ $model->getAttribute('ostalo_opis')->getValue() }}</span>
-                                            @else
-                                                <span class="text-muted ml-2">{{ $model->getAttribute('interests')->getText() }}</span>
-                                            @endif
-                                        </div>
+                                        @yield('profile-data')
 
-                                        <div class="display-pair font-14 mt-2">
-                                            <span class="text-muted"><strong>{{ $model->getAttribute('date_interested')->label }}:</strong></span>
-                                            <span class="text-muted ml-2">{{ $model->getAttribute('date_interested')->getValue() }}</span>
-                                        </div>
-
-                                        @if($model->getAttribute('osnivac_1_imeprezime')->getValue() != null && strlen($model->getAttribute('osnivac_1_imeprezime')->getValue()) > 0)
-                                            <div class="display-pair font-14 mt-2">
-                                                <span class="text-muted"><strong>{{ __('Founders') }}</strong></span>
-                                                <table class="table table-bordered table-centered mb-0">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>{{ __('First Name and Last Name') }}</th>
-                                                            <th>{{ __('University') }}</th>
-                                                            <th>{{ __('Share [%]') }}</th>
-                                                        </tr>
-                                                    @for($i = 1; $i <= 6; $i++)
-                                                        @if($model->getAttribute('osnivac_'.$i.'_imeprezime')->getValue() != null)
-                                                            <tr>
-                                                                <td>{{ $model->getAttribute('osnivac_'.$i.'_imeprezime')->getValue() }}</td>
-                                                                <td>{{ $model->getAttribute('osnivac_'.$i.'_fakultet')->getValue() }}</td>
-                                                                <td>{{ $model->getAttribute('osnivac_'.$i.'_udeo')->getValue() }}</td>
-                                                            </tr>
-                                                        @endif
-                                                    @endfor
-                                                    </thead>
-                                                </table>
-                                            </div>
-                                        @endif
-
-
-
-                                        <h5 class="text-uppercase"><i class="mdi mdi-briefcase mr-1"></i>
+                                        <h5 class="text-uppercase mt-4"><i class="mdi mdi-briefcase mr-1"></i>
                                             Experience</h5>
                                         <div class="timeline-alt pb-0">
                                             <div class="timeline-item">

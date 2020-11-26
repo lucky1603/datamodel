@@ -126,5 +126,72 @@
     <a class="float-right card-link-icon-container" href="{{ route('clients.edit', $model->getId()) }}"><img class="shadow card-link-icon" src="/images/custom/edit-validated-icon.png" title="{{__('Edit')}}"/></a>
     <a class="float-right card-link-icon-container" href="{{  request()->session()->get('backroute')}}"><img class="shadow card-link-icon" src="/images/custom/go-back-icon.png" title="{{ __('Back') }}"/></a>
 
+@endsection
+
+@section('profile-data')
+    <div class="display-pair font-14 mt-2">
+        <span class="text-muted"><strong>{{ $model->getAttribute('interests')->label }}:</strong></span>
+        @if($model->getAttribute('interests')->getText() === 'Остало')
+            <span class="text-muted ml-2">{{ $model->getAttribute('ostalo_opis')->getValue() }}</span>
+        @else
+            <span class="text-muted ml-2">{{ $model->getAttribute('interests')->getText() }}</span>
+        @endif
+    </div>
+
+    <div class="display-pair font-14 mt-2">
+        <span class="text-muted"><strong>{{ $model->getAttribute('date_interested')->label }}:</strong></span>
+        <span class="text-muted ml-2">{{ $model->getAttribute('date_interested')->getValue() }}</span>
+    </div>
+
+    @if($model->getAttribute('osnivac_1_imeprezime')->getValue() != null && strlen($model->getAttribute('osnivac_1_imeprezime')->getValue()) > 0)
+        <div class="display-pair font-14 mt-2">
+            <span class="text-muted"><strong>{{ __('Founders') }}</strong></span>
+            <table class="table table-bordered table-centered mb-0">
+                <thead>
+                <tr>
+                    <th>{{ __('First Name and Last Name') }}</th>
+                    <th>{{ __('University') }}</th>
+                    <th>{{ __('Share [%]') }}</th>
+                </tr>
+                @for($i = 1; $i <= 6; $i++)
+                    @if($model->getAttribute('osnivac_'.$i.'_imeprezime')->getValue() != null)
+                        <tr>
+                            <td>{{ $model->getAttribute('osnivac_'.$i.'_imeprezime')->getValue() }}</td>
+                            <td>{{ $model->getAttribute('osnivac_'.$i.'_fakultet')->getValue() }}</td>
+                            <td>{{ $model->getAttribute('osnivac_'.$i.'_udeo')->getValue() }}</td>
+                        </tr>
+                    @endif
+                @endfor
+                </thead>
+            </table>
+        </div>
+    @endif
+
+    <div class="display-pair font-14 mt-2">
+        <span class="text-muted"><strong>{{ $model->getAttribute('reason_contact')->label }}:</strong></span>
+        <span class="text-muted ml-2">{{ $model->getAttribute('reason_contact')->getText() }}</span>
+    </div>
+
+    <div class="display-pair font-14 mt-2">
+        <span class="text-muted" style="display:block"><strong>{{ $model->getAttribute('notes')->label }}:</strong></span>
+        <div style="display: block; width: 100%; background-color: #fafbfe; min-height: 18px">{{ $model->getAttribute('notes')->getValue() }}</div>
+    </div>
+
+    <div class="display-pair font-14 mt-2">
+        <span class="text-muted"><strong>{{ $model->getAttribute('is_registered')->label }}:</strong></span>
+        <span class="text-muted ml-2">{{ $model->getAttribute('is_registered')->getText() }}</span>
+    </div>
+
+    @if($model->getAttribute('is_registered')->getValue())
+        <div class="display-pair font-14 mt-2">
+            <span class="text-muted"><strong>{{ $model->getAttribute('date_registered')->label }}:</strong></span>
+            <span class="text-muted ml-2">{{ $model->getAttribute('date_registered')->getValue() }}</span>
+        </div>
+    @endif
+
+    <div class="display-pair font-14 mt-2">
+        <span class="text-muted" style="display:block"><strong>{{ $model->getAttribute('remark')->label }}:</strong></span>
+        <div style="display: block; width: 100%; background-color: #fafbfe; min-height: 18px">{{ $model->getAttribute('remark')->getValue() }}</div>
+    </div>
 
 @endsection

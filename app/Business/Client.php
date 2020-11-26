@@ -1067,9 +1067,6 @@ class Client extends BusinessModel
         // Notes (mi unosimo)
         $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['notes', 'Naša napomena', 'text', NULL, 32]));
 
-        if(isset($filter) && $filter === 'start')
-            return $attributes;
-
         // Is is registered?
         $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['is_registered', 'Da li je registrovan(a)', 'bool', NULL, 33]));
 
