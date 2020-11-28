@@ -65,9 +65,6 @@ class ClientController extends Controller
     {
         $data = $request->post();
 
-        var_dump($request->files);
-        die();
-
         // Handle the uploaded file
         $file = $request->file('application_form');
         if($file != null) {
@@ -92,7 +89,7 @@ class ClientController extends Controller
             ];
         }
 
-        // Handle the logo file.
+        // Handle the profile background file.
         $profile_background = $request->file('profile_background');
         if($profile_background != null) {
             $originalFileName = $profile_background->getClientOriginalName();
@@ -241,13 +238,38 @@ class ClientController extends Controller
             ];
         }
 
-        // Handle the logo file.
+        // Handle the profile background file.
         $profile_background = $request->file('profile_background');
         if($profile_background != null) {
             $originalFileName = $profile_background->getClientOriginalName();
             $path = $profile_background->store('documents');
             $path = asset($path);
             $data['profile_background'] = [
+                'filename' => $originalFileName,
+                'filelink' => $path,
+            ];
+        }
+
+        // Handle the team profile members.
+        $team_members_file = $request->file('team_members_file');
+        if($team_members_file != null) {
+            $originalFileName = $team_members_file->getClientOriginalName();
+            $path = $team_members_file->store('documents');
+            $path = asset($path);
+            $data['team_members_file'] = [
+                'filename' => $originalFileName,
+                'filelink' => $path,
+            ];
+        }
+
+        // Handle the user photo file.
+        $photo = $request->file('photo');
+
+        if($photo != null) {
+            $originalFileName = $photo->getClientOriginalName();
+            $path = $photo->store('documents');
+            $path = asset($path);
+            $data['photo'] = [
                 'filename' => $originalFileName,
                 'filelink' => $path,
             ];

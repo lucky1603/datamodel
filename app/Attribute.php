@@ -68,8 +68,8 @@ class Attribute extends Model
      */
     public function getText() {
         $value = $this->getValue();
-        if(!isset($value))
-            return null;
+//        if(!isset($value))
+//            return null;
 
         if($this->type === 'select') {
             $returnText = '';
@@ -84,7 +84,7 @@ class Attribute extends Model
                 }
             } else {
                 $option = $this->attribute_options->where('value', $value)->first();
-                $returnText = $option != null ? $option->text : $value;
+                $returnText = $option != null ? $option->text : __('Not Selected');
             }
 
             return $returnText;
@@ -94,7 +94,7 @@ class Attribute extends Model
             return isset($value['filename']) ? $value['filename'] : '';
         } else
         {
-            return strval($value);
+            return (isset($value) && strlen($value) > 0) ? strval($value) : '-';
         }
     }
 

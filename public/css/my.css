@@ -133,6 +133,15 @@
     display: block;
     margin-left: 30px;
 }
+
+.attribute-label {
+    color: #1d68a7!important;
+}
+
+.inbox-widget .inbox-item .inbox-item-img img {
+    width: 40px;
+    height: 40px;
+}
 /*.row.zebra:first-of-type {*/
 /*    background-color: #1d643b;*/
 /*}*/

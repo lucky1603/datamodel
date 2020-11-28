@@ -57,6 +57,8 @@ class Value extends Model
 
             if(count($value) === 1) {
                 $value = $value[0];
+            } else {
+                $value = __("Not Selected");
             }
 
             return $value;

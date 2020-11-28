@@ -511,7 +511,7 @@
                     <div class="col-xl-4 col-lg-5">
                         <div class="card text-center">
                             <div class="card-body">
-                                @yield('profile-images')
+                                @yield('profile-short-data')
                                 <ul class="social-list list-inline mt-3 mb-0">
                                     <li class="list-inline-item">
                                         <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
@@ -576,9 +576,9 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <div class="tab-content">
+                                <div class="tab-content" >
                                     <div class="tab-pane" id="aboutme">
-                                        <h5 class="text-uppercase"><i class="mdi mdi-face-profile mr-1"></i>{{ __('General Data') }}</h5>
+
 
                                         @yield('profile-data')
 

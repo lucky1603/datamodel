@@ -935,6 +935,17 @@ class Client extends BusinessModel
                 'filelink' => '',
             ]
         );
+
+        $this->instance->attributes->where('name', 'photo')->first()->setValue(
+            isset($this->data['photo']) ? $this->data['photo'] : [
+                'filename' => '',
+                'filelink' => '',
+            ]
+        );
+
+        $this->instance->attributes->where('name', 'position')->first()->setValue(
+            isset($this->data['position']) ? $this->data['position'] : ''
+        );
     }
 
     /**
@@ -1025,34 +1036,34 @@ class Client extends BusinessModel
 
         // O S N I V A C I
         // I Osnivac
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_1_imeprezime', 'Osnivac 1 - Ime i prezime', 'varchar', ['ui' => 'hide'], 13]));
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_1_fakultet', 'Osnivac 1 - Fakultet', 'varchar', ['ui' => 'hide'], 14]));
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_1_udeo', 'Osnivac 1 - Udeo u društvu', 'varchar', ['ui' => 'hide'], 15]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_1_imeprezime', 'Osnivac 1 - Ime i prezime', 'varchar', NULL, 13]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_1_fakultet', 'Osnivac 1 - Fakultet', 'varchar', NULL, 14]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_1_udeo', 'Osnivac 1 - Udeo u društvu', 'varchar', NULL, 15]));
 
         // II Osnivac
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_2_imeprezime', 'Osnivac 2 - Ime i prezime', 'varchar', ['ui' => 'hide'], 16]));
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_2_fakultet', 'Osnivac 2 - Fakultet','varchar', ['ui' => 'hide'], 17]));
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_2_udeo', 'Osnivac 2 - Udeo u društvu', 'varchar', ['ui' => 'hide'], 18]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_2_imeprezime', 'Osnivac 2 - Ime i prezime', 'varchar', NULL, 16]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_2_fakultet', 'Osnivac 2 - Fakultet','varchar', NULL, 17]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_2_udeo', 'Osnivac 2 - Udeo u društvu', 'varchar', NULL, 18]));
 
         // III Osnivac
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_3_imeprezime', 'Osnivac 3 - Ime i prezime', 'varchar', ['ui' => 'hide'], 19]));
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_3_fakultet', 'Osnivac 3 - Fakultet', 'varchar', ['ui' => 'hide'], 20]));
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_3_udeo', 'Osnivac 3 - Udeo u društvu', 'varchar', ['ui' => 'hide'], 21]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_3_imeprezime', 'Osnivac 3 - Ime i prezime', 'varchar', NULL, 19]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_3_fakultet', 'Osnivac 3 - Fakultet', 'varchar', NULL, 20]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_3_udeo', 'Osnivac 3 - Udeo u društvu', 'varchar', NULL, 21]));
 
         // IV Osnivac
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_4_imeprezime', 'Osnivac 4 - Ime i prezime', 'varchar', ['ui' => 'hide'], 22]));
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_4_fakultet', 'Osnivac 4 - Fakultet', 'varchar', ['ui' => 'hide'], 23]));
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_4_udeo', 'Osnivac 4 - Udeo u društvu', 'varchar', ['ui' => 'hide'], 24]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_4_imeprezime', 'Osnivac 4 - Ime i prezime', 'varchar', NULL, 22]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_4_fakultet', 'Osnivac 4 - Fakultet', 'varchar', NULL, 23]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_4_udeo', 'Osnivac 4 - Udeo u društvu', 'varchar', NULL, 24]));
 
         // V Osnivac
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_5_imeprezime', 'Osnivac 5 - Ime i prezime', 'varchar', ['ui' => 'hide'], 25]));
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_5_fakultet', 'Osnivac 5 - Fakultet', 'varchar', ['ui' => 'hide'], 26]));
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_5_udeo', 'Osnivac 5 - Udeo u društvu', 'varchar', ['ui' => 'hide'], 27]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_5_imeprezime', 'Osnivac 5 - Ime i prezime', 'varchar', NULL, 25]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_5_fakultet', 'Osnivac 5 - Fakultet', 'varchar', NULL, 26]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_5_udeo', 'Osnivac 5 - Udeo u društvu', 'varchar', NULL, 27]));
 
         // VI Osnivac
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_6_imeprezime', 'Osnivac 6 - Ime i prezime', 'varchar', ['ui' => 'hide'], 28]));
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_6_fakultet', 'Osnivac 6 - Fakultet', 'varchar', ['ui' => 'hide'], 29]));
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_6_udeo', 'Osnivac 6 - Udeo u društvu', 'varchar', ['ui' => 'hide'], 30]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_6_imeprezime', 'Osnivac 6 - Ime i prezime', 'varchar', NULL, 28]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_6_fakultet', 'Osnivac 6 - Fakultet', 'varchar', NULL, 29]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['osnivac_6_udeo', 'Osnivac 6 - Udeo u društvu', 'varchar', NULL, 30]));
 
 
         // Why contact us?
@@ -1263,29 +1274,32 @@ class Client extends BusinessModel
         }
 
         $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['business_model', 'Образложите који модел приходовања планирате или остварујете (продаја производа, лиценци, услуга, модел претплате, франшизе, чланарина, или сл.). Како ћете генерисати приходе? * ', 'text', NULL, 1]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['fiksni_troskovi_1', 'Fiksni troškovi I godina', 'varchar', NULL, 2]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['fiksni_troskovi_2', 'Fiksni troškovi II godina', 'varchar', NULL, 3]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['naknada_angazovanih_1', 'Naknada angažovanih I godina', 'varchar', NULL, 4]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['naknada_angazovanih_2', 'Naknada angažovanih II godina', 'varchar', NULL, 5]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['knjigovodstvo_1', 'Knjigovodstvo I godina', 'varchar', NULL, 6]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['knjigovodstvo_2', 'Knjigovodstvo II godina', 'varchar', NULL, 7]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['advokat_1', 'Advokat I godina', 'varchar', NULL, 8]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['advokat_2', 'Advokat II godina', 'varchar', NULL, 9]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['zakup_kancelarije_1', 'Zakup kancelarije I godina', 'varchar', NULL, 10]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['zakup_kancelarije_2', 'Zakup kancelarije II godina', 'varchar', NULL, 11]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['rezijski_troskovi_1', 'Režijski troškovi I godina', 'varchar', NULL, 12]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['rezijski_troskovi_2', 'Režijski troškovi II godina', 'varchar', NULL, 13]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ostali_fini_troskovi_1', 'Ostali fini troškovi I godina', 'varchar', NULL, 14]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ostali_fini_troskovi_2', 'Ostali fini troškovi II godina', 'varchar', NULL, 15]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ukupni_varijabilni_troskovi_1', 'Ukupni varijabilni troškovi I godina', 'varchar', NULL, 17]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ukupni_varijabilni_troskovi_2', 'Ukupni varijabilni troškovi II godina', 'varchar', NULL, 18]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['troskovi_materijala_1', 'Troškovi materijala I godina', 'varchar', NULL, 19]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['troskovi_materijala_2', 'Troškovi materijala II godina', 'varchar', NULL, 20]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['troskovi_alata_1', 'Troškovi alata za rad I godina', 'varchar', NULL, 21]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['troskovi_alata_2', 'Troškovi alata za rad II godina', 'varchar', NULL, 22]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ostali_varijabilni_troskovi_1', 'Ostali varijabilni troškovi I godina', 'varchar', NULL, 23]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ostali_varijabilni_troskovi_2', 'Ostali varijabilni troškovi II godina', 'varchar', NULL, 24]));
-        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['finansijski_plan_dokument', 'Finansijski plan', 'file', NULL, 25]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['zarade_zaposlenih_1', 'Zarade zaposlenih', 'varchar', NULL, 2]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['zarade_zaposlenih_2', 'Zarade zaposlenih II godina', 'varchar', NULL, 3]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['fiksni_troskovi_1', 'Fiksni troškovi godina', 'varchar', NULL, 4]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['fiksni_troskovi_2', 'Fiksni troškovi II godina', 'varchar', NULL, 5]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['naknada_angazovanih_1', 'Naknada angažovanih godina', 'varchar', NULL, 6]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['naknada_angazovanih_2', 'Naknada angažovanih II godina', 'varchar', NULL, 7]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['knjigovodstvo_1', 'Knjigovodstvo godina', 'varchar', NULL, 8]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['knjigovodstvo_2', 'Knjigovodstvo II godina', 'varchar', NULL, 9]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['advokat_1', 'Advokat godina', 'varchar', NULL, 10]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['advokat_2', 'Advokat II godina', 'varchar', NULL, 11]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['zakup_kancelarije_1', 'Zakup kancelarije godina', 'varchar', NULL, 12]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['zakup_kancelarije_2', 'Zakup kancelarije II godina', 'varchar', NULL, 13]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['rezijski_troskovi_1', 'Režijski troškovi godina', 'varchar', NULL, 14]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['rezijski_troskovi_2', 'Režijski troškovi II godina', 'varchar', NULL, 15]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ostali_fini_troskovi_1', 'Ostali fini troškovi godina', 'varchar', NULL, 16]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ostali_fini_troskovi_2', 'Ostali fini troškovi II godina', 'varchar', NULL, 17]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ukupni_varijabilni_troskovi_1', 'Ukupni varijabilni troškovi godina', 'varchar', NULL, 18]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ukupni_varijabilni_troskovi_2', 'Ukupni varijabilni troškovi II godina', 'varchar', NULL, 19]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['troskovi_materijala_1', 'Troškovi materijala godina', 'varchar', NULL, 20]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['troskovi_materijala_2', 'Troškovi materijala II godina', 'varchar', NULL, 21]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['troskovi_alata_1', 'Troškovi alata za rad godina', 'varchar', NULL, 22]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['troskovi_alata_2', 'Troškovi alata za rad II godina', 'varchar', NULL, 23]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ostali_varijabilni_troskovi_1', 'Ostali varijabilni troškovi godina', 'varchar', NULL, 24]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['ostali_varijabilni_troskovi_2', 'Ostali varijabilni troškovi II godina', 'varchar', NULL, 25]));
+        $attributes[] = $grupaPoslovniModel->addAttribute(self::selectOrCreateAttribute(['finansijski_plan_dokument', 'Finansijski plan', 'file', NULL, 26]));
+
 
         return $attributes;
 
