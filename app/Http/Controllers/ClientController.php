@@ -214,6 +214,9 @@ class ClientController extends Controller
     {
         $data = $request->post();
 
+//        var_dump($data);
+//        die();
+
         // Handle the uploaded file
         $file = $request->file('application_form');
         if($file != null) {

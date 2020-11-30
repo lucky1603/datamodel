@@ -108,6 +108,8 @@ class Value extends Model
                 break;
             default:
                 $tablename = 'bool_values';
+                if($value === 'on') $value = true;
+                if($value === 'off') $value = false;
                 break;
         }
 

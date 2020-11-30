@@ -129,6 +129,8 @@
 @endsection
 
 @section('profile-data')
+    <!-- Opsti podaci -->
+
     <h5 class="text-uppercase"><i class="mdi mdi-face-profile mr-1"></i>{{ __('General Data') }}</h5>
 
     <div class="display-pair font-14 mt-3">
@@ -139,6 +141,11 @@
     <div class="display-pair font-14 mt-2">
         <span class="attribute-label"><strong>{{ $model->getAttribute('address')->label }}:</strong></span>
         <span class="text-muted ml-2">{{ $model->getAttribute('address')->getValue() }}</span>
+    </div>
+
+    <div class="display-pair font-14 mt-2">
+        <span class="attribute-label"><strong>{{ $model->getAttribute('website')->label }}:</strong></span>
+        <a class="text-muted ml-2" href="{{ $model->getAttribute('website')->getValue() }}">{{ $model->getAttribute('website')->getValue() }}</a>
     </div>
 
     <div class="display-pair font-14 mt-2">

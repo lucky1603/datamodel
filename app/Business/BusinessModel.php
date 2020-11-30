@@ -85,6 +85,8 @@ class BusinessModel
             if($attribute->type === 'bool') {
                 if($value === 'on')
                     $value = true;
+                else
+                    $value = false;
             }
             if(isset($attribute)) {
                 $attribute->setValue($value);

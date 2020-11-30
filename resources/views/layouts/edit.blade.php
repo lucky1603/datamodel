@@ -66,13 +66,19 @@
                     @endif
                     @if($attribute->type === 'bool')
                         <div class="form-group">
+                            <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
                             {!! $attribute->label !!}
                             <input
                                 type="checkbox"
                                 id="{{ $attribute->name }}"
                                 name="{{$attribute->name}}"
-                                checked="{{ $attribute->getValue() == 0 ? false : true }}" style="padding-top: 10px">
-
+                                checked="{{ $attribute->getValue() == 0 ? false : true }}" style="padding-top: 10px"
+                                onclick="
+                                    if(document.getElementById('{{ $attribute->name }}').checked)
+                                    {
+                                        document.getElementById('{{ $attribute->name }}Hidden').disabled = true
+                                    }
+                                    ">
                         </div>
                     @endif
                     @if($attribute->type === 'select')

@@ -22,6 +22,7 @@
     "Innovation" : "Inovativnost",
     "LINKS" : "LINKOVI",
     "Needed Support and Additional Remarks" : "Potrebna podrška i dodatne napomene",
+    "NO" : "NE",
     "Not Selected" : "Nije odabrano",
     "Problem and Target Group" : "Problem i ciljna grupa",
     "Search" : "Pretraži",
@@ -32,5 +33,6 @@
     "Table of Expenses" : "Tabela troškova",
     "Team" : "Tim",
     "University" : "Fakultet",
-    "Year" : "Godina"
+    "Year" : "Godina",
+    "YES" : "DA"
 }
