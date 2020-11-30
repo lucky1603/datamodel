@@ -474,7 +474,20 @@
         <span class="attribute-label"><strong>{{ $model->getAttribute('konsalting_usluge')->label }}:</strong></span>
         <span class="text-muted ml-2">{{ $model->getAttribute('konsalting_usluge')->getText() }}</span>
     </div>
+@endsection
 
+@section('activities')
+    @foreach($model->getSituations() as $situation)
+        <div class="timeline-item">
+            <i class="mdi mdi-circle bg-info-lighten text-info timeline-icon"></i>
+            <div class="timeline-item-info">
+                <h5 class="mt-0 mb-1">{{ $situation->getData()['name'] }}</h5>
+                <p class="font-12 attribute-label font-weight-bold">{{ $situation->getData()['occurred_at'] }}</p>
+                <p class="text-muted mt-2 mb-0 pb-3">
+                    {{ $situation->getData()['description'] }}
+                </p>
+            </div>
+        </div>
+    @endforeach
+@endsection
 
-
-    @endsection
