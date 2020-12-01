@@ -579,47 +579,7 @@
                                 <div class="tab-content" >
                                     <div class="tab-pane show active" id="aboutme">
                                         @yield('profile-data')
-                                        <h5 class="text-uppercase mt-4"><i class="mdi mdi-briefcase mr-1"></i>
-                                            Experience</h5>
-                                        <div class="timeline-alt pb-0">
-                                            <div class="timeline-item">
-                                                <i class="mdi mdi-circle bg-info-lighten text-info timeline-icon"></i>
-                                                <div class="timeline-item-info">
-                                                    <h5 class="mt-0 mb-1">Lead designer / Developer</h5>
-                                                    <p class="font-14">websitename.com <span class="ml-2 font-12">Year: 2015 - 18</span></p>
-                                                    <p class="text-muted mt-2 mb-0 pb-3">Everyone realizes why a new common language
-                                                        would be desirable: one could refuse to pay expensive translators.
-                                                        To achieve this, it would be necessary to have uniform grammar,
-                                                        pronunciation and more common words.</p>
-                                                </div>
-                                            </div>
 
-                                            <div class="timeline-item">
-                                                <i class="mdi mdi-circle bg-primary-lighten text-primary timeline-icon"></i>
-                                                <div class="timeline-item-info">
-                                                    <h5 class="mt-0 mb-1">Senior Graphic Designer</h5>
-                                                    <p class="font-14">Software Inc. <span class="ml-2 font-12">Year: 2012 - 15</span></p>
-                                                    <p class="text-muted mt-2 mb-0 pb-3">If several languages coalesce, the grammar
-                                                        of the resulting language is more simple and regular than that of
-                                                        the individual languages. The new common language will be more
-                                                        simple and regular than the existing European languages.</p>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="timeline-item">
-                                                <i class="mdi mdi-circle bg-info-lighten text-info timeline-icon"></i>
-                                                <div class="timeline-item-info">
-                                                    <h5 class="mt-0 mb-1">Graphic Designer</h5>
-                                                    <p class="font-14">Coderthemes Design LLP <span class="ml-2 font-12">Year: 2010 - 12</span></p>
-                                                    <p class="text-muted mt-2 mb-0 pb-2">The European languages are members of
-                                                        the same family. Their separate existence is a myth. For science
-                                                        music sport etc, Europe uses the same vocabulary. The languages
-                                                        only differ in their grammar their pronunciation.</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
                                         <!-- end timeline -->
 
                                         <h5 class="mb-3 mt-4 text-uppercase"><i class="mdi mdi-cards-variant mr-1"></i>
@@ -685,9 +645,169 @@
                                     </div> <!-- end tab-pane -->
                                     <!-- end about me section content -->
                                     <div class="tab-pane" id="timeline">
-                                        <div class="timeline-alt pb-0">
-                                            @yield('activities')
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="timeline">
+
+                                                    <div class="timeline-show mb-3 text-center">
+                                                        <h5 class="m-0 time-show-name">Today</h5>
+                                                    </div>
+
+                                                    <div class="timeline-lg-item timeline-item-left">
+                                                        <div class="timeline-desk">
+                                                            <div class="timeline-box">
+                                                                <span class="arrow-alt"></span>
+                                                                <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                                                                <h4 class="mt-0 mb-1 font-16">Completed UX design project for our client</h4>
+                                                                <p class="text-muted"><small>22 July, 2019</small></p>
+                                                                <p>Dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? </p>
+
+                                                                <a href="javascript: void(0);" class="btn btn-sm btn-light">👍 17</a>
+                                                                <a href="javascript: void(0);" class="btn btn-sm btn-light">❤️ 89</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="timeline-lg-item">
+                                                        <div class="timeline-desk">
+                                                            <div class="timeline-box">
+                                                                <span class="arrow"></span>
+                                                                <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                                                                <h4 class="mt-0 mb-1 font-16">Yay! We are celebrating our first admin release.</h4>
+                                                                <p class="text-muted"><small>22 July, 2019</small></p>
+                                                                <p>Consectetur adipisicing elit. Iusto, optio, dolorum <a href="#">John deon</a> provident rerum aut hic quasi placeat iure tempora laudantium </p>
+
+                                                                <a href="javascript: void(0);" class="btn btn-sm btn-light">🎉 148</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="timeline-show my-3 text-center">
+                                                        <h5 class="m-0 time-show-name">Yesterday</h5>
+                                                    </div>
+
+                                                    <div class="timeline-lg-item timeline-item-left">
+                                                        <div class="timeline-desk">
+                                                            <div class="timeline-box">
+                                                                <span class="arrow-alt"></span>
+                                                                <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                                                                <h4 class="mt-0 mb-1 font-16">We released new version of our theme Ubold.</h4>
+                                                                <p class="text-muted"><small>21 July, 2019</small></p>
+                                                                <p>3 new photo Uploaded on facebook fan page</p>
+
+                                                                <div class="timeline-album mb-3">
+                                                                    <a href="javascript: void(0);">
+                                                                        <img alt="" src="assets/images/small/small-1.jpg">
+                                                                    </a>
+                                                                    <a href="javascript: void(0);">
+                                                                        <img alt="" src="assets/images/small/small-2.jpg">
+                                                                    </a>
+                                                                    <a href="javascript: void(0);">
+                                                                        <img alt="" src="assets/images/small/small-3.jpg">
+                                                                    </a>
+                                                                </div>
+
+                                                                <a href="javascript: void(0);" class="btn btn-sm btn-light">🏆 94</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="timeline-lg-item">
+                                                        <div class="timeline-desk">
+                                                            <div class="timeline-box">
+                                                                <span class="arrow"></span>
+                                                                <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                                                                <h4 class="mt-0 mb-1 font-16">We have archieved 25k sales in our themes.</h4>
+                                                                <p class="text-muted"><small>21 July, 2019</small></p>
+                                                                <p>Outdoor visit at California State Route 85 with John Boltana &
+                                                                    Harry Piterson regarding to setup a new show room.</p>
+
+                                                                <a href="javascript: void(0);" class="btn btn-sm btn-light">👍 1.4k</a>
+                                                                <a href="javascript: void(0);" class="btn btn-sm btn-light">🎉 2k</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="timeline-lg-item timeline-item-left">
+                                                        <div class="timeline-desk">
+                                                            <div class="timeline-box">
+                                                                <span class="arrow-alt"></span>
+                                                                <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                                                                <h4 class="mt-0 mb-1 font-16">Conference call with UX team</h4>
+                                                                <p class="text-muted"><small>21 July, 2019</small></p>
+                                                                <p>Jonatha Smith added new milestone <span><a href="#">Pathek</a></span>
+                                                                    Lorem ipsum dolor sit amet consiquest dio</p>
+
+                                                                <a href="javascript: void(0);" class="btn btn-sm btn-light">❤️ 89</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="timeline-show my-3 text-center">
+                                                        <h5 class="m-0 time-show-name">2018</h5>
+                                                    </div>
+
+                                                    <div class="timeline-lg-item">
+                                                        <div class="timeline-desk">
+                                                            <div class="timeline-box">
+                                                                <span class="arrow"></span>
+                                                                <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                                                                <h4 class="mt-0 mb-1 font-16">Join new team member Alex Smith</h4>
+                                                                <p class="text-muted"><small>10 December, 2018</small></p>
+                                                                <p>Alex Smith is a Senior Software (Full Stack) engineer with a deep passion for building usable, functional & pretty web applications. </p>
+                                                                <div class="media">
+                                                                    <img src="assets/images/users/avatar-3.jpg" alt="Arya S" class="rounded-circle mr-2" height="24">
+                                                                    <div class="media-body">
+                                                                        <h5 class="mt-1 font-14 mb-0">
+                                                                            Alex Smith <small>- Senior Software (Full Stack)</small>
+                                                                        </h5>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="timeline-lg-item timeline-item-left">
+                                                        <div class="timeline-desk">
+                                                            <div class="timeline-box">
+                                                                <span class="arrow-alt"></span>
+                                                                <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                                                                <h4 class="mt-0 mb-1 font-16">First release of Hyper admin dashboard template</h4>
+                                                                <p class="text-muted"><small>16 July, 2018</small></p>
+                                                                <p>Outdoor visit at California State Route 85 with John Boltana &
+                                                                    Harry Piterson regarding to setup a new show room.</p>
+
+                                                                <a href="javascript: void(0);" class="btn btn-sm btn-light">🎉 10k</a>
+                                                                <a href="javascript: void(0);" class="btn btn-sm btn-light">👍 3.2k</a>
+                                                                <a href="javascript: void(0);" class="btn btn-sm btn-light">❤️ 7.1k</a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <!-- end timeline -->
+                                            </div> <!-- end col -->
                                         </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="timeline-alt pb-0">
+                                                            @yield('activities')
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="card" style="height: 500px">
+                                                    <div class="card-body">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                     <div class="tab-pane" id="settings">

@@ -310,7 +310,9 @@ class ClientController extends Controller
                         'client' => $client->getAttribute('name')->getValue()
                     ];
 
-                    $eventData['application_form'] = $client->getData()['application_form'];
+                    if(isset($client->getData()['application_form'])) {
+                        $eventData['application_form'] = $client->getData()['application_form'];
+                    }
                     $client->addSituationByData('registracija',$eventData);
                 }
             }

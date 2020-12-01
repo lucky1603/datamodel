@@ -2,7 +2,9 @@
 
 namespace App;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
 class Value extends Model
@@ -68,6 +70,12 @@ class Value extends Model
         if($attribute->type === 'bool') {
             $value = $value === null || $value === 0 ? false : true;
         }
+        if($attribute->type === 'datetime') {
+            if(App::isLocale('sr-RS')) {
+                $value = new DateTime($value);
+                $value = $value->format('d.m.Y');
+            }
+        }
 
         return $value;
 
@@ -89,6 +97,7 @@ class Value extends Model
                 break;
             case 'datetime':
                 $tablename = 'datetime_values';
+                $value = new DateTime($value);
                 break;
             case 'select':
                 $tablename = 'select_values';

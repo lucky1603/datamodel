@@ -91,18 +91,14 @@
 {{--    <script src="{{ asset('js/jquery-1.12.4.js') }}" ></script>--}}
 {{--    <script src="{{ asset('js/jquery-ui.js') }}" ></script>--}}
 
+
     <!-- bundle -->
     <script src="/assets/js/vendor.min.js"></script>
     <script src="/assets/js/app.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
-            // alert('ready');
-            // $('.datepicker').datepicker({
-            //     changeMonth:true,
-            //     changeYear:true,
-            //     dateFormat:'yy-mm-dd'
-            // });
+            $( ".datepicker" ).datepicker();
         });
     </script>
     @yield('scripts')

@@ -479,7 +479,11 @@
 @section('activities')
     @foreach($model->getSituations() as $situation)
         <div class="timeline-item">
-            <i class="mdi mdi-circle bg-info-lighten text-info timeline-icon"></i>
+            @if($loop->last)
+                <i class="mdi mdi-circle bg-primary-lighten text-primary timeline-icon"></i>
+            @else
+                <i class="mdi mdi-circle bg-info-lighten text-info timeline-icon"></i>
+            @endif
             <div class="timeline-item-info">
                 <h5 class="mt-0 mb-1">{{ $situation->getData()['name'] }}</h5>
                 <p class="font-12 attribute-label font-weight-bold">{{ $situation->getData()['occurred_at'] }}</p>
