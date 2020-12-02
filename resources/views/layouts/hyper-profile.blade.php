@@ -648,7 +648,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="timeline">
-
+                                                    @yield('timeline')
                                                     <div class="timeline-show mb-3 text-center">
                                                         <h5 class="m-0 time-show-name">Today</h5>
                                                     </div>
@@ -789,24 +789,24 @@
                                                 <!-- end timeline -->
                                             </div> <!-- end col -->
                                         </div>
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="timeline-alt pb-0">
-                                                            @yield('activities')
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="card" style="height: 500px">
-                                                    <div class="card-body">
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-4">--}}
+{{--                                                <div class="card">--}}
+{{--                                                    <div class="card-body">--}}
+{{--                                                        <div class="timeline-alt pb-0">--}}
+{{--                                                            @yield('activities')--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-8">--}}
+{{--                                                <div class="card" style="height: 500px">--}}
+{{--                                                    <div class="card-body">--}}
 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
 
                                     </div>
 

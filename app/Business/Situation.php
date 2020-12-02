@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 class Situation extends BusinessModel
 {
 
+    private $displayAttributes;
 
     /**
      * Removes the element instance from the database.
@@ -161,6 +162,28 @@ class Situation extends BusinessModel
             isset($this->data['sender']) ? $this->data['sender'] : 'Unknown'
         );
 
+    }
+
+    public function addDisplayAttribute($attribute) {
+        if($this->displayAttributes == null)
+            $this->displayAttributes = collect([]);
+
+        if(!$this->displayAttributes->contains($attribute))
+            $this->displayAttributes->add($attribute);
+    }
+
+    public function getDisplayAttributes() {
+        $hidden = [
+          'name', 'occurred_at', 'status', 'sender', 'description'
+        ];
+
+        $displayAttributes = [];
+        foreach($this->getAttributes() as $attribute) {
+            if(!in_array($attribute->name, $hidden))
+                $displayAttributes[] = $attribute;
+        }
+
+        return collect($displayAttributes)->sortBy('sort_order');
     }
 
 }

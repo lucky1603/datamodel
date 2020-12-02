@@ -477,9 +477,9 @@
 @endsection
 
 @section('activities')
-    @foreach($model->getSituations() as $situation)
+    @foreach($model->getSituations()->sortDesc() as $situation)
         <div class="timeline-item">
-            @if($loop->last)
+            @if($loop->first)
                 <i class="mdi mdi-circle bg-primary-lighten text-primary timeline-icon"></i>
             @else
                 <i class="mdi mdi-circle bg-info-lighten text-info timeline-icon"></i>
@@ -490,7 +490,60 @@
                 <p class="text-muted mt-2 mb-0 pb-3">
                     {{ $situation->getData()['description'] }}
                 </p>
+                @foreach($situation->getAttributes() as $attribute)
+                    @if($attribute->name == 'description')
+                        @continue
+                    @endif
+                    <p><span class="text-primary">{{ $attribute->name }}:</span><span class="ml-2 text-muted">{{ $attribute->getText() }}</span></p>
+                @endforeach
             </div>
+        </div>
+    @endforeach
+@endsection
+
+@section('timeline')
+
+    <div class="timeline-show mb-3 text-center">
+        <h5 class="m-0 time-show-name">{{ __('Interest') }}</h5>
+    </div>
+
+    @foreach($model->getSituations() as $situation)
+        @if($loop->iteration == 2)
+            <div class="timeline-show mb-3 text-center">
+                <h5 class="m-0 time-show-name">{{__('Registration')}}</h5>
+            </div>
+        @endif
+
+
+        @if($loop->iteration % 2 != 0)
+        <div class="timeline-lg-item timeline-item-left">
+        @else
+        <div class="timeline-lg-item">
+        @endif
+
+        <div class="timeline-desk">
+            <div class="timeline-box">
+                @if($loop->iteration % 2 != 0)
+                <span class="arrow-alt"></span>
+                @else
+                <span class="arrow"></span>
+                @endif
+                <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                <h4 class="mt-0 mb-1 font-16">{{$situation->getData()['name']}}</h4>
+                <p class="text-muted"><small>{{ $situation->getData()['occurred_at'] }}</small></p>
+                <p>{{ $situation->getData()['description'] }} </p>
+                @if($situation->getDisplayAttributes() != null)
+                        <p>
+                    @foreach($situation->getDisplayAttributes() as $attribute)
+                            <span class="attribute-label mt-0 mb-0"><strong>{{ $attribute->label }}:</strong></span><span class="ml-2 text-muted font-12">{{ $attribute->getText() }}</span><br>
+                    @endforeach
+                        </p>
+                @endif
+
+{{--                <a href="javascript: void(0);" class="btn btn-sm btn-light">👍 17</a>--}}
+{{--                <a href="javascript: void(0);" class="btn btn-sm btn-light">❤️ 89</a>--}}
+            </div>
+        </div>
         </div>
     @endforeach
 @endsection

@@ -130,6 +130,7 @@ class ClientController extends Controller
             $eventData = [
                 'name' => 'Interesovanje',
                 'description' => 'Klijent je zainteresovan za saradnju',
+                'status' => 1,
             ];
 
             // Add file to the situation.
@@ -307,7 +308,8 @@ class ClientController extends Controller
                     $eventData = [
                         'name' => 'Registracija',
                         'description' => 'Klijent je registrovan',
-                        'client' => $client->getAttribute('name')->getValue()
+                        'client' => $client->getAttribute('name')->getValue(),
+                        'status' => 2,
                     ];
 
                     if(isset($client->getData()['application_form'])) {
@@ -359,6 +361,7 @@ class ClientController extends Controller
 
         $data['name'] = 'Predselekcija';
         $data['description'] = 'Izbor klijenta u predselekciju';
+        $data['status'] = 2;
 
         // Add situation to the client.
         $client->addSituationByData('predselekcija',$data);
@@ -396,6 +399,7 @@ class ClientController extends Controller
         $data = $request->post();
 
         $client->setData(['status' => 4]);
+        $data['status'] = 4;
 
         $situacija = $client->getSituation('sastanak_poziv');
         if($situacija == null) {
@@ -464,10 +468,12 @@ class ClientController extends Controller
         if($data['decision'] === 'yes') {
             $data['decision'] = true;
             $client->setData(['status' => 6]);
+            $data['status'] = 6;
 
         } else {
             $data['decision'] = false;
             $client->setData(['status' => 7]);
+            $data['status'] = 7;
         }
 
         $situation = $client->getSituation('odluka');
@@ -498,6 +504,8 @@ class ClientController extends Controller
                 'konsalting_usluge'
             ]);
 
+        $data['status'] = 8;
+
         // Create the situation.
         $client->addSituationByData('dodela_prostora', $data);
 
@@ -521,6 +529,7 @@ class ClientController extends Controller
         $data = $request->post();
 
         $client->setData(['status' => 9]);
+        $data['status'] = 9;
 
         $situacija = $client->getSituation('ugovor_poziv');
         if($situacija == null) {
