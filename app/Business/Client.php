@@ -99,7 +99,7 @@ class Client extends BusinessModel
                     $application_form = Attribute::create(['name' => 'application_form', 'label' => 'Obrazac za prijavu', 'type' => 'file', 'sort_order' => 100]);
                 }
                 $situation->addAttribute($application_form);
-                $situation->addAttribute(self::selectOrCreateAttribute('status', null, null,0));
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null,0]));
 
                 $data = [
                     'name' => $situationType,
@@ -118,7 +118,7 @@ class Client extends BusinessModel
                 break;
             case 'registracija':
                 $situation = new Situation();
-                $situation->addAttribute(self::selectOrCreateAttribute('status', null, null,0));
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null,0]));
 
                 $data = [
                     'name' => $situationType,
@@ -153,7 +153,7 @@ class Client extends BusinessModel
                 break;
             case 'predselekcija':
                 $situation = new Situation();
-                $situation->addAttribute(self::selectOrCreateAttribute('status', null, null,0));
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null,0]));
 
                 $data['name'] = $situationType;
                 $data['description'] = "Predselekcija";
@@ -219,7 +219,7 @@ class Client extends BusinessModel
                 break;
             case 'sastanak_poziv':
                 $situation = new Situation();
-                $situation->addAttribute(self::selectOrCreateAttribute('status', null, null,0));
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null,0]));
 
                 $data['name'] = $situationType;
                 $data['description'] = "Poziv na sastanak";
@@ -262,7 +262,7 @@ class Client extends BusinessModel
                 break;
             case 'sastanak_potvrda':
                 $situation = new Situation();
-                $situation->addAttribute(self::selectOrCreateAttribute('status', null, null,0));
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null,0]));
 
                 $data['name'] = $situationType;
                 $data['description'] = "Potvrda datuma sastanka";
@@ -287,7 +287,7 @@ class Client extends BusinessModel
                 break;
             case 'odluka':
                 $situation = new Situation();
-                $situation->addAttribute(self::selectOrCreateAttribute('status', null, null,0));
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null,0]));
 
                 $data['name'] = $situationType;
                 $data['description'] = 'Konačna odluka';
@@ -330,7 +330,7 @@ class Client extends BusinessModel
                 break;
             case 'dodela_prostora':
                 $situation = new Situation();
-                $situation->addAttribute(self::selectOrCreateAttribute('status', null, null,0));
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null,0]));
 
                 $data['name'] = $situationType;
                 $data['description'] = 'Klijentu se dodeljuju zahtevani servisi i infrastruktura';
@@ -417,7 +417,7 @@ class Client extends BusinessModel
                 break;
             case 'ugovor_poziv':
                 $situation = new Situation();
-                $situation->addAttribute(self::selectOrCreateAttribute('status', null, null,0));
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null,0]));
 
                 $data['name'] = $situationType;
                 $data['description'] = "Poziv na potpis ugovora";
@@ -460,7 +460,7 @@ class Client extends BusinessModel
                 break;
             case 'ugovor_potvrda':
                 $situation = new Situation();
-                $situation->addAttribute(self::selectOrCreateAttribute('status', null, null,0));
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null,0]));
 
                 $data['name'] = $situationType;
                 $data['description'] = "Potvrda datuma potpisa ugovora";
@@ -485,7 +485,7 @@ class Client extends BusinessModel
                 break;
             case 'ugovor_potpis':
                 $situation = new Situation();
-                $situation->addAttribute(self::selectOrCreateAttribute('status', null, null,0));
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null,0]));
 
                 $data['name'] = $situationType;
                 $data['description'] = 'Potpisivanje ugovora';
@@ -528,7 +528,7 @@ class Client extends BusinessModel
                 break;
             case 'odbijanje':
                 $situation = new Situation();
-                $situation->addAttribute(self::selectOrCreateAttribute('status', null, null,0));
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null,0]));
 
                 $razlog_odbijanja = Attribute::where('name', 'razlog_odbijanja')->first();
                 if(!$razlog_odbijanja) {

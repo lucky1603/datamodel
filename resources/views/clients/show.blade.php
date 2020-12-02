@@ -63,6 +63,12 @@
     <a class="float-right card-link-icon-container" href="{{  request()->session()->get('backroute')}}"><img class="shadow card-link-icon" src="/images/custom/go-back-icon.png" title="{{ __('Back') }}"/></a>
 @endsection
 
+@section('breadcrumbs')
+    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{__('Home')}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('clients.index') }}">{{__('Clients')}}</a></li>
+    <li class="breadcrumb-item active"></li>
+@endsection
+
 @section('users')
     <div class="inbox-widget">
     @foreach($model->instance->users as $user)
@@ -89,43 +95,38 @@
     @endif
 @endsection
 
-@section('returns')
-
+@section('next-status')
     @if(auth()->user()->isAdmin())
         @switch($model->getData()['status'])
             @case('1')
-                <a class="float-right card-link-icon-container" href="{{ route('clients.register', $model->getId()) }}"><img class="shadow card-link-icon" src="/images/custom/Status-mail-task-icon.png" title="{{ __('Registracija') }}"/></a></a>
+                <a href="{{ route('clients.register', $model->getId()) }}" class="dropdown-item">{{ __('Registration') }}</a>
             @break
             @case('2')
-                <a class="float-right card-link-icon-container" href="{{ route('clients.preselect', $model->getId()) }}" ><img class="shadow card-link-icon" src="/images/custom/Status-mail-task-icon.png" title="{{ __('Predselekcija') }}"/></a>
-                @break
+                <a href="{{ route('clients.preselect', $model->getId()) }}" class="dropdown-item">{{ __('Pre- Selection') }}</a>
+            @break
             @case('3')
-                <a class="float-right card-link-icon-container" href="{{ route('clients.invite', $model->getId()) }}" ><img class="shadow card-link-icon" src="/images/custom/Status-mail-task-icon.png" title="{{ __('Poziv na sastanak') }}"/></a>
+                <a href="{{ route('clients.invite', $model->getId()) }}" class="dropdown-item">{{ __('Call to the meeting') }}</a>
                 @break
             @case('4')
-                <a class="float-right card-link-icon-container" href="{{ route('clients.confirm', $model->getId()) }}" ><img class="shadow card-link-icon" src="/images/custom/Status-mail-task-icon.png" title="{{ __('Potvrda datuma') }}"/></a>
+                <a href="{{ route('clients.confirm', $model->getId()) }}" class="dropdown-item">{{ __('Meeting Date Confirmation') }}</a>
                 @break
             @case('5')
-                <a class="float-right card-link-icon-container" href="{{ route('clients.select', $model->getId()) }}" ><img class="shadow card-link-icon" src="/images/custom/Status-mail-task-icon.png" title="{{ __('Finalna selekcija') }}"/></a>
+                <a href="{{ route('clients.select', $model->getId()) }}" class="dropdown-item">{{ __('Final Selection') }}</a>
                 @break
             @case('6')
-                <a class="float-right card-link-icon-container" href="{{ route('clients.assign', $model->getId()) }}" > <img class="shadow card-link-icon" src="/images/custom/Status-mail-task-icon.png" title="{{ __('Dodela') }}"/></a>
+                <a href="{{ route('clients.assigne', $model->getId()) }}" class="dropdown-item">{{ __('Assignment') }}</a>
                 @break
             @case('8')
-                <a class="float-right card-link-icon-container" href="{{ route('clients.assignContractDate', $model->getId()) }}" ><img class="shadow card-link-icon" src="/images/custom/Status-mail-task-icon.png" title="{{ __('Poziv na potpis ugovora') }}"/></a>
+                <a href="{{ route('clients.assignContractDate', $model->getId()) }}" class="dropdown-item">{{ __('Call to Signing of the Contract') }}</a>
                 @break
             @case('9')
-                <a class="float-right card-link-icon-container" href="{{ route('clients.confirmContractDate', $model->getId()) }}" ><img class="shadow card-link-icon" src="/images/custom/Status-mail-task-icon.png" title="{{ __('Potvrda datuma potpisa ugovora') }}"/></a>
+                <a href="{{ route('clients.confirmContractDate', $model->getId()) }}" class="dropdown-item">{{ __('Confirm the Contract Signing Date') }}</a>
                 @break
             @case('10')
-                <a class="float-right card-link-icon-container" href="{{ route('contracts.create', $model->getId()) }}" ><img class="shadow card-link-icon" src="/images/custom/Status-mail-task-icon.png" title="{{ __('Potpis ugovora') }}"/></a>
+                <a href="{{ route('clients.create', $model->getId()) }}" class="dropdown-item">{{ __('Sign Contract') }}</a>
                 @break
         @endswitch
     @endif
-
-    <a class="float-right card-link-icon-container" href="{{ route('clients.edit', $model->getId()) }}"><img class="shadow card-link-icon" src="/images/custom/edit-validated-icon.png" title="{{__('Edit')}}"/></a>
-    <a class="float-right card-link-icon-container" href="{{  request()->session()->get('backroute')}}"><img class="shadow card-link-icon" src="/images/custom/go-back-icon.png" title="{{ __('Back') }}"/></a>
-
 @endsection
 
 @section('profile-data')
