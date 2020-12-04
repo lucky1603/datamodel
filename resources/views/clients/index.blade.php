@@ -2,33 +2,47 @@
 
 @section('content')
 
-            <ul class="nav shadow frame-padding" style="background-color: white; padding: 10px;">
-                <li class="nav-item"><label style="margin-top: 8px"><strong>{{ __('CLIENT FILTER') }}:</strong></label></li>
-                <li class="nav-item" style="margin-left: 40px">
-                    <div class="input-group input-group-sm" style="margin-top: 2px">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text small">{{ __('By Status') }}</span>
-                        </div>
-                        <select name="clientStatus" id="clientStatus" class="form-control form-control-sm">
-                            <option value="1">{{ __('All') }}</option>
-                            <option value="2">{{ __('Interested') }}</option>
-                            <option value="3">{{ __('Registered') }}</option>
-                        </select>
-                    </div>
-                </li>
+        <div class="page-title-box-sm">
+            <ul class="nav float-right page-title-right" >
                 <li class="nav-item" style="margin-left: 20px">
-                    <div class="input-group input-group-sm" style="margin-top: 2px;">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">{{ __('By Name') }}</span>
-                        </div>
-                        <input type="text" id="clientSearch" name="clientSearch" class="form-control" placeholder="{{ __('Search...') }}" >
-{{--                        <span class="mdi mdi-search-web" style="font-size: 22px;position: absolute; left:90px; top:0px; color: lightgray; z-index: 9"></span>--}}
-                        <div class="input-group-append">
-                            <span class="mdi mdi-search-web input-group-text"></span>
-                        </div>
-                    </div>
+                    <a
+                        class="nav-link btn-dark shadow rounded-lg"
+                        id="newClient"
+                        href="{{ route('clients.create') }}"
+                        role="button" data-toggle="modal" data-target="#dialogHost">
+                        <img src="/images/custom/document-add-icon.png" class="mr-2 button-image" style="color: white">{{__('New Client')}}
+                    </a>
                 </li>
             </ul>
+                <ul class="nav page-title" >
+                    <li class="nav-item"><label style="margin-top: 8px"><strong>{{ __('CLIENT FILTER') }}:</strong></label></li>
+                    <li class="nav-item" style="margin-left: 40px">
+                        <div class="input-group input-group-sm" style="margin-top: 2px">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text small">{{ __('By Status') }}</span>
+                            </div>
+                            <select name="clientStatus" id="clientStatus" class="form-control form-control-sm">
+                                <option value="1">{{ __('All') }}</option>
+                                <option value="2">{{ __('Interested') }}</option>
+                                <option value="3">{{ __('Registered') }}</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="nav-item" style="margin-left: 20px">
+                        <div class="input-group input-group-sm" style="margin-top: 2px;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{ __('By Name') }}</span>
+                            </div>
+                            <input type="text" id="clientSearch" name="clientSearch" class="form-control" placeholder="{{ __('Search...') }}" >
+                            {{--                        <span class="mdi mdi-search-web" style="font-size: 22px;position: absolute; left:90px; top:0px; color: lightgray; z-index: 9"></span>--}}
+                            <div class="input-group-append">
+                                <span class="mdi mdi-search-web input-group-text"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+        </div>
 
     @foreach($clients as $client)
         @if($loop->iteration % 4 == 1)

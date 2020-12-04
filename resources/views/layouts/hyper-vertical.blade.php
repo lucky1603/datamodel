@@ -298,6 +298,20 @@
 
             </div> <!-- container -->
 
+            <div id="dialogHost" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="primary-header-modalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header modal-colored-header bg-dark">
+                            <h4 class="modal-title" id="primary-header-modalLabel">Modal Heading</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
         </div> <!-- content -->
 
         <!-- Footer Start -->
@@ -435,6 +449,20 @@
 <!-- demo app -->
 <script src="assets/js/pages/demo.dashboard-projects.js"></script>
 <!-- end demo js-->
+
+<script type="text/javascript">
+    $(document).ready(function() {
+       $('#newClient').on('click', function(evt) {
+           var where = $('#newClient').attr('href');
+           $.get(where, function(data) {
+               var content = $(data).find('form');
+               var title = $(data).find('h1').first().text();
+               $('.modal-body').html(content);
+               $('.modal-title').text(title);
+           });
+       });
+    });
+</script>
 
 </body>
 </html>

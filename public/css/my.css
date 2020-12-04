@@ -148,6 +148,10 @@
     display: block;
     width: 100%;
 }
+
+.button-image {
+    height: 24px;
+}
 /*.row.zebra:first-of-type {*/
 /*    background-color: #1d643b;*/
 /*}*/
