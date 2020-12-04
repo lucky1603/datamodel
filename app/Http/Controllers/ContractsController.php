@@ -43,6 +43,8 @@ class ContractsController extends Controller
     public function store(Request $request, $id)
     {
         $data = $request->post();
+
+
         $file = $request->file('contract_document');
         $filename = $file->getClientOriginalName();
         $path = $file->store('documents');
@@ -51,14 +53,16 @@ class ContractsController extends Controller
             'filename' => $filename,
             'filelink' => $path
         ];
+        $data['status'] = 11;
 
         $contract = new Contract($data);
         if($contract != null) {
-            $event = $contract->addSituationByData('potpis_ugovora', [
-               'name' => 'Potpis ugovora',
-                'description' => "Klijent je potpisao ugovor"
-            ]);
-
+            $situation = $contract->getSituation(__('Contract Signing'));
+            if($situation == null) {
+                $contract->addSituationByData(__('Contract Signing'), $data);
+            } else {
+                $situation->setData($data);
+            }
         }
 
         $client = Client::find($id);
@@ -68,9 +72,9 @@ class ContractsController extends Controller
         }
 
         // Create situation
-        $situation = $client->getSituation('ugovor_potpis');
+        $situation = $client->getSituation(__('Contract Signing'));
         if($situation == null) {
-            $client->addSituationByData('ugovor_potpis', $data);
+            $client->addSituationByData(__('Contract Signing'), $data);
         }
 
         return redirect(route('clients.show', $id));

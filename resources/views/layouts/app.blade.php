@@ -98,7 +98,14 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $( ".datepicker" ).datepicker();
+            $( ".datepicker" ).datepicker({
+                format: {
+                    textToDisplay: function(date, format, language) {
+                        var d = new Date(date);
+                        return d.toISOString();
+                    }
+                }
+            });
         });
     </script>
     @yield('scripts')

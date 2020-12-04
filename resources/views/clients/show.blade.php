@@ -99,31 +99,31 @@
     @if(auth()->user()->isAdmin())
         @switch($model->getData()['status'])
             @case('1')
-                <a href="{{ route('clients.register', $model->getId()) }}" class="dropdown-item">{{ __('Registration') }}</a>
+                <a href="{{ route('clients.register', $model->getId()) }}" class="dropdown-item" >{{ __('Registration') }}</a>
             @break
             @case('2')
-                <a href="{{ route('clients.preselect', $model->getId()) }}" class="dropdown-item">{{ __('Pre- Selection') }}</a>
+                <a href="{{ route('clients.preselect', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Pre- Selection') }}</a>
             @break
             @case('3')
-                <a href="{{ route('clients.invite', $model->getId()) }}" class="dropdown-item">{{ __('Call to the meeting') }}</a>
+                <a href="{{ route('clients.invite', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Call to the meeting') }}</a>
                 @break
             @case('4')
-                <a href="{{ route('clients.confirm', $model->getId()) }}" class="dropdown-item">{{ __('Meeting Date Confirmation') }}</a>
+                <a href="{{ route('clients.confirm', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Meeting Date Confirmation') }}</a>
                 @break
             @case('5')
-                <a href="{{ route('clients.select', $model->getId()) }}" class="dropdown-item">{{ __('Final Selection') }}</a>
+                <a href="{{ route('clients.select', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Final Selection') }}</a>
                 @break
             @case('6')
-                <a href="{{ route('clients.assigne', $model->getId()) }}" class="dropdown-item">{{ __('Assignment') }}</a>
+                <a href="{{ route('clients.assign', $model->getId()) }}" class="dropdown-item">{{ __('Assignment') }}</a>
                 @break
             @case('8')
-                <a href="{{ route('clients.assignContractDate', $model->getId()) }}" class="dropdown-item">{{ __('Call to Signing of the Contract') }}</a>
+                <a href="{{ route('clients.assignContractDate', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Call to Signing of the Contract') }}</a>
                 @break
             @case('9')
-                <a href="{{ route('clients.confirmContractDate', $model->getId()) }}" class="dropdown-item">{{ __('Confirm the Contract Signing Date') }}</a>
+                <a href="{{ route('clients.confirmContractDate', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Confirm the Contract Signing Date') }}</a>
                 @break
             @case('10')
-                <a href="{{ route('clients.create', $model->getId()) }}" class="dropdown-item">{{ __('Sign Contract') }}</a>
+                <a href="{{ route('contracts.create', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Sign Contract') }}</a>
                 @break
         @endswitch
     @endif
@@ -514,8 +514,7 @@
                 <h5 class="m-0 time-show-name">{{__('Registration')}}</h5>
             </div>
         @endif
-
-
+        
         @if($loop->iteration % 2 != 0)
         <div class="timeline-lg-item timeline-item-left">
         @else
@@ -534,11 +533,24 @@
                 <p class="text-muted"><small>{{ $situation->getData()['occurred_at'] }}</small></p>
                 <p>{{ $situation->getData()['description'] }} </p>
                 @if($situation->getDisplayAttributes() != null)
-                        <p>
-                    @foreach($situation->getDisplayAttributes() as $attribute)
-                            <span class="attribute-label mt-0 mb-0"><strong>{{ $attribute->label }}:</strong></span><span class="ml-2 text-muted font-12">{{ $attribute->getText() }}</span><br>
-                    @endforeach
-                        </p>
+                    <table class="@if($situation->getDisplayAttributes()->count() > 1) table-striped @else table-borderless @endif" style="width: 100%">
+                            @foreach($situation->getDisplayAttributes() as $attribute)
+                                <tr>
+                                    <td style=" width: @if($situation->getDisplayAttributes()->count() > 1) 50% @else auto @endif">
+                                        <span class="attribute-label font-12 mt-0 mb-0"><strong>{!! $attribute->label  !!} :</strong></span>
+                                    </td>
+                                    @if($attribute->type != 'file')
+                                    <td>
+                                        <span class="text-muted font-12">{!! $attribute->getText() !!} </span>
+                                    </td>
+                                    @else
+                                        <td>
+                                           <a href="{{ $attribute->getValue()['filelink'] }}" class="btn-link font-12">{!! $attribute->getValue()['filename'] !!} </a>
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                    </table>
                 @endif
 
 {{--                <a href="javascript: void(0);" class="btn btn-sm btn-light">👍 17</a>--}}

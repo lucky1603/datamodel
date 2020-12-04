@@ -70,12 +70,14 @@ class Value extends Model
         if($attribute->type === 'bool') {
             $value = $value === null || $value === 0 ? false : true;
         }
-        if($attribute->type === 'datetime') {
-            if(App::isLocale('sr-RS')) {
-                $value = new DateTime($value);
-                $value = $value->format('d.m.Y');
-            }
-        }
+
+//        if($attribute->type === 'datetime') {
+//            if(App::isLocale('sr-RS')) {
+//                $value = new DateTime($value);
+//                $value = $value->format('d.m.Y');
+//            }
+//
+//        }
 
         return $value;
 

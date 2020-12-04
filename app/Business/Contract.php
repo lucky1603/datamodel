@@ -41,6 +41,19 @@ class Contract extends BusinessModel
     }
 
     /**
+     * Get situation with given key.
+     * @param $key
+     * @return mixed
+     */
+    public function getSituation($key) {
+        return Situation::find(['name' => $key])->filter(function($item, $key) {
+            if($item->instance->parent_id == $this->getId())
+                return $item;
+        })->first();
+
+    }
+
+    /**
      * Adds event to contract.
      * @param Situation $situation
      */
@@ -53,44 +66,36 @@ class Contract extends BusinessModel
 
         $data = [];
         switch($situationType) {
-            case 'potpis_ugovora':
+            case __('Contract Signing'):
                 $situation = new Situation();
-
-                // Amount.
-                $amount = Attribute::where('name', 'amount')->first();
-                if(!$amount) {
-                    $amount = Attribute::create(['name' => 'amount', 'label' => 'Iznos', 'type' => 'double']);
-                }
-                $situation->addAttribute($amount);
-
-                // Currency.
-                $currency = Attribute::where('name', 'currency')->first();
-                if(!$currency) {
-                    $currency = Attribute::create(['name' => 'currency', 'label' => 'Valuta', 'type' => 'varchar']);
-                }
-                $situation->addAttribute($currency);
-
-                // Contract document.
-                $document = Attribute::where('name', 'contract_document')->first();
-                if(!$document) {
-                    $document = Attribute::create(['name' => 'contract_document', 'label' => 'Priloženi ugovor', 'type' => 'file']);
-                }
-                $situation->addAttribute($document);
-
-                // Default values.
                 $data['name'] = $situationType;
-                $data['description'] = 'Potpis ugovora';
+                $data['description'] = 'Potpisan je ugovor sa klijentom. Realizacija ugovora će se pratiti periodično putem izveštaja i pregleda aktivnosti klijenta.';
                 if(isset($params)) {
                     foreach($params as $key => $value) {
                         $data[$key] = $value;
                     }
                 }
-
                 $situation->setData($data);
+
+                // Amount.
+                if(isset($data['amount'])) {
+                    $situation->addExtraAttributes([self::selectOrCreateAttribute(['amount', 'Iznos', 'double', NULL, 1])], [ $data['amount']]);
+                }
+
+                // Currency.
+                if(isset($data['currency'])) {
+                    $situation->addExtraAttributes([self::selectOrCreateAttribute(['currency', 'Valuta', 'varchar', NULL, 2])], [ $data['currency']]);
+                }
+
+                // Contract document.
+                if(isset($data['contract_document'])) {
+                    $situation->addExtraAttributes([self::selectOrCreateAttribute(['contract_document', 'Priloženi ugovor', 'file', NULL, 3])], [ $data['contract_document']]);
+                }
+
                 $this->addSituation($situation);
 
                 break;
-            case 'prva_rata':
+            case __('Installment I'):
                 $situation = new Situation();
                 $amount = Attribute::where('name', 'amount')->first();
                 if(!$amount) {
@@ -276,6 +281,15 @@ class Contract extends BusinessModel
         $this->instance->attributes->where('name', 'contract_document')->first()->setValue(
             isset($this->data['contract_document']) ? $this->data['contract_document'] : ''
         );
+
+        if(isset($this->data['signed_at'])) {
+            $this->getAttribute('signed_at')->setValue($this->data['signed_at']);
+        }
+
+        if(isset($this->data['valid_through'])) {
+            $this->getAttribute('valid_through')->setValue($this->data['valid_through']);
+        }
+
 
     }
 

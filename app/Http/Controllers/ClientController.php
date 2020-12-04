@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Business\Contract;
 use App\Business\Situation;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Business\Client;
 use App\User;
@@ -128,8 +129,7 @@ class ClientController extends Controller
 
             // Create 'interested' situation.
             $eventData = [
-                'name' => 'Interesovanje',
-                'description' => 'Klijent je zainteresovan za saradnju',
+                'name' => __('Interest'),
                 'status' => 1,
             ];
 
@@ -139,7 +139,7 @@ class ClientController extends Controller
             }
 
             // Add situation to the client.
-            $client->addSituationByData('interesovanje',$eventData);
+            $client->addSituationByData(__('Interest'),$eventData);
         }
 
         // Check if the user already exists.
@@ -215,8 +215,8 @@ class ClientController extends Controller
     {
         $data = $request->post();
 
-//        var_dump($data);
-//        die();
+        var_dump($data);
+        die();
 
         // Handle the uploaded file
         $file = $request->file('application_form');
@@ -302,12 +302,11 @@ class ClientController extends Controller
                 $client->setData(['status' => 2]);
 
                 // Find out if the client is already registered.
-                $registration = $client->getSituation('registracija');
+                $registration = $client->getSituation(__('Registration'));
                 if($registration == null) {
                     // Register the situation.
                     $eventData = [
-                        'name' => 'Registracija',
-                        'description' => 'Klijent je registrovan',
+                        'name' => __('Registration'),
                         'client' => $client->getAttribute('name')->getValue(),
                         'status' => 2,
                     ];
@@ -315,7 +314,7 @@ class ClientController extends Controller
                     if(isset($client->getData()['application_form'])) {
                         $eventData['application_form'] = $client->getData()['application_form'];
                     }
-                    $client->addSituationByData('registracija',$eventData);
+                    $client->addSituationByData(__('Registration'),$eventData);
                 }
             }
 
@@ -359,19 +358,20 @@ class ClientController extends Controller
             ];
         }
 
-        $data['name'] = 'Predselekcija';
-        $data['description'] = 'Izbor klijenta u predselekciju';
-        $data['status'] = 2;
-
-        // Add situation to the client.
-        $client->addSituationByData('predselekcija',$data);
-
+        $data['name'] = __('Pre-selection');
         if($data['decision'] === 'yes') {
             // Lift status.
             $client->setData(['status' => 3]);
+            $data['status'] = 3;
         } else {
             $client->setData(['status' => 7]);
+            $data['status'] = 7;
         }
+
+        // Add situation to the client.
+        $client->addSituationByData(__('Pre-selection'),$data);
+
+
 
         // TODO: Inform the client, send a mail.
 
@@ -401,9 +401,9 @@ class ClientController extends Controller
         $client->setData(['status' => 4]);
         $data['status'] = 4;
 
-        $situacija = $client->getSituation('sastanak_poziv');
+        $situacija = $client->getSituation(__('Meeting Invitation'));
         if($situacija == null) {
-            $client->addSituationByData('sastanak_poziv', $data);
+            $client->addSituationByData(__('Meeting Invitation'), $data);
         }
 
         // TODO: Inform the client, send a mail.
@@ -418,10 +418,10 @@ class ClientController extends Controller
      */
     public function confirm($id) {
         $client = Client::find($id);
-        $meeting = $client->getSituation('sastanak_poziv');
+        $meeting = $client->getSituation(__('Meeting Invitation'));
         if($meeting != null) {
             $date = $meeting->getData()['meeting_date'];
-            return view('clients.confirm', ['client' => $client, 'date' => $date]);
+            return view('clients.confirm', ['client' => $client, 'date' => (new DateTime($date))->format('Y-m-d')]);
         }
 
         return view('clients.confirm', ['client' => $client]);
@@ -442,9 +442,9 @@ class ClientController extends Controller
         $client->setData($data);
 
         // Create situation
-        $situation = $client->getSituation('sastanak_potvrda');
+        $situation = $client->getSituation(__('Meeting Date Confirmation'));
         if($situation == null) {
-            $client->addSituationByData('sastanak_potvrda', $data);
+            $client->addSituationByData(__('Meeting Date Confirmation'), $data);
         }
 
         // TODO: Notify the client via email.
@@ -476,9 +476,9 @@ class ClientController extends Controller
             $data['status'] = 7;
         }
 
-        $situation = $client->getSituation('odluka');
+        $situation = $client->getSituation(__('Decision'));
         if($situation == null) {
-            $client->addSituationByData('odluka', $data);
+            $client->addSituationByData(__('Decision'), $data);
         }
 
         // TODO: Notify the client by email.
@@ -507,8 +507,7 @@ class ClientController extends Controller
         $data['status'] = 8;
 
         // Create the situation.
-        $client->addSituationByData('dodela_prostora', $data);
-
+        $client->addSituationByData(__('Room Assignment'), $data);
 
         // Shift status up.
         $client->setData(['status' => 8]);
@@ -531,9 +530,9 @@ class ClientController extends Controller
         $client->setData(['status' => 9]);
         $data['status'] = 9;
 
-        $situacija = $client->getSituation('ugovor_poziv');
+        $situacija = $client->getSituation(__('Contract Signing Invitation'));
         if($situacija == null) {
-            $client->addSituationByData('ugovor_poziv', $data);
+            $client->addSituationByData(__('Contract Signing Invitation'), $data);
         }
 
         // TODO: Inform the client, send a mail.
@@ -544,7 +543,7 @@ class ClientController extends Controller
 
     public function confirmContractDate($id) {
         $client = Client::find($id);
-        $meeting = $client->getSituation('ugovor_poziv');
+        $meeting = $client->getSituation(__('Contract Signing Invitation'));
         if($meeting != null) {
             $date = $meeting->getData()['meeting_date'];
             return view('clients.confirmContractDate', ['client' => $client, 'date' => $date]);
@@ -562,9 +561,9 @@ class ClientController extends Controller
         $client->setData($data);
 
         // Create situation
-        $situation = $client->getSituation('ugovor_potvrda');
+        $situation = $client->getSituation(__('Contract Signing Date Confirmation'));
         if($situation == null) {
-            $client->addSituationByData('ugovor_potvrda', $data);
+            $client->addSituationByData(__('Contract Signing Date Confirmation'), $data);
         }
 
         // TODO: Notify the client via email.

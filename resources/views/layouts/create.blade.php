@@ -51,7 +51,11 @@
                 @if($attribute->type === 'datetime')
                     <div class="form-group">
                         <label for="{{ $attribute->name }}" >{{ $attribute->label }}</label>
-                        <input type="text" class="form-control datepicker" name="{{$attribute->name}}">
+                        <input type="date" class="form-control" name="{{$attribute->name}}" id="{{ $attribute->name }}">
+{{--                        <input type="text" class="form-control datepicker" id="{{ $attribute->name }}" name="{{ $attribute->name }}" >--}}
+{{--                        <input type="text" class="form-control date" id="{{ $attribute->name }}" name="{{ $attribute->name }}" data-toggle="date-picker" data-single-date-picker="true">--}}
+{{--                        <input type="text" class="form-control" data-provide="datepicker" data-date-format="d-M-yyyy" id="{{ $attribute->name }}" name="{{ $attribute->name }}">--}}
+
                     </div>
                 @endif
                 @if($attribute->type === 'bool')
