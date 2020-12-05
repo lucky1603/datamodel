@@ -2,48 +2,48 @@
 
 @section('content')
 
-        <div class="page-title-box-sm">
+        <div class="page-title-box-sm" xmlns="http://www.w3.org/1999/html">
             <ul class="nav float-right page-title-right" >
-                <li class="nav-item" style="margin-left: 20px">
+                <li class="nav-item">
                     <a
-                        class="nav-link btn-dark shadow rounded-lg"
+                        class="nav-link text-muted"
                         id="newClient"
                         href="{{ route('clients.create') }}"
                         role="button" data-toggle="modal" data-target="#dialogHost">
-                        <img src="/images/custom/document-add-icon.png" class="mr-2 button-image" style="color: white">{{__('New Client')}}
+                        <i class="dripicons-document-new font-20"></i><span class="ml-0 mt-2 font-weight-bold"> {{strtoupper(__('New Client'))}}</span>
                     </a>
                 </li>
             </ul>
-                <ul class="nav page-title" >
-                    <li class="nav-item"><label style="margin-top: 8px"><strong>{{ __('CLIENT FILTER') }}:</strong></label></li>
-                    <li class="nav-item" style="margin-left: 40px">
-                        <div class="input-group input-group-sm" style="margin-top: 2px">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text small">{{ __('By Status') }}</span>
-                            </div>
-                            <select name="clientStatus" id="clientStatus" class="form-control form-control-sm">
-                                <option value="1">{{ __('All') }}</option>
-                                <option value="2">{{ __('Interested') }}</option>
-                                <option value="3">{{ __('Registered') }}</option>
-                            </select>
+            <ul class="nav page-title" >
+                <li class="nav-item"><label style="margin-top: 8px"><strong>{{ __('CLIENT FILTER') }}:</strong></label></li>
+                <li class="nav-item" style="margin-left: 40px">
+                    <div class="input-group input-group-sm" style="margin-top: 2px">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text small">{{ __('By Status') }}</span>
                         </div>
-                    </li>
-                    <li class="nav-item" style="margin-left: 20px">
-                        <div class="input-group input-group-sm" style="margin-top: 2px;">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">{{ __('By Name') }}</span>
-                            </div>
-                            <input type="text" id="clientSearch" name="clientSearch" class="form-control" placeholder="{{ __('Search...') }}" >
-                            {{--                        <span class="mdi mdi-search-web" style="font-size: 22px;position: absolute; left:90px; top:0px; color: lightgray; z-index: 9"></span>--}}
-                            <div class="input-group-append">
-                                <span class="mdi mdi-search-web input-group-text"></span>
-                            </div>
+                        <select name="clientStatus" id="clientStatus" class="form-control form-control-sm">
+                            <option value="1">{{ __('All') }}</option>
+                            <option value="2">{{ __('Candidates') }}</option>
+                            <option value="3">{{ __('Members') }}</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="nav-item" style="margin-left: 20px">
+                    <div class="input-group input-group-sm" style="margin-top: 2px;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">{{ __('By Name') }}</span>
                         </div>
-                    </li>
-                </ul>
-
+                        <input type="text" id="clientSearch" name="clientSearch" class="form-control" placeholder="{{ __('Search...') }}" >
+                        {{--                        <span class="mdi mdi-search-web" style="font-size: 22px;position: absolute; left:90px; top:0px; color: lightgray; z-index: 9"></span>--}}
+                        <div class="input-group-append">
+                            <span class="mdi mdi-search-web input-group-text"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
 
+        <hr/>
     @foreach($clients as $client)
         @if($loop->iteration % 4 == 1)
             <div class="row">
@@ -51,9 +51,18 @@
 
         <div class="col-md-3">
             <a href="{{ route('clients.show', $client->getId()) }}">
-                <div class="card shadow-sm" data-id="{{ $loop->iteration }}" style="margin-top:10px; margin-bottom: 10px">
+                <div class="card shadow-sm ribbon-box" data-id="{{ $loop->iteration }}" style="margin-top:10px; margin-bottom: 10px">
 
                     <div class="card-body" style="padding: 0" >
+                        @if($client->getData()['status'] <= 10)
+                            <div class="ribbon-two ribbon-two-warning">
+                                <span>{{ strtoupper( __('Candidate')) }}</span>
+                            </div>
+                        @else
+                            <div class="ribbon-two ribbon-two-success">
+                                <span>{{ strtoupper(__('Member')) }}</span>
+                            </div>
+                        @endif
                         <div id="img-container" class="image-container">
                             <img src="@if( $client->getAttribute('profile_background') != null && strlen($client->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $client->getAttribute('profile_background')->getValue()['filelink'] }} @else '/images/backdefault.jpg' @endif" class="image-container-profile"/>
                             <img class="shadow image-container-logo" src="{{ $client->getAttribute('logo') != null && strlen($client->getAttribute('logo')->getValue()['filelink']) > 0 ? $client->getAttribute('logo')->getValue()['filelink'] : 'images/avatar-default.png' }}" />

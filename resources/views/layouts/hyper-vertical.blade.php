@@ -301,7 +301,7 @@
             <div id="dialogHost" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="primary-header-modalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header modal-colored-header bg-dark">
+                        <div class="modal-header modal-colored-header bg-primary">
                             <h4 class="modal-title" id="primary-header-modalLabel">Modal Heading</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>

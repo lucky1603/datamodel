@@ -152,6 +152,10 @@
 .button-image {
     height: 24px;
 }
+
+.ribbon-candidate span {
+    background-color: lightslategrey;
+}
 /*.row.zebra:first-of-type {*/
 /*    background-color: #1d643b;*/
 /*}*/
