@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
+use phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 
 class Attribute extends Model
 {
@@ -68,8 +70,6 @@ class Attribute extends Model
      */
     public function getText() {
         $value = $this->getValue();
-//        if(!isset($value))
-//            return null;
 
         if($this->type === 'select') {
             $returnText = '';
@@ -92,6 +92,9 @@ class Attribute extends Model
             return $value === false ? strtoupper(__('NO')): strtoupper(__('YES')) ;
         } else if ($this->type === 'file') {
             return isset($value['filename']) ? $value['filename'] : '';
+        } else if ($this->type === 'double') {
+            $fmt = numfmt_create(App::getLocale(), \NumberFormatter::DECIMAL);
+            return $fmt->format($value, \NumberFormatter::TYPE_DOUBLE);
         } else
         {
             return (isset($value) && strlen($value) > 0) ? strval($value) : '-';

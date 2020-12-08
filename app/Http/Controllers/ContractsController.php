@@ -129,4 +129,25 @@ class ContractsController extends Controller
     {
         //
     }
+
+    /**
+     * Shows the form for the first installment payment.
+     * @param $contractId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function payFirstInstallment($contractId) {
+        $contract = Contract::find($contractId);
+        $client = $contract->getClient();
+        $fmt = numfmt_create('sr_RS', \NumberFormatter::CURRENCY);
+        $val = $fmt->format($contract->getData()['amount'], \NumberFormatter::TYPE_DOUBLE);
+
+        return view('contracts.payfirstinstallment', ['contract' => $contract, 'client' => $client, 'full_amount' => $val ]);
+    }
+
+    public function firstInstallmentPayed(Request $request, $contractId) {
+        $data = $request->post();
+        var_dump($data);
+        die();
+
+    }
 }

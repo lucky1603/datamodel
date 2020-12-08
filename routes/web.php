@@ -48,6 +48,8 @@ Route::get('/contracts', 'ContractsController@index')->name('contracts.index');
 Route::get('/contracts/create/{client}', 'ContractsController@create')->name('contracts.create');
 Route::post('/contracts/create/{client}', 'ContractsController@store')->name('contracts.store');
 Route::get('/contracts/{contract}', 'ContractsController@show')->name('contracts.show');
+Route::get('/contracts/payFirstInstallment/{contract}', 'ContractsController@payFirstInstallment')->name('contracts.payfirstinstallment');
+Route::post('/contracts/payFirstInstallment/{contract}', 'ContractsController@firstInstallmentPayed')->name('contracts.firstinstallmentpayed');
 
 Route::get('/files/create', 'FileController@create')->name('files.create');
 Route::post('/files/create', 'FileController@show')->name('files.show');

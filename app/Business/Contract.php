@@ -112,7 +112,7 @@ class Contract extends BusinessModel
                 // Default values.
                 $data = [
                     'name' => $situationType,
-                    'description' => 'Isplata prve rate',
+                    'description' => 'Isplata prve rate ugovora. Iznos rate je dogovoren detaljima ugovora.',
                     'sender' => 'NTP Beograd',
                     'amount' => 25000,
                     'currency' => 'EUR'
@@ -218,7 +218,7 @@ class Contract extends BusinessModel
 
         $attributes[] = self::selectOrCreateAttribute(['name', 'Naziv', 'varchar', NULL, 1]);
         $attributes[] = self::selectOrCreateAttribute(['description', 'Opis', 'varchar', NULL, 2]);
-        $attributes[] = self::selectOrCreateAttribute(['amount', 'Iznos', 'varchar', NULL, 3]);
+        $attributes[] = self::selectOrCreateAttribute(['amount', 'Iznos', 'double', NULL, 3]);
         $attributes[] = self::selectOrCreateAttribute(['currency', 'Valuta', 'varchar', NULL, 4]);
         $attributes[] = self::selectOrCreateAttribute(['contract_subject', 'Predmet ugovora', 'text', NULL, 5]);
         $attributes[] = self::selectOrCreateAttribute(['signed_at', 'Potpisan dana', 'datetime', NULL, 6]);
