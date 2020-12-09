@@ -6,6 +6,7 @@ use App\Business\Client;
 use App\Business\Contract;
 use App\Business\Situation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 class ContractsController extends Controller
@@ -54,6 +55,7 @@ class ContractsController extends Controller
             'filelink' => $path
         ];
         $data['status'] = 11;
+        $data['contract_status'] = 1;
 
         $contract = new Contract($data);
         if($contract != null) {
@@ -139,15 +141,23 @@ class ContractsController extends Controller
         $contract = Contract::find($contractId);
         $client = $contract->getClient();
         $fmt = numfmt_create('sr_RS', \NumberFormatter::CURRENCY);
+//        $fmt = numfmt_create(App::getLocale(), \NumberFormatter::DECIMAL);
         $val = $fmt->format($contract->getData()['amount'], \NumberFormatter::TYPE_DOUBLE);
 
-        return view('contracts.payfirstinstallment', ['contract' => $contract, 'client' => $client, 'full_amount' => $val ]);
+        return view('contracts.payfirstinstallment', ['contract' => $contract, 'client' => $client, 'full_amount' => $contract->getData()['amount'] ]);
     }
 
     public function firstInstallmentPayed(Request $request, $contractId) {
         $data = $request->post();
-        var_dump($data);
-        die();
+        $contract = Contract::find($contractId);
+        $situation = $contract->getSituation(__('Intstallment I'));
+        if($situation == null) {
+            $situation = $contract->addSituationByData(__('Installment I'), $data);
+        } else {
+            $situation->setData($data);
+        }
+
+        return redirect(route('contracts.show', $contract->getId()));
 
     }
 }

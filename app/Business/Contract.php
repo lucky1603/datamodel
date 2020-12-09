@@ -99,15 +99,19 @@ class Contract extends BusinessModel
                 $situation = new Situation();
                 $amount = Attribute::where('name', 'amount')->first();
                 if(!$amount) {
-                    $amount = Attribute::create(['name' => 'amount', 'label' => 'Iznos', 'type' => 'double']);
+                    $amount = Attribute::create(['name' => 'amount', 'label' => 'Iznos', 'type' => 'double', 'sort_order' => 1]);
                 }
                 $situation->addAttribute($amount);
 
                 $currency = Attribute::where('name', 'currency')->first();
                 if(!$currency) {
-                    $currency = Attribute::create(['name' => 'currency', 'label' => 'Valuta', 'type' => 'varchar']);
+                    $currency = Attribute::create(['name' => 'currency', 'label' => 'Valuta', 'type' => 'varchar', 'sort_order' => 2]);
                 }
                 $situation->addAttribute($currency);
+
+                $situation->addAttribute(self::selectOrCreateAttribute(['payed', 'Plaćeno', 'double', null, 3]));
+                $situation->addAttribute(self::selectOrCreateAttribute(['on_hold', 'Na čekanju', 'double', null, 4]));
+                $situation->addAttribute(self::selectOrCreateAttribute(['remains', 'Preostalo', 'double', null, 5]));
 
                 // Default values.
                 $data = [
@@ -216,14 +220,28 @@ class Contract extends BusinessModel
     public static function getAttributesDefinition() {
         $attributes = [];
 
-        $attributes[] = self::selectOrCreateAttribute(['name', 'Naziv', 'varchar', NULL, 1]);
-        $attributes[] = self::selectOrCreateAttribute(['description', 'Opis', 'varchar', NULL, 2]);
-        $attributes[] = self::selectOrCreateAttribute(['amount', 'Iznos', 'double', NULL, 3]);
-        $attributes[] = self::selectOrCreateAttribute(['currency', 'Valuta', 'varchar', NULL, 4]);
-        $attributes[] = self::selectOrCreateAttribute(['contract_subject', 'Predmet ugovora', 'text', NULL, 5]);
-        $attributes[] = self::selectOrCreateAttribute(['signed_at', 'Potpisan dana', 'datetime', NULL, 6]);
-        $attributes[] = self::selectOrCreateAttribute(['valid_through', 'Važi do', 'datetime', NULL, 7]);
-        $attributes[] = self::selectOrCreateAttribute(['contract_document', 'Dokument ugovora', 'file', NULL, 8]);
+        $attributes[] = self::selectOrCreateAttribute(['contract_number', 'Br. Ugovora', 'varchar', NULL, 1]);
+        $attributes[] = self::selectOrCreateAttribute(['name', 'Naziv', 'varchar', NULL, 2]);
+        $attributes[] = self::selectOrCreateAttribute(['description', 'Opis', 'varchar', NULL, 3]);
+        $attributes[] = self::selectOrCreateAttribute(['amount', 'Iznos', 'double', NULL, 4]);
+        $attributes[] = self::selectOrCreateAttribute(['currency', 'Valuta', 'varchar', NULL, 5]);
+        $attributes[] = self::selectOrCreateAttribute(['contract_subject', 'Predmet ugovora', 'text', NULL, 6]);
+        $attributes[] = self::selectOrCreateAttribute(['signed_at', 'Potpisan dana', 'datetime', NULL, 7]);
+        $attributes[] = self::selectOrCreateAttribute(['valid_through', 'Važi do', 'datetime', NULL, 8]);
+        $attributes[] = self::selectOrCreateAttribute(['contract_document', 'Dokument ugovora', 'file', NULL, 9]);
+        $contract_status = self::selectOrCreateAttribute(['contract_status', 'Status ugovora', 'select', NULL, 10]);
+        if(count($contract_status->getOptions()) == 0) {
+            $contract_status->addOption(['value' => 1, 'text' => 'Potpisan']);
+            $contract_status->addOption(['value' => 2, 'text' => 'Isplaćena I rata']);
+            $contract_status->addOption(['value' => 3, 'text' => 'Validiran izveštaj 3 meseca']);
+            $contract_status->addOption(['value' => 4, 'text' => 'Validiran izveštaj 6 meseci']);
+            $contract_status->addOption(['value' => 5, 'text' => 'Validiran konačni izveštaj']);
+            $contract_status->addOption(['value' => 6, 'text' => 'Isplaćena II rata']);
+            $contract_status->addOption(['value' => 7, 'text' => 'Uspešno završen']);
+            $contract_status->addOption(['value' => 8, 'text' => 'Prekinut']);
+            $contract_status->addOption(['value' => 9, 'text' => 'Arhiviran']);
+        }
+        $attributes[] = $contract_status;
 
         return $attributes;
 
@@ -267,6 +285,10 @@ class Contract extends BusinessModel
         Value::put($this->instance->id,
             Attribute::where('name','contract_subject')->first(),
             isset($this->data['contract_subject']) ? $this->data['contract_subject'] : 'Predmet ugovora');
+
+        Value::put($this->instance->id,
+            Attribute::where('name','contract_number')->first(),
+            isset($this->data['contract_number']) ? $this->data['contract_number'] : '');
 
         // Set the amount of contract
         Value::put($this->instance->id,

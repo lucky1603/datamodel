@@ -26,6 +26,12 @@
     <button type="button" class="btn btn-primary" style="width: 100%">{{ $client->getAttribute('program')->getText() }}</button>
 @endsection
 
+@section('next-status')
+    @if($model->getData()['contract_status'] == 1)
+        <a id="nextStatus" href="{{ route('contracts.payfirstinstallment', $model->getId())}}" class="dropdown-item" data-toggle="modal" data-target="#dialogHost">{{ __('First Installment Payment')}}</a>
+    @endif
+@endsection
+
 @section('contract-details')
     <h5 class="text-uppercase"><i class="mdi mdi-face-profile mr-1"></i>{{ __('Contract Details') }}</h5>
 
@@ -41,12 +47,7 @@
 
     <div class="display-pair font-14 mt-3">
         <span class="attribute-label"><strong>{{ $model->getAttribute('amount')->label }}:</strong></span>
-        <span class="text-muted ml-2">{{ $model->getAttribute('amount')->getText() }}</span>
-    </div>
-
-    <div class="display-pair font-14 mt-3">
-        <span class="attribute-label"><strong>{{ $model->getAttribute('currency')->label }}:</strong></span>
-        <span class="text-muted ml-2">{{ $model->getAttribute('currency')->getValue() }}</span>
+        <span class="text-muted ml-2">{{ $model->getAttribute('amount')->getText() }} {{ $model->getAttribute('currency')->getValue() }}</span>
     </div>
 
     <div class="display-pair font-14 mt-3">
@@ -98,7 +99,7 @@
                                 <h4 class="mt-0 mb-1 font-16">{{$situation->getData()['name']}}</h4>
                                 <p class="text-muted"><small>{{ $situation->getData()['occurred_at'] }}</small></p>
                                 <p>{{ $situation->getData()['description'] }} </p>
-                                @if($situation->getDisplayAttributes() != null)
+                                @if($situation->getDisplayAttributes()->sortBy('sort_order') != null)
                                     <table class="@if($situation->getDisplayAttributes()->count() > 1) table-striped @else table-borderless @endif" style="width: 100%">
                                         @foreach($situation->getDisplayAttributes() as $attribute)
                                             <tr>

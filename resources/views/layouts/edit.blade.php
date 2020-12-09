@@ -14,7 +14,7 @@
             @foreach($model->getAttributeGroups()->sortBy('sort_order') as $attributeGroup)
                 <h3 style="text-align: center">{{ $attributeGroup->label }}</h3>
                 @foreach($model->getAttributesForGroup($attributeGroup)->sortBy('sort_order') as $attribute)
-                    @if($attribute->name == 'status')
+                    @if(strpos($attribute->name,'status') != false)
                         @continue
                     @endif
                     @if($attribute->type === 'varchar' && !isset($attribute->extra))

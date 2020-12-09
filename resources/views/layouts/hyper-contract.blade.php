@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>{{ __('Accelerator') }} - {{__('CONTRACT DETAILS FOR') }} - @yield('client-name')</title>
+    <title>{{ __('Accelerator') }} - {{ strtoupper(__('Contract Details').' '._('for')) }} - @yield('client-name')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -259,7 +259,7 @@
                                     @yield('breadcrumbs')
                                 </ol>
                             </div>
-                            <h4 class="page-title">{{ __('CONTRACT DETAILS') }} - {{ $client->getData()['name'] }} </h4>
+                            <h4 class="page-title">{{ strtoupper( __('Contract Details')) }} - {{ $client->getData()['name'] }} </h4>
                         </div>
                     </div>
                 </div>
@@ -448,10 +448,67 @@
        $('#nextStatus').on('click', function(evt) {
            var where = $('#nextStatus').attr('href');
            $.get(where, function(data) {
-               var content = $(data).find('form');
+               var content = $(data).find('.contract-status-form');
                var title = $(data).find('h1').first().text();
+
+               console.log($(content).attr('id'));
+
+               if($(content).attr('id') === 'fazaI') {
+                   var full = $(content).find('#full_amount').val();
+                   $(content).find('#amount').val(0.00);
+                   $(content).find('#payed').val(0.00);
+                   $(content).find('#on_hold').val(0.00);
+                   $(content).find('#remains_readonly').val(full);
+                   $(content).find('#remains').val(full);
+
+                   $(content).find('#amount').on('focusout', function() {
+                       var amount = $(content).find('#amount').val();
+                       $(content).find('#payed').val(amount);
+                       $(content).find('#on_hold').val(0.00);
+                       $(content).find('#remains').val(full-amount);
+                       $(content).find('#remains_readonly').val(full-amount);
+                   });
+
+                   $(content).find('#payed').on('focusout', function() {
+                       var amount = $(content).find('#amount').val();
+                       var payed = $(content).find('#payed').val();
+
+                       console.log(amount - payed);
+
+                       if(payed > amount) {
+                           payed = amount;
+                           $(content).find('#payed').val(amount);
+                       }
+
+                       $(content).find('#on_hold').val(amount - payed);
+                       $(content).find('#remains').val(full-amount);
+                       $(content).find('#remains_readonly').val(full-amount);
+                   });
+
+                   $(content).find('#on_hold').on('focusout', function() {
+                       var amount = $(content).find('#amount').val();
+                       var on_hold = $(content).find('#on_hold').val();
+
+                       console.log(amount - on_hold);
+
+                       // if(on_hold > amount) {
+                       //     on_hold = amount;
+                       //     $(content).find('#on_hold').val(on_hold);
+                       // }
+
+                       $(content).find('#payed').val(amount - on_hold);
+                       $(content).find('#remains').val(full-amount);
+                       $(content).find('#remains_readonly').val(full-amount);
+                   });
+
+               }
+
                $('.modal-body').html(content);
                $('.modal-title').text(title);
+
+
+
+
            });
        });
     });

@@ -9,6 +9,9 @@
         <form method="post" enctype="multipart/form-data" action="{{ $action }}" method="post">
             @csrf
             @foreach($attributes as $attribute)
+                @if(strpos($attribute->name, 'status') != false)
+                    @continue
+                @endif
                 @if($attribute->type === 'varchar' && !isset($attribute->extra))
                     <div class="form-group">
                         <label for="{{ $attribute->name }}">{{ $attribute->label }}</label>
