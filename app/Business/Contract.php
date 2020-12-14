@@ -132,6 +132,28 @@ class Contract extends BusinessModel
                 $situation->setData($data);
                 $this->addSituation($situation);
                 break;
+            case __('Moving In'):
+                $situation = new Situation();
+                $situation->addAttribute(self::selectOrCreateAttribute(['area', 'Površina','double', NULL, 1 ]));
+                $situation->addAttribute(self::selectOrCreateAttribute(['date_of_moving_in', 'Datum useljenja', 'datetime', NULL, 2]));
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', '', NULL, 3]));
+                $data = [
+                    'name' => $situationType,
+                    'description' => 'Evidencija useljenja klijenta u poslovni prostor, koji je specificiran u prijavnoj formi.',
+                    'sender' => 'NTP Beograd'
+                ];
+
+                // Take the input values, if any.
+                if(isset($params)) {
+                    foreach($params as $key => $value) {
+                        $data[$key] = $value;
+                    }
+                }
+
+                $situation->setData($data);
+                $this->addSituation($situation);
+                break;
+
             default:
                 break;
         }

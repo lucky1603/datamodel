@@ -15,6 +15,7 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'Login' => 'Login to ACCELERATOR'
+    'Login' => 'Login to ACCELERATOR',
+    'sign_in_message' => "Enter your email address and password to access account."
 
 ];

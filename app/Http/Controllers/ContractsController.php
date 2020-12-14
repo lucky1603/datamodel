@@ -147,6 +147,12 @@ class ContractsController extends Controller
         return view('contracts.payfirstinstallment', ['contract' => $contract, 'client' => $client, 'full_amount' => $contract->getData()['amount'] ]);
     }
 
+    /**
+     * Handling the payment of the first installment.
+     * @param Request $request
+     * @param $contractId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function firstInstallmentPayed(Request $request, $contractId) {
         $data = $request->post();
         $contract = Contract::find($contractId);
@@ -158,6 +164,7 @@ class ContractsController extends Controller
         }
 
         return redirect(route('contracts.show', $contract->getId()));
-
     }
+
+
 }
