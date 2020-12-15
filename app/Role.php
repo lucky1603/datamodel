@@ -37,6 +37,7 @@ class Role extends Model
                 Ability::whereName('read_contract')->firstOrFail(),
                 Ability::whereName('read_event_data')->firstOrFail(),
                 Ability::whereName('read_situation_data')->firstOrFail(),
+                Ability::whereName('view_client_profiles')->firstOrFail(),
             ]);
 
             foreach($availableAbilities as $ability) {

@@ -36,10 +36,10 @@
         <!-- LOGO -->
         <a href="index.html" class="logo text-center logo-dark">
             <span class="logo-lg">
-                <img src="assets/images/logo-dark.png" alt="" height="16">
+                <img src="/assets/images/logo-dark.png" alt="" height="16">
             </span>
             <span class="logo-sm">
-                <img src="assets/images/logo_sm_dark.png" alt="" height="16">
+                <img src="/assets/images/logo_sm_dark.png" alt="" height="16">
             </span>
         </a>
 
@@ -49,31 +49,8 @@
             <!--- Sidemenu -->
             <ul class="metismenu side-nav">
 
-                <li class="side-nav-item">
-                    <a href="{{route('home')}}" class="side-nav-link">
-                        <i class="uil-dashboard"></i>
-                        <span>{{ __('DASHBOARD') }}</span>
-                    </a>
-                </li>
+                @yield('sidemenu')
 
-                <li class="side-nav-item">
-                    <a href="javascript: void(0);" class="side-nav-link">
-                        <i class="uil-home-alt"></i>
-                        <span class="badge badge-success float-right">4</span>
-                        <span> {{ __('LINKS') }} </span>
-                    </a>
-                    <ul class="side-nav-second-level" aria-expanded="false">
-                        <li>
-                            <a href="{{ route('clients.index') }}">{{__('CLIENTS')}}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('contracts.index') }}">{{ __('CONTRACTS') }}</a>
-                        </li>
-                        <li>
-                            <a href="#">{{ __('EVENTS') }}</a>
-                        </li>
-                    </ul>
-                </li>
 
 
             </ul>
@@ -109,29 +86,29 @@
                     </li>
                     <li class="dropdown notification-list topbar-dropdown">
                         <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <img src="assets/images/flags/us.jpg" alt="user-image" class="mr-0 mr-sm-1" height="12">
+                            <img src="/assets/images/flags/us.jpg" alt="user-image" class="mr-0 mr-sm-1" height="12">
                             <span class="align-middle d-none d-sm-inline-block">English</span> <i class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu">
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/germany.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">German</span>
+                                <img src="/assets/images/flags/germany.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">German</span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/italy.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Italian</span>
+                                <img src="/assets/images/flags/italy.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Italian</span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/spain.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Spanish</span>
+                                <img src="/assets/images/flags/spain.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Spanish</span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/russia.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Russian</span>
+                                <img src="/assets/images/flags/russia.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Russian</span>
                             </a>
 
                         </div>
@@ -439,15 +416,15 @@
 <!-- /Right-bar -->
 
 <!-- bundle -->
-<script src="assets/js/vendor.min.js"></script>
-<script src="assets/js/app.min.js"></script>
+<script src="/assets/js/vendor.min.js"></script>
+<script src="/assets/js/app.min.js"></script>
 
 <!-- third party js -->
-<script src="assets/js/vendor/Chart.bundle.min.js"></script>
+<script src="/assets/js/vendor/Chart.bundle.min.js"></script>
 <!-- third party js ends -->
 
 <!-- demo app -->
-<script src="assets/js/pages/demo.dashboard-projects.js"></script>
+<script src="/assets/js/pages/demo.dashboard-projects.js"></script>
 <!-- end demo js-->
 
 <script type="text/javascript">
@@ -463,6 +440,8 @@
        });
     });
 </script>
+
+@yield('scripts')
 
 </body>
 </html>

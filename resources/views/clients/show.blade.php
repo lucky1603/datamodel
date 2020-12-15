@@ -514,7 +514,7 @@
                 <h5 class="m-0 time-show-name">{{__('Registration')}}</h5>
             </div>
         @endif
-        
+
         @if($loop->iteration % 2 != 0)
         <div class="timeline-lg-item timeline-item-left">
         @else
@@ -529,7 +529,7 @@
                 <span class="arrow"></span>
                 @endif
                 <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
-                <h4 class="mt-0 mb-1 font-16">{{$situation->getData()['name']}}</h4>
+                <h4 class="mt-0 mb-1 font-16">{{$situation->getData()['name']}}</h
                 <p class="text-muted"><small>{{ $situation->getData()['occurred_at'] }}</small></p>
                 <p>{{ $situation->getData()['description'] }} </p>
                 @if($situation->getDisplayAttributes() != null)

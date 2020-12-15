@@ -8,6 +8,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use App\Business\Client;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -288,6 +289,31 @@ class ClientController extends Controller
         }
 
         return redirect(route('clients.show', $id));
+    }
+
+    /**
+     * Shows the client profile data and some of the data are possible to edit.
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function profile($id) {
+        $user = Auth::user();
+        if($user->isRole('client'))
+        {
+            $client = new Client(['instance_id' => $id]);
+            $action = route('clients.update', $client->getId());
+            return view('clients.profile', ['model' => $client, 'action' => $action]);
+        }
+
+        return redirect( route('clients.home'));
+    }
+
+    public function companyList()
+    {
+        $this->authorize('view_client_profiles');
+        $client = Auth::user()->client();
+        $companies = Client::all()->except([$client->getId()]);
+        return view('clients.companylist', ['companies' => $companies]);
     }
 
     /**

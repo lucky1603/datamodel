@@ -32,6 +32,35 @@
 
 @endsection
 
+@section('sidemenu')
+    <li class="side-nav-item">
+        <a href="{{route('home')}}" class="side-nav-link">
+            <i class="uil-dashboard"></i>
+            <span>{{ __('DASHBOARD') }}</span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
+        <a href="javascript: void(0);" class="side-nav-link">
+            <i class="uil-home-alt"></i>
+            <span class="badge badge-success float-right">4</span>
+            <span> {{ __('LINKS') }} </span>
+        </a>
+        <ul class="side-nav-second-level" aria-expanded="false">
+            <li>
+                <a href="{{ route('clients.index') }}">{{__('CLIENTS')}}</a>
+            </li>
+            <li>
+                <a href="{{ route('contracts.index') }}">{{ __('CONTRACTS') }}</a>
+            </li>
+            <li>
+                <a href="#">{{ __('EVENTS') }}</a>
+            </li>
+        </ul>
+    </li>
+@endsection
+
+
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
