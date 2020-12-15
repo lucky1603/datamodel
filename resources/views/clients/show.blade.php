@@ -529,7 +529,7 @@
                 <span class="arrow"></span>
                 @endif
                 <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
-                <h4 class="mt-0 mb-1 font-16">{{$situation->getData()['name']}}</h
+                <h4 class="mt-0 mb-1 font-16">{{$situation->getData()['name']}}</h4>
                 <p class="text-muted"><small>{{ $situation->getData()['occurred_at'] }}</small></p>
                 <p>{{ $situation->getData()['description'] }} </p>
                 @if($situation->getDisplayAttributes() != null)

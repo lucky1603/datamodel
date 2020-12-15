@@ -74,15 +74,15 @@ class Instance extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function instances() {
-        return $this->hasMany(Instance::class, 'parent_id');
+        return $this->belongsToMany(Instance::class, 'instance_to_instance', 'instance_id', 'related_instance_id');
     }
 
     /**
      * Gets the parent instance.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function instance() {
-        return $this->belongsTo(Instance::class, 'parent_id');
+    public function parentInstances() {
+        return $this->belongsToMany(Instance::class, 'instance_to_instance', 'related_instance_id', 'instance_id');
     }
 
     /**

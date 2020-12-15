@@ -23,7 +23,18 @@ class CreateInstancesTable extends Migration
             $table->foreign('parent_id')->on('instances')->references('id')->onDelete('cascade');
         });
 
+        Schema::create('instance_to_instance', function(Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('instance_id');
+            $table->unsignedBigInteger('related_instance_id');
+            $table->timestamps();
 
+            $table->unique(['instance_id', 'related_instance_id']);
+            $table->foreign('instance_id')->references('id')->on('instances')->onDelete('cascade');
+            $table->foreign('related_instance_id')->on('instances')->references('id')->onDelete('cascade');
+
+
+        });
 
         Schema::create('attribute_instance', function (Blueprint $table) {
             $table->id();
@@ -46,5 +57,7 @@ class CreateInstancesTable extends Migration
     {
         Schema::dropIfExists('attribute_instance');
         Schema::dropIfExists('instances');
+        Schema::dropIfExists('intance_to_instance');
+        Schema::dropIfExists('instance_to_instance');
     }
 }

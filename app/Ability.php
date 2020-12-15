@@ -29,8 +29,8 @@ class Ability extends Model
             Ability::create(['name' => 'manage_user_profiles']);
         }
 
-        if(Ability::whereName('view_user_profiles')->first() == null ) {
-            Ability::create(['name' => 'view_user_profiles']);
+        if(Ability::whereName('view_client_profiles')->first() == null ) {
+            Ability::create(['name' => 'view_client_profiles']);
         }
 
         if(Ability::whereName('change_user_profile')->first() == null) {
