@@ -16,6 +16,7 @@
     <link href="/assets/css/app-creative-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
     <link href="/css/my.css" rel="stylesheet" type="text/css" />
 
+
 </head>
 
 <body class="loading" data-layout="topnav" data-layout-config='{"layoutBoxed":false,"darkMode":false,"showRightSidebarOnStart": true}'>
@@ -27,7 +28,7 @@
     <!-- ============================================================== -->
 
     <div class="content-page">
-        <div class="content">
+        <div class="content" id="app">
             <!-- Topbar Start -->
             <div class="navbar-custom topnav-navbar topnav-navbar-dark">
                 <div class="container-fluid">

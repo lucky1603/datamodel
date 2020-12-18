@@ -70,7 +70,7 @@
     <!-- ============================================================== -->
 
     <div class="content-page frame-padding">
-        <div class="content">
+        <div class="content" >
             <!-- Topbar Start -->
             <div class="navbar-custom frame-padding">
                 <ul class="list-unstyled topbar-right-menu float-right mb-0">
@@ -269,7 +269,7 @@
             <!-- end Topbar -->
 
             <!-- Start Content-->
-            <div class="container-fluid py-2">
+            <div class="container-fluid py-2" id="app">
 
                 @yield('content')
 

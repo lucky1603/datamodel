@@ -12,5 +12,7 @@ return [
     'Clients' => 'Klijenti',
     'Contracts' => 'Ugovori',
     'Home' => 'Početna',
-    'EnterName' => 'Unesite ime ili njeov deo ...'
+    'EnterName' => 'Unesite ime ili njeov deo ...',
+    'TeamHint' => 'Za svakog od članova tima unesite ime i prezime i odvojite ih tačka-zarezom ...',
+    'MaxCharsCount' => 'Maksimalno 255 karaktera ...'
 ];

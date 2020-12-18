@@ -1951,8 +1951,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProfileCard",
   props: ['title', 'image', 'company_name', 'company_web'],
@@ -37593,21 +37591,12 @@ var render = function() {
   return _c("div", { staticClass: "card" }, [
     _c("div", { staticClass: "card-header" }, [_vm._v(_vm._s(_vm.title))]),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "card-body" }, [_vm._t("default")], 2),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer" }, [_vm._t("footer")], 2)
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("div", { attrs: { id: "card_header" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -49791,6 +49780,7 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+Vue.config.devtools = false;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -49798,8 +49788,6 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('profile-card', __webpack_require__(/*! ./components/ProfileCard.vue */ "./resources/js/components/ProfileCard.vue")["default"]);
@@ -49808,9 +49796,10 @@ Vue.component('profile-card', __webpack_require__(/*! ./components/ProfileCard.v
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-// new Vue({
-//     el: '#app',
-// });
+
+var app = new Vue({
+  el: '#app'
+});
 
 /***/ }),
 

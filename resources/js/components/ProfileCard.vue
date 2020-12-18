@@ -2,9 +2,7 @@
     <div class="card">
         <div class="card-header">{{ title }}</div>
         <div class="card-body">
-            <div id="card_header">
-
-            </div>
+            <slot></slot>
         </div>
         <div class="card-footer"><slot name="footer"></slot></div>
     </div>

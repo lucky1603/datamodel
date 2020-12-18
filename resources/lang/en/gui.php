@@ -12,5 +12,7 @@ return [
     'Clients' => 'Clients',
     'Contracts' => 'Contracts',
     'Home' => 'Home',
-    'EnterName' => 'Enter the name or its part ...'
+    'EnterName' => 'Enter the name or its part ...',
+    'TeamHint' => 'Enter the first and last name of each team member and separate members with with semicolon ...',
+    'MaxCharsCount' => '255 chars max...'
 ];

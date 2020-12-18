@@ -72,6 +72,7 @@
             <div class="tab-content" >
                 <div class="tab-pane show active" id="aboutme">
                 @yield('profile-data')
+                @include('clients.partials.client-profile-form')
 
                 <!-- end timeline -->
                 </div> <!-- end tab-pane -->
