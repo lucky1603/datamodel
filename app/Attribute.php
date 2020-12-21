@@ -95,6 +95,9 @@ class Attribute extends Model
         } else if ($this->type === 'double') {
             $fmt = numfmt_create(App::getLocale(), \NumberFormatter::DECIMAL);
             return $fmt->format($value, \NumberFormatter::TYPE_DOUBLE);
+        } else if($this->type === 'datetime') {
+            $datetime = new \DateTime($value);
+            return $datetime->format('d.m.Y.');
         } else
         {
             return (isset($value) && strlen($value) > 0) ? strval($value) : '-';

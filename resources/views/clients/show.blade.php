@@ -11,17 +11,25 @@
 @endsection
 
 @section('profile_image')
-    {{ $model->getAttribute('profile_background')->getValue()['filelink'] }}
+    @if($model->getAttribute('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0)
+        {{ $model->getAttribute('profile_background')->getValue()['filelink'] }}
+    @else
+        /images/custom/backdefault.jpg
+    @endif
 @endsection
 
 @section('logo_image')
-    {{ $model->getAttribute('logo')->getValue()['filelink'] }}
+    @if($model->getAttribute('logo') != null && strlen($model->getData()['logo']['filelink']) > 0)
+        {{ $model->getAttribute('logo')->getValue()['filelink'] }}
+    @else
+        /images/custom/avatar-default.png
+    @endif
 @endsection
 
 @section('profile-short-data')
     <div id="img-container" class="image-container">
-        <img src="@if( $model->getAttribute('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $model->getAttribute('profile_background')->getValue()['filelink'] }} @else '/images/backdefault.jpg' @endif" class="image-container-profile"/>
-        <img class="shadow image-container-logo" src="{{ $model->getAttribute('logo') != null && strlen($model->getAttribute('logo')->getValue()['filelink']) > 0 ? $model->getAttribute('logo')->getValue()['filelink'] : 'images/avatar-default.png' }}" />
+        <img src="@if( $model->getAttribute('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $model->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile"/>
+        <img class="shadow image-container-logo" src="{{ $model->getAttribute('logo') != null && strlen($model->getAttribute('logo')->getValue()['filelink']) > 0 ? $model->getAttribute('logo')->getValue()['filelink'] : '/images/custom/avatar-default.png' }}" />
     </div>
 
     <h4 class="mb-0 mt-5">{{ $model->getData()['name']}}</h4>
@@ -73,7 +81,7 @@
     <div class="inbox-widget">
     @foreach($model->instance->users as $user)
         <div class="inbox-item">
-            <div class="inbox-item-img"><img src="{{ $user->photo }}" class="rounded-circle" alt=""></div>
+            <div class="inbox-item-img"><img src="@if($user->photo != null) {{ $user->photo }} @else /images/custom/nophoto2.png @endif" class="rounded-circle" alt=""></div>
             <p class="inbox-item-author">{{ $user->name }}</p>
             <p class="inbox-item-text">{{ $user->position }}</p>
             <p class="inbox-item-date">
@@ -165,7 +173,7 @@
 
     <div class="display-pair font-14 mt-2">
         <span class="attribute-label"><strong>{{ $model->getAttribute('date_interested')->label }}:</strong></span>
-        <span class="text-muted ml-2">{{ $model->getAttribute('date_interested')->getValue() }}</span>
+        <span class="text-muted ml-2">{{ $model->getAttribute('date_interested')->getText() }}</span>
     </div>
 
     @if($model->getAttribute('osnivac_1_imeprezime')->getValue() != null && strlen($model->getAttribute('osnivac_1_imeprezime')->getValue()) > 0)

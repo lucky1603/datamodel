@@ -71,19 +71,15 @@
             </ul>
             <div class="tab-content" >
                 <div class="tab-pane show active" id="aboutme">
-                @include('clients.partials._client-profile-form')
-
-                <!-- end timeline -->
-                </div> <!-- end tab-pane -->
-                <!-- end about me section content -->
+                    @include('clients.partials._client-profile-form')
+                </div>
                 <div class="tab-pane" id="timeline">
                     <div class="row">
                         <div class="col-12">
                             <div class="timeline">
                                 @include('clients.partials._timeline')
                             </div>
-                            <!-- end timeline -->
-                        </div> <!-- end col -->
+                        </div>
                     </div>
                 </div>
 

@@ -36,6 +36,8 @@
 @endsection
 
 @section('content')
+
+
     @foreach($companies as $company)
         <p>{{ $company->getData()['name'] }}</p>
     @endforeach
