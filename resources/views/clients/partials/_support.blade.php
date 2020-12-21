@@ -4,14 +4,14 @@
 </h5>
 
 <div class="form-group">
-    <label for="{{ $model->getAttribute('kvadratura')->name }}">{!! $model->getAttribute('kvadratura')->label !!}:</label>
+    <label for="{{ $model->getAttribute('kvadratura')->name }}" class=" attribute-label">{!! $model->getAttribute('kvadratura')->label !!}:</label>
     <input type="text" class="border float-right text-right" id="{{ $model->getAttribute('kvadratura')->name }}" name="{{ $model->getAttribute('kvadratura')->name }}" value="{{ $model->getData()['kvadratura'] }}">
 </div>
 
 
 <div class="form-group">
     <input id="{{ $model->getAttribute('zajednicke_prostorije')->name }}Hidden" type="hidden" name="{{ $model->getAttribute('zajednicke_prostorije')->name }}" value="off">
-    <span class="font-weight-semibold"> {!! $model->getAttribute('zajednicke_prostorije')->label !!}</span>
+    <span class="font-weight-semibold attribute-label"> {!! $model->getAttribute('zajednicke_prostorije')->label !!}</span>
     <input
         type="checkbox" class="ml-1"
         id="{{ $model->getAttribute('zajednicke_prostorije')->name }}"
@@ -29,7 +29,7 @@
 
 <div class="form-group">
     <input id="{{ $model->getAttribute('inovaciona_laboratorija')->name }}Hidden" type="hidden" name="{{ $model->getAttribute('inovaciona_laboratorija')->name }}" value="off">
-    <span class="font-weight-semibold"> {!! $model->getAttribute('inovaciona_laboratorija')->label !!}</span>
+    <span class="font-weight-semibold attribute-label"> {!! $model->getAttribute('inovaciona_laboratorija')->label !!}</span>
     <input
         type="checkbox" class="ml-1"
         id="{{ $model->getAttribute('inovaciona_laboratorija')->name }}"
@@ -47,7 +47,7 @@
 
 <div class="form-group">
     <input id="{{ $model->getAttribute('konsalting_usluge')->name }}Hidden" type="hidden" name="{{ $model->getAttribute('konsalting_usluge')->name }}" value="off">
-    <span class="font-weight-semibold"> {!! $model->getAttribute('konsalting_usluge')->label !!}</span>
+    <span class="font-weight-semibold attribute-label"> {!! $model->getAttribute('konsalting_usluge')->label !!}</span>
     <input
         type="checkbox" class="ml-1"
         id="{{ $model->getAttribute('konsalting_usluge')->name }}"

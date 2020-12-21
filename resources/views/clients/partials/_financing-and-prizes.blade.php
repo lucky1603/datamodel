@@ -4,18 +4,18 @@
 </h5>
 
 <div class="form-group">
-    <label for="{{ $model->getAttribute('prizes')->name }}">{{ $model->getAttribute('prizes')->label }}</label>
+    <label for="{{ $model->getAttribute('prizes')->name }}" class="attribute-label">{{ $model->getAttribute('prizes')->label }}</label>
     <textarea class="form-control" id="{{ $model->getAttribute('prizes')->name }}" name="{{ $model->getAttribute('prizes')->name }}" rows="4" placeholder="{{ __('gui.MaxCharsCount') }}">{{ $model->getData()['prizes'] }}</textarea>
 </div>
 
 <div class="form-group">
-    <label for="{{ $model->getAttribute('financing_type')->name }}">{{ $model->getAttribute('financing_type')->label }}</label>
+    <label for="{{ $model->getAttribute('financing_type')->name }}" class="attribute-label">{{ $model->getAttribute('financing_type')->label }}</label>
     <textarea class="form-control" id="{{ $model->getAttribute('financing_type')->name }}" name="{{ $model->getAttribute('financing_type')->name }}" rows="4" placeholder="{{ __('gui.MaxCharsCount') }}">{{ $model->getData()['financing_type'] }}</textarea>
 </div>
 
 <div class="form-group">
     <input id="{{ $model->getAttribute('looking_for_financing')->name }}Hidden" type="hidden" name="{{ $model->getAttribute('looking_for_financing')->name }}" value="off">
-    {!! $model->getAttribute('looking_for_financing')->label !!}
+    <span  class="attribute-label">{!! $model->getAttribute('looking_for_financing')->label !!}</span>
     <input
         type="checkbox"
         id="{{ $model->getAttribute('looking_for_financing')->name }}"

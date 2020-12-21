@@ -4,12 +4,12 @@
 </h5>
 
 <div class="form-group">
-    <label for="{{ $model->getAttribute('team_members')->name }}">{{ $model->getAttribute('team_members')->label }}</label>
+    <label for="{{ $model->getAttribute('team_members')->name }}" class="attribute-label">{{ $model->getAttribute('team_members')->label }}</label>
     <textarea class="form-control" id="{{ $model->getAttribute('team_members')->name }}" name="{{ $model->getAttribute('team_members')->name }}" rows="4" placeholder="{{ __('gui.TeamHint') }}">{{ $model->getData()['team_members'] }}</textarea>
 </div>
 
 <div class="form-group">
-    <label for="{{ $model->getAttribute('team_members_file')->name }}">{!! $model->getAttribute('team_members_file')->label !!}</label>
+    <label for="{{ $model->getAttribute('team_members_file')->name }}" class="attribute-label">{!! $model->getAttribute('team_members_file')->label !!}</label>
     @if($model->getAttribute('team_members_file')->getValue() != null)
         <table class="table table-responsive">
             <tr>

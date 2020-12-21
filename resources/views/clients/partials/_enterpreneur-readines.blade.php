@@ -4,18 +4,18 @@
 </h5>
 
 <div class="form-group">
-    <label for="{{ $model->getAttribute('have_skills')->name }}">{{ $model->getAttribute('have_skills')->label }}</label>
+    <label for="{{ $model->getAttribute('have_skills')->name }}" class="attribute-label">{{ $model->getAttribute('have_skills')->label }}</label>
     <textarea class="form-control" id="{{ $model->getAttribute('have_skills')->name }}" name="{{ $model->getAttribute('have_skills')->name }}" rows="4" placeholder="{{ __('gui.MaxCharsCount') }}">{{ $model->getData()['have_skills'] }}</textarea>
 </div>
 
 <div class="form-group">
-    <label for="{{ $model->getAttribute('improve_skills')->name }}">{{ $model->getAttribute('improve_skills')->label }}</label>
+    <label for="{{ $model->getAttribute('improve_skills')->name }}" class="attribute-label">{{ $model->getAttribute('improve_skills')->label }}</label>
     <textarea class="form-control" id="{{ $model->getAttribute('improve_skills')->name }}" name="{{ $model->getAttribute('improve_skills')->name }}" rows="4" placeholder="{{ __('gui.MaxCharsCount') }}">{{ $model->getData()['improve_skills'] }}</textarea>
 </div>
 
 <div class="form-group">
     <input id="{{ $model->getAttribute('regular_menthor_sessions')->name }}Hidden" type="hidden" name="{{ $model->getAttribute('regular_menthor_sessions')->name }}" value="off">
-    <span class="font-weight-semibold"> {!! $model->getAttribute('regular_menthor_sessions')->label !!}</span>
+    <span class="font-weight-semibold attribute-label"> {!! $model->getAttribute('regular_menthor_sessions')->label !!}</span>
     <input
         type="checkbox" class="ml-1"
         id="{{ $model->getAttribute('regular_menthor_sessions')->name }}"
@@ -33,7 +33,7 @@
 
 <div class="form-group">
     <input id="{{ $model->getAttribute('regular_workshops')->name }}Hidden" type="hidden" name="{{ $model->getAttribute('regular_workshops')->name }}" value="off">
-    <span class="font-weight-semibold"> {!! $model->getAttribute('regular_workshops')->label !!}</span>
+    <span class="font-weight-semibold attribute-label"> {!! $model->getAttribute('regular_workshops')->label !!}</span>
     <input
         type="checkbox" class="ml-1"
         id="{{ $model->getAttribute('regular_workshops')->name }}"
@@ -51,7 +51,7 @@
 
 <div class="form-group">
     <input id="{{ $model->getAttribute('will_evaluate_work')->name }}Hidden" type="hidden" name="{{ $model->getAttribute('will_evaluate_work')->name }}" value="off">
-    <span class="font-weight-semibold"> {!! $model->getAttribute('will_evaluate_work')->label !!}</span>
+    <span class="font-weight-semibold attribute-label"> {!! $model->getAttribute('will_evaluate_work')->label !!}</span>
     <input
         type="checkbox" class="ml-1"
         id="{{ $model->getAttribute('will_evaluate_work')->name }}"
@@ -69,7 +69,7 @@
 
 <div class="form-group">
     <input id="{{ $model->getAttribute('establish_company')->name }}Hidden" type="hidden" name="{{ $model->getAttribute('establish_company')->name }}" value="off">
-    <span class="font-weight-semibold"> {!! $model->getAttribute('establish_company')->label !!}</span>
+    <span class="font-weight-semibold attribute-label"> {!! $model->getAttribute('establish_company')->label !!}</span>
     <input
         type="checkbox" class="ml-1"
         id="{{ $model->getAttribute('establish_company')->name }}"
@@ -87,7 +87,7 @@
 
 <div class="form-group">
     <input id="{{ $model->getAttribute('fulfill_contract_obligations')->name }}Hidden" type="hidden" name="{{ $model->getAttribute('fulfill_contract_obligations')->name }}" value="off">
-    <span class="font-weight-semibold">{!! $model->getAttribute('fulfill_contract_obligations')->label !!}</span>
+    <span class="font-weight-semibold attribute-label">{!! $model->getAttribute('fulfill_contract_obligations')->label !!}</span>
     <input
         type="checkbox" class="ml-1"
         id="{{ $model->getAttribute('fulfill_contract_obligations')->name }}"
@@ -104,6 +104,6 @@
 </div>
 
 <div class="form-group">
-    <label for="{{ $model->getAttribute('motiv')->name }}">{{ $model->getAttribute('motiv')->label }}</label>
+    <label for="{{ $model->getAttribute('motiv')->name }}" class="attribute-label">{{ $model->getAttribute('motiv')->label }}</label>
     <textarea class="form-control" id="{{ $model->getAttribute('motiv')->name }}" name="{{ $model->getAttribute('motiv')->name }}" rows="4" placeholder="{{ __('gui.MaxCharsCount') }}">{{ $model->getData()['motiv'] }}</textarea>
 </div>

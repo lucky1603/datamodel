@@ -29,9 +29,9 @@ class HomeController extends Controller
             $instance = auth()->user()->instances->first();
             if(isset($instance) && $instance->entity->name === 'Client') {
                 $client = Client::find($instance->id);
-                return view('clients.profile', ['model' => $client]);
+                return redirect(route('clients.profile', $client->getId()));
             } else {
-                return view('welcome');
+                return redirect('/');
             }
         }
 

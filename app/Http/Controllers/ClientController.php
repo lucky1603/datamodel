@@ -202,7 +202,8 @@ class ClientController extends Controller
     {
         $client = new Client(['instance_id' => $id]);
         $action = route('clients.update', $client->getId());
-        return view('clients.edit', ['model' => $client, 'action' => $action]);
+        $landing = route('clients.show', $client->getId());
+        return view('clients.edit', ['model' => $client, 'action' => $action, 'landing' => $landing]);
     }
 
     /**
@@ -215,9 +216,6 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->post();
-
-        var_dump($data);
-        die();
 
         // Handle the uploaded file
         $file = $request->file('application_form');
@@ -288,6 +286,12 @@ class ClientController extends Controller
             $client->setData($data);
         }
 
+        if(isset($data['landing'])) {
+            if($data['landing'] == route('clients.profile', $client->getId())) {
+                return redirect($data['landing']);
+            }
+        }
+
         return redirect(route('clients.show', $id));
     }
 
@@ -298,11 +302,13 @@ class ClientController extends Controller
      */
     public function profile($id) {
         $user = Auth::user();
+
         if($user->isRole('client'))
         {
             $client = new Client(['instance_id' => $id]);
             $action = route('clients.update', $client->getId());
-            return view('clients.profile', ['model' => $client, 'action' => $action]);
+            $landing = route('clients.profile', $client->getId());
+            return view('clients.profile', ['model' => $client, 'action' => $action, 'landing' => $landing]);
         }
 
         return redirect( route('clients.home'));

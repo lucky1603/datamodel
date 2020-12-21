@@ -1,4 +1,6 @@
 <form method="POST" action="{{ route('clients.update', $model->getId()) }}" enctype="multipart/form-data">
+    @csrf
+    <input type="hidden" id="landing" name="landing" value="{{ $landing }}">
     @include('clients.partials._general-section')
     @include('clients.partials._target-group')
     @include('clients.partials._inovation-group')

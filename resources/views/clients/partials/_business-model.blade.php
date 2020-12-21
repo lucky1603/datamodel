@@ -4,7 +4,7 @@
 </h5>
 
 <div class="form-group">
-    <label for="{{ $model->getAttribute('business_model')->name }}">{{ $model->getAttribute('business_model')->label }}</label>
+    <label for="{{ $model->getAttribute('business_model')->name }}" class="attribute-label">{{ $model->getAttribute('business_model')->label }}</label>
     <textarea class="form-control" id="{{ $model->getAttribute('business_model')->name }}" name="{{ $model->getAttribute('business_model')->name }}" rows="4" placeholder="255 chars max...">{{ $model->getData()['business_model'] }}</textarea>
 </div>
 
@@ -12,9 +12,9 @@
 <table class="modal-full-width">
     <thead>
         <tr>
-            <th class="pb-2">{{ __('Cost Specification') }}</th>
-            <th class="text-center pb-2">{{ __('Year') }} 1</th>
-            <th class="text-center pb-2">{{ __('Year') }} 2</th>
+            <th class="pb-2 attribute-label">{{ __('Cost Specification') }}</th>
+            <th class="text-center pb-2 attribute-label">{{ __('Year') }} 1</th>
+            <th class="text-center pb-2 attribute-label">{{ __('Year') }} 2</th>
         </tr>
     </thead>
     <tbody>
@@ -83,7 +83,7 @@
 </table>
 
 <div class="form-group mt-4">
-    <label for="{{ $model->getAttribute('finansijski_plan_dokument')->name }}">{!! $model->getAttribute('finansijski_plan_dokument')->label !!}</label>
+    <label for="{{ $model->getAttribute('finansijski_plan_dokument')->name }}" class="attribute-label">{!! $model->getAttribute('finansijski_plan_dokument')->label !!}</label>
     @if($model->getAttribute('finansijski_plan_dokument')->getValue() != null)
         <table class="table table-responsive">
             <tr>
