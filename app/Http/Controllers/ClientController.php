@@ -317,8 +317,9 @@ class ClientController extends Controller
     public function companyList()
     {
         $this->authorize('view_client_profiles');
+
         $client = Auth::user()->client();
-        $companies = Client::all()->except([$client->getId()]);
+        $companies = $client->getOtherClients();
         return view('clients.companylist', ['companies' => $companies]);
     }
 

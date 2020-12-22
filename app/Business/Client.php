@@ -8,6 +8,7 @@ use App\Attribute;
 use App\AttributeGroup;
 use App\Entity;
 use App\Instance;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\SingleCommandApplication;
 
@@ -32,9 +33,10 @@ class Client extends BusinessModel
 
     /**
      * Gets the collection of belonging contracts.
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
-    public function getContracts() {
+    public function getContracts(): Collection
+    {
         $contracts = [];
         foreach($this->instance->instances as $instance) {
             if($instance->entity->name === 'Contract' && $instance->instance->entity->name === 'Client') {
@@ -43,6 +45,18 @@ class Client extends BusinessModel
         }
 
         return collect($contracts);
+    }
+
+    public function getOtherClients(): Collection
+    {
+        $client_id = Entity::all()->where('name', 'Client')->first()->id;
+        $instances = Instance::all()->where('entity_id', $client_id)->whereNotIn('id', $this->instance->id);
+        $others = [];
+        foreach($instances as $instance) {
+            $others[] = new Client(['instance_id' => $instance->id]);
+        }
+
+        return collect($others);
     }
 
     /**
@@ -588,7 +602,7 @@ class Client extends BusinessModel
     /**
      * Search the database for a contract the given criteria.
      * @param $query Array of key/value pairs.
-     * @return Contract|\Illuminate\Support\Collection
+     * @return Contract|Collection
      */
     public static function find($query=null) {
 
@@ -645,7 +659,7 @@ class Client extends BusinessModel
 
     /**
      * Returns the short preview of the collection.
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public static function all() {
         return Client::find();
@@ -809,7 +823,7 @@ class Client extends BusinessModel
 
     /**
      * Vraća grupe atributa.
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function getAttributeGroups() {
 
@@ -972,7 +986,7 @@ class Client extends BusinessModel
 
     /**
      * Returns the fields required for the client creation.
-     * @return \Illuminate\Support\Collection|void
+     * @return Collection|void
      */
     protected function getInitAttributesNamesCollection()
     {

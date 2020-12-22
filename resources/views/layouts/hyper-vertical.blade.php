@@ -264,6 +264,7 @@
                     <i class="mdi mdi-menu"></i>
                 </button>
 
+                @yield('search')
 
             </div>
             <!-- end Topbar -->
