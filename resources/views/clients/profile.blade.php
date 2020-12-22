@@ -287,6 +287,7 @@
             $('a.edituser').on('click', function(evt) {
                 evt.preventDefault();
                 var el = evt.currentTarget;
+                console.log(el);
                 $.get($(el).attr('href'), function(data) {
                     let content = $(data).find('form');
                     let title = $(data).find('h1').first().text();

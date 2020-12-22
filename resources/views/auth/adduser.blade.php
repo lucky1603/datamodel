@@ -1,0 +1,52 @@
+@extends('layouts.app')
+
+@section('content')
+    <h1>{{__('Add New User')}}</h1>
+    <form method="POST" enctype="multipart/form-data" action="{{ route('user.added', $client->getId()) }}">
+        @csrf
+        <div class="row">
+            <div class="col-md-4">
+                <img src="/images/custom/nophoto2.png" width="100%" id="photoPreview">
+                <border style="border-radius: 10px; width: 50px; overflow: hidden">
+                    <input type="file" id="photo" name="photo" style="color: transparent;">
+                </border>
+
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="name">{{ __('Name') }}</label>
+                    <input type="text" id="name" name="name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email">{{ __('E-Mail') }}</label>
+                    <input type="text" id="email" name="email" class="form-control" >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">{{ __('Password') }}</label>
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="password-confirm">{{ __('Confirm Password') }}</label>
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                </div>
+
+                <div class="form-group">
+                    <label for="position">{{ __('Position') }}</label>
+                    <input type="text" id="position" name="position" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-sm btn-primary">{{ __('Save') }}</button>
+        </div>
+    </form>
+@endsection

@@ -55,7 +55,7 @@
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item">Settings</a>
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                <a href="{{ route('user.add') }}" class="dropdown-item nav-link edituser" data-toggle="modal" data-target="#dialogHost" >{{ __('Add User') }}</a>
                             </div>
                         </div>
                         <h4 class="header-title">{{__('SUPPORT TEAM')}}</h4>
