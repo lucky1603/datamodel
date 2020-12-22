@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/edituser/{user}', 'Auth\EditUserController@edit')->name('user.edit');
+Route::post('/edituser/{user}', 'Auth\EditUserController@update')->name('user.update');
+
 Route::get('/', function () {
     return view('welcome');
 });

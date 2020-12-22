@@ -438,6 +438,7 @@
                $('.modal-title').text(title);
            });
        });
+
     });
 </script>
 

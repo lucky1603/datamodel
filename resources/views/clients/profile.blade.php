@@ -20,8 +20,8 @@
 
 @section('profile-short-data')
     <div id="img-container" class="image-container">
-        <img src="@if( $model->getAttribute('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $model->getAttribute('profile_background')->getValue()['filelink'] }} @else '/images/backdefault.jpg' @endif" class="image-container-profile"/>
-        <img class="shadow image-container-logo" src="{{ $model->getAttribute('logo') != null && strlen($model->getAttribute('logo')->getValue()['filelink']) > 0 ? $model->getAttribute('logo')->getValue()['filelink'] : 'images/avatar-default.png' }}" />
+        <img src="@if( $model->getAttribute('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $model->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile"/>
+        <img class="shadow image-container-logo" src="{{ $model->getAttribute('logo') != null && strlen($model->getAttribute('logo')->getValue()['filelink']) > 0 ? $model->getAttribute('logo')->getValue()['filelink'] : '/images/custom/avatar-default.png' }}" />
     </div>
 
     <h4 class="mb-0 mt-5">{{ $model->getData()['name']}}</h4>
@@ -265,3 +265,47 @@
         </ul>
     </li>
 @endsection
+
+@section('users')
+    <div class="inbox-widget">
+        @foreach($model->instance->users as $user)
+            <div class="inbox-item">
+                <div class="inbox-item-img"><img src="@if($user->photo != null) {{ $user->photo }} @else /images/custom/nophoto2.png @endif" class="rounded-circle" alt=""></div>
+                <p class="inbox-item-author">{{ $user->name }}</p>
+                <p class="inbox-item-text">{{ $user->position }}</p>
+                <p class="inbox-item-date">
+                    <a href="{{ route('user.edit', $user->id) }}" role="button" data-toggle="modal" data-target="#dialogHost" class="btn btn-sm btn-link text-info font-13 edituser nav-link" data-id="{{ $user->id }}"> {{__('Edit')}} </a>
+                </p>
+            </div>
+        @endforeach
+    </div> <!-- end inbox-widget -->
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('a.edituser').on('click', function(evt) {
+                evt.preventDefault();
+                var el = evt.currentTarget;
+                $.get($(el).attr('href'), function(data) {
+                    let content = $(data).find('form');
+                    let title = $(data).find('h1').first().text();
+                    $('.modal-body').html(content);
+                    $('.modal-title').text(title);
+                    $('.modal-body').find('#photo').on('change', function (evt) {
+                       let el = evt.currentTarget;
+                       console.log(el);
+                       console.log($(el)[0].files[0]);
+                        var fileReader = new FileReader();
+                        fileReader.onload = function () {
+                            var data = fileReader.result;  // data <-- in this var you have the file data in Base64 format
+                            $('#photoPreview').attr('src', data);
+                        };
+                        fileReader.readAsDataURL($(el)[0].files[0]);
+                    });
+                });
+            });
+        });
+    </script>
+@endsection
+
