@@ -2,8 +2,10 @@
     "Accelerator" : "Akcelerator",
     "Actions" : "Akcije",
     "Activities" : "Kretanje statusa",
-    "Add User" : "Dodaj korisnika",
+    "Add New Admin" : "Dodaj novog administratora",
     "Add New User" : "Dodaj novog korisnika",
+    "Add User" : "Dodaj korisnika",
+    "Administrators" : "Administratori",
     "All" : "Svi",
     "Amount" : "Iznos",
     "Application" : "Podaci iz prijave",
@@ -46,6 +48,7 @@
     "First Name and Last Name" : "Ime i prezime",
     "Financing and Prizes" : "Finansiranje i nagrade",
     "Final Selection" : "Finalna selekcija",
+    "for client" : "za klijenta",
     "Founders" : "Osnivači",
     "General Data" : "OPŠTI PODACI",
     "Go Back" : "Idi nazad",
@@ -92,6 +95,8 @@
     "Team" : "Tim",
     "Trainings" : "Obuke",
     "University" : "Fakultet",
+    "USERS" : "KORISNICI",
+    "Users List" : "Lista korisnika",
     "Year" : "Godina",
     "YES" : "DA"
 }

@@ -859,6 +859,11 @@ class Client extends BusinessModel
         return collect($clientAttributes);
     }
 
+    public function getUsers()
+    {
+        return $this->instance->users;
+    }
+
     // Protected methods. //
 
     /**

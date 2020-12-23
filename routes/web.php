@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/edituser', 'Auth\EditUserController@index')->name('users');
+Route::get('/edituser/addadmin', 'Auth\EditUserController@addadmin')->name('user.addadmin');
+Route::post('/edituser/adminadded', 'Auth\EditUserController@adminadded')->name('user.adminadded');
+Route::get('/edituser/addforclient/{client}', 'Auth\EditUserController@addforclient')->name('user.addforclient');
+Route::post('/edituser/addedforclient/{client}', 'Auth\EditUserController@addedforclient')->name('user.addedforclient');
 Route::get('/edituser/add', 'Auth\EditUserController@add')->name('user.add');
 Route::get('/edituser/{user}', 'Auth\EditUserController@edit')->name('user.edit');
 Route::post('/edituser/{user}', 'Auth\EditUserController@update')->name('user.update');
