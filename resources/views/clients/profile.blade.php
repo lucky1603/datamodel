@@ -235,14 +235,14 @@
     <li class="side-nav-item" id="link_profile">
         <a href="{{route('clients.profile', Auth::user()->client()->getId())}}" class="side-nav-link">
             <i class="uil-dashboard"></i>
-            <span>{{ __('PROFILE') }}</span>
+            <span>{{ strtoupper( __('Profile')) }}</span>
         </a>
     </li>
 
     <li class="side-nav-item">
         <a href="{{route('clients.companylist')}}" class="side-nav-link" id="link_company_list">
             <i class="uil-dashboard"></i>
-            <span>{{ __('COMPANY LIST') }}</span>
+            <span>{{ strtoupper(__('Company List')) }}</span>
         </a>
     </li>
 

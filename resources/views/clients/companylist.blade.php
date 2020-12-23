@@ -4,14 +4,14 @@
     <li class="side-nav-item" id="link_profile">
         <a href="{{route('clients.profile', Auth::user()->client()->getId())}}" class="side-nav-link">
             <i class="uil-dashboard"></i>
-            <span>{{ __('PROFILE') }}</span>
+            <span>{{ strtoupper( __('Profile')) }}</span>
         </a>
     </li>
 
     <li class="side-nav-item">
         <a href="{{route('clients.companylist')}}" class="side-nav-link" id="link_company_list">
             <i class="uil-dashboard"></i>
-            <span>{{ __('COMPANY LIST') }}</span>
+            <span>{{ strtoupper( __('Company List')) }}</span>
         </a>
     </li>
 
@@ -82,10 +82,10 @@
     <div class="app-search dropdown d-none d-lg-block">
         <form>
             <div class="input-group">
-                <input type="text" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
+                <input type="text" class="form-control dropdown-toggle" placeholder="{{ __('Search...') }}" id="top-search">
                 <span class="mdi mdi-magnify search-icon"></span>
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                    <button class="btn btn-primary" type="submit">{{ __('Search') }}</button>
                 </div>
             </div>
 

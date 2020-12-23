@@ -45,6 +45,8 @@
             </div>
         </div>
 
+        <hr/>
+
         <div class="text-center">
             <button type="submit" class="btn btn-sm btn-primary">{{ __('Save') }}</button>
         </div>
