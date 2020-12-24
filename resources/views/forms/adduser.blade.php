@@ -9,11 +9,11 @@
     <div class="col-md-8">
         <div class="form-group">
             <label for="name">{{ __('Name') }}</label>
-            <input type="text" id="name" name="name" class="form-control">
+            <input type="text" id="name" name="name" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="email">{{ __('E-Mail') }}</label>
-            <input type="text" id="email" name="email" class="form-control" >
+            <input type="text" id="email" name="email" class="form-control" required>
         </div>
 
         <div class="form-group">

@@ -70,8 +70,12 @@ class EditUserController extends Controller
         }
 
         $user->save();
-        $client = $user->client();
 
+        if(Auth::user()->isAdmin()) {
+            return redirect(route('users'));
+        }
+
+        $client = $user->client();
         return redirect(route('clients.profile', $client->getId()));
 
     }
@@ -234,4 +238,38 @@ class EditUserController extends Controller
 
         return redirect(route('users'));
     }
+
+    /**
+     *
+     * Poziva formu za brisanje.
+     *
+     * @param $userId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function delete($userId) {
+        $user = User::find($userId);
+        $return_to = route('users');
+        return view('auth.deleteuser', ['user' => $user, 'return_to' => $return_to]);
+    }
+
+    /**
+     *
+     * Izvršava potvrđeno brisanje.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function deleted(Request $request) {
+
+        $data = $request->post();
+
+        if(isset($data['user_id'])) {
+            $user = User::find(intval($data['user_id']));
+            $user->delete();
+        }
+
+        $return_to = isset($data['return_to']) ? $data['return_to'] : route('users');
+        return redirect($return_to);
+    }
+
 }

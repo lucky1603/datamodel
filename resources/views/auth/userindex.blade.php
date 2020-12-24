@@ -16,7 +16,7 @@
                     <td width="40%">{{ $user->position }}</td>
                     <td width="10%">
                         <a href="{{ route('user.edit', $user->id) }}" class="edituser" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-pencil mr-2"></i></a>
-                        <a href="" class="edituser" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-delete mr-2"></i></a>
+                        <a href="{{ route('user.delete', $user->id) }}" class="edituser" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-delete mr-2"></i></a>
                     </td>
                 </tr>
 
@@ -42,7 +42,7 @@
                     <td width="40%">{{ $user->position }}</td>
                     <td width="10%">
                         <a href="{{ route('user.edit', $user->id) }}" class="edituser" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-pencil mr-2"></i></a>
-                        <a href="" class="edituser" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-delete mr-2"></i></a>
+                        <a href="{{ route('user.delete', $user->id) }}" class="edituser" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-delete mr-2"></i></a>
                     </td>
                 </tr>
             @endforeach

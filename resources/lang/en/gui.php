@@ -14,5 +14,7 @@ return [
     'Home' => 'Home',
     'EnterName' => 'Enter the name or its part ...',
     'TeamHint' => 'Enter the first and last name of each team member and separate members with with semicolon ...',
-    'MaxCharsCount' => '255 chars max...'
+    'MaxCharsCount' => '255 chars max...',
+    'UserDeleteQuestion' => 'Are you sure that you want to delete the user :username?',
+    'UserDeleteTitle' => 'Delete User - :username'
 ];

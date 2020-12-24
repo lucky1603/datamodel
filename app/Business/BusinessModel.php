@@ -43,6 +43,13 @@ class BusinessModel
     }
 
     /**
+     * Deletes the model.
+     */
+    public function delete() {
+        $this->instance->delete();
+    }
+
+    /**
      * Gets the attribute values.
      * @param array $data (default null)
      * @return array
