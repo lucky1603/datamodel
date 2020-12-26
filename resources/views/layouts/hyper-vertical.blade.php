@@ -290,6 +290,27 @@
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
 
+            <div id="messageBox" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="primary-header-modalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header modal-colored-header bg-primary">
+                            <h4 class="modal-title" id="primary-header-modalLabel">Modal Heading</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="modal-message">Probna poruka</p>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="flex-fill">
+                                <div class="flex-column">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
         </div> <!-- content -->
 
         <!-- Footer Start -->

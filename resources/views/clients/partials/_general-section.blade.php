@@ -69,7 +69,7 @@
     <input type="text" class="form-control" id="{{ $model->getAttribute('position')->name }}" name="{{ $model->getAttribute('position')->name }}" value="{{ $model->getData()['position'] }}">
 </div>
 
-<p class="text-center text-uppercase mt-4 mb-3">Osnivači</p>
+<label class="mt-4 mb-3 attribute-label">{{ __('gui.Founders') }}</label>
 
 <table class="modal-full-width">
     <thead>

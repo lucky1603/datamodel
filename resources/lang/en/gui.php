@@ -16,5 +16,6 @@ return [
     'TeamHint' => 'Enter the first and last name of each team member and separate members with with semicolon ...',
     'MaxCharsCount' => '255 chars max...',
     'UserDeleteQuestion' => 'Are you sure that you want to delete the user :username?',
-    'UserDeleteTitle' => 'Delete User - :username'
+    'UserDeleteTitle' => 'Delete User - :username',
+    "Founders" => 'Names of the founders or planned founders, if the society was not registered yet:'
 ];

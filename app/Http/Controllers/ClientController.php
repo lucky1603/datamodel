@@ -278,6 +278,18 @@ class ClientController extends Controller
             ];
         }
 
+        $finansijski_plan_dokument = $request->file('finansijski_plan_dokument');
+
+        if($finansijski_plan_dokument != null) {
+            $originalFileName = $finansijski_plan_dokument->getClientOriginalName();
+            $path = $finansijski_plan_dokument->store('documents');
+            $path = asset($path);
+            $data['finansijski_plan_dokument'] = [
+                'filename' => $originalFileName,
+                'filelink' => $path,
+            ];
+        }
+
         // Find the client with the given id.
         $client = new Client(['instance_id' => $id]);
         if($client != null) {
@@ -617,5 +629,93 @@ class ClientController extends Controller
         $situations = $contract->getSituations();
         return view('contracts.show', ['model' => $contract, 'situations' => $situations, 'client' => $client]);
 
+    }
+
+    /**
+     *
+     * Proverava klijentove podatke. Ako su svi neophodni podaci uneseni, moguće je slanje prijave.
+     *
+     * @param $clientId
+     * @return int - 0 ako su podaci nepotpuni, 1 ako su podaci spremni za slanje.
+     */
+    public function check($clientId) {
+        $client = Client::find($clientId);
+        if($client == null)
+            return 0;
+
+        $mandatory_parameters = [];
+
+        // Opsti parametri
+
+        $general_parameters = [
+            'name', 'contact_person', 'email', 'telephone', 'position', 'ino_desc',
+            'interests', 'date_interested','osnivac_1_imeprezime', 'osnivac_1_fakultet', 'osnivac_1_udeo',
+            'reason_contact','is_registered', 'membership', 'maticni_broj', 'broj_zaposlenih', 'address', 'website',
+            'registration_planned', 'program'
+        ];
+        $mandatory_parameters = array_merge($mandatory_parameters, $general_parameters);
+        if($client->getData()['interests'] == 13)
+        {
+            $mandatory_parameters[] = 'ostalo_opis';
+        }
+
+        if($client->getData()['is_registered']) {
+            $mandatory_parameters[] = 'date_registered';
+        }
+
+        // Ciljne grupe
+        $target_group_parameters = [
+            'development_phase', 'poblems', 'target_group_solution_and_competition','target_groups', 'target_markets'
+        ];
+        $mandatory_parameters = array_merge($mandatory_parameters, $target_group_parameters);
+
+        // Inovativnost
+        $inovation_parameters = [
+            'product_description', 'inovation_type', 'inovativity', 'intelectual_property_protection'
+        ];
+        $mandatory_parameters = array_merge($mandatory_parameters, $inovation_parameters);
+
+        // Tim
+        $mandatory_parameters[] = 'team_members';
+
+        // Financing and prizes
+        $financing_and_prizes_parameters = [
+            'prizes', 'financing_type', 'looking_for_financing'
+        ];
+        $mandatory_parameters = array_merge($mandatory_parameters, $financing_and_prizes_parameters);
+
+        // Business parameters
+        $business_parameters = [
+            'business_model','zarade_zaposlenih_1', 'zarade_zaposlenih_2', 'fiksni_troskovi_1', 'fiksni_troskovi_2',
+            'naknada_angazovanih_1', 'naknada_angazovanih_2', 'knjigovodstvo_1', 'knjigovodstvo_2', 'advokat_1', 'advokat_2',
+            'zakup_kancelarije_1', 'zakup_kancelarije_2', 'rezijski_troskovi_1', 'rezijski_troskovi_2', 'ostali_fini_troskovi_1',
+            'ostali_fini_troskovi_2', 'ukupni_varijabilni_troskovi_1', 'ukupni_varijabilni_troskovi_2', 'troskovi_materijala_1',
+            'troskovi_materijala_2', 'troskovi_alata_1', 'troskovi_alata_2', 'ostali_varijabilni_troskovi_1', 'ostali_varijabilni_troskovi_2',
+            'finansijski_plan_dokument'
+        ];
+        $mandatory_parameters = array_merge($mandatory_parameters, $business_parameters);
+
+        // Enterpreneurship parameters
+        $enterpreneurship_parameters = [
+            'have_skills', 'improve_skills', 'regular_menthor_sessions', 'regular_workshops', 'will_evaluate_work','establish_company',
+            'fulfill_contract_obligations', 'motiv'
+        ];
+        $mandatory_parameters = array_merge($mandatory_parameters, $enterpreneurship_parameters);
+
+
+        foreach($mandatory_parameters as $parameter)
+        {
+            if(!isset($client->getData()[$parameter])) {
+                return json_encode([
+                    'code' => 0,
+                    'message' => 'Niste uneli parametar "'.$parameter.'"'
+                ]);
+            }
+        }
+
+        return json_encode([
+            'code' => 1,
+            'message' => 'Validacija uspela.'
+        ]);
     }
 }

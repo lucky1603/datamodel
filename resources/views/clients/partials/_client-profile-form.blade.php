@@ -11,9 +11,37 @@
     @include('clients.partials._support')
     <div class="text-center btn-group-sm">
         <button type="submit" class="btn btn-sm btn-primary">{{ __('Save') }}</button>
-        <button type="button" class="btn btn-sm btn-outline-dark">{{ __('Cancel') }}</button>
-        <button type="button" class="btn btn-sm btn-outline-primary">{{ __('Send') }}</button>
+        <button type="button" class="btn btn-sm btn-outline-dark" id="cancel">{{ __('Cancel') }}</button>
+        <button type="button" class="btn btn-sm btn-outline-primary" id="send">
+            <span id="button_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+            <span id="button_text">{{ __('Send') }}</span>
+        </button>
     </div>
 </form>
+
+@section('scripts')
+<script type="text/javascript">
+    $('#send').on('click', function() {
+        $('#button_spinner').attr('hidden', false);
+        var clientId = <?php echo $model->getId(); ?>;
+
+        var result = 0;
+        $.get('/clients/check/' + clientId, function(data) {
+            var result = JSON.parse(data);
+            console.log(result);
+            $('#button_spinner').attr('hidden', true);
+
+            if(result.code == 0) {
+                $.toast(result.message);
+
+            } else {
+                $.toast(result.message);
+            }
+        });
+
+    });
+
+</script>
+@endsection
 
 
