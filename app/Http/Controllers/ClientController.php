@@ -28,7 +28,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $this->authorize('manage_user_profiles');
+        $this->authorize('manage_client_profiles');
 
         $clients = Client::find();
 
@@ -44,7 +44,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        $this->authorize('manage_user_profiles');
+        $this->authorize('manage_client_profiles');
 
         $attributes = collect(Client::getCreateAttributesDefinitions());
 
@@ -179,7 +179,7 @@ class ClientController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $this->authorize('read_user_profile', $id);
+        $this->authorize('read_client_profile', $id);
 
         if(auth()->user()->isAdmin()) {
             $request->session()->put('backroute', route('clients.index'));
@@ -328,7 +328,7 @@ class ClientController extends Controller
 
     public function companyList()
     {
-        $this->authorize('view_client_profiles');
+        $this->authorize('list_client_profiles');
 
         $client = Auth::user()->client();
         $companies = $client->getOtherClients();
@@ -342,9 +342,9 @@ class ClientController extends Controller
     public function register($id) {
         if(auth()->user()->isAdmin()) {
             $client = Client::find($id);
-            if($client != null && $client->getData()['status'] == 1) {
+            if($client != null && $client->getData()['status'] == 2) {
                 // Change status
-                $client->setData(['status' => 2]);
+                $client->setData(['status' => 3]);
 
                 // Find out if the client is already registered.
                 $registration = $client->getSituation(__('Registration'));
@@ -353,7 +353,7 @@ class ClientController extends Controller
                     $eventData = [
                         'name' => __('Registration'),
                         'client' => $client->getAttribute('name')->getValue(),
-                        'status' => 2,
+                        'status' => 3,
                     ];
 
                     if(isset($client->getData()['application_form'])) {
@@ -377,7 +377,7 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('manage_user_profiles');
+        $this->authorize('manage_client_profiles');
 
         // delete client.
     }
@@ -406,11 +406,11 @@ class ClientController extends Controller
         $data['name'] = __('Pre-selection');
         if($data['decision'] === 'yes') {
             // Lift status.
-            $client->setData(['status' => 3]);
-            $data['status'] = 3;
+            $client->setData(['status' => 4]);
+            $data['status'] = 4;
         } else {
-            $client->setData(['status' => 7]);
-            $data['status'] = 7;
+            $client->setData(['status' => 8]);
+            $data['status'] = 8;
         }
 
         // Add situation to the client.
@@ -443,8 +443,8 @@ class ClientController extends Controller
         $client = Client::find($id);
         $data = $request->post();
 
-        $client->setData(['status' => 4]);
-        $data['status'] = 4;
+        $client->setData(['status' => 5]);
+        $data['status'] = 5;
 
         $situacija = $client->getSituation(__('Meeting Invitation'));
         if($situacija == null) {
@@ -483,7 +483,7 @@ class ClientController extends Controller
         $data = $request->post();
 
         // Change status and save changes.
-        $data['status'] = 5;
+        $data['status'] = 6;
         $client->setData($data);
 
         // Create situation
@@ -512,13 +512,13 @@ class ClientController extends Controller
         $data = $request->post();
         if($data['decision'] === 'yes') {
             $data['decision'] = true;
-            $client->setData(['status' => 6]);
-            $data['status'] = 6;
+            $client->setData(['status' => 7]);
+            $data['status'] = 7;
 
         } else {
             $data['decision'] = false;
-            $client->setData(['status' => 7]);
-            $data['status'] = 7;
+            $client->setData(['status' => 8]);
+            $data['status'] = 8;
         }
 
         $situation = $client->getSituation(__('Decision'));
@@ -549,13 +549,13 @@ class ClientController extends Controller
                 'konsalting_usluge'
             ]);
 
-        $data['status'] = 8;
+        $data['status'] = 9;
 
         // Create the situation.
         $client->addSituationByData(__('Room Assignment'), $data);
 
         // Shift status up.
-        $client->setData(['status' => 8]);
+        $client->setData(['status' => 9]);
 
         // TODO: Notify client per e-mail.
 
@@ -572,8 +572,8 @@ class ClientController extends Controller
         $client = Client::find($id);
         $data = $request->post();
 
-        $client->setData(['status' => 9]);
-        $data['status'] = 9;
+        $client->setData(['status' => 10]);
+        $data['status'] = 10;
 
         $situacija = $client->getSituation(__('Contract Signing Invitation'));
         if($situacija == null) {
@@ -602,7 +602,7 @@ class ClientController extends Controller
         $data = $request->post();
 
         // Change status and save changes.
-        $data['status'] = 10;
+        $data['status'] = 11;
         $client->setData($data);
 
         // Create situation
@@ -665,7 +665,7 @@ class ClientController extends Controller
 
         // Ciljne grupe
         $target_group_parameters = [
-            'development_phase', 'poblems', 'target_group_solution_and_competition','target_groups', 'target_markets'
+            'development_phase', 'problems', 'target_group_solution_and_competition','target_groups', 'target_markets'
         ];
         $mandatory_parameters = array_merge($mandatory_parameters, $target_group_parameters);
 
@@ -702,10 +702,10 @@ class ClientController extends Controller
         ];
         $mandatory_parameters = array_merge($mandatory_parameters, $enterpreneurship_parameters);
 
-
         foreach($mandatory_parameters as $parameter)
         {
-            if(!isset($client->getData()[$parameter])) {
+            if(!isset($client->getData()[$parameter]) ||
+                (is_string($client->getData()[$parameter]) && strlen($client->getData()[$parameter]) == 0)) {
                 return json_encode([
                     'code' => 0,
                     'message' => 'Niste uneli parametar "'.$parameter.'"'
@@ -713,9 +713,13 @@ class ClientController extends Controller
             }
         }
 
+        // Set status on "Application Sent"
+        $client->setData(['status' => 2]);
+        $client->addSituationByData(__('Application Sent'), ['status' => 2]);
+
         return json_encode([
             'code' => 1,
-            'message' => 'Validacija uspela.'
+            'message' => '<h4>Aplikacija je poslata.</h4><p>U toku 2 radna dana dobićete email poruku sa potvrdom registracije.</p>'
         ]);
     }
 }

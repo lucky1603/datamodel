@@ -12,10 +12,12 @@
     <div class="text-center btn-group-sm">
         <button type="submit" class="btn btn-sm btn-primary">{{ __('Save') }}</button>
         <button type="button" class="btn btn-sm btn-outline-dark" id="cancel">{{ __('Cancel') }}</button>
-        <button type="button" class="btn btn-sm btn-outline-primary" id="send">
-            <span id="button_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-            <span id="button_text">{{ __('Send') }}</span>
-        </button>
+        @if($model->getData()['status'] == 1)
+            <button type="button" class="btn btn-sm btn-outline-primary" id="send">
+                <span id="button_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_text">{{ __('Send') }}</span>
+            </button>
+        @endif
     </div>
 </form>
 
@@ -35,8 +37,14 @@
                 $.toast(result.message);
 
             } else {
-                $.toast(result.message);
+                $.toast({
+                    text : result.message,
+                    afterHidden : function() {
+                        location.reload();
+                    }
+                });
             }
+
         });
 
     });

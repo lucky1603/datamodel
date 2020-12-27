@@ -14,8 +14,8 @@
 </div>
 
 <div class="form-group">
-    <label for="{{ $model->getAttribute('poblems')->name }}" class="attribute-label">{{ $model->getAttribute('poblems')->label }}</label>
-    <textarea class="form-control" id="{{ $model->getAttribute('poblems')->name }}" name="{{ $model->getAttribute('poblems')->name }}" rows="4" placeholder="255 chars max...">{{ $model->getData()['poblems'] }}</textarea>
+    <label for="{{ $model->getAttribute('problems')->name }}" class="attribute-label">{{ $model->getAttribute('problems')->label }}</label>
+    <textarea class="form-control" id="{{ $model->getAttribute('problems')->name }}" name="{{ $model->getAttribute('problems')->name }}" rows="4" placeholder="255 chars max...">{{ $model->getData()['problems'] }}</textarea>
 </div>
 
 <div class="form-group">

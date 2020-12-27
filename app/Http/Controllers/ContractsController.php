@@ -54,7 +54,7 @@ class ContractsController extends Controller
             'filename' => $filename,
             'filelink' => $path
         ];
-        $data['status'] = 11;
+        $data['status'] = 12;
         $data['contract_status'] = 1;
 
         $contract = new Contract($data);

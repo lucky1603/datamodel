@@ -131,6 +131,26 @@ class Client extends BusinessModel
                 $situation->setData($data);
                 $this->addSituation($situation);
                 break;
+            case __('Application Sent'):
+                $data = [
+                    'name' => $situationType,
+                    'description' => 'Kandidat je poslao formu prijave. Sva neophodna polja su popunjena. Kada se prijava validira od strane operatora, kandidat će biti registrovan.',
+                    'sender' => $this->getData()['name'],
+                    'status' => 2,
+                ];
+
+                $situation = new Situation();
+                $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null, 0]));
+
+                if(isset($params)) {
+                    foreach($params as $key => $value) {
+                        $data[$key] = $value;
+                    }
+                }
+
+                $situation->setData($data);
+                $this->addSituation($situation);
+                break;
             case __('Registration'):
                 $situation = new Situation();
                 $situation->addAttribute(self::selectOrCreateAttribute(['status', null, null,0]));
@@ -1132,17 +1152,18 @@ class Client extends BusinessModel
         // Status člana.
         $status = self::selectOrCreateAttribute(['status', 'Status člana', 'select', NULL, 36]);
         if(count($status->getOptions()) == 0) {
-            $status->addOption(['value' => 1, 'text' => 'Zainteresovan']);
-            $status->addOption(['value' => 2, 'text' => 'Prijavljen']);
-            $status->addOption(['value' => 3, 'text' => 'Pre-selektovan']);
-            $status->addOption(['value' => 4, 'text' => 'Pozvan na sastanak']);
-            $status->addOption(['value' => 5, 'text' => 'Datum sastanka potvrđen']);
-            $status->addOption(['value' => 6, 'text' => 'Prihvaćena prijava']);
-            $status->addOption(['value' => 7, 'text' => 'Odbijena prijava']);
-            $status->addOption(['value' => 8, 'text' => 'Dodeljen prostor']);
-            $status->addOption(['value' => 9, 'text' => 'Pozvan na potpis ugovora']);
-            $status->addOption(['value' => 10, 'text' => 'Potvrdjen datum potpisa ugovora']);
-            $status->addOption(['value' => 11, 'text' => 'Potpisan ugovor']);
+            $status->addOption(['value' => 1,  'text' => 'Zainteresovan']);
+            $status->addOption(['value' => 2,  'text' => 'Poslao prijavu']);
+            $status->addOption(['value' => 3,  'text' => 'Prijavljen']);
+            $status->addOption(['value' => 4,  'text' => 'Pre-selektovan']);
+            $status->addOption(['value' => 5,  'text' => 'Pozvan na sastanak']);
+            $status->addOption(['value' => 6,  'text' => 'Datum sastanka potvrđen']);
+            $status->addOption(['value' => 7,  'text' => 'Prihvaćena prijava']);
+            $status->addOption(['value' => 8,  'text' => 'Odbijena prijava']);
+            $status->addOption(['value' => 9,  'text' => 'Dodeljen prostor']);
+            $status->addOption(['value' => 10, 'text' => 'Pozvan na potpis ugovora']);
+            $status->addOption(['value' => 11, 'text' => 'Potvrdjen datum potpisa ugovora']);
+            $status->addOption(['value' => 12, 'text' => 'Potpisan ugovor']);
         }
         $attributes[] = $grupaOpstiPodaci->addAttribute($status);
 
@@ -1213,7 +1234,7 @@ class Client extends BusinessModel
         }
         $attributes[] = $grupaOpstiPodaci->addAttribute($fazarazvoja);
 
-        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['poblems', 'Problemi koji se rešavaju vašim proizvodom/uslugom', 'text', NULL, 2]));
+        $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['problems', 'Problemi koji se rešavaju vašim proizvodom/uslugom', 'text', NULL, 2]));
         $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['target_group_solution_and_competition', 'Navedite kako ciljna grupa sada rešava problem i bar jednog konkurenta', 'text', NULL, 3]));
         $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['target_groups', 'Navedite i opišite svoje ciljne grupe (korisnike i kupce) sa profilom ranog usvajača, uz osvrt na aktivnosti i komunikaciju koju ste imali sa ciljnom grupom do sada. Takođe , navedite ukoliko imate kupce koji plaćaju. *', 'text', NULL,4]));
         $attributes[] = $grupaOpstiPodaci->addAttribute(self::selectOrCreateAttribute(['target_markets', 'Navedite koja su vaša ciljna tržišta, na kojim tržištima sada poslujete (ako imate prodaju) i na kojima nameravate.Navedite koja je Vaša strategija izlaska na strana tržišta i koje su vam predikcije za narednih tri, šest i devet meseci (koja tržišta planirate da osvojite, koliko plaćajućih kupaca, MRR***, direktnu prodaju itd). *', 'text', NULL, 5]));

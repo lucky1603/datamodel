@@ -106,31 +106,31 @@
 @section('next-status')
     @if(auth()->user()->isAdmin())
         @switch($model->getData()['status'])
-            @case('1')
+            @case('2')
                 <a href="{{ route('clients.register', $model->getId()) }}" class="dropdown-item" >{{ __('Registration') }}</a>
             @break
-            @case('2')
+            @case('3')
                 <a href="{{ route('clients.preselect', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Pre- Selection') }}</a>
             @break
-            @case('3')
+            @case('4')
                 <a href="{{ route('clients.invite', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Call to the meeting') }}</a>
                 @break
-            @case('4')
+            @case('5')
                 <a href="{{ route('clients.confirm', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Meeting Date Confirmation') }}</a>
                 @break
-            @case('5')
+            @case('6')
                 <a href="{{ route('clients.select', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Final Selection') }}</a>
                 @break
-            @case('6')
+            @case('7')
                 <a href="{{ route('clients.assign', $model->getId()) }}" class="dropdown-item">{{ __('Assignment') }}</a>
                 @break
-            @case('8')
+            @case('9')
                 <a href="{{ route('clients.assignContractDate', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Call to Signing of the Contract') }}</a>
                 @break
-            @case('9')
+            @case('10')
                 <a href="{{ route('clients.confirmContractDate', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Confirm the Contract Signing Date') }}</a>
                 @break
-            @case('10')
+            @case('11')
                 <a href="{{ route('contracts.create', $model->getId()) }}" class="dropdown-item" id="nextStatus" data-toggle="modal" data-target="#dialogHost">{{ __('Sign Contract') }}</a>
                 @break
         @endswitch
@@ -239,8 +239,8 @@
     </div>
 
     <div class="display-pair font-14 mt-2">
-        <span class="attribute-label" style="display:block"><strong>{{ $model->getAttribute('poblems')->label }}:</strong></span>
-        <div style="display: block; width: 100%; background-color: #fafbfe; min-height: 18px">{{ $model->getAttribute('poblems')->getValue() }}</div>
+        <span class="attribute-label" style="display:block"><strong>{{ $model->getAttribute('problems')->label }}:</strong></span>
+        <div style="display: block; width: 100%; background-color: #fafbfe; min-height: 18px">{{ $model->getAttribute('problems')->getValue() }}</div>
     </div>
 
     <div class="display-pair font-14 mt-2">

@@ -21,64 +21,76 @@ class Ability extends Model
     }
 
     public static function initValues() {
-        if(Ability::whereName('read_user_profile')->first() == null) {
-            Ability::create(['name' => 'read_user_profile']);
+        if(Ability::whereName('read_client_profile')->first() == null) {
+            Ability::create(['name' => 'read_client_profile', 'label' => ' Čitanje podataka klijenta']);
         }
 
-        if(Ability::whereName('manage_user_profiles')->first() == null) {
-            Ability::create(['name' => 'manage_user_profiles']);
+        if(Ability::whereName('write_client_profiles')->first() == null) {
+            Ability::create(['name' => 'write_client_profiles', 'label' => 'Upisivanje/izmena podataka klijenata']);
         }
 
-        if(Ability::whereName('view_client_profiles')->first() == null ) {
-            Ability::create(['name' => 'view_client_profiles']);
+        if(Ability::whereName('manage_client_profiles')->first() == null) {
+            Ability::create(['name' => 'manage_client_profiles', 'label' => 'Dodavanje/brisanje klijenata']);
         }
 
-        if(Ability::whereName('change_user_profile')->first() == null) {
-            Ability::create(['name' => 'change_user_profile']);
+        if(Ability::whereName('list_client_profiles')->first() == null) {
+            Ability::create(['name' => 'list_client_profiles', 'label' => 'Pregled klijenata']);
         }
 
-        if(Ability::whereName('change_user_status')->first() == null) {
-            Ability::create(['name' => 'change_user_status']);
+        if(Ability::whereName('change_client_status')->first() == null) {
+            Ability::create(['name' => 'change_client_status', 'label' => 'Promena statusa klijenta']);
         }
 
         if(Ability::whereName('read_contract')->first() == null) {
-            Ability::create(['name' => 'read_contract']);
+            Ability::create(['name' => 'read_contract', 'label' => 'Čitanje podataka ugovora']);
+        }
+
+        if(Ability::whereName('write_contract')->first() == null) {
+            Ability::create(['name' => 'write_contract', 'label' => 'Upisivanje/izmena podataka ugovora']);
         }
 
         if(Ability::whereName('manage_contracts')->first() == null) {
-            Ability::create(['name' => 'manage_contracts']);
-        }
-
-        if(Ability::whereName('change_contract_details')->first() == null) {
-            Ability::create(['name' => 'change_contract_details']);
+            Ability::create(['name' => 'manage_contracts', 'label' => 'Dodavanje/brisanje ugovora']);
         }
 
         if(Ability::whereName('read_event_data')->first() == null) {
-            Ability::create(['name' => 'read_event_data']);
+            Ability::create(['name' => 'read_event_data', 'label' => 'Čitanje podataka događaja']);
         }
 
         if(Ability::whereName('manage_events')->first() == null) {
-            Ability::create(['name' => 'manage_events']);
+            Ability::create(['name' => 'manage_events', 'label' => 'Dodavanje/brisanje događaja']);
         }
 
-        if(Ability::whereName('change_event_details')->first() == null) {
-            Ability::create(['name' => 'change_event_details']);
+        if(Ability::whereName('write_event_data')->first() == null) {
+            Ability::create(['name' => 'write_event_data','label' => 'Upis/izmena podataka događaja']);
         }
 
         if(Ability::whereName('read_situation_data')->first() == null) {
-            Ability::create(['name' => 'read_situation_data']);
+            Ability::create(['name' => 'read_situation_data', 'label' => 'Čitanje podataka o situaciji']);
         }
 
         if(Ability::whereName('manage_situations')->first() == null) {
-            Ability::create(['name' => 'manage_situations']);
+            Ability::create(['name' => 'manage_situations', 'label' => 'Dodavanje/brisanje situacija']);
         }
 
         if(Ability::whereName('change_situation_details')->first() == null) {
-            Ability::create(['name' => 'change_situation_details']);
+            Ability::create(['name' => 'change_situation_details', 'label' => 'Promena podataka situacije']);
         }
 
-        if(Ability::whereName('manage_users')->first() == null) {
-            Ability::create(['name' => 'manage_users']);
+        if(Ability::whereName('add_users')->first() == null) {
+            Ability::create(['name' => 'add_users', 'label' => 'Dodavanje korisnika sistema']);
+        }
+
+        if(Ability::whereName('delete_users')->first() == null) {
+            Ability::create(['name' => 'delete_users', 'label' => 'Brisanje korisnika sistema']);
+        }
+
+        if(Ability::whereName('read_user_data')->first() == null) {
+            Ability::create(['name' => 'read_user_data', 'label' => 'Čitanje korisničkih podataka']);
+        }
+
+        if(Ability::whereName('write_user_data')->first() == null) {
+            Ability::create(['name' => 'write_user_data', 'label' => 'Upis/promena korisničkih podataka']);
         }
     }
 }
