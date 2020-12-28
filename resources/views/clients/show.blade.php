@@ -85,7 +85,7 @@
             <p class="inbox-item-author">{{ $user->name }}</p>
             <p class="inbox-item-text">{{ $user->position }}</p>
             <p class="inbox-item-date">
-                <a href="#" class="btn btn-sm btn-link text-info font-13"> {{__('Edit')}} </a>
+                <a href="{{ route('user.editfromadminpreview', $user->id) }}" role="button"  data-toggle="modal" data-target="#dialogHost" class="btn btn-sm btn-link text-info font-13 edituser"> {{__('Edit')}} </a>
             </p>
         </div>
     @endforeach

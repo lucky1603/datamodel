@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class EditUserController extends Controller
@@ -36,6 +37,16 @@ class EditUserController extends Controller
      */
     public function edit($id) {
         $user = User::find($id);
+        return view('auth.edituser', ['user' => $user]);
+    }
+
+    public function editFromAdminPreview($userId) {
+        $user = User::find($userId);
+        $backroute = session('usereditbackto');
+        if(isset($backroute)) {
+            return view('auth.edituser', ['user' => $user, 'backroute' => $backroute]);
+        }
+
         return view('auth.edituser', ['user' => $user]);
     }
 
@@ -72,6 +83,10 @@ class EditUserController extends Controller
         $user->save();
 
         if(Auth::user()->isAdmin()) {
+            if(isset($data['backroute'])) {
+                return redirect($data['backroute']);
+            }
+
             return redirect(route('users'));
         }
 
@@ -140,6 +155,8 @@ class EditUserController extends Controller
         $users = User::all();
         $clients = Client::all();
 
+        Session::remove('usereditbackto');
+
         return view('auth.userindex', ['users' => $users, 'clients' => $clients]);
     }
 
@@ -197,6 +214,11 @@ class EditUserController extends Controller
      */
     public function addForClient($clientId) {
         $client = Client::find($clientId);
+        $backroute = session('usereditbackto');
+        if(isset($backroute)) {
+            return view('auth.addforclient', ['client' => $client, 'backroute' => $backroute]);
+        }
+
         return view('auth.addforclient', ['client' => $client]);
     }
 
@@ -235,6 +257,10 @@ class EditUserController extends Controller
         $user->assignRole('client');
         $client = Client::find($clientId);
         $client->attachUser($user);
+
+        if(isset($data['backroute'])) {
+            return redirect($data['backroute']);
+        }
 
         return redirect(route('users'));
     }

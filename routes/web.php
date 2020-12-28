@@ -28,6 +28,7 @@ Route::get('/edituser/{user}', 'Auth\EditUserController@edit')->name('user.edit'
 Route::post('/edituser/{user}', 'Auth\EditUserController@update')->name('user.update');
 Route::post('/edituser/added/{client}', 'Auth\EditUserController@added')->name('user.added');
 Route::get('/edituser/delete/{client}', 'Auth\EditUserController@delete')->name('user.delete');
+Route::get('/edituser/editfromadminpreview/{client}', 'Auth\EditUserController@editFromAdminPreview')->name('user.editfromadminpreview');
 
 
 Route::get('/', function () {

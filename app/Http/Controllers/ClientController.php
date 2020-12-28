@@ -10,6 +10,7 @@ use App\Business\Client;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -180,6 +181,8 @@ class ClientController extends Controller
     public function show(Request $request, $id)
     {
         $this->authorize('read_client_profile', $id);
+        $backroute = route(Route::currentRouteName(), $id);
+        session(['usereditbackto' => route(Route::currentRouteName(), $id)]);
 
         if(auth()->user()->isAdmin()) {
             $request->session()->put('backroute', route('clients.index'));

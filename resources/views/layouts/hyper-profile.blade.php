@@ -302,7 +302,7 @@
                                         <!-- item-->
                                         <a href="javascript:void(0);" class="dropdown-item">Settings</a>
                                         <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                        <a href="{{ route('user.addforclient', $model->getId()) }}" class="dropdown-item nav-link edituser" data-toggle="modal" data-target="#dialogHost" >{{ __('Add User') }}</a>
                                     </div>
                                 </div>
                                 <h4 class="header-title">{{__('SUPPORT TEAM')}}</h4>
@@ -686,6 +686,29 @@
                $('.modal-title').text(title);
            });
        });
+
+        $('a.edituser').on('click', function(evt) {
+            evt.preventDefault();
+            var el = evt.currentTarget;
+            console.log(el);
+            $.get($(el).attr('href'), function(data) {
+                let content = $(data).find('form');
+                let title = $(data).find('h1').first().text();
+                $('.modal-body').html(content);
+                $('.modal-title').text(title);
+                $('.modal-body').find('#photo').on('change', function (evt) {
+                    let el = evt.currentTarget;
+                    console.log(el);
+                    console.log($(el)[0].files[0]);
+                    var fileReader = new FileReader();
+                    fileReader.onload = function () {
+                        var data = fileReader.result;  // data <-- in this var you have the file data in Base64 format
+                        $('#photoPreview').attr('src', data);
+                    };
+                    fileReader.readAsDataURL($(el)[0].files[0]);
+                });
+            });
+        });
     });
 </script>
 

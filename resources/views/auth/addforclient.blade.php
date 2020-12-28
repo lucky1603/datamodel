@@ -4,6 +4,9 @@
     <h1>{{__('Add New User')}} {{ __('for client') }} - {{ $client->getData()['name'] }}</h1>
     <form method="POST" enctype="multipart/form-data" action="{{ route('user.addedforclient', $client->getId()) }}">
         @csrf
+        @if(isset($backroute))
+            <input type="hidden" name="backroute" id="backroute" value="{{ $backroute }}">
+        @endif
         @include('forms.adduser')
     </form>
 @endsection
