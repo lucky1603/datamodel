@@ -48,7 +48,7 @@ class Contract extends BusinessModel
      */
     public function getSituation($key) {
         return Situation::find(['name' => $key])->filter(function($item, $key) {
-            if($item->parentInstances->first()->id == $this->getId())
+            if($item->instance->parentInstances->first()->id == $this->instance->id)
                 return $item;
         })->first();
 
@@ -287,8 +287,8 @@ class Contract extends BusinessModel
      * @return Client|Contract|\Illuminate\Support\Collection|null
      */
     public function getClient() {
-        if($this->parentInstances->first() != null) {
-            $client = Client::find($this->parentInstances->first()->id);
+        if($this->instance->parentInstances->first() != null) {
+            $client = Client::find($this->instance->parentInstances->first()->id);
             return $client;
         }
 

@@ -68,7 +68,7 @@ class ContractsController extends Controller
         }
 
         $client = Client::find($id);
-        $client->setData(['status' => 11]);
+        $client->setData(['status' => 12]);
         if($contract != null) {
             $client->addContract($contract);
         }
@@ -94,7 +94,7 @@ class ContractsController extends Controller
 
         $contract = new Contract(['instance_id' => $id]);
         $situations = $contract->getSituations();
-        $client = Client::find($contract->instance->parent_id);
+        $client = $contract->getClient();
         return view('contracts.show', ['model' => $contract, 'situations' => $situations, 'client' => $client]);
     }
 

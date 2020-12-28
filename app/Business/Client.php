@@ -39,7 +39,7 @@ class Client extends BusinessModel
     {
         $contracts = [];
         foreach($this->instance->instances as $instance) {
-            if($instance->entity->name === 'Contract' && $instance->instance->entity->name === 'Client') {
+            if($instance->entity->name === 'Contract' && $instance->parentInstances->first()->entity->name === 'Client') {
                 $contracts[] = new Contract(['instance_id' => $instance->id]);
             }
         }
@@ -66,8 +66,8 @@ class Client extends BusinessModel
      */
     public function getSituation($key) {
         return Situation::find(['name' => $key])->filter(function($item, $key) {
-            $parent = $item->parentSituations->first();
-            if($parent != null && $parent->id == $this->getId())
+            $parent = $item->instance->parentInstances->first();
+            if($parent != null && $parent->id == $this->instance->id)
                 return $item;
         })->first();
 

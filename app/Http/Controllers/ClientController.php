@@ -640,8 +640,19 @@ class ClientController extends Controller
      */
     public function check($clientId) {
         $client = Client::find($clientId);
-        if($client == null)
-            return 0;
+        if($client == null) {
+            return json_encode([
+                'code' => 0,
+                'message' => 'Nema klijenta sa id = ' . $clientId . '!',
+            ]);
+        }
+
+        if($client->getData()['status'] != 1) {
+            return json_encode([
+                'code' => 0,
+                'message' => 'Aplikacija je već poslata!',
+            ]);
+        }
 
         $mandatory_parameters = [];
 
@@ -713,7 +724,7 @@ class ClientController extends Controller
             }
         }
 
-        // Set status on "Application Sent"
+        // Set status on 'Application Sent'.
         $client->setData(['status' => 2]);
         $client->addSituationByData(__('Application Sent'), ['status' => 2]);
 
