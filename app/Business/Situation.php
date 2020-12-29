@@ -43,7 +43,12 @@ class Situation extends BusinessModel
 
         // If it's id.
         if(!is_array($query)) {
-            $instance = Instance::find($query);
+            $entity_id = Entity::whereName('Situation')->first()->id;
+            if($entity_id == null)
+                return null;
+            $instance = Instance::where(['id' => $query, 'entity_id' => $entity_id])->first();
+            if($instance == null)
+                return null;
             return new Situation(['instance_id' => $instance->id]);
         }
 

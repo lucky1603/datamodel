@@ -19,7 +19,7 @@
 
 </head>
 
-<body class="loading" data-layout="topnav" data-layout-config='{"layoutBoxed":false,"darkMode":false,"showRightSidebarOnStart": true}'>
+<body class="loading" data-layout="topnav" data-layout-config='{"layoutBoxed":false,"darkMode":false,"showRightSidebarOnStart": false}'>
 <!-- Begin page -->
 <div class="wrapper">
 
@@ -36,10 +36,10 @@
                     <!-- LOGO -->
                     <a href="{{ route('home') }}" class="topnav-logo">
                         <span class="topnav-logo-lg">
-                            <img src="/assets/images/logo-light.png" alt="" height="16">
+                            <img src="/images/custom/white-logo-transparent-full.png" alt="" height="40">
                         </span>
                         <span class="topnav-logo-sm">
-                            <img src="/assets/images/logo_sm_dark.png" alt="" height="16">
+                            <img src="/images/custom/logo-lat.png" alt="" height="30">
                         </span>
                     </a>
 

@@ -493,9 +493,9 @@
             @else
                 <i class="mdi mdi-circle bg-info-lighten text-info timeline-icon"></i>
             @endif
-            <div class="timeline-item-info">
+            <div class="timeline-item-info pb-3">
                 <h5 class="mt-0 mb-1">{{ $situation->getData()['name'] }}</h5>
-                <p class="font-12 attribute-label font-weight-bold">{{ $situation->getData()['occurred_at'] }}</p>
+                <p class="font-12 attribute-label font-weight-bold">{{ $situation->getAttribute('occurred_at')->getText() }}</p>
                 <p class="text-muted mt-2 mb-0 pb-3">
                     {{ $situation->getData()['description'] }}
                 </p>

@@ -33,13 +33,13 @@
                 <div class="container-fluid">
 
                     <!-- LOGO -->
-                    <a href="" class="topnav-logo">
-                                <span class="topnav-logo-lg">
-                                    <img src="/assets/images/logo-light.png" alt="" height="16">
-                                </span>
+                    <a href="{{ route('home') }}" class="topnav-logo">
+                        <span class="topnav-logo-lg">
+                            <img src="/images/custom/white-logo-transparent-full.png" alt="" height="40">
+                        </span>
                         <span class="topnav-logo-sm">
-                                    <img src="/assets/images/logo_sm_dark.png" alt="" height="16">
-                                </span>
+                            <img src="/assets/images/logo_sm_dark.png" alt="" height="16">
+                        </span>
                     </a>
 
                     <ul class="list-unstyled topbar-right-menu float-right mb-0">

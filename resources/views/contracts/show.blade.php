@@ -16,6 +16,12 @@
     {{ $client->getData()['name'] }}
 @endsection
 
+@section('breadcrumbs')
+    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{__('Home')}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('contracts.index') }}">{{__('Contracts')}}</a></li>
+    <li class="breadcrumb-item active"></li>
+@endsection
+
 @section('profile-short-data')
     <div id="img-container" class="image-container">
         <img src="@if( $client->getAttribute('profile_background') != null && strlen($client->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $client->getAttribute('profile_background')->getValue()['filelink'] }} @else '/images/backdefault.jpg' @endif" class="image-container-profile"/>
