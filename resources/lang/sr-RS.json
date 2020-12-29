@@ -1,7 +1,7 @@
 {
     "Accelerator" : "Akcelerator",
     "Actions" : "Akcije",
-    "Activities" : "Kretanje statusa",
+    "Activities" : "Aktivnosti",
     "Add New Admin" : "Dodaj novog administratora",
     "Add New User" : "Dodaj novog korisnika",
     "Add User" : "Dodaj korisnika",
@@ -95,6 +95,7 @@
     "Settings" : "Podešavanja",
     "Sign Contract" : "Potpis ugovora",
     "Share [%]" : "Udeo [%]",
+    "Status Timeline" : "Kretanje statusa",
     "SUPPORT TEAM" : "TIM ZA PODRŠKU",
     "Table of Expenses" : "Tabela troškova",
     "Team" : "Tim",

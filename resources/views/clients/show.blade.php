@@ -499,11 +499,19 @@
                 <p class="text-muted mt-2 mb-0 pb-3">
                     {{ $situation->getData()['description'] }}
                 </p>
-                @foreach($situation->getAttributes() as $attribute)
+                @foreach($situation->getDisplayAttributes() as $attribute)
                     @if($attribute->name == 'description')
                         @continue
                     @endif
-                    <p><span class="text-primary">{{ $attribute->name }}:</span><span class="ml-2 text-muted">{{ $attribute->getText() }}</span></p>
+                    <p class="font-11 mt-0 @if($loop->last) mb-2 @else mb-0 @endif">
+                        <span class="attribute-label font-weight-semibold">{!! $attribute->label !!}:</span>
+                        @if($attribute->type == 'text')<br/>@endif
+                        @if($attribute->type != 'file')
+                            <span class="@if($attribute->type != 'text') ml-2 @endif text-muted">{!! $attribute->getText() !!}</span>
+                        @else
+                            <a href="{{ $attribute->getValue()['filelink'] }}" class="btn-link ml-2 font-weight-semibold">{!! $attribute->getValue()['filename'] !!} </a>
+                        @endif
+                    </p>
                 @endforeach
             </div>
         </div>

@@ -34,13 +34,13 @@
                 <div class="container-fluid">
 
                     <!-- LOGO -->
-                    <a href="" class="topnav-logo">
-                                <span class="topnav-logo-lg">
-                                    <img src="/assets/images/logo-light.png" alt="" height="16">
-                                </span>
+                    <a href="{{ route('home') }}" class="topnav-logo">
+                        <span class="topnav-logo-lg">
+                            <img src="/assets/images/logo-light.png" alt="" height="16">
+                        </span>
                         <span class="topnav-logo-sm">
-                                    <img src="/assets/images/logo_sm_dark.png" alt="" height="16">
-                                </span>
+                            <img src="/assets/images/logo_sm_dark.png" alt="" height="16">
+                        </span>
                     </a>
 
                     <ul class="list-unstyled topbar-right-menu float-right mb-0">
@@ -204,9 +204,14 @@
                                 </a>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <a href="javascript:void(0);"
+                                   class="dropdown-item notify-item"
+                                   onclick="event.preventDefault(); document.getElementById('logoutForm').submit()" >
                                     <i class="mdi mdi-logout mr-1"></i>
                                     <span>Logout</span>
+                                    <form id="logoutForm" method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                    </form>
                                 </a>
 
                             </div>
@@ -319,89 +324,37 @@
                             <div class="card-body">
                                 <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
                                     <li class="nav-item">
-                                        <a href="#aboutme" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                                        <a href="#application" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
                                             {{ __('Application') }}
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#timeline" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                                        <a href="#activities" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
                                             {{ __('Activities') }}
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#settings" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
-                                            Settings
+                                        <a href="#timeline" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                                            {{ __('Status Timeline') }}
                                         </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" >
-                                    <div class="tab-pane show active" id="aboutme">
+                                    <div class="tab-pane show active" id="application">
                                         @yield('profile-data')
-
-                                        <!-- end timeline -->
-
-                                        <h5 class="mb-3 mt-4 text-uppercase"><i class="mdi mdi-cards-variant mr-1"></i>
-                                            Projects</h5>
-                                        <div class="table-responsive">
-                                            <table class="table table-borderless table-nowrap mb-0">
-                                                <thead class="thead-light">
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Clients</th>
-                                                    <th>Project Name</th>
-                                                    <th>Start Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td><img src="/assets/images/users/avatar-2.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Halette Boivin</td>
-                                                    <td>App design and development</td>
-                                                    <td>01/01/2015</td>
-                                                    <td>10/15/2018</td>
-                                                    <td><span class="badge badge-info-lighten">Work in Progress</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td><img src="/assets/images/users/avatar-3.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Durandana Jolicoeur</td>
-                                                    <td>Coffee detail page - Main Page</td>
-                                                    <td>21/07/2016</td>
-                                                    <td>12/05/2018</td>
-                                                    <td><span class="badge badge-danger-lighten">Pending</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td><img src="/assets/images/users/avatar-4.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Lucas Sabourin</td>
-                                                    <td>Poster illustation design</td>
-                                                    <td>18/03/2018</td>
-                                                    <td>28/09/2018</td>
-                                                    <td><span class="badge badge-success-lighten">Done</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td><img src="/assets/images/users/avatar-6.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Donatien Brunelle</td>
-                                                    <td>Drinking bottle graphics</td>
-                                                    <td>02/10/2017</td>
-                                                    <td>07/05/2018</td>
-                                                    <td><span class="badge badge-info-lighten">Work in Progress</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>5</td>
-                                                    <td><img src="/assets/images/users/avatar-5.jpg" alt="table-user" class="mr-2 rounded-circle" height="24"> Karel Auberjo</td>
-                                                    <td>Landing page design - Home</td>
-                                                    <td>17/01/2017</td>
-                                                    <td>25/05/2021</td>
-                                                    <td><span class="badge badge-warning-lighten">Coming soon</span></td>
-                                                </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-
                                     </div> <!-- end tab-pane -->
                                     <!-- end about me section content -->
+                                    <div class="tab-pane" id="activities">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="timeline-alt pb-0">
+                                                    @yield('activities')
+                                                </div>
+                                                <!-- end timeline -->
+                                            </div> <!-- end col -->
+                                        </div>
+                                    </div>
+
                                     <div class="tab-pane" id="timeline">
                                         <div class="row">
                                             <div class="col-12">
@@ -411,148 +364,6 @@
                                                 <!-- end timeline -->
                                             </div> <!-- end col -->
                                         </div>
-                                    </div>
-
-                                    <div class="tab-pane" id="settings">
-                                        <form>
-                                            <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-circle mr-1"></i> Personal Info</h5>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="firstname">First Name</label>
-                                                        <input type="text" class="form-control" id="firstname" placeholder="Enter first name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="lastname">Last Name</label>
-                                                        <input type="text" class="form-control" id="lastname" placeholder="Enter last name">
-                                                    </div>
-                                                </div> <!-- end col -->
-                                            </div> <!-- end row -->
-
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label for="userbio">Bio</label>
-                                                        <textarea class="form-control" id="userbio" rows="4" placeholder="Write something..."></textarea>
-                                                    </div>
-                                                </div> <!-- end col -->
-                                            </div> <!-- end row -->
-
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="useremail">Email Address</label>
-                                                        <input type="email" class="form-control" id="useremail" placeholder="Enter email">
-                                                        <span class="form-text text-muted"><small>If you want to change email please <a href="javascript: void(0);">click</a> here.</small></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="userpassword">Password</label>
-                                                        <input type="password" class="form-control" id="userpassword" placeholder="Enter password">
-                                                        <span class="form-text text-muted"><small>If you want to change password please <a href="javascript: void(0);">click</a> here.</small></span>
-                                                    </div>
-                                                </div> <!-- end col -->
-                                            </div> <!-- end row -->
-
-                                            <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-office-building mr-1"></i> Company Info</h5>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="companyname">Company Name</label>
-                                                        <input type="text" class="form-control" id="companyname" placeholder="Enter company name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="cwebsite">Website</label>
-                                                        <input type="text" class="form-control" id="cwebsite" placeholder="Enter website url">
-                                                    </div>
-                                                </div> <!-- end col -->
-                                            </div> <!-- end row -->
-
-                                            <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-earth mr-1"></i> Social</h5>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="social-fb">Facebook</label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="mdi mdi-facebook"></i></span>
-                                                            </div>
-                                                            <input type="text" class="form-control" id="social-fb" placeholder="Url">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="social-tw">Twitter</label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="mdi mdi-twitter"></i></span>
-                                                            </div>
-                                                            <input type="text" class="form-control" id="social-tw" placeholder="Username">
-                                                        </div>
-                                                    </div>
-                                                </div> <!-- end col -->
-                                            </div> <!-- end row -->
-
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="social-insta">Instagram</label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="mdi mdi-instagram"></i></span>
-                                                            </div>
-                                                            <input type="text" class="form-control" id="social-insta" placeholder="Url">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="social-lin">Linkedin</label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="mdi mdi-linkedin"></i></span>
-                                                            </div>
-                                                            <input type="text" class="form-control" id="social-lin" placeholder="Url">
-                                                        </div>
-                                                    </div>
-                                                </div> <!-- end col -->
-                                            </div> <!-- end row -->
-
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="social-sky">Skype</label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="mdi mdi-skype"></i></span>
-                                                            </div>
-                                                            <input type="text" class="form-control" id="social-sky" placeholder="@username">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="social-gh">Github</label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="mdi mdi-github-circle"></i></span>
-                                                            </div>
-                                                            <input type="text" class="form-control" id="social-gh" placeholder="Username">
-                                                        </div>
-                                                    </div>
-                                                </div> <!-- end col -->
-                                            </div> <!-- end row -->
-
-                                            <div class="text-right">
-                                                <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i> Save</button>
-                                            </div>
-                                        </form>
                                     </div>
                                     <!-- end settings content-->
 
