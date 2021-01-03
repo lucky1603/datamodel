@@ -63,8 +63,8 @@ class Training extends BusinessModel
      * Returns the object or the collection of objects searched for,
      * depending on the input query.
      *
-     * @param string|null $query
-     * @return Training||null
+     * @param null $query
+     * @return Training|Collection|null
      */
     public static function find($query=null) {
 
@@ -169,5 +169,64 @@ class Training extends BusinessModel
 
     }
 
+    /**
+     *
+     * Return all clients connected with the training (invited|present|absent)
+     *
+     * @return Collection
+     */
+    public function getClients() {
+        $client_ids = DB::table('client_training')->where('training_id', $this->instance->id)->pluck('client_id');
+        return $client_ids->map(function($clientId) {
+            return new ClientAtTraining($clientId, $this->instance->id);
+        });
+    }
+
+    /**
+     *
+     * Adds the client to the training session.
+     *
+     * @param Client $client
+     * @return bool
+     */
+    public function addClient(Client $client) {
+        if(DB::table('client_training')->where([
+            'client_id' => $client->getId(),
+            'training_id' => $this->instance->id
+        ])->count() == 0) {
+            return DB::table('client_training')->insert([
+                'client_id' => $client->getId(),
+                'training_id' => $this->instance->id
+            ]);
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     * Updates client with the batch of data.
+     *
+     * @param Client $client
+     * @param array $data
+     * @return int
+     */
+    public function updateClient(Client $client, Array $data) {
+        return DB::table('client_training')->update($data);
+    }
+
+    /**
+     *
+     * Removes the client from the training.
+     *
+     * @param Client $client
+     * @return int
+     */
+    public function removeClient(Client $client) {
+        return DB::table('client_training')->delete([
+            'client_id' => $client->getId(),
+            'training_id' => $this->instance->id
+        ]);
+    }
 
 }
