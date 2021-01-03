@@ -172,34 +172,34 @@ class Contract extends BusinessModel
         $this->instance->refresh();
     }
 
+
     /**
-     * Search the database for a contract the given criteria.
-     * @param $query Array of key/value pairs.
-     * @return Contract|\Illuminate\Support\Collection
+     *
+     * Returns the object or collection of objects, based
+     * on the entered query.
+     *
+     * @param null $query
+     * @return Contract|\Illuminate\Support\Collection|null
      */
-    public static function find($query=null) {
+    public static function find($query=null)
+    {
+        if(Entity::where('name', 'Contract')->get()->count() == 0) {
+            return isset($query) && is_string($query) ? null : collect([]);
+        }
 
         // If it's empty.
         if(!isset($query)) {
-            $contracts = [];
-            if(Entity::where('name', 'Contract')->get()->count() == 0) {
-                return collect([]);
-            }
-
             $entity_id = Entity::where('name', 'Contract')->first()->id;
             $instances = Instance::where(['entity_id' => $entity_id])->get();
-            foreach ($instances as $instance) {
-                $contracts[] = new Contract(['instance_id' => $instance->id]);
-            }
+            return $instances->map(function($instance) {
+                return new Contract(['instance_id' => $instance->id]);
+            });
 
-            return collect($contracts);
         }
 
         // If it's id.
         if(!is_array($query)) {
             $entity_id = Entity::whereName('Contract')->first()->id;
-            if($entity_id == null)
-                return null;
             $instance = Instance::where(['id' => $query, 'entity_id' => $entity_id])->first();
             if($instance == null)
                 return null;
@@ -212,27 +212,28 @@ class Contract extends BusinessModel
 
             $attribute = Attribute::where('name', $key)->first();
             $tableName = $attribute->type.'_values';
-            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id]);
+            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id])->get();
 
             if(!isset($results)) {
                 $results = $temporary_results;
             } else {
-                $results = $temporary_results->intersect($temporary_results);
+                $results = $temporary_results->intersect($results);
             }
 
             if($results->count() === 0) {
-                return $results->get();
+                return $results;
             }
 
         }
 
-        $results_array = [];
-        foreach ($results->get() as $item) {
-            $contract = new Contract(['instance_id' => $item->instance_id]);
-            $results_array[] = $contract;
+        if(isset($results)) {
+            return $results->map(function($item, $key) {
+                return new Contract(['instance_id' => $item->instance_id]);
+            });
         }
 
-        return collect($results_array);
+        return null;
+
     }
 
     /**

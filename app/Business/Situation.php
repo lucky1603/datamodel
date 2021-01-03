@@ -23,32 +23,35 @@ class Situation extends BusinessModel
     }
 
     /**
-     * Search the database for a contract the given criteria.
-     * @param $query Array of key/value pairs.
-     * @return Contract|\Illuminate\Support\Collection
+     *
+     * Returns the object or the collection of the objects searched for,
+     * depending on the input query.
+     *
+     * @param null $query
+     * @return Situation|\Illuminate\Support\Collection|null
      */
     public static function find($query=null) {
 
+        if(Entity::where('name', 'Situation')->get()->count() == 0) {
+            return isset($query) && is_string($query) ? null : collect([]);
+        }
+
         // If it's empty.
         if(!isset($query)) {
-            $contracts = [];
             $entity_id = Entity::where('name', 'Situation')->first()->id;
             $instances = Instance::where(['entity_id' => $entity_id])->get();
-            foreach ($instances as $instance) {
-                $events[] = new Situation(['instance_id' => $instance->id]);
-            }
-
-            return collect($events);
+            return $instances->map(function($instance) {
+                return new Situation(['instance_id' => $instance->id]);
+            });
         }
 
         // If it's id.
         if(!is_array($query)) {
             $entity_id = Entity::whereName('Situation')->first()->id;
-            if($entity_id == null)
-                return null;
             $instance = Instance::where(['id' => $query, 'entity_id' => $entity_id])->first();
             if($instance == null)
                 return null;
+
             return new Situation(['instance_id' => $instance->id]);
         }
 
@@ -57,27 +60,27 @@ class Situation extends BusinessModel
 
             $attribute = Attribute::where('name', $key)->first();
             $tableName = $attribute->type.'_values';
-            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id]);
+            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id])->get();
 
             if(!isset($results)) {
                 $results = $temporary_results;
             } else {
-                $results = $temporary_results->intersect($temporary_results);
+                $results = $temporary_results->intersect($results);
             }
 
             if($results->count() === 0) {
-                return $results->get();
+                return $results;
             }
 
         }
 
-        $results_array = [];
-        foreach ($results->get() as $item) {
-            $event = new Situation(['instance_id' => $item->instance_id]);
-            $results_array[] = $event;
+        if(isset($results)) {
+            return $results->map(function($item, $key) {
+                return new Situation(['instance_id' => $item->instance_id]);
+            });
         }
 
-        return collect($results_array);
+        return collect([]);
     }
 
     /**
@@ -92,7 +95,7 @@ class Situation extends BusinessModel
      * Returns the collection of attributes typical for this type of instance.
      * @return array
      */
-    public static function getAttributesDefinition()
+    public static function getAttributesDefinition(): array
     {
         $attributes = [];
 
@@ -147,7 +150,9 @@ class Situation extends BusinessModel
     }
 
     /**
+     *
      * Initializes the attributes.
+     *
      */
     protected function setAttributes() {
 
@@ -169,26 +174,31 @@ class Situation extends BusinessModel
 
     }
 
-    public function addDisplayAttribute($attribute) {
-        if($this->displayAttributes == null)
-            $this->displayAttributes = collect([]);
+    /**
+     *
+     * Returns the attributes that are going to be visible on the preview's.
+     *
+     * @return mixed
+     */
+    public function getDisplayAttributes()
+    {
+        if($this->displayAttributes != null)
+            return $this->displayAttributes;
 
-        if(!$this->displayAttributes->contains($attribute))
-            $this->displayAttributes->add($attribute);
-    }
-
-    public function getDisplayAttributes() {
         $hidden = [
           'name', 'occurred_at', 'status', 'sender', 'description'
         ];
 
-        $displayAttributes = [];
-        foreach($this->getAttributes() as $attribute) {
-            if(!in_array($attribute->name, $hidden))
-                $displayAttributes[] = $attribute;
-        }
+        $this->displayAttributes = $this->getAttributes()->filter(function($attribute) use ($hidden) {
+            if(in_array($attribute->name, $hidden)) {
+                return false;
+            }
 
-        return collect($displayAttributes)->sortBy('sort_order');
+            return true;
+        });
+
+        return $this->displayAttributes->sortBy('sort_order');
+
     }
 
 }

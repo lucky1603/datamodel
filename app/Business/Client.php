@@ -620,24 +620,28 @@ class Client extends BusinessModel
     }
 
     /**
-     * Search the database for a contract the given criteria.
-     * @param $query Array of key/value pairs.
-     * @return Contract|Collection
+     *
+     * Search the database for a client the given criteria.
+     *
+     * @param null $query
+     * @return Client|Collection|null
      */
     public static function find($query=null) {
 
+        if(Entity::where('name', 'Client')->get()->count() == 0) {
+            return isset($query) && is_string($query) ? null : collect([]);
+        }
+
         // If it's empty.
         if(!isset($query)) {
-            $clients = [];
             if(Entity::where('name','Client')->get()->count() == 0)
-                return collect($clients);
+                return collect([]);
+
             $entity_id = Entity::where('name', 'Client')->first()->id;
             $instances = Instance::where(['entity_id' => $entity_id])->get();
-            foreach ($instances as $instance) {
-                $clients[] = new Client(['instance_id' => $instance->id]);
-            }
-
-            return collect($clients);
+            return $instances->map(function($instance) {
+                return new Client(['instance_id' => $instance->id]);
+            });
         }
 
         // If it's id.
@@ -657,27 +661,27 @@ class Client extends BusinessModel
 
             $attribute = Attribute::where('name', $key)->first();
             $tableName = $attribute->type.'_values';
-            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id]);
+            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id])->get();
 
             if(!isset($results)) {
                 $results = $temporary_results;
             } else {
-                $results = $temporary_results->intersect($temporary_results);
+                $results = $temporary_results->intersect($results);
             }
 
             if($results->count() === 0) {
-                return $results->get();
+                return $results;
             }
 
         }
 
-        $results_array = [];
-        foreach ($results->get() as $item) {
-            $client = new Client(['instance_id' => $item->instance_id]);
-            $results_array[] = $client;
+        if(isset($results)) {
+            return $results->map(function($item, $key) {
+                return new Client(['instance_id' => $item->instance_id]);
+            });
         }
 
-        return collect($results_array);
+        return null;
     }
 
     /**
