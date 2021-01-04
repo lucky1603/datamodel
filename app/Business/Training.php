@@ -32,7 +32,7 @@ class Training extends BusinessModel
         $attributes->add(self::selectOrCreateAttribute(['training_name', 'Naziv obuke', 'varchar', NULL, 1]));
         $attributes->add(self::selectOrCreateAttribute(['training_description', 'Opis obuke', 'text', NULL, 2]));
         $attributes->add(self::selectOrCreateAttribute(['training_start_date', 'Datum početka', 'datetime', NULL, 3]));
-        $attributes->add(self::selectOrCreateAttribute(['training_start_time', 'Vreme početka', 'datetime', NULL, 4]));
+        $attributes->add(self::selectOrCreateAttribute(['training_start_time', 'Vreme početka', 'timestamp', NULL, 4]));
         $attributes->add(self::selectOrCreateAttribute(['training_duration', 'Trajanje treninga', 'integer', NULL, 5]));
 
         $duration = self::selectOrCreateAttribute(['duration_unit', 'Jedinica trajanja treninga', 'select', NULL, 6]);
@@ -49,10 +49,13 @@ class Training extends BusinessModel
         if(count($training_type->getOptions()) == 0) {
             $training_type->addOption(['value' => 1, 'text' => 'Mentorska sesija']);
             $training_type->addOption(['value' => 2, 'text' => 'Radionica']);
-            $training_type->addOption(['value' => 3, 'text' => 'Obuka']);
+            $training_type->addOption(['value' => 3, 'text' => 'Događaj']);
         }
 
         $attributes->add($training_type);
+
+        $attributes->add(self::selectOrCreateAttribute(['location', 'Mesto održavanja', 'varchar', NULL, 10]));
+        $attributes->add(self::selectOrCreateAttribute(['training_host', 'Moderator', 'varchar', NULL, 11]));
 
         return $attributes;
 

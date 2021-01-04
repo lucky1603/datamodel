@@ -98,6 +98,9 @@ class Attribute extends Model
         } else if($this->type === 'datetime') {
             $datetime = new \DateTime($value);
             return $datetime->format('d.m.Y.');
+        } else if($this->type === 'timestamp') {
+            $datetime = new \DateTime($value);
+            return $datetime->format('h:i A');
         } else
         {
             return (isset($value) && strlen($value) > 0) ? strval($value) : '-';

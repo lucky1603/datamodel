@@ -77,5 +77,7 @@ Route::get('/files/create', 'FileController@create')->name('files.create');
 Route::post('/files/create', 'FileController@show')->name('files.show');
 Route::get('/situations/{situation}', 'SituationsController@show')->name('situations.show');
 
+Route::get('/trainings', 'TrainingsController@index')->name('trainings');
+
 
 

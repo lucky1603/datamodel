@@ -35,6 +35,9 @@ class Value extends Model
             case 'bool':
                 $tablename = 'bool_values';
                 break;
+            case 'timestamp':
+                $tablename = 'timestamp_values';
+                break;
             default:
                 break;
         }
@@ -71,14 +74,6 @@ class Value extends Model
             $value = $value === null || $value === 0 ? false : true;
         }
 
-//        if($attribute->type === 'datetime') {
-//            if(App::isLocale('sr-RS')) {
-//                $value = new DateTime($value);
-//                $value = $value->format('d.m.Y');
-//            }
-//
-//        }
-
         return $value;
 
     }
@@ -99,6 +94,10 @@ class Value extends Model
                 break;
             case 'datetime':
                 $tablename = 'datetime_values';
+                $value = new DateTime($value);
+                break;
+            case 'timestamp':
+                $tablename = 'timestamp_values';
                 $value = new DateTime($value);
                 break;
             case 'select':

@@ -61,6 +61,13 @@
         </a>
     </li>
 
+    <li class="side-nav-item">
+        <a href="{{ route('trainings') }}" class="side-nav-link">
+            <i class="uil-laptop-cloud"></i>
+            <span>{{ __('EVENTS') }}</span>
+        </a>
+    </li>
+
     {{--    <li class="side-nav-item">--}}
     {{--        <a href="javascript: void(0);" class="side-nav-link">--}}
     {{--            <i class="uil-home-alt"></i>--}}
