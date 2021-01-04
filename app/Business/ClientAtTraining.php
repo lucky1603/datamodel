@@ -54,6 +54,12 @@ class ClientAtTraining extends Client
     }
 
 
+    /**
+     *
+     * Persists the object properties to the database.
+     *
+     * @return int
+     */
     private function _setAttributes() {
         return DB::table('client_training')
             ->where([

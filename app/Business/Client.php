@@ -621,6 +621,22 @@ class Client extends BusinessModel
 
     /**
      *
+     * Returns the tranings associated for this client.
+     *
+     * @return Collection
+     */
+    public function getTrainings() {
+        $training_ids = DB::table('client_training')->where([
+            'client_id' => $this->instance->id,
+        ])->pluck('training_id');
+
+        return $training_ids->map(function($training_id) {
+            return new TrainingForClient($training_id, $this->instance->id);
+        });
+    }
+
+    /**
+     *
      * Search the database for a client the given criteria.
      *
      * @param null $query
