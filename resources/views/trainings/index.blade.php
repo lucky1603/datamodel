@@ -7,8 +7,7 @@
                 <a
                     class="nav-link text-muted"
                     id="newClient"
-                    href="{{ route('trainings.create') }}"
-                    role="button" data-toggle="modal" data-target="#dialogHost">
+                    href="{{ route('trainings.create') }}">
                     <i class="dripicons-document-new font-20"></i><span class="ml-0 mt-2 font-weight-bold"> {{strtoupper(__('Add New Session'))}}</span>
                 </a>
             </li>

@@ -14,6 +14,7 @@
     <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
     <link href="/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
     <link href="/css/my.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/vendor/summernote-bs4.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -448,6 +449,11 @@
 <!-- demo app -->
 <script src="/assets/js/pages/demo.dashboard-projects.js"></script>
 <!-- end demo js-->
+
+<!-- plugin js -->
+<script src="/assets/js/vendor/summernote-bs4.min.js"></script>
+<!-- Summernote demo -->
+<script src="/assets/js/pages/demo.summernote.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
