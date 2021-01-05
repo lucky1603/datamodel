@@ -455,6 +455,16 @@
 <!-- Summernote demo -->
 <script src="/assets/js/pages/demo.summernote.js"></script>
 
+<!-- plugin js -->
+<script src="/assets/js/vendor/dropzone.min.js"></script>
+<!-- init js -->
+<script src="/assets/js/ui/component.fileupload.js"></script>
+
+<!-- File uploader styler -->
+<script type="text/javascript" src="/js/bootstrap-filestyle.min.js"> </script>
+
+
+
 <script type="text/javascript">
     $(document).ready(function() {
        $('#newClient').on('click', function(evt) {

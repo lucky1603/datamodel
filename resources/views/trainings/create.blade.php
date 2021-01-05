@@ -8,7 +8,9 @@
         </div>
         <hr class="mt-0"/>
         <div class="container-fluid">
-            <form enctype="application/x-www-form-urlencoded" method="POST" action="{{ route('trainings.store') }}" id="training_edit_form">
+            <form enctype="application/x-www-form-urlencoded"
+                  method="POST" action="{{ route('trainings.store') }}"
+                  id="training_edit_form" >
                 @csrf
                 <input type="hidden" id="training_type" name="training_type" value="1">
                 <div class="row">
@@ -117,7 +119,25 @@
                         <button type="submit" class="btn btn-sm btn-success">{{ __('Save') }}</button>
 
                     </div>
-                    <div class="col-6">
+                    <div class="col-6" >
+                        <div style="width: 100%; height: 140px;" class="bg-light shadow m-auto">
+                            <input type="button" height="50px" class="btn btn-primary mb-3" id="loadFileXml" value="{{ __('Upload Files') }}" onclick="document.getElementById('file').click();" />
+                            <input type="file" style="display:none;" id="file" name="file" multiple/>
+                            <div style="width: 100%; display: flex; flex-wrap: wrap" id="file-container" class="m-1"></div>
+                        </div>
+                        <div style="width: 100%; height: 200px" class="bg-light shadow mt-2">
+                            <h4 class="text-secondary p-2 m-0">{{ __('Who is this event for?') }}</h4>
+                            <div style="width: 100%;text-align: center" class="mt-4">
+                                <select id="interest" class="form-control" name="interest" style="width: 50%; margin: auto">
+                                    <option value = 0>Svi</option>
+                                    @foreach(\App\Attribute::where('name','interests')->first()->getOptions() as $key=>$value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </form>
@@ -190,6 +210,19 @@
                     $('#img_workshop').removeClass('bg-light');
                 }
             });
+
+            $(':file').on('change', function(event) {
+                let el = event.currentTarget;
+                $('#file-container').empty();
+                $.each($(el)[0].files, function(index, value) {
+                    console.log(index + ':' + value.name);
+                    $('#file-container').append('<span class="text-primary mr-2">' + value.name + '</span>');
+                })
+
+
+            })
+
+
 
         });
     </script>
