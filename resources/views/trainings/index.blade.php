@@ -1,7 +1,18 @@
-@extends('layouts.hyper-vertical')
+@extends('layouts.hyper-vertical-mainframe')
 
 @section('content')
     <div class="page-title-box-sm" xmlns="http://www.w3.org/1999/html">
+        <ul class="nav float-right page-title-right" >
+            <li class="nav-item">
+                <a
+                    class="nav-link text-muted"
+                    id="newClient"
+                    href="{{ route('trainings.create') }}"
+                    role="button" data-toggle="modal" data-target="#dialogHost">
+                    <i class="dripicons-document-new font-20"></i><span class="ml-0 mt-2 font-weight-bold"> {{strtoupper(__('Add New Session'))}}</span>
+                </a>
+            </li>
+        </ul>
         <ul class="nav page-title" >
             <li class="nav-item"><label style="margin-top: 8px"><strong>{{ __('SESSION FILTER') }}:</strong></label></li>
             <li class="nav-item" style="margin-left: 20px">
@@ -70,41 +81,4 @@
     @endforeach
 @endsection
 
-@section('sidemenu')
-    <li class="side-nav-item">
-        <a href="{{route('home')}}" class="side-nav-link">
-            <i class="uil-dashboard"></i>
-            <span>{{ __('DASHBOARD') }}</span>
-        </a>
-    </li>
 
-    <li class="side-nav-item">
-        <a href="{{ route('clients.index') }}" class="side-nav-link">
-            <i class="uil-snapchat-square"></i>
-            <span>{{ __('CLIENTS') }}</span>
-        </a>
-    </li>
-
-    <li class="side-nav-item">
-        <a href="{{ route('contracts.index') }}" class="side-nav-link">
-            <i class="uil-bill"></i>
-            <span>{{ __('CONTRACTS') }}</span>
-        </a>
-    </li>
-
-    <li class="side-nav-item">
-        <a href="{{ route('users') }}" class="side-nav-link">
-            <i class="uil-chat-bubble-user"></i>
-            <span>{{ __('USERS') }}</span>
-        </a>
-    </li>
-
-    <li class="side-nav-item">
-        <a href="{{ route('trainings') }}" class="side-nav-link">
-            <i class="uil-laptop-cloud"></i>
-            <span>{{ __('EVENTS') }}</span>
-        </a>
-    </li>
-
-
-@endsection

@@ -1,4 +1,4 @@
-@extends('layouts.hyper-vertical')
+@extends('layouts.hyper-vertical-mainframe')
 
 @section('content')
 
@@ -89,41 +89,4 @@
 
 @endsection
 
-@section('sidemenu')
-    <li class="side-nav-item">
-        <a href="{{route('home')}}" class="side-nav-link">
-            <i class="uil-dashboard"></i>
-            <span>{{ __('DASHBOARD') }}</span>
-        </a>
-    </li>
-
-    <li class="side-nav-item">
-        <a href="{{ route('clients.index') }}" class="side-nav-link">
-            <i class="uil-snapchat-square"></i>
-            <span>{{ __('CLIENTS') }}</span>
-        </a>
-    </li>
-
-    <li class="side-nav-item">
-        <a href="{{ route('contracts.index') }}" class="side-nav-link">
-            <i class="uil-bill"></i>
-            <span>{{ __('CONTRACTS') }}</span>
-        </a>
-    </li>
-
-    <li class="side-nav-item">
-        <a href="{{ route('users') }}" class="side-nav-link">
-            <i class="uil-chat-bubble-user"></i>
-            <span>{{ __('USERS') }}</span>
-        </a>
-    </li>
-
-    <li class="side-nav-item">
-        <a href="{{ route('trainings') }}" class="side-nav-link">
-            <i class="uil-laptop-cloud"></i>
-            <span>{{ __('EVENTS') }}</span>
-        </a>
-    </li>
-
-@endsection
 
