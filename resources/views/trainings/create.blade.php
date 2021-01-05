@@ -41,8 +41,30 @@
                                 </div>
                             </div>
                         </div>
+                        <div style="width: 100%; height: 140px;" class="bg-light shadow mt-2">
+                            <input type="button" height="50px" class="btn btn-primary mb-3" id="loadFileXml" value="{{ __('Upload Files') }}" onclick="document.getElementById('file').click();" />
+                            <input type="file" style="display:none;" id="file" name="file" multiple/>
+                            <div style="width: 100%; display: flex; flex-wrap: wrap" id="file-container" class="m-1"></div>
+                        </div>
+                        <div style="width: 100%; height: 200px" class="bg-light shadow mt-2">
+                            <h4 class="text-secondary p-2 m-0">{{ __('Who is this event for?') }}</h4>
+                            <div style="width: 100%;text-align: center" class="mt-4">
+                                <select id="interest" class="form-control" name="interest" style="width: 50%; margin: auto">
+                                    <option value = 0>Svi</option>
+                                    @foreach(\App\Attribute::where('name','interests')->first()->getOptions() as $key=>$value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                    @endforeach
 
-                        <div class="form-group mt-4">
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-6" >
+
+                        <div class="form-group mt-2">
                             <label for="training_name">{{ __('Session Title') }}*</label>
                             <input type="text" id="training_name" name="training_name" class="form-control">
                         </div>
@@ -117,26 +139,6 @@
                         </div>
 
                         <button type="submit" class="btn btn-sm btn-success">{{ __('Save') }}</button>
-
-                    </div>
-                    <div class="col-6" >
-                        <div style="width: 100%; height: 140px;" class="bg-light shadow m-auto">
-                            <input type="button" height="50px" class="btn btn-primary mb-3" id="loadFileXml" value="{{ __('Upload Files') }}" onclick="document.getElementById('file').click();" />
-                            <input type="file" style="display:none;" id="file" name="file" multiple/>
-                            <div style="width: 100%; display: flex; flex-wrap: wrap" id="file-container" class="m-1"></div>
-                        </div>
-                        <div style="width: 100%; height: 200px" class="bg-light shadow mt-2">
-                            <h4 class="text-secondary p-2 m-0">{{ __('Who is this event for?') }}</h4>
-                            <div style="width: 100%;text-align: center" class="mt-4">
-                                <select id="interest" class="form-control" name="interest" style="width: 50%; margin: auto">
-                                    <option value = 0>Svi</option>
-                                    @foreach(\App\Attribute::where('name','interests')->first()->getOptions() as $key=>$value)
-                                        <option value="{{ $key }}">{{ $value }}</option>
-                                    @endforeach
-
-                                </select>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
