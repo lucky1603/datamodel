@@ -1,22 +1,26 @@
 @extends('layouts.hyper-vertical')
 
 @section('content')
-    <div style="background-color: white; position: absolute; left: 270px; right: 10px; top: 75px; bottom: 70px; overflow-y: auto" class="shadow-sm">
+    <form enctype="application/x-www-form-urlencoded"
+          method="POST" action="{{ route('trainings.store') }}"
+          id="training_edit_form" >
+        @csrf
+    <div style="width: 100%" class="shadow-sm">
         <div class="pt-1 pb-1 pl-2 pr-2 bg-white mb-0" style="display: table; width: 100%">
             <h4 style="display: table-column; float: left">{{ strtoupper( __('New Session')) }}</h4>
-            <a href="{{ route('trainings') }}" class="btn btn-sm btn-success" style="display: table-column; float: right">< {{ __('Go Back') }}</a>
+            <a href="{{ route('trainings') }}" class="btn btn-sm btn-dark" style="display: table-column; float: right">< {{ __('Go Back') }}</a>
+            <button type="submit" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Save') }}</button>
         </div>
+    </div>
+    <div style="background-color: white; position: absolute; left: 270px; right: 10px; top: 150px; bottom: 70px; overflow-y: auto" class="shadow-sm">
         <hr class="mt-0"/>
-        <div class="container-fluid">
-            <form enctype="application/x-www-form-urlencoded"
-                  method="POST" action="{{ route('trainings.store') }}"
-                  id="training_edit_form" >
-                @csrf
+        <div class="container-fluid ">
+
                 <input type="hidden" id="training_type" name="training_type" value="1">
                 <div class="row">
-                    <div class="col-5">
-                        <div style="width: 100%; height: 200px" class="shadow mt-2 border m-auto">
-                            <p class="text-secondary text-center mt-2 font-weight-bold">{{__('Select a session type')}}</p>
+                    <div class="col-5 ">
+                        <p class="text-secondary  mb-0 font-weight-bold">{{__('Select a session type')}}*</p>
+                        <div style="width: 100%; height: 150px" class="shadow mt-1 border ">
                             <div style="display: flex; flex-direction: row">
                                 <div id="frame_onetoone" style="flex-grow: 4" class="text-center">
                                     <img id="img_onetoone" src="/images/custom/oneonone.png" width="120px" class="border bg-light m-2 p-3" role="button">
@@ -41,28 +45,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="width: 100%; height: 140px;" class="bg-light shadow mt-2">
-                            <input type="button" height="50px" class="btn btn-primary mb-3" id="loadFileXml" value="{{ __('Upload Files') }}" onclick="document.getElementById('file').click();" />
-                            <input type="file" style="display:none;" id="file" name="file" multiple/>
-                            <div style="width: 100%; display: flex; flex-wrap: wrap" id="file-container" class="m-1"></div>
-                        </div>
-                        <div style="width: 100%; height: 200px" class="bg-light shadow mt-2">
-                            <h4 class="text-secondary p-2 m-0">{{ __('Who is this event for?') }}</h4>
-                            <div style="width: 100%;text-align: center" class="mt-4">
-                                <select id="interest" class="form-control" name="interest" style="width: 50%; margin: auto">
-                                    <option value = 0>Svi</option>
-                                    @foreach(\App\Attribute::where('name','interests')->first()->getOptions() as $key=>$value)
-                                        <option value="{{ $key }}">{{ $value }}</option>
-                                    @endforeach
-
-                                </select>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                    <div class="col-6" >
 
                         <div class="form-group mt-2">
                             <label for="training_name">{{ __('Session Title') }}*</label>
@@ -132,21 +114,47 @@
 
                         <div class="form-group">
                             <label for="training_description">
-                                {{__('Training description')}}
+                                {{__('Agenda')}}
                             </label>
                             <div id="summernote-basic"></div>
                             <textarea id="training_description" name="training_description" hidden></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-sm btn-success">{{ __('Save') }}</button>
+                        <div style="width: 100%; height: 140px;" class="mt-3 text-center">
+                            <input type="button" height="50px" class="btn btn-primary mb-3" id="loadFileXml" value="{{ __('Upload Relevant Files') }}" onclick="document.getElementById('file').click();" />
+                            <input type="file" style="display:none;" id="file" name="file" multiple/>
+                            <div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center" id="file-container" class="m-1"></div>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+                    <div class="col-7" >
+
+                        <div style="width: 100%; display: flex; justify-content: center" class="bg-light mt-3">
+                            <span class="text-secondary p-2 m-0" style="display: inline-block">{{ __('Who is this event for') }}?</span>
+                            <select id="interest" class="form-control" name="interest" style="width: 50%; display: inline-block">
+                                <option value = 0>Svi</option>
+                                @foreach(\App\Attribute::where('name','interests')->first()->getOptions() as $key=>$value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
 
                     </div>
                 </div>
-            </form>
+
 
         </div>
 
     </div>
+    </form>
 @endsection
 
 @section('scripts')
@@ -222,7 +230,9 @@
                 })
 
 
-            })
+            });
+
+            $('#clients_table').DataTable();
 
 
 

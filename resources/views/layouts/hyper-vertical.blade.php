@@ -15,6 +15,11 @@
     <link href="/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
     <link href="/css/my.css" rel="stylesheet" type="text/css">
     <link href="/assets/css/vendor/summernote-bs4.css" rel="stylesheet" type="text/css" />
+    <!-- Datatables css -->
+    <link href="/assets/css/vendor/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/vendor/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/vendor/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+
 
 </head>
 
@@ -462,6 +467,17 @@
 
 <!-- File uploader styler -->
 <script type="text/javascript" src="/js/bootstrap-filestyle.min.js"> </script>
+
+<!-- Datatables js -->
+<script src="/assets/js/vendor/jquery.dataTables.min.js"></script>
+<script src="/assets/js/vendor/dataTables.bootstrap4.js"></script>
+<script src="/assets/js/vendor/dataTables.responsive.min.js"></script>
+<script src="/assets/js/vendor/responsive.bootstrap4.min.js"></script>
+
+<!-- Datatable Init js -->
+<script src="/assets/js/pages/demo.datatable-init.js"></script>
+<script src="/assets/js/vendor/dataTables.select.min.js"></script>
+
 
 
 
