@@ -111,7 +111,6 @@
                             <input type="text" id="training_short_note" name="training_short_note" class="form-control" placeholder="{{__('Short note about the training ...')}}">
                         </div>
 
-
                         <div class="form-group">
                             <label for="training_description">
                                 {{__('Agenda')}}
@@ -126,12 +125,6 @@
                             <div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center" id="file-container" class="m-1"></div>
                         </div>
 
-
-
-
-
-
-
                     </div>
                     <div class="col-7" >
 
@@ -144,9 +137,6 @@
                                 @endforeach
                             </select>
                         </div>
-
-
-
                     </div>
                 </div>
 
