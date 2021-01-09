@@ -79,7 +79,7 @@ Route::get('/situations/{situation}', 'SituationsController@show')->name('situat
 
 Route::get('/trainings', 'TrainingsController@index')->name('trainings');
 Route::get('/trainings/create', 'TrainingsController@create')->name('trainings.create');
-Route::post('/trainings/store', 'TrainingsController@store')->name('trainings.store');
+Route::post('/trainings/create', 'TrainingsController@store')->name('trainings.store');
 
 
 

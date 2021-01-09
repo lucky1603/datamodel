@@ -1,7 +1,7 @@
 @extends('layouts.hyper-vertical')
 
 @section('content')
-    <form enctype="application/x-www-form-urlencoded"
+    <form enctype="multipart/form-data"
           method="POST" action="{{ route('trainings.store') }}"
           id="training_edit_form" >
         @csrf
@@ -121,7 +121,7 @@
 
                         <div style="width: 100%; height: 140px;" class="mt-3 text-center">
                             <input type="button" height="50px" class="btn btn-primary mb-3" id="loadFileXml" value="{{ __('Upload Relevant Files') }}" onclick="document.getElementById('file').click();" />
-                            <input type="file" style="display:none;" id="file" name="file" multiple/>
+                            <input type="file" style="display: none" id="file" name="attachment[]" multiple />
                             <div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center" id="file-container" class="m-1"></div>
                         </div>
 
@@ -130,16 +130,26 @@
 
                         <div style="width: 100%; display: flex; justify-content: center" class="bg-light mt-3">
                             <span class="text-secondary p-2 m-0" style="display: inline-block">{{ __('Who is this event for') }}?</span>
-                            <select id="interest" class="form-control" name="interest" style="width: 50%; display: inline-block">
+                            <select id="interest" class="form-control mt-1 mb-1" name="interest" style="width: 50%; display: inline-block">
                                 <option value = 0>Svi</option>
                                 @foreach(\App\Attribute::where('name','interests')->first()->getOptions() as $key=>$value)
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
                             </select>
                         </div>
+
+
+                        <ul id="clientList" style="width:100%; " class="border list-group list-group-horizontal" multiple>
+                            @foreach(App\Business\Client::all() as $client)
+                            <li class="list-group-item" data-id="{{ $client->getId() }}">
+                                <img src="{{ $client->getData()['logo']['filelink'] }}" width="24" height="24" class="rounded-circle" >
+                                <span class="text-muted">{{ $client->getData()['name'] }}</span>
+                            </li>
+                            @endforeach
+                        </ul>
+
                     </div>
                 </div>
-
 
         </div>
 
@@ -154,8 +164,49 @@
                Handling form submit.
              */
             $('form#training_edit_form').on('submit', function(event) {
+                // event.preventDefault();
+
+                var form = $(this);
+
                 var saved = $('#summernote-basic').summernote('code');
                 $('#training_description').text(saved);
+
+                $.each($('ul#clientList li'), function(key, listitem) {
+                    form.append('<input type="hidden" name="client[]" value="' + $(listitem).data('id') + '">' );
+                } );
+
+                {{--var postdata = $('form#training_edit_form').serialize();--}}
+                {{--var form = $('form#training_edit_form');--}}
+                {{--var token = $('input[name="_token"]').attr('value');--}}
+                {{--var action = '<?php echo route('trainings.store'); ?>'--}}
+                {{--console.log(form.attr('action'));--}}
+
+                {{--var formData = new FormData($('form#training_edit_form')[0]);--}}
+
+                {{--$.each($('#file')[0].files, function(file) {--}}
+                {{--    formData.append('attachment[]', file);--}}
+                {{--});--}}
+
+                {{--$.ajaxSetup({--}}
+                {{--    beforeSend:function(xhr) {--}}
+                {{--        xhr.setRequestHeader('Csrf-Token', token);--}}
+                {{--    }--}}
+                {{--})--}}
+
+                {{--$.ajax({--}}
+                {{--    url : action,--}}
+                {{--    method : "POST",--}}
+                {{--    data : formData,--}}
+                {{--    contentType: false,--}}
+                {{--    success: function(data) {--}}
+                {{--        console.log(data);--}}
+                {{--    },--}}
+                {{--    error: function(data) {--}}
+                {{--        console.log(data);--}}
+                {{--    }--}}
+                {{--})--}}
+
+
             });
 
             $('#summernote-basic').summernote({
@@ -222,7 +273,23 @@
 
             });
 
-            $('#clients_table').DataTable();
+
+            $('ul#clientList li').on('click', function(event) {
+                var clickItem = event.currentTarget;
+                if($('ul#clientList').attr('multiple') == null) {
+                    $('ul#clientList li').each(function(key, item) {
+                        $(item).removeClass('active');
+                    });
+                    $(clickItem).addClass('active');
+                } else {
+                    if($(clickItem).hasClass('active')) {
+                        $(clickItem).removeClass('active');
+                    } else {
+                        $(clickItem).addClass('active');
+                    }
+                }
+
+            });
 
 
 

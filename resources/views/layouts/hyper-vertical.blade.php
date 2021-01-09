@@ -474,9 +474,6 @@
 <script src="/assets/js/vendor/dataTables.responsive.min.js"></script>
 <script src="/assets/js/vendor/responsive.bootstrap4.min.js"></script>
 
-<!-- Datatable Init js -->
-<script src="/assets/js/pages/demo.datatable-init.js"></script>
-<script src="/assets/js/vendor/dataTables.select.min.js"></script>
 
 
 

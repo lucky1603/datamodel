@@ -19,8 +19,18 @@ class TrainingsController extends Controller
     }
 
     public function store(Request $request) {
+
         $data = $request->post();
+        $counter = 0;
+        if($request->hasFile("attachment")) {
+            foreach($request->file("attachment") as $file) {
+                $data['file'.$counter++] = $file->getClientOriginalName();
+            }
+        }
+
+
         var_dump($data);
+
         die();
     }
 }
