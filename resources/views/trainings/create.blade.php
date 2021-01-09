@@ -139,14 +139,21 @@
                         </div>
 
 
-                        <ul id="clientList" style="width:100%; " class="border list-group list-group-horizontal" multiple>
-                            @foreach(App\Business\Client::all() as $client)
-                            <li class="list-group-item" data-id="{{ $client->getId() }}">
-                                <img src="{{ $client->getData()['logo']['filelink'] }}" width="24" height="24" class="rounded-circle" >
-                                <span class="text-muted">{{ $client->getData()['name'] }}</span>
-                            </li>
-                            @endforeach
-                        </ul>
+{{--                        <div style="width: 100%; display: flex;justify-content: center; vertical-align: middle" class="bg-light mt-3">--}}
+{{--                            <span class="text-secondary p-2 m-0" style="display: inline-block">{{ __('Select Client') }}?</span>--}}
+{{--                            <input type="text" id="filter" name="filter" class="form-control m-auto w-50"/>--}}
+{{--                        </div>--}}
+
+                            <ul id="clientList" style="width:100%; " class="border list-group list-group-horizontal" >
+                                @foreach(App\Business\Client::all() as $client)
+                                    <li class="list-group-item" data-id="{{ $client->getId() }}">
+                                        <img src="{{ $client->getData()['logo']['filelink'] }}" width="24" height="24" class="rounded-circle" >
+                                        <span class="text-muted">{{ $client->getData()['name'] }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+
+
 
                     </div>
                 </div>
@@ -160,6 +167,8 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
+
+
             /*
                Handling form submit.
              */
@@ -172,7 +181,8 @@
                 $('#training_description').text(saved);
 
                 $.each($('ul#clientList li'), function(key, listitem) {
-                    form.append('<input type="hidden" name="client[]" value="' + $(listitem).data('id') + '">' );
+                    if($(listitem).hasClass('active'))
+                        form.append('<input type="hidden" name="client[]" value="' + $(listitem).data('id') + '">' );
                 } );
 
                 {{--var postdata = $('form#training_edit_form').serialize();--}}
@@ -232,6 +242,8 @@
                 if($('#img_happening').hasClass('bg-light')) {
                     $('#img_happening').removeClass('bg-light');
                 }
+
+                $('ul#clientList').show();
             });
 
             $('#img_workshop').on('click', function(evt) {
@@ -246,6 +258,8 @@
                 if($('#img_happening').hasClass('bg-light')) {
                     $('#img_happening').removeClass('bg-light');
                 }
+
+                $('ul#clientList').hide();
             });
 
             $('#img_happening').on('click', function(evt) {
@@ -260,6 +274,8 @@
                 if($('#img_workshop').hasClass('bg-light')) {
                     $('#img_workshop').removeClass('bg-light');
                 }
+
+                $('ul#clientList').hide();
             });
 
             $(':file').on('change', function(event) {
@@ -291,7 +307,7 @@
 
             });
 
-
+            document.getElementById('img_onetoone').click();
 
         });
     </script>
