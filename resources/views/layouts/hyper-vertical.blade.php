@@ -309,7 +309,8 @@
                         <div class="modal-footer">
                             <div class="flex-fill">
                                 <div class="flex-column">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                                    <button type="button" id="messageButtonOk" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                                    <button type="button" id="messageButtonCancel" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 </div>
                             </div>
                         </div>

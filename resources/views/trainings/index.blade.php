@@ -39,7 +39,8 @@
                                 <div class="col-10">
                                     <h3>{{ $training->getData()['training_name'] }}</h3>
                                     <p>{{ $training->getData()['training_short_note'] }}</p>
-                                    <p class="mt-4 mb-0 font-12"><i class="dripicons-location mr-2 font-16 attribute-label" role="button" title="Mesto održavanja"></i>{{ $training->getData()['location'] }}</p>
+                                    <p class="mt-4 mb-0 font-12"><i class="dripicons-user mr-2 font-16 attribute-label" role="button" title="Domaćin"></i>{{ $training->getData()['training_host'] }} </p>
+                                    <p class="mt-0 mb-0 font-12"><i class="dripicons-location mr-2 font-16 attribute-label" role="button" title="Mesto održavanja"></i>{{ $training->getData()['location'] }}</p>
                                     <p class="mt-0 mb-0 font-12"><i class="dripicons-clock mr-2 font-16 attribute-label" role="button" title="Datum i vreme početka"></i>
                                         {{ $training->getAttribute('training_start_date')->getText() }} {{ $training->getAttribute('training_start_time')->getText() }}
                                     </p>
@@ -64,8 +65,24 @@
                             <hr/>
                             <div class="row">
                                 <div class="col-12">
-                                    <a href="" class="float-right btn btn-sm btn-success">Detaljnije</a>
-                                    <span class="border border-gray p-1 font-10 shadow-sm text-muted">Svi</span>
+                                    <a href="{{ route('trainings.delete', $training->getId()) }}"
+                                       id="deleteButton" class="float-right"
+                                       data-toggle="modal"
+                                       data-target="#messageBox" title="Obrisi sesiju" data-id="{{ $training->getId() }}">
+                                        <i class="mdi mdi-delete font-24 text-success"></i>
+                                    </a>
+                                    @if($training->getData()['training_type'] == 1)
+                                        <span class="p-1 attribute-label">
+                                            @if($training->getClients()->count() > 0)
+                                                {{ $training->getClients()->first()->getData()['name'] }}
+                                            @else
+                                                Nema izabranog klijenta!
+                                            @endif
+                                        </span>
+                                    @else
+                                        <span class="border border-gray p-1 font-10 shadow-sm text-muted">Svi</span>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
@@ -78,6 +95,23 @@
             </div>
         @endif
     @endforeach
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+             $('a#deleteButton').on('click', function(event) {
+                event.preventDefault();
+                var deleteLink = $(this);
+                $('#messageBox .modal-title').text('Brisanje sesije');
+                $('p.modal-message').text("Da li ste sigurni da hocete da obrisete sessiju ?");
+                $('button#messageButtonOk').click(function(event) {
+                    var where = deleteLink.attr('href');
+                    window.location.href = where;
+                });
+             });
+        });
+    </script>
 @endsection
 
 

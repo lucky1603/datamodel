@@ -9,6 +9,7 @@ use App\Entity;
 use App\Instance;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Builder;
 
 class Training extends BusinessModel
 {
@@ -230,6 +231,25 @@ class Training extends BusinessModel
             'client_id' => $client->getId(),
             'training_id' => $this->instance->id
         ]);
+    }
+
+    /**
+     *
+     * Override of parent's setData method.
+     *
+     * @param array $data
+     */
+    public function setData($data) {
+        parent::setData($data);
+
+        $counter = 1;
+        while(isset($data['file_'.$counter])) {
+            $attachedFile = BusinessModel::selectOrCreateAttribute(['file_'.$counter, 'Priložena datoteka '.$counter, 'file', 200 + $counter]);
+            $this->addAttribute($attachedFile);
+            $attachedFile->setValue($data['file_'.$counter++]);
+
+        }
+
     }
 
 }
