@@ -18,7 +18,7 @@
 
                 <input type="hidden" id="training_type" name="training_type" value="1">
                 <div class="row">
-                    <div class="col-5 ">
+                    <div class="col-6">
                         <p class="text-secondary  mb-0 font-weight-bold">{{__('Select a session type')}}*</p>
                         <div style="width: 100%; height: 150px" class="shadow mt-1 border ">
                             <div style="display: flex; flex-direction: row">
@@ -119,17 +119,13 @@
                             <textarea id="training_description" name="training_description" hidden></textarea>
                         </div>
 
-                        <div style="width: 100%; height: 140px;" class="mt-3 text-center">
-                            <input type="button" height="50px" class="btn btn-primary mb-3" id="loadFileXml" value="{{ __('Upload Relevant Files') }}" onclick="document.getElementById('file').click();" />
-                            <input type="file" style="display: none" id="file" name="attachment[]" multiple />
-                            <div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center" id="file-container" class="m-1"></div>
-                        </div>
+
 
                     </div>
-                    <div class="col-7" >
+                    <div class="col-6" >
 
                         <div style="width: 100%; display: flex; justify-content: center" class="bg-light mt-3">
-                            <span class="text-secondary p-2 m-0" style="display: inline-block">{{ __('Who is this event for') }}?</span>
+                            <span class="text-secondary p-2 m-0" id="whoFor" style="display: inline-block">{{ __('Who is this event for') }}?</span>
                             <select id="interest" class="form-control mt-1 mb-1" name="interest" style="width: 50%; display: inline-block">
                                 <option value = 0>Svi</option>
                                 @foreach(\App\Attribute::where('name','interests')->first()->getOptions() as $key=>$value)
@@ -153,7 +149,20 @@
                                 @endforeach
                             </ul>
 
+                        <div style="width: 100%; height: 140px;" class="mt-3 text-center">
+                            <input type="button" height="50px" class="btn btn-primary mb-3" id="loadFileXml" value="{{ __('Upload Relevant Files') }}" onclick="document.getElementById('file').click();" />
+                            <input type="file" style="display: none" id="file" name="attachment[]" multiple />
+                            <div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center" id="file-container" class="m-1"></div>
+                        </div>
 
+                        <div style="display: flex; width:100%" class="border border rounded p-1 mt-1 file-info" hidden>
+                            <div style="width: 70px; height:70px; align-items: center; display: flex; background-color: red" class="file-ext-background text-light float-left font-18 rounded text-center"><span class="m-auto file-ext">.PDF</span></div>
+                            <div style="display: flex; flex-direction: column; margin: 0 15px" class="flex-fill">
+                                <span class="w-100 font-18 font-weight-bold file-name">amazonbook1.pdf</span>
+                                <span class="w-100 font-24 mt-1 text-muted file-size">224.453 KB</span>
+                            </div>
+                            <div style="display: flex; align-items: center;" class="float-right border rounded"><i class="m-auto dripicons-cross font-18 text-muted text-center" style="width: 60px"></i></div>
+                        </div>
 
                     </div>
                 </div>
@@ -243,6 +252,8 @@
                     $('#img_happening').removeClass('bg-light');
                 }
 
+                $('#whoFor').text("<?php echo strtoupper( __('Filter by Interest')) ?>:");
+
                 $('ul#clientList').show();
             });
 
@@ -258,6 +269,8 @@
                 if($('#img_happening').hasClass('bg-light')) {
                     $('#img_happening').removeClass('bg-light');
                 }
+
+                $('#whoFor').text("<?php echo strtoupper( __('Who is this event for')) ?>:");
 
                 $('ul#clientList').hide();
             });
@@ -275,15 +288,53 @@
                     $('#img_workshop').removeClass('bg-light');
                 }
 
+                $('#whoFor').text("<?php echo strtoupper( __('Who is this event for')) ?>:");
+
                 $('ul#clientList').hide();
             });
 
             $(':file').on('change', function(event) {
                 let el = event.currentTarget;
                 $('#file-container').empty();
-                $.each($(el)[0].files, function(index, value) {
-                    console.log(index + ':' + value.name);
-                    $('#file-container').append('<span class="text-primary mr-2">' + value.name + '</span>');
+                $.each($(el)[0].files, function(index, file) {
+                    var cloned = $($('div.file-info').first()).clone();
+
+                    $(cloned).removeAttr('hidden');
+                    var extension = file.name.split('.');
+                    var arrayLength = extension.length;
+                    extension = extension[arrayLength - 1];
+
+                    if(extension == 'pdf') {
+                        $($(cloned).find('.file-ext-background').first()).css('background-color', 'red');
+                    } else if(extension == 'xlsx') {
+                        $($(cloned).find('.file-ext-background').first()).css('background-color', 'green');
+                    } else if(extension == 'docx') {
+                        $($(cloned).find('.file-ext-background').first()).css('background-color', 'darkblue');
+                    } else {
+                        $($(cloned).find('.file-ext-background').first()).css('background-color', 'gray');
+                    }
+
+                    $($(cloned).find('.file-ext').first()).text('.' + extension.toUpperCase());
+                    $($(cloned).find('.file-name').first()).text(file.name);
+
+                    var fileSize = parseFloat(file.size);
+                    var fileUnit = 'KB';
+
+
+                    if(fileSize > (1023 * 1023)) {
+                        fileSize /= (1023 * 1023);
+                        fileSize = fileSize.toFixed(2);
+                        fileUnit = "MB";
+                    } else {
+                        fileSize /= 1023;
+                        fileSize = Math.round(fileSize);
+                    }
+
+                    {{--$($(cloned).find('.file-size').first()).text('{{ number_format(fileSize, 0, ",", ".")}}' + ' ' + fileUnit);--}}
+                    $($(cloned).find('.file-size').first()).text(fileSize + ' ' + fileUnit);
+
+                    $('#file-container').append(cloned);
+
                 })
 
 
@@ -311,4 +362,12 @@
 
         });
     </script>
+@endsection
+@section('sidemenu')
+    <li class="side-nav-item">
+        <a href="{{ route('trainings') }}" class="side-nav-link">
+            <i class="uil-laptop-cloud"></i>
+            <span>{{ strtoupper(__('Back to Sessions')) }}</span>
+        </a>
+    </li>
 @endsection
