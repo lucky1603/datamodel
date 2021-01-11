@@ -244,10 +244,15 @@ class Training extends BusinessModel
 
         $counter = 1;
         while(isset($data['file_'.$counter])) {
-            $attachedFile = BusinessModel::selectOrCreateAttribute(['file_'.$counter, 'Priložena datoteka '.$counter, 'file', 200 + $counter]);
-            $this->addAttribute($attachedFile);
-            $attachedFile->setValue($data['file_'.$counter++]);
+            $attribute = $this->getAttribute('file_'.$counter);
+            if($attribute == null)
+            {
+                $attachedFile = BusinessModel::selectOrCreateAttribute(['file_'.$counter, 'Priložena datoteka '.$counter, 'file', 200 + $counter]);
+                $this->addAttribute($attachedFile);
+                $attribute = $this->getAttribute('file_'.$counter);
+            }
 
+            $attribute->setValue($data['file_'.$counter++]);
         }
 
     }

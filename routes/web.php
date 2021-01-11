@@ -81,6 +81,7 @@ Route::get('/trainings', 'TrainingsController@index')->name('trainings');
 Route::get('/trainings/create', 'TrainingsController@create')->name('trainings.create');
 Route::post('/trainings/create', 'TrainingsController@store')->name('trainings.store');
 Route::get('/trainings/delete/{training}', 'TrainingsController@delete')->name('trainings.delete');
+Route::get('/trainings/{training}', 'TrainingsController@show')->name('trainings.show');
 
 
 

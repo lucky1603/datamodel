@@ -72,6 +72,13 @@ class TrainingsController extends Controller
         return redirect(route('trainings'));
     }
 
+    /**
+     *
+     * Deletes the training with the given id.
+     *
+     * @param $id
+     * @return Application|RedirectResponse|Redirector
+     */
     public function delete($id) {
         $training = Training::find($id);
         if($training != null) {
@@ -79,5 +86,17 @@ class TrainingsController extends Controller
         }
 
         return redirect(route('trainings'));
+    }
+
+    /**
+     *
+     * Shows the preview of the training details.
+     *
+     * @param $id
+     * @return Application|Factory|View
+     */
+    public function show($id) {
+        $training = Training::find($id);
+        return view('trainings.show', ['training' => $training]);
     }
 }

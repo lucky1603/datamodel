@@ -13,9 +13,7 @@
         </div>
     </div>
     <div style="background-color: white; position: absolute; left: 270px; right: 10px; top: 150px; bottom: 70px; overflow-y: auto" class="shadow-sm">
-        <hr class="mt-0"/>
-        <div class="container-fluid ">
-
+        <div class="container-fluid pt-1">
                 <input type="hidden" id="training_type" name="training_type" value="1">
                 <div class="row">
                     <div class="col-6">

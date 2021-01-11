@@ -71,6 +71,10 @@
                                        data-target="#messageBox" title="Obrisi sesiju" data-id="{{ $training->getId() }}">
                                         <i class="mdi mdi-delete font-24 text-success"></i>
                                     </a>
+                                    <a href="{{ route('trainings.show', $training->getId()) }}"
+                                       class="float-right mr-1" title="{{ __('Preview Details') }}">
+                                        <i class="mdi mdi-glasses font-24 text-success"></i>
+                                    </a>
                                     @if($training->getData()['training_type'] == 1)
                                         <span class="p-1 attribute-label">
                                             @if($training->getClients()->count() > 0)
