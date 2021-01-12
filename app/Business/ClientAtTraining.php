@@ -35,6 +35,20 @@ class ClientAtTraining extends Client
         return $this->_setAttributes();
     }
 
+    public function getAttendanceText() {
+        switch ($this->attendance) {
+            case 1:
+                return __('Notified');
+            case 2:
+                return __('Accepted');
+            case 3:
+                return __('Showed Up');
+            default:
+                return __('Didn\'t show up');
+        }
+    }
+
+
     /**
      *
      * Reads the attributes from the database.
@@ -72,4 +86,6 @@ class ClientAtTraining extends Client
                 'attendance' => $this->attendance
             ]);
     }
+
+
 }

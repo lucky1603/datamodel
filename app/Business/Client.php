@@ -1075,19 +1075,19 @@ class Client extends BusinessModel
         // Fields of interest
         $fields_of_interest = self::selectOrCreateAttribute(['interests', 'Oblast poslovanja', 'select', NULL, 3]);
         if(count($fields_of_interest->getOptions()) == 0) {
-            $fields_of_interest->addOption(['value' => 1, 'text' => 'IoT и паметни градови']);
-            $fields_of_interest->addOption(['value' => 2, 'text' => 'Енергетска ефикасност, зелене, чисте технологије и екологија']);
+            $fields_of_interest->addOption(['value' => 1, 'text' => 'IoT i pametni gradovi']);
+            $fields_of_interest->addOption(['value' => 2, 'text' => 'Energetska efikasnost, zelene, čiste tehnologije i ekologija']);
             $fields_of_interest->addOption(['value' => 3, 'text' => 'Вештачка интелигенција, базе података и аналитика']);
-            $fields_of_interest->addOption(['value' => 4, 'text' => 'Прехрана, суплементи и фармацеутски производи']);
-            $fields_of_interest->addOption(['value' => 5, 'text' => 'Нови материјали и 3Д штампа']);
-            $fields_of_interest->addOption(['value' => 6, 'text' => 'Технологија у спорту']);
-            $fields_of_interest->addOption(['value' => 7, 'text' => 'Економске трансакције, финансије, маркетинг и продаја']);
-            $fields_of_interest->addOption(['value' => 8, 'text' => 'Роботика и аутоматизација']);
-            $fields_of_interest->addOption(['value' => 9, 'text' => 'Туризам и путовања']);
-            $fields_of_interest->addOption(['value' => 10, 'text' => 'Едукација, образовање и усавршавање']);
-            $fields_of_interest->addOption(['value' => 11, 'text' => 'Медији, комуникације и друштвене мреже/  Гејминг  и забава']);
-            $fields_of_interest->addOption(['value' => 12, 'text' => 'Медицинске технологије']);
-            $fields_of_interest->addOption(['value' => 13, 'text' => 'Остало']);
+            $fields_of_interest->addOption(['value' => 4, 'text' => 'Veštačka inteligencija, baze podataka i analitika']);
+            $fields_of_interest->addOption(['value' => 5, 'text' => 'Novi materijali i 3 D štampa']);
+            $fields_of_interest->addOption(['value' => 6, 'text' => 'Tehnologija u sportu']);
+            $fields_of_interest->addOption(['value' => 7, 'text' => 'Ekonomske transakcije, finansije, marketing i prodaja']);
+            $fields_of_interest->addOption(['value' => 8, 'text' => 'Robotika i automatizacija']);
+            $fields_of_interest->addOption(['value' => 9, 'text' => 'Turizam i putovanja']);
+            $fields_of_interest->addOption(['value' => 10, 'text' => 'Edukacija , obrazovanje i usavršavanje']);
+            $fields_of_interest->addOption(['value' => 11, 'text' => 'Mediji , komunikacije i društvene mreže/ Gaming i zabava']);
+            $fields_of_interest->addOption(['value' => 12, 'text' => 'Medicinske tehnologije']);
+            $fields_of_interest->addOption(['value' => 13, 'text' => 'Ostalo']);
         }
         $attributes[] = $grupaOpstiPodaci->addAttribute($fields_of_interest);
 

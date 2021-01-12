@@ -124,7 +124,7 @@
 
                         <div style="width: 100%; display: flex; justify-content: center" class="bg-light mt-3">
                             <span class="text-secondary p-2 m-0" id="whoFor" style="display: inline-block">{{ __('Who is this event for') }}?</span>
-                            <select id="interest" class="form-control mt-1 mb-1" name="interest" style="width: 50%; display: inline-block">
+                            <select id="interests" class="form-control mt-1 mb-1" name="interests" style="width: 50%; display: inline-block">
                                 <option value = 0>Svi</option>
                                 @foreach(\App\Attribute::where('name','interests')->first()->getOptions() as $key=>$value)
                                     <option value="{{ $key }}">{{ $value }}</option>

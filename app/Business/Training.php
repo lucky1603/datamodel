@@ -38,8 +38,9 @@ class Training extends BusinessModel
 
         $duration = self::selectOrCreateAttribute(['duration_unit', 'Jedinica trajanja treninga', 'select', NULL, 6]);
         if(count($duration->getOptions()) == 0) {
-            $duration->addOption(['value' => 1, 'text' => 'h']);
-            $duration->addOption(['value' => 2, 'text' => 'd']);
+            $duration->addOption(['value' => 1, 'text' => 'min']);
+            $duration->addOption(['value' => 2, 'text' => 'h']);
+            $duration->addOption(['value' => 3, 'text' => 'd']);
         }
 
         $attributes->add($duration);
@@ -57,6 +58,7 @@ class Training extends BusinessModel
 
         $attributes->add(self::selectOrCreateAttribute(['location', 'Mesto održavanja', 'varchar', NULL, 10]));
         $attributes->add(self::selectOrCreateAttribute(['training_host', 'Moderator', 'varchar', NULL, 11]));
+        $attributes->add(self::selectOrCreateAttribute(['interests', "Oblasti interesovanja", 'select', null, 200]));
 
         return $attributes;
 
@@ -156,25 +158,6 @@ class Training extends BusinessModel
 
     /**
      *
-     * Sets the attribute values from the data buffer.
-     *
-     */
-    protected function setAttributes()
-    {
-        $this->getAttribute('training_name')->setValue(isset($this->data['training_name']) ? $this->data['training_name'] : null);
-        $this->getAttribute('training_description')->setValue(isset($this->data['training_description']) ? $this->data['training_description'] : null);
-        $this->getAttribute('training_start_date')->setValue(isset($this->data['training_start_date']) ? $this->data['training_start_date'] : null);
-        $this->getAttribute('training_start_time')->setValue(isset($this->data['training_start_time']) ? $this->data['training_start_time'] : null);
-        $this->getAttribute('training_duration')->setValue(isset($this->data['training_duration']) ? $this->data['training_duration'] : null);
-        $this->getAttribute('duration_unit')->setValue(isset($this->data['duration_unit']) ? $this->data['duration_unit'] : 1);
-        $this->getAttribute('lecturer_name')->setValue(isset($this->data['lecturer_name']) ? $this->data['lecturer_name'] : null);
-        $this->getAttribute('training_short_note')->setValue(isset($this->data['training_short_note']) ? $this->data['training_short_note'] : null);
-        $this->getAttribute('training_type')->setValue(isset($this->data['training_type']) ? $this->data['training_type'] : 1);
-
-    }
-
-    /**
-     *
      * Return all clients connected with the training (invited|present|absent)
      *
      * @return Collection
@@ -254,6 +237,33 @@ class Training extends BusinessModel
 
             $attribute->setValue($data['file_'.$counter++]);
         }
+
+    }
+
+    public function hasFiles() {
+        if($this->getAttribute('file_1') == null)
+            return false;
+
+        return true;
+    }
+
+    /**
+     *
+     * Sets the attribute values from the data buffer.
+     *
+     */
+    protected function setAttributes()
+    {
+        $this->getAttribute('training_name')->setValue(isset($this->data['training_name']) ? $this->data['training_name'] : null);
+        $this->getAttribute('training_description')->setValue(isset($this->data['training_description']) ? $this->data['training_description'] : null);
+        $this->getAttribute('training_start_date')->setValue(isset($this->data['training_start_date']) ? $this->data['training_start_date'] : null);
+        $this->getAttribute('training_start_time')->setValue(isset($this->data['training_start_time']) ? $this->data['training_start_time'] : null);
+        $this->getAttribute('training_duration')->setValue(isset($this->data['training_duration']) ? $this->data['training_duration'] : null);
+        $this->getAttribute('duration_unit')->setValue(isset($this->data['duration_unit']) ? $this->data['duration_unit'] : 1);
+        $this->getAttribute('lecturer_name')->setValue(isset($this->data['lecturer_name']) ? $this->data['lecturer_name'] : null);
+        $this->getAttribute('training_short_note')->setValue(isset($this->data['training_short_note']) ? $this->data['training_short_note'] : null);
+        $this->getAttribute('training_type')->setValue(isset($this->data['training_type']) ? $this->data['training_type'] : 1);
+        $this->getAttribute('interests')->setValue(isset($this->data['interests']) ? $this->data['interests'] : 0);
 
     }
 
