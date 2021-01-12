@@ -81,6 +81,8 @@ Route::get('/situations/{situation}', 'SituationsController@show')->name('situat
 Route::get('/trainings', 'TrainingsController@index')->name('trainings');
 Route::get('/trainings/create', 'TrainingsController@create')->name('trainings.create');
 Route::post('/trainings/create', 'TrainingsController@store')->name('trainings.store');
+Route::get('/trainings/forme', 'TrainingsController@forMe')->name('trainings.forme');
+Route::get('/trainings/mine', 'TrainingsController@mine')->name('trainings.mine');
 Route::get('/trainings/delete/{training}', 'TrainingsController@delete')->name('trainings.delete');
 Route::get('/trainings/{training}', 'TrainingsController@show')->name('trainings.show');
 

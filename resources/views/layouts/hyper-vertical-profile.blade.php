@@ -1,4 +1,4 @@
-@extends('layouts.hyper-vertical')
+@extends('layouts.hyper-vertical-mainframe')
 
 @section('content')
     <div class="container-fluid">

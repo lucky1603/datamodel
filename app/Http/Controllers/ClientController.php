@@ -335,7 +335,7 @@ class ClientController extends Controller
 
         $client = Auth::user()->client();
         $companies = $client->getOtherClients();
-        return view('clients.companylist', ['companies' => $companies]);
+        return view('clients.companylist', ['companies' => $companies, 'model' => $client]);
     }
 
     /**

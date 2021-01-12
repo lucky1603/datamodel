@@ -102,7 +102,15 @@ class Training extends BusinessModel
 
             $attribute = Attribute::where('name', $key)->first();
             $tableName = $attribute->type.'_values';
+            $entity_id = Entity::all()->where('name', 'Training')->first()->id;
             $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id])->get();
+
+            $temporary_results = $temporary_results->map(function($item, $key) {
+                return $item->instance_id;
+            });
+
+
+            $temporary_results = Instance::all()->whereIn('id', $temporary_results)->where('entity_id', $entity_id);
 
             if(!isset($results)) {
                 $results = $temporary_results;
@@ -118,11 +126,11 @@ class Training extends BusinessModel
 
         if(isset($results)) {
             return $results->map(function($item, $key) {
-                return new Training(['instance_id' => $item->instance_id]);
+                return new Training(['instance_id' => $item->id]);
             });
         }
 
-        return collect([]);
+        return null;
     }
 
     /**

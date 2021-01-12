@@ -679,11 +679,9 @@ class Client extends BusinessModel
 
             $entity_id = Entity::all()->where('name', 'Client')->first()->id;
             $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id])->get();
-
             $temporary_results = $temporary_results->map(function($item, $key) {
                 return $item->instance_id;
             });
-
 
             $temporary_results = Instance::all()->whereIn('id', $temporary_results)->where('entity_id', $entity_id);
 

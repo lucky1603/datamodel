@@ -6,11 +6,13 @@ namespace App\Http\Controllers;
 
 use App\Business\Client;
 use App\Business\Training;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class TrainingsController extends Controller
@@ -24,6 +26,41 @@ class TrainingsController extends Controller
     public function index() {
         $trainings = Training::all();
         return view('trainings.index', ['trainings' => $trainings]);
+    }
+
+    /**
+     *
+     * Trainings intended for me, based on my interests.
+     *
+     * @return Response|Application|Factory|View
+     */
+    public function forMe() {
+        $user = Auth::user();
+        if($user->isAdmin()) {
+            return Response::deny("This action is not for admin!");
+        }
+
+        $client = $user->client();
+        $interests = $client->getData()['interests'];
+        $trainings = Training::find(['interests' => $interests]);
+        $output = $trainings->map(function($training, $key) {
+            return $training->getData();
+        });
+
+        return view('trainings.index', ['trainings' => $trainings, 'model' => $client]);
+
+    }
+
+    public function mine() {
+        $user = Auth::user();
+        if($user->isAdmin()) {
+            return Response::deny("This action is not for admin!");
+        }
+
+        $client = $user->client();
+        $trainings = $client->getTrainings();
+
+        return view('trainings.index', ['trainings' => $trainings, 'model' => $client]);
     }
 
     /**
