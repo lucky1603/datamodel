@@ -75,8 +75,6 @@
                                     <i class="dripicons-location mr-2 attribute-label font-16"></i><span>{{ $training->getAttribute('location')->getText() }}</span>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                     <div class="row mt-3">
