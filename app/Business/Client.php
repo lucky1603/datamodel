@@ -674,10 +674,18 @@ class Client extends BusinessModel
 
         // If it's really array.
         foreach($query as $key => $value) {
-
             $attribute = Attribute::where('name', $key)->first();
             $tableName = $attribute->type.'_values';
+
+            $entity_id = Entity::all()->where('name', 'Client')->first()->id;
             $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id])->get();
+
+            $temporary_results = $temporary_results->map(function($item, $key) {
+                return $item->instance_id;
+            });
+
+
+            $temporary_results = Instance::all()->whereIn('id', $temporary_results)->where('entity_id', $entity_id);
 
             if(!isset($results)) {
                 $results = $temporary_results;
@@ -693,11 +701,12 @@ class Client extends BusinessModel
 
         if(isset($results)) {
             return $results->map(function($item, $key) {
-                return new Client(['instance_id' => $item->instance_id]);
+                return new Client(['instance_id' => $item->id]);
             });
         }
 
         return null;
+
     }
 
     /**
@@ -905,6 +914,20 @@ class Client extends BusinessModel
     public function getUsers()
     {
         return $this->instance->users;
+    }
+
+    /**
+     *
+     * Gets the number of clients in the status of 'application'.
+     *
+     * @return int
+     */
+    public static function getApplicantsNumber() {
+        $applicants = Client::find(['status' => 2]);
+        if($applicants != null)
+            return $applicants->count();
+
+        return 0;
     }
 
     // Protected methods. //

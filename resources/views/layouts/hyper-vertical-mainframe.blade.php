@@ -12,6 +12,11 @@
         <a href="{{ route('clients.index') }}" class="side-nav-link">
             <i class="uil-snapchat-square"></i>
             <span>{{ strtoupper(__('CLIENTS')) }}</span>
+            @if(App\Business\Client::getApplicantsNumber() > 0 )
+                <span class="badge badge-warning float-right">
+                    {{ App\Business\Client::getApplicantsNumber() }}
+                </span>
+            @endif
         </a>
     </li>
 

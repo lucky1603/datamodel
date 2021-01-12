@@ -54,7 +54,11 @@
                 <div class="card shadow-sm ribbon-box" data-id="{{ $loop->iteration }}" style="margin-top:10px; margin-bottom: 10px">
 
                     <div class="card-body" style="padding: 0" >
-                        @if($client->getData()['status'] <= 2)
+                        @if($client->getData()['status'] == 1)
+                            <div class="ribbon-two ribbon-two-secondary">
+                                <span>{{ strtoupper( __('Interest')) }}</span>
+                            </div>
+                        @elseif($client->getData()['status'] == 2 )
                             <div class="ribbon-two ribbon-two-warning">
                                 <span>{{ strtoupper( __('Application')) }}</span>
                             </div>

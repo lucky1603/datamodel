@@ -143,6 +143,16 @@
                     <div>
                         <h3 class="text-center">{{ __('Attendees') }}</h3>
                     </div>
+                    @if($training->getData()['training_type'] != 1)
+                    <p>
+                        <b>{{__('TARGET GROUP')}}  :  </b>
+                        @if($training->getData()['interests'] == 0)
+                            {{__("EVERYONE")}}
+                        @else
+                            {{ $training->getAttribute('interests')->getText() }}
+                        @endif
+                    </p>
+                    @endif
                     <table id="myTable" class="table table-sm table-bordered shadow" style="height: 300px">
                         <thead class="bg-dark text-light">
                             <tr>
