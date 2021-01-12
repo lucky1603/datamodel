@@ -72,6 +72,7 @@ Route::post('/contracts/create/{client}', 'ContractsController@store')->name('co
 Route::get('/contracts/{contract}', 'ContractsController@show')->name('contracts.show');
 Route::get('/contracts/payFirstInstallment/{contract}', 'ContractsController@payFirstInstallment')->name('contracts.payfirstinstallment');
 Route::post('/contracts/payFirstInstallment/{contract}', 'ContractsController@firstInstallmentPayed')->name('contracts.firstinstallmentpayed');
+Route::get('/contracts/destroy/{contract}', 'ContractsController@destroy')->name('contracts.destroy');
 
 Route::get('/files/create', 'FileController@create')->name('files.create');
 Route::post('/files/create', 'FileController@show')->name('files.show');

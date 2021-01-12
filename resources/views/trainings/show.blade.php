@@ -28,17 +28,17 @@
                         <div class="col-xl-4 text-center">
                             @switch($training->getData()['training_type'])
                                 @case(1)
-                                    <img src="/images/custom/oneonone.png" width="200px" class="shadow-sm p-2 pb-5 m-2"/>
+                                    <img src="/images/custom/oneonone.png" width="180px" class="shadow-sm p-2 pb-5 m-2"/>
                                     <p class="text-center attribute-label font-weight-bold" style="margin-top: -45px">
                                         {{ __('1 on 1 session') }}</p>
                                     @break
                                 @case(2)
-                                    <img src="/images/custom/workshop.png" width="200px" class="shadow-sm p-2 pb-5 m-2 "/>
+                                    <img src="/images/custom/workshop.png" width="180px" class="shadow-sm p-2 pb-5 m-2 "/>
                                     <p class="text-center attribute-label font-weight-bold" style="margin-top: -45px">
                                         {{ __('Workshop') }}</p>
                                     @break
                                 @case(3)
-                                    <img src="/images/custom/event.png" width="200px" class="shadow-sm p-2 pb-5 m-2"/>
+                                    <img src="/images/custom/event.png" width="180px" class="shadow-sm p-2 pb-5 m-2"/>
                                     <p class="text-center attribute-label font-weight-bold" style="margin-top: -45px">
                                         {{ __('Event') }}</p>
                                     @break
@@ -52,27 +52,27 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label class="attribute-label font-italic">{{ $training->getAttribute('training_host')->label }}</label>
-                                <h4 class="mt-0">{{ $training->getData()['training_host'] }}</h4>
+                                <p class="mt-0">{{ $training->getData()['training_host'] }}</p>
                             </div>
                             <div class="form-group mt-3">
                                 <label class="attribute-label font-italic">{{__('When and where')}}</label>
                                 <div style="display: flex; justify-content: left" >
                                     <div style="width: 30%; align-items: flex-start">
                                         <i class="mdi mdi-calendar mr-1 font-16 attribute-label"></i>
-                                        <span class="font-weight-bold">{{ $training->getAttribute('training_start_date')->getText() }}</span>
+                                        <span>{{ $training->getAttribute('training_start_date')->getText() }}</span>
                                     </div>
                                     <div style="width: 30%" class="pl-1">
                                         <i class="mdi mdi-clock-alert-outline mr-1 font-16 attribute-label"></i>
-                                        <span class="font-weight-bold">{{ $training->getAttribute('training_start_time')->getText() }}</span>
+                                        <span>{{ $training->getAttribute('training_start_time')->getText() }}</span>
                                     </div>
                                     <div style="width: 40%" class="pl-1">
                                         <i class="mdi mdi-timer mr-1 font-16 attribute-label"></i>
-                                        <span class="font-weight-bold">{{ $training->getAttribute('training_duration')->getText() }}</span>
-                                        <span class="font-weight-bold">{{ $training->getAttribute('duration_unit')->getText() }}</span>
+                                        <span>{{ $training->getAttribute('training_duration')->getText() }}</span>
+                                        <span>{{ $training->getAttribute('duration_unit')->getText() }}</span>
                                     </div>
                                 </div>
                                 <div class="mt-2">
-                                    <i class="dripicons-location mr-2 attribute-label font-16"></i><span class="font-weight-bold">{{ $training->getAttribute('location')->getText() }}</span>
+                                    <i class="dripicons-location mr-2 attribute-label font-16"></i><span>{{ $training->getAttribute('location')->getText() }}</span>
                                 </div>
                             </div>
 
@@ -83,7 +83,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="attribute-label font-italic">{{ $training->getAttribute('training_short_note')->label }}</label>
-                                <h4 class="mt-0">{{ $training->getData()['training_short_note'] }}</h4>
+                                <p class="mt-0">{{ $training->getData()['training_short_note'] }}</p>
                             </div>
                             <div class="form-group mt-3">
                                 <label class="attribute-label font-italic">{{ $training->getAttribute('training_description')->label }}</label>

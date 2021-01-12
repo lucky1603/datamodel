@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Business\Client;
 use App\Business\Contract;
 use App\Business\Situation;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
@@ -122,20 +125,25 @@ class ContractsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Deletes the contracts.
+     *
+     * @param $id
+     * @return Application|RedirectResponse|Redirector
      */
     public function destroy($id)
     {
-        //
+        // authorize ...
+
+        $contract = Contract::find($id);
+        $contract->delete();
+        return redirect(route('contracts'));
     }
 
     /**
      * Shows the form for the first installment payment.
      * @param $contractId
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function payFirstInstallment($contractId) {
         $contract = Contract::find($contractId);
@@ -151,7 +159,7 @@ class ContractsController extends Controller
      * Handling the payment of the first installment.
      * @param Request $request
      * @param $contractId
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return Application|RedirectResponse|Redirector
      */
     public function firstInstallmentPayed(Request $request, $contractId) {
         $data = $request->post();
