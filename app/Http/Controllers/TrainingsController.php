@@ -155,7 +155,14 @@ class TrainingsController extends Controller
      */
     public function show($id) {
         $training = Training::find($id);
-        return view('trainings.show', ['training' => $training]);
+        $user = Auth::user();
+        if($user->isAdmin()) {
+            return view('trainings.show', ['training' => $training]);
+        } else {
+            $client = $user->client();
+            return view('trainings.show', ['training' => $training, 'client' => $client]);
+        }
+
     }
 
     /**
@@ -170,8 +177,33 @@ class TrainingsController extends Controller
         return view('trainings.showmine', ['training' => $training]);
     }
 
-    public function signUp(Request $request) {
-        $client = Client::find($client_id);
+    /**
+     *
+     * [POST] Signs up for the event.
+     * @param Request $request
+     * @return array
+     */
+    public function signUp(Request $request): array
+    {
+        $data = $request->post();
+
+        $training = Training::find($data['training_id']);
+        $client = Client::find($data['client_id']);
+
+        if(!$training->hasClient($client)) {
+            $training->addClient($client);
+            return [
+                'success' => true,
+                'message' => 'You have successfully signed up for the training!',
+                'goto' => route('trainings.forme')
+            ];
+        }
+
+        return [
+            'success' => false,
+            'message' => "You have already signed up for the session!",
+            'goto' => route('trainings.forme')
+        ];
 
     }
 }

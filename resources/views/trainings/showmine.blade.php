@@ -16,23 +16,15 @@
                     @break
                 @endswitch
             </h4>
-
-
-            @if(Auth::user()->isAdmin())
-                <a href="{{ route('trainings') }}" class="btn btn-sm btn-dark" style="display: table-column; float: right">< {{ __('Go Back') }}</a>
-                <a href="#" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Edit') }}</a>
-            @else
-                <a href="{{ route('trainings.forme') }}" class="btn btn-sm btn-dark" style="display: table-column; float: right">< {{ __('Go Back') }}</a>
-                <a href="#}" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Apply for') }}</a>
-            @endif
+            <a href="{{ route('trainings.mine') }}" class="btn btn-sm btn-dark" style="display: table-column; float: right">< {{ __('Go Back') }}</a>
         </div>
     </div>
     <div style="background-color: white; position: absolute; top: 150px; bottom: 70px; overflow-y: auto; width: 50%; left: 30%" class="shadow-sm">
         <div class="container pt-1">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 pt-5">
                     @include('trainings.partials.training-info')
-                    @include('trainings.partials.attendees')
+{{--                    @include('trainings.partials.attendees')--}}
                 </div>
             </div>
         </div>
@@ -46,9 +38,9 @@
 
 @section('sidemenu')
     <li class="side-nav-item">
-        <a href="{{ route('trainings.forme') }}" class="side-nav-link">
+        <a href="{{ route('trainings.mine') }}" class="side-nav-link">
             <i class="uil-laptop-cloud"></i>
-            <span>{{ strtoupper(__('Back to Sessions')) }}</span>
+            <span>{{ strtoupper(__('Back to My Sessions')) }}</span>
         </a>
     </li>
 @endsection

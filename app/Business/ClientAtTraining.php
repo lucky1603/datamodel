@@ -40,11 +40,11 @@ class ClientAtTraining extends Client
             case 1:
                 return __('Notified');
             case 2:
-                return __('Accepted');
+                return __('Applied');
             case 3:
                 return __('Showed Up');
             default:
-                return __('Didn\'t show up');
+                return __("Didn't show up");
         }
     }
 

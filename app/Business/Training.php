@@ -185,13 +185,19 @@ class Training extends BusinessModel
      * @return bool
      */
     public function addClient(Client $client) {
+        $attendance = 1;
+        if($this->getData()['training_type'] != 1) {
+            $attendance = 2;
+        }
+
         if(DB::table('client_training')->where([
             'client_id' => $client->getId(),
             'training_id' => $this->instance->id
         ])->count() == 0) {
             return DB::table('client_training')->insert([
                 'client_id' => $client->getId(),
-                'training_id' => $this->instance->id
+                'training_id' => $this->instance->id,
+                'attendance' => $attendance
             ]);
         }
 

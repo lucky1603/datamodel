@@ -60,7 +60,7 @@
         <div class="form-group mt-3">
             <label class="attribute-label font-italic">{{ $training->getAttribute('training_description')->label }}</label>
             <div id="trainingDescription" hidden>{{ $training->getAttribute('training_description')->getValue() }}</div>
-            <div id="trainingDescriptionHtml" class="border rounded shadow-sm p-2"></div>
+            <div id="trainingDescriptionHtml" class="rounded shadow p-2"></div>
         </div>
         <div class="form-group">
             @if($training->hasFiles())

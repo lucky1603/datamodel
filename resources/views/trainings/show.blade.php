@@ -23,7 +23,13 @@
                 <a href="#" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Edit') }}</a>
             @else
                 <a href="{{ route('trainings.forme') }}" class="btn btn-sm btn-dark" style="display: table-column; float: right">< {{ __('Go Back') }}</a>
-                <a href="#}" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Apply for') }}</a>
+                <form action="{{ route('trainings.signup') }}" method="post" enctype="multipart/form-data" id="myForm">
+                    @csrf
+                    <input type="hidden" id="client_id" name="client_id" value="{{ $client->getId() }}">
+                    <input type="hidden" id="training_id" name="training_id" value="{{ $training->getId() }}">
+                    <button type="submit" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Apply for') }}</button>
+                </form>
+
             @endif
         </div>
     </div>
@@ -44,6 +50,34 @@
 @section('scripts')
     @yield('training-scripts')
     @yield('table-scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('form#myForm').on('submit', function(event) {
+                event.preventDefault();
+                var data = $(this).serialize();
+                var where = $(this).attr('action');
+                console.log(data);
+                console.log(where);
+                $.ajax({
+                    url: where,
+                    method: "POST",
+                    dataType : 'json',
+                    data: data,
+
+                }).done(function (data) {
+                    var msgbox = $('#messageBox').first();
+                    $($(msgbox).find('.modal-title').first()).text("Apply for training");
+                    $($(msgbox).find('.modal-body')).html('<p>' + data.message + '</p>');
+                    var button = $($(msgbox).find('#messageButtonOk')).first();
+                    $(button).click(function() {
+                        window.location.href = data.goto;
+                    });
+                    $(msgbox).modal();
+                });
+
+            })
+        });
+    </script>
 @endsection
 
 @section('sidemenu')
