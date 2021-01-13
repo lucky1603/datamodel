@@ -226,6 +226,23 @@ class Training extends BusinessModel
 
     /**
      *
+     * Checks if the client is registered for the event.
+     *
+     * @param Client $client
+     * @return bool
+     */
+    public function hasClient(Client $client) {
+        $client_ids = DB::table('client_training')
+            ->where('training_id', $this->instance->id)
+            ->where('client_id', $client->getId())->pluck('client_id');
+        if($client_ids->count() == 0)
+            return false;
+
+        return true;
+    }
+
+    /**
+     *
      * Override of parent's setData method.
      *
      * @param array $data

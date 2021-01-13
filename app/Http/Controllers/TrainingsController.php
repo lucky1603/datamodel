@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 
 
 use App\Business\Client;
+use App\Business\ClientAtTraining;
 use App\Business\Training;
+use App\Business\TrainingForClient;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -13,6 +15,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class TrainingsController extends Controller
@@ -42,12 +45,30 @@ class TrainingsController extends Controller
 
         $client = $user->client();
         $interests = $client->getData()['interests'];
+        $clientTrainings = $client->getTrainings();
         $trainings = Training::find(['interests' => $interests]);
+
+        if($clientTrainings->count() > 0) {
+            $clientTrainingIds = $clientTrainings->map(function($training, $key) {
+                return $training->getId();
+            });
+
+            $trainingIds = $trainings->map(function($training, $key) {
+                 return $training->getId();
+            });
+
+            $trainingIds = $trainingIds->diff($clientTrainingIds);
+
+            $trainings = $trainingIds->map(function($training_id, $key) use ($client) {
+                return new TrainingForClient($training_id, $client->getId());
+            });
+        }
+
         $output = $trainings->map(function($training, $key) {
             return $training->getData();
         });
 
-        return view('trainings.index', ['trainings' => $trainings, 'model' => $client]);
+        return view('trainings.forme', ['trainings' => $trainings, 'model' => $client]);
 
     }
 
@@ -60,7 +81,7 @@ class TrainingsController extends Controller
         $client = $user->client();
         $trainings = $client->getTrainings();
 
-        return view('trainings.index', ['trainings' => $trainings, 'model' => $client]);
+        return view('trainings.mine', ['trainings' => $trainings, 'model' => $client]);
     }
 
     /**
@@ -135,5 +156,22 @@ class TrainingsController extends Controller
     public function show($id) {
         $training = Training::find($id);
         return view('trainings.show', ['training' => $training]);
+    }
+
+    /**
+     *
+     * Show one of mine trainings.
+     *
+     * @param $id
+     * @return Application|Factory|View
+     */
+    public function showMine($id) {
+        $training = Training::find($id);
+        return view('trainings.showmine', ['training' => $training]);
+    }
+
+    public function signUp(Request $request) {
+        $client = Client::find($client_id);
+
     }
 }

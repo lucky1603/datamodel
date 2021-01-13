@@ -6,14 +6,14 @@
             <h4 style="display: table-column; float: left">
                 @switch($training->getData()['training_type'])
                     @case(1)
-                        {{ strtoupper(__('1 on 1 session'))}}
-                        @break
+                    {{ strtoupper(__('1 on 1 session'))}}
+                    @break
                     @case(2)
-                        {{ strtoupper(__('Workshop'))}}
-                        @break
+                    {{ strtoupper(__('Workshop'))}}
+                    @break
                     @case(1)
-                        {{  strtoupper( __('Event'))}}
-                        @break
+                    {{  strtoupper( __('Event'))}}
+                    @break
                 @endswitch
             </h4>
 
@@ -27,13 +27,11 @@
             @endif
         </div>
     </div>
-    <div style="background-color: white; position: absolute; left: 270px; right: 10px; top: 150px; bottom: 70px; overflow-y: auto" class="shadow-sm">
-        <div class="container-fluid pt-1">
+    <div style="background-color: white; position: absolute; top: 150px; bottom: 70px; overflow-y: auto; width: 50%; left: 30%" class="shadow-sm">
+        <div class="container pt-1">
             <div class="row">
-                <div class="col-sm-6">
-                    @include('trainings.partials.training-info');
-                </div>
-                <div class="col-sm-6" style="position: relative;">
+                <div class="col-sm-12">
+                    @include('trainings.partials.training-info')
                     @include('trainings.partials.attendees')
                 </div>
             </div>
@@ -48,9 +46,10 @@
 
 @section('sidemenu')
     <li class="side-nav-item">
-        <a href="@if(Auth::user()->isAdmin())  {{ route('trainings') }} @else {{ route('trainings.forme') }} @endif" class="side-nav-link">
+        <a href="{{ route('trainings.forme') }}" class="side-nav-link">
             <i class="uil-laptop-cloud"></i>
             <span>{{ strtoupper(__('Back to Sessions')) }}</span>
         </a>
     </li>
 @endsection
+

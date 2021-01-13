@@ -2,16 +2,6 @@
 
 @section('content')
     <div class="page-title-box-sm" xmlns="http://www.w3.org/1999/html">
-        <ul class="nav float-right page-title-right" >
-            <li class="nav-item">
-                <a
-                    class="nav-link text-muted"
-                    id="newClient"
-                    href="{{ route('trainings.create') }}">
-                    <i class="dripicons-document-new font-20"></i><span class="ml-0 mt-2 font-weight-bold"> {{strtoupper(__('Add New Session'))}}</span>
-                </a>
-            </li>
-        </ul>
         <ul class="nav page-title" >
             <li class="nav-item"><label style="margin-top: 8px"><strong>{{ __('SESSION FILTER') }}:</strong></label></li>
             <li class="nav-item" style="margin-left: 20px">
@@ -19,7 +9,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">{{ __('By Name') }}</span>
                     </div>
-                    <input type="text" id="clientSearch" name="clientSearch" class="form-control" placeholder="{{ __('Search...') }}" >
+                    <input type="text" id="clientSearch" name="clientSearch" class="form-control" placeholder="{{ __('Sinisa...') }}" >
                     <div class="input-group-append">
                         <span class="mdi mdi-search-web input-group-text"></span>
                     </div>
@@ -65,16 +55,7 @@
                             <hr/>
                             <div class="row">
                                 <div class="col-12">
-                                    @yield('select-actions')
-                                    @if(Auth::user()->isAdmin())
-                                        <a href="{{ route('trainings.delete', $training->getId()) }}"
-                                           id="deleteButton" class="float-right"
-                                           data-toggle="modal"
-                                           data-target="#messageBox" title="Obrisi sesiju" data-id="{{ $training->getId() }}">
-                                            <i class="mdi mdi-delete font-24 text-success"></i>
-                                        </a>
-                                    @endif
-                                    <a href="{{ route('trainings.show', $training->getId()) }}"
+                                    <a href="{{ route('trainings.showmine', $training->getId()) }}"
                                        class="float-right mr-1" title="{{ __('Preview Details') }}">
                                         <i class="mdi mdi-glasses font-24 text-success"></i>
                                     </a>
@@ -107,22 +88,4 @@
         @endif
     @endforeach
 @endsection
-
-@section('scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('a#deleteButton').on('click', function(event) {
-                event.preventDefault();
-                var deleteLink = $(this);
-                $('#messageBox .modal-title').text('Brisanje sesije');
-                $('p.modal-message').text("Da li ste sigurni da hocete da obrisete sessiju ?");
-                $('button#messageButtonOk').click(function(event) {
-                    var where = deleteLink.attr('href');
-                    window.location.href = where;
-                });
-            });
-        });
-    </script>
-@endsection
-
 
