@@ -46,7 +46,10 @@ class TrainingsController extends Controller
         $client = $user->client();
         $interests = $client->getData()['interests'];
         $clientTrainings = $client->getTrainings();
-        $trainings = Training::find(['interests' => $interests]);
+
+        $trainings = Training::find(['interests' => 0]);
+        $trainings = $trainings->concat(Training::find(['interests' => $interests]));
+        $trainings = $trainings->sortBy('instance.id');
 
         if($clientTrainings->count() > 0) {
             $clientTrainingIds = $clientTrainings->map(function($training, $key) {
@@ -58,15 +61,20 @@ class TrainingsController extends Controller
             });
 
             $trainingIds = $trainingIds->diff($clientTrainingIds);
-
-            $trainings = $trainingIds->map(function($training_id, $key) use ($client) {
-                return new TrainingForClient($training_id, $client->getId());
+            $trainings = collect([]);
+            $clientId = $client->getId();
+            foreach ($trainingIds as $trainingId) {
+                $training = new TrainingForClient($trainingId, $clientId);
+                if($training->getData()['training_type'] != 1)
+                {
+                    $trainings->add($training);
+                }
+            }
+        } else {
+            $trainings = $trainings->reject(function($training, $key) {
+                return $training->getData()['training_type'] == 1;
             });
         }
-
-        $output = $trainings->map(function($training, $key) {
-            return $training->getData();
-        });
 
         return view('trainings.forme', ['trainings' => $trainings, 'model' => $client]);
 
