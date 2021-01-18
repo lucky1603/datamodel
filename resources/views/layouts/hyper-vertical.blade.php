@@ -283,7 +283,7 @@
             </div> <!-- container -->
 
             <div id="dialogHost" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="primary-header-modalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-dialog modal-dialog-scrollable modal-lg">
                     <div class="modal-content">
                         <div class="modal-header modal-colored-header bg-primary">
                             <h4 class="modal-title" id="primary-header-modalLabel">Modal Heading</h4>

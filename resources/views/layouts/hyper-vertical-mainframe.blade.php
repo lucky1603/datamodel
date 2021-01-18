@@ -61,25 +61,25 @@
                 <a href="javascript: void(0);" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span class="badge badge-success float-right">4</span>
-                    <span> {{ __('REALIZATION') }} </span>
+                    <span> {{ strtoupper( __('Realization')) }} </span>
                 </a>
                 <ul class="side-nav-second-level" aria-expanded="false">
                     <li>
-                        <a href="{{ route('clients.index') }}" id="link_resources">{{__('RESOURCES')}}</a>
+                        <a href="{{ route('clients.index') }}" id="link_resources">{{ strtoupper(__('Resources'))}}</a>
                     </li>
                     <li>
-                        <a href="javascript: void(0);" id="link_trainings">{{ __('TRAININGS') }}</a>
+                        <a href="javascript: void(0);" id="link_trainings">{{ strtoupper( __('SESSIONS')) }}</a>
                         <ul class="side-nav-third-level" aria-expanded="false">
                             <li>
-                                <a href="{{ route('trainings.forme') }}" id="link_trainings_for_me"> {{ __('Trainings for Me') }}</a>
+                                <a href="{{ route('trainings.forme') }}" id="link_trainings_for_me"> {{ __('Sessions for me') }}</a>
                             </li>
                             <li>
-                                <a href="{{route('trainings.mine')}}" id="link_my_trainings"> {{ __('My Trainings') }}</a>
+                                <a href="{{route('trainings.mine')}}" id="link_my_trainings"> {{ __('My Sessions') }}</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#" id="link_other">{{ __('OTHER SERVICES') }}</a>
+                        <a href="#" id="link_other">{{ strtoupper( __('Other Services'))}}</a>
                     </li>
                 </ul>
             </li>
