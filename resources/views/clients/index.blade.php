@@ -55,11 +55,11 @@
 
                     <div class="card-body" style="padding: 0" >
                         @if($client->getData()['status'] == 1)
-                            <div class="ribbon-two ribbon-two-secondary">
+                            <div class="ribbon-two ribbon-two-warning">
                                 <span>{{ strtoupper( __('Interest')) }}</span>
                             </div>
                         @elseif($client->getData()['status'] == 2 )
-                            <div class="ribbon-two ribbon-two-warning">
+                            <div class="ribbon-two ribbon-two-danger">
                                 <span>{{ strtoupper( __('Application')) }}</span>
                             </div>
                         @elseif($client->getData()['status'] <= 10 && $client->getData()['status'] > 2)

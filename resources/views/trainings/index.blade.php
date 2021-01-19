@@ -87,7 +87,7 @@
                                             @endif
                                         </span>
                                     @else
-                                        <span class="border border-gray p-1 font-10 shadow-sm text-muted">
+                                        <span class="border border-gray p-1 font-14 shadow-sm text-muted">
                                             @if($training->getData()['interests'] == 0)
                                                 {{__('All')}}
                                             @else

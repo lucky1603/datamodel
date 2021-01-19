@@ -48,15 +48,15 @@
                             <hr/>
                             <div class="row">
                                 <div class="col-4 text-center border-right mb-1">
-                                    <h6 class="text-muted">{{ __('STARTS') }}</h6>
+                                    <h6 class="text-muted">{{ strtoupper( __('Starting')) }}</h6>
                                     <h4 class="text-secondary">{{ (new DateTime($contract->getData()['signed_at']))->format('d.m.Y') }}</h4>
                                 </div>
                                 <div class="col-4 text-center border-right mb-1">
-                                    <h6 class="text-muted">{{ __('ENDS') }}</h6>
+                                    <h6 class="text-muted">{{ strtoupper( __('Ending')) }}</h6>
                                     <h4 class="text-secondary">{{ (new DateTime($contract->getData()['valid_through']))->format('d.m.Y') }}</h4>
                                 </div>
                                 <div class="col-4 text-center mb-1">
-                                    <h6 class="text-muted">{{ __('REALIZED') }}</h6>
+                                    <h6 class="text-muted">{{ strtoupper( __('Realized')) }}</h6>
                                     <h4 class="text-success">30%</h4>
                                 </div>
                             </div>

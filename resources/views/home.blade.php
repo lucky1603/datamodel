@@ -4,7 +4,7 @@
 
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <div class="card">
+            <div class="card m-5 shadow-lg">
                 <div class="card-header bg-dark text-light">{{ __('CLIENTS') }}</div>
                 <div class="card-body">
                     <a href="{{ route('clients.index') }}"><img src="images/custom/clients.png" width="100%"/></a>
@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
+            <div class="card m-5 shadow">
                 <div class="card-header bg-dark text-light">{{ __('CONTRACTS') }}</div>
                 <div class="card-body">
                     <a href="{{ route('contracts.index') }}"><img src="images/custom/contract.png" width="100%"/></a>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
+            <div class="card m-5">
                 <div class="card-header bg-dark text-light">{{ __('EVENTS') }}</div>
                 <div class="card-body">
                     <img src="images/custom/events.png" width="100%"/>

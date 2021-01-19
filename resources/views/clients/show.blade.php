@@ -143,6 +143,11 @@
     <h5 class="text-uppercase"><i class="mdi mdi-face-profile mr-1"></i>{{ __('General Data') }}</h5>
 
     <div class="display-pair font-14 mt-3">
+        <span class="attribute-label"><strong>{{ $model->getAttribute('membership')->label }}:</strong></span>
+        <span class="text-muted ml-2">{{ $model->getAttribute('membership')->getText() }}</span>
+    </div>
+
+    <div class="display-pair font-14 mt-2">
         <span class="attribute-label"><strong>{{ $model->getAttribute('maticni_broj')->label }}:</strong></span>
         <span class="text-muted ml-2">{{ $model->getAttribute('maticni_broj')->getValue() }}</span>
     </div>

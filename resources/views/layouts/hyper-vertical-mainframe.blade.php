@@ -14,7 +14,7 @@
             <i class="uil-snapchat-square"></i>
             <span>{{ strtoupper(__('CLIENTS')) }}</span>
             @if(App\Business\Client::getApplicantsNumber() > 0 )
-                <span class="badge badge-warning float-right">
+                <span class="badge badge-danger float-right">
                     {{ App\Business\Client::getApplicantsNumber() }}
                 </span>
             @endif
@@ -49,7 +49,7 @@
             </a>
         </li>
 
-        @if(isset($model) && $model->getData()['status'] > 2)
+        @if(isset($model) && $model->getData()['status'] >= 10)
             <li class="side-nav-item">
                 <a href="{{route('clients.companylist')}}" class="side-nav-link" id="link_company_list">
                     <i class="uil-dashboard"></i>
