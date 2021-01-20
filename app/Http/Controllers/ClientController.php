@@ -323,6 +323,11 @@ class ClientController extends Controller
             $client = new Client(['instance_id' => $id]);
             $action = route('clients.update', $client->getId());
             $landing = route('clients.profile', $client->getId());
+            $contract = $client->getContracts()->first();
+            if($contract != null) {
+                return view('clients.profile', ['model' => $client, 'action' => $action, 'landing' => $landing, 'contract' => $contract]);
+            }
+
             return view('clients.profile', ['model' => $client, 'action' => $action, 'landing' => $landing]);
         }
 
