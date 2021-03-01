@@ -66,6 +66,11 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'ino_desc' => 'required'
+        ]);
+
         $data = $request->post();
 
         // Handle the uploaded file
