@@ -4,10 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-
+import Vue from "vue"
 window.Vue = require('vue');
-Vue.config.devtools = false;
 
 /**
  * The following block of code may be used to automatically register your
@@ -28,4 +26,7 @@ Vue.component('profile-card', require('./components/ProfileCard.vue').default);
 
 const app = new Vue({
     el: '#app',
+    mounted() {
+        
+    }
 });

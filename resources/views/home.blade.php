@@ -28,6 +28,18 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <profile-card title="{{ __('CONTRACTS')}}" class="m-5" :hasFooter="false">
+                <a href="{{ route('contracts.index') }}"><img src="images/custom/contract.png" width="100%"/></a>
+                <template slot="footer">
+                    <button class="btn btn-success">Ok</button>
+                </template>
+            </profile-card>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
 {{--    <example-component style="margin-top: 20px">Anything else.</example-component>--}}
 
 @endsection

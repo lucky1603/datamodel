@@ -475,7 +475,7 @@
 <script src="/assets/js/vendor/dataTables.responsive.min.js"></script>
 <script src="/assets/js/vendor/responsive.bootstrap4.min.js"></script>
 
-
+<script src="/js/vue.js"></script>
 
 
 
