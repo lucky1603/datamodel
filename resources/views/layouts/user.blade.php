@@ -63,6 +63,7 @@
                 <li id="link_else"><a href="#">{{ __('Else') }}</a></li>
             </ul>
         </nav>
+
         <div id="content">
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container-fluid">

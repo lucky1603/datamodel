@@ -34,15 +34,14 @@
         </div>
     </div>
     <div style="background-color: white; position: absolute; left: 270px; right: 10px; top: 150px; bottom: 70px; overflow-y: auto" class="shadow-sm">
-        <div class="container-fluid pt-1">
-            <div class="row">
-                <div class="col-sm-6">
-                    @include('trainings.partials.training-info');
+        <div class="container-fluid pt-4">
+                <div class="container">
+
+                        @include('trainings.partials.training-info')
+                        @include('trainings.partials.attendees')
+
                 </div>
-                <div class="col-sm-6" style="position: relative;">
-                    @include('trainings.partials.attendees')
-                </div>
-            </div>
+
         </div>
     </div>
 @endsection
