@@ -2,6 +2,9 @@
 
 @section('content')
 
+        @php
+            $msecs = microtime(true);
+        @endphp
         <div class="page-title-box-sm" xmlns="http://www.w3.org/1999/html">
             <ul class="nav float-right page-title-right" >
                 <li class="nav-item">
@@ -49,20 +52,24 @@
             <div class="row">
         @endif
 
+        @php
+            $data = $client->getData();
+        @endphp
+
         <div class="col-md-3">
             <a href="{{ route('clients.show', $client->getId()) }}">
                 <div class="card shadow-sm ribbon-box" data-id="{{ $loop->iteration }}" style="margin-top:10px; margin-bottom: 10px">
 
                     <div class="card-body" style="padding: 0" >
-                        @if($client->getData()['status'] == 1)
+                        @if($data['status'] == 1)
                             <div class="ribbon-two ribbon-two-warning">
                                 <span>{{ strtoupper( __('Interest')) }}</span>
                             </div>
-                        @elseif($client->getData()['status'] == 2 )
+                        @elseif($data['status'] == 2 )
                             <div class="ribbon-two ribbon-two-danger">
                                 <span>{{ strtoupper( __('Application')) }}</span>
                             </div>
-                        @elseif($client->getData()['status'] <= 10 && $client->getData()['status'] > 2)
+                        @elseif($data['status'] <= 10 && $client->getData()['status'] > 2)
                             <div class="ribbon-two ribbon-two-success">
                                 <span>{{ strtoupper( __('Candidate')) }}</span>
                             </div>
@@ -76,9 +83,9 @@
                             <img class="shadow image-container-logo" src="{{ $client->getAttribute('logo') != null && strlen($client->getAttribute('logo')->getValue()['filelink']) > 0 ? $client->getAttribute('logo')->getValue()['filelink'] : '/images/custom/avatar-default.png' }}" />
                         </div>
 
-                        <h4 class="text-center mt-5 mb-2 text-secondary">{{ $client->getData()['name'] }}</h4>
+                        <h4 class="text-center mt-5 mb-2 text-secondary">{{ $data['name'] }}</h4>
 
-                        <address class="text-center text-secondary" style="text-align: center">{{ !isset($client->getData()['address']) || strlen($client->getData()['address']) == 0 ? 'nedostaje adresa' : $client->getData()['address'] }}</address>
+                        <address class="text-center text-secondary" style="text-align: center">{{ !isset($data['address']) || strlen($data['address']) == 0 ? 'nedostaje adresa' : $data['address'] }}</address>
 
                     </div>
                 </div>
@@ -90,6 +97,12 @@
         @endif
 
     @endforeach
+
+    @php
+        use Illuminate\Support\Facades\Log;
+        $msecs = microtime(true) - $msecs;
+        Log::debug("Index page loaded in ".$msecs." seconds.");
+    @endphp
 
 @endsection
 

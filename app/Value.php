@@ -6,6 +6,7 @@ use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class Value extends Model
 {
@@ -79,6 +80,7 @@ class Value extends Model
     }
 
     public static function put($instance_id, Attribute $attribute, $value) {
+
         switch($attribute->type) {
             case 'text':
                 $tablename = 'text_values';
@@ -106,6 +108,7 @@ class Value extends Model
             case 'file':
                 $filename = $value['filename'];
                 $filelink = $value['filelink'];
+
                 return DB::table('file_values')->updateOrInsert(
                     [
                         'attribute_id' => $attribute->id,
@@ -115,21 +118,11 @@ class Value extends Model
                         'value' => $filename,
                         'link' => $filelink,
                     ]);
-                break;
             default:
                 $tablename = 'bool_values';
                 if($value === 'on') $value = true;
                 if($value === 'off') $value = false;
                 break;
-        }
-
-        $query = DB::table($tablename)->where([
-            'attribute_id' => $attribute->id,
-            'instance_id' => $instance_id
-        ]);
-
-        if($query->count() > 1) {
-            $query->delete();
         }
 
         if(!is_array($value)) {
@@ -142,6 +135,15 @@ class Value extends Model
                     'value' => $value
                 ]);
         } else {
+            $query = DB::table($tablename)->where([
+                'attribute_id' => $attribute->id,
+                'instance_id' => $instance_id
+            ]);
+
+            if($query->count() > 1) {
+                $query->delete();
+            }
+
             $query->delete();
             foreach ($value as $item) {
                 DB::table($tablename)->insert([

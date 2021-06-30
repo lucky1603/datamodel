@@ -10,6 +10,7 @@ use App\Business\Client;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,7 +32,13 @@ class ClientController extends Controller
     {
         $this->authorize('manage_client_profiles');
 
+        $current = microtime(true);
+
         $clients = Client::find();
+
+        $elapsed = microtime(true) - $current;
+
+        Log::debug("Clients list obtained in ".$elapsed." seconds.");
 
         return view('clients.index', ['clients' => $clients]);
 
@@ -132,8 +139,8 @@ class ClientController extends Controller
 
         // Create new client.
         $client = new Client($data);
-        if($client != null) {
 
+        if($client != null) {
             // Create 'interested' situation.
             $eventData = [
                 'name' => __('Interest'),
@@ -161,18 +168,18 @@ class ClientController extends Controller
                 'email' => $data['email'],
                 'password' => $data['password'],
                 'photo' => isset($data['photo']) ? $data['photo']['filelink'] : null,
-                'position' => isset($data['position']) ? $data['position'] : null,
+                'position' => $data['position'] ?? null,
             ]);
 
             // Define it as the client.
             $user->assignRole('client');
+
         }
 
         // Attach default user to the instance.
         $client->attachUser($user);
 
         // TODO - Send email to the user.
-
 
         return redirect(route('clients.index'));
     }
@@ -223,7 +230,15 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $current = microtime(true);
+
         $data = $request->post();
+
+        $current = microtime(true) - $current;
+        Log::debug("UPDATE CLIENT - Getting data from request in ".$current." seconds");
+
+
+        $current = microtime(true);
 
         // Handle the uploaded file
         $file = $request->file('application_form');
@@ -298,6 +313,11 @@ class ClientController extends Controller
             ];
         }
 
+        $current = microtime(true) - $current;
+        Log::debug("UPDATE CLIENT - Extracted data from images in ".$current." seconds");
+
+        $current = microtime(true);
+
         // Find the client with the given id.
         $client = new Client(['instance_id' => $id]);
         if($client != null) {
@@ -305,6 +325,9 @@ class ClientController extends Controller
             // Update the client with changes.
             $client->setData($data);
         }
+
+        $current = microtime(true) - $current;
+        Log::debug("UPDATE CLIENT - Client updated in ".$current." seconds");
 
         if(isset($data['landing'])) {
             if($data['landing'] == route('clients.profile', $client->getId())) {

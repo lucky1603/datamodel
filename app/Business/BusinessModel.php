@@ -6,6 +6,7 @@ namespace App\Business;
 
 use App\Attribute;
 use App\Instance;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Parent class for all business models.
@@ -18,16 +19,18 @@ class BusinessModel
     protected $entity;
     protected $data;
 
+
+
     public function __construct($data = null)
     {
         $this->data = $data;
         if(isset($data['instance_id'])) {
             $this->instance = Instance::find($data['instance_id']);
         } else {
-            $this->entity = $this->getEntity();
-            $this->instance = Instance::create(['entity_id' => $this->entity->id]);
-            $this->instance->getTemplateAttributes();
-            $this->setAttributes();
+                $this->entity = $this->getEntity();
+                $this->instance = Instance::create(['entity_id' => $this->entity->id]);
+                $this->instance->getTemplateAttributes();
+                $this->setAttributes();
         }
     }
 

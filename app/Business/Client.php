@@ -119,7 +119,7 @@ class Client extends BusinessModel
                 $data = [
                     'name' => $situationType,
                     'description' => 'Firma - buduci potencijalni klijent je izrazila interesovanje za registraciju i učešće u procesu akceleratora. Poslati su traženi podaci i otvoren je profil klijenta. Klijent je obavešten da je neophodno da popuni aplikacionu formu prema datim uputstvima, kako bi se mogao registrovati i kandidovati za neki od programa',
-                    'sender' => $this->getData(['name']),
+                    'sender' => $this->getAttribute('name')->getValue(),
                 ];
 
                 if(isset($params)) {
@@ -135,7 +135,7 @@ class Client extends BusinessModel
                 $data = [
                     'name' => $situationType,
                     'description' => 'Kandidat je poslao formu prijave. Sva neophodna polja su popunjena. Kada se prijava validira od strane operatora, kandidat će biti registrovan.',
-                    'sender' => $this->getData()['name'],
+                    'sender' => $this->getAttribute('name')->getValue(),
                     'status' => 2,
                 ];
 
@@ -955,7 +955,7 @@ class Client extends BusinessModel
     protected function setAttributes()
     {
         $this->instance->attributes->where('name', 'name')->first()->setValue(
-            isset($this->data['name']) ? $this->data['name'] : ''
+            $this->data['name'] ?? ''
         );
 
         if(isset($this->data['is_registered'])) {
@@ -965,59 +965,59 @@ class Client extends BusinessModel
         }
 
         $this->instance->attributes->where('name', 'contact_person')->first()->setValue(
-            isset($this->data['contact_person']) ? $this->data['contact_person'] : ''
+            $this->data['contact_person'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'email')->first()->setValue(
-            isset($this->data['email']) ? $this->data['email'] : ''
+            $this->data['email'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'telephone')->first()->setValue(
-            isset($this->data['telephone']) ? $this->data['telephone'] : ''
+            $this->data['telephone'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'university')->first()->setValue(
-            isset($this->data['university']) ? $this->data['university'] : ''
+            $this->data['university'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'date_interested')->first()->setValue(
-            isset($this->data['date_interested']) ? $this->data['date_interested'] : NULL
+            $this->data['date_interested'] ?? NULL
         );
 
         $this->instance->attributes->where('name', 'date_registered')->first()->setValue(
-            isset($this->data['date_registered']) ? $this->data['date_registered'] : NULL
+            $this->data['date_registered'] ?? NULL
         );
 
         $this->instance->attributes->where('name', 'interests')->first()->setValue(
-            isset($this->data['interests']) ? $this->data['interests'] : []
+            $this->data['interests'] ?? []
         );
 
         $this->instance->attributes->where('name', 'ino_desc')->first()->setValue(
-            isset($this->data['ino_desc']) ? $this->data['ino_desc'] : ''
+            $this->data['ino_desc'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'reason_contact')->first()->setValue(
-            isset($this->data['reason_contact']) ? $this->data['reason_contact'] : ''
+            $this->data['reason_contact'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'remark')->first()->setValue(
-            isset($this->data['remark']) ? $this->data['remark'] : ''
+            $this->data['remark'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'notes')->first()->setValue(
-            isset($this->data['notes']) ? $this->data['notes'] : ''
+            $this->data['notes'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'status')->first()->setValue(
-            isset($this->data['status']) ? $this->data['status'] : 1
+            $this->data['status'] ?? 1
         );
 
         $this->instance->attributes->where('name', 'program')->first()->setValue(
-            isset($this->data['program']) ? $this->data['program'] : 1
+            $this->data['program'] ?? 1
         );
 
         $this->instance->attributes->where('name', 'membership')->first()->setValue(
-            isset($this->data['membership']) ? $this->data['membership'] : 1
+            $this->data['membership'] ?? 1
         );
 
 //        $this->instance->attributes->where('name', 'application_form')->first()->setValue(
@@ -1028,28 +1028,28 @@ class Client extends BusinessModel
 //        );
 
         $this->instance->attributes->where('name', 'logo')->first()->setValue(
-            isset($this->data['logo']) ? $this->data['logo'] : [
+            $this->data['logo'] ?? [
                 'filename' => '',
                 'filelink' => '',
             ]
         );
 
         $this->instance->attributes->where('name', 'profile_background')->first()->setValue(
-            isset($this->data['profile_background']) ? $this->data['profile_background'] : [
+            $this->data['profile_background'] ?? [
                 'filename' => '',
                 'filelink' => '',
             ]
         );
 
         $this->instance->attributes->where('name', 'photo')->first()->setValue(
-            isset($this->data['photo']) ? $this->data['photo'] : [
+            $this->data['photo'] ?? [
                 'filename' => '',
                 'filelink' => '',
             ]
         );
 
         $this->instance->attributes->where('name', 'position')->first()->setValue(
-            isset($this->data['position']) ? $this->data['position'] : ''
+            $this->data['position'] ?? ''
         );
     }
 

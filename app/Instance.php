@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Instance extends Model
 {
@@ -14,8 +15,9 @@ class Instance extends Model
      */
     public function getTemplateAttributes() {
         $entity = $this->entity()->first();
-        $this->setAttributes($entity->attributes()->get());
-        $this->initAttributes();
+        $attributes = $entity->attributes()->get();
+        $this->setAttributes($attributes);
+
     }
 
     /**
@@ -36,7 +38,6 @@ class Instance extends Model
      */
     public function setAttributes($attributes) {
         $this->attributes()->attach($attributes);
-        $this->initAttributes();
     }
 
     /**
@@ -120,37 +121,73 @@ class Instance extends Model
      * Initialize attributes with the default values.
      */
     public function initAttributes() {
-        foreach($this->attributes()->get() as $attribute) {
-            if (Value::get($this, $attribute) == null) {
-                switch ($attribute->type) {
-                    case "varchar":
-                        $value = "";
-                        break;
-                    case "text":
-                        $value = "";
-                        break;
-                    case "datetime":
-                        $value = now();
-                        break;
-                    case 'integer':
-                        $value = 0;
-                        break;
-                    case 'double':
-                        $value = 0.0;
-                        break;
-                    case 'file':
-                        $value = [
-                            'filename' => '',
-                            'filelink' => '',
-                        ];
-                        break;
-                    default:
-                        $value = false;
-                        break;
-                }
-                Value::put($this->id, $attribute, $value);
+        Log::debug('initAttributes started!');
+
+        $this->attributes()->each(function($attribute, $index) {
+            $current = microtime(true);
+            switch ($attribute->type) {
+                case "varchar":
+                case "text":
+                    $value = "";
+                    break;
+                case "datetime":
+                    $value = now();
+                    break;
+                case 'integer':
+                    $value = 0;
+                    break;
+                case 'double':
+                    $value = 0.0;
+                    break;
+                case 'file':
+                    $value = [
+                        'filename' => '',
+                        'filelink' => '',
+                    ];
+                    break;
+                default:
+                    $value = false;
+                    break;
             }
-        }
+
+            Value::put($this->id, $attribute, $value);
+            $current = microtime(true) - $current;
+            Log::debug('Value of attribute = '.$attribute->name. ' set in '. $current. ' seconds.');
+        });
+
+//        foreach($this->attributes()->get() as $attribute) {
+//            if (Value::get($this, $attribute) == null) {
+//                switch ($attribute->type) {
+//                    case "varchar":
+//                        $value = "";
+//                        break;
+//                    case "text":
+//                        $value = "";
+//                        break;
+//                    case "datetime":
+//                        $value = now();
+//                        break;
+//                    case 'integer':
+//                        $value = 0;
+//                        break;
+//                    case 'double':
+//                        $value = 0.0;
+//                        break;
+//                    case 'file':
+//                        $value = [
+//                            'filename' => '',
+//                            'filelink' => '',
+//                        ];
+//                        break;
+//                    default:
+//                        $value = false;
+//                        break;
+//                }
+//                Value::put($this->id, $attribute, $value);
+//            }
+//        }
+
+        Log::debug('initAttributes ended!');
     }
 
     /**
