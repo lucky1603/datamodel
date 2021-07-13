@@ -155,38 +155,6 @@ class Instance extends Model
             Log::debug('Value of attribute = '.$attribute->name. ' set in '. $current. ' seconds.');
         });
 
-//        foreach($this->attributes()->get() as $attribute) {
-//            if (Value::get($this, $attribute) == null) {
-//                switch ($attribute->type) {
-//                    case "varchar":
-//                        $value = "";
-//                        break;
-//                    case "text":
-//                        $value = "";
-//                        break;
-//                    case "datetime":
-//                        $value = now();
-//                        break;
-//                    case 'integer':
-//                        $value = 0;
-//                        break;
-//                    case 'double':
-//                        $value = 0.0;
-//                        break;
-//                    case 'file':
-//                        $value = [
-//                            'filename' => '',
-//                            'filelink' => '',
-//                        ];
-//                        break;
-//                    default:
-//                        $value = false;
-//                        break;
-//                }
-//                Value::put($this->id, $attribute, $value);
-//            }
-//        }
-
         Log::debug('initAttributes ended!');
     }
 

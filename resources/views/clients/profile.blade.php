@@ -1,7 +1,7 @@
 @extends('layouts.hyper-vertical-profile')
 
 @section('client-name')
-    {{ $model->getData()['name'] }}
+    {{ $model->getAttribute('name')->getValue() }}
 @endsection
 
 @section('title')
