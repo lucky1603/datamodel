@@ -65,6 +65,9 @@ Route::post('/clients/confirm_contract_date/{client}', 'ClientController@confirm
 Route::get('/clients/show_contract/{client}', 'ClientController@showContract')->name('clients.showContract');
 Route::get('/clients/profile/{client}', 'ClientController@profile')->name('clients.profile');
 
+Route::get('profiles', 'ProfileController@index')->name('profiles.index');
+Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');
+
 
 Route::get('/contracts', 'ContractsController@index')->name('contracts.index');
 Route::get('/contracts/create/{client}', 'ContractsController@create')->name('contracts.create');

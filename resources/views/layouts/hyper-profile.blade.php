@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>{{ __('Accelerator') }} - {{__('CLIENT PROFILE') }} - @yield('client-name')</title>
+    <title>{{ __('Accelerator') }} - {{__('PROFILE') }} - @yield('client-name')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -264,7 +264,7 @@
                                     @yield('breadcrumbs')
                                 </ol>
                             </div>
-                            <h4 class="page-title">{{ __('CLIENT PROFILE') }} - {{ $model->getData()['name'] }} - <span class="text-info">{{ $model->getAttribute('status')->getText() }}</span></h4>
+                            @yield('page-title')
                         </div>
                     </div>
                 </div>

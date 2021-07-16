@@ -4,10 +4,8 @@
     {{ $model->getData()['name'] }}
 @endsection
 
-@section('title')
-    <div>
-        <h3>{{ __('CLIENT PROFILE') }} </h3>
-    </div>
+@section('page-title')
+    <h4 class="page-title">{{ __('CLIENT PROFILE') }} - {{ $model->getAttribute('name')->getValue() }} - <span class="text-info">{{ $model->getAttribute('status')->getText() }}</span></h4>
 @endsection
 
 @section('profile_image')

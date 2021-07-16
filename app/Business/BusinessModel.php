@@ -5,8 +5,10 @@ namespace App\Business;
 
 
 use App\Attribute;
+use App\Entity;
 use App\Instance;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Parent class for all business models.
@@ -57,7 +59,8 @@ class BusinessModel
      * @param array $data (default null)
      * @return array
      */
-    public function getData($data = null) {
+    public function
+    getData($data = null) {
 
         // If the $data is null, return simply all.
         $attributeValues = $this->instance->getAttributeValues();
@@ -93,7 +96,7 @@ class BusinessModel
                 continue;
 
             if($attribute->type === 'bool') {
-                if($value === 'on')
+                if($value === 'on' || $value === true)
                     $value = true;
                 else
                     $value = false;
@@ -154,6 +157,24 @@ class BusinessModel
     }
 
     /**
+     * Get attributes for the given attribute group.
+     * @param $group
+     * @return \Illuminate\Support\Collection
+     */
+    public function getAttributesForGroup($group): Collection
+    {
+        $groupAttributes = $group->attributes()->get();
+        $clientAttributes = [];
+        foreach($groupAttributes as $groupAttribute) {
+            $clientAttribute = $this->getAttribute($groupAttribute->name);
+            if($clientAttribute != NULL)
+                $clientAttributes[] = $clientAttribute;
+        }
+
+        return collect($clientAttributes);
+    }
+
+    /**
      * Returns the attribute, which satisfies the query.
      * @param $query
      * @return mixed
@@ -164,6 +185,19 @@ class BusinessModel
         }
 
         return $this->getAttributes()->where($query)->first();
+    }
+
+    /**
+     * Attaches user to the client.
+     * @param $user
+     */
+    public function attachUser($user) {
+        $this->instance->attachUser($user);
+    }
+
+    public function getUsers()
+    {
+        return $this->instance->users;
     }
 
     /** Returns the attribute set for the creation form.
@@ -182,7 +216,7 @@ class BusinessModel
         $retval = [];
         $attributes = $this->getAttributes();
         foreach ($attributes as $attribute) {
-            $retval[$attribute->name] = $attribute->getText();
+            $retval[$attribute->label] = $attribute->getText();
         }
         $retval['id'] = $this->instance->id;
 
@@ -211,6 +245,77 @@ class BusinessModel
         }
 
         return $attribute;
+    }
+
+    /**
+     * Search the object(s) in the database for the given criteria.
+     * @param null $query
+     * @return Instance[]|\Illuminate\Database\Eloquent\Collection|Collection|static|null
+     */
+    public static function find($query=null) {
+        $tokens = explode("\\", static::class);
+        if(count($tokens) == 0)
+            return null;
+
+        $className = $tokens[count($tokens) - 1];
+
+        if(Entity::where('name', $className)->get()->count() == 0) {
+            return isset($query) && is_string($query) ? null : collect([]);
+        }
+
+        // If it's empty.
+        if(!isset($query)) {
+            if(Entity::where('name', $className)->get()->count() == 0)
+                return collect([]);
+
+            $entity_id = Entity::where('name', $className)->first()->id;
+            $instances = Instance::where(['entity_id' => $entity_id])->get();
+            return $instances->map(function($instance) {
+                return new static(['instance_id' => $instance->id]);
+            });
+        }
+
+        // If it's id.
+        if(!is_array($query)) {
+            $entity_id = Entity::whereName($className)->first()->id;
+            if($entity_id == null)
+                return null;
+            $instance = Instance::where(['id' => $query, 'entity_id' => $entity_id])->first();
+            if($instance == null)
+                return null;
+
+            return new static(['instance_id' => $instance->id]);
+        }
+
+        // If it's really array.
+        foreach($query as $key => $value) {
+            $attribute = Attribute::where('name', $key)->first();
+            $tableName = $attribute->type.'_values';
+
+            $entity_id = Entity::all()->where('name', $className)->first()->id;
+            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id])->get();
+            $temporary_results = $temporary_results->map(function($item, $key) {
+                return $item->instance_id;
+            });
+
+            $temporary_results = Instance::all()->whereIn('id', $temporary_results)->where('entity_id', $entity_id);
+
+            if(!isset($results)) {
+                $results = $temporary_results;
+            } else {
+                $results = $temporary_results->intersect($results);
+            }
+
+            if($results->count() === 0) {
+                return $results;
+            }
+
+        }
+
+    }
+
+    public static function all() {
+        return static::find();
     }
 
     public function getAttributeGrups() {}

@@ -16,6 +16,10 @@ class Client extends BusinessModel
 {
     // Public methods. //
 
+    ///
+    /// SITUATIONS part
+    ///
+
     /**
      * Gets the collection of belonging events.
      * @return mixed
@@ -29,34 +33,6 @@ class Client extends BusinessModel
         }
 
         return collect($situations);
-    }
-
-    /**
-     * Gets the collection of belonging contracts.
-     * @return Collection
-     */
-    public function getContracts(): Collection
-    {
-        $contracts = [];
-        foreach($this->instance->instances as $instance) {
-            if($instance->entity->name === 'Contract' && $instance->parentInstances->first()->entity->name === 'Client') {
-                $contracts[] = new Contract(['instance_id' => $instance->id]);
-            }
-        }
-
-        return collect($contracts);
-    }
-
-    public function getOtherClients(): Collection
-    {
-        $client_id = Entity::all()->where('name', 'Client')->first()->id;
-        $instances = Instance::all()->where('entity_id', $client_id)->whereNotIn('id', $this->instance->id);
-        $others = [];
-        foreach($instances as $instance) {
-            $others[] = new Client(['instance_id' => $instance->id]);
-        }
-
-        return collect($others);
     }
 
     /**
@@ -91,20 +67,21 @@ class Client extends BusinessModel
      * Adds event to contract.
      * @param Situation $situation
      */
-    public function addSituation(Situation $situation) {
+    public function addSituation(Situation $situation): Situation
+    {
         $this->instance->instances()->save($situation->instance);
         $this->instance->refresh();
         return $situation;
     }
 
-
-    public function addContract(Contract $contract) {
-        $this->instance->instances()->save($contract->instance);
-        $this->instance->refresh();
-        return $contract;
-    }
-
-    public function addSituationByData($situationType, $params) {
+    /**
+     * Adds situation by the data array definitions.
+     * @param $situationType
+     * @param $params
+     * @return Situation
+     */
+    public function addSituationByData($situationType, $params): Situation
+    {
         $data = [];
         switch($situationType) {
             case __('Interest'):
@@ -535,9 +512,9 @@ class Client extends BusinessModel
                     $situation->addExtraAttributes([
                         self::selectOrCreateAttribute(['signed_at', 'Potpisan dana', 'datetime', NULL, 6])
                     ],
-                    [
-                        $data['signed_at']
-                    ]);
+                        [
+                            $data['signed_at']
+                        ]);
                 }
 
                 if(isset($data['valid_through'])) {
@@ -619,6 +596,64 @@ class Client extends BusinessModel
         $this->instance->refresh();
     }
 
+    ///
+    /// End of the SITUATIONS part
+    ///
+
+    ///
+    /// CONTRACTS
+    ///
+
+    /**
+     * Gets the collection of belonging contracts.
+     * @return Collection
+     */
+    public function getContracts(): Collection
+    {
+        $contracts = [];
+        foreach($this->instance->instances as $instance) {
+            if($instance->entity->name === 'Contract' && $instance->parentInstances->first()->entity->name === 'Client') {
+                $contracts[] = new Contract(['instance_id' => $instance->id]);
+            }
+        }
+
+        return collect($contracts);
+    }
+
+    public function addContract(Contract $contract) {
+        $this->instance->instances()->save($contract->instance);
+        $this->instance->refresh();
+        return $contract;
+    }
+
+    ///
+    /// End of CONTRACTS
+    ///
+
+    ///
+    /// Other clients
+    ///
+
+    /**
+     * Get to see the other clients.
+     * @return Collection
+     */
+    public function getOtherClients(): Collection
+    {
+        $client_id = Entity::all()->where('name', 'Client')->first()->id;
+        $instances = Instance::all()->where('entity_id', $client_id)->whereNotIn('id', $this->instance->id);
+        $others = [];
+        foreach($instances as $instance) {
+            $others[] = new Client(['instance_id' => $instance->id]);
+        }
+
+        return collect($others);
+    }
+
+    ///
+    /// TRAININGS
+    ///
+
     /**
      *
      * Returns the tranings associated for this client.
@@ -635,91 +670,17 @@ class Client extends BusinessModel
         });
     }
 
-    /**
-     *
-     * Search the database for a client the given criteria.
-     *
-     * @param null $query
-     * @return Client|Collection|null
-     */
-    public static function find($query=null) {
-
-        if(Entity::where('name', 'Client')->get()->count() == 0) {
-            return isset($query) && is_string($query) ? null : collect([]);
-        }
-
-        // If it's empty.
-        if(!isset($query)) {
-            if(Entity::where('name','Client')->get()->count() == 0)
-                return collect([]);
-
-            $entity_id = Entity::where('name', 'Client')->first()->id;
-            $instances = Instance::where(['entity_id' => $entity_id])->get();
-            return $instances->map(function($instance) {
-                return new Client(['instance_id' => $instance->id]);
-            });
-        }
-
-        // If it's id.
-        if(!is_array($query)) {
-            $entity_id = Entity::whereName('Client')->first()->id;
-            if($entity_id == null)
-                return null;
-            $instance = Instance::where(['id' => $query, 'entity_id' => $entity_id])->first();
-            if($instance == null)
-                return null;
-
-            return new Client(['instance_id' => $instance->id]);
-        }
-
-        // If it's really array.
-        foreach($query as $key => $value) {
-            $attribute = Attribute::where('name', $key)->first();
-            $tableName = $attribute->type.'_values';
-
-            $entity_id = Entity::all()->where('name', 'Client')->first()->id;
-            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id])->get();
-            $temporary_results = $temporary_results->map(function($item, $key) {
-                return $item->instance_id;
-            });
-
-            $temporary_results = Instance::all()->whereIn('id', $temporary_results)->where('entity_id', $entity_id);
-
-            if(!isset($results)) {
-                $results = $temporary_results;
-            } else {
-                $results = $temporary_results->intersect($results);
-            }
-
-            if($results->count() === 0) {
-                return $results;
-            }
-
-        }
-
-        if(isset($results)) {
-            return $results->map(function($item, $key) {
-                return new Client(['instance_id' => $item->id]);
-            });
-        }
-
-        return null;
-
-    }
+    ///
+    /// GENERAL PART
+    ///
+    ///
 
     /**
-     * Returns the short preview of the collection.
-     * @return Collection
-     */
-    public static function all() {
-        return Client::find();
-    }
-
-    /**
-     * Returns the set of attributes, neccessary for the creation.
+     * Returns the set of attributes, necessary for the creation.
      * @return array
      */
-    public static function getCreateAttributesDefinitions() {
+    public static function getCreateAttributesDefinitions(): array
+    {
         $attributes = [];
 
         // Name.
@@ -841,9 +802,8 @@ class Client extends BusinessModel
      * Returns the collection of attributes typical for this type of instance.
      * @return array Attributes array.
      */
-    public static function getAttributesDefinition() {
-        $attributes = [];
-
+    public static function getAttributesDefinition(): array
+    {
         // Set GENERAL attributes.
         $attributes = self::getGeneralAttributes();
 
@@ -875,8 +835,8 @@ class Client extends BusinessModel
      * Vraća grupe atributa.
      * @return Collection
      */
-    public function getAttributeGroups() {
-
+    public function getAttributeGroups(): Collection
+    {
         $groups[] = AttributeGroup::get('general');
         $groups[] = AttributeGroup::get('target_group');
         $groups[] = AttributeGroup::get('innovation_group');
@@ -887,31 +847,6 @@ class Client extends BusinessModel
         $groups[] = AttributeGroup::get('support');
 
         return collect($groups);
-    }
-
-    /**
-     * Attaches user to the client.
-     * @param $user
-     */
-    public function attachUser($user) {
-        $this->instance->attachUser($user);
-    }
-
-    public function getAttributesForGroup($group) {
-        $groupAttributes = $group->attributes()->get();
-        $clientAttributes = [];
-        foreach($groupAttributes as $groupAttribute) {
-            $clientAttribute = $this->getAttribute($groupAttribute->name);
-            if($clientAttribute != NULL)
-                $clientAttributes[] = $clientAttribute;
-        }
-
-        return collect($clientAttributes);
-    }
-
-    public function getUsers()
-    {
-        return $this->instance->users;
     }
 
     /**

@@ -31,14 +31,7 @@ class ClientController extends Controller
     public function index()
     {
         $this->authorize('manage_client_profiles');
-
-        $current = microtime(true);
-
         $clients = Client::find();
-
-        $elapsed = microtime(true) - $current;
-
-        Log::debug("Clients list obtained in ".$elapsed." seconds.");
 
         return view('clients.index', ['clients' => $clients]);
 

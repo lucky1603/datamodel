@@ -22,6 +22,13 @@
     </li>
 
     <li class="side-nav-item">
+        <a href="{{ route('profiles.index') }}" class="side-nav-link">
+            <i class="uil-bill"></i>
+            <span>{{ strtoupper(__('PROFILES')) }}</span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
         <a href="{{ route('contracts.index') }}" class="side-nav-link">
             <i class="uil-bill"></i>
             <span>{{ strtoupper(__('CONTRACTS')) }}</span>

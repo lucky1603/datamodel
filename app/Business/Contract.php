@@ -280,11 +280,6 @@ class Contract extends BusinessModel
         return collect([]);
     }
 
-    public function getAttributesForGroup($group) {
-
-        // Empty, for now.
-        return collect([]);
-    }
 
     /**
      * Returns the client that owns the contract.
