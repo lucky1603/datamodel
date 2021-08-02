@@ -8,7 +8,7 @@
                 <a
                     class="nav-link text-muted"
                     id="newClient"
-                    href="{{ route('clients.create') }}"
+                    href="{{ route('profiles.create') }}"
                     role="button" data-toggle="modal" data-target="#dialogHost">
                     <i class="dripicons-document-new font-20"></i><span class="ml-0 mt-2 font-weight-bold"> {{strtoupper(__('New Profile'))}}</span>
                 </a>

@@ -46,6 +46,24 @@ class Role extends Model
             }
         }
 
+        if(Role::whereName('profile')->first() == null) {
+            $role = Role::create(['name' => 'profile']);
+            $availableAbilities = collect([
+                Ability::whereName('read_client_profile')->firstOrFail(),
+                Ability::whereName('write_client_profiles')->firstOrFail(),
+                Ability::whereName('list_client_profiles')->firstOrFail(),
+                Ability::whereName('change_client_status')->firstOrFail(),
+                Ability::whereName('read_contract')->firstOrFail(),
+                Ability::whereName('read_event_data')->firstOrFail(),
+                Ability::whereName('read_situation_data')->firstOrFail(),
+            ]);
+
+            foreach($availableAbilities as $ability) {
+                $role->allowTo($ability);
+            }
+        }
+
+
     }
 
     public function users() {

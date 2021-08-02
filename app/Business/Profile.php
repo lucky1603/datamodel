@@ -34,23 +34,25 @@ class Profile extends BusinessModel
 
     protected function setAttributes()
     {
-        $data = [
-            'name' => '',
-            'is_company' => false,
-            'id_number' => '',
-            'contact_person' => '',
-            'contact_email' => '',
-            'contact_phone' => '',
-            'address' => '',
-            'university' => 0,
-            'short_ino_desc' => '',
-            'business_branch' => 0,
-            'reason_contact' => 0,
-            'note' => '',
-            'profile_status' => 0,
-        ];
+        if($this->data == null) {
+            $this->data = [
+                'name' => '',
+                'is_company' => false,
+                'id_number' => '',
+                'contact_person' => '',
+                'contact_email' => '',
+                'contact_phone' => '',
+                'address' => '',
+                'university' => 0,
+                'short_ino_desc' => '',
+                'business_branch' => 0,
+                'reason_contact' => 0,
+                'note' => '',
+                'profile_status' => 0,
+            ];
+        }
 
-        $this->setData($data);
+        $this->setData($this->data);
     }
 
     ///
@@ -69,11 +71,12 @@ class Profile extends BusinessModel
         $attributes[] = self::selectOrCreateAttribute(['is_company', 'Da li je kompanija', 'bool', NULL, 2]);
         $attributes[] = self::selectOrCreateAttribute(['id_number', 'Maticni broj', 'varchar', NULL, 3]);
         $attributes[] = self::selectOrCreateAttribute(['contact_person', 'Kontakt osoba', 'varchar', NULL, 4]);
-        $attributes[] = self::selectOrCreateAttribute(['contact_email', 'E-mail adresa', 'varchar', NULL, 5]);
-        $attributes[] = self::selectOrCreateAttribute(['contact_phone', 'Telefon', 'varchar', NULL, 6]);
-        $attributes[] = self::selectOrCreateAttribute(['address', 'Adresa', 'varchar', NULL, 7]);
+        $attributes[] = self::selectOrCreateAttribute(['contact_email', 'E-mail adresa', 'varchar', ['ui'=>'email'], 5]);
+        $attributes[] = self::selectOrCreateAttribute(['password', 'Lozinka', 'varchar', ['ui' => 'password'], 6]);
+        $attributes[] = self::selectOrCreateAttribute(['contact_phone', 'Telefon', 'varchar', NULL, 7]);
+        $attributes[] = self::selectOrCreateAttribute(['address', 'Adresa', 'varchar', NULL, 8]);
 
-        $university = self::selectOrCreateAttribute(['university', 'Fakultet', 'select', NULL, 8]);
+        $university = self::selectOrCreateAttribute(['university', 'Fakultet', 'select', NULL, 9]);
         if(count($university->getOptions()) == 0) {
             $university->addOption(['value' => 0, 'text' => 'NEMA']);
             $university->addOption(['value' => 1, 'text' => 'Arhitektonski fakultet - Beograd']);
@@ -83,9 +86,9 @@ class Profile extends BusinessModel
         }
         $attributes[] = $university;
 
-        $attributes[] = self::selectOrCreateAttribute(['short_ino_desc', 'Kratak opis inovacije', 'text', NULL, 9]);
+        $attributes[] = self::selectOrCreateAttribute(['short_ino_desc', 'Kratak opis inovacije', 'text', NULL, 10]);
 
-        $business_branch = self::selectOrCreateAttribute(['business_branch', 'Oblast poslovanja', 'select', NULL, 10]);
+        $business_branch = self::selectOrCreateAttribute(['business_branch', 'Oblast poslovanja', 'select', NULL, 11]);
         if(count($business_branch->getOptions()) == 0) {
             $business_branch->addOption(['value' => 0, 'text' => 'Drugo']);
             $business_branch->addOption(['value' => 1, 'text' => 'IoT i pametni gradovi']);
@@ -104,7 +107,7 @@ class Profile extends BusinessModel
         }
         $attributes[] = $business_branch;
 
-        $reason_contact = self::selectOrCreateAttribute(['reason_contact', 'Razlog kontaktiranja', 'select', NULL, 11]);
+        $reason_contact = self::selectOrCreateAttribute(['reason_contact', 'Razlog kontaktiranja', 'select', NULL, 12]);
         if(count($reason_contact->getOptions()) == 0) {
             $reason_contact->addOption(['value' => 0, 'text' => 'Drugo']);
             $reason_contact->addOption(['value' => 1, 'text' => 'Razlog 1']);
@@ -113,9 +116,9 @@ class Profile extends BusinessModel
         }
         $attributes[] = $reason_contact;
 
-        $attributes[] = self::selectOrCreateAttribute(['note', 'Napomena', 'text', NULL, 12]);
+        $attributes[] = self::selectOrCreateAttribute(['note', 'Napomena', 'text', NULL, 13]);
 
-        $status = self::selectOrCreateAttribute(['profile_status', 'Status profila', 'select', NULL, 13]);
+        $status = self::selectOrCreateAttribute(['profile_status', 'Status profila', 'select', NULL, 14]);
         if(count($status->getOptions()) == 0) {
             $status->addOption(['value' => 0, 'text' => 'Neinicijalizovan']);
             $status->addOption(['value' => 1, 'text' => 'Mapiran/Kontaktiran']);

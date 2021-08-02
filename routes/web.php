@@ -66,6 +66,8 @@ Route::get('/clients/show_contract/{client}', 'ClientController@showContract')->
 Route::get('/clients/profile/{client}', 'ClientController@profile')->name('clients.profile');
 
 Route::get('profiles', 'ProfileController@index')->name('profiles.index');
+Route::get('profiles/create', 'ProfileController@create')->name('profiles.create');
+Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
 Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');
 
 
