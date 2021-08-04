@@ -4,6 +4,10 @@
     {{ $model->getData()['name'] }}
 @endsection
 
+@section('back-to-previous')
+    <a href="{{ route('clients.index') }}" class="dropdown-item">{{ __('Go Back')}}</a>
+@endsection
+
 @section('page-title')
     <h4 class="page-title">{{ __('CLIENT PROFILE') }} - {{ $model->getAttribute('name')->getValue() }} - <span class="text-info">{{ $model->getAttribute('status')->getText() }}</span></h4>
 @endsection

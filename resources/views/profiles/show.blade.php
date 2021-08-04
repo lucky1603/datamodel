@@ -4,6 +4,10 @@
     {{ $model->getAttribute('name')->getValue() }}
 @endsection
 
+@section('back-to-previous')
+    <a href="{{ route('profiles.index') }}" class="dropdown-item">{{ __('Go Back')}}</a>
+@endsection
+
 @section('page-title')
     <h4 class="page-title">{{ __('PROFILE') }} - {{ $model->getAttribute('name')->getValue() }} - <span class="text-info">{{ $model->getAttribute('profile_status')->getText() }}</span></h4>
 @endsection
@@ -124,7 +128,14 @@
 @endsection
 
 @section('profile-data')
-
+    @if($model->getPrograms()->count() == 0)
+        <div class="text-center w-100">
+            <img class="ml-auto mr-auto" src="/images/custom/waitingicon.png" width="200px"/>
+        </div>
+        <div class="text-center w-100">
+            <h4>{{ __('Waiting for the application') }}</h4>
+        </div>
+    @endif
 @endsection
 
 @section('activities')

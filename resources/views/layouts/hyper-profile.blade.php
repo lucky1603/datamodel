@@ -242,7 +242,7 @@
                                     <div class="dropdown-menu" aria-labelledby="topnav-dashboards">
                                         @yield('next-status')
                                         <a id="mymenu" href="http://www.yahoo.com" class="dropdown-item" data-toggle="modal" data-target="#dialogHost">{{ __('Cancel Request')}}</a>
-                                        <a href="{{ route('clients.index') }}" class="dropdown-item">{{ __('Go Back')}}</a>
+                                        @yield('back-to-previous')
                                     </div>
                                 </li>
                             </ul>

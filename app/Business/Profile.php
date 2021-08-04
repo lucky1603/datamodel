@@ -9,11 +9,13 @@ use App\Entity;
 use App\Instance;
 use Illuminate\Support\Facades\DB;
 
-class Profile extends BusinessModel
+class Profile extends SituationsModel
 {
     ///
     /// GENERAL PART
     ///
+
+
 
     /**
      * Gets the entity template.
@@ -133,12 +135,62 @@ class Profile extends BusinessModel
         return $attributes;
     }
 
-    ///
-    /// Situations
+    /////
+    /// Situations part
     ///
 
-    public function getSituations() {
-        return collect([]);
+    public function addSituationByData($situationType, $params)
+    {
+        $data = [];
+
+        switch($situationType) {
+            case __('Interest'):
+                $situation = new Situation();
+                $data = [
+                    'name' => $situationType,
+                    'description' => 'Potencijalni klijent je napravio je profil i izrazio interesovanje.',
+                    'sender' => $this->getAttribute('name')->getValue()
+                ];
+
+                if(isset($params)) {
+                    foreach($params as $key => $value) {
+                        $data[$key] = $value;
+                    }
+                }
+
+                $situation->setData($data);
+                $this->addSituation($situation);
+
+                break;
+            case __('Mapped'):
+                $situation = new Situation([
+                    'name' => $situationType,
+                    'description' => 'Klijent je mapiran. Napravljen mu je profil i poslati pristupni podaci.',
+                    'sender' => 'NTP'
+                ]);
+
+                if(isset($params)) {
+                    foreach($params as $key => $value) {
+                        $data[$key] = $value;
+                    }
+                }
+
+                $situation->setData($data);
+                $this->addSituation($situation);
+
+                break;
+        }
+    }
+
+    public function getPrograms() {
+        $programs = [];
+        foreach($this->instance->instances as $instance) {
+            if($instance->entity->name === 'Program') {
+                $programs[] = new Program(['instance_id' => $instance->id]);
+            }
+        }
+
+        return collect($programs);
     }
 
 }

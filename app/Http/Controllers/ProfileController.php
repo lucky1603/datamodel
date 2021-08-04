@@ -101,6 +101,13 @@ class ProfileController extends Controller
 
             // Attach default user to the instance.
             $profile->attachUser($user);
+
+            if($profile->getAttribute('profile_status')->getValue() == 1) {
+                $profile->addSituationByData(__('Mapped'), []);
+            } else {
+                $profile->addSituationByData(__('Interest'), []);
+            }
+
         }
 
         // TODO - Send email to the user.
