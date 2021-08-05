@@ -23,14 +23,13 @@ class BusinessModel
 
     public function __construct($data = null)
     {
-        $this->data = $data;
         if(isset($data['instance_id'])) {
             $this->instance = Instance::find($data['instance_id']);
         } else {
             $this->entity = $this->getEntity();
             $this->instance = Instance::create(['entity_id' => $this->entity->id]);
             $this->instance->getTemplateAttributes();
-            $this->setAttributes();
+            $this->setAttributes($data);
         }
     }
 
@@ -99,9 +98,8 @@ class BusinessModel
                 else
                     $value = false;
             }
-            if(isset($attribute)) {
-                $attribute->setValue($value);
-            }
+
+            $attribute->setValue($value);
         }
 
     }
@@ -319,7 +317,7 @@ class BusinessModel
     public function getAttributeGrups() {}
     protected function getInitAttributesNamesCollection() {}
     protected function getEntity() {}
-    protected function setAttributes() {}
+    protected function setAttributes($data = null) {}
 
 
 }

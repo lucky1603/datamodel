@@ -279,22 +279,21 @@ class Training extends BusinessModel
     }
 
     /**
-     *
-     * Sets the attribute values from the data buffer.
-     *
+     * Sets the attributes either with data or with the default values.
+     * @param null $data
      */
-    protected function setAttributes()
+    protected function setAttributes($data = null)
     {
-        $this->getAttribute('training_name')->setValue(isset($this->data['training_name']) ? $this->data['training_name'] : null);
-        $this->getAttribute('training_description')->setValue(isset($this->data['training_description']) ? $this->data['training_description'] : null);
-        $this->getAttribute('training_start_date')->setValue(isset($this->data['training_start_date']) ? $this->data['training_start_date'] : null);
-        $this->getAttribute('training_start_time')->setValue(isset($this->data['training_start_time']) ? $this->data['training_start_time'] : null);
-        $this->getAttribute('training_duration')->setValue(isset($this->data['training_duration']) ? $this->data['training_duration'] : null);
-        $this->getAttribute('duration_unit')->setValue(isset($this->data['duration_unit']) ? $this->data['duration_unit'] : 1);
-        $this->getAttribute('lecturer_name')->setValue(isset($this->data['lecturer_name']) ? $this->data['lecturer_name'] : null);
-        $this->getAttribute('training_short_note')->setValue(isset($this->data['training_short_note']) ? $this->data['training_short_note'] : null);
-        $this->getAttribute('training_type')->setValue(isset($this->data['training_type']) ? $this->data['training_type'] : 1);
-        $this->getAttribute('interests')->setValue(isset($this->data['interests']) ? $this->data['interests'] : 0);
+        $this->getAttribute('training_name')->setValue($data['training_name'] ?? null);
+        $this->getAttribute('training_description')->setValue($data['training_description'] ?? null);
+        $this->getAttribute('training_start_date')->setValue($data['training_start_date'] ?? null);
+        $this->getAttribute('training_start_time')->setValue($data['training_start_time'] ?? null);
+        $this->getAttribute('training_duration')->setValue($data['training_duration'] ?? null);
+        $this->getAttribute('duration_unit')->setValue($data['duration_unit'] ?? 1);
+        $this->getAttribute('lecturer_name')->setValue($data['lecturer_name'] ?? null);
+        $this->getAttribute('training_short_note')->setValue($data['training_short_note'] ?? null);
+        $this->getAttribute('training_type')->setValue($data['training_type'] ?? 1);
+        $this->getAttribute('interests')->setValue($data['interests'] ?? 0);
 
     }
 

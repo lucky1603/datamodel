@@ -12,6 +12,10 @@ class AttributeGroup extends Model
         return $this->belongsToMany(Attribute::class);
     }
 
+    public function entities() {
+        return $this->belongsToMany(Entity::class);
+    }
+
     public function addAttribute($attribute) {
         $this->attributes()->sync($attribute, false);
         return $attribute;

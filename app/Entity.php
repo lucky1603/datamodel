@@ -12,11 +12,16 @@ class Entity extends Model
         return $this->belongsToMany(Attribute::class);
     }
 
+    public function attribute_groups() {
+        return $this->belongsToMany(AttributeGroup::class);
+    }
+
     public function instances() {
         return $this->hasMany(Instance::class);
     }
 
     public function addAttribute(Attribute $attribute) {
-        $this->attributes()->attach([$attribute->id]);
+        $this->attributes()->sync($attribute, false);
     }
+
 }

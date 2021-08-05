@@ -831,106 +831,106 @@ class Client extends SituationsModel
     }
 
     /**
-     * Sets the attributes.
+     * Sets the attributes either with data or with the default values.
      */
-    protected function setAttributes()
+    protected function setAttributes($data = null)
     {
         $this->instance->attributes->where('name', 'name')->first()->setValue(
-            $this->data['name'] ?? ''
+            $data['name'] ?? ''
         );
 
-        if(isset($this->data['is_registered'])) {
-            if($this->data['is_registered'] === 'on')
-                $this->data['is_registered'] = true;
-            $this->instance->attributes->where('name', 'is_registered')->first()->setValue($this->data['is_registered']);
+        if(isset($data['is_registered'])) {
+            if($data['is_registered'] === 'on')
+                $data['is_registered'] = true;
+            $this->instance->attributes->where('name', 'is_registered')->first()->setValue($data['is_registered']);
         }
 
         $this->instance->attributes->where('name', 'contact_person')->first()->setValue(
-            $this->data['contact_person'] ?? ''
+            $data['contact_person'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'email')->first()->setValue(
-            $this->data['email'] ?? ''
+            $data['email'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'telephone')->first()->setValue(
-            $this->data['telephone'] ?? ''
+            $data['telephone'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'university')->first()->setValue(
-            $this->data['university'] ?? ''
+            $data['university'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'date_interested')->first()->setValue(
-            $this->data['date_interested'] ?? NULL
+            $data['date_interested'] ?? NULL
         );
 
         $this->instance->attributes->where('name', 'date_registered')->first()->setValue(
-            $this->data['date_registered'] ?? NULL
+            $data['date_registered'] ?? NULL
         );
 
         $this->instance->attributes->where('name', 'interests')->first()->setValue(
-            $this->data['interests'] ?? []
+            $data['interests'] ?? []
         );
 
         $this->instance->attributes->where('name', 'ino_desc')->first()->setValue(
-            $this->data['ino_desc'] ?? ''
+            $data['ino_desc'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'reason_contact')->first()->setValue(
-            $this->data['reason_contact'] ?? ''
+            $data['reason_contact'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'remark')->first()->setValue(
-            $this->data['remark'] ?? ''
+            $data['remark'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'notes')->first()->setValue(
-            $this->data['notes'] ?? ''
+            $data['notes'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'status')->first()->setValue(
-            $this->data['status'] ?? 1
+            $data['status'] ?? 1
         );
 
         $this->instance->attributes->where('name', 'program')->first()->setValue(
-            $this->data['program'] ?? 1
+            $data['program'] ?? 1
         );
 
         $this->instance->attributes->where('name', 'membership')->first()->setValue(
-            $this->data['membership'] ?? 1
+            $data['membership'] ?? 1
         );
 
 //        $this->instance->attributes->where('name', 'application_form')->first()->setValue(
-//            isset($this->data['application_form']) ? $this->data['application_form'] : [
+//            isset($data['application_form']) ? $data['application_form'] : [
 //                'filename' => '',
 //                'filelink' => '',
 //            ]
 //        );
 
         $this->instance->attributes->where('name', 'logo')->first()->setValue(
-            $this->data['logo'] ?? [
+            $data['logo'] ?? [
                 'filename' => '',
                 'filelink' => '',
             ]
         );
 
         $this->instance->attributes->where('name', 'profile_background')->first()->setValue(
-            $this->data['profile_background'] ?? [
+            $data['profile_background'] ?? [
                 'filename' => '',
                 'filelink' => '',
             ]
         );
 
         $this->instance->attributes->where('name', 'photo')->first()->setValue(
-            $this->data['photo'] ?? [
+            $data['photo'] ?? [
                 'filename' => '',
                 'filelink' => '',
             ]
         );
 
         $this->instance->attributes->where('name', 'position')->first()->setValue(
-            $this->data['position'] ?? ''
+            $data['position'] ?? ''
         );
     }
 

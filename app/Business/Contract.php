@@ -295,45 +295,45 @@ class Contract extends BusinessModel
     }
 
     /**
-     * Initializes the attributes.
+     * Sets the attributes either with data or with the default values.
+     * @param null $data
      */
-    protected function setAttributes() {
+    protected function setAttributes($data = null) {
 
         // Set contract name.
         Value::put($this->instance->id,
             Attribute::where('name','name')->first(),
-            isset($this->data['name']) ? $this->data['name'] : 'Some contract');
+            $data['name'] ?? 'Some contract');
 
         Value::put($this->instance->id,
             Attribute::where('name','contract_subject')->first(),
-            isset($this->data['contract_subject']) ? $this->data['contract_subject'] : 'Predmet ugovora');
+            $data['contract_subject'] ?? 'Predmet ugovora');
 
         Value::put($this->instance->id,
             Attribute::where('name','contract_number')->first(),
-            isset($this->data['contract_number']) ? $this->data['contract_number'] : '');
+            $data['contract_number'] ?? '');
 
         // Set the amount of contract
         Value::put($this->instance->id,
             Attribute::where('name','amount')->first(),
-            isset($this->data['amount']) ? $this->data['amount'] : 0.0);
+            $data['amount'] ?? 0.0);
 
         // Set the currency of the amount.
         Value::put($this->instance->id,
             Attribute::where('name','currency')->first(),
-            isset($this->data['currency']) ? $this->data['currency'] : 'RSD');
+            $data['currency'] ?? 'RSD');
 
         $this->instance->attributes->where('name', 'contract_document')->first()->setValue(
-            isset($this->data['contract_document']) ? $this->data['contract_document'] : ''
+            $data['contract_document'] ?? ''
         );
 
-        if(isset($this->data['signed_at'])) {
-            $this->getAttribute('signed_at')->setValue($this->data['signed_at']);
+        if(isset($data['signed_at'])) {
+            $this->getAttribute('signed_at')->setValue($data['signed_at']);
         }
 
-        if(isset($this->data['valid_through'])) {
-            $this->getAttribute('valid_through')->setValue($this->data['valid_through']);
+        if(isset($data['valid_through'])) {
+            $this->getAttribute('valid_through')->setValue($data['valid_through']);
         }
-
 
     }
 

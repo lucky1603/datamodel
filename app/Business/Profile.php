@@ -34,10 +34,14 @@ class Profile extends SituationsModel
         return $entity;
     }
 
-    protected function setAttributes()
+    /**
+     * Sets the attributes either with data or with the default values.
+     * @param null $data
+     */
+    protected function setAttributes($data = null)
     {
-        if($this->data == null) {
-            $this->data = [
+        if($data == null) {
+            $data = [
                 'name' => '',
                 'is_company' => false,
                 'id_number' => '',
@@ -54,7 +58,7 @@ class Profile extends SituationsModel
             ];
         }
 
-        $this->setData($this->data);
+        $this->setData($data);
     }
 
     ///

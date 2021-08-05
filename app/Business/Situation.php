@@ -150,26 +150,25 @@ class Situation extends BusinessModel
     }
 
     /**
-     *
-     * Initializes the attributes.
-     *
+     * Sets the attributes either with data or with the default values.
+     * @param null $data
      */
-    protected function setAttributes() {
+    protected function setAttributes($data = null) {
 
         $this->instance->attributes->where('name', 'name')->first()->setValue(
-            isset($this->data['name']) ? $this->data['name'] : 'Situation'
+            $data['name'] ?? 'Situation'
         );
 
         $this->instance->attributes->where('name', 'description')->first()->setValue(
-            isset($this->data['description']) ? $this->data['description'] : ''
+            $data['description'] ?? ''
         );
 
         $this->instance->attributes->where('name', 'occurred_at')->first()->setValue(
-            isset($this->data['occurred_at']) ? $this->data['occurred_at'] : now()
+            $data['occurred_at'] ?? now()
         );
 
         $this->instance->attributes->where('name', 'sender')->first()->setValue(
-            isset($this->data['sender']) ? $this->data['sender'] : 'Unknown'
+            $data['sender'] ?? 'Unknown'
         );
 
     }
