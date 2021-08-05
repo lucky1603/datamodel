@@ -90,7 +90,7 @@ class Profile extends SituationsModel
 
         $attributes[] = self::selectOrCreateAttribute(['short_ino_desc', 'Kratak opis inovacije', 'text', NULL, 10]);
 
-        $business_branch = self::selectOrCreateAttribute(['business_branch', 'Oblast poslovanja', 'select', NULL, 11]);
+        $business_branch = self::selectOrCreateAttribute(['business_branch', 'Osnovna aktivnost', 'select', NULL, 11]);
         if(count($business_branch->getOptions()) == 0) {
             $business_branch->addOption(['value' => 0, 'text' => 'Drugo']);
             $business_branch->addOption(['value' => 1, 'text' => 'IoT i pametni gradovi']);
