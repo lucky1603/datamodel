@@ -40,6 +40,7 @@ class Value extends Model
                 $tablename = 'timestamp_values';
                 break;
             default:
+                $tablename = $attribute->type.'_values';
                 break;
         }
 

@@ -18,16 +18,14 @@ use Illuminate\Support\Facades\DB;
 class BusinessModel
 {
     public $instance;
-    protected $entity;
-    protected $data;
 
-    public function __construct($data = null)
+    public function __construct(Array $data = null)
     {
         if(isset($data['instance_id'])) {
             $this->instance = Instance::find($data['instance_id']);
         } else {
-            $this->entity = $this->getEntity();
-            $this->instance = Instance::create(['entity_id' => $this->entity->id]);
+            $entity = $this->getEntity();
+            $this->instance = Instance::create(['entity_id' => $entity->id]);
             $this->instance->getTemplateAttributes();
             $this->setAttributes($data);
         }
@@ -53,11 +51,11 @@ class BusinessModel
 
     /**
      * Gets the attribute values.
-     * @param array $data (default null)
+     * @param array|null $data (default null)
      * @return array
      */
-    public function
-    getData($data = null) {
+    public function getData(array $data = null): array
+    {
 
         // If the $data is null, return simply all.
         $attributeValues = $this->instance->getAttributeValues();
