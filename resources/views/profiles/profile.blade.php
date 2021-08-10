@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-body">
             @if( in_array($model->getAttribute('profile_status')->getValue(), [1,2]))
-                <h1>Izaberite jedan od programa ili nas kontaktirajte za više opcija</h1>
+                <h1 class="mb-4">Izaberite jedan od programa ili nas kontaktirajte za više opcija</h1>
                 <ul>
                     <li>
                         <a href="{{ route('profiles.apply', ['program' => 5, 'profile' => $model->getId()]) }}">Inkubacija BITF</a>
