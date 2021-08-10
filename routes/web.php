@@ -69,7 +69,9 @@ Route::get('profiles', 'ProfileController@index')->name('profiles.index');
 Route::get('profiles/create', 'ProfileController@create')->name('profiles.create');
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
 Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');
-
+Route::get('profiles/profile/{profile}', 'ProfileController@profile')->name('profiles.profile');
+Route::post('profiles/saveApplicationData/{profile}', 'ProfileController@saveApplicationData')->name('profiles.saveapplicationdata');
+Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->name('profiles.apply');
 
 Route::get('/contracts', 'ContractsController@index')->name('contracts.index');
 Route::get('/contracts/create/{client}', 'ContractsController@create')->name('contracts.create');

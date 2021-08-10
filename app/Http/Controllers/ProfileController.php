@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Business\BusinessModel;
 use App\Business\Client;
 use App\Business\Profile;
+use App\Business\Program;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -44,6 +45,12 @@ class ProfileController extends Controller
         if(auth()->user()->isAdmin()) {
             $request->session()->put('backroute', route('profiles.index'));
         } else {
+
+            $this_profile = auth()->user()->profile();
+            if($this_profile->getId() != $id) {
+                abort(401);
+            }
+
             $request->session()->put('backroute', route('home'));
         }
 
@@ -112,6 +119,64 @@ class ProfileController extends Controller
 
         // TODO - Send email to the user.
         return redirect(route('profiles.index'));
+
+    }
+
+    /**
+     * Show program choices.
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function profile(Request $request, $id) {
+        $profile = Profile::find($id);
+        $this_profile = auth()->user()->profile();
+        if($this_profile->getId() != $profile->getId()) {
+            abort(401);
+        }
+
+        return view('profiles.profile', ['model' => $profile]);
+    }
+
+    /**
+     * Shows the form for the application for a program.
+     * @param $programType
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function apply($programType, $profileId) {
+        $profile = Profile::find($profileId);
+        $this_profile = auth()->user()->profile();
+        if($this_profile->getId() != $profile->getId()) {
+            abort(401);
+        }
+
+        $attributeData = Program::getAttributesDefinition($programType);
+        $programName = "Ostalo";
+        switch ($programType) {
+            case Program::$INKUBACIJA_BITF:
+                $programName = 'Inkubacija BITF';
+                break;
+            case Program::$RASTUCE_KOMPANIJE:
+                $programName = 'RASTUCE KOMPANIJE';
+                break;
+            case Program::$RAISING_STARTS:
+                $programName = 'RAISING STARTS';
+                break;
+            default:
+                break;
+        }
+
+        return view('profiles.apply',
+            [
+                'programType' => $programType,
+                'programName' => $programName,
+                'attributeGroups' => $attributeData['attributeGroups'],
+                'attributes' => $attributeData['attributes'],
+                'model' => $profile
+            ]);
+    }
+
+    public function saveApplicationData(Request $request, Profile $profile) {
 
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.hyper-vertical-profile')
+@extends('layouts.hyper-vertical-client')
 
 @section('client-name')
     {{ $model->getAttribute('name')->getValue() }}

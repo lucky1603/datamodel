@@ -12,7 +12,7 @@
                             @yield('breadcrumbs')
                         </ol>
                     </div>
-                    <h4 class="page-title">{{ __('PROFILE') }} - {{ $model->getData()['name'] }} - <span class="text-info">{{ $model->getAttribute('profile_status')->getText() }}</span></h4>
+                    <h4 class="page-title">{{ __('CLIENT PROFILE') }} - {{ $model->getData()['name'] }} - <span class="text-info">{{ $model->getAttribute('status')->getText() }}</span></h4>
                 </div>
             </div>
         </div>

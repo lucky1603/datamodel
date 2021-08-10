@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Business\Client;
+use App\Business\Profile;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -94,5 +95,18 @@ class User extends Authenticatable
     public function client() {
         $instance = $this->instances()->first();
         return Client::find($instance->id);
+    }
+
+    public function profile() {
+        $profiles = collect([]);
+        $profiles = $this->instances()->get()->map(function($instance, $key) {
+            if($instance->entity->name === 'Profile') {
+                return new Profile(['instance_id' => $instance->id]);
+            }
+        });
+
+        // Aj sad privremeno ovako.
+        return $profiles->first();
+
     }
 }

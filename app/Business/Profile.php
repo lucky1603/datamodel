@@ -129,10 +129,11 @@ class Profile extends SituationsModel
             $status->addOption(['value' => 0, 'text' => 'Neinicijalizovan']);
             $status->addOption(['value' => 1, 'text' => 'Mapiran/Kontaktiran']);
             $status->addOption(['value' => 2, 'text' => 'Zainteresovan']);
-            $status->addOption(['value' => 3, 'text' => 'Prijavljen']);
-            $status->addOption(['value' => 4, 'text' => 'Pre-selektovan']);
-            $status->addOption(['value' => 5, 'text' => 'Prihvaćena prijava']);
-            $status->addOption(['value' => 4, 'text' => 'Odbijena prijava']);
+            $status->addOption(['value' => 3, 'text' => 'Popunjava prijavu']);
+            $status->addOption(['value' => 4, 'text' => 'Prijavljen']);
+            $status->addOption(['value' => 5, 'text' => 'Pre-selektovan']);
+            $status->addOption(['value' => 6, 'text' => 'Prihvaćena prijava']);
+            $status->addOption(['value' => 7, 'text' => 'Odbijena prijava']);
         }
         $attributes[] = $status;
 

@@ -48,7 +48,7 @@
             <span>{{ strtoupper(__('Sessions')) }}</span>
         </a>
     </li>
-    @else
+    @elseif(\Illuminate\Support\Facades\Auth::user()->isRole('client'))
         <li class="side-nav-item" id="link_profile">
             <a href="{{route('clients.profile', \Illuminate\Support\Facades\Auth::user()->client()->getId())}}" class="side-nav-link">
                 <i class="uil-dashboard"></i>
@@ -91,6 +91,13 @@
                 </ul>
             </li>
         @endif
+    @else
+        <li class="side-nav-item">
+            <a href="{{route('home')}}" class="side-nav-link">
+                <i class="uil-dashboard"></i>
+                <span>{{ strtoupper( __('PROFILE PREVIEW')) }}</span>
+            </a>
+        </li>
     @endif
 
 @endsection

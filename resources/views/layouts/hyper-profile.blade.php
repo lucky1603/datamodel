@@ -307,7 +307,7 @@
                                         <!-- item-->
                                         <a href="javascript:void(0);" class="dropdown-item">Settings</a>
                                         <!-- item-->
-                                        <a href="{{ route('user.addforclient', $model->getId()) }}" class="dropdown-item nav-link edituser" data-toggle="modal" data-target="#dialogHost" >{{ __('Add User') }}</a>
+                                        <a href="{{ route('user.addforprofile', $model->getId()) }}" class="dropdown-item nav-link edituser" data-toggle="modal" data-target="#dialogHost" >{{ __('Add User') }}</a>
                                     </div>
                                 </div>
                                 <h4 class="header-title">{{__('SUPPORT TEAM')}}</h4>
