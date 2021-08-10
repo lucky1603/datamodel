@@ -186,7 +186,6 @@ class ClientController extends Controller
     public function show(Request $request, $id)
     {
         $this->authorize('read_client_profile', $id);
-        $backroute = route(Route::currentRouteName(), $id);
         session(['usereditbackto' => route(Route::currentRouteName(), $id)]);
 
         if(auth()->user()->isAdmin()) {

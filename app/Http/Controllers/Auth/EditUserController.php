@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Business\Client;
+use App\Business\Profile;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
@@ -153,11 +154,11 @@ class EditUserController extends Controller
      */
     public function index() {
         $users = User::all();
-        $clients = Client::all();
+        $profiles = Profile::all();
 
         Session::remove('usereditbackto');
 
-        return view('auth.userindex', ['users' => $users, 'clients' => $clients]);
+        return view('auth.userindex', ['users' => $users, 'profiles' => $profiles]);
     }
 
     /**
@@ -212,14 +213,14 @@ class EditUserController extends Controller
      * @param $clientId
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForClient($clientId) {
-        $client = Client::find($clientId);
+    public function addForProfile($profileId) {
+        $profile = Profile::find($profileId);
         $backroute = session('usereditbackto');
         if(isset($backroute)) {
-            return view('auth.addforclient', ['client' => $client, 'backroute' => $backroute]);
+            return view('auth.addforProfile', ['profile' => $profile, 'backroute' => $backroute]);
         }
 
-        return view('auth.addforclient', ['client' => $client]);
+        return view('auth.addforProfile', ['profile' => $profile]);
     }
 
     /**
@@ -227,11 +228,11 @@ class EditUserController extends Controller
      * Dodaje korisnika za datog klijenta bazirano na podacima unesenih u formu.
      *
      * @param Request $request
-     * @param $clientId
+     * @param $profileId
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function addedForClient(Request $request, $clientId) {
+    public function addedForProfile(Request $request, $profileId) {
         $this->validator($request->all())->validate();
         $data = $request->post();
 
@@ -255,8 +256,8 @@ class EditUserController extends Controller
         ]);
 
         $user->assignRole('client');
-        $client = Client::find($clientId);
-        $client->attachUser($user);
+        $profile = Profile::find($profileId);
+        $profile->attachUser($user);
 
         if(isset($data['backroute'])) {
             return redirect($data['backroute']);

@@ -25,16 +25,16 @@
         @endforeach
     </table>
 
-    @foreach($clients as $client)
+    @foreach($profiles as $profile)
 
         <h5 class="mt-2 p-1 user-group-header" style="display: flex">
-            <span class="float-left flex-grow-1">{{ $client->getData()['name'] }}</span>
-            <a href="{{ route('user.addforclient', $client->getId()) }}" class="text-light edituser" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-text-account float-right flex-grow-0"></i></a>
+            <span class="float-left flex-grow-1">{{ $profile->getData()['name'] }}</span>
+            <a href="{{ route('user.addforprofile', $profile->getId()) }}" class="text-light edituser" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-text-account float-right flex-grow-0"></i></a>
         </h5>
 
 
         <table class="table table-striped">
-            @foreach($client->getUsers() as $user)
+            @foreach($profile->getUsers() as $user)
                 <tr>
                     <td width="10%"><img src="{{ $user->photo }}" class="rounded-circle" width="24" height="24"></td>
                     <td width="20%">{{ $user->name }}</td>
