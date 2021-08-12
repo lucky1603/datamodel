@@ -344,7 +344,7 @@ class Program extends SituationsModel
         $ag_general_2 = AttributeGroup::get('ibitf_general_2');
         if($ag_general_2 == null) {
             $ag_general_2 = AttributeGroup::create([
-                'name' => 'ibitf_genelar_2',
+                'name' => 'ibitf_general_2',
                 'label' => "Ostali podaci",
                 'sort_order' =>  7
             ]);
@@ -356,7 +356,7 @@ class Program extends SituationsModel
         $attributes->add($ag_general_2->addAttribute(self::selectOrCreateAttribute(['solutions', 'Rešenja', 'text', NULL, 39])));
         $attributes->add($ag_general_2->addAttribute(self::selectOrCreateAttribute(['development_phase', 'Faza razvoja', 'text', NULL, 40])));
         $attributes->add($ag_general_2->addAttribute(self::selectOrCreateAttribute(['team', 'Tim i organizacija rada', 'text', NULL, 41])));
-        $attributes->add($ag_general_2->addAttribute(self::selectOrCreateAttribute(['target_groups', 'Cilje grupe', 'text', NULL, 42])));
+        $attributes->add($ag_general_2->addAttribute(self::selectOrCreateAttribute(['target_groups', 'Ciljne grupe', 'text', NULL, 42])));
         $attributes->add($ag_general_2->addAttribute(self::selectOrCreateAttribute(['market', 'Tržište', 'text', NULL, 43])));
 
         $attributeGroups->add($ag_general_2);
@@ -417,7 +417,7 @@ class Program extends SituationsModel
         $attributes->add($ag_expenses->addAttribute(self::selectOrCreateAttribute(['troskovi_alata_za_rad_g3', 'Troškovi alata za rad', 'double', NULL, 78])));
         $attributes->add($ag_expenses->addAttribute(self::selectOrCreateAttribute(['ostali_troskovi_g3', 'Ostali troškovi', 'double', NULL, 79])));
 
-
+        $attributeGroups->add($ag_expenses);
 
         // Prihodi
         $ag_generate_income = AttributeGroup::get('ibitf_generate_income');
@@ -452,9 +452,9 @@ class Program extends SituationsModel
         $attributes->add($ag_infrastructure->addAttribute(self::selectOrCreateAttribute(['administrative_services', 'Administrativne usluge', 'bool', NULL, 86])));
         $attributes->add($ag_infrastructure->addAttribute(self::selectOrCreateAttribute(['bookkeeping_services', 'Knjigovodstvene usluge', 'bool', NULL, 87])));
         $attributes->add($ag_infrastructure->addAttribute(self::selectOrCreateAttribute(['legal_services', 'Pravne usluge', 'bool', NULL, 88])));
-        $attributes->add($ag_infrastructure->addAttribute(self::selectOrCreateAttribute(['other_services', 'Ostale usluge, navedite koje:', 'text', NULL, 89])));
+        $attributes->add($ag_infrastructure->addAttribute(self::selectOrCreateAttribute(['other_services', 'Ostale usluge, navedite koje:', 'varchar', NULL, 89])));
         $attributes->add($ag_infrastructure->addAttribute(self::selectOrCreateAttribute(['consulting_services', 'Konsalting usluge, trening i mentoring program', 'bool', NULL, 90])));
-        $attributes->add($ag_infrastructure->addAttribute(self::selectOrCreateAttribute(['specific_needs', 'Navedite specifične potrebe ukoliko imate', 'text', NULL, 91])));
+        $attributes->add($ag_infrastructure->addAttribute(self::selectOrCreateAttribute(['specific_needs', 'Navedite specifične potrebe ukoliko imate', 'varchar', NULL, 91])));
         $attributes->add($ag_infrastructure->addAttribute(self::selectOrCreateAttribute(['promotion_services', 'Usluge promocije', 'bool', NULL, 92])));
         $attributes->add($ag_infrastructure->addAttribute(self::selectOrCreateAttribute(['connection_services', 'Usluge povezivanja i umrežavanja', 'bool', NULL, 93])));
 

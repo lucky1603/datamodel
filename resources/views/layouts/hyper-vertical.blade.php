@@ -79,6 +79,11 @@
         <div class="content" >
             <!-- Topbar Start -->
             <div class="navbar-custom frame-padding">
+                @if(isset($model))
+                <div style="display: inline; margin-top: 50px; padding: 10px; position: relative; top: 20px; left:20px; font-size: 25px">
+                    {{ __('PROFILE') }} - {{ $model->getData()['name'] }} - <span class="text-info">{{ $model->getAttribute('profile_status')->getText() }}</span>
+                </div>
+                @endif
                 <ul class="list-unstyled topbar-right-menu float-right mb-0">
                     <li class="dropdown notification-list d-lg-none">
                         <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -276,7 +281,7 @@
             <!-- end Topbar -->
 
             <!-- Start Content-->
-            <div class="container-fluid py-2" id="app">
+            <div style="position: absolute; top: 70px; bottom: 70px; left: 270px; right: 0px; overflow: auto; padding: 20px" id="app">
 
                 @yield('content')
 

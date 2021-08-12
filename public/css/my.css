@@ -163,6 +163,11 @@
     background-color: #6c757d;
 }
 
+.checkbox-aligned {
+    position: relative;
+    top: 2px;
+}
+
 
 /*.row.zebra:first-of-type {*/
 /*    background-color: #1d643b;*/

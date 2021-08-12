@@ -5,10 +5,10 @@
         <div class="card-body">
            <h4>Prijava na {{ $programName }}</h4>
         </div>
-        <form id="myForm" method="post" enctype="multipart/form-data" action="">
+        <form class="p-4" id="myForm" method="post" enctype="multipart/form-data" action="">
             @switch($programType)
                 @case(\App\Business\Program::$INKUBACIJA_BITF)
-                    @include('profiles.partials._incubationbitfform')
+                    @include('profiles.partials._ibitf')
                     @break
                 @case(\App\Business\Program::$RASTUCE_KOMPANIJE)
 
