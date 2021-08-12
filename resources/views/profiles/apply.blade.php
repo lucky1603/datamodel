@@ -3,7 +3,7 @@
 @section('profile-content')
     <div class="card">
         <div class="card-body">
-           <h4>Prijava na {{ $programName }}</h4>
+            <h1 class="text-center">Prijava na <span class="attribute-label">{{ $programName }}</span></h1>
         </div>
         <form class="p-4" id="myForm" method="post" enctype="multipart/form-data" action="">
             @switch($programType)

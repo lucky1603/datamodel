@@ -29,3 +29,12 @@
 @include('profiles.partials._ibitf_expenses')
 @include('profiles.partials._ibitf_generate_income')
 @include('profiles.partials._ibitf_infrastructure')
+@include('profiles.partials._ibitf_attachments')
+
+<div class="row mt-4">
+    <div class="offset-sm-4 col-sm-4 text-center">
+        <button type="submit" class="btn btn-primary m-1">{{ __('Save') }}</button>
+        <button type="button" class="btn btn-success m-1">{{ __('Send') }}</button>
+        <button type="button" class="btn btn-light m-1">{{ __('Cancel') }}</button>
+    </div>
+</div>

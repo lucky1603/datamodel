@@ -1,4 +1,4 @@
-<h4 class="text-center mb-4">{{ \App\AttributeGroup::where('name', 'ibitf_general')->first()->label }}</h4>
+<h3 class="text-center attribute-label m-4">{{ \App\AttributeGroup::where('name', 'ibitf_general')->first()->label }}</h3>
 
 <div class="form-group row">
     @php

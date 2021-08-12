@@ -460,6 +460,50 @@ class Program extends SituationsModel
 
         $attributeGroups->add($ag_infrastructure);
 
+        $ag_attachments = AttributeGroup::get('ibitf_attachments');
+        if($ag_attachments == null) {
+            $ag_attachments = AttributeGroup::create([
+                'name' => 'ibitf_attachments',
+                'label' => 'Prilozi',
+                'sort_order' => 11
+            ]);
+        }
+
+        $attributes->add($ag_attachments->addAttribute(self::selectOrCreateAttribute(
+        [
+            'resenje_apr_link',
+            'Link sa APR gde se može preuzeti rešenje o registraciji privrednog društva, ako ga ima.',
+            'varchar',
+            NULL,
+            94
+        ])));
+
+        $attributes->add($ag_attachments->addAttribute(self::selectOrCreateAttribute([
+            'resenje_fajl',
+            'Dokument/rešenje o registraciji privrednog društva',
+            'file',
+            NULL,
+            95
+        ])));
+
+        $attributes->add($ag_attachments->addAttribute(self::selectOrCreateAttribute([
+            'linkedin_founders',
+            'Linkovi ka Linkedin profilima, ukoliko postoje, za svako lice',
+            'text',
+            NULL,
+            96
+        ])));
+
+        $attributes->add($ag_attachments->addAttribute(self::selectOrCreateAttribute([
+            'founders_cv',
+            'Fajl sa kratkim biografijama svih osnivača',
+            'file',
+            NULL,
+            97
+        ])));
+
+        $attributeGroups->add($ag_attachments);
+
         return collect(
             [
                 'attributes' => $attributes,
