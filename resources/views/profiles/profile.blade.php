@@ -6,7 +6,10 @@
             @if( in_array($model->getAttribute('profile_status')->getValue(), [1,2]))
                 <h1 class="text-center">Programi</h1>
                 <p class="text-center font-16 font-italic mb-4">Da biste nastavili neophodno je da izaberite jedan od programa.
-                    Ako niste sigurni slobodno nas <a href="mailto://info@ntppark.gov.rs" target="_blank">kontaktirajte</a> za više opcija.</p>
+                    Ako niste sigurni slobodno nas <a href="mailto://info@ntppark.gov.rs" target="_blank">kontaktirajte</a> za više opcija.
+                    Popunjeni formular se čuva sve dok ga ne pošaljete izborom opcije "Pošalji". Podaci se čuvaju izborom opcije - "Sačuvaj".
+                    Formular je nemoguće poslati sve dok se ispravno ne popuni.
+                </p>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="card">
@@ -63,7 +66,7 @@
                     </div>
                 </div>
 
-            @else
+            @elseif(in_array($model->getAttribute('profile_status')->getValue(), [3,4]))
 
             @endif
         </div>

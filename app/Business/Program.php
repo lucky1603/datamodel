@@ -141,11 +141,18 @@ class Program extends SituationsModel
                 $results = $temporary_results->intersect($results);
             }
 
-            if($results->count() === 0) {
-                return $results;
-            }
-
         }
+
+        if($results->count() === 0) {
+            return $results;
+        }
+
+        $objects = $results->map(function($result, $key) {
+            return new static(['instance_id' => $result->id]);
+        });
+
+        return $objects;
+
     }
 
     public static function getAttributesDefinition($programType): Collection
@@ -154,6 +161,7 @@ class Program extends SituationsModel
         $attributeGroups = collect([]);
 
         $attributes->add(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
+        $attributes->add(self::selectOrCreateAttribute(['program_name', 'Ime programa', 'varchar', NULL, 2]));
         switch ($programType) {
             case Program::$COLOSSEUM_SPORTS_TECH_SERBIA:
                 // Colosseum
@@ -521,5 +529,25 @@ class Program extends SituationsModel
         $attributes = collect([]);
 
         return $attributes;
+    }
+
+    public function getAttributeGroups()
+    {
+        $groups = collect([]);
+        if($this->getAttribute('program_type')->getValue() == Program::$INKUBACIJA_BITF) {
+            $groups->add(AttributeGroup::get('ibitf_general'));
+            $groups->add(AttributeGroup::get('ibitf_contests'));
+            $groups->add(AttributeGroup::get('ibitf_financial_users'));
+            $groups->add(AttributeGroup::get('ibitf_responsible_person'));
+            $groups->add(AttributeGroup::get('ibitf_founders'));
+            $groups->add(AttributeGroup::get('ibitf_founding_enterprise'));
+            $groups->add(AttributeGroup::get('ibitf_general_2'));
+            $groups->add(AttributeGroup::get('ibitf_expenses'));
+            $groups->add(AttributeGroup::get('ibitf_generate_income'));
+            $groups->add(AttributeGroup::get('ibitf_infrastructure'));
+            $groups->add(AttributeGroup::get('ibitf_attachments'));
+        }
+
+        return $groups;
     }
 }

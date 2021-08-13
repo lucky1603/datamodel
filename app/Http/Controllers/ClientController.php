@@ -147,32 +147,32 @@ class ClientController extends Controller
 
             // Add situation to the client.
             $client->addSituationByData(__('Interest'),$eventData);
+
+            // Check if the user already exists.
+            $user = User::where(['email' => $data['email']])->first();
+
+            // If not, create one.
+            if($user === null) {
+
+                // Create user.
+                $user = User::create([
+                    'name' => $data['contact_person'],
+                    'email' => $data['email'],
+                    'password' => $data['password'],
+                    'photo' => isset($data['photo']) ? $data['photo']['filelink'] : null,
+                    'position' => $data['position'] ?? null,
+                ]);
+
+                // Define it as the client.
+                $user->assignRole('client');
+
+            }
+
+            // Attach default user to the instance.
+            $client->attachUser($user);
+
+            // TODO - Send email to the user.
         }
-
-        // Check if the user already exists.
-        $user = User::where(['email' => $data['email']])->first();
-
-        // If not, create one.
-        if($user === null) {
-
-            // Create user.
-            $user = User::create([
-                'name' => $data['contact_person'],
-                'email' => $data['email'],
-                'password' => $data['password'],
-                'photo' => isset($data['photo']) ? $data['photo']['filelink'] : null,
-                'position' => $data['position'] ?? null,
-            ]);
-
-            // Define it as the client.
-            $user->assignRole('client');
-
-        }
-
-        // Attach default user to the instance.
-        $client->attachUser($user);
-
-        // TODO - Send email to the user.
 
         return redirect(route('clients.index'));
     }

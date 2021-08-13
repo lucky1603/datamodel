@@ -128,12 +128,19 @@
 @endsection
 
 @section('profile-data')
-    @if($model->getPrograms()->count() == 0)
+    @if(in_array($model->getAttribute('profile_status')->getValue(), [1,2]))
         <div class="text-center w-100">
             <img class="ml-auto mr-auto" src="/images/custom/waitingicon.png" width="200px"/>
         </div>
         <div class="text-center w-100">
-            <h4>{{ __('Waiting for the application') }}</h4>
+            <h4>{{ __('Waiting for the client to choose the program') }}</h4>
+        </div>
+    @elseif($model->getAttribute('profile_status')->getValue() == 3)
+        <div class="text-center w-100">
+            <img class="ml-auto mr-auto" src="/images/custom/waitingicon.png" width="200px"/>
+        </div>
+        <div class="text-center w-100">
+            <h4>{{ __('Waiting for the client to complete the form') }}</h4>
         </div>
     @endif
 @endsection

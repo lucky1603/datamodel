@@ -135,6 +135,24 @@ class ProfileController extends Controller
             abort(401);
         }
 
+        $program = $profile->getActiveProgram();
+        if($program != null && $profile->getAttribute('profile_status')->getValue() == 3) {
+            $programType = $program->getAttribute('program_type' )->getValue();
+            $programName = $program->getAttribute('program_name')->getValue();
+            $attributeGroups = $program->getAttributeGroups();
+            $attributes = $program->getAttributes();
+
+            return view('profiles.apply',
+                [
+                    'model' => $profile,
+                    'programType' => $programType,
+                    'programName' => $programName,
+                    'attributeGroups' => $attributeGroups,
+                    'attributes' => $attributes,
+                    'instance_id' => $program->instance->id
+                ]);
+        }
+
         return view('profiles.profile', ['model' => $profile]);
     }
 
@@ -176,7 +194,76 @@ class ProfileController extends Controller
             ]);
     }
 
-    public function saveApplicationData(Request $request, Profile $profile) {
+    /**
+     * Creates the new program, based on the data entered.
+     * @param Request $request
+     * @param Profile $profile
+     */
+    public function saveApplicationData(Request $request) {
+        $data = $request->post();
+//        foreach($data as $key => $value) {
+//            echo "data[".$key."] = ".$value."<br />";
+//        }
+//        die();
 
+        $fileData = $this->addFileToData($request, 'resenje_fajl');
+        if($fileData != null) {
+            $data['resenje_fajl'] = $fileData;
+        }
+
+        $fileData = $this->addFileToData($request, 'founders_cv');
+        if($fileData != null) {
+            $data['founders_cv'] = $fileData;
+        }
+
+        // Check if the program already exists and is attached to the profile.
+        if(isset($data['instance_id'])) {
+            // If the program exist, update its properties.
+            $program = new Program(0, ['instance_id' => $data['instance_id']]);
+            $program->setData($data);
+
+        } else {
+
+            // Create program.
+            $programType = $data['programType'];
+            $program = new Program($programType, $data);
+
+            // Add it to the profile.
+            $profile = new Profile(['instance_id' => $data['profile_id']]);
+            $profile->addProgram($program);
+
+            // Generate situation.
+            $profile->addSituationByData('Applying', [
+                'program_type' => $programType
+            ]);
+
+            // Update the profile status.
+            $profile->setData(['profile_status' => 3]);
+        }
+
+        return redirect(route('home'));
+
+    }
+
+    /**
+     * Gets the file from the request and pack it to the recognizable form.
+     * @param Request $request
+     * @param $filename
+     * @return array|null
+     */
+    private function addFileToData(Request $request, $filename): ?array
+    {
+        $file = $request->file($filename);
+        if($file != null) {
+            $originalFileName = $file->getClientOriginalName();
+            $path = $file->store('documents');
+            $path = asset($path);
+            return [
+                'filename' => $originalFileName,
+                'filelink' => $path
+            ];
+        }
+
+        return null;
     }
 }

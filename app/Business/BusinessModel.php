@@ -287,6 +287,7 @@ class BusinessModel
             $tableName = $attribute->type.'_values';
 
             $entity_id = Entity::all()->where('name', $className)->first()->id;
+
             $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id])->get();
             $temporary_results = $temporary_results->map(function($item, $key) {
                 return $item->instance_id;
@@ -300,19 +301,24 @@ class BusinessModel
                 $results = $temporary_results->intersect($results);
             }
 
-            if($results->count() === 0) {
-                return $results;
-            }
-
         }
 
+        if($results->count() === 0) {
+            return $results;
+        }
+
+        $objects = $results->map(function($result, $key) {
+            return new static(['instance_id' => $result->id]);
+        });
+
+        return $objects;
     }
 
     public static function all() {
         return static::find();
     }
 
-    public function getAttributeGrups() {}
+    public function getAttributeGroups() {}
     protected function getInitAttributesNamesCollection() {}
     protected function getEntity() {}
     protected function setAttributes($data = null) {}

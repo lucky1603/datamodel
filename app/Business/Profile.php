@@ -147,55 +147,88 @@ class Profile extends SituationsModel
     public function addSituationByData($situationType, $params)
     {
         $data = [];
+        $situation = null;
 
         switch($situationType) {
             case __('Interest'):
-                $situation = new Situation();
                 $data = [
                     'name' => $situationType,
                     'description' => 'Potencijalni klijent je napravio je profil i izrazio interesovanje.',
                     'sender' => $this->getAttribute('name')->getValue()
                 ];
 
-                if(isset($params)) {
-                    foreach($params as $key => $value) {
-                        $data[$key] = $value;
-                    }
-                }
-
-                $situation->setData($data);
-                $this->addSituation($situation);
-
                 break;
             case __('Mapped'):
-                $situation = new Situation([
+                $data = [
                     'name' => $situationType,
                     'description' => 'Klijent je mapiran. Napravljen mu je profil i poslati pristupni podaci.',
                     'sender' => 'NTP'
-                ]);
+                ];
 
-                if(isset($params)) {
-                    foreach($params as $key => $value) {
-                        $data[$key] = $value;
-                    }
-                }
+                break;
+            case __('Applying'):
+                $data = [
+                    'name' => $situationType,
+                    'description' => 'Klijent je izabrao program i počeo sa popunjavanjem forme.',
+                    'sender' => $this->getAttribute('name')->getValue()
+                ];
 
-                $situation->setData($data);
-                $this->addSituation($situation);
+                $situation = new Situation($data);
+                $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
 
                 break;
         }
+
+        if(isset($params)) {
+            foreach($params as $key => $value) {
+                $data[$key] = $value;
+            }
+        }
+
+        if(count($data) > 0) {
+            if($situation == null) {
+                $situation = new Situation($data);
+            } else {
+                $situation->setData($data);
+            }
+
+            $this->addSituation($situation);
+        }
+
     }
 
     public function getPrograms() {
         $programs = [];
         foreach($this->instance->instances as $instance) {
             if($instance->entity->name === 'Program') {
-                $programs[] = new Program(['instance_id' => $instance->id]);
+                $programs[] = new Program(0, ['instance_id' => $instance->id]);
             }
         }
 
         return collect($programs);
+    }
+
+    public function getActiveProgram() {
+        if($this->instance->instances->count() == 0)
+            return null;
+
+        foreach($this->instance->instances as $instance) {
+            if($instance->entity->name === 'Program') {
+                return new Program(0, ['instance_id' => $instance->id]);
+            }
+        }
+        return null;
+    }
+
+    public function addProgram($program) {
+        $this->instance->instances()->save($program->instance);
+        $this->instance->refresh();
+        return $program;
+    }
+
+    public function removeProgram() {
+        $this->instance->instances()->detach();
+        $this->instance->refresh();
     }
 
 }
