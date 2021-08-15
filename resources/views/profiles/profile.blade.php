@@ -66,8 +66,13 @@
                     </div>
                 </div>
 
-            @elseif(in_array($model->getAttribute('profile_status')->getValue(), [3,4]))
-
+            @elseif($model->getAttribute('profile_status')->getValue() >= 4)
+                <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px; border: 1px solid red">
+                    <div class="card-header">USPESNA APLIKACIJA</div>
+                    <div class="card-body">
+                        WE ARE THE CHAMPIONS!!!
+                    </div>
+                </div>
             @endif
         </div>
     </div>

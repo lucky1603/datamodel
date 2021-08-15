@@ -675,7 +675,9 @@ class ClientController extends Controller
             ]);
         }
 
-        if($client->getData()['status'] != 1) {
+        $clientParameters = $client->getData();
+
+        if($clientParameters['status'] != 1) {
             return json_encode([
                 'code' => 0,
                 'message' => 'Aplikacija je već poslata!',
@@ -693,12 +695,12 @@ class ClientController extends Controller
             'registration_planned', 'program'
         ];
         $mandatory_parameters = array_merge($mandatory_parameters, $general_parameters);
-        if($client->getData()['interests'] == 13)
+        if($clientParameters['interests'] == 13)
         {
             $mandatory_parameters[] = 'ostalo_opis';
         }
 
-        if($client->getData()['is_registered']) {
+        if($clientParameters['is_registered']) {
             $mandatory_parameters[] = 'date_registered';
         }
 
@@ -743,8 +745,8 @@ class ClientController extends Controller
 
         foreach($mandatory_parameters as $parameter)
         {
-            if(!isset($client->getData()[$parameter]) ||
-                (is_string($client->getData()[$parameter]) && strlen($client->getData()[$parameter]) == 0)) {
+            if(!isset($clientParameters[$parameter]) ||
+                (is_string($clientParameters[$parameter]) && strlen($clientParameters[$parameter]) == 0)) {
                 return json_encode([
                     'code' => 0,
                     'message' => 'Niste uneli parametar "'.$parameter.'"'
@@ -753,7 +755,7 @@ class ClientController extends Controller
         }
 
         // Set status on 'Application Sent'.
-        $client->setData(['status' => 2]);
+        $client->getAttribute('status')->setValue(2);
         $client->addSituationByData(__('Application Sent'), ['status' => 2]);
 
         return json_encode([

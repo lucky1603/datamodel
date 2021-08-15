@@ -1,7 +1,10 @@
 <h3 class="text-center attribute-label mt-4">{{ $attributeGroups->where('name', 'ibitf_generate_income')->first()->label }}</h3>
 <p>Obrazložite : Koji je model prihodovanja (prodaja proizvoda, licenci, usluga, članarina ili sl.). Kako ćete generisati
     prihode? Koji izvor finansiranja će podići Vašu kompaniju. Popunite tabelu ispod.</p>
-
+@php
+    $attribute = $attributes->where('name', 'generating_income')->first();
+@endphp
+<textarea class="form-control mb-2" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
 <table class="w-100">
     <thead class="bg-dark text-light table-bordered text-center">
         <tr>

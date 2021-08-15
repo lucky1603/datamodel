@@ -70,6 +70,7 @@ Route::get('profiles/create', 'ProfileController@create')->name('profiles.create
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
 Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');
 Route::get('profiles/profile/{profile}', 'ProfileController@profile')->name('profiles.profile');
+Route::get('profiles/check/{profile}', 'ProfileController@check')->name('profiles.check');
 Route::post('profiles/saveApplicationData', 'ProfileController@saveApplicationData')->name('profiles.saveapplicationdata');
 Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->name('profiles.apply');
 

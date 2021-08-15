@@ -198,13 +198,13 @@
             </td>
             <td>
                 @php
-                    $attribute = $attributes->where('name', 'ostali_fiksni_troskovi_g1')->first();
+                    $attribute = $attributes->where('name', 'ostali_fiksni_troskovi_g2')->first();
                 @endphp
                 <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
             </td>
             <td>
                 @php
-                    $attribute = $attributes->where('name', 'ostali_fiksni_troskovi_g1')->first();
+                    $attribute = $attributes->where('name', 'ostali_fiksni_troskovi_g3')->first();
                 @endphp
                 <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
             </td>

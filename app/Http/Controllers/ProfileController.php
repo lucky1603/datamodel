@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Attribute;
+use App\AttributeGroup;
 use App\Business\BusinessModel;
 use App\Business\Client;
 use App\Business\Profile;
@@ -244,6 +246,116 @@ class ProfileController extends Controller
         return redirect(route('home'));
 
     }
+
+    public function check($profileId) {
+        $profile = new Profile(['instance_id' => $profileId]);
+        if($profile->instance == null) {
+            return [
+                'code' => 0,
+                'message' => `No profile with id = {$profileId}`
+            ];
+        }
+
+        $program = $profile->getActiveProgram();
+        if($program == null) {
+            return [
+                'code' => 0,
+                'message' => `No active program yet.`
+            ];
+        }
+
+        $mandatory_parameters = collect([]);
+        $data = $program->getData();
+
+        $programType = $program->getAttribute('program_type')->getValue();
+        if($programType == 5 /* Inkubacija BITF */) {
+            $group_parameters = AttributeGroup::get('ibitf_general')->attributes->map(function($attribute, $key) {
+                return $attribute->name;
+            });
+
+            $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
+
+            $group_parameters = AttributeGroup::get('ibitf_responsible_person')->attributes->map(function($attribute, $key) {
+                return $attribute->name;
+            });
+
+            $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
+
+            // Obavezan unos sa bar jednog osnivaca.
+            $group_parameters = AttributeGroup::get('ibitf_founders')->attributes->filter(function($attribute, $key) {
+                return $key < 3;
+            })->map(function($attribute, $key) {
+                return $attribute->name;
+            });
+
+            $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
+
+            $group_parameters = AttributeGroup::get('ibitf_founding_enterprise')->attributes->map(function($attribute, $key) {
+                return $attribute->name;
+            });
+
+            $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
+
+            $group_parameters = AttributeGroup::get('ibitf_general_2')->attributes->map(function($attribute, $key) {
+                return $attribute->name;
+            });
+
+            $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
+
+            $group_parameters = AttributeGroup::get('ibitf_expenses')->attributes->map(function($attribute, $key) {
+                return $attribute->name;
+            });
+
+            $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
+
+            $group_parameters = AttributeGroup::get('ibitf_generate_income')->attributes->map(function($attribute, $key) {
+                return $attribute->name;
+            });
+
+            $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
+
+            foreach($mandatory_parameters as $parameterName) {
+                if(!isset($data[$parameterName])
+                    || (is_string($data[$parameterName]) && strlen($data[$parameterName]) == 0) ) {
+                    $attribute = Attribute::where('name', $parameterName)->first();
+                    return json_encode([
+                        'code' => 0,
+                        'message' => 'Niste uneli parametar ----- ['.$attribute->name.'] -> "'.$attribute->label.'"',
+                    ]);
+                }
+            }
+
+            // Check for the attachments.
+            // APR
+            if(!isset($data['resenje']) && $data['resenje_fajl']['filelink'] == '') {
+                return json_encode([
+                    'code' => 0,
+                    'message' => 'Nema podataka o APR registraciji'
+                ]);
+            }
+
+            // Check for the cv's.
+            if(!isset($data['linkedin_founders']) && $data['founders_cv']['filelink'] == '') {
+                return json_encode([
+                    'code' => 0,
+                    'message' => 'Nema podataka o osnivacima'
+                ]);
+            }
+
+        }
+
+        $profile->getAttribute('profile_status')->setValue(4);
+
+        $profile->addSituationByData(__('Application Sent'), ['program_type' => '5']);
+
+        return json_encode([
+            'code' => 1,
+            'message' => "Provera uspesna"
+        ]);
+
+    }
+
+
 
     /**
      * Gets the file from the request and pack it to the recognizable form.

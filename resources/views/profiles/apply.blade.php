@@ -26,3 +26,34 @@
         </form>
     </div>
 @endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $('#send').on('click', function() {
+            $('#button_spinner').attr('hidden', false);
+            var profileId = <?php echo $model->getId(); ?>;
+
+            var result = 0;
+            $.get('/profiles/check/' + profileId, function(data) {
+                var result = JSON.parse(data);
+                console.log(result);
+                $('#button_spinner').attr('hidden', true);
+
+                if(result.code == 0) {
+                    $.toast(result.message);
+
+                } else {
+                    $.toast({
+                        text : result.message,
+                        afterHidden : function() {
+                            location.reload();
+                        }
+                    });
+                }
+
+            });
+
+        });
+
+    </script>
+@endsection

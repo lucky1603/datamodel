@@ -177,6 +177,17 @@ class Profile extends SituationsModel
                 $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
 
                 break;
+
+            case __('Application Sent'):
+                $data = [
+                    'name' => $situationType,
+                    'description' => 'Klijent je uspešno popunio formu za prijavu na program.',
+                    'sender' => $this->getAttribute('name')->getValue()
+                ];
+
+                $situation = new Situation($data);
+                $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
+                break;
         }
 
         if(isset($params)) {
