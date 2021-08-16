@@ -62,6 +62,7 @@ class ProfileController extends Controller
     }
 
     public function create() {
+
         $this->authorize('manage_client_profiles');
 
         $attributes = collect(Profile::getAttributesDefinition());

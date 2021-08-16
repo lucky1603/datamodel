@@ -22,8 +22,8 @@
 
     <!-- App css -->
     <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/app-creative.min.css" rel="stylesheet" type="text/css" id="light-style" />
-    <link href="/assets/css/app-creative-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
+    <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
+    <link href="/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
     <link href="/css/my.css" rel="stylesheet" type="text/css" />
 
 
@@ -86,11 +86,6 @@
         </main>
     </div>
     <!-- Scripts -->
-{{--    <script src="{{ asset('js/app.js') }}" ></script>--}}
-{{--    <script src="{{ asset('js/jquery-1.12.4.js') }}" ></script>--}}
-{{--    <script src="{{ asset('js/jquery-ui.js') }}" ></script>--}}
-
-
     <!-- bundle -->
     <script src="/assets/js/vendor.min.js"></script>
     <script src="/assets/js/app.min.js"></script>

@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 
 
 Auth::routes();
@@ -30,12 +34,8 @@ Route::post('/edituser/added/{client}', 'Auth\EditUserController@added')->name('
 Route::get('/edituser/delete/{client}', 'Auth\EditUserController@delete')->name('user.delete');
 Route::get('/edituser/editfromadminpreview/{client}', 'Auth\EditUserController@editFromAdminPreview')->name('user.editfromadminpreview');
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/createProfile', 'AnonimousController@createProfile')->name('createProfile');
 
 Route::get('/clients', 'ClientController@index')->name('clients.index');
 Route::get('/clients/create', 'ClientController@create')->name('clients.create');
