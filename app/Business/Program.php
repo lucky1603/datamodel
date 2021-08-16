@@ -222,7 +222,7 @@ class Program extends SituationsModel
             $ag_general = AttributeGroup::create(['name' => 'ibitf_general', 'label' => 'Opšti podaci', 'sort_order' => 1]);
         }
 
-        $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['program_name', 'Naziv programa/firme', 'varchar', NULL, 2])));
+        $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['program_name_or_company', 'Naziv programa/firme', 'varchar', NULL, 2])));
         $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['date_of_establishment', 'Datum osnivanja', 'datetime', NULL, 3])));
         $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['legal_status', 'Pravni status', 'varchar', NULL, 4])));
 

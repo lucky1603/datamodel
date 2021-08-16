@@ -15,6 +15,9 @@
 
     </div>
     <div id="contentArea" style="position: absolute; top:100px; left:350px; right: 0px; bottom:0px; overflow: auto">
+        <div class="m-sm-5">
+            @include('profiles.partials._profile_create_form')
+        </div>
 
     </div>
 @endsection
@@ -124,3 +127,23 @@
 {{--        })--}}
 {{--    </script>--}}
 {{--@endsection--}}
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        if($('#is_company').prop('checked') == true) {
+            $('#id_number_group').show();
+        } else {
+            $('#id_number_group').hide();
+        }
+
+        $('#is_company').on('change', function(event) {
+            if($(this).prop('checked') == true) {
+                $('#id_number_group').show();
+            } else {
+                $('#id_number_group').hide();
+            }
+        });
+    })
+</script>
+@endsection
