@@ -46,6 +46,7 @@ class Program extends SituationsModel
             $this->instance->getTemplateAttributes();
 
             $this->setData(['program_type' => $programType]);
+            $this->setData(['program_name' => Program::getProgramName($programType)]);
 
             $this->setAttributes($data);
         }
@@ -153,6 +154,46 @@ class Program extends SituationsModel
 
         return $objects;
 
+    }
+
+    public static function getProgramName($programType) {
+        $programName = 'Undefined';
+
+        switch ($programType) {
+            case Program::$COLOSSEUM_SPORTS_TECH_SERBIA:
+                // Colosseum
+                $programName = __('Colosseum');
+                break;
+            case Program::$IMAGINEIF:
+                // Imagineif!
+                $programName = __('ImagineIF!');
+                break;
+            case Program::$RAISING_STARTS:
+                // Raising starts
+                $programName = __('Rising Starts');
+                break;
+            case Program::$PREDINKUBACIJA:
+                // Predinkubacija
+                $programName = __('Pre-Incubation');
+                break;
+            case Program::$INKUBACIJA_NTP:
+                // Inkubacija NTP
+                $programName = __('Incubation NTP');
+                break;
+            case Program::$INKUBACIJA_BITF:
+                // Inkubacija BITF
+                $programName = __('Incubation BITF');
+                break;
+            case Program::$RASTUCE_KOMPANIJE:
+                // Rastuce kompanije
+                $programName = __('Raising Companies');
+                break;
+            default:
+                // Neodredjeno
+                break;
+        }
+
+        return $programName;
     }
 
     public static function getAttributesDefinition($programType): Collection

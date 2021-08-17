@@ -175,6 +175,7 @@ class Profile extends SituationsModel
 
                 $situation = new Situation($data);
                 $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
+                $situation->addAttribute(self::selectOrCreateAttribute(['program_name', 'Ime programa', 'varchar', NULL, 2]));
 
                 break;
 
@@ -241,5 +242,7 @@ class Profile extends SituationsModel
         $this->instance->instances()->detach();
         $this->instance->refresh();
     }
+
+
 
 }

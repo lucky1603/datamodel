@@ -243,7 +243,8 @@ class ProfileController extends Controller
 
             // Generate situation.
             $profile->addSituationByData('Applying', [
-                'program_type' => $programType
+                'program_type' => $programType,
+                'program_name' => $program->getAttribute('program_name')->getValue()
             ]);
 
             // Update the profile status.
@@ -334,7 +335,7 @@ class ProfileController extends Controller
 
             // Check for the attachments.
             // APR
-            if(!isset($data['resenje']) && $data['resenje_fajl']['filelink'] == '') {
+            if(!isset($data['resenje_apr_link']) && $data['resenje_fajl']['filelink'] == '') {
                 return json_encode([
                     'code' => 0,
                     'message' => 'Nema podataka o APR registraciji'
@@ -353,11 +354,15 @@ class ProfileController extends Controller
 
         $profile->getAttribute('profile_status')->setValue(4);
 
-        $profile->addSituationByData(__('Application Sent'), ['program_type' => '5']);
+        $profile->addSituationByData(__('Application Sent'),
+            [
+                'program_type' => $program->getAttribute('program_type')->getValue(),
+                'program_name' => $program->getAttribute('program_name')->getValue()
+            ]);
 
         return json_encode([
             'code' => 1,
-            'message' => "Provera uspesna"
+            'message' => "Prijava uspešno popunjena i poslata! Sačekajte da budete preusmereni."
         ]);
 
     }

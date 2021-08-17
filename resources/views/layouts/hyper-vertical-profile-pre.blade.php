@@ -9,7 +9,7 @@
 
     <h4 class="mb-0 mt-5">{{ $model->getData()['name']}}</h4>
     <p class="text-muted font-14 mt-2">{{ __('Competes For') }}:</p>
-    <button type="button" class="btn btn-primary" style="width: 100%">@if(false) {{ $model->getAttribute('program')->getText() }} @else {{ __('Not applied yet') }} @endif</button>
+    <button type="button" class="btn btn-primary" style="width: 100%">@if($model->getActiveProgram() != null) {{ $model->getActiveProgram()->getAttribute('program_name')->getText() }} @else {{ __('Not applied yet') }} @endif</button>
 
     <div class="text-left mt-3">
         <h4 class="font-13 text-uppercase attribute-label">{{ $model->getAttribute('short_ino_desc')->label }}</h4>

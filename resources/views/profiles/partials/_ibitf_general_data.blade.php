@@ -2,7 +2,7 @@
 
 <div class="form-group row">
     @php
-        $attribute = $attributes->where('name', 'program_name')->first();
+        $attribute = $attributes->where('name', 'program_name_or_company')->first();
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
