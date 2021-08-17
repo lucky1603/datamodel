@@ -40,7 +40,7 @@
             <span id="button_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
             <span id="button_text">{{ __('Send') }}</span>
         </button>
-        <button type="button" class="btn btn-light m-1">{{ __('Cancel') }}</button>
+        <button id="cancel" type="button" class="btn btn-light m-1">{{ __('Cancel') }}</button>
 </div>
 
 

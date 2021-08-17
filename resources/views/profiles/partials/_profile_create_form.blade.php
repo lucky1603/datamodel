@@ -141,9 +141,10 @@
             {{ __('Create') }}
         </button>
 
-        <button type="button" class="btn btn-light m-1">{{ __('Cancel') }}</button>
+        <button id="cancel" type="button" class="btn btn-light m-1">{{ __('Cancel') }}</button>
     </div>
 </form>
+
 
 
 

@@ -489,10 +489,31 @@
        $('#newClient').on('click', function(evt) {
            var where = $('#newClient').attr('href');
            $.get(where, function(data) {
-               var content = $(data).find('form');
+               var content = $(data).find('form')[0];
+               console.log(content);
                var title = $(data).find('h1').first().text();
-               $('.modal-body').html(content);
-               $('.modal-title').text(title);
+               $('#dialogHost.modal .modal-dialog .modal-content .modal-body').html(content);
+               $('#dialogHost.modal .modal-dialog .modal-content .modal-header .modal-title').text(title);
+
+               if($('#is_company').prop('checked') == true) {
+                   $('#id_number_group').show();
+               } else {
+                   $('#id_number_group').hide();
+               }
+
+               $('#is_company').on('change', function(event) {
+                   if($(this).prop('checked') == true) {
+                       $('#id_number_group').show();
+                   } else {
+                       $('#id_number_group').hide();
+                   }
+               });
+
+               $('#cancel').on('click', function(evt) {
+                   location.reload();
+               });
+
+
            });
        });
 
