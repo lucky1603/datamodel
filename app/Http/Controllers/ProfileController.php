@@ -79,6 +79,12 @@ class ProfileController extends Controller
     public function store(Request $request) {
         $data = $request->post();
 
+        foreach($data as $key => $value) {
+            echo 'data['.$key.'] = '.$value.'\n';
+        }
+
+        die();
+
         // Hash code the password.
         if(isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);

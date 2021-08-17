@@ -91,8 +91,8 @@ class EditUserController extends Controller
             return redirect(route('users'));
         }
 
-        $client = $user->client();
-        return redirect(route('clients.profile', $client->getId()));
+        $profile = $user->profile();
+        return redirect(route('profiles.profile', $profile->getId()));
 
     }
 

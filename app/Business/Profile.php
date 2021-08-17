@@ -153,7 +153,7 @@ class Profile extends SituationsModel
             case __('Interest'):
                 $data = [
                     'name' => $situationType,
-                    'description' => 'Potencijalni klijent je napravio je profil i izrazio interesovanje.',
+                    'description' => 'Potencijalni klijent je napravio je profil i izrazio interesovanje za izbor programa.',
                     'sender' => $this->getAttribute('name')->getValue()
                 ];
 

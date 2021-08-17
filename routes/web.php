@@ -35,7 +35,8 @@ Route::get('/edituser/delete/{client}', 'Auth\EditUserController@delete')->name(
 Route::get('/edituser/editfromadminpreview/{client}', 'Auth\EditUserController@editFromAdminPreview')->name('user.editfromadminpreview');
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/createProfile', 'AnonimousController@createProfile')->name('createProfile');
+Route::get('/createProfile', 'AnonimousController@createProfile')->name('createProfileAnonimous');
+Route::post('/createProfile', 'AnonimousController@store')->name('storeProfileAnonimous');
 
 Route::get('/clients', 'ClientController@index')->name('clients.index');
 Route::get('/clients/create', 'ClientController@create')->name('clients.create');
