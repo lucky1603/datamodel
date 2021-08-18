@@ -67,10 +67,29 @@
                 </div>
 
             @elseif($model->getAttribute('profile_status')->getValue() >= 4)
-                <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px; border: 1px solid red">
-                    <div class="card-header">USPESNA APLIKACIJA</div>
+                <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
+                    <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper('Uspešna prijava na program') }}</div>
                     <div class="card-body">
-                        WE ARE THE CHAMPIONS!!!
+                        <p class="font-weight-light font-14 ">Prijava na program <span class="attribute-label font-weight-bold">{{ $model->getActiveProgram()->getAttribute('program_name')->getValue() }}</span>
+                            je uspešno izvršena. Podaci koje ste poslali će biti analizirani i naša komisija će odlučiti da li vaša kandidatura odgovara
+                            vašim realnim mogućnostima. Takođe, moguće je da ćete biti pozvani na sastanak, ukoliko će biti neophodno da detaljnije objasnite neke
+                            od podataka koje ste naveli u prijavi.</p>
+                        <p class="font-weight-light font-14">
+                            U slučaju pozitivnog odgovora komisije, u zavisnosti od programa koji ste izabrali, može da se desi da budete pozvani na potpis ugovora.
+                            Ukoliko nije neophodan potpis ugovora, po pozitivnoj odluci komisije, bićete odmah u mogućnosti da koristite mogućnosti predviđene programom
+                            koji ste odabrali.
+                        </p>
+                        <p class="font-weight-light font-14">U međuvremenu možete pogledati video koji smo pripremili u kojem su u kratkim crtama opisane aktivnosti
+                            koje se sprovode u okviru naših programa.
+                        </p>
+                        <div class="row">
+                            <div class="offset-sm-2 col-sm-8">
+                                <div class="embed-responsive embed-responsive-4by3">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PrUxWZiQfy4?ecver=1"></iframe>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             @endif

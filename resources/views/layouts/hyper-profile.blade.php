@@ -30,50 +30,46 @@
     <div class="content-page">
         <div class="content" id="app">
             <!-- Topbar Start -->
-            <div class="navbar-custom topnav-navbar topnav-navbar-dark">
-                <div class="container-fluid">
-
-                    <!-- LOGO -->
+            <div class="navbar-custom bg-dark">
+                <div class="topbar-left bg-dark">
                     <a href="{{ route('home') }}" class="topnav-logo">
-                        <span class="topnav-logo-lg">
-                            <img src="/images/custom/white-logo-transparent-full.png" alt="" height="40">
+                        <span class="topnav-logo-lg ml-4" style="position:fixed;top:10px">
+                            <img src="/images/custom/white-logo-transparent-full.png" alt="" height="50">
                         </span>
-                        <span class="topnav-logo-sm">
-                            <img src="/images/custom/logo-lat.png" alt="" height="30">
-                        </span>
+
                     </a>
+                </div>
+                    <ul class="topbar-right-menu list-unstyled float-right mb-0 bg-dark">
+                        <li class="dropdown notification-list topbar-dropdown d-none d-lg-block">
+                            <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" id="topbar-languagedrop" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img src="/assets/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">English</span> <i class="mdi mdi-chevron-down align-middle"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu" aria-labelledby="topbar-languagedrop">
 
-                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
-{{--                        <li class="dropdown notification-list topbar-dropdown d-none d-lg-block">--}}
-{{--                            <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" id="topbar-languagedrop" href="#" role="button" aria-haspopup="true" aria-expanded="false">--}}
-{{--                                <img src="/assets/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">English</span> <i class="mdi mdi-chevron-down align-middle"></i>--}}
-{{--                            </a>--}}
-{{--                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu" aria-labelledby="topbar-languagedrop">--}}
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <img src="/assets/images/flags/germany.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">German</span>
+                                </a>
 
-{{--                                <!-- item-->--}}
-{{--                                <a href="javascript:void(0);" class="dropdown-item notify-item">--}}
-{{--                                    <img src="/assets/images/flags/germany.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">German</span>--}}
-{{--                                </a>--}}
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <img src="/assets/images/flags/italy.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Italian</span>
+                                </a>
 
-{{--                                <!-- item-->--}}
-{{--                                <a href="javascript:void(0);" class="dropdown-item notify-item">--}}
-{{--                                    <img src="/assets/images/flags/italy.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Italian</span>--}}
-{{--                                </a>--}}
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <img src="/assets/images/flags/spain.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Spanish</span>
+                                </a>
 
-{{--                                <!-- item-->--}}
-{{--                                <a href="javascript:void(0);" class="dropdown-item notify-item">--}}
-{{--                                    <img src="/assets/images/flags/spain.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Spanish</span>--}}
-{{--                                </a>--}}
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <img src="/assets/images/flags/russia.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Russian</span>
+                                </a>
 
-{{--                                <!-- item-->--}}
-{{--                                <a href="javascript:void(0);" class="dropdown-item notify-item">--}}
-{{--                                    <img src="/assets/images/flags/russia.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Russian</span>--}}
-{{--                                </a>--}}
+                            </div>
+                        </li>
 
-{{--                            </div>--}}
-{{--                        </li>--}}
-
-                        <li class="dropdown notification-list">
+                        <li class="dropdown notification-list bg-dark">
                             <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" id="topbar-notifydrop" role="button" aria-haspopup="true" aria-expanded="false">
                                 <i class="dripicons-bell noti-icon"></i>
                                 <span class="noti-icon-badge"></span>
@@ -162,8 +158,8 @@
                             </div>
                         </li>
 
-                        <li class="dropdown notification-list">
-                            <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" id="topbar-userdrop" href="#" role="button" aria-haspopup="true"
+                        <li class="dropdown notification-list bg-dark">
+                            <a class="nav-link dropdown-toggle nav-user arrow-none mr-0 bg-dark" data-toggle="dropdown" id="topbar-userdrop" href="#" role="button" aria-haspopup="true"
                                aria-expanded="false">
                                         <span class="account-user-avatar">
                                             <img src="@if(\Illuminate\Support\Facades\Auth::user()->photo == null) /assets/images/users/avatar-1.jpg @else {{ \Illuminate\Support\Facades\Auth::user()->photo }} @endif" alt="user-image" class="rounded-circle">
@@ -173,7 +169,7 @@
                                             <span class="account-position">{{ \Illuminate\Support\Facades\Auth::user()->position }}</span>
                                         </span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown bg-dark" aria-labelledby="topbar-userdrop">
                                 <!-- item-->
                                 <div class=" dropdown-header noti-title">
                                     <h6 class="text-overflow m-0">Welcome !</h6>
@@ -226,10 +222,9 @@
                         </div>
                     </a>
                 </div>
-            </div>
-            <!-- end Topbar -->
 
-            <div class="topnav shadow-sm">
+            <!-- end Topbar -->
+            <div class="shadow-sm" style="position: fixed; top:70px; left:0px; right: 0px; height:50px; z-index: 1000; background-color:white">
                 <div class="container-fluid">
                     <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
 
@@ -253,151 +248,166 @@
 
 
             <!-- Start Content-->
-            <div class="container-fluid">
-
-                <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box">
-                            <div class="page-title-right">
-                                <ol class="breadcrumb m-0">
-                                    @yield('breadcrumbs')
-                                </ol>
-                            </div>
-                            @yield('page-title')
+            <div class="container-fluid" style="position: absolute; top:120px; left:0px; right: 0px; height:70px;">
+                <div>
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                @yield('breadcrumbs')
+                            </ol>
                         </div>
+                        @yield('page-title')
                     </div>
                 </div>
-                <!-- end page title -->
+            </div>
+            <div style="position: absolute; top: 175px; left:0px; right: 0px; bottom: 65px; overflow: auto" class="container-fluid">
 
                 <div class="row">
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                @yield('profile-short-data')
-                                <ul class="social-list list-inline mt-3 mb-0">
-                                    <li class="list-inline-item">
-                                        <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
-                                                class="mdi mdi-facebook"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i
-                                                class="mdi mdi-google"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="javascript: void(0);" class="social-list-item border-info text-info"><i
-                                                class="mdi mdi-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i
-                                                class="mdi mdi-github-circle"></i></a>
-                                    </li>
-                                </ul>
-                            </div> <!-- end card-body -->
-                        </div> <!-- end card -->
-
-                        <!-- Messages-->
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="dropdown float-right">
-                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
-                                        <i class="mdi mdi-dots-vertical"></i>
+                        <div class="col-xl-3 col-lg-4">
+                            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                                <li class="nav-item">
+                                    <a href="#profile" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                                        <span class="d-none d-md-block">{{ __('Profile') }}</span>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item">Settings</a>
-                                        <!-- item-->
-                                        <a href="{{ route('user.addforprofile', $model->getId()) }}" class="dropdown-item nav-link edituser" data-toggle="modal" data-target="#dialogHost" >{{ __('Add User') }}</a>
-                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#team" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                                        <span class="d-none d-md-block">{{ __('Team') }}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane show active" id="profile">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            @yield('profile-short-data')
+                                            <ul class="social-list list-inline mt-3 mb-0">
+                                                <li class="list-inline-item">
+                                                    <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
+                                                            class="mdi mdi-facebook"></i></a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i
+                                                            class="mdi mdi-google"></i></a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="javascript: void(0);" class="social-list-item border-info text-info"><i
+                                                            class="mdi mdi-twitter"></i></a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i
+                                                            class="mdi mdi-github-circle"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div> <!-- end card-body -->
+                                    </div> <!-- end card -->
                                 </div>
-                                <h4 class="header-title">{{__('SUPPORT TEAM')}}</h4>
+                                <div class="tab-pane" id="team">
+                                    <!-- Messages-->
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="dropdown float-right">
+                                                <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="mdi mdi-dots-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <!-- item-->
+                                                    <a href="javascript:void(0);" class="dropdown-item">Settings</a>
+                                                    <!-- item-->
+                                                    <a href="{{ route('user.addforprofile', $model->getId()) }}" class="dropdown-item nav-link edituser" data-toggle="modal" data-target="#dialogHost" >{{ __('Add User') }}</a>
+                                                </div>
+                                            </div>
+                                            <h4 class="header-title">{{__('SUPPORT TEAM')}}</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            @yield('users')
+                                        </div> <!-- end card-body-->
+                                    </div> <!-- end card-->
+                                </div>
                             </div>
-                            <div class="card-body">
-                                @yield('users')
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
+                        </div> <!-- end col-->
 
-                    </div> <!-- end col-->
-
-                    <div class="col-xl-8 col-lg-7">
-                        <div class="card">
-                            <div class="card-body">
-                                <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
-                                    <li class="nav-item">
-                                        <a href="#application" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
-                                            {{ __('Application') }}
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#activities" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
-                                            {{ __('Activities') }}
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#timeline" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
-                                            {{ __('Status Timeline') }}
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content" >
-                                    <div class="tab-pane show active" id="application">
-                                        @yield('profile-data')
-                                    </div> <!-- end tab-pane -->
-                                    <!-- end about me section content -->
-                                    <div class="tab-pane" id="activities">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="timeline-alt pb-0">
-                                                    @yield('activities')
-                                                </div>
-                                                <!-- end timeline -->
-                                            </div> <!-- end col -->
+                        <div class="col-xl-9 col-lg-8">
+                            <div class="card" style="height: 70%">
+                                <div class="card-body">
+                                    <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                                        <li class="nav-item">
+                                            <a href="#application" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                                                {{ __('Application') }}
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#activities" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                                                {{ __('Activities') }}
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#timeline" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                                                {{ __('Status Timeline') }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" >
+                                        <div class="tab-pane show active overflow-auto" id="application">
+                                            @yield('profile-data')
+                                        </div> <!-- end tab-pane -->
+                                        <!-- end about me section content -->
+                                        <div class="tab-pane" id="activities">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="timeline-alt pb-0">
+                                                        @yield('activities')
+                                                    </div>
+                                                    <!-- end timeline -->
+                                                </div> <!-- end col -->
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="tab-pane" id="timeline">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="timeline">
-                                                    @yield('timeline')
-                                                </div>
-                                                <!-- end timeline -->
-                                            </div> <!-- end col -->
+                                        <div class="tab-pane" id="timeline">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="timeline">
+                                                        @yield('timeline')
+                                                    </div>
+                                                    <!-- end timeline -->
+                                                </div> <!-- end col -->
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- end settings content-->
+                                        <!-- end settings content-->
 
-                                </div> <!-- end tab-content -->
-                            </div> <!-- end card body -->
-                        </div> <!-- end card -->
-                    </div> <!-- end col -->
+                                    </div> <!-- end tab-content -->
+                                </div> <!-- end card body -->
+                            </div> <!-- end card -->
+                        </div> <!-- end col -->
                 </div>
-                <!-- end row-->
-
+                    <!-- end row-->
             </div>
+        </div>
+
             <!-- container -->
 
-        </div>
-        <!-- content -->
+    </div>
+    <!-- content -->
 
-        <!-- Footer Start -->
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
-                        <script>document.write(new Date().getFullYear())</script> © Hyper - Coderthemes.com
-                    </div>
-                    <div class="col-md-6">
-                        <div class="text-md-right footer-links d-none d-md-block">
-                            <a href="javascript: void(0);">About</a>
-                            <a href="javascript: void(0);">Support</a>
-                            <a href="javascript: void(0);">Contact Us</a>
-                        </div>
+    <!-- Footer Start -->
+    <footer class="footer pl-4 pr-4 bg-white" >
+            <div class="row">
+                <div class="col-md-6">
+                    <script>document.write(new Date().getFullYear())</script> © Hyper - Coderthemes.com
+                </div>
+                <div class="col-md-6">
+                    <div class="text-md-right footer-links d-none d-md-block">
+                        <a href="javascript: void(0);">About</a>
+                        <a href="javascript: void(0);">Support</a>
+                        <a href="javascript: void(0);">Contact Us</a>
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- end Footer -->
+
+    </footer>
+    <!-- end Footer -->
 
         <div id="dialogHost" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="primary-header-modalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -413,13 +423,10 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-    </div>
 
     <!-- ============================================================== -->
     <!-- End Page content -->
     <!-- ============================================================== -->
-
-
 </div>
 <!-- END wrapper -->
 
