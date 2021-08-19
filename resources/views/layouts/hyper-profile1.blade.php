@@ -79,11 +79,11 @@
                                 <!-- item-->
                                 <div class="dropdown-item noti-title">
                                     <h5 class="m-0">
-                                        <span class="float-right">
-                                            <a href="javascript: void(0);" class="text-dark">
-                                                <small>Clear All</small>
-                                            </a>
-                                        </span>Notification
+                                                <span class="float-right">
+                                                    <a href="javascript: void(0);" class="text-dark">
+                                                        <small>Clear All</small>
+                                                    </a>
+                                                </span>Notification
                                     </h5>
                                 </div>
 
@@ -262,95 +262,96 @@
             </div>
             <div style="position: absolute; top: 175px; left:0px; right: 0px; bottom: 65px; overflow: auto" class="container-fluid">
 
-                <div class="row h-100 overflow-hidden " >
-                    <div class="col-sm-3  h-100">
-                        <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
-                            <li class="nav-item">
-                                <a href="#profile" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
-                                    <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                                    <span class="d-none d-md-block">{{ strtoupper(__('Profile')) }}</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#team" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
-                                    <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                                    <span class="d-none d-md-block">{{ strtoupper( __('Team')) }}</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="tab-content overflow-hidden shadow" style="height: 90%!important;" >
-                            <div class="tab-pane show active h-100 overflow-hidden shadow" id="profile">
-                                <div class="card h-100"  >
-                                    <div class="card-body">
-                                            @yield('profile-short-data')
-                                            <ul class="social-list list-inline mt-3 mb-0">
-                                                <li class="list-inline-item">
-                                                    <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
-                                                            class="mdi mdi-facebook"></i></a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i
-                                                            class="mdi mdi-google"></i></a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="javascript: void(0);" class="social-list-item border-info text-info"><i
-                                                            class="mdi mdi-twitter"></i></a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i
-                                                            class="mdi mdi-github-circle"></i></a>
-                                                </li>
-                                            </ul>
+                <div class="row overflow-auto" style="max-height: 100%!important;" >
+                        <div class="col-sm-3 h-100 overflow-hidden border border-success">
+                            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                                <li class="nav-item">
+                                    <a href="#profile" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                                        <span class="d-none d-md-block">{{ __('Profile') }}</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#team" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                                        <span class="d-none d-md-block">{{ __('Team') }}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content overflow-hidden shadow" style="height: 90%!important;" >
+                                <div class="tab-pane show active h-100 overflow-hidden shadow" id="profile">
+                                    <div class="card h-100"  >
+                                        <div class="card-body">
+                                                @yield('profile-short-data')
+                                                <ul class="social-list list-inline mt-3 mb-0">
+                                                    <li class="list-inline-item">
+                                                        <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
+                                                                class="mdi mdi-facebook"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i
+                                                                class="mdi mdi-google"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <a href="javascript: void(0);" class="social-list-item border-info text-info"><i
+                                                                class="mdi mdi-twitter"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i
+                                                                class="mdi mdi-github-circle"></i></a>
+                                                    </li>
+                                                </ul>
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane h-100" id="team">
-                                <!-- Messages-->
-                                <div class="card h-100" >
-                                    <div class="card-header">
-                                        <div class="dropdown float-right">
-                                            <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
-                                                <i class="mdi mdi-dots-vertical"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">Settings</a>
-                                                <!-- item-->
-                                                <a href="{{ route('user.addforprofile', $model->getId()) }}" class="dropdown-item nav-link edituser" data-toggle="modal" data-target="#dialogHost" >{{ __('Add User') }}</a>
-                                            </div>
                                         </div>
-                                        <h4 class="header-title">{{__('SUPPORT TEAM')}}</h4>
                                     </div>
-                                    <div class="card-body">
-                                        @yield('users')
-                                    </div> <!-- end card-body-->
-                                </div> <!-- end card-->
+                                </div>
+                                <div class="tab-pane h-100" id="team">
+                                    <!-- Messages-->
+                                    <div class="card h-100" >
+                                        <div class="card-header">
+                                            <div class="dropdown float-right">
+                                                <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="mdi mdi-dots-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <!-- item-->
+                                                    <a href="javascript:void(0);" class="dropdown-item">Settings</a>
+                                                    <!-- item-->
+                                                    <a href="{{ route('user.addforprofile', $model->getId()) }}" class="dropdown-item nav-link edituser" data-toggle="modal" data-target="#dialogHost" >{{ __('Add User') }}</a>
+                                                </div>
+                                            </div>
+                                            <h4 class="header-title">{{__('SUPPORT TEAM')}}</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            @yield('users')
+                                        </div> <!-- end card-body-->
+                                    </div> <!-- end card-->
+                                </div>
                             </div>
-                        </div>
-                    </div> <!-- end col-->
-                    <div class="col-sm-6 h-100">
-                        <div class="card shadow" style="height: 98%!important;"  >
-                            <div class="card-header bg-primary text-light">
-                                {{ __('Application Form') }}
-                            </div>
-                            <div class="card-body overflow-auto">
-                                @yield('profile-data')
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 h-100">
-                        <div class="card shadow" style="height: 98%!important;"  >
-                            <div class="card-header bg-primary text-light">
-                                {{ __('Activities') }}
-                            </div>
-                            <div class="card-body overflow-auto" style="height: 80%!important;">
-                                <div class="timeline-alt pb-0" >
-                                    @yield('activities')
+                        </div> <!-- end col-->
+
+                        <div class="col-sm-6 mh-100 overflow-auto border border-danger">
+                            <div class="card shadow mh-100" style="height: 98%!important;" >
+                                <div class="card-header bg-primary text-light">
+                                    {{ __('Application Form') }}
+                                </div>
+                                <div class="card-body overflow-auto">
+                                    @yield('profile-data')
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-sm-3 overflow-auto border border-primary" style="max-height: 100%!important;">
+                            <div class="card shadow" style="height: 98%!important;"  >
+                                <div class="card-header bg-primary text-light">
+                                    {{ __('Activities') }}
+                                </div>
+                                <div class="card-body overflow-auto">
+                                    <div class="timeline-alt pb-0" >
+                                        @yield('activities')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                 </div>
                     <!-- end row-->
