@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/edituser', 'Auth\EditUserController@index')->name('users');
 Route::get('/edituser/addadmin', 'Auth\EditUserController@addadmin')->name('user.addadmin');
@@ -70,6 +70,7 @@ Route::get('profiles', 'ProfileController@index')->name('profiles.index');
 Route::get('profiles/create', 'ProfileController@create')->name('profiles.create');
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
 Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');
+Route::get('profiles/testMail/{profile}', 'ProfileController@testMail')->name('profiles.testmail');
 Route::get('profiles/profile/{profile}', 'ProfileController@profile')->name('profiles.profile');
 Route::get('profiles/check/{profile}', 'ProfileController@check')->name('profiles.check');
 Route::post('profiles/saveApplicationData', 'ProfileController@saveApplicationData')->name('profiles.saveapplicationdata');

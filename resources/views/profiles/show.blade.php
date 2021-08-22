@@ -38,7 +38,7 @@
     <p class="text-muted font-14 mt-2">{{ __('Competes For') }}:</p>
     {{--    <button type="button" class="btn btn-success btn-sm mb-2">Follow</button>--}}
     {{--    <button type="button" class="btn btn-danger btn-sm mb-2">Message</button>--}}
-    <button type="button" class="btn btn-primary" style="width: 100%">@if(false) {{ $model->getAttribute('program_name')->getText() }} @else {{ __('Not applied yet') }} @endif</button>
+    <button type="button" class="btn btn-primary" style="width: 100%">@if($model->getActiveProgram() != null) {{ $model->getActiveProgram()->getAttribute('program_name')->getText() }} @else {{ __('Not applied yet') }} @endif</button>
 
     <div class="text-left mt-3">
         <h4 class="font-13 text-uppercase attribute-label">{{ $model->getAttribute('short_ino_desc')->label }}</h4>
@@ -134,6 +134,9 @@
         </div>
         <div class="text-center w-100">
             <h4>{{ __('Waiting for the client to choose the program') }}</h4>
+            <div style="display: flex; justify-content: center; height: 200px; align-items: center">
+                <button type="button" id="btnSendMail" class="btn btn-primary">Send Test Mail</button>
+            </div>
         </div>
     @elseif($model->getAttribute('profile_status')->getValue() == 3)
         <div class="text-center w-100">
@@ -241,3 +244,17 @@
             @endforeach
 @endsection
 
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#btnSendMail').on('click', function(evt) {
+                var profileId = <?php echo $model->getId();?>;
+
+                $.get('/profiles/testMail/' + profileId, function(data) {
+                    alert('Mail je poslat!');
+                });
+
+            });
+        });
+    </script>
+@endsection

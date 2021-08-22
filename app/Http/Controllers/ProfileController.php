@@ -8,9 +8,11 @@ use App\Business\BusinessModel;
 use App\Business\Client;
 use App\Business\Profile;
 use App\Business\Program;
+use App\Mail\ProfileCreated;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 class ProfileController extends Controller
@@ -79,12 +81,6 @@ class ProfileController extends Controller
     public function store(Request $request) {
         $data = $request->post();
 
-        foreach($data as $key => $value) {
-            echo 'data['.$key.'] = '.$value.'\n';
-        }
-
-        die();
-
         // Hash code the password.
         if(isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
@@ -101,34 +97,42 @@ class ProfileController extends Controller
 
         $profile = new Profile($data);
 
-        if($profile != null) {
-            $user = User::where(['email' => $data['contact_email']])->first();
+        $user = User::where(['email' => $data['contact_email']])->first();
 
-            if($user === null) {
-                $user = User::create([
-                    'name' => $data['contact_person'],
-                    'email' => $data['contact_email'],
-                    'password' => $data['password'],
-                    'position' => "Zastupnik"
-                ]);
+        if($user === null) {
+            $user = User::create([
+                'name' => $data['contact_person'],
+                'email' => $data['contact_email'],
+                'password' => $data['password'],
+                'position' => "Zastupnik"
+            ]);
 
-                $user->assignRole('profile');
-            }
+            $user->assignRole('profile');
+        }
 
-            // Attach default user to the instance.
-            $profile->attachUser($user);
+        // Attach default user to the instance.
+        $profile->attachUser($user);
 
-            if($profile->getAttribute('profile_status')->getValue() == 1) {
-                $profile->addSituationByData(__('Mapped'), []);
-            } else {
-                $profile->addSituationByData(__('Interest'), []);
-            }
-
+        if($profile->getAttribute('profile_status')->getValue() == 1) {
+            $profile->addSituationByData(__('Mapped'), []);
+        } else {
+            $profile->addSituationByData(__('Interest'), []);
         }
 
         // TODO - Send email to the user.
+
         return redirect(route('profiles.index'));
 
+    }
+
+    public function testMail($profileId) {
+        $profile = new Profile(['instance_id' => $profileId]);
+        $email = $profile->getAttribute('contact_email')->getValue();
+        Mail::to('sinisa.ristic@gmail.com')->send(new ProfileCreated($profile));
+        return [
+            'code' => 0,
+            'message' => 'Mail sent!'
+        ];
     }
 
     /**
