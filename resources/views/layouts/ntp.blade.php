@@ -38,9 +38,8 @@
 <body>
     <div id="app">
         <div style="height: 100px; text-align: center; margin: 50px 250px " >
-            <img src="images/custom/logo.png" height="100%"/>
+            <img src="/images/custom/logo-lat.png" height="100%"/>
         </div>
-
 
         <main class="py-4">
             @yield('content')

@@ -299,4 +299,19 @@ class EditUserController extends Controller
         return redirect($return_to);
     }
 
+    public function updatePassword(Request $request) {
+        $request-> validate([
+            'token' => 'required',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        $data = $request->post();
+
+        $user = User::where('remember_token', $data['token'])->first();
+        $user->setAttribute("password", Hash::make($data['password']));
+        $user->save();
+
+        return redirect(route('home'));
+    }
+
 }

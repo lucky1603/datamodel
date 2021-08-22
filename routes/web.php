@@ -17,14 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::get('/edituser', 'Auth\EditUserController@index')->name('users');
 Route::get('/edituser/addadmin', 'Auth\EditUserController@addadmin')->name('user.addadmin');
 Route::post('/edituser/adminadded', 'Auth\EditUserController@adminadded')->name('user.adminadded');
 Route::post('/edituser/deleted', 'Auth\EditUserController@deleted')->name('user.deleted');
+Route::post('/edituser/updatePassword', 'Auth\EditUserController@updatePassword')->name('user.updatepassword');
 Route::get('/edituser/addforprofile/{profile}', 'Auth\EditUserController@addForProfile')->name('user.addforprofile');
 Route::post('/edituser/addedforprofile/{profile}', 'Auth\EditUserController@addedForProfile')->name('user.addedforprofile');
 Route::get('/edituser/add', 'Auth\EditUserController@add')->name('user.add');
@@ -71,6 +70,7 @@ Route::get('profiles/create', 'ProfileController@create')->name('profiles.create
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
 Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');
 Route::get('profiles/testMail/{profile}', 'ProfileController@testMail')->name('profiles.testmail');
+Route::get('profiles/verify/{token}', 'ProfileController@verify')->name('profiles.verify');
 Route::get('profiles/profile/{profile}', 'ProfileController@profile')->name('profiles.profile');
 Route::get('profiles/check/{profile}', 'ProfileController@check')->name('profiles.check');
 Route::post('profiles/saveApplicationData', 'ProfileController@saveApplicationData')->name('profiles.saveapplicationdata');

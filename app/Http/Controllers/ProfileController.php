@@ -8,12 +8,14 @@ use App\Business\BusinessModel;
 use App\Business\Client;
 use App\Business\Profile;
 use App\Business\Program;
+use App\Http\Middleware\Authenticate;
 use App\Mail\ProfileCreated;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -104,8 +106,11 @@ class ProfileController extends Controller
                 'name' => $data['contact_person'],
                 'email' => $data['contact_email'],
                 'password' => $data['password'],
-                'position' => "Zastupnik"
+                'position' => "Zastupnik",
             ]);
+
+            $user->setRememberToken(Str::random(60));
+            $user->save();
 
             $user->assignRole('profile');
         }
@@ -120,6 +125,8 @@ class ProfileController extends Controller
         }
 
         // TODO - Send email to the user.
+        $email = $profile->getAttribute('contact_email')->getValue();
+        Mail::to($email)->send(new ProfileCreated($profile));
 
         return redirect(route('profiles.index'));
 
@@ -133,6 +140,16 @@ class ProfileController extends Controller
             'code' => 0,
             'message' => 'Mail sent!'
         ];
+    }
+
+    public function verify($token) {
+        $user = User::where('remember_token', $token)->first();
+        $user->setAttribute('email_verified_at', now());
+        $user->save();
+
+        return view('auth.changepassword')->with(
+            ['token' => $token, 'email' => $user->getAttribute('email')]
+        );
     }
 
     /**
