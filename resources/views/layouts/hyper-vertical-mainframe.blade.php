@@ -10,35 +10,16 @@
     </li>
 
     <li class="side-nav-item">
-        <a href="{{ route('clients.index') }}" class="side-nav-link">
-            <i class="uil-snapchat-square"></i>
-            <span>{{ strtoupper(__('CLIENTS')) }}</span>
-            @if(App\Business\Client::getApplicantsNumber() > 0 )
-                <span class="badge badge-danger float-right">
-                    {{ App\Business\Client::getApplicantsNumber() }}
-                </span>
-            @endif
-        </a>
-    </li>
-
-    <li class="side-nav-item">
         <a href="{{ route('profiles.index') }}" class="side-nav-link">
             <i class="uil-bill"></i>
-            <span>{{ strtoupper(__('PROFILES')) }}</span>
-        </a>
-    </li>
-
-    <li class="side-nav-item">
-        <a href="{{ route('contracts.index') }}" class="side-nav-link">
-            <i class="uil-bill"></i>
-            <span>{{ strtoupper(__('CONTRACTS')) }}</span>
+            <span>{{ strtoupper(__('Profiles')) }}</span>
         </a>
     </li>
 
     <li class="side-nav-item">
         <a href="{{ route('users') }}" class="side-nav-link">
             <i class="uil-chat-bubble-user"></i>
-            <span>{{ strtoupper(__('USERS')) }}</span>
+            <span>{{ strtoupper(__('Users')) }}</span>
         </a>
     </li>
 
