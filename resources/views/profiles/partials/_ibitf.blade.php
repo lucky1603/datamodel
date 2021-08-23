@@ -1,7 +1,7 @@
 @include('profiles.partials._ibitf_general_data')
+@include('profiles.partials._ibitf_responsible_person')
 @include('profiles.partials._ibitf_contests')
 @include('profiles.partials._ibitf_financial_users')
-@include('profiles.partials._ibitf_responsible_person')
 @include('profiles.partials._ibitf_founders')
 @include('profiles.partials._ibitf_founding_enterprise')
 
