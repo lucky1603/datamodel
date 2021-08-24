@@ -231,10 +231,6 @@ class ProfileController extends Controller
      */
     public function saveApplicationData(Request $request) {
         $data = $request->post();
-//        foreach($data as $key => $value) {
-//            echo "data[".$key."] = ".$value."<br />";
-//        }
-//        die();
 
         $fileData = $this->addFileToData($request, 'resenje_fajl');
         if($fileData != null) {
@@ -263,7 +259,7 @@ class ProfileController extends Controller
             $profile->addProgram($program);
 
             // Generate situation.
-            $profile->addSituationByData('Applying', [
+            $profile->addSituationByData(__('Applying') , [
                 'program_type' => $programType,
                 'program_name' => $program->getAttribute('program_name')->getValue()
             ]);
@@ -373,13 +369,22 @@ class ProfileController extends Controller
 
         }
 
-        $profile->getAttribute('profile_status')->setValue(4);
-
         $profile->addSituationByData(__('Application Sent'),
             [
                 'program_type' => $program->getAttribute('program_type')->getValue(),
                 'program_name' => $program->getAttribute('program_name')->getValue()
             ]);
+
+        if($profile->getAttribute('needs_preselection')->getValue() == true) {
+            $profile->getAttribute('profile_status')->setValue(4);
+            $profile->addSituationByData(__('Preselection needed'),
+                [
+                    'program_type' => $program->getAttribute('program_type')->getValue(),
+                    'program_name' => $program->getAttribute('program_name')->getValue()
+                ]);
+        } else {
+            $profile->getAttribute('profile_status')->setValue(5);
+        }
 
         return json_encode([
             'code' => 1,

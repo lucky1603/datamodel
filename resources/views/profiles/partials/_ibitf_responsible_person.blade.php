@@ -39,7 +39,7 @@
 
 <div class="form-group row">
     @php
-        $attribute = $attributes->where('name', 'responsible_celular')->first();
+        $attribute = $attributes->where('name', 'responsible_cellular')->first();
         $phone = $attribute->getValue() ?? $model->getAttribute('contact_phone')->getValue();
     @endphp
 

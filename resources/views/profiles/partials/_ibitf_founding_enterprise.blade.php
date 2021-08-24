@@ -3,7 +3,7 @@
 <div class="form-group row">
     <div class="col-sm-4">
         @php
-            $attribute = $attributes->where('name', 'founding_complany_planned')->first();
+            $attribute = $attributes->where('name', 'founding_company_planned')->first();
         @endphp
 
         <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">

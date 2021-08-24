@@ -24,7 +24,7 @@ class Profile extends SituationsModel
     {
         $entity = Entity::where('name', 'Profile')->first();
         if($entity == null) {
-            $entity = Entity::create(['name' => 'Profile', 'description' => 'Client Profile']);
+            $entity = Entity::create(['name' => 'Profile', 'description' => __('Client Profile')]);
             $attributes = self::getAttributesDefinition();
             foreach ($attributes as $attribute) {
                 $entity->addAttribute($attribute);
@@ -73,22 +73,25 @@ class Profile extends SituationsModel
     {
         $attributes = [];
 
-        $attributes[] = self::selectOrCreateAttribute(['name', 'Naziv', 'varchar', NULL, 1]);
-        $attributes[] = self::selectOrCreateAttribute(['is_company', 'Da li je kompanija', 'bool', NULL, 2]);
-        $attributes[] = self::selectOrCreateAttribute(['id_number', 'Maticni broj', 'varchar', NULL, 3]);
-        $attributes[] = self::selectOrCreateAttribute(['contact_person', 'Kontakt osoba', 'varchar', NULL, 4]);
-        $attributes[] = self::selectOrCreateAttribute(['contact_email', 'E-mail adresa', 'varchar', ['ui'=>'email'], 5]);
-        $attributes[] = self::selectOrCreateAttribute(['password', 'Lozinka', 'varchar', ['ui' => 'password'], 6]);
-        $attributes[] = self::selectOrCreateAttribute(['contact_phone', 'Telefon', 'varchar', NULL, 7]);
-        $attributes[] = self::selectOrCreateAttribute(['address', 'Adresa', 'varchar', NULL, 8]);
+        $attributes[] = self::selectOrCreateAttribute(['name', __('Name'), 'varchar', NULL, 1]);
+        $attributes[] = self::selectOrCreateAttribute(['is_company', __("Is it a company"), 'bool', NULL, 2]);
+        $attributes[] = self::selectOrCreateAttribute(['id_number', __('ID Number'), 'varchar', NULL, 3]);
+        $attributes[] = self::selectOrCreateAttribute(['contact_person', __('Contact Person'), 'varchar', NULL, 4]);
+        $attributes[] = self::selectOrCreateAttribute(['contact_email', __('Email'), 'varchar', ['ui'=>'email'], 5]);
+        $attributes[] = self::selectOrCreateAttribute(['password', __('Password'), 'varchar', ['ui' => 'password'], 6]);
+        $attributes[] = self::selectOrCreateAttribute(['contact_phone', __('Phone Number'), 'varchar', NULL, 7]);
+        $attributes[] = self::selectOrCreateAttribute(['address', __('Address'), 'varchar', NULL, 8]);
 
         $university = self::selectOrCreateAttribute(['university', 'Fakultet', 'select', NULL, 9]);
         if(count($university->getOptions()) == 0) {
-            $university->addOption(['value' => 0, 'text' => 'NEMA']);
-            $university->addOption(['value' => 1, 'text' => 'Arhitektonski fakultet - Beograd']);
-            $university->addOption(['value' => 2, 'text' => 'Elektrotehnički fakultet - Beograd']);
-            $university->addOption(['value' => 3, 'text' => 'Pravni fakultet - Beograd']);
-            $university->addOption(['value' => 4, 'text' => 'Šumarski fakultet - Beograd']);
+            $university->addOption(['value' => 0, 'text' => __('gui-select.U-None')]);
+            $university->addOption(['value' => 1, 'text' => __('gui-select.U-Architecture')]);
+            $university->addOption(['value' => 2, 'text' => __('gui-select.U-Economics')]);
+            $university->addOption(['value' => 3, 'text' => __('gui-select.U-Electrotehnics')]);
+            $university->addOption(['value' => 4, 'text' => __('gui-select.U-Law')]);
+            $university->addOption(['value' => 5, 'text' => __('gui-select.U-FON')]);
+            $university->addOption(['value' => 6, 'text' => __('gui-select.U-FPN')]);
+            $university->addOption(['value' => 7, 'text' => __('gui-select.U-Forestry')]);
         }
         $attributes[] = $university;
 
@@ -96,44 +99,43 @@ class Profile extends SituationsModel
 
         $business_branch = self::selectOrCreateAttribute(['business_branch', 'Osnovna aktivnost', 'select', NULL, 11]);
         if(count($business_branch->getOptions()) == 0) {
-            $business_branch->addOption(['value' => 0, 'text' => 'Drugo']);
-            $business_branch->addOption(['value' => 1, 'text' => 'IoT i pametni gradovi']);
-            $business_branch->addOption(['value' => 2, 'text' => 'Energetska efikasnost, zelene, čiste tehnologije i ekologija']);
-            $business_branch->addOption(['value' => 3, 'text' => 'Вештачка интелигенција, базе података и аналитика']);
-            $business_branch->addOption(['value' => 4, 'text' => 'Veštačka inteligencija, baze podataka i analitika']);
-            $business_branch->addOption(['value' => 5, 'text' => 'Novi materijali i 3 D štampa']);
-            $business_branch->addOption(['value' => 6, 'text' => 'Tehnologija u sportu']);
-            $business_branch->addOption(['value' => 7, 'text' => 'Ekonomske transakcije, finansije, marketing i prodaja']);
-            $business_branch->addOption(['value' => 8, 'text' => 'Robotika i automatizacija']);
-            $business_branch->addOption(['value' => 9, 'text' => 'Turizam i putovanja']);
-            $business_branch->addOption(['value' => 10, 'text' => 'Edukacija , obrazovanje i usavršavanje']);
-            $business_branch->addOption(['value' => 11, 'text' => 'Mediji , komunikacije i društvene mreže/ Gaming i zabava']);
-            $business_branch->addOption(['value' => 12, 'text' => 'Medicinske tehnologije']);
-            $business_branch->addOption(['value' => 13, 'text' => 'Ostalo']);
+            $business_branch->addOption(['value' => 1, 'text' => __('gui-select.BB-IOT')]);
+            $business_branch->addOption(['value' => 2, 'text' => __('gui-select.BB-EnEff')]);
+            $business_branch->addOption(['value' => 3, 'text' => __('gui-select.BB-AI')]);
+            $business_branch->addOption(['value' => 4, 'text' => __('gui-select.BB-NewMat')]);
+            $business_branch->addOption(['value' => 5, 'text' => __('gui-select.BB-TechSport')]);
+            $business_branch->addOption(['value' => 6, 'text' => __('gui-select.BB-EcoTrans')]);
+            $business_branch->addOption(['value' => 7, 'text' => __('gui-select.BB-RoboAuto')]);
+            $business_branch->addOption(['value' => 8, 'text' => __('gui-select.BB-Tourism')]);
+            $business_branch->addOption(['value' => 9, 'text' => __('gui-select.BB-Education')]);
+            $business_branch->addOption(['value' => 10,'text' => __('gui-select.BB-MediaGaming')]);
+            $business_branch->addOption(['value' => 11, 'text' => __('gui-select.BB-MedTech')]);
+            $business_branch->addOption(['value' => 12, 'text' => __('gui-select.BB-Other')]);
         }
         $attributes[] = $business_branch;
 
-        $reason_contact = self::selectOrCreateAttribute(['reason_contact', 'Razlog kontaktiranja', 'select', NULL, 12]);
+        $reason_contact = self::selectOrCreateAttribute(['reason_contact', __('Reason for Contact'), 'select', NULL, 12]);
         if(count($reason_contact->getOptions()) == 0) {
-            $reason_contact->addOption(['value' => 0, 'text' => 'Drugo']);
-            $reason_contact->addOption(['value' => 1, 'text' => 'Razlog 1']);
-            $reason_contact->addOption(['value' => 2, 'text' => 'Razlog 2']);
-            $reason_contact->addOption(['value' => 3, 'text' => 'Razlog 3']);
+            $reason_contact->addOption(['value' => 1, 'text' => __('gui-select.RC-Reason1')]);
+            $reason_contact->addOption(['value' => 2, 'text' => __('gui-select.RC-Reason2')]);
+            $reason_contact->addOption(['value' => 3, 'text' => __('gui-select.RC-Reason3')]);
         }
         $attributes[] = $reason_contact;
 
-        $attributes[] = self::selectOrCreateAttribute(['note', 'Napomena', 'text', NULL, 13]);
+        $attributes[] = self::selectOrCreateAttribute(['note', __('Note'), 'text', NULL, 13]);
 
-        $status = self::selectOrCreateAttribute(['profile_status', 'Status profila', 'select', NULL, 14]);
+        $status = self::selectOrCreateAttribute(['profile_status', __('Profile Status'), 'select', NULL, 14]);
         if(count($status->getOptions()) == 0) {
-            $status->addOption(['value' => 0, 'text' => 'Neinicijalizovan']);
-            $status->addOption(['value' => 1, 'text' => 'Mapiran/Kontaktiran']);
-            $status->addOption(['value' => 2, 'text' => 'Zainteresovan']);
-            $status->addOption(['value' => 3, 'text' => 'Popunjava prijavu']);
-            $status->addOption(['value' => 4, 'text' => 'Prijavljen']);
-            $status->addOption(['value' => 5, 'text' => 'Pre-selektovan']);
-            $status->addOption(['value' => 6, 'text' => 'Prihvaćena prijava']);
-            $status->addOption(['value' => 7, 'text' => 'Odbijena prijava']);
+            $status->addOption(['value' => 0, 'text' => __('gui-select.PS-Uninitialized')]);
+            $status->addOption(['value' => 1, 'text' => __('gui-select.PS-Mapped')]);
+            $status->addOption(['value' => 2, 'text' => __('gui-select.PS-Interest')]);
+            $status->addOption(['value' => 3, 'text' => __('gui-select.PS-Application')]);
+            $status->addOption(['value' => 4, 'text' => __('gui-select.PS-Preselection')]);
+            $status->addOption(['value' => 5, 'text' => __('gui-select.PS-Selection')]);
+            $status->addOption(['value' => 6, 'text' => __('gui-select.PS-Contract')]);
+            $status->addOption(['value' => 7, 'text' => __('gui-select.PS-InProgram')]);
+            $status->addOption(['value' => 8, 'text' => __('gui-select.PS-Rejected')]);
+
         }
         $attributes[] = $status;
 
@@ -153,7 +155,7 @@ class Profile extends SituationsModel
             case __('Interest'):
                 $data = [
                     'name' => $situationType,
-                    'description' => 'Potencijalni klijent je napravio je profil i izrazio interesovanje za izbor programa.',
+                    'description' => __('gui-situations.PROFILE-INTEREST'),
                     'sender' => $this->getAttribute('name')->getValue()
                 ];
 
@@ -161,7 +163,7 @@ class Profile extends SituationsModel
             case __('Mapped'):
                 $data = [
                     'name' => $situationType,
-                    'description' => 'Klijent je mapiran. Napravljen mu je profil i poslati pristupni podaci.',
+                    'description' => __('gui-situations.PROFILE-MAPPED'),
                     'sender' => 'NTP'
                 ];
 
@@ -169,7 +171,7 @@ class Profile extends SituationsModel
             case __('Applying'):
                 $data = [
                     'name' => $situationType,
-                    'description' => 'Klijent je izabrao program i počeo sa popunjavanjem forme.',
+                    'description' => __('gui-situations.PROFILE-APPLYING'),
                     'sender' => $this->getAttribute('name')->getValue()
                 ];
 
@@ -182,12 +184,24 @@ class Profile extends SituationsModel
             case __('Application Sent'):
                 $data = [
                     'name' => $situationType,
-                    'description' => 'Klijent je uspešno popunio formu za prijavu na program.',
+                    'description' => __('gui-situations.PROFILE-APPSENT'),
                     'sender' => $this->getAttribute('name')->getValue()
                 ];
 
                 $situation = new Situation($data);
                 $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
+                $situation->addAttribute(self::selectOrCreateAttribute(['program_name', 'Ime programa', 'varchar', NULL, 2]));
+                break;
+            case __('Preselection needed'):
+                $data = [
+                    'name' => $situationType,
+                    'description' => __('gui-situations.PROFILE-PRESELECTION'),
+                    'sender' => 'NTP'
+                ];
+
+                $situation = new Situation($data);
+                $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
+                $situation->addAttribute(self::selectOrCreateAttribute(['program_name', 'Ime programa', 'varchar', NULL, 2]));
                 break;
         }
 

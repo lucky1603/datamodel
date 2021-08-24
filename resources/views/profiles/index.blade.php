@@ -51,6 +51,8 @@
 
                 @php
                     $data = $profile->getData();
+                    $status = $profile->getAttribute('profile_status')->getValue();
+                    $status_text = $profile->getAttribute('profile_status')->getText();
                 @endphp
 
                 <div class="col-md-3">
@@ -58,6 +60,19 @@
                         <div class="card shadow-sm ribbon-box" data-id="{{ $loop->iteration }}" style="margin-top:10px; margin-bottom: 10px">
 
                             <div class="card-body" style="padding: 0" >
+                                <div class="ribbon-two
+                                        @switch($status)
+                                            @case(1)
+                                            @case(2)
+                                                ribbon-two-danger
+                                                @break
+                                            @case(3)
+                                                ribbon-two-warning
+                                                @break
+                                            @default
+                                                ribbon-two-success
+                                                @break
+                                        @endswitch"><span>{{ $status_text }}</span></div>
                                 <div id="img-container" class="image-container">
                                     <img src="@if( $profile->getAttribute('profile_background') != null && strlen($profile->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $profile->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile"/>
                                     <img class="shadow image-container-logo" src="{{ $profile->getAttribute('logo') != null && strlen($profile->getAttribute('logo')->getValue()['filelink']) > 0 ? $profile->getAttribute('logo')->getValue()['filelink'] : '/images/custom/avatar-default.png' }}" />
