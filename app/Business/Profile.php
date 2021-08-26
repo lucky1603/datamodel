@@ -203,6 +203,30 @@ class Profile extends SituationsModel
                 $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
                 $situation->addAttribute(self::selectOrCreateAttribute(['program_name', 'Ime programa', 'varchar', NULL, 2]));
                 break;
+            case __('Preselection Done'):
+                $data = [
+                    'name' => $situationType,
+                    'description' => __('gui-situations.PROFILE-PRESELECTION-DONE', [
+                        'client' => $this->getAttribute('name')->getValue(),
+                        'program' => $this->getActiveProgram()->getAttribute('program_name')->getValue()
+                    ]),
+                    'sender' => 'NTP'
+                ];
+
+                $situation = new Situation($data);
+                $situation->addAttribute(self::selectOrCreateAttribute(['preselection_passed', __("Preselection passed"), 'bool', NULL, 5]));
+                break;
+            case __('Ready for Selection'):
+                $data = [
+                    'name' => $situationType,
+                    'description' => __('gui-situations.PROFILE-SELECTION', [
+                        'client' => $this->getAttribute('name')->getValue(),
+                        'program' => $this->getActiveProgram()->getAttribute('program_name')->getValue()
+                    ]),
+                    'sender' => 'NTP'
+                ];
+                break;
+
         }
 
         if(isset($params)) {

@@ -12,5 +12,6 @@ return [
     'PROFILE-APPLYING' => 'The client has choosen a program and have started with the filling out of the application form.',
     'PROFILE-APPSENT' => 'Klijent has successfully applied for the program.',
     'PROFILE-PRESELECTION' => 'This program requires the preselection. The client has entered the preselection process.',
+    'PROFILE-PRESELECTION-DONE' => 'The preselection of client :client for the program :program has finished.',
 
 ];

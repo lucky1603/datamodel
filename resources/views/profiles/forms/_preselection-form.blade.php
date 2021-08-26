@@ -66,10 +66,10 @@
             <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $value }}</textarea>
         </div>
         <div class="text-center mt-5">
-            <button type="button" id="btnNotifyClientPreselection" class="btn btn-sm btn-warning presel-button">{{__('gui.preselection-notify')}}</button>
-            <button type="button" id="btnSavePreselection" class="btn btn-sm btn-primary presel-button">{{__('gui.preselection-save')}}</button>
-            <button type="button" id="btnPreselectionPassed" class="btn btn-sm btn-success presel-button">{{__('gui.preselection-accept')}}</button>
-            <button type="button" id="btnPreselectionFailed" class="btn btn-sm btn-danger presel-button">{{__('gui.preselection-reject')}}</button>
+            <button type="button" id="btnNotifyClientPreselection" class="btn btn-sm btn-warning presel-button" >{{__('gui.preselection-notify')}}</button>
+            <button type="button" id="btnSavePreselection" class="btn btn-sm btn-primary presel-button" >{{__('gui.preselection-save')}}</button>
+            <button type="button" id="btnPreselectionPassed" class="btn btn-sm btn-success presel-button" >{{__('gui.preselection-accept')}}</button>
+            <button type="button" id="btnPreselectionFailed" class="btn btn-sm btn-danger presel-button" >{{__('gui.preselection-reject')}}</button>
         </div>
     </form>
 </div>

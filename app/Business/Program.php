@@ -94,8 +94,9 @@ class Program extends SituationsModel
     public function removePreselection() {
         $preselectionEntity = Entity::where('name', 'Preselection')->first();
         $preselectionInstance = $this->instance->instances->where('entity_id', $preselectionEntity->id)->first();
-        $this->instance->instances->detach($preselectionInstance);
+        $this->instance->instances()->detach($preselectionInstance->id);
         $this->instance->refresh();
+
     }
 
     /**
@@ -111,6 +112,50 @@ class Program extends SituationsModel
         }
 
         return new Preselection(['instance_id' => $preselectionInstance->id]);
+    }
+
+    /**
+     * Adds selection to the program.
+     * @param Selection $selection
+     * @return Selection
+     */
+    public function addSelection(Selection $selection): Selection
+    {
+        $this->instance->instances()->save($selection->instance);
+        $this->instance->refresh();
+        return $selection;
+    }
+
+    /**
+     * Remove selection from the program.
+     * @param Selection $selection
+     */
+    public function removeSelection() {
+        $selection = $this->getSelection();
+        if($selection == null)
+            return true;
+
+        $this->instance->instances()->detach($selection->instance->id);
+        $this->instance->refresh();
+
+        $selection->delete();
+
+        return true;
+    }
+
+    /**
+     * Return current associated program selection object.
+     * @return Selection|null
+     */
+    public function getSelection(): ?Selection
+    {
+        $selectionEntity = Entity::where('name', 'Selection')->first();
+        $selectionInstance = $this->instance->instances->where('entity_id', $selectionEntity->id)->first();
+        if($selectionInstance == null) {
+            return null;
+        }
+
+        return new Selection(['instance_id' => $selectionInstance->id]);
     }
 
     /**

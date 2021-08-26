@@ -9,6 +9,7 @@ use App\Business\Client;
 use App\Business\Preselection;
 use App\Business\Profile;
 use App\Business\Program;
+use App\Business\Selection;
 use App\Http\Middleware\Authenticate;
 use App\Mail\ProfileCreated;
 use App\User;
@@ -385,7 +386,55 @@ class ProfileController extends Controller
 
     }
 
+    public function evalPreselection(Request $request) {
+        $data = $request->post();
 
+        if(!isset($data['profile'])) {
+            return [
+                'code' => 1,
+                'message' => __('Wrong parameters')
+            ];
+        }
+
+        $profileId = $data['profile'];
+        $profile = Profile::find($profileId);
+        if($profile == null) {
+            return [
+                'code' => 2,
+                'message' => __('Profile doesn\'t exist'),
+            ];
+        }
+
+        // Add situation (preselection result).
+        $profile->addSituationByData(__('Preselection Done'), [
+            'preselection_passed' => $data['passed']
+        ]);
+
+        // Go to
+        if($data['passed']) {
+            // Go to selection.
+            $profile->setData(['profile_status' => 5]);
+
+            // Add selection to profile.
+            $profile->getActiveProgram()->addSelection(new Selection());
+
+        } else {
+            // Set status 'rejected'
+            $profile->setData(['profile_status' => 8]);
+
+            // TODO: Send mail
+
+
+        }
+
+
+
+        return [
+            'code' => 0,
+            'message' => 'Success'
+        ];
+
+    }
 
     /**
      * Gets the file from the request and pack it to the recognizable form.

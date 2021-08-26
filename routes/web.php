@@ -76,6 +76,7 @@ Route::get('profiles/testMail/{profile}', 'ProfileController@testMail')->name('p
 Route::get('profiles/verify/{token}', 'ProfileController@verify')->name('profiles.verify');
 Route::get('profiles/profile/{profile}', 'ProfileController@profile')->name('profiles.profile');
 Route::get('profiles/check/{profile}', 'ProfileController@check')->name('profiles.check');
+Route::post('profiles/evalPreselection', 'ProfileController@evalPreselection')->name('profiles.evalpreselection');
 Route::post('profiles/saveApplicationData', 'ProfileController@saveApplicationData')->name('profiles.saveapplicationdata');
 Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->name('profiles.apply');
 

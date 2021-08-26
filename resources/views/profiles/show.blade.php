@@ -162,7 +162,7 @@
         </ul>
         <div class="tab-content overflow-auto" style="height: 90%!important;">
             <div class="tab-pane show active"  id="preselection">
-                @include('profiles.forms._situation-form',
+                @include('profiles.forms._preselection-form',
                             [
                                 'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),
                                 'id' => $model->getActiveProgram()->getPreselection()->getId()
@@ -172,8 +172,46 @@
                 @include('profiles.partials._show_profile_data')
             </div>
         </div>
-
-
+    @elseif($model->getAttribute('profile_status')->getValue() == 5)
+        <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+            <li class="nav-item">
+                <a href="#selection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                    <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                    <span class="d-none d-md-block">{{ strtoupper(__('Selection')) }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#preselection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                    <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                    <span class="d-none d-md-block">{{ strtoupper(__('Preselection')) }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#appform" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                    <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                    <span class="d-none d-md-block">{{ strtoupper( __('Application Form')) }}</span>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content overflow-auto" style="height: 90%!important;">
+            <div class="tab-pane show active" id="selection">
+                @include('profiles.forms._selection-form', [
+                    'attributes' => $model->getActiveProgram()->getSelection()->getAttributes(),
+                    'id' => $model->getActiveProgram()->getSelection()->getId()
+                ])
+            </div>
+            <div class="tab-pane"  id="preselection">
+                @include('profiles.forms._preselection-form',
+                            [
+                                'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),
+                                'id' => $model->getActiveProgram()->getPreselection()->getId(),
+                                'status' => $model->getAttribute('profile_status')->getValue()
+                            ])
+            </div>
+            <div class="tab-pane overflow-auto h-100"  id="appform">
+                @include('profiles.partials._show_profile_data')
+            </div>
+        </div>
     @endif
 @endsection
 
@@ -294,7 +332,40 @@
             });
 
             $('#btnPreselectionPassed').click(function(evt) {
-                alert('Preselection passed!');
+                var id = <?php echo $model->getId() ?>;
+                var obj = {
+                    profile : id,
+                    passed : true,
+                };
+
+                var token = $('form#myForm input[name="_token"]').val();
+
+
+                $.ajax({
+                    url : '/profiles/evalPreselection',
+                    data: obj,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-Token' : token
+                    },
+                    success: function(data) {
+                        var result = JSON.parse(data);
+                        console.log(result);
+                        if(result.result == true)
+                        {
+                            console.log('passed');
+                            location.reload();
+                        }
+                        else
+                            console.log('rejected');
+
+                    },
+                    error: function(data) {
+                        console.log('error');
+                        console.log(data);
+                    }
+                });
+
             });
 
             $('#btnPreselectionFailed').click(function(evt) {
