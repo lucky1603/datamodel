@@ -1,7 +1,7 @@
 <div class="container">
-    <h3 class="text-center m-2">{{ __('Preselection') }}</h3>
+    <h3 class="text-center mt-2 mb-5">{{ __('Preselection') }}</h3>
 
-    <form id="myForm" method="POST" enctype='multipart/form-data' action="">
+    <form id="myForm" method="POST" enctype='multipart/form-data' action=""  >
         @csrf
         <input type="hidden" id="id" name="id" value="{{ $id }}">
         <div class="form-group">
@@ -65,11 +65,14 @@
             <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
             <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $value }}</textarea>
         </div>
-        <div class="text-center mt-5">
-            <button type="button" id="btnNotifyClientPreselection" class="btn btn-sm btn-warning presel-button" >{{__('gui.preselection-notify')}}</button>
-            <button type="button" id="btnSavePreselection" class="btn btn-sm btn-primary presel-button" >{{__('gui.preselection-save')}}</button>
-            <button type="button" id="btnPreselectionPassed" class="btn btn-sm btn-success presel-button" >{{__('gui.preselection-accept')}}</button>
-            <button type="button" id="btnPreselectionFailed" class="btn btn-sm btn-danger presel-button" >{{__('gui.preselection-reject')}}</button>
+        <div class="text-center" style="position: absolute; bottom: 40px; width: 90%">
+            <button type="button" id="btnNotifyClientPreselection" class="btn btn-sm btn-warning presel-button" @if($status != 4) disabled @endif>{{__('gui.preselection-notify')}}</button>
+            <button type="button" id="btnSavePreselection" class="btn btn-sm btn-primary presel-button"  @if($status != 4) disabled @endif>{{__('gui.preselection-save')}}</button>
+            <button type="button" id="btnPreselectionPassed" class="btn btn-sm btn-success presel-button"  @if($status != 4) disabled @endif>
+                <span id="button_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_text">{{__('gui.preselection-accept')}}</span>
+            </button>
+            <button type="button" id="btnPreselectionFailed" class="btn btn-sm btn-danger presel-button"  @if($status != 4) disabled @endif>{{__('gui.preselection-reject')}}</button>
         </div>
     </form>
 </div>

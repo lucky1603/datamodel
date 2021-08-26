@@ -1,5 +1,5 @@
 <div class="container">
-    <h3 class="text-center m-2">{{ __('Selection') }}</h3>
+    <h3 class="text-center mt-2 mb-5">{{ __('Selection') }}</h3>
 
     <form id="myForm" method="POST" enctype='multipart/form-data' action="">
         @csrf
@@ -56,10 +56,13 @@
             </div>
         </div>
 
-        <div class="text-center mt-5">
+        <div class="text-center" style="position: absolute; bottom: 40px; width: 90%">
             <button type="button" id="btnNotifyClientSelection" class="btn btn-sm btn-warning presel-button">{{__('gui.preselection-notify')}}</button>
             <button type="button" id="btnSaveSelection" class="btn btn-sm btn-primary presel-button">{{__('gui.preselection-save')}}</button>
-            <button type="button" id="btnSelectionPassed" class="btn btn-sm btn-success presel-button">{{__('gui.preselection-accept')}}</button>
+            <button type="button" id="btnSelectionPassed" class="btn btn-sm btn-success presel-button">
+                <span id="button_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_text">{{__('gui.preselection-accept')}}</span>
+            </button>
             <button type="button" id="btnSelectionFailed" class="btn btn-sm btn-danger presel-button">{{__('gui.preselection-reject')}}</button>
         </div>
     </form>

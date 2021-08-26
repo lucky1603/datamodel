@@ -405,13 +405,15 @@ class ProfileController extends Controller
             ];
         }
 
-        // Add situation (preselection result).
-        $profile->addSituationByData(__('Preselection Done'), [
-            'preselection_passed' => $data['passed']
-        ]);
+
 
         // Go to
         if($data['passed']) {
+            // Add situation (preselection result).
+            $profile->addSituationByData(__('Preselection Done'), [
+                'preselection_passed' => true
+            ]);
+
             // Go to selection.
             $profile->setData(['profile_status' => 5]);
 
@@ -419,15 +421,17 @@ class ProfileController extends Controller
             $profile->getActiveProgram()->addSelection(new Selection());
 
         } else {
+            // Add situation (preselection result).
+            $profile->addSituationByData(__('Preselection Done'), [
+                'preselection_passed' => false
+            ]);
+
             // Set status 'rejected'
             $profile->setData(['profile_status' => 8]);
 
             // TODO: Send mail
 
-
         }
-
-
 
         return [
             'code' => 0,

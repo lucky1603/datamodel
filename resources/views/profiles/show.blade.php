@@ -165,7 +165,8 @@
                 @include('profiles.forms._preselection-form',
                             [
                                 'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),
-                                'id' => $model->getActiveProgram()->getPreselection()->getId()
+                                'id' => $model->getActiveProgram()->getPreselection()->getId(),
+                                'status' => $model->getAttribute('profile_status')->getValue()
                             ])
             </div>
             <div class="tab-pane overflow-auto h-100"  id="appform">
@@ -332,6 +333,7 @@
             });
 
             $('#btnPreselectionPassed').click(function(evt) {
+                $('#button_spinner').attr('hidden', false);
                 var id = <?php echo $model->getId() ?>;
                 var obj = {
                     profile : id,
@@ -349,19 +351,12 @@
                         'X-CSRF-Token' : token
                     },
                     success: function(data) {
-                        var result = JSON.parse(data);
-                        console.log(result);
-                        if(result.result == true)
-                        {
-                            console.log('passed');
-                            location.reload();
-                        }
-                        else
-                            console.log('rejected');
-
+                        $('#button_spinner').attr('hidden', true);
+                        console.log(data);
+                        location.reload();
                     },
                     error: function(data) {
-                        console.log('error');
+                        $('#button_spinner').attr('hidden', true);
                         console.log(data);
                     }
                 });

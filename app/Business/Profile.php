@@ -214,7 +214,7 @@ class Profile extends SituationsModel
                 ];
 
                 $situation = new Situation($data);
-                $situation->addAttribute(self::selectOrCreateAttribute(['preselection_passed', __("Preselection passed"), 'bool', NULL, 5]));
+                $situation->addAttribute(self::selectOrCreateAttribute(['preselection_passed', __("Preselection Passed"), 'bool', NULL, 5]));
                 break;
             case __('Ready for Selection'):
                 $data = [

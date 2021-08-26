@@ -12,5 +12,6 @@ return [
     'PROFILE-APPLYING' => 'Klijent je izabrao program i počeo sa popunjavanjem forme.',
     'PROFILE-APPSENT' => 'Klijent je uspešno popunio formu za prijavu na program.',
     'PROFILE-PRESELECTION' => 'Za ovaj program je neophodna preselekcija. Klijent je ušao u proces preselekcije.',
+    'PROFILE-PRESELECTION-DONE' => 'Predselekcija klijenta :client za program :program je završena.',
 
 ];
