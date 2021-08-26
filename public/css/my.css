@@ -168,6 +168,11 @@
     top: 2px;
 }
 
+.presel-button {
+    width: 100px!important;
+    margin: 10px;
+}
+
 
 /*.row.zebra:first-of-type {*/
 /*    background-color: #1d643b;*/

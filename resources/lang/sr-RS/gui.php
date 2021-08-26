@@ -27,7 +27,7 @@ return [
     'AG-IBITF-RESPONSIBLEPERSON' => 'Odgovorne osoba',
     'AG-IBITF-FOUNDERS' => 'Podaci o osnivačima i vlasnicima preduzeća',
     'AG-IBITF-FOUNDING-ENTERPRISE' => 'Ukoliko preduzeće nije osnovano',
-    'AG-IBITF_INFRASTRUCTURE' => 'Potrebne infrastukturne i stručne usluge',
+    'AG-IBITF-INFRASTRUCTURE' => 'Potrebne infrastukturne i stručne usluge',
 
     /*
      * GUI long argument labels
@@ -50,5 +50,13 @@ return [
     'linkedin_founders' => 'Linkovi ka Linkedin profilima, ukoliko postoje, za svako lice',
     'founders_cv' => 'Fajl sa kratkim biografijama svih osnivača',
 
+    /*
+     * PRESELECTION form
+     */
+
+    'preselection-notify' => 'Obavesti',
+    'preselection-save' => 'Sačuvaj',
+    'preselection-accept' => 'Prihvati',
+    'preselection-reject' => 'Odbij',
 
 ];

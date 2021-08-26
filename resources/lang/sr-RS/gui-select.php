@@ -59,4 +59,12 @@ return [
     'PS-InProgram' => 'U programu',
     'PS-Rejected' => 'Odbijen',
 
+    /*
+     * Fulfillment Grade
+     */
+
+    'FFG-High' => 'Visok',
+    'FFG-Medium' => 'Srednji',
+    'FFG-Low' => 'Nizak',
+
 ];

@@ -34,6 +34,9 @@ Route::get('/edituser/delete/{client}', 'Auth\EditUserController@delete')->name(
 Route::get('/edituser/editfromadminpreview/{client}', 'Auth\EditUserController@editFromAdminPreview')->name('user.editfromadminpreview');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/testuser/{user}', 'AnonimousController@testuser')->name('user.test');
+Route::get('/verify/{token}', 'AnonimousController@verify')->name('user.verify');
+Route::get('/notify/{token}', 'AnonimousController@notifyUser')->name('user.notify');
 Route::get('/createProfile', 'AnonimousController@createProfile')->name('createProfileAnonimous');
 Route::post('/createProfile', 'AnonimousController@store')->name('storeProfileAnonimous');
 
@@ -97,6 +100,8 @@ Route::post('/trainings/signup', 'TrainingsController@signup')->name('trainings.
 Route::get('/trainings/showmine/{training}', 'TrainingsController@showMine')->name('trainings.showmine');
 Route::get('/trainings/delete/{training}', 'TrainingsController@delete')->name('trainings.delete');
 Route::get('/trainings/{training}', 'TrainingsController@show')->name('trainings.show');
+
+Route::post('/preselection/update/{preselection}', 'PreselectionController@update')->name('preselection.update');
 
 
 

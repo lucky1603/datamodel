@@ -27,7 +27,7 @@ return [
     'AG-IBITF-RESPONSIBLEPERSON' => 'Responsible Person',
     'AG-IBITF-FOUNDERS' => 'Founders- and Company Owners Data',
     'AG-IBITF-FOUNDING-ENTERPRISE' => "If the Company haven't been Found Yet",
-    'AG-IBITF_INFRASTRUCTURE' => 'Infrastructure and Expert Services Needed',
+    'AG-IBITF-INFRASTRUCTURE' => 'Infrastructure and Expert Services Needed',
 
     /*
      * GUI long argument labels
@@ -50,4 +50,12 @@ return [
     'linkedin_founders' => 'Links to Linkedin profiles, if any, for each person',
     'founders_cv' => 'A file with short biographies of all the founders',
 
+    /*
+     * PRESELECTION form
+     */
+
+    'preselection-notify' => 'Notify',
+    'preselection-save' => 'Save',
+    'preselection-accept' => 'Accept',
+    'preselection-reject' => 'Reject',
 ];

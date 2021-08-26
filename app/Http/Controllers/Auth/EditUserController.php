@@ -309,7 +309,10 @@ class EditUserController extends Controller
 
         $user = User::where('remember_token', $data['token'])->first();
         $user->setAttribute("password", Hash::make($data['password']));
+        $user->setRememberToken(null);
         $user->save();
+
+        Auth::login($user);
 
         return redirect(route('home'));
     }

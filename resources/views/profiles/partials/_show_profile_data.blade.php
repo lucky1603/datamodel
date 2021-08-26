@@ -32,11 +32,16 @@
                                 </thead>
                                 <tbody>
                                     @for($i = 1; $i <= 3; $i ++)
-                                        <tr>
-                                            <td>{{ $attributes->where('name', 'founder_name_'.$i)->first()->getValue() }}</td>
-                                            <td>{{ $attributes->where('name', 'founder_university_'.$i)->first()->getValue() }}</td>
-                                            <td>{{ $attributes->where('name', 'founder_share_'.$i)->first()->getValue() }}</td>
-                                        </tr>
+                                        @php
+                                            $attribute = $attributes->where('name', 'founder_name_'.$i)->first();
+                                        @endphp
+                                        @if($attribute->getValue() != null and strlen($attribute->getValue()) > 0)
+                                            <tr>
+                                                <td>{{ $attributes->where('name', 'founder_name_'.$i)->first()->getValue() }}</td>
+                                                <td>{{ $attributes->where('name', 'founder_university_'.$i)->first()->getValue() }}</td>
+                                                <td>{{ $attributes->where('name', 'founder_share_'.$i)->first()->getValue() }}</td>
+                                            </tr>
+                                        @endif
                                     @endfor
                                 </tbody>
                             </table>
@@ -170,6 +175,42 @@
                                             </td>
                                         </tr>
                                     @endif
+                                </tbody>
+                            </table>
+                        @elseif($attributeGroup->name == 'ibitf_generate_income')
+                            @php
+                                $attributes = $program->getAttributesForGroup($attributeGroup);
+                            @endphp
+                            <table class="w-100 table table-sm table-bordered font-12">
+                                @php
+                                    $attribute = $attributes->where('name', 'generating_income')->first();
+                                @endphp
+                                <tbody>
+                                    <tr>
+                                        <td class="w-25 bg-primary text-light text-center">{{ $attribute->label }}</td>
+                                        <td>{{ $attribute->getText() }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-sm table-bordered text-center font-12">
+                                <thead class="bg-primary text-light">
+                                    <tr>
+                                        <th rowspan="2">{{__('Available Assets')}}</th>
+                                        <th rowspan="2">{{__('Needed Assets') }}</th>
+                                        <th colspan="2">{{__('Financing Sources')}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>{{__('Own Assets')}}</th>
+                                        <th>{{__('Credits/Other Way of Financing')}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ $attributes->where('name', 'available_assets')->first()->getValue() }} </td>
+                                        <td>{{ $attributes->where('name', 'needed_assets')->first()->getValue() }} </td>
+                                        <td>{{ $attributes->where('name', 'own_assets')->first()->getValue() }} </td>
+                                        <td>{{ $attributes->where('name', 'credits')->first()->getValue() }} </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         @else

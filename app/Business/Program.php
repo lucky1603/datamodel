@@ -57,6 +57,62 @@ class Program extends SituationsModel
 
     }
 
+    public function getAttributeGroups()
+    {
+        $groups = collect([]);
+        if($this->getAttribute('program_type')->getValue() == Program::$INKUBACIJA_BITF) {
+            $groups->add(AttributeGroup::get('ibitf_general'));
+            $groups->add(AttributeGroup::get('ibitf_contests'));
+            $groups->add(AttributeGroup::get('ibitf_financial_users'));
+            $groups->add(AttributeGroup::get('ibitf_responsible_person'));
+            $groups->add(AttributeGroup::get('ibitf_founders'));
+            $groups->add(AttributeGroup::get('ibitf_founding_enterprise'));
+            $groups->add(AttributeGroup::get('ibitf_general_2'));
+            $groups->add(AttributeGroup::get('ibitf_expenses'));
+            $groups->add(AttributeGroup::get('ibitf_generate_income'));
+            $groups->add(AttributeGroup::get('ibitf_infrastructure'));
+            $groups->add(AttributeGroup::get('ibitf_attachments'));
+        }
+
+        return $groups;
+    }
+
+    /**
+     * Add preselection to program.
+     * @param Preselection $preselection
+     * @return Preselection
+     */
+    public function addPreselection(Preselection $preselection) {
+        $this->instance->instances()->save($preselection->instance);
+        $this->instance->refresh();
+        return $preselection;
+    }
+
+    /**
+     * Remove preselection from program.
+     */
+    public function removePreselection() {
+        $preselectionEntity = Entity::where('name', 'Preselection')->first();
+        $preselectionInstance = $this->instance->instances->where('entity_id', $preselectionEntity->id)->first();
+        $this->instance->instances->detach($preselectionInstance);
+        $this->instance->refresh();
+    }
+
+    /**
+     * Returns the program preselection, if exists.
+     * @return Preselection|null
+     */
+    public function getPreselection(): ?Preselection
+    {
+        $preselectionEntity = Entity::where('name', 'Preselection')->first();
+        $preselectionInstance = $this->instance->instances->where('entity_id', $preselectionEntity->id)->first();
+        if($preselectionInstance == null) {
+            return null;
+        }
+
+        return new Preselection(['instance_id' => $preselectionInstance->id]);
+    }
+
     /**
      * Sets the attributes either with data or with the default values.
      * @param null $data
@@ -588,23 +644,5 @@ class Program extends SituationsModel
         return $attributes;
     }
 
-    public function getAttributeGroups()
-    {
-        $groups = collect([]);
-        if($this->getAttribute('program_type')->getValue() == Program::$INKUBACIJA_BITF) {
-            $groups->add(AttributeGroup::get('ibitf_general'));
-            $groups->add(AttributeGroup::get('ibitf_contests'));
-            $groups->add(AttributeGroup::get('ibitf_financial_users'));
-            $groups->add(AttributeGroup::get('ibitf_responsible_person'));
-            $groups->add(AttributeGroup::get('ibitf_founders'));
-            $groups->add(AttributeGroup::get('ibitf_founding_enterprise'));
-            $groups->add(AttributeGroup::get('ibitf_general_2'));
-            $groups->add(AttributeGroup::get('ibitf_expenses'));
-            $groups->add(AttributeGroup::get('ibitf_generate_income'));
-            $groups->add(AttributeGroup::get('ibitf_infrastructure'));
-            $groups->add(AttributeGroup::get('ibitf_attachments'));
-        }
 
-        return $groups;
-    }
 }

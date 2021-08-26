@@ -146,8 +146,33 @@
             <h4>{{ __('Waiting for the client to complete the form') }}</h4>
         </div>
     @elseif($model->getAttribute('profile_status')->getValue() == 4)
+        <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+            <li class="nav-item">
+                <a href="#preselection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                    <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                    <span class="d-none d-md-block">{{ strtoupper(__('Preselection')) }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#appform" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                    <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                    <span class="d-none d-md-block">{{ strtoupper( __('Application Form')) }}</span>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content overflow-auto" style="height: 90%!important;">
+            <div class="tab-pane show active"  id="preselection">
+                @include('profiles.forms._situation-form',
+                            [
+                                'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),
+                                'id' => $model->getActiveProgram()->getPreselection()->getId()
+                            ])
+            </div>
+            <div class="tab-pane overflow-auto h-100"  id="appform">
+                @include('profiles.partials._show_profile_data')
+            </div>
+        </div>
 
-        @include('profiles.partials._show_profile_data')
 
     @endif
 @endsection
@@ -255,6 +280,27 @@
                 });
 
             });
+
+            $('#btnSavePreselection').on('click', function(evt) {
+                var id = $('#id').val();
+                var data = $('form#myForm').serialize();
+                $.post('/preselection/update/' + id, data, function(data, status, xhr) {
+                     location.reload();
+                });
+            });
+
+            $('#btnNotifyClientPreselection').click(function(evt) {
+                alert('notify client');
+            });
+
+            $('#btnPreselectionPassed').click(function(evt) {
+                alert('Preselection passed!');
+            });
+
+            $('#btnPreselectionFailed').click(function(evt) {
+                alert('Preselection failed!');
+            });
+
         });
     </script>
 @endsection

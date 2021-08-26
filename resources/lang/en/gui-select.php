@@ -59,6 +59,12 @@ return [
     'PS-InProgram' => 'In Program',
     'PS-Rejected' => 'Rejected',
 
+    /*
+     * Fulfillment Grade
+     */
 
+    'FFG-High' => 'High',
+    'FFG-Medium' => 'Medium',
+    'FFG-Low' => 'Low',
 
 ];

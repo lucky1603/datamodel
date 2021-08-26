@@ -6,6 +6,7 @@ use App\Attribute;
 use App\AttributeGroup;
 use App\Business\BusinessModel;
 use App\Business\Client;
+use App\Business\Preselection;
 use App\Business\Profile;
 use App\Business\Program;
 use App\Http\Middleware\Authenticate;
@@ -140,16 +141,6 @@ class ProfileController extends Controller
             'code' => 0,
             'message' => 'Mail sent!'
         ];
-    }
-
-    public function verify($token) {
-        $user = User::where('remember_token', $token)->first();
-        $user->setAttribute('email_verified_at', now());
-        $user->save();
-
-        return view('auth.changepassword')->with(
-            ['token' => $token, 'email' => $user->getAttribute('email')]
-        );
     }
 
     /**
@@ -375,13 +366,14 @@ class ProfileController extends Controller
                 'program_name' => $program->getAttribute('program_name')->getValue()
             ]);
 
-        if($profile->getAttribute('needs_preselection')->getValue() == true) {
+        if($program->getAttribute('needs_preselection')->getValue() == true) {
             $profile->getAttribute('profile_status')->setValue(4);
             $profile->addSituationByData(__('Preselection needed'),
                 [
                     'program_type' => $program->getAttribute('program_type')->getValue(),
                     'program_name' => $program->getAttribute('program_name')->getValue()
                 ]);
+            $program->addPreselection(new Preselection());
         } else {
             $profile->getAttribute('profile_status')->setValue(5);
         }

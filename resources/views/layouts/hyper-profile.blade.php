@@ -331,9 +331,9 @@
                     </div> <!-- end col-->
                     <div class="col-sm-6 h-100">
                         <div class="card shadow" style="height: 98%!important;"  >
-                            <div class="card-header bg-primary text-light">
-                                {{ __('Application Form') }}
-                            </div>
+{{--                            <div class="card-header bg-primary text-light">--}}
+{{--                                {{ __('Application Form') }}--}}
+{{--                            </div>--}}
                             <div class="card-body overflow-auto">
                                 @yield('profile-data')
                             </div>
