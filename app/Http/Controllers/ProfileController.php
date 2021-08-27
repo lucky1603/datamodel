@@ -12,6 +12,7 @@ use App\Business\Program;
 use App\Business\Selection;
 use App\Http\Middleware\Authenticate;
 use App\Mail\ProfileCreated;
+use App\Mail\ProfileRejected;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -405,10 +406,8 @@ class ProfileController extends Controller
             ];
         }
 
-
-
         // Go to
-        if($data['passed']) {
+        if($data['passed'] == 'true') {
             // Add situation (preselection result).
             $profile->addSituationByData(__('Preselection Done'), [
                 'preselection_passed' => true
@@ -429,8 +428,9 @@ class ProfileController extends Controller
             // Set status 'rejected'
             $profile->setData(['profile_status' => 8]);
 
-            // TODO: Send mail
-
+            // Send rejection email to the user.
+            $email = $profile->getAttribute('contact_email')->getValue();
+            Mail::to($email)->send(new ProfileRejected($profile));
         }
 
         return [

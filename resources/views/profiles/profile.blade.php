@@ -66,7 +66,7 @@
                     </div>
                 </div>
 
-            @elseif($model->getAttribute('profile_status')->getValue() >= 4)
+            @elseif($model->getAttribute('profile_status')->getValue() >= 4 && $model->getAttribute('profile_status')->getValue() < 8)
                 <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
                     <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper('Uspešna prijava na program') }}</div>
                     <div class="card-body">
@@ -90,6 +90,35 @@
                             </div>
                         </div>
 
+                    </div>
+                </div>
+            @elseif($model->getAttribute('profile_status')->getValue() == 8)
+                <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
+                    <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper(__('Application Rejected')) }}</div>
+                    <div class="card-body">
+                        <p>
+                            Vaša je prijava na program
+                                <span class="attribute-label font-weight-bold">{{ strtoupper($model->getActiveProgram()->getAttribute('program_name')->getValue()) }}</span>
+                            je nažalost odbijena.
+
+                            Komisija je zasedala <span class="attribute-label font-weight-bold">{{ $model->getActiveProgram()->getPreselection()->getAttribute('date_of_session')->getText() }}</span> i
+                            zbog nedostataka u procesu prijave donela odluku da ne ispunjavate uslove za učestvovanje u programu.
+                        </p>
+                        <h4 class="text-center attribute-label">{{ mb_strtoupper(__('Preselection'))}} - {{ mb_strtoupper( __('Report'))}}</h4>
+                        @php
+                            $preselection = $model->getActiveProgram()->getPreselection();
+                        @endphp
+                        <table class="table table-bordered">
+                            @foreach($preselection->getAttributes() as $attribute)
+                                <tr>
+                                    <td class="attribute-label font-weight-bold">{{ $attribute->label }}</td>
+                                    <td>{{ $attribute->getText() }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                        <div class="text-center">
+                            <button>Ok</button>
+                        </div>
                     </div>
                 </div>
             @endif

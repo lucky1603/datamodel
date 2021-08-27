@@ -67,7 +67,14 @@
                                                 ribbon-two-danger
                                                 @break
                                             @case(3)
+                                                ribbon-two-info
+                                                @break
+                                            @case(4)
+                                            @case(5)
                                                 ribbon-two-warning
+                                                @break
+                                            @case(8)
+                                                ribbon-two-secondary
                                                 @break
                                             @default
                                                 ribbon-two-success
