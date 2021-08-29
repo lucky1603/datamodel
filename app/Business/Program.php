@@ -159,6 +159,60 @@ class Program extends SituationsModel
     }
 
     /**
+     * Adds the contract to the program.
+     * @param Contract $contract
+     * @return Contract
+     */
+    public function addContract(Contract $contract): Contract
+    {
+        $this->instance->instances()->save($contract->instance);
+        $this->instance->refresh();
+        return $contract;
+    }
+
+    /**
+     * Removes the contract from the program.
+     * @return bool
+     */
+    public function removeContract(): bool
+    {
+        $contract = $this->getContract();
+        if($contract == null)
+            return false;
+
+        $this->instance->instances()->detach($contract->instance->id);
+        $this->instance->refresh();
+
+        $contract->delete();
+
+        return true;
+    }
+
+    /**
+     * Fetches the current contract.
+     * @return Contract|null
+     */
+    public function getContract(): ?Contract
+    {
+        $contractEntity = Entity::where('name', 'Contract')->first();
+        $contractInstance = $this->instance->instances->where('entity_id', $contractEntity->id)->first();
+        if($contractInstance == null) {
+            return null;
+        }
+
+        return new Contract(['instance_id' => $contractInstance->id]);
+    }
+
+    /**
+     * Gets the profile the program belongs to.
+     * @return Profile
+     */
+    public function getProfile(): Profile
+    {
+        $profileInstance = $this->instance->parentInstances()->first();
+        return new Profile(['instance_id' => $profileInstance->id]);
+    }
+    /**
      * Sets the attributes either with data or with the default values.
      * @param null $data
      */

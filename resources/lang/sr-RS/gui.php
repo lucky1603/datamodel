@@ -59,4 +59,14 @@ return [
     'preselection-accept' => 'Prihvati',
     'preselection-reject' => 'Odbij',
 
+    'selection-notify' => 'Obavesti',
+    'selection-save' => 'Sačuvaj',
+    'selection-accept' => 'Prihvati',
+    'selection-reject' => 'Odbij',
+
+    'contract-notify' => 'Obavesti',
+    'contract-save' => 'Sačuvaj',
+    'contract-sign' => 'Potpiši',
+    'contract-reject' => 'Odbij',
+
 ];

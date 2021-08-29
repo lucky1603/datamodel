@@ -70,15 +70,13 @@ class Selection extends BusinessModel
      * Gets the associated program.
      * @return Program|null
      */
-    public function getProgram() {
-        $entity = Entity::where('name', 'Program')->first();
-        if($entity == null)
+    public function getProgram(): ?Program
+    {
+        $programInstance = $this->instance->parentInstances()->first();
+        if($programInstance == null)
             return null;
 
-        $program_instance = $this->instance->instances->where('entity_id', $entity->id)->first();
-        if($program_instance == null)
-            return null;
-        return new Program(['instance_id' => $program_instance->id]);
+        return new Program(['instance_id' => $programInstance->id]);
     }
 
 }

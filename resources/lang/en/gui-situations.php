@@ -13,5 +13,7 @@ return [
     'PROFILE-APPSENT' => 'Klijent has successfully applied for the program.',
     'PROFILE-PRESELECTION' => 'This program requires the preselection. The client has entered the preselection process.',
     'PROFILE-PRESELECTION-DONE' => 'The preselection of client :client for the program :program has finished.',
+    'PROFILE-SELECTION-DONE' => 'The selection of client :client for the program :program has finished',
+    'PROFILE-CONTRACT-SIGNING' => 'Client :client has to sign the contract in order to proceed further with the relization of program :program.',
 
 ];

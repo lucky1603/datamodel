@@ -69,10 +69,13 @@
             <button type="button" id="btnNotifyClientPreselection" class="btn btn-sm btn-warning presel-button" @if($status != 4) disabled @endif>{{__('gui.preselection-notify')}}</button>
             <button type="button" id="btnSavePreselection" class="btn btn-sm btn-primary presel-button"  @if($status != 4) disabled @endif>{{__('gui.preselection-save')}}</button>
             <button type="button" id="btnPreselectionPassed" class="btn btn-sm btn-success presel-button"  @if($status != 4) disabled @endif>
-                <span id="button_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_spinner_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.preselection-accept')}}</span>
             </button>
-            <button type="button" id="btnPreselectionFailed" class="btn btn-sm btn-danger presel-button"  @if($status != 4) disabled @endif>{{__('gui.preselection-reject')}}</button>
+            <button type="button" id="btnPreselectionFailed" class="btn btn-sm btn-danger presel-button"  @if($status != 4) disabled @endif>
+                <span id="button_spinner_cancel" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_text">{{__('gui.preselection-reject')}}</span>
+            </button>
         </div>
     </form>
 </div>

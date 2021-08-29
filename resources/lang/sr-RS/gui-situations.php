@@ -13,5 +13,7 @@ return [
     'PROFILE-APPSENT' => 'Klijent je uspešno popunio formu za prijavu na program.',
     'PROFILE-PRESELECTION' => 'Za ovaj program je neophodna preselekcija. Klijent je ušao u proces preselekcije.',
     'PROFILE-PRESELECTION-DONE' => 'Predselekcija klijenta :client za program :program je završena.',
+    'PROFILE-SELECTION-DONE' => 'Selekcija klijenta :client za program :program je završena',
+    'PROFILE-CONTRACT-SIGNING' => 'Za uključenje klijenta :client u realizaciju programa :program neophodan je potpis ugovora.',
 
 ];

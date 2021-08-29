@@ -214,6 +214,60 @@
                 @include('profiles.partials._show_profile_data')
             </div>
         </div>
+    @elseif($model->getAttribute('profile_status')->getValue() == 6)
+        <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+            <li class="nav-item">
+                <a href="#contract" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                    <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                    <span class="d-none d-md-block">{{ strtoupper(__('Contract')) }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#selection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                    <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                    <span class="d-none d-md-block">{{ strtoupper(__('Selection')) }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#preselection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                    <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                    <span class="d-none d-md-block">{{ strtoupper(__('Preselection')) }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#appform" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                    <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                    <span class="d-none d-md-block">{{ strtoupper( __('Application Form')) }}</span>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content overflow-auto" style="height: 90%!important;">
+            <div class="tab-pane show active" id="contract">
+                @include('profiles.forms._contract-form', [
+                    'attributes' => $model->getActiveProgram()->getContract()->getAttributes(),
+                    'id' => $model->getActiveProgram()->getContract()->getId(),
+                    'status' => $model->getAttribute('profile_status')->getValue()
+                ])
+            </div>
+            <div class="tab-pane" id="selection">
+                @include('profiles.forms._selection-form', [
+                    'attributes' => $model->getActiveProgram()->getSelection()->getAttributes(),
+                    'id' => $model->getActiveProgram()->getSelection()->getId(),
+                    'status' => $model->getAttribute('profile_status')->getValue()
+                ])
+            </div>
+            <div class="tab-pane"  id="preselection">
+                @include('profiles.forms._preselection-form',
+                            [
+                                'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),
+                                'id' => $model->getActiveProgram()->getPreselection()->getId(),
+                                'status' => $model->getAttribute('profile_status')->getValue()
+                            ])
+            </div>
+            <div class="tab-pane overflow-auto h-100"  id="appform">
+                @include('profiles.partials._show_profile_data')
+            </div>
+        </div>
     @elseif($model->getAttribute('profile_status')->getValue() == 8)
         @php
             $selection = $model->getActiveProgram()->getSelection();
@@ -382,12 +436,24 @@
                 });
             });
 
+            $('#btnSaveSelection').click(function(evt) {
+                var id = $('#selectionId').val();
+                var data = $('form#myFormSelection').serialize();
+                $.post('/selection/update/' + id, data, function(data, status, xhr) {
+                    location.reload();
+                });
+            });
+
             $('#btnNotifyClientPreselection').click(function(evt) {
                 alert('notify client');
             });
 
+            $('#btnNotifyClientSelection').click(function(evt) {
+                alert('notify client');
+            });
+
             $('#btnPreselectionPassed').click(function(evt) {
-                $('#button_spinner').attr('hidden', false);
+                $('#button_spinner_ok').attr('hidden', false);
                 var id = <?php echo $model->getId() ?>;
                 var obj = {
                     profile : id,
@@ -405,12 +471,42 @@
                         'X-CSRF-Token' : token
                     },
                     success: function(data) {
-                        $('#button_spinner').attr('hidden', true);
+                        $('#button_spinner_ok').attr('hidden', true);
                         console.log(data);
                         location.reload();
                     },
                     error: function(data) {
-                        $('#button_spinner').attr('hidden', true);
+                        $('#button_spinner_ok').attr('hidden', true);
+                        console.log(data);
+                    }
+                });
+
+            });
+
+            $('#btnSelectionPassed').click(function(evt) {
+                $('#button_spinner_sel_ok').attr('hidden', false);
+                var id = <?php echo $model->getId() ?>;
+                var obj = {
+                    profile : id,
+                    passed : true,
+                };
+
+                var token = $('form#myFormSelection input[name="_token"]').val();
+
+                $.ajax({
+                    url : '/profiles/evalSelection',
+                    data: obj,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-Token' : token
+                    },
+                    success: function(data) {
+                        $('#button_spinner_sel_ok').attr('hidden', true);
+                        console.log(data);
+                        location.reload();
+                    },
+                    error: function(data) {
+                        $('#button_spinner_sel_ok').attr('hidden', true);
                         console.log(data);
                     }
                 });
@@ -418,6 +514,7 @@
             });
 
             $('#btnPreselectionFailed').click(function(evt) {
+                $('#button_spinner_cancel').attr('hidden', false);
                 var id = <?php echo $model->getId() ?>;
                 var obj = {
                     profile : id,
@@ -434,10 +531,41 @@
                         'X-CSRF-Token' : token
                     },
                     success: function(data) {
+                        $('#button_spinner_cancel').attr('hidden', true);
                         console.log(data);
                         location.reload();
                     },
                     error: function(data) {
+                        $('#button_spinner_cancel').attr('hidden', true);
+                        console.log(data);
+                    }
+                });
+            });
+
+            $('#btnSelectionFailed').click(function (evt) {
+                $('#button_spinner_sel_cancel').attr('hidden', false);
+                var id = <?php echo $model->getId() ?>;
+                var obj = {
+                    profile : id,
+                    passed : false,
+                };
+
+                var token = $('form#myFormSelection input[name="_token"]').val();
+
+                $.ajax({
+                    url : '/profiles/evalSelection',
+                    data: obj,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-Token' : token
+                    },
+                    success: function(data) {
+                        $('#button_spinner_sel_cancel').attr('hidden', true);
+                        console.log(data);
+                        location.reload();
+                    },
+                    error: function(data) {
+                        $('#button_spinner_sel_cancel').attr('hidden', true);
                         console.log(data);
                     }
                 });

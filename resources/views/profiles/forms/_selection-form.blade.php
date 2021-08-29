@@ -1,9 +1,9 @@
 <div class="container">
     <h3 class="text-center mt-2 mb-5">{{ __('Selection') }}</h3>
 
-    <form id="myForm" method="POST" enctype='multipart/form-data' action="">
+    <form id="myFormSelection" method="POST" enctype='multipart/form-data' action="">
         @csrf
-        <input type="hidden" id="id" name="id" value="{{ $id }}">
+        <input type="hidden" id="selectionId" name="id" value="{{ $id }}">
 
         <!-- Datum selekcije -->
         <div class="form-group row">
@@ -57,13 +57,16 @@
         </div>
 
         <div class="text-center" style="position: absolute; bottom: 40px; width: 90%">
-            <button type="button" id="btnNotifyClientSelection" class="btn btn-sm btn-warning presel-button" @if($status != 5) disabled @endif>{{__('gui.preselection-notify')}}</button>
-            <button type="button" id="btnSaveSelection" class="btn btn-sm btn-primary presel-button" @if($status != 5) disabled @endif>{{__('gui.preselection-save')}}</button>
+            <button type="button" id="btnNotifyClientSelection" class="btn btn-sm btn-warning presel-button" @if($status != 5) disabled @endif>{{__('gui.selection-notify')}}</button>
+            <button type="button" id="btnSaveSelection" class="btn btn-sm btn-primary presel-button" @if($status != 5) disabled @endif>{{__('gui.selection-save')}}</button>
             <button type="button" id="btnSelectionPassed" class="btn btn-sm btn-success presel-button" @if($status != 5) disabled @endif>
-                <span id="button_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-                <span id="button_text">{{__('gui.preselection-accept')}}</span>
+                <span id="button_spinner_sel_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_text">{{__('gui.selection-accept')}}</span>
             </button>
-            <button type="button" id="btnSelectionFailed" class="btn btn-sm btn-danger presel-button" @if($status != 5) disabled @endif>{{__('gui.preselection-reject')}}</button>
+            <button type="button" id="btnSelectionFailed" class="btn btn-sm btn-danger presel-button" @if($status != 5) disabled @endif>
+                <span id="button_spinner_sel_cancel" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_text">{{__('gui.selection-reject')}}</span>
+            </button>
         </div>
     </form>
 </div>

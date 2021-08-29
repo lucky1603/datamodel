@@ -226,6 +226,30 @@ class Profile extends SituationsModel
                     'sender' => 'NTP'
                 ];
                 break;
+            case __('Selection Finished'):
+                $data = [
+                    'name' => $situationType,
+                    'sender' => 'NTP',
+                    'description' => __('gui-situations.PROFILE-SELECTION-DONE', [
+                        'client' => $this->getAttribute('name')->getValue(),
+                        'program' => $this->getActiveProgram()->getAttribute('program_name')->getValue()
+                    ]),
+                ];
+
+                $situation = new Situation($data);
+                $situation->addAttribute(self::selectOrCreateAttribute(['selection_passed', __("Selection Passed"), 'bool', NULL, 5]));
+                break;
+
+            case __('Contract Signing'):
+                $data = [
+                    'name' => $situationType,
+                    'sender' => 'NTP',
+                    'description' => __('gui-situations.PROFILE-CONTRACT-SIGNING', [
+                        'client' => $this->getAttribute('name')->getValue(),
+                        'program' => $this->getActiveProgram()->getAttribute('program_name')->getValue()
+                    ]),
+                ];
+                break;
 
         }
 

@@ -58,4 +58,14 @@ return [
     'preselection-save' => 'Save',
     'preselection-accept' => 'Accept',
     'preselection-reject' => 'Reject',
+
+    'selection-notify' => 'Notify',
+    'selection-save' => 'Save',
+    'selection-accept' => 'Accept',
+    'selection-reject' => 'Reject',
+
+    'contract-notify' => 'Notify',
+    'contract-save' => 'Save',
+    'contract-sign' => 'Sign',
+    'contract-reject' => 'Reject',
 ];

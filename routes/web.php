@@ -77,6 +77,7 @@ Route::get('profiles/verify/{token}', 'ProfileController@verify')->name('profile
 Route::get('profiles/profile/{profile}', 'ProfileController@profile')->name('profiles.profile');
 Route::get('profiles/check/{profile}', 'ProfileController@check')->name('profiles.check');
 Route::post('profiles/evalPreselection', 'ProfileController@evalPreselection')->name('profiles.evalpreselection');
+Route::post('profiles/evalSelection', 'ProfileController@evalSelection')->name('profiles.evalselection');
 Route::post('profiles/saveApplicationData', 'ProfileController@saveApplicationData')->name('profiles.saveapplicationdata');
 Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->name('profiles.apply');
 
@@ -103,6 +104,7 @@ Route::get('/trainings/delete/{training}', 'TrainingsController@delete')->name('
 Route::get('/trainings/{training}', 'TrainingsController@show')->name('trainings.show');
 
 Route::post('/preselection/update/{preselection}', 'PreselectionController@update')->name('preselection.update');
+Route::post('/selection/update/{selection}', 'SelectionController@update')->name('selection.update');
 
 
 

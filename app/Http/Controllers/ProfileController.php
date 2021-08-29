@@ -6,6 +6,7 @@ use App\Attribute;
 use App\AttributeGroup;
 use App\Business\BusinessModel;
 use App\Business\Client;
+use App\Business\Contract;
 use App\Business\Preselection;
 use App\Business\Profile;
 use App\Business\Program;
@@ -387,6 +388,11 @@ class ProfileController extends Controller
 
     }
 
+    /**
+     * Evaluatie preselection process.
+     * @param Request $request
+     * @return array
+     */
     public function evalPreselection(Request $request) {
         $data = $request->post();
 
@@ -438,6 +444,73 @@ class ProfileController extends Controller
             'message' => 'Success'
         ];
 
+    }
+
+    /**
+     * Evaluatie selection.
+     * @param Request $request
+     * @return array
+     */
+    public function evalSelection(Request $request) {
+        $data = $request->post();
+
+        if(!isset($data['profile'])) {
+            return [
+                'code' => 1,
+                'message' => __('Wrong parameters')
+            ];
+        }
+
+        $profileId = $data['profile'];
+        $profile = Profile::find($profileId);
+        if($profile == null) {
+            return [
+                'code' => 2,
+                'message' => __('Profile doesn\'t exist'),
+            ];
+        }
+
+        if($data['passed'] == 'true') {
+            // Add situation (selection result).
+            $profile->addSituationByData(__('Selection Finished'), [
+                'selection_passed' => true
+            ]);
+
+            if($profile->getActiveProgram()->getAttribute('needs_contract')->getValue() == true) {
+                // Go to contract
+                $profile->setData(['profile_status' => 6]);
+
+                // Add contract to profile.
+                $profile->getActiveProgram()->addContract(new Contract());
+
+                // Add Situation
+                $profile->addSituationByData(__('Contract Signing'), []);
+            } else {
+                // Go to acceptance.
+                $profile->setData(['profile_status' => 7]);
+
+                // Add situation.
+                $profile->addSituationByData(__('Accepted for Program'), []);
+            }
+
+        } else {
+            // Add situation (preselection result).
+            $profile->addSituationByData(__('Selection Done'), [
+                'selection_passed' => false
+            ]);
+
+            // Set status 'rejected'
+            $profile->setData(['profile_status' => 8]);
+
+            // Send rejection email to the user.
+            $email = $profile->getAttribute('contact_email')->getValue();
+            Mail::to($email)->send(new ProfileRejected($profile));
+        }
+
+        return [
+            'code' => 0,
+            'message' => 'Success'
+        ];
     }
 
     /**
