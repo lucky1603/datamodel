@@ -1,9 +1,9 @@
 <div class="container">
     <h3 class="text-center mt-2 mb-5">{{ __('Contract') }}</h3>
 
-    <form id="myForm" method="POST" enctype='multipart/form-data' action="">
+    <form id="myFormContract" method="POST" enctype='multipart/form-data' action="">
         @csrf
-        <input type="hidden" id="id" name="id" value="{{ $id }}">
+        <input type="hidden" id="contractId" name="id" value="{{ $id }}">
 
         <!-- Contract Number -->
         <div class="form-group row">
@@ -112,14 +112,14 @@
         </div>
 
         <div class="text-center" style="position: absolute; bottom: 40px; width: 90%">
-            <button type="button" id="btnNotifyClientContract" class="btn btn-sm btn-warning presel-button" @if($status != 5) disabled @endif>{{__('gui.contract-notify')}}</button>
-            <button type="button" id="btnSaveContract" class="btn btn-sm btn-primary presel-button" @if($status != 5) disabled @endif>{{__('gui.contract-save')}}</button>
-            <button type="button" id="btnContractSigned" class="btn btn-sm btn-success presel-button" @if($status != 5) disabled @endif>
-                <span id="button_spinner_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+            <button type="button" id="btnNotifyClientContract" class="btn btn-sm btn-warning presel-button" @if($status != 6) disabled @endif>{{__('gui.contract-notify')}}</button>
+            <button type="button" id="btnSaveContract" class="btn btn-sm btn-primary presel-button" @if($status != 6) disabled @endif>{{__('gui.contract-save')}}</button>
+            <button type="button" id="btnContractSigned" class="btn btn-sm btn-success presel-button" @if($status != 6) disabled @endif>
+                <span id="button_spinner_contract_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.contract-sign')}}</span>
             </button>
-            <button type="button" id="btnSelectionFailed" class="btn btn-sm btn-danger presel-button" @if($status != 5) disabled @endif>
-                <span id="button_spinner_cancel" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+            <button type="button" id="btnContractRejected" class="btn btn-sm btn-danger presel-button" @if($status != 6) disabled @endif>
+                <span id="button_spinner_contract_cancel" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.contract-reject')}}</span>
             </button>
         </div>

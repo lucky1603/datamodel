@@ -444,6 +444,29 @@
                 });
             });
 
+            $('#btnSaveContract').click(function(evt) {
+                var id = $('#contractId').val();
+                var formData = new FormData($('form#myFormContract')[0]);
+
+                $.ajax({
+                    type: "POST",
+                    url: '/contracts/update/' + id,
+                    async: true,
+                    data: formData,
+                    contentType: false, //this is requireded please see answers above
+                    processData: false, //this is requireded please see answers above
+                    cache: false, //not sure but works for me without this
+                    error   : function (error) {
+                        console.log(error);
+                    },
+                    success : function (data) {
+                        console.log(data);
+                        location.reload();
+                    }
+                });
+
+            });
+
             $('#btnNotifyClientPreselection').click(function(evt) {
                 alert('notify client');
             });

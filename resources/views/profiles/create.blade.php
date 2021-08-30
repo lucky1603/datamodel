@@ -18,8 +18,8 @@
         <p class="font-weight-light attribute-label m-2" style="font-size: 1.4em">Kada je profil aktiviran, moćićete da se prijavite sa svojim pristupnim podacima
         i da izaberete željeni program.</p>
     </div>
-    <div id="contentArea" style="position: absolute; top:100px; left:350px; right: 0px; bottom:0px; overflow: auto">
-        <div class="m-sm-5">
+    <div id="contentArea" style="position: absolute; top:100px; left:350px; right: 0px; bottom:0px; overflow: auto; padding: 50px 200px 0 200px">
+        <div>
             @include('profiles.partials._profile_create_form')
         </div>
 

@@ -111,11 +111,12 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'email')->first();
+        $value = $attribute->getValue() ?? $model->getAttribute('contact_email')->getValue();
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+        <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
     </div>
 </div>
 

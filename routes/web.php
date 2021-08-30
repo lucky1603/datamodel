@@ -81,14 +81,6 @@ Route::post('profiles/evalSelection', 'ProfileController@evalSelection')->name('
 Route::post('profiles/saveApplicationData', 'ProfileController@saveApplicationData')->name('profiles.saveapplicationdata');
 Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->name('profiles.apply');
 
-Route::get('/contracts', 'ContractsController@index')->name('contracts.index');
-Route::get('/contracts/create/{client}', 'ContractsController@create')->name('contracts.create');
-Route::post('/contracts/create/{client}', 'ContractsController@store')->name('contracts.store');
-Route::get('/contracts/{contract}', 'ContractsController@show')->name('contracts.show');
-Route::get('/contracts/payFirstInstallment/{contract}', 'ContractsController@payFirstInstallment')->name('contracts.payfirstinstallment');
-Route::post('/contracts/payFirstInstallment/{contract}', 'ContractsController@firstInstallmentPayed')->name('contracts.firstinstallmentpayed');
-Route::get('/contracts/destroy/{contract}', 'ContractsController@destroy')->name('contracts.destroy');
-
 Route::get('/files/create', 'FileController@create')->name('files.create');
 Route::post('/files/create', 'FileController@show')->name('files.show');
 Route::get('/situations/{situation}', 'SituationsController@show')->name('situations.show');
@@ -105,6 +97,7 @@ Route::get('/trainings/{training}', 'TrainingsController@show')->name('trainings
 
 Route::post('/preselection/update/{preselection}', 'PreselectionController@update')->name('preselection.update');
 Route::post('/selection/update/{selection}', 'SelectionController@update')->name('selection.update');
+Route::post('/contracts/update/{contract}', 'ContractsController@update')->name('contract.update');
 
 
 

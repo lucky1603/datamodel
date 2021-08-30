@@ -219,7 +219,12 @@
                            aria-expanded="false">
                                     <span class="account-user-avatar">
 {{--                                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">--}}
-                                        <img src="{{ \Illuminate\Support\Facades\Auth::user()->photo }}" alt="user-image" class="rounded-circle">
+                                        @if(Auth::user()->photo != null)
+                                            <img src="{{ \Illuminate\Support\Facades\Auth::user()->photo }}" alt="user-image" class="rounded-circle">
+                                        @else
+                                            <img src="/images/custom/nophoto2.png" alt="user-image" class="rounded-circle">
+                                        @endif
+
                                     </span>
                             <span>
                                         <span class="account-user-name">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
