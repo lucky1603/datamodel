@@ -18,6 +18,8 @@ return [
     'UserDeleteQuestion' => 'Are you sure that you want to delete the user :username?',
     'UserDeleteTitle' => 'Delete User - :username',
     "Founders" => 'Names of the founders or planned founders, if the society was not registered yet:',
+    "NoProfile" => 'No profile with this ID - :profileid',
+    "MailSentSuccess" => 'Mail successfully sent to :email',
 
     /*
      * Attribute Groups
@@ -68,4 +70,11 @@ return [
     'contract-save' => 'Save',
     'contract-sign' => 'Sign',
     'contract-reject' => 'Reject',
+
+    /*
+     * Validation Errors
+     */
+
+    'contract-validation-error' => 'All fields except ":fieldname", should be filled!',
+    'CONTRACT-DATE-MISSING' => 'Signing date missing!'
 ];

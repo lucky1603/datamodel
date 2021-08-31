@@ -15,11 +15,6 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
-{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
-{{--    <link href="{{ asset('css/my.css') }}" rel="stylesheet">--}}
-{{--    <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">--}}
-
     <!-- App css -->
     <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />

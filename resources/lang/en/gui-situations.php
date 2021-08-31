@@ -15,5 +15,6 @@ return [
     'PROFILE-PRESELECTION-DONE' => 'The preselection of client :client for the program :program has finished.',
     'PROFILE-SELECTION-DONE' => 'The selection of client :client for the program :program has finished',
     'PROFILE-CONTRACT-SIGNING' => 'Client :client has to sign the contract in order to proceed further with the relization of program :program.',
+    'PROFILE-CONTRACT-SIGNED' => 'Client :client has signed the contract for the realization of the program :program .',
 
 ];

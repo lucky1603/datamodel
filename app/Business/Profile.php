@@ -250,6 +250,16 @@ class Profile extends SituationsModel
                     ]),
                 ];
                 break;
+            case __('Contract Signed'):
+                $data = [
+                    'name' => $situationType,
+                    'sender' => 'NTP',
+                    'description' => __('gui-situations.PROFILE-CONTRACT-SIGNED', [
+                        'client' => $this->getAttribute('name')->getValue(),
+                        'program' => $this->getActiveProgram()->getAttribute('program_name')->getValue()
+                    ]),
+                ];
+                break;
 
         }
 

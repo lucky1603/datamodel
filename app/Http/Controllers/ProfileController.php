@@ -12,6 +12,7 @@ use App\Business\Profile;
 use App\Business\Program;
 use App\Business\Selection;
 use App\Http\Middleware\Authenticate;
+use App\Mail\MeetingNotification;
 use App\Mail\ProfileCreated;
 use App\Mail\ProfileRejected;
 use App\User;
@@ -495,7 +496,7 @@ class ProfileController extends Controller
 
         } else {
             // Add situation (preselection result).
-            $profile->addSituationByData(__('Selection Done'), [
+            $profile->addSituationByData(__('Selection Finished'), [
                 'selection_passed' => false
             ]);
 
@@ -511,6 +512,120 @@ class ProfileController extends Controller
             'code' => 0,
             'message' => 'Success'
         ];
+    }
+
+    public function evalContract(Request $request) {
+        $data = $request->post();
+        $file = $request->file('contract_document');
+
+        if(!isset($data['profile'])) {
+            return json_encode([
+                'code' => 1,
+                'message' => __('Wrong parameters')
+            ]);
+        }
+
+        $profileId = $data['profile'];
+        $profile = Profile::find($profileId);
+        if($profile == null) {
+            return json_encode([
+                'code' => 2,
+                'message' => __('Profile doesn\'t exist'),
+            ]);
+        }
+
+        $contract = $profile->getActiveProgram()->getContract();
+        if($contract == null) {
+            return json_encode([
+                'code' => 3,
+                'message' => 'There is no contract to update'
+            ]);
+        }
+
+        $unhandled = $contract->getAttributes()->filter(function($attribute) use($data) {
+             $attname = $attribute->name;
+             if($attribute->type == 'file') {
+                 if($attribute->getValue()['filelink'] == '')
+                     return true;
+             } else {
+                 return ($attribute->getValue() == null || $attribute->getValue() == 0) && $attribute->name != 'contract_subject';
+             }
+
+        })->map(function($attribute) {
+            return $attribute->label;
+        });
+
+
+        if($unhandled != null && $unhandled->count() > 0) {
+            return json_encode([
+                'code' => 4,
+                'message' => __('gui.contract-validation-error', [
+                    'fieldname' => $contract->getAttribute('contract_subject')->label
+                ])
+            ]);
+        }
+
+        // Add situation.
+        $profile->addSituationByData(__('Contract Signed'), []);
+
+        // Change status, move forward.
+        $profile->getAttribute('profile_status')->setValue(7);
+
+        return json_encode([
+            'code' => 0,
+            'message' => 'Success',
+            'unhandled' => $unhandled
+        ]);
+    }
+
+    /**
+     * Notifies the client that he should come to sign the contract.
+     * @param Request $request
+     * @param $profileId
+     * @return false|string
+     */
+    public function notifyContract(Request $request) {
+        $data = $request->post();
+
+        if(!isset($data['profile'])) {
+            return json_encode([
+                'code' => 1,
+                'message' => __('Wrong parameters')
+            ]);
+        }
+
+        $profileId = $data['profile'];
+        $profile = Profile::find($profileId);
+        if($profile == null) {
+            return json_encode([
+                'code' => 2,
+                'message' => __('Profile doesn\'t exist'),
+            ]);
+        }
+
+        $dateAttribute = $profile->getActiveProgram()->getContract()->getAttribute('signed_at');
+        if($dateAttribute == null || $dateAttribute->getValue() == null) {
+            return json_encode([
+                'code' => 3,
+                'message' => __('gui.CONTRACT-DATE-MISSING')
+            ]);
+        }
+
+        if($profile->instance == null) {
+            return json_encode([
+                'code' => 4,
+                'message' => __('gui.NoProfile', ['profileid' => $profileId ])
+            ]);
+        }
+
+        $email = $profile->getAttribute('contact_email')->getValue();
+        Mail::to($email)->send(new MeetingNotification($profile, MeetingNotification::$CONTRACT));
+
+        return json_encode([
+            'code' => 0,
+            'message' => __('gui.MailSentSuccess', ['email' => $email])
+        ]);
+
     }
 
     /**

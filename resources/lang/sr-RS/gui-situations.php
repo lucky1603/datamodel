@@ -15,5 +15,6 @@ return [
     'PROFILE-PRESELECTION-DONE' => 'Predselekcija klijenta :client za program :program je završena.',
     'PROFILE-SELECTION-DONE' => 'Selekcija klijenta :client za program :program je završena',
     'PROFILE-CONTRACT-SIGNING' => 'Za uključenje klijenta :client u realizaciju programa :program neophodan je potpis ugovora.',
+    'PROFILE-CONTRACT-SIGNED' => 'Klijent :client je potpisao ugovor za realizaciju programa :program .',
 
 ];

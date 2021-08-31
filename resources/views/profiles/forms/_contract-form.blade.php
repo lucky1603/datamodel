@@ -118,10 +118,6 @@
                 <span id="button_spinner_contract_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.contract-sign')}}</span>
             </button>
-            <button type="button" id="btnContractRejected" class="btn btn-sm btn-danger presel-button" @if($status != 6) disabled @endif>
-                <span id="button_spinner_contract_cancel" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-                <span id="button_text">{{__('gui.contract-reject')}}</span>
-            </button>
         </div>
     </form>
 </div>

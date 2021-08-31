@@ -73,6 +73,9 @@
                                             @case(5)
                                                 ribbon-two-warning
                                                 @break
+                                            @case(7)
+                                                ribbon-two-primary
+                                                @break
                                             @case(8)
                                                 ribbon-two-secondary
                                                 @break

@@ -18,6 +18,8 @@ return [
     'UserDeleteQuestion' => 'Da li ste sigurni da želite da obrišete korisnika :username?',
     'UserDeleteTitle' => 'Brisanje korisnika - :username',
     "Founders" => 'Ime i prezime osnivača ili planiranih osnivača, ukoliko društvo nije još uvek registrovano:',
+    "NoProfile" => 'Nema profila sa ovim ID brojem - :profileid',
+    "MailSentSuccess" => 'Mail uspešno poslat na :email',
 
     /*
      * Attribute Groups
@@ -68,5 +70,12 @@ return [
     'contract-save' => 'Sačuvaj',
     'contract-sign' => 'Potpiši',
     'contract-reject' => 'Odbij',
+
+    /*
+     * Validation Errors
+     */
+
+    'contract-validation-error' => 'Sva polja osim ":fieldname", treba da budu popunjena',
+    'CONTRACT-DATE-MISSING' => 'Nedostaje datum potpisa ugovora'
 
 ];

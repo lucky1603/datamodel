@@ -9,15 +9,16 @@
 
     <title>{{ config('app.name', 'Laravel') }} - E-Mail</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" ></script>
-    <script src="{{ asset('js/jquery-1.12.4.js') }}" ></script>
-    <script src="{{ asset('js/jquery-ui.js') }}" ></script>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/my.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
+    <!-- App css -->
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
+    <link href="/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
+    <link href="/css/my.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div id="app">
@@ -26,5 +27,9 @@
         @yield('content')
     </main>
 </div>
+<!-- Scripts -->
+<script src="/assets/js/vendor.min.js"></script>
+<script src="/assets/js/app.min.js"></script>
+
 </body>
 </html>

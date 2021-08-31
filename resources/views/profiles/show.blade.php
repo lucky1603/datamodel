@@ -134,9 +134,6 @@
         </div>
         <div class="text-center w-100">
             <h4>{{ __('Waiting for the client to choose the program') }}</h4>
-            <div style="display: flex; justify-content: center; height: 200px; align-items: center">
-                <button type="button" id="btnSendMail" class="btn btn-primary">Send Test Mail</button>
-            </div>
         </div>
     @elseif($model->getAttribute('profile_status')->getValue() == 3)
         <div class="text-center w-100">
@@ -475,6 +472,32 @@
                 alert('notify client');
             });
 
+            $('#btnNotifyClientContract').click(function() {
+                var id = <?php echo $model->getId() ?>;
+                var obj = {
+                    profile : id,
+                    passed : true,
+                };
+
+                var token = $('form#myFormContract input[name="_token"]').val();
+
+                $.ajax({
+                    url: '/profiles/notifyContract',
+                    data: obj,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-Token' : token
+                    },
+                    success: function(data) {
+                        alert('email sent');
+                    },
+                    error: function(data) {
+                        alert('email not sent');
+                    }
+
+                });
+            });
+
             $('#btnPreselectionPassed').click(function(evt) {
                 $('#button_spinner_ok').attr('hidden', false);
                 var id = <?php echo $model->getId() ?>;
@@ -530,6 +553,49 @@
                     },
                     error: function(data) {
                         $('#button_spinner_sel_ok').attr('hidden', true);
+                        console.log(data);
+                    }
+                });
+
+            });
+
+            $('#btnContractSigned').click(function(evt) {
+                $('#button_spinner_contract_ok').attr('hidden', false);
+                var id = <?php echo $model->getId() ?>;
+                var obj = {
+                    profile : id,
+                    passed : true,
+                };
+
+                var token = $('form#myFormContract input[name="_token"]').val();
+
+                $.ajax({
+                    url : '/profiles/evalContract',
+                    data: obj,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-Token' : token
+                    },
+                    success: function(data) {
+                        $('#button_spinner_contract_ok').attr('hidden', true);
+                        console.log(data);
+                        var result = JSON.parse(data);
+
+                        console.log(result);
+                        if(result.code != 0) {
+                            console.log(result.message);
+                            $.toast(result.message);
+                        } else {
+                            $.toast({
+                                text: result.message,
+                                afterHidden: function() {
+                                    location.reload();
+                                }
+                            });
+                        }
+                    },
+                    error: function(data) {
+                        $('#button_spinner_contract_ok').attr('hidden', true);
                         console.log(data);
                     }
                 });
