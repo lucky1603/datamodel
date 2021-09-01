@@ -490,6 +490,7 @@
                     },
                     success: function(data) {
                         alert('email sent');
+                        location.reload();
                     },
                     error: function(data) {
                         alert('email not sent');

@@ -548,7 +548,7 @@ class ProfileController extends Controller
                  if($attribute->getValue()['filelink'] == '')
                      return true;
              } else {
-                 return ($attribute->getValue() == null || $attribute->getValue() == 0) && $attribute->name != 'contract_subject';
+                 return ($attribute->getValue() == null || $attribute->getValue() === 0 || $attribute->getValue() == '') && $attribute->name != 'contract_subject';
              }
 
         })->map(function($attribute) {
@@ -561,7 +561,8 @@ class ProfileController extends Controller
                 'code' => 4,
                 'message' => __('gui.contract-validation-error', [
                     'fieldname' => $contract->getAttribute('contract_subject')->label
-                ])
+                ]),
+                'unhandled' => $unhandled
             ]);
         }
 
@@ -620,6 +621,10 @@ class ProfileController extends Controller
 
         $email = $profile->getAttribute('contact_email')->getValue();
         Mail::to($email)->send(new MeetingNotification($profile, MeetingNotification::$CONTRACT));
+
+        $profile->addSituationByData(__('Contract Date Sent'), [
+            "signed_at" => $dateAttribute->getValue()
+        ]);
 
         return json_encode([
             'code' => 0,

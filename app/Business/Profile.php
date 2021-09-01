@@ -260,6 +260,19 @@ class Profile extends SituationsModel
                     ]),
                 ];
                 break;
+            case __('Contract Date Sent'):
+                $data = [
+                    'name' => $situationType,
+                    'sender' => 'NTP',
+                    'description' => __('gui-situations.PROFILE-CONTRACT-DATE-SENT', [
+                        'client' => $this->getAttribute('name')->getValue(),
+                        'program' => $this->getActiveProgram()->getAttribute('program_name')->getValue()
+                    ]),
+                ];
+
+                $situation = new Situation($data);
+                $situation->addAttribute(self::selectOrCreateAttribute(['signed_at', "Datum potpisivanja ugovora", 'datetime', NULL, 1]));
+                break;
 
         }
 
