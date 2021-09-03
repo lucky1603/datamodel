@@ -1,5 +1,5 @@
 <div class="container">
-    <h3 class="text-center mt-2 mb-5">{{ __('Contract') }}</h3>
+    <h3 class="text-center mt-2 mb-3">{{ __('Contract') }}</h3>
 
     <form id="myFormContract" method="POST" enctype='multipart/form-data' action="">
         @csrf

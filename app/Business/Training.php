@@ -66,80 +66,12 @@ class Training extends BusinessModel
 
     /**
      *
-     * Returns the object or the collection of objects searched for,
-     * depending on the input query.
-     *
-     * @param null $query
-     * @return Training|Collection|null
-     */
-    public static function find($query=null) {
-
-        if(Entity::where('name', 'Training')->get()->count() == 0) {
-            return isset($query) && is_string($query) ? null : collect([]);
-        }
-
-        // If it's empty.
-        if(!isset($query)) {
-            $entity_id = Entity::where('name', 'Training')->first()->id;
-            $instances = Instance::where(['entity_id' => $entity_id])->get();
-            return $instances->map(function($instance) {
-                return new Training(['instance_id' => $instance->id]);
-            });
-        }
-
-        // If it's id.
-        if(!is_array($query)) {
-            $entity_id = Entity::whereName('Training')->first()->id;
-            $instance = Instance::where(['id' => $query, 'entity_id' => $entity_id])->first();
-            if($instance == null)
-                return null;
-
-            return new Training(['instance_id' => $instance->id]);
-        }
-
-        // If it's array.
-        foreach($query as $key => $value) {
-
-            $attribute = Attribute::where('name', $key)->first();
-            $tableName = $attribute->type.'_values';
-            $entity_id = Entity::all()->where('name', 'Training')->first()->id;
-            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id])->get();
-
-            $temporary_results = $temporary_results->map(function($item, $key) {
-                return $item->instance_id;
-            });
-
-
-            $temporary_results = Instance::all()->whereIn('id', $temporary_results)->where('entity_id', $entity_id);
-
-            if(!isset($results)) {
-                $results = $temporary_results;
-            } else {
-                $results = $temporary_results->intersect($results);
-            }
-
-            if($results->count() === 0) {
-                return $results;
-            }
-
-        }
-
-        if(isset($results)) {
-            return $results->map(function($item, $key) {
-                return new Training(['instance_id' => $item->id]);
-            });
-        }
-
-        return null;
-    }
-
-    /**
-     *
      * Return all trainings.
      *
      * @return Training||null
      */
-    public static function all() {
+    public static function all(): Training
+    {
         return Training::find();
     }
 
@@ -170,10 +102,15 @@ class Training extends BusinessModel
      *
      * @return Collection
      */
-    public function getClients() {
-        $client_ids = DB::table('client_training')->where('training_id', $this->instance->id)->pluck('client_id');
-        return $client_ids->map(function($clientId) {
-            return new ClientAtTraining($clientId, $this->instance->id);
+    public function getProfiles() {
+//        $client_ids = DB::table('client_training')->where('training_id', $this->instance->id)->pluck('client_id');
+//        return $client_ids->map(function($clientId) {
+//            return new ClientAtTraining($clientId, $this->instance->id);
+//        });
+
+        $entityId = Entity::where('name', 'Profile')->first();
+        return $this->instance->parentInstances()->where('entity_id', $entityId )->get()->map(function($instance) {
+            return Profile::find($instance->id);
         });
     }
 
@@ -295,6 +232,17 @@ class Training extends BusinessModel
         $this->getAttribute('training_type')->setValue($data['training_type'] ?? 1);
         $this->getAttribute('interests')->setValue($data['interests'] ?? 0);
 
+    }
+
+    public function addAttendance($attendance) {
+        $this->instance->instances()->save($attendance->instance);
+        $this->instance->refresh();
+        return $attendance;
+    }
+
+    public function removeAttendance($attendance) {
+        $this->instance->instances()->detach($attendance);
+        $this->instance->refresh();
     }
 
 }

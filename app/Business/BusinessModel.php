@@ -103,6 +103,47 @@ class BusinessModel
     }
 
     /**
+     * Shortcut for getting of the attribute value.
+     * @param $attributeName
+     * @return null
+     */
+    public function getValue($attributeName) {
+        $attribute = $this->getAttribute($attributeName);
+        if($attribute == null)
+            return null;
+
+        return $attribute->getValue();
+    }
+
+    /**
+     * Shortcut for getting of the attribute text.
+     * @param $attributeName
+     * @return string
+     */
+    public function getText($attributeName): string
+    {
+        $attribute = $this->getAttribute($attributeName);
+        if($attribute == null)
+            return '-';
+
+        return $attribute->getText();
+    }
+
+    /**
+     * Shortcut for setting of the attribute text.
+     * @param $attributeValue
+     * @param $value
+     * @return null
+     */
+    public function setValue($attributeValue, $value) {
+        $attribute = $this->getAttribute($attributeValue);
+        if($attribute == null)
+            return null;
+
+        return $attribute->setValue($value);
+    }
+
+    /**
      * Adds attribute to the instance of contract.
      * @param Attribute $attribute
      */

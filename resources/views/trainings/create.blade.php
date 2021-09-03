@@ -12,7 +12,7 @@
             <button type="submit" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Save') }}</button>
         </div>
     </div>
-    <div style="background-color: white; position: absolute; left: 270px; right: 10px; top: 150px; bottom: 70px; overflow-y: auto" class="shadow-sm">
+    <div style="background-color: white; position: absolute; left: 0px; right: 10px; top: 90px; bottom: 0px; overflow-y: auto" class="shadow-sm">
         <div class="container-fluid pt-1">
                 <input type="hidden" id="training_type" name="training_type" value="1">
                 <div class="row">
@@ -113,7 +113,7 @@
                             <label for="training_description">
                                 {{__('Agenda')}}
                             </label>
-                            <div id="summernote-basic"></div>
+                            <div id="sinisa"></div>
                             <textarea id="training_description" name="training_description" hidden></textarea>
                         </div>
 
@@ -124,28 +124,22 @@
 
                         <div style="width: 100%; display: flex; justify-content: center" class="bg-light mt-3">
                             <span class="text-secondary p-2 m-0" id="whoFor" style="display: inline-block">{{ __('Who is this event for') }}?</span>
-                            <select id="interests" class="form-control mt-1 mb-1" name="interests" style="width: 50%; display: inline-block">
+                            <select id="business_branch" class="form-control mt-1 mb-1" name="business_branch" style="width: 50%; display: inline-block">
                                 <option value = 0>Svi</option>
-                                @foreach(\App\Attribute::where('name','interests')->first()->getOptions() as $key=>$value)
+                                @foreach(\App\Attribute::where('name','business_branch')->first()->getOptions() as $key=>$value)
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
                             </select>
                         </div>
 
-
-{{--                        <div style="width: 100%; display: flex;justify-content: center; vertical-align: middle" class="bg-light mt-3">--}}
-{{--                            <span class="text-secondary p-2 m-0" style="display: inline-block">{{ __('Select Client') }}?</span>--}}
-{{--                            <input type="text" id="filter" name="filter" class="form-control m-auto w-50"/>--}}
-{{--                        </div>--}}
-
-                            <ul id="clientList" style="width:100%; " class="border list-group list-group-horizontal" >
-                                @foreach(App\Business\Client::all() as $client)
-                                    <li class="list-group-item" data-id="{{ $client->getId() }}">
-                                        <img src="{{ $client->getData()['logo']['filelink'] }}" width="24" height="24" class="rounded-circle" >
-                                        <span class="text-muted">{{ $client->getData()['name'] }}</span>
-                                    </li>
-                                @endforeach
-                            </ul>
+                        <ul id="clientList" style="width:100%; " class="border list-group list-group-horizontal" >
+                            @foreach(App\Business\Profile::all() as $client)
+                                <li class="list-group-item" data-id="{{ $client->getId() }}">
+{{--                                    <img src="{{ $client->getData()['logo']['filelink'] }}" width="24" height="24" class="rounded-circle" >--}}
+                                    <span class="text-muted">{{ $client->getData()['name'] }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
 
                         <div style="width: 100%; height: 140px;" class="mt-3 text-center">
                             <input type="button" height="50px" class="btn btn-primary mb-3" id="loadFileXml" value="{{ __('Upload Relevant Files') }}" onclick="document.getElementById('file').click();" />
@@ -184,7 +178,7 @@
 
                 var form = $(this);
 
-                var saved = $('#summernote-basic').summernote('code');
+                var saved = $('#sinisa').summernote('code');
                 $('#training_description').text(saved);
 
                 $.each($('ul#clientList li'), function(key, listitem) {
@@ -226,7 +220,8 @@
 
             });
 
-            $('#summernote-basic').summernote({
+            $('#sinisa').summernote({
+                height: 150,
                 callbacks: {
                     onUpdate : function () {
                         alert('updated!');

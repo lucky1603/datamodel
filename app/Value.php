@@ -97,7 +97,8 @@ class Value extends Model
                 break;
             case 'datetime':
                 $tablename = 'datetime_values';
-                $value = new DateTime($value);
+                if($value != null)
+                    $value = new DateTime($value);
                 break;
             case 'timestamp':
                 $tablename = 'timestamp_values';

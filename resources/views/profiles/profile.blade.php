@@ -3,7 +3,11 @@
 @section('profile-content')
     <div class="card" style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px">
         <div class="card-body">
-            @if( in_array($model->getAttribute('profile_status')->getValue(), [1,2]))
+            @php
+                $status = $model->getAttribute('profile_status')->getValue();
+                $program = $model->getActiveProgram();
+            @endphp
+            @if( in_array($status, [1,2]))
                 <h1 class="text-center">Programi</h1>
                 <p class="text-center font-16 font-italic mb-4">Da biste nastavili neophodno je da izaberite jedan od programa.
                     Ako niste sigurni slobodno nas <a href="mailto://info@ntppark.gov.rs" target="_blank">kontaktirajte</a> za više opcija.
@@ -66,7 +70,7 @@
                     </div>
                 </div>
 
-            @elseif($model->getAttribute('profile_status')->getValue() >= 4 && $model->getAttribute('profile_status')->getValue() < 8)
+            @elseif($status >= 4 && $status < 6)
                 <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
                     <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper('Uspešna prijava na program') }}</div>
                     <div class="card-body">
@@ -92,7 +96,26 @@
 
                     </div>
                 </div>
-            @elseif($model->getAttribute('profile_status')->getValue() == 8)
+            @elseif($status == 6)
+                <div class="card position-absolute" style="left: 0px; top: 0px; right: 0px; bottom: 0px" >
+                    <div class="card-header bg-dark text-light text-center">
+                        {{ mb_strtoupper(__('Contract Signing')) }}
+                    </div>
+                    <div class="card-body">
+                        @php
+                            $preselection = $program->getPreselection();
+                        @endphp
+                        <p>Zadovoljstvo nam je da Vas obavestimo da ste prošli postupak @if($preselection != null) preselekcije i @endif selekcije.</p>
+                        <p>Program koji ste izabrali - '{{ $program->getValue('program_name') }}' podrazumeva potpis ugovora.</p>
+                        @if($program->getContract()->getValue('signed_at') == null)
+                            <p>Bićete obavešteni putem e-mail-a o mestu i vremenu potpisa ugovora.</p>
+                        @else
+                            <p>Potpis ugovora će se održati u prostorijama NTP {{ $program->getContract()->getText('signed_at') }}.</p>
+                        @endif
+
+                    </div>
+                </div>
+            @elseif($status == 8)
                 <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
                     <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper(__('Application Rejected')) }}</div>
                     <div class="card-body">

@@ -6,7 +6,7 @@
 @include('profiles.partials._ibitf_founding_enterprise')
 
 <div class="bg-light p-4">
-    <h4 class="mb-3">Napomene pre popunjavanja obrasca</h4>
+    <h4 class="mb-3">NAPOMENE PRE POPUNJAVANJA OBRASCA</h4>
     <p>Pokušajte da što jasnije opišete svoj proizvod/uslugu popunjavanjem ovog obrasca.
         Formular je sastavljen na osnovu LEAN metodologije. Prvo pročitajte sva pitanja
         pa pokušajte iskreno da odgovorite na sva.</p>
