@@ -1,7 +1,7 @@
 <div class="container">
     <h3 class="text-center mt-2 mb-5">{{ __('Preselection') }}</h3>
 
-    <form id="myForm" method="POST" enctype='multipart/form-data' action=""  >
+    <form id="myForm" method="POST" enctype='multipart/form-data' action="" class="p-2" >
         @csrf
         <input type="hidden" id="id" name="id" value="{{ $id }}">
         <div class="form-group">

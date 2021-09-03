@@ -1,13 +1,16 @@
 @extends('layouts.hyper-vertical-profile')
 
-
-@section('profile-short-data')
+@section('profile-short-header')
     <div id="img-container" class="image-container">
         <img src="@if( $model->getAttribute('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $model->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile"/>
         <img class="shadow image-container-logo" src="{{ $model->getAttribute('logo') != null && strlen($model->getAttribute('logo')->getValue()['filelink']) > 0 ? $model->getAttribute('logo')->getValue()['filelink'] : '/images/custom/avatar-default.png' }}" />
     </div>
+@endsection
 
-    <h4 class="mb-0 mt-5">{{ $model->getData()['name']}}</h4>
+@section('profile-short-data')
+
+
+    <h4 class="mb-0">{{ $model->getData()['name']}}</h4>
     <p class="text-muted font-14 mt-2">{{ __('Competes For') }}:</p>
     <button type="button" class="btn btn-primary" style="width: 100%">@if($model->getActiveProgram() != null) {{ $model->getActiveProgram()->getAttribute('program_name')->getText() }} @else {{ __('Not applied yet') }} @endif</button>
 
@@ -23,10 +26,6 @@
 
         <p class="text-muted mb-2 font-13 attribute-label"><strong>{{ $model->getAttribute('contact_email')->label }}</strong>
             <span class="ml-2">{{ $model->getAttribute('contact_email')->getValue() }}</span></p>
-
-        <p class="text-muted mb-2 font-13 attribute-label"><strong>{{ $model->getAttribute('university')->label }}</strong>
-            <span class="ml-2">{{ $model->getAttribute('university')->getText() }}</span></p>
-
     </div>
 @endsection
 
@@ -38,7 +37,15 @@
                 <p class="inbox-item-author">{{ $user->name }}</p>
                 <p class="inbox-item-text">{{ $user->position }}</p>
                 <p class="inbox-item-date">
-                    <a href="{{ route('user.edit', $user->id) }}" role="button"  data-toggle="modal" data-target="#dialogHost" class="btn btn-sm btn-link text-info font-13 edituser nav-link" data-id="{{ $user->id }}"> {{__('Edit')}} </a>
+                    <a
+                        href="{{ route('user.edit', $user->id) }}"
+                        role="button"
+                        data-toggle="modal"
+                        data-target="#dialogHost"
+                        class="btn btn-sm btn-link text-info font-13 edituser nav-link"
+                        data-id="{{ $user->id }}" title="{{ __("Edit") }}">
+                        <i class="mdi mdi-pencil"></i>
+                    </a>
                 </p>
             </div>
         @endforeach

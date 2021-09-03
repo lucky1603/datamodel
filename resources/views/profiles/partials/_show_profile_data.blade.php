@@ -5,14 +5,14 @@
 @if($program->getAttributeGroups()->count() > 0)
     <div id="applicationData" class="accordion" style="max-height: 400px">
         @foreach($program->getAttributeGroups() as $attributeGroup)
-            <div class="card mb=0">
+            <div class="card mb=0 ml-2 mr-2">
                 <div class="card-header" id="heading{{ $attributeGroup->name  }}">
                     <h5 class="m-0">
                         <a class="custom-accordion-title d-block pt-2 pb-2"
                            data-toggle="collapse" href="#collapse{{ $attributeGroup->name }}"
-                           aria-expanded="@if($loop->first) true @else false @endif" aria-controls="collapse{{ $attributeGroup->name }}">
+                           aria-expanded="@if($loop->first) true @else false @endif" aria-controls="collapse{{ $attributeGroup->name }}" >
                             {{ $attributeGroup->label }}
-                        </a>
+                            <i class="mdi mdi-chevron-down accordion-arrow"></i></a>
                     </h5>
                 </div>
                 <div id="collapse{{ $attributeGroup->name }}" class="collapse @if($loop->first) show @endif"

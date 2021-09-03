@@ -1,4 +1,4 @@
-@extends('layouts.hyper-vertical-profile-pre')
+@extends('layouts.hyper-vertical-profile-shortdata')
 
 @section('profile-content')
     <div class="card">

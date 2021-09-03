@@ -1,10 +1,12 @@
 @extends('layouts.hyper-vertical-mainframe')
 
 @section('content')
-
-        <div class="row">
-            <div class="col-xl-4 col-lg-5">
+        <div class="row" style="height: 100%; overflow: hidden">
+            <div class="col-sm-2">
                 <div class="card text-center">
+                    <div class="card-header p-0">
+                        @yield('profile-short-header')
+                    </div>
                     <div class="card-body">
                         @yield('profile-short-data')
                         <ul class="social-list list-inline mt-3 mb-0">
@@ -30,7 +32,7 @@
 
                 <!-- Messages-->
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header p-2">
                         <div class="dropdown float-right">
                             <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
                                 <i class="mdi mdi-dots-vertical"></i>
@@ -43,16 +45,73 @@
                         </div>
                         <h4 class="header-title">{{__('SUPPORT TEAM')}}</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-1">
                         @yield('users')
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
 
             </div> <!-- end col-->
 
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-sm-10" style="height: 100%; overflow: auto">
                 @yield('profile-content')
             </div> <!-- end col -->
         </div>
         <!-- end row-->
 @endsection
+
+@section('sidemenu')
+    @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+    <li class="side-nav-item">
+        <a href="{{route('profiles.show', ['profile' => $model->getId()])}}" class="side-nav-link">
+            <i class="uil-dashboard"></i>
+            <span>{{ mb_strtoupper( __('Profile')) }}</span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
+        <a href="#" class="side-nav-link">
+            <i class="uil-bill"></i>
+            <span>{{ mb_strtoupper(__('Events')) }}</span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
+        <a href="#" class="side-nav-link">
+            <i class="uil-bill"></i>
+            <span>{{ mb_strtoupper(__('Menthoring Sessions')) }}</span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
+        <a href="#" class="side-nav-link">
+            <i class="uil-bill"></i>
+            <span>{{ mb_strtoupper(__('Reports')) }}</span>
+        </a>
+    </li>
+
+    <li class="side-nav-item mt-4">
+        <a href="{{ route('profiles.index') }}" class="side-nav-link">
+            <i class="uil-backspace"></i>
+            <span>{{ mb_strtoupper(__('Back to List')) }}</span>
+        </a>
+    </li>
+    @else
+        <li class="side-nav-item">
+            <a href="{{route('profiles.show', ['profile' => $model->getId()])}}" class="side-nav-link">
+                <i class="uil-dashboard"></i>
+                <span>{{ mb_strtoupper( __('Profile')) }}</span>
+            </a>
+        </li>
+
+        <li class="side-nav-item mt-4">
+            <a href="{{ route('user.logout') }}" class="side-nav-link">
+                <i class="uil-backspace"></i>
+                <span>{{ mb_strtoupper(__('Logout')) }}</span>
+            </a>
+        </li>
+
+
+    @endif
+@endsection
+
+
