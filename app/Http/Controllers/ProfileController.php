@@ -11,6 +11,7 @@ use App\Business\Preselection;
 use App\Business\Profile;
 use App\Business\Program;
 use App\Business\Selection;
+use App\Business\Training;
 use App\Http\Middleware\Authenticate;
 use App\Mail\MeetingNotification;
 use App\Mail\ProfileCreated;
@@ -135,6 +136,21 @@ class ProfileController extends Controller
 
         return redirect(route('profiles.index'));
 
+    }
+
+    public function reports($id) {
+        $profile = Profile::find($id);
+        return view('profiles.reports', ['model' => $profile]);
+    }
+
+    public function trainings($id) {
+        $profile = Profile::find($id);
+        return view('profiles.trainings', ['model' => $profile]);
+    }
+
+    public function sessions($id) {
+        $profile = Profile::find($id);
+        return view('profiles.sessions', ['model' => $profile]);
     }
 
     public function testMail($profileId) {

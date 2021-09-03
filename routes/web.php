@@ -73,6 +73,9 @@ Route::get('profiles/create', 'ProfileController@create')->name('profiles.create
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
 Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');
 Route::get('profiles/testMail/{profile}', 'ProfileController@testMail')->name('profiles.testmail');
+Route::get('profiles/reports/{profile}', "ProfileController@reports")->name('profiles.reports');
+Route::get('profiles/trainings/{profile}', "ProfileController@trainings")->name('profiles.trainings');
+Route::get('profiles/sessions/{profile}', "ProfileController@sessions")->name('profiles.sessions');
 Route::get('profiles/verify/{token}', 'ProfileController@verify')->name('profiles.verify');
 Route::get('profiles/profile/{profile}', 'ProfileController@profile')->name('profiles.profile');
 Route::get('profiles/check/{profile}', 'ProfileController@check')->name('profiles.check');

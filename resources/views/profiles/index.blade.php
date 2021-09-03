@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="page-title-box-sm" xmlns="http://www.w3.org/1999/html">
+    <div >
         <ul class="nav float-right page-title-right" >
             <li class="nav-item">
                 <a

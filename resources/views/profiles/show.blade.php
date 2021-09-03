@@ -245,6 +245,15 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
+            $('.side-nav-item').each(function(index) {
+                if($(this).attr('id') == 'navProfile' && !$(this).hasClass('mm_active')) {
+                    $(this).addClass('mm_active');
+                } else if($(this).attr('id') != 'navProfile' && $(this).hasClass('mm_active')) {
+                    $(this).removeClass('mm_active');
+                }
+            });
+
+
             $('#btnSendMail').on('click', function(evt) {
                 var profileId = <?php echo $model->getId();?>;
 

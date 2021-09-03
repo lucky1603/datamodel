@@ -61,29 +61,29 @@
 
 @section('sidemenu')
     @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
-    <li class="side-nav-item">
+    <li class="side-nav-item" id="navProfile">
         <a href="{{route('profiles.show', ['profile' => $model->getId()])}}" class="side-nav-link">
             <i class="uil-dashboard"></i>
             <span>{{ mb_strtoupper( __('Profile')) }}</span>
         </a>
     </li>
 
-    <li class="side-nav-item">
-        <a href="#" class="side-nav-link">
+    <li class="side-nav-item" id="navEvents">
+        <a href="{{route('profiles.trainings', ['profile' => $model->getId()])}}" class="side-nav-link">
             <i class="uil-bill"></i>
             <span>{{ mb_strtoupper(__('Events')) }}</span>
         </a>
     </li>
 
-    <li class="side-nav-item">
-        <a href="#" class="side-nav-link">
+    <li class="side-nav-item" id="navSessions">
+        <a href="{{route('profiles.sessions', ['profile' => $model->getId()])}}" class="side-nav-link">
             <i class="uil-bill"></i>
             <span>{{ mb_strtoupper(__('Menthoring Sessions')) }}</span>
         </a>
     </li>
 
-    <li class="side-nav-item">
-        <a href="#" class="side-nav-link">
+    <li class="side-nav-item" id="navReports">
+        <a href="{{ route('profiles.reports', ['profile' => $model->getId()]) }}" class="side-nav-link">
             <i class="uil-bill"></i>
             <span>{{ mb_strtoupper(__('Reports')) }}</span>
         </a>
@@ -109,9 +109,11 @@
                 <span>{{ mb_strtoupper(__('Logout')) }}</span>
             </a>
         </li>
-
-
     @endif
+@endsection
+
+@section('scripts')
+
 @endsection
 
 
