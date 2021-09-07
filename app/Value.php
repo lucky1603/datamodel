@@ -64,7 +64,7 @@ class Value extends Model
 
             if(count($value) === 1) {
                 $value = $value[0];
-            } else {
+            } elseif(count($value) == 0) {
                 $value = __("Not Selected");
             }
 
@@ -73,7 +73,7 @@ class Value extends Model
 
         $value = $query->value('value');
         if($attribute->type === 'bool') {
-            $value = $value === null || $value === 0 ? false : true;
+            $value = !($value === null || $value === 0);
         }
 
         return $value;

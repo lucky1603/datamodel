@@ -2,13 +2,18 @@
 
 namespace App\Business;
 
+use App\Entity;
+use App\Instance;
+use Illuminate\Support\Collection;
+
 class Menthor extends SituationsModel
 {
+
     protected function getEntity()
     {
         $entity = Entity::where('name', 'Menthor')->first();
         if($entity == null) {
-            $entity = new Entity(['name' => 'Menthor', 'description' => 'Mentor organizacije']);
+            $entity = Entity::create(['name' => 'Menthor', 'description' => 'Mentor organizacije']);
             $attributes = self::getAttributesDefinition();
             foreach ($attributes as $attribute) {
                 $entity->addAttribute($attribute);
@@ -73,6 +78,7 @@ class Menthor extends SituationsModel
         return $this->instance->instances->filter(function($instance) {
              if($instance->entity->name == 'Program')
                  return true;
+             return false;
         })->map(function($instance) {
             return new Program(['instance_id' => $instance->id]);
         });
@@ -107,6 +113,7 @@ class Menthor extends SituationsModel
         return $this->instance->instances->filter(function($instance) {
             if($instance->entity->name == 'Session')
                 return true;
+            return false;
         })->map(function($instance) {
             return new Session(['instance_id' => $instance->id]);
         });
@@ -115,9 +122,9 @@ class Menthor extends SituationsModel
     /**
      * Get attributes definition for this object type.
      */
-    public static function  getAttributesDefinition()
+    public static function getAttributesDefinition(): Collection
     {
-        $attributes = collection([]);
+        $attributes = collect([]);
 
         // ime
         $attributes->add(self::selectOrCreateAttribute(['name', __('Name'), 'varchar', NULL, 1]));
@@ -134,7 +141,7 @@ class Menthor extends SituationsModel
         $attributes->add(self::selectOrCreateAttribute(['photo', __('Photo'), 'file', NULL, 6]));
 
         // Specijalnosti
-        $specialities = self::selectOrCreateAttribute(['business_branch', __('Business Branch'), 'select', 'multiselect', 7]);
+        $specialities = self::selectOrCreateAttribute(['specialities', __('Specialities'), 'select', 'multiselect', 7]);
         if(count($specialities->getOptions()) == 0) {
             $specialities->addOption(['value' => 1, 'text' => __('gui-select.BB-IOT')]);
             $specialities->addOption(['value' => 2, 'text' => __('gui-select.BB-EnEff')]);
@@ -151,8 +158,17 @@ class Menthor extends SituationsModel
         }
         $attributes->add($specialities);
 
+        $menthorType = self::selectOrCreateAttribute(['menthor-type', __("Menthor Type"), 'select', NULL, 8]);
+        if(count($menthorType->getOptions()) == 0) {
+            $menthorType->addOption(['value' => 1, 'text' => __('Business Menthor')]);
+            $menthorType->addOption(['value' => 2, 'text' => __('Tech Menthor')]);
+        }
+        $attributes->add($menthorType);
+
         // Primedbe (ostalo)
         $attributes->add(self::selectOrCreateAttribute(['remark', __('Remark'), 'text', NULL, 8]));
+
+        return $attributes;
 
     }
 

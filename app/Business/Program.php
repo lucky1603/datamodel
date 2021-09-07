@@ -362,6 +362,11 @@ class Program extends SituationsModel
         return $entity;
     }
 
+    /**
+     * Must be overridden, because Program has the different constructor.
+     * @param null $query
+     * @return Program|Instance[]|\Illuminate\Database\Eloquent\Collection|Collection|null
+     */
     public static function find($query=null) {
         if(Entity::where('name', 'Program')->get()->count() == 0) {
             return isset($query) && is_string($query) ? null : collect([]);

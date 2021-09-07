@@ -100,6 +100,10 @@ Route::get('/trainings/showmine/{training}', 'TrainingsController@showMine')->na
 Route::get('/trainings/delete/{training}', 'TrainingsController@delete')->name('trainings.delete');
 Route::get('/trainings/{training}', 'TrainingsController@show')->name('trainings.show');
 
+Route::get('menthors', 'MenthorController@index')->name('menthors.index');
+Route::get('menthors/create', 'MenthorController@create')->name('menthors.create');
+Route::post('menthors/create', 'MenthorController@store')->name('menthors.store');
+
 Route::post('/preselection/update/{preselection}', 'PreselectionController@update')->name('preselection.update');
 Route::post('/selection/update/{selection}', 'SelectionController@update')->name('selection.update');
 Route::post('/contracts/update/{contract}', 'ContractsController@update')->name('contract.update');

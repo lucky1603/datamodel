@@ -17,6 +17,13 @@
     </li>
 
     <li class="side-nav-item">
+        <a href="{{ route('menthors.index') }}" class="side-nav-link">
+            <i class="uil-bill"></i>
+            <span>{{ strtoupper(__('Menthors')) }}</span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
         <a href="{{ route('users') }}" class="side-nav-link">
             <i class="uil-chat-bubble-user"></i>
             <span>{{ strtoupper(__('Users')) }}</span>

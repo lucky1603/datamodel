@@ -95,6 +95,7 @@
                     }
                 }
             });
+
         });
     </script>
     @yield('scripts')
