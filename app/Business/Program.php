@@ -209,9 +209,118 @@ class Program extends SituationsModel
      */
     public function getProfile(): Profile
     {
-        $profileInstance = $this->instance->parentInstances()->first();
-        return new Profile(['instance_id' => $profileInstance->id]);
+        return $profileInstance = $this->instance->parentInstances()->filter(function($instance) {
+            if($instance->entity->name == 'Profile')
+                return true;
+        })->map(function($instance) {
+            return new Profile(['instance_id' => $instance->id]);
+        })->first();
+
     }
+
+    /**
+     * Add program attendance.
+     * @param $attendance
+     * @return mixed
+     */
+    public function addAttendance($attendance) {
+        $this->instance->instances()->save($attendance->instance);
+        $this->instance->refresh();
+        return $attendance;
+    }
+
+    /**
+     * Remove program attendance.
+     * @param $attendance
+     */
+    public function removeAttendance($attendance) {
+        $this->instance->instances()->detach($attendance->id);
+        $this->instance->refresh();
+    }
+
+
+    /**
+     * Add session for program.
+     * @param $session
+     * @return mixed
+     */
+    public function addSession($session) {
+        $this->instance->instances()->save($session->instance);
+        $this->instance->refresh();
+        return $session;
+    }
+
+    /**
+     * Remove session from the program.
+     * @param $session
+     */
+    public function removeSession($session) {
+        $this->instance->instances()->detach($session->id);
+        $this->instance->refresh();
+    }
+
+    /**
+     * Get sessions which belongs to the program.
+     * @return mixed
+     */
+    public function getSessions() {
+        return $this->instance->instances()->filter(function($instance) {
+            if($instance->entity->name == 'Session')
+                return true;
+        })->map(function($instance) {
+            return new Session(['instance_id' => $instance->id]);
+        });
+    }
+
+
+    /**
+     * Add training to the program.
+     * @param $training
+     * @return mixed
+     */
+    public function addTraining($training) {
+        $this->instance->instances()->save($training->instance);
+        $this->instance->refresh();
+        return $training;
+    }
+
+
+    /**
+     * Remove the traning from the program.
+     * @param $training
+     */
+    public function removeTraining($training) {
+        $this->instance->instances()->detach($training->id);
+        $this->instance->refresh();
+    }
+
+
+    /**
+     * Lists all of the trainings for the program.
+     * @return mixed
+     */
+    public function getTrainings() {
+        return $this->instance->instances()->filter(function($instance) {
+            if($instance->entity->name == 'Training')
+                return true;
+        })->map(function($instance) {
+            return new Session(['instance_id' => $instance->id]);
+        });
+    }
+
+    /**
+     * Gets the menthor.
+     * @return mixed
+     */
+    public function getMenthor() {
+        return $this->instance->parent_instances()->filter(function($instance) {
+            if($this->instance->entity->name == 'Menthor')
+                return true;
+        })->map(function($instance) {
+            return new Menthor(['instance_id' => $instance->id]);
+        })->first();
+    }
+
     /**
      * Sets the attributes either with data or with the default values.
      * @param null $data

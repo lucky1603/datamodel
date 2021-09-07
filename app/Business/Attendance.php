@@ -8,17 +8,17 @@ class Attendance extends BusinessModel
 {
 
     /**
-     * Fetches the profile.
-     * @return Profile|null
+     * Fetches the program.
+     * @return Program|null
      */
-    public function getProfile(): ?Profile
+    public function getProgram(): ?Program
     {
-        $entityId = Entity::where('name', 'Profile')->first();
+        $entityId = Entity::where('name', 'Program')->first();
         $profileInstance = $this->instance->parentInstances()->where('entity_id', $entityId)->first();
         if($profileInstance == null)
             return null;
 
-        return new Profile(['instance_id' => $profileInstance->id]);
+        return new Program(['instance_id' => $profileInstance->id]);
     }
 
     /**
@@ -33,6 +33,20 @@ class Attendance extends BusinessModel
             return null;
 
         return new Training(['instance_id' => $trainingInstance->id]);
+    }
+
+    /**
+     * Fetches the session.
+     * @return Session|null
+     */
+    public function getSession(): ?Session
+    {
+        $entityId = Entity::where('name', 'Session')->first();
+        $trainingInstance = $this->instance->parentInstances()->where('entity_id', $entityId)->first();
+        if($trainingInstance == null)
+            return null;
+
+        return new Session(['instance_id' => $trainingInstance->id]);
     }
 
     /**
@@ -82,9 +96,8 @@ class Attendance extends BusinessModel
         $attendance = self::selectOrCreateAttribute(['attendance', 'Pristustvo', 'select', NULL, 1]);
         if(count($attendance->getOptions()) == 0) {
             $attendance->addOption(['value' => 1, 'text' => __('Notified')]);
-            $attendance->addOption(['value' => 2, 'text' => __('Applied')]);
-            $attendance->addOption(['value' => 1, 'text' => __('Showed Up')]);
-            $attendance->addOption(['value' => 1, 'text' => __('Didn\'t show up')]);
+            $attendance->addOption(['value' => 2, 'text' => __('Showed Up')]);
+            $attendance->addOption(['value' => 3, 'text' => __('Didn\'t show up')]);
         }
         $attributes->add($attendance);
 

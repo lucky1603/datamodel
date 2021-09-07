@@ -328,16 +328,7 @@ class Profile extends SituationsModel
         $this->instance->refresh();
     }
 
-    public function addAttendance($attendance) {
-        $this->instance->instances()->save($attendance->instance);
-        $this->instance->refresh();
-        return $attendance;
-    }
 
-    public function removeAttendance($attendance) {
-        $this->instance->instances()->detach($attendance);
-        $this->instance->refresh();
-    }
 
 
 

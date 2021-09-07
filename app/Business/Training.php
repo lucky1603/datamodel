@@ -15,13 +15,6 @@ class Training extends BusinessModel
 {
 
     /**
-     * Removes the element instance from the database.
-     */
-    public function delete() {
-        $this->instance->delete();
-    }
-
-    /**
      *
      * Returns the attributes of the 'traninng' entity.
      *
@@ -64,16 +57,6 @@ class Training extends BusinessModel
 
     }
 
-    /**
-     *
-     * Return all trainings.
-     *
-     * @return Training||null
-     */
-    public static function all(): Training
-    {
-        return Training::find();
-    }
 
     /**
      *
@@ -96,93 +79,7 @@ class Training extends BusinessModel
         return $entity;
     }
 
-    /**
-     *
-     * Return all clients connected with the training (invited|present|absent)
-     *
-     * @return Collection
-     */
-    public function getProfiles() {
-//        $client_ids = DB::table('client_training')->where('training_id', $this->instance->id)->pluck('client_id');
-//        return $client_ids->map(function($clientId) {
-//            return new ClientAtTraining($clientId, $this->instance->id);
-//        });
 
-        $entityId = Entity::where('name', 'Profile')->first();
-        return $this->instance->parentInstances()->where('entity_id', $entityId )->get()->map(function($instance) {
-            return Profile::find($instance->id);
-        });
-    }
-
-    /**
-     *
-     * Adds the client to the training session.
-     *
-     * @param Client $client
-     * @return bool
-     */
-    public function addClient(Client $client) {
-        $attendance = 1;
-        if($this->getData()['training_type'] != 1) {
-            $attendance = 2;
-        }
-
-        if(DB::table('client_training')->where([
-            'client_id' => $client->getId(),
-            'training_id' => $this->instance->id
-        ])->count() == 0) {
-            return DB::table('client_training')->insert([
-                'client_id' => $client->getId(),
-                'training_id' => $this->instance->id,
-                'attendance' => $attendance
-            ]);
-        }
-
-        return false;
-    }
-
-    /**
-     *
-     * Updates client with the batch of data.
-     *
-     * @param Client $client
-     * @param array $data
-     * @return int
-     */
-    public function updateClient(Client $client, Array $data) {
-        return DB::table('client_training')->update($data);
-    }
-
-    /**
-     *
-     * Removes the client from the training.
-     *
-     * @param Client $client
-     * @return int
-     */
-    public function removeClient(Client $client) {
-        return DB::table('client_training')->delete([
-            'client_id' => $client->getId(),
-            'training_id' => $this->instance->id
-        ]);
-    }
-
-    /**
-     *
-     * Checks if the client is registered for the event.
-     *
-     * @param Client $client
-     * @return bool
-     */
-    public function hasClient(Client $client) {
-        $client_ids = DB::table('client_training')
-            ->where('training_id', $this->instance->id)
-            ->where('client_id', $client->getId())->pluck('client_id');
-        if($client_ids->count() == 0)
-            return false;
-
-        return true;
-    }
 
     /**
      *
@@ -208,7 +105,12 @@ class Training extends BusinessModel
 
     }
 
-    public function hasFiles() {
+    /**
+     * Returns the answer if the traning has the files attached.
+     * @return bool
+     */
+    public function hasFiles(): bool
+    {
         if($this->getAttribute('file_1') == null)
             return false;
 
@@ -234,15 +136,38 @@ class Training extends BusinessModel
 
     }
 
+    /**
+     * Adds the attendance object.
+     * @param $attendance
+     * @return mixed
+     */
     public function addAttendance($attendance) {
         $this->instance->instances()->save($attendance->instance);
         $this->instance->refresh();
         return $attendance;
     }
 
+    /**
+     * Removes the attendance object from training.+
+     * @param $attendance
+     */
     public function removeAttendance($attendance) {
         $this->instance->instances()->detach($attendance);
         $this->instance->refresh();
     }
+
+    /**
+     * Returns attendances for this object.
+     * @return mixed
+     */
+    public function getAttendances() {
+        return $this->instance->instances->filter(function($instance) {
+            if($instance->entity->name == 'Attendance')
+                return true;
+        })->map(function($instance) {
+            return new Attendance(['instance_id' => $instance->id]);
+        });
+    }
+
 
 }
