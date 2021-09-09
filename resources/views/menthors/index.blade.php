@@ -49,20 +49,55 @@
     </div>
     <hr/>
     @foreach($menthors as $menthor)
-        @if($loop->index % 6 == 0)
+        @if($loop->index % 4 == 0)
             <div class="row">
         @endif
 
-        <div class="col-lg-2">
-            <div class="card shadow">
-                <div class="card-header p-0">
-                    <img src="@if($menthor->getAttribute('photo') != null && strlen($menthor->getValue('photo')['filelink']) > 0) {{ $menthor->getValue('photo')['filelink'] }} @else /images/custom/nophoto2.png @endif" class="w-100"/>
+        <div class="col-lg-3">
+{{--            <div class="card shadow">--}}
+{{--                <div class="card-header p-0">--}}
+{{--                    <img src="@if($menthor->getAttribute('photo') != null && strlen($menthor->getValue('photo')['filelink']) > 0) {{ $menthor->getValue('photo')['filelink'] }} @else /images/custom/nophoto2.png @endif" class="w-100"/>--}}
+{{--                </div>--}}
+{{--                <div class="card-body text-center">--}}
+{{--                    <h4 class="text-center">{{ $menthor->getValue('name') }}</h4>--}}
+{{--                    <a class="text-center" href="mailto://{{$menthor->getValue('email')}}" target="_blank">{{ $menthor->getValue('email') }}</a>--}}
+{{--                    <p class="text-center">{{ $menthor->getValue('phone') }}</p>--}}
+{{--                </div>--}}
+
+{{--                --}}
+{{--            </div>--}}
+            <div class="card shadow ribbon-box">
+                <div class="card-body p-0">
+                    @php
+                        $attribute = $menthor->getAttribute('menthor-type');
+                    @endphp
+                    <div class="ribbon-two @if($attribute->getValue() == 1) ribbon-two-primary @else ribbon-two-success @endif">
+                        <span>{{ $attribute->getText() }}</span>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-sm-5 overflow-hidden">
+                            <div style="height: 150px;  overflow: hidden">
+                                <img
+                                    src="
+                                @if($menthor->getAttribute('photo') != null
+                                        && strlen($menthor->getValue('photo')['filelink']) > 0)
+                                    {{ $menthor->getValue('photo')['filelink'] }}
+                                    @else
+                                        /images/custom/nophoto2.png
+                                    @endif" class="h-100"
+                                />
+                            </div>
+
+                        </div>
+                        <div class="col-sm-7 text-center">
+                            <h4 class="mt-0 mb-4 "><a href="{{ route('menthors.profile', ['menthor' => $menthor->getId()]) }}">{{ $menthor->getAttribute('name')->getText() }}</a></h4>
+                            <a class="text-center" href="mailto://{{$menthor->getValue('email')}}" target="_blank">{{ $menthor->getValue('email') }}</a>
+                            <p class="text-center">{{ $menthor->getValue('phone') }}</p>
+
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body text-center">
-                    <h4 class="text-center">{{ $menthor->getValue('name') }}</h4>
-                    <a class="text-center" href="mailto://{{$menthor->getValue('email')}}" target="_blank">{{ $menthor->getValue('email') }}</a>
-                    <p class="text-center">{{ $menthor->getValue('phone') }}</p>
-                </div>
+
             </div>
         </div>
 

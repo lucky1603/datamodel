@@ -483,6 +483,7 @@
 <script src="/assets/js/vendor/jquery.dataTables.min.js"></script>
 <script src="/assets/js/vendor/dataTables.bootstrap4.js"></script>
 <script src="/assets/js/vendor/dataTables.responsive.min.js"></script>
+<script src="/assets/js/vendor/dataTables.select.min.js"></script>
 <script src="/assets/js/vendor/responsive.bootstrap4.min.js"></script>
 
 <script src="/js/vue.js"></script>
@@ -495,7 +496,6 @@
            var where = $('#newClient').attr('href');
            $.get(where, function(data) {
                var content = $(data).find('form')[0];
-               console.log(content);
                var title = $(data).find('h1').first().text();
                $('#dialogHost.modal .modal-dialog .modal-content .modal-body').html(content);
                $('#dialogHost.modal .modal-dialog .modal-content .modal-header .modal-title').text(title);
@@ -517,9 +517,17 @@
                $('#cancel').on('click', function(evt) {
                    location.reload();
                });
-
-
            });
+       });
+
+       $('#newMenthor').click(function() {
+            let where = $(this).attr('href');
+            $.get(where, function(data) {
+                const content = $(data).find('form')[1];
+                const title = $(data).find('h1').first().text();
+                $('#dialogHost.modal .modal-dialog .modal-content .modal-body').html(content);
+                $('#dialogHost.modal .modal-dialog .modal-content .modal-header .modal-title').text(title);
+            });
        });
 
         $('a.edituser').on('click', function(evt) {

@@ -209,7 +209,7 @@ class Program extends SituationsModel
      */
     public function getProfile(): Profile
     {
-        return $profileInstance = $this->instance->parentInstances()->filter(function($instance) {
+        return $this->instance->parentInstances->filter(function($instance) {
             if($instance->entity->name == 'Profile')
                 return true;
         })->map(function($instance) {

@@ -53,11 +53,10 @@ class Menthor extends SituationsModel
      * @param $programId
      * @return Program
      */
-    public function addProgram($programId): Program
+    public function addProgram($programId)
     {
         $this->instance->instances()->save(Instance::find($programId));
         $this->instance->refresh();
-        return new Program(['instance_id' => $programId]);
     }
 
     /**
@@ -78,9 +77,8 @@ class Menthor extends SituationsModel
         return $this->instance->instances->filter(function($instance) {
              if($instance->entity->name == 'Program')
                  return true;
-             return false;
         })->map(function($instance) {
-            return new Program(['instance_id' => $instance->id]);
+            return new Program(0, ['instance_id' => $instance->id]);
         });
     }
 

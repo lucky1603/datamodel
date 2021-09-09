@@ -48,6 +48,10 @@ class MenthorController extends Controller
 
         return redirect(route('menthors.index'));
 
+    }
 
+    public function profile($mentorId) {
+        $mentor = Menthor::find($mentorId);
+        return view('menthors.profile', ['menthor' => $mentor]);
     }
 }

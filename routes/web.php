@@ -103,6 +103,7 @@ Route::get('/trainings/{training}', 'TrainingsController@show')->name('trainings
 Route::get('menthors', 'MenthorController@index')->name('menthors.index');
 Route::get('menthors/create', 'MenthorController@create')->name('menthors.create');
 Route::post('menthors/create', 'MenthorController@store')->name('menthors.store');
+Route::get('menthors/profile/{menthor}', 'MenthorController@profile')->name('menthors.profile');
 
 Route::post('/preselection/update/{preselection}', 'PreselectionController@update')->name('preselection.update');
 Route::post('/selection/update/{selection}', 'SelectionController@update')->name('selection.update');
