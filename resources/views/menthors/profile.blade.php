@@ -10,8 +10,8 @@
                             <div class="row h-100">
                                 <div class="col-lg-4 h-100 p-2">
                                     <div class="h-100 w-100 overflow-hidden">
-                                        <div class="card-header pl-0 ">
-                                            {{ mb_strtoupper( __("About Me")) }}
+                                        <div class="card-header pl-0 attribute-label">
+                                            <h5 class="mb-0 mt-0">{{ mb_strtoupper( __("About Me")) }}</h5>
                                         </div>
                                         @php
                                             $photo = $menthor->getAttribute('photo');
@@ -91,7 +91,7 @@
                     <div class="col-lg-12 h-100 p-2">
                         <div class="card h-100 w-100 shadow">
                             <div class="card-header text-dark">
-                                {{ mb_strtoupper( __('Programs I am involved at'))}}
+                                <span class="mb-0 mt-0 h5 attribute-label">{{ mb_strtoupper( __('Programs I am involved at'))}}</span>
                                 <button class="btn btn-success btn-sm float-right" title="{{__('Connect to Program')}}"><i class="uil-document"></i></button>
                             </div>
                             <div class="card-body font-12">
