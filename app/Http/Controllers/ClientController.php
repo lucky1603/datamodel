@@ -738,7 +738,7 @@ class ClientController extends Controller
 
         // Enterpreneurship parameters
         $enterpreneurship_parameters = [
-            'have_skills', 'improve_skills', 'regular_menthor_sessions', 'regular_workshops', 'will_evaluate_work','establish_company',
+            'have_skills', 'improve_skills', 'regular_mentor_sessions', 'regular_workshops', 'will_evaluate_work','establish_company',
             'fulfill_contract_obligations', 'motiv'
         ];
         $mandatory_parameters = array_merge($mandatory_parameters, $enterpreneurship_parameters);

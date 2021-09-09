@@ -498,7 +498,7 @@
                var content = $(data).find('form')[0];
                var title = $(data).find('h1').first().text();
                $('#dialogHost.modal .modal-dialog .modal-content .modal-body').html(content);
-               $('#dialogHost.modal .modal-dialog .modal-content .modal-header .modal-title').text(title);
+               $('#dialogHost.modal .modal-dialog .modal-content .modal-header .modal-title').text("Kreirajte novi profil");
 
                if($('#is_company').prop('checked') == true) {
                    $('#id_number_group').show();
@@ -520,7 +520,7 @@
            });
        });
 
-       $('#newMenthor').click(function() {
+       $('#newmentor').click(function() {
             let where = $(this).attr('href');
             $.get(where, function(data) {
                 const content = $(data).find('form')[1];

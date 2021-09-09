@@ -6,10 +6,10 @@
             <li class="nav-item">
                 <a
                     class="nav-link text-muted"
-                    id="newMenthor"
-                    href="{{ route('menthors.create') }}"
+                    id="newmentor"
+                    href="{{ route('mentors.create') }}"
                     role="button" data-toggle="modal" data-target="#dialogHost">
-                    <i class="dripicons-user font-20"></i><span class="ml-0 mt-2 font-weight-bold"> {{mb_strtoupper(__('New Menthor'))}}</span>
+                    <i class="dripicons-user font-20"></i><span class="ml-0 mt-2 font-weight-bold"> {{mb_strtoupper(__('New Mentor'))}}</span>
                 </a>
             </li>
         </ul>
@@ -20,7 +20,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text small">{{ __('By Name') }}</span>
                     </div>
-                    <input type="text" id="menthorSearch" name="menthorSearch" class="form-control" placeholder="{{ __('Search...') }}" >
+                    <input type="text" id="mentorSearch" name="mentorSearch" class="form-control" placeholder="{{ __('Search...') }}" >
                 </div>
             </li>
             <li class="nav-item ml-2">
@@ -28,7 +28,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text small">{{ __('By Specialization') }}</span>
                     </div>
-                    <select name="menthorSpec" id="menthorSpec" class="form-control form-control-sm">
+                    <select name="mentorSpec" id="mentorSpec" class="form-control form-control-sm">
                         <option value="0">{{ __('Please select ...') }}</option>
                         <option value="1">{{ __('gui-select.BB-IOT') }}</option>
                         <option value="2">{{ __('gui-select.BB-EnEff') }}</option>
@@ -48,7 +48,7 @@
         </ul>
     </div>
     <hr/>
-    @foreach($menthors as $menthor)
+    @foreach($mentors as $mentor)
         @if($loop->index % 4 == 0)
             <div class="row">
         @endif
@@ -56,12 +56,12 @@
         <div class="col-lg-3">
 {{--            <div class="card shadow">--}}
 {{--                <div class="card-header p-0">--}}
-{{--                    <img src="@if($menthor->getAttribute('photo') != null && strlen($menthor->getValue('photo')['filelink']) > 0) {{ $menthor->getValue('photo')['filelink'] }} @else /images/custom/nophoto2.png @endif" class="w-100"/>--}}
+{{--                    <img src="@if($mentor->getAttribute('photo') != null && strlen($mentor->getValue('photo')['filelink']) > 0) {{ $mentor->getValue('photo')['filelink'] }} @else /images/custom/nophoto2.png @endif" class="w-100"/>--}}
 {{--                </div>--}}
 {{--                <div class="card-body text-center">--}}
-{{--                    <h4 class="text-center">{{ $menthor->getValue('name') }}</h4>--}}
-{{--                    <a class="text-center" href="mailto://{{$menthor->getValue('email')}}" target="_blank">{{ $menthor->getValue('email') }}</a>--}}
-{{--                    <p class="text-center">{{ $menthor->getValue('phone') }}</p>--}}
+{{--                    <h4 class="text-center">{{ $mentor->getValue('name') }}</h4>--}}
+{{--                    <a class="text-center" href="mailto://{{$mentor->getValue('email')}}" target="_blank">{{ $mentor->getValue('email') }}</a>--}}
+{{--                    <p class="text-center">{{ $mentor->getValue('phone') }}</p>--}}
 {{--                </div>--}}
 
 {{--                --}}
@@ -69,7 +69,7 @@
             <div class="card shadow ribbon-box">
                 <div class="card-body p-0">
                     @php
-                        $attribute = $menthor->getAttribute('menthor-type');
+                        $attribute = $mentor->getAttribute('mentor-type');
                     @endphp
                     <div class="ribbon-two @if($attribute->getValue() == 1) ribbon-two-primary @else ribbon-two-success @endif">
                         <span>{{ $attribute->getText() }}</span>
@@ -79,9 +79,9 @@
                             <div style="height: 150px;  overflow: hidden">
                                 <img
                                     src="
-                                @if($menthor->getAttribute('photo') != null
-                                        && strlen($menthor->getValue('photo')['filelink']) > 0)
-                                    {{ $menthor->getValue('photo')['filelink'] }}
+                                @if($mentor->getAttribute('photo') != null
+                                        && strlen($mentor->getValue('photo')['filelink']) > 0)
+                                    {{ $mentor->getValue('photo')['filelink'] }}
                                     @else
                                         /images/custom/nophoto2.png
                                     @endif" class="h-100"
@@ -90,9 +90,9 @@
 
                         </div>
                         <div class="col-sm-7 text-center">
-                            <h4 class="mt-0 mb-4 "><a href="{{ route('menthors.profile', ['menthor' => $menthor->getId()]) }}">{{ $menthor->getAttribute('name')->getText() }}</a></h4>
-                            <a class="text-center" href="mailto://{{$menthor->getValue('email')}}" target="_blank">{{ $menthor->getValue('email') }}</a>
-                            <p class="text-center">{{ $menthor->getValue('phone') }}</p>
+                            <h4 class="mt-0 mb-4 "><a href="{{ route('mentors.profile', ['mentor' => $mentor->getId()]) }}">{{ $mentor->getAttribute('name')->getText() }}</a></h4>
+                            <a class="text-center" href="mailto://{{$mentor->getValue('email')}}" target="_blank">{{ $mentor->getValue('email') }}</a>
+                            <p class="text-center">{{ $mentor->getValue('phone') }}</p>
 
                         </div>
                     </div>
@@ -101,7 +101,7 @@
             </div>
         </div>
 
-        @if($loop->index % 4 == 3 || $loop->iteration == $menthors->count() )
+        @if($loop->index % 4 == 3 || $loop->iteration == $mentors->count() )
             </div>
         @endif
     @endforeach

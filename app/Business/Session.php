@@ -22,11 +22,11 @@ class Session extends SituationsModel
 
     /**
      * Return the methor who participates at the session.
-     * @return Menthor
+     * @return Mentor
      */
-    public function getMenthor() : Menthor {
+    public function getmentor() : Mentor {
         return $this->instance->parent_instances()->filter(function ($instance) {
-            if($instance->entity->name == 'Menthor')
+            if($instance->entity->name == 'Mentor')
                 return true;
         })->map(function ($instance) {
             return new Program(['instance_id' => $instance->id]);
@@ -59,7 +59,7 @@ class Session extends SituationsModel
     {
         $entity = Entity::where('name', 'Session')->first();
         if($entity == null) {
-            $entity = new Entity(['name' => 'Session', 'description' => __('Menthors Session')]);
+            $entity = new Entity(['name' => 'Session', 'description' => __('mentors Session')]);
             $attributes = self::getAttributesDefinition();
             foreach ($attributes as $attribute) {
                 $entity->addAttribute($attribute);
@@ -84,7 +84,7 @@ class Session extends SituationsModel
                 'session_duration' => 0,
                 'duration_unit' => 0,
                 'training_short_note' => null,
-                'menthors_feedback' => null
+                'mentors_feedback' => null
             ];
         }
 
@@ -115,7 +115,7 @@ class Session extends SituationsModel
         $attributes->add($duration);
 
         $attributes->add(self::selectOrCreateAttribute(['training_short_note', 'Kratka beleška', 'text', NULL, 7]));
-        $attributes->add(self::selectOrCreateAttribute(['menthors_feedback', __('Menthor\'s Feedback'), 'text', NULL, 8]));
+        $attributes->add(self::selectOrCreateAttribute(['mentors_feedback', __('Mentor\'s Feedback'), 'text', NULL, 8]));
 
         return $attributes;
     }

@@ -14,19 +14,19 @@
 </div>
 
 <div class="form-group">
-    <input id="{{ $model->getAttribute('regular_menthor_sessions')->name }}Hidden" type="hidden" name="{{ $model->getAttribute('regular_menthor_sessions')->name }}" value="off">
-    <span class="font-weight-semibold attribute-label"> {!! $model->getAttribute('regular_menthor_sessions')->label !!}</span>
+    <input id="{{ $model->getAttribute('regular_mentor_sessions')->name }}Hidden" type="hidden" name="{{ $model->getAttribute('regular_mentor_sessions')->name }}" value="off">
+    <span class="font-weight-semibold attribute-label"> {!! $model->getAttribute('regular_mentor_sessions')->label !!}</span>
     <input
         type="checkbox" class="ml-1"
-        id="{{ $model->getAttribute('regular_menthor_sessions')->name }}"
-        name="{{$model->getAttribute('regular_menthor_sessions')->name}}"
-        @if($model->getAttribute('regular_menthor_sessions')->getValue()) checked @endif
+        id="{{ $model->getAttribute('regular_mentor_sessions')->name }}"
+        name="{{$model->getAttribute('regular_mentor_sessions')->name}}"
+        @if($model->getAttribute('regular_mentor_sessions')->getValue()) checked @endif
         onclick="
-            if(document.getElementById('{{ $model->getAttribute('regular_menthor_sessions')->name }}').checked)
+            if(document.getElementById('{{ $model->getAttribute('regular_mentor_sessions')->name }}').checked)
             {
-            document.getElementById('{{ $model->getAttribute('regular_menthor_sessions')->name }}Hidden').disabled = true;
+            document.getElementById('{{ $model->getAttribute('regular_mentor_sessions')->name }}Hidden').disabled = true;
             } else {
-            document.getElementById('{{ $model->getAttribute('regular_menthor_sessions')->name }}Hidden').disabled = false;
+            document.getElementById('{{ $model->getAttribute('regular_mentor_sessions')->name }}Hidden').disabled = false;
             }
             ">
 </div>

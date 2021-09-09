@@ -438,8 +438,8 @@
     </div>
 
     <div class="display-pair font-14 mt-2">
-        <span class="attribute-label"><strong>{{ $model->getAttribute('regular_menthor_sessions')->label }}:</strong></span>
-        <span class="text-muted ml-2">{{ $model->getAttribute('regular_menthor_sessions')->getText() }}</span>
+        <span class="attribute-label"><strong>{{ $model->getAttribute('regular_mentor_sessions')->label }}:</strong></span>
+        <span class="text-muted ml-2">{{ $model->getAttribute('regular_mentor_sessions')->getText() }}</span>
     </div>
 
     <div class="display-pair font-14 mt-2">

@@ -68,7 +68,7 @@ class Training extends BusinessModel
     {
         $entity = Entity::where('name', 'Training')->first();
         if(!$entity) {
-            $entity = Entity::create(['name' => 'Training', 'description' => 'The training event - could be workshop, menthor session, training etc.']);
+            $entity = Entity::create(['name' => 'Training', 'description' => 'The training event - could be workshop, mentor session, training etc.']);
 
             $attributes = self::getAttributesDefinition();
             foreach ($attributes as $attribute) {

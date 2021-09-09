@@ -1302,7 +1302,7 @@ class Client extends SituationsModel
 
         $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['have_skills', 'Koje veštine trenutno posedujete i koje ćete koristiti da biste uspešno vodili svoj biznis? *', 'text', NULL, 1]));
         $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['improve_skills', 'Koje veštine smatrate da treba da unapredite da biste uspešno vodili svoj biznis? * ', 'text', NULL, 2]));
-        $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['regular_menthor_sessions', 'Redovno ću sa mentorima raditi na razvoju svog biznis plana', 'bool', NULL, 3]));
+        $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['regular_mentor_sessions', 'Redovno ću sa mentorima raditi na razvoju svog biznis plana', 'bool', NULL, 3]));
         $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['regular_workshops', 'Redovno ću pohađati radionice relevantne za vaš biznis', 'bool', NULL, 4]));
         $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['will_evaluate_work', 'Evaluiraću progres i rad', 'bool', NULL, 5]));
         $attributes[] = $grupaPreduzetnickaSpremnost->addAttribute(self::selectOrCreateAttribute(['establish_company', 'Osnovaću privredno društvo u Beogradu, ukoliko privredno društvo već nije osnovana', 'bool', NULL, 6]));

@@ -14,7 +14,7 @@
                                             <h5 class="mb-0 mt-0">{{ mb_strtoupper( __("About Me")) }}</h5>
                                         </div>
                                         @php
-                                            $photo = $menthor->getAttribute('photo');
+                                            $photo = $mentor->getAttribute('photo');
                                         @endphp
 
                                         <img src="
@@ -31,49 +31,49 @@
                                         <tbody class="font-12 text-dark">
                                             <tr>
                                                 @php
-                                                    $attribute = $menthor->getAttribute('name');
+                                                    $attribute = $mentor->getAttribute('name');
                                                 @endphp
                                                 <td style="width: 20%" class="text-dark"><strong>{{ $attribute->label }}</strong></td>
                                                 <td>{{ $attribute->getText() }}</td>
                                             </tr>
                                             <tr class="bg-light">
                                                 @php
-                                                    $attribute = $menthor->getAttribute('company');
+                                                    $attribute = $mentor->getAttribute('company');
                                                 @endphp
                                                 <td style="width: 20%" class="text-dark"><strong>{{ $attribute->label }}</strong></td>
                                                 <td>{{ $attribute->getText() }}</td>
                                             </tr>
                                             <tr>
                                                 @php
-                                                    $attribute = $menthor->getAttribute('email');
+                                                    $attribute = $mentor->getAttribute('email');
                                                 @endphp
                                                 <td style="width: 20%" class="text-dark"><strong>{{ $attribute->label }}</strong></td>
                                                 <td><a href="mailto://{{ $attribute->getValue() }}" target="_blank">{{ $attribute->getText() }}</a></td>
                                             </tr>
                                             <tr class="bg-light">
                                                 @php
-                                                    $attribute = $menthor->getAttribute('phone');
+                                                    $attribute = $mentor->getAttribute('phone');
                                                 @endphp
                                                 <td style="width: 20%" class="text-dark"><strong>{{ $attribute->label }}</strong></td>
                                                 <td>{{ $attribute->getText() }}</td>
                                             </tr>
                                             <tr>
                                                 @php
-                                                    $attribute = $menthor->getAttribute('address');
+                                                    $attribute = $mentor->getAttribute('address');
                                                 @endphp
                                                 <td style="width: 20%" class="text-dark"><strong>{{ $attribute->label }}</strong></td>
                                                 <td>{{ $attribute->getText() }}</td>
                                             </tr>
                                             <tr class="bg-light">
                                                 @php
-                                                    $attribute = $menthor->getAttribute('menthor-type');
+                                                    $attribute = $mentor->getAttribute('mentor-type');
                                                 @endphp
                                                 <td style="width: 20%" class="text-dark"><strong>{{ $attribute->label }}</strong></td>
                                                 <td>{{ $attribute->getText() }}</td>
                                             </tr>
                                             <tr>
                                                 @php
-                                                    $attribute = $menthor->getAttribute('specialities');
+                                                    $attribute = $mentor->getAttribute('specialities');
                                                 @endphp
                                                 <td style="width: 20%" class="text-dark"><strong>{{ $attribute->label }}</strong></td>
                                                 <td>{{ $attribute->getText() }}</td>
@@ -92,11 +92,16 @@
                         <div class="card h-100 w-100 shadow">
                             <div class="card-header text-dark">
                                 <span class="mb-0 mt-0 h5 attribute-label">{{ mb_strtoupper( __('Programs I am involved at'))}}</span>
-                                <button class="btn btn-success btn-sm float-right" title="{{__('Connect to Program')}}"><i class="uil-document"></i></button>
+                                <a
+                                    class="btn btn-success btn-sm float-right"
+                                    href="{{ route('mentors.addprogram', ['mentor' => $mentor->getId()]) }}"
+                                    title="{{__('Connect to Program')}}"
+                                    role="button" data-toggle="modal" data-target="#dialogHost"
+                                    id="btnAddProgram" ><i class="uil-document"></i></a>
                             </div>
                             <div class="card-body font-12">
                                 @php
-                                    $programs = $menthor->getPrograms();
+                                    $programs = $mentor->getPrograms();
                                 @endphp
                                 @if($programs->count() == 0)
                                     {{__('Your aren\'t currently involved in any program!')}}
@@ -116,7 +121,7 @@
                                                 <td>{{ $loop->iteration }}.</td>
                                                 <td>{{ $program->getProfile()->getValue('name') }}</td>
                                                 <td>{{ $program->getValue('program_name') }}</td>
-                                                <td><button class="btn btn-sm" title="{{__('Delete')}}"><i class="mdi mdi-recycle"></i></button></td>
+                                                <td><a class="btn btn-sm" href="{{ route('mentors.delete', ['mentor' => $mentor->getId(), 'program' => $program->getId()]) }}" title="{{__('Delete')}}"><i class="mdi mdi-recycle"></i></a></td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -140,11 +145,11 @@
     <li class="side-nav-item mm-active" id="navProfile">
         <a href="#" class="side-nav-link">
             <i class="uil-user"></i>
-            <span>{{ mb_strtoupper( __('Menthors Profile')) }}</span>
+            <span>{{ mb_strtoupper( __('mentors Profile')) }}</span>
         </a>
     </li>
     <li class="side-nav-item" id="navProfile">
-        <a href="{{route('menthors.index')}}" class="side-nav-link">
+        <a href="{{route('mentors.index')}}" class="side-nav-link">
             <i class="uil-backward"></i>
             <span>{{ mb_strtoupper( __('Back to List')) }}</span>
         </a>
@@ -157,6 +162,17 @@
             $('#programTable').DataTable({
                 select: true,
                 scrollY: '100px',
+            });
+
+            $('#btnAddProgram').click(function() {
+                let url = $(this).attr('href');
+                $.get(url, function(data) {
+                    let content = $(data).find('form#myFormAddMentorProgram')[0];
+
+                    // const title = $(data).find('h1').first().text();
+                    $('#dialogHost.modal .modal-dialog .modal-content .modal-body').html(content);
+                    // $('#dialogHost.modal .modal-dialog .modal-content .modal-header .modal-title').text(title);
+                });
             });
         });
     </script>

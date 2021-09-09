@@ -78,7 +78,7 @@
     <li class="side-nav-item" id="navSessions">
         <a href="{{route('profiles.sessions', ['profile' => $model->getId()])}}" class="side-nav-link">
             <i class="uil-bill"></i>
-            <span>{{ mb_strtoupper(__('Menthoring Sessions')) }}</span>
+            <span>{{ mb_strtoupper(__('mentoring Sessions')) }}</span>
         </a>
     </li>
 
@@ -103,12 +103,12 @@
             </a>
         </li>
 
-        <li class="side-nav-item mt-4">
-            <a href="{{ route('user.logout') }}" class="side-nav-link">
-                <i class="uil-backspace"></i>
-                <span>{{ mb_strtoupper(__('Logout')) }}</span>
-            </a>
-        </li>
+{{--        <li class="side-nav-item mt-4">--}}
+{{--            <a href="{{ route('user.logout') }}" class="side-nav-link">--}}
+{{--                <i class="uil-backspace"></i>--}}
+{{--                <span>{{ mb_strtoupper(__('Logout')) }}</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
     @endif
 @endsection
 

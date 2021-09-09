@@ -100,10 +100,13 @@ Route::get('/trainings/showmine/{training}', 'TrainingsController@showMine')->na
 Route::get('/trainings/delete/{training}', 'TrainingsController@delete')->name('trainings.delete');
 Route::get('/trainings/{training}', 'TrainingsController@show')->name('trainings.show');
 
-Route::get('menthors', 'MenthorController@index')->name('menthors.index');
-Route::get('menthors/create', 'MenthorController@create')->name('menthors.create');
-Route::post('menthors/create', 'MenthorController@store')->name('menthors.store');
-Route::get('menthors/profile/{menthor}', 'MenthorController@profile')->name('menthors.profile');
+Route::get('mentors', 'MentorController@index')->name('mentors.index');
+Route::get('mentors/create', 'MentorController@create')->name('mentors.create');
+Route::post('mentors/create', 'MentorController@store')->name('mentors.store');
+Route::get('mentors/delete/{mentor}/{program}', "MentorController@deleteProgram")->name('mentors.delete');
+Route::get('mentors/addprogram/{mentor}', 'MentorController@addProgram')->name('mentors.addprogram');
+Route::post('mentors/addprogram', 'MentorController@storeProgram')->name('mentors.storeprogram');
+Route::get('mentors/profile/{mentor}', 'MentorController@profile')->name('mentors.profile');
 
 Route::post('/preselection/update/{preselection}', 'PreselectionController@update')->name('preselection.update');
 Route::post('/selection/update/{selection}', 'SelectionController@update')->name('selection.update');

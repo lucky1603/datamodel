@@ -17,9 +17,9 @@
     </li>
 
     <li class="side-nav-item">
-        <a href="{{ route('menthors.index') }}" class="side-nav-link">
+        <a href="{{ route('mentors.index') }}" class="side-nav-link">
             <i class="uil-bill"></i>
-            <span>{{ strtoupper(__('Menthors')) }}</span>
+            <span>{{ strtoupper(__('Mentors')) }}</span>
         </a>
     </li>
 

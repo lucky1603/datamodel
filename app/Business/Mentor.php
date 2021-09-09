@@ -6,14 +6,14 @@ use App\Entity;
 use App\Instance;
 use Illuminate\Support\Collection;
 
-class Menthor extends SituationsModel
+class Mentor extends SituationsModel
 {
 
     protected function getEntity()
     {
-        $entity = Entity::where('name', 'Menthor')->first();
+        $entity = Entity::where('name', 'Mentor')->first();
         if($entity == null) {
-            $entity = Entity::create(['name' => 'Menthor', 'description' => 'Mentor organizacije']);
+            $entity = Entity::create(['name' => 'Mentor', 'description' => 'Mentor organizacije']);
             $attributes = self::getAttributesDefinition();
             foreach ($attributes as $attribute) {
                 $entity->addAttribute($attribute);
@@ -49,7 +49,7 @@ class Menthor extends SituationsModel
     }
 
     /**
-     * Entitles a menthor to the program.
+     * Entitles a mentor to the program.
      * @param $programId
      * @return Program
      */
@@ -60,7 +60,7 @@ class Menthor extends SituationsModel
     }
 
     /**
-     * Detaches the program from the menthor.
+     * Detaches the program from the mentor.
      * @param $programId
      */
     public function removeProgram($programId) {
@@ -69,7 +69,7 @@ class Menthor extends SituationsModel
     }
 
     /**
-     * Get all of the programs, the menthor is entitled to.
+     * Get all of the programs, the mentor is entitled to.
      * @return mixed
      */
     public function getPrograms()
@@ -83,7 +83,7 @@ class Menthor extends SituationsModel
     }
 
     /**
-     * Adds the session object to menthor.
+     * Adds the session object to mentor.
      * @param Session $session
      * @return Session
      */
@@ -95,7 +95,7 @@ class Menthor extends SituationsModel
     }
 
     /**
-     * Removes the session object from menthor.
+     * Removes the session object from mentor.
      * @param Session $session
      */
     public function removeSession(Session $session) {
@@ -104,7 +104,7 @@ class Menthor extends SituationsModel
     }
 
     /**
-     * Gets the seesions for this menthor.
+     * Gets the seesions for this mentor.
      * @return mixed
      */
     public function getSessions() {
@@ -156,12 +156,12 @@ class Menthor extends SituationsModel
         }
         $attributes->add($specialities);
 
-        $menthorType = self::selectOrCreateAttribute(['menthor-type', __("Menthor Type"), 'select', NULL, 8]);
-        if(count($menthorType->getOptions()) == 0) {
-            $menthorType->addOption(['value' => 1, 'text' => __('Business Menthor')]);
-            $menthorType->addOption(['value' => 2, 'text' => __('Tech Menthor')]);
+        $mentorType = self::selectOrCreateAttribute(['mentor-type', __("Mentor Type"), 'select', NULL, 8]);
+        if(count($mentorType->getOptions()) == 0) {
+            $mentorType->addOption(['value' => 1, 'text' => __('Business Mentor')]);
+            $mentorType->addOption(['value' => 2, 'text' => __('Tech Mentor')]);
         }
-        $attributes->add($menthorType);
+        $attributes->add($mentorType);
 
         // Primedbe (ostalo)
         $attributes->add(self::selectOrCreateAttribute(['remark', __('Remark'), 'text', NULL, 8]));

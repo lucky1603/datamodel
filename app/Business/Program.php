@@ -309,15 +309,15 @@ class Program extends SituationsModel
     }
 
     /**
-     * Gets the menthor.
+     * Gets the mentor.
      * @return mixed
      */
-    public function getMenthor() {
+    public function getmentor() {
         return $this->instance->parent_instances()->filter(function($instance) {
-            if($this->instance->entity->name == 'Menthor')
+            if($this->instance->entity->name == 'Mentor')
                 return true;
         })->map(function($instance) {
-            return new Menthor(['instance_id' => $instance->id]);
+            return new Mentor(['instance_id' => $instance->id]);
         })->first();
     }
 
