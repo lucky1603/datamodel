@@ -29,7 +29,7 @@ class Training extends BusinessModel
         $attributes->add(self::selectOrCreateAttribute(['training_start_time', 'Vreme početka', 'timestamp', NULL, 4]));
         $attributes->add(self::selectOrCreateAttribute(['training_duration', 'Trajanje treninga', 'integer', NULL, 5]));
 
-        $duration = self::selectOrCreateAttribute(['duration_unit', 'Jedinica trajanja treninga', 'select', NULL, 6]);
+        $duration = self::selectOrCreateAttribute(['training_duration_unit', 'Jedinica trajanja treninga', 'select', NULL, 6]);
         if(count($duration->getOptions()) == 0) {
             $duration->addOption(['value' => 1, 'text' => 'min']);
             $duration->addOption(['value' => 2, 'text' => 'h']);
@@ -42,9 +42,10 @@ class Training extends BusinessModel
 
         $training_type = self::selectOrCreateAttribute(['training_type', 'Tip obuke', 'select', NULL, 9]);
         if(count($training_type->getOptions()) == 0) {
-            $training_type->addOption(['value' => 1, 'text' => 'Mentorska sesija']);
-            $training_type->addOption(['value' => 2, 'text' => 'Radionica']);
-            $training_type->addOption(['value' => 3, 'text' => 'Događaj']);
+            $training_type->addOption(['value' => 1, 'text' => __('Workshop')]);
+            $training_type->addOption(['value' => 2, 'text' => __('Training')]);
+            $training_type->addOption(['value' => 3, 'text' => __('Event')]);
+
         }
 
         $attributes->add($training_type);
@@ -144,7 +145,6 @@ class Training extends BusinessModel
     public function addAttendance($attendance) {
         $this->instance->instances()->save($attendance->instance);
         $this->instance->refresh();
-        return $attendance;
     }
 
     /**
@@ -164,6 +164,7 @@ class Training extends BusinessModel
         return $this->instance->instances->filter(function($instance) {
             if($instance->entity->name == 'Attendance')
                 return true;
+            return false;
         })->map(function($instance) {
             return new Attendance(['instance_id' => $instance->id]);
         });

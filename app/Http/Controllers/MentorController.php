@@ -80,18 +80,22 @@ class MentorController extends Controller
         if(is_array($data['program'])) {
             $programIds = $data['program'];
             foreach ($programIds as $programId) {
-                $mentor->addProgram($programId);
+                $program = Program::find($programId);
+                $mentor->addProgram($program);
             }
         } else {
-            $mentor->addProgram($data['program']);
+            $program = Program::find($data['program']);
+            $mentor->addProgram( $program );
+
         }
+
 
         return redirect(route('mentors.profile', ['mentor' => $mentor->getId()]));
     }
 
     public function deleteProgram($mentorId, $programId) {
         $mentor = Mentor::find($mentorId);
-        $mentor->removeProgram($programId);
+        $mentor->removeProgram(Program::find($programId));
 
         return redirect(route('mentors.profile', ['mentor' => $mentor->getId()]));
     }

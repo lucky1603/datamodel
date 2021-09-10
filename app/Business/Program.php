@@ -226,7 +226,6 @@ class Program extends SituationsModel
     public function addAttendance($attendance) {
         $this->instance->instances()->save($attendance->instance);
         $this->instance->refresh();
-        return $attendance;
     }
 
     /**
@@ -238,6 +237,20 @@ class Program extends SituationsModel
         $this->instance->refresh();
     }
 
+    /**
+     * Get the attendances to programs.
+     * @return mixed
+     */
+    public function getAttendances() {
+        return $this->instance->instances->filter(function($instance) {
+            if($instance->entity->name == 'Attendance')
+                return true;
+            return false;
+        })->map(function($instance) {
+            return new Attendance(['instance_id' => $instance->id]);
+        });
+    }
+
 
     /**
      * Add session for program.
@@ -247,7 +260,6 @@ class Program extends SituationsModel
     public function addSession($session) {
         $this->instance->instances()->save($session->instance);
         $this->instance->refresh();
-        return $session;
     }
 
     /**
@@ -267,11 +279,11 @@ class Program extends SituationsModel
         return $this->instance->instances()->filter(function($instance) {
             if($instance->entity->name == 'Session')
                 return true;
+            return false;
         })->map(function($instance) {
             return new Session(['instance_id' => $instance->id]);
         });
     }
-
 
     /**
      * Add training to the program.
@@ -312,13 +324,13 @@ class Program extends SituationsModel
      * Gets the mentor.
      * @return mixed
      */
-    public function getmentor() {
-        return $this->instance->parent_instances()->filter(function($instance) {
-            if($this->instance->entity->name == 'Mentor')
+    public function getMentors() {
+        return $this->instance->parentInstances->filter(function($instance) {
+            if($instance->entity->name == 'Mentor')
                 return true;
         })->map(function($instance) {
             return new Mentor(['instance_id' => $instance->id]);
-        })->first();
+        });
     }
 
     /**

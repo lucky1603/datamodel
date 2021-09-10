@@ -145,7 +145,7 @@
     <li class="side-nav-item mm-active" id="navProfile">
         <a href="#" class="side-nav-link">
             <i class="uil-user"></i>
-            <span>{{ mb_strtoupper( __('mentors Profile')) }}</span>
+            <span>{{ mb_strtoupper( __('Mentor Profile')) }}</span>
         </a>
     </li>
     <li class="side-nav-item" id="navProfile">

@@ -98,11 +98,12 @@ class User extends Authenticatable
     }
 
     public function profile() {
-        $profiles = collect([]);
-        $profiles = $this->instances()->get()->map(function($instance, $key) {
-            if($instance->entity->name === 'Profile') {
-                return new Profile(['instance_id' => $instance->id]);
-            }
+        $profiles = $this->instances->filter(function($instance) {
+            if($instance->entity->name == 'Profile')
+                return true;
+            return false;
+        })->map(function($instance) {
+            return new Profile(['instance_id' => $instance->id]);
         });
 
         // Aj sad privremeno ovako.

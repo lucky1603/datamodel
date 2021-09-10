@@ -27,57 +27,13 @@ class TrainingsController extends Controller
      * @return Application|Factory|View
      */
     public function index() {
-        $trainings = Training::all();
+        $trainings = Training::all()->filter(function($training) {
+            if($training->getValue('training_type') == 1 /* Exclude mentor session */)
+                return false;
+            return true;
+        });
+
         return view('trainings.index', ['trainings' => $trainings]);
-    }
-
-    /**
-     *
-     * Trainings intended for me, based on my interests.
-     *
-     * @return Response|Application|Factory|View
-     */
-    public function forMe() {
-        $user = Auth::user();
-        if($user->isAdmin()) {
-            return Response::deny("This action is not for admin!");
-        }
-
-        $client = $user->client();
-        $interests = $client->getData()['interests'];
-        $clientTrainings = $client->getTrainings();
-
-        $trainings = Training::find(['interests' => 0]);
-        $trainings = $trainings->concat(Training::find(['interests' => $interests]));
-        $trainings = $trainings->sortBy('instance.id');
-
-        if($clientTrainings->count() > 0) {
-            $clientTrainingIds = $clientTrainings->map(function($training, $key) {
-                return $training->getId();
-            });
-
-            $trainingIds = $trainings->map(function($training, $key) {
-                 return $training->getId();
-            });
-
-            $trainingIds = $trainingIds->diff($clientTrainingIds);
-            $trainings = collect([]);
-            $clientId = $client->getId();
-            foreach ($trainingIds as $trainingId) {
-                $training = new TrainingForClient($trainingId, $clientId);
-                if($training->getData()['training_type'] != 1)
-                {
-                    $trainings->add($training);
-                }
-            }
-        } else {
-            $trainings = $trainings->reject(function($training, $key) {
-                return $training->getData()['training_type'] == 1;
-            });
-        }
-
-        return view('trainings.forme', ['trainings' => $trainings, 'model' => $client]);
-
     }
 
     public function mine() {
@@ -86,10 +42,10 @@ class TrainingsController extends Controller
             return Response::deny("This action is not for admin!");
         }
 
-        $client = $user->client();
-        $trainings = $client->getTrainings();
+        $profile = $user->profile();
+        $trainings = $profile->getTrainings();
 
-        return view('trainings.mine', ['trainings' => $trainings, 'model' => $client]);
+        return view('trainings.mine', ['trainings' => $trainings, 'model' => $profile]);
     }
 
     /**

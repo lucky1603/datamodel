@@ -12,9 +12,10 @@ class Session extends SituationsModel
      * @return Program
      */
     public function getProgram() : Program {
-        return $this->instance->parent_instances()->filter(function ($instance) {
+        return $this->instance->parentInstances->filter(function ($instance) {
             if($instance->entity->name == 'Program')
                 return true;
+            return false;
         })->map(function ($instance) {
             return new Program(['instance_id' => $instance->id]);
         })->first();
@@ -24,25 +25,13 @@ class Session extends SituationsModel
      * Return the methor who participates at the session.
      * @return Mentor
      */
-    public function getmentor() : Mentor {
-        return $this->instance->parent_instances()->filter(function ($instance) {
+    public function getMentor() : Mentor {
+        return $this->instance->parentInstances->filter(function ($instance) {
             if($instance->entity->name == 'Mentor')
                 return true;
+            return false;
         })->map(function ($instance) {
-            return new Program(['instance_id' => $instance->id]);
-        })->first();
-    }
-
-    /**
-     * Returns the attendance of the participating program.
-     * @return mixed
-     */
-    public function getAttendance() {
-        return $this->instance->instances()->filter(function ($instance) {
-            if($instance->entity->name == 'Attendance')
-                return true;
-        })->map(function ($instance) {
-            return new Attendance(['instance_id' => $instance->id]);
+            return new Mentor(['instance_id' => $instance->id]);
         })->first();
     }
 
@@ -59,7 +48,7 @@ class Session extends SituationsModel
     {
         $entity = Entity::where('name', 'Session')->first();
         if($entity == null) {
-            $entity = new Entity(['name' => 'Session', 'description' => __('mentors Session')]);
+            $entity = Entity::create(['name' => 'Session', 'description' => __('mentors Session')]);
             $attributes = self::getAttributesDefinition();
             foreach ($attributes as $attribute) {
                 $entity->addAttribute($attribute);
@@ -99,13 +88,12 @@ class Session extends SituationsModel
     {
         $attributes = collect([]);
 
-        $attributes->add(self::selectOrCreateAttribute(['session_name', __('Session Name'), 'varchar', NULL, 1]));
-        $attributes->add(self::selectOrCreateAttribute(['session_description', __('Session Description'), 'text', NULL, 2]));
+        $attributes->add(self::selectOrCreateAttribute(['session_title', __('Session Title'), 'varchar', NULL, 1]));
         $attributes->add(self::selectOrCreateAttribute(['session_start_date', __('Beginning Date'), 'datetime', NULL, 3]));
         $attributes->add(self::selectOrCreateAttribute(['session_start_time', __('Beginning Time'), 'timestamp', NULL, 4]));
         $attributes->add(self::selectOrCreateAttribute(['session_duration', __('Session Duration'), 'integer', NULL, 5]));
 
-        $duration = self::selectOrCreateAttribute(['duration_unit', __('Duration Unit'), 'select', NULL, 6]);
+        $duration = self::selectOrCreateAttribute(['session_duration_unit', __('Duration Unit'), 'select', NULL, 6]);
         if(count($duration->getOptions()) == 0) {
             $duration->addOption(['value' => 1, 'text' => 'min']);
             $duration->addOption(['value' => 2, 'text' => 'h']);
@@ -114,8 +102,11 @@ class Session extends SituationsModel
 
         $attributes->add($duration);
 
-        $attributes->add(self::selectOrCreateAttribute(['training_short_note', 'Kratka beleška', 'text', NULL, 7]));
-        $attributes->add(self::selectOrCreateAttribute(['mentors_feedback', __('Mentor\'s Feedback'), 'text', NULL, 8]));
+        $attributes->add(self::selectOrCreateAttribute(['session_short_note', 'Kratka beleška', 'text', NULL, 7]));
+        $attributes->add(self::selectOrCreateAttribute(['has_mentor_feedback', __('Has Mentor\'s feedback'), 'bool', NULL, 8]));
+        $attributes->add(self::selectOrCreateAttribute(['mentor_feedback', __('Mentor\'s Feedback'), 'text', NULL, 9]));
+        $attributes->add(self::selectOrCreateAttribute(['has_client_feedback', __('Has Client\'s feedback'), 'bool', NULL, 10]));
+        $attributes->add(self::selectOrCreateAttribute(['client_feedback', __('Mentor\'s Feedback'), 'text', NULL, 11]));
 
         return $attributes;
     }

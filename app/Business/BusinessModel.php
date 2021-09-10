@@ -105,7 +105,7 @@ class BusinessModel
     /**
      * Shortcut for getting of the attribute value.
      * @param $attributeName
-     * @return null
+     * @return Attribute Value
      */
     public function getValue($attributeName) {
         $attribute = $this->getAttribute($attributeName);
@@ -116,15 +116,15 @@ class BusinessModel
     }
 
     /**
-     * Shortcut for getting of the attribute text.
+     * Shortcut for getting of the attribute value
+     * in textual (formatted) representation.
      * @param $attributeName
-     * @return string
+     * @return Attribute text
      */
-    public function getText($attributeName): string
-    {
+    public function getText($attributeName) {
         $attribute = $this->getAttribute($attributeName);
         if($attribute == null)
-            return '-';
+            return null;
 
         return $attribute->getText();
     }

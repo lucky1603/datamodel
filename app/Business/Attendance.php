@@ -2,6 +2,7 @@
 
 namespace App\Business;
 
+use App\Entity;
 use Illuminate\Support\Collection;
 
 class Attendance extends BusinessModel
@@ -13,12 +14,13 @@ class Attendance extends BusinessModel
      */
     public function getProgram(): ?Program
     {
-        $entityId = Entity::where('name', 'Program')->first();
-        $profileInstance = $this->instance->parentInstances()->where('entity_id', $entityId)->first();
-        if($profileInstance == null)
-            return null;
-
-        return new Program(['instance_id' => $profileInstance->id]);
+        return $this->instance->parentInstances->filter(function($instance) {
+            if($instance->entity->name == 'Program')
+                return true;
+            return false;
+        })->map(function($instance) {
+            return new Program(['instance_id' => $instance->id]);
+        })->first();
     }
 
     /**
@@ -27,12 +29,13 @@ class Attendance extends BusinessModel
      */
     public function getTraining(): ?Training
     {
-        $entityId = Entity::where('name', 'Training')->first();
-        $trainingInstance = $this->instance->parentInstances()->where('entity_id', $entityId)->first();
-        if($trainingInstance == null)
-            return null;
-
-        return new Training(['instance_id' => $trainingInstance->id]);
+        return $this->instance->parentInstances->filter(function($instance) {
+            if($instance->entity->name == 'Training')
+                return true;
+            return false;
+        })->map(function($instance) {
+            return new Training(['instance_id' => $instance->id]);
+        })->first();
     }
 
     /**
@@ -57,7 +60,7 @@ class Attendance extends BusinessModel
     {
         $entity = Entity::where('name', 'Attendance')->first();
         if($entity == null) {
-            $entity = new Entity(['name' => 'Attendance', 'description' => __('Attendance at Training')]);
+            $entity = Entity::create(['name' => 'Attendance', 'description' => __('Attendance at Training')]);
 
             $attributes = self::getAttributesDefinition();
             foreach ($attributes as $attribute) {

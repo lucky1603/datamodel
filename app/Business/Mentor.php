@@ -50,21 +50,20 @@ class Mentor extends SituationsModel
 
     /**
      * Entitles a mentor to the program.
-     * @param $programId
-     * @return Program
+     * @param $program
      */
-    public function addProgram($programId)
+    public function addProgram($program)
     {
-        $this->instance->instances()->save(Instance::find($programId));
+        $this->instance->instances()->save($program->instance);
         $this->instance->refresh();
     }
 
     /**
      * Detaches the program from the mentor.
-     * @param $programId
+     * @param $program
      */
-    public function removeProgram($programId) {
-        $this->instance->instances()->detach($programId);
+    public function removeProgram($program) {
+        $this->instance->instances()->detach($program->instance->id);
         $this->instance->refresh();
     }
 
@@ -85,20 +84,18 @@ class Mentor extends SituationsModel
     /**
      * Adds the session object to mentor.
      * @param Session $session
-     * @return Session
      */
-    public function addSession(Session $session): Session
+    public function addSession($session)
     {
         $this->instance->instances()->save($session->instance);
         $this->instance->refresh();
-        return $session;
     }
 
     /**
      * Removes the session object from mentor.
      * @param Session $session
      */
-    public function removeSession(Session $session) {
+    public function removeSession($session) {
         $this->instance->instances()->detach($session->instance->id);
         $this->instance->refresh();
     }
@@ -113,7 +110,7 @@ class Mentor extends SituationsModel
                 return true;
             return false;
         })->map(function($instance) {
-            return new Session(['instance_id' => $instance->id]);
+            return new Training(['instance_id' => $instance->id]);
         });
     }
 
