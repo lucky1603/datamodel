@@ -120,6 +120,19 @@ class Mentor extends SituationsModel
     }
 
     /**
+     * Returns the session collection for the given program.
+     * @param Program $program
+     * @return mixed
+     */
+    public function getSessionsForProgram(Program $program) {
+        return $this->getSessions()->filter(function($session) use($program) {
+            if($session->getProgram()->getId() == $program->getId())
+                return true;
+            return false;
+        });
+    }
+
+    /**
      * Get attributes definition for this object type.
      */
     public static function getAttributesDefinition(): Collection

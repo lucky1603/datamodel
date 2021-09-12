@@ -110,7 +110,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($programs as $program)
-                                            <tr>
+                                            <tr id="{{ $program->getId() }}" @click="alert('click!')">
                                                 <td>{{ $loop->iteration }}.</td>
                                                 <td>{{ $program->getProfile()->getValue('name') }}</td>
                                                 <td>{{ $program->getValue('program_name') }}</td>
@@ -148,9 +148,13 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#programTable').DataTable({
+            var table = $('#programTable').DataTable({
                 select: true,
                 scrollY: '100px',
+            });
+
+            table.on('select', function() {
+                alert('selected');
             });
 
             $('#btnAddProgram').click(function() {

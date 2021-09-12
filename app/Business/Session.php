@@ -17,7 +17,7 @@ class Session extends SituationsModel
                 return true;
             return false;
         })->map(function ($instance) {
-            return new Program(['instance_id' => $instance->id]);
+            return new Program(0, ['instance_id' => $instance->id]);
         })->first();
     }
 

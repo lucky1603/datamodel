@@ -286,6 +286,20 @@ class Program extends SituationsModel
     }
 
     /**
+     * Gets all mentor sessions for the given mentor.
+     * @param Mentor $mentor
+     * @return mixed
+     */
+    public function getSessionsForMentor(Mentor $mentor) {
+        $sessions = $this->getSessions();
+        return $sessions->filter(function($session) use($mentor) {
+            if($session->getMentor()->getId() == $mentor->getId())
+                return true;
+            return false;
+        });
+    }
+
+    /**
      * Add training to the program.
      * @param $training
      * @return mixed
