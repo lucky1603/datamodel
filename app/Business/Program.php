@@ -267,7 +267,7 @@ class Program extends SituationsModel
      * @param $session
      */
     public function removeSession($session) {
-        $this->instance->instances()->detach($session->id);
+        $this->instance->instances()->detach($session->instance->id);
         $this->instance->refresh();
     }
 
@@ -276,7 +276,7 @@ class Program extends SituationsModel
      * @return mixed
      */
     public function getSessions() {
-        return $this->instance->instances()->filter(function($instance) {
+        return $this->instance->instances->filter(function($instance) {
             if($instance->entity->name == 'Session')
                 return true;
             return false;

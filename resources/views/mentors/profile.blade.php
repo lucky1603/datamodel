@@ -2,10 +2,8 @@
 
 @section('content')
     <div class="row h-100">
-        <div class="col-lg-6 h-100">
-            <div class="row h-50">
-                <div class="col-lg-12 h-100 p-2">
-                    <div class="card h-100 w-100 shadow">
+        <div class="col-lg-6 h-100 p-2">
+            <div class="card h-50 w-100 shadow">
                         <div class="card-body">
                             <div class="row h-100">
                                 <div class="col-lg-4 h-100 p-2">
@@ -84,12 +82,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row h-50 ">
-
-                    <div class="col-lg-12 h-100 p-2">
-                        <div class="card h-100 w-100 shadow">
+            <div class="card h-50 w-100 shadow">
                             <div class="card-header text-dark">
                                 <span class="mb-0 mt-0 h5 attribute-label">{{ mb_strtoupper( __('Programs I am involved at'))}}</span>
                                 <a
@@ -129,13 +122,9 @@
                                 @endif
                             </div>
                         </div>
-
-                    </div>
-
-            </div>
         </div>
-        <div class="col-lg-6 h-100 ">
-
+        <div class="col-lg-6 h-100">
+            <session-editor test="ANYTHING"></session-editor>
         </div>
     </div>
 

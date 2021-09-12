@@ -19,6 +19,7 @@ Vue.config.devtools = false;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('profile-card', require('./components/ProfileCard.vue').default);
+Vue.component('session-editor', require('./components/SessionEditor').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

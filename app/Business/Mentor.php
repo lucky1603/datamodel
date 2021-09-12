@@ -96,6 +96,11 @@ class Mentor extends SituationsModel
      * @param Session $session
      */
     public function removeSession($session) {
+        // First remove the session from the mentor.
+        $program = $session->getProgram();
+        $program->removeSession($session);
+
+        // Now remove it from here.
         $this->instance->instances()->detach($session->instance->id);
         $this->instance->refresh();
     }
@@ -110,7 +115,7 @@ class Mentor extends SituationsModel
                 return true;
             return false;
         })->map(function($instance) {
-            return new Training(['instance_id' => $instance->id]);
+            return new Session(['instance_id' => $instance->id]);
         });
     }
 

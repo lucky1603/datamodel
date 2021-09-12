@@ -35,11 +35,6 @@ class Session extends SituationsModel
         })->first();
     }
 
-    public function addAttendance(Attendance $attendance) {
-        $program = $this->getProgram();
-
-    }
-
     /**
      * Returns entity for this object.
      * @return Entity|void
@@ -71,9 +66,12 @@ class Session extends SituationsModel
                 'session_start_date' => null,
                 'session_start_time' => null,
                 'session_duration' => 0,
-                'duration_unit' => 0,
-                'training_short_note' => null,
-                'mentors_feedback' => null
+                'session_duration_unit' => 0,
+                'session_short_note' => null,
+                'has_mentor_feedback' => false,
+                'mentors_feedback' => null,
+                'has_client_feedback' => false,
+                'client_feedback' => null,
             ];
         }
 
@@ -102,11 +100,20 @@ class Session extends SituationsModel
 
         $attributes->add($duration);
 
-        $attributes->add(self::selectOrCreateAttribute(['session_short_note', 'Kratka beleška', 'text', NULL, 7]));
-        $attributes->add(self::selectOrCreateAttribute(['has_mentor_feedback', __('Has Mentor\'s feedback'), 'bool', NULL, 8]));
-        $attributes->add(self::selectOrCreateAttribute(['mentor_feedback', __('Mentor\'s Feedback'), 'text', NULL, 9]));
-        $attributes->add(self::selectOrCreateAttribute(['has_client_feedback', __('Has Client\'s feedback'), 'bool', NULL, 10]));
-        $attributes->add(self::selectOrCreateAttribute(['client_feedback', __('Mentor\'s Feedback'), 'text', NULL, 11]));
+        $attributes->add(self::selectOrCreateAttribute(['session_short_note', __('Short Note'), 'text', NULL, 7]));
+
+        $attendance = self::selectOrCreateAttribute(['session_client_attendance', __('Client Attandance at Session'), 'select', NULL, 8]);
+        if(count($attendance->getOptions()) == 0) {
+            $attendance->addOption(['value' => 1, 'text' => __('Pre-session')]);
+            $attendance->addOption(['value' => 2, 'text' => __('Present')]);
+            $attendance->addOption(['value' => 3, 'text' => __('Didn\'t show up')]);
+        }
+        $attributes->add($attendance);
+
+        $attributes->add(self::selectOrCreateAttribute(['has_mentor_feedback', __('Has Mentor\'s feedback'), 'bool', NULL, 9]));
+        $attributes->add(self::selectOrCreateAttribute(['mentor_feedback', __('Mentor\'s Feedback'), 'text', NULL, 10]));
+        $attributes->add(self::selectOrCreateAttribute(['has_client_feedback', __('Has Client\'s feedback'), 'bool', NULL, 11]));
+        $attributes->add(self::selectOrCreateAttribute(['client_feedback', __('Mentor\'s Feedback'), 'text', NULL, 12]));
 
         return $attributes;
     }

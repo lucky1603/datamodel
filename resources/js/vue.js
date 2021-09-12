@@ -17,6 +17,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('profile-card', require('./components/ProfileCard.vue').default);
+Vue.component('session-editor', require('./components/SessionEditor').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,6 +28,6 @@ Vue.component('profile-card', require('./components/ProfileCard.vue').default);
 const app = new Vue({
     el: '#app',
     mounted() {
-        
+
     }
 });
