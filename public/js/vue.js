@@ -2136,6 +2136,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProgramList",
   props: {
@@ -2161,25 +2171,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var newRows;
+        var newRows, newFields;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 newRows = [];
-                _context.next = 3;
+                newFields = [];
+                _context.next = 4;
                 return axios.get("/mentors/programs/".concat(_this.mentorid)).then(function (response) {
                   response.data.values.forEach(function (item) {
                     newRows.push(item);
                   });
+                  response.data.keys.forEach(function (item) {
+                    newFields.push(item);
+                  });
                 });
 
-              case 3:
+              case 4:
                 console.log('Novi redovi');
                 console.log(newRows);
+                console.log(newFields);
+                _this.fields = newFields;
                 _this.programs = newRows;
 
-              case 6:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -2195,6 +2211,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       programs: [],
+      fields: [],
       program: {
         "typeof": Object,
         "default": null
@@ -49534,7 +49551,8 @@ var render = function() {
                 "select-mode": "single",
                 hover: "",
                 selectable: "",
-                items: _vm.programs
+                items: _vm.programs,
+                fields: _vm.fields
               },
               on: { "row-selected": _vm.selected }
             })

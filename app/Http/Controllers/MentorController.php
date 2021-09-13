@@ -126,28 +126,29 @@ class MentorController extends Controller
             $values[] = new class($program) {
                 public $id;
                 public $profile;
-                public $name;
+                public $program;
 
                 public function __construct($program)
                 {
                     $this->id = $program->getId();
                     $this->profile = $program->getProfile()->getValue('name');
-                    $this->name = $program->getValue('program_name');
+                    $this->program = $program->getValue('program_name');
                 }
             };
         }
 
         $keys = [
+//            new class {
+//                public $key = 'id';
+//                public $label = 'Id';
+//                public $visible = false;
+//            },
             new class {
-                public $field = 'id';
-                public $label = 'Id';
+                public $key = 'profile';
+                public $label = 'Profil';
             },
             new class {
-                public $field = 'profile';
-                public $label = 'Profile';
-            },
-            new class {
-                public $field = 'program';
+                public $key = 'program';
                 public $label = 'Program';
             }
         ];

@@ -10,7 +10,17 @@
         </div>
         <div class="card-body font-12">
             <p v-if="this.programs.length == 0">There are currently no programs attached</p>
-            <b-table v-if="programs.length > 0" striped small sticky-header select-mode="single" hover selectable :items="programs" @row-selected="selected"></b-table>
+            <b-table
+                v-if="programs.length > 0"
+                striped
+                small
+                sticky-header
+                select-mode="single"
+                hover
+                selectable
+                :items="programs"
+                :fields="fields"
+                @row-selected="selected"></b-table>
         </div>
     </div>
 </template>
@@ -27,17 +37,25 @@ export default {
     methods: {
         async getPrograms() {
             let newRows = [];
+            let newFields = [];
             await axios.get(`/mentors/programs/${this.mentorid}`)
                 .then(response => {
                     response.data.values.forEach(item => {
                         newRows.push(item);
                     });
+
+                    response.data.keys.forEach(item => {
+                        newFields.push(item);
+                    })
                 });
 
             console.log('Novi redovi');
             console.log(newRows);
+            console.log(newFields);
 
+            this.fields = newFields;
             this.programs = newRows;
+
         },
         selected(rows) {
             let program = rows[0];
@@ -47,6 +65,7 @@ export default {
     data() {
         return {
             programs : [],
+            fields: [],
             program : { typeof: Object, default: null },
             buttonRoute: {typeof: String, default: ''},
             buttonTitle: 'Ovo je proba'
