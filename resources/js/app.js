@@ -18,7 +18,6 @@ Vue.config.devtools = false;
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('profile-card', require('./components/ProfileCard.vue').default);
 Vue.component('session-editor', require('./components/SessionEditor').default);
 
 /**

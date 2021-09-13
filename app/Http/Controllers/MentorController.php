@@ -100,4 +100,63 @@ class MentorController extends Controller
         return redirect(route('mentors.profile', ['mentor' => $mentor->getId()]));
     }
 
+    /**
+     * Return programs for
+     * @param $mentorId
+     * @return false|string
+     */
+    public function programs($mentorId) {
+        $mentor = Mentor::find($mentorId);
+//        $programs = $mentor->getPrograms()->map(function($program, $key) {
+//            return new class($program) {
+//                public $id;
+//                public $profile;
+//                public $program;
+//                public function __construct($program)
+//                {
+//                    $this->id = $program->getId();
+//                    $this->profile = $program->getProfile()->getValue('name');
+//                    $this->program = $program->getValue('program_name');
+//                }
+//            } ;
+//        });
+        $programs = $mentor->getPrograms();
+        $values = [];
+        foreach($programs as $program) {
+            $values[] = new class($program) {
+                public $id;
+                public $profile;
+                public $name;
+
+                public function __construct($program)
+                {
+                    $this->id = $program->getId();
+                    $this->profile = $program->getProfile()->getValue('name');
+                    $this->name = $program->getValue('program_name');
+                }
+            };
+        }
+
+        $keys = [
+            new class {
+                public $field = 'id';
+                public $label = 'Id';
+            },
+            new class {
+                public $field = 'profile';
+                public $label = 'Profile';
+            },
+            new class {
+                public $field = 'program';
+                public $label = 'Program';
+            }
+        ];
+
+        return [
+            'keys' => $keys,
+            'values' => $values,
+        ];
+
+    }
+
 }

@@ -27,6 +27,11 @@ export default {
     props: {
         test: {type: String, default: ''}
     },
+    methods : {
+        programSelected(programId) {
+            alert(`Program (${programId}) selected!`);
+        }
+    },
     data() {
         return {
             programName: {type: String, default: ''},
@@ -49,6 +54,8 @@ export default {
     mounted() {
         if(this.test.length > 0)
             this.programName = this.test;
+
+        Event.$on('program-selected', this.programSelected);
     }
 }
 </script>

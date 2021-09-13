@@ -104,6 +104,7 @@ Route::get('mentors', 'MentorController@index')->name('mentors.index');
 Route::get('mentors/create', 'MentorController@create')->name('mentors.create');
 Route::post('mentors/create', 'MentorController@store')->name('mentors.store');
 Route::get('mentors/delete/{mentor}/{program}', "MentorController@deleteProgram")->name('mentors.delete');
+Route::get('mentors/programs/{mentor}', 'MentorController@programs')->name('mentors.programs');
 Route::get('mentors/addprogram/{mentor}', 'MentorController@addProgram')->name('mentors.addprogram');
 Route::post('mentors/addprogram', 'MentorController@storeProgram')->name('mentors.storeprogram');
 Route::get('mentors/profile/{mentor}', 'MentorController@profile')->name('mentors.profile');
