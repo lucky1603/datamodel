@@ -2155,6 +2155,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProgramList",
   props: {
@@ -2311,10 +2312,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
-    console.log(this.addprogramtitle);
-    this.buttonTitle = this.addprogramtitle;
-    this.buttonRoute = this.addroute;
-    this.getPrograms();
+    var _this4 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              console.log(_this4.addprogramtitle);
+              _this4.buttonTitle = _this4.addprogramtitle;
+              _this4.buttonRoute = _this4.addroute;
+              _context4.next = 5;
+              return _this4.getPrograms();
+
+            case 5:
+              if (_this4.programs.length > 0) {
+                _this4.$refs['ProgramsTable'].selectRow(0);
+              }
+
+            case 6:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }))();
   }
 });
 
@@ -2373,6 +2395,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SessionEditor",
   props: {
@@ -2384,6 +2416,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     addsessiontitle: {
       "typeof": String,
       "default": 'Dodaj novu sesiju'
+    },
+    viewsessiontitle: {
+      "typeof": String,
+      "default": 'Pregledaj sesiju'
     }
   },
   methods: {
@@ -2447,7 +2483,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this3.$refs['addSituationModal'].show();
 
                   _this3.formContent = content;
-                  console.log(content);
                 });
 
               case 3:
@@ -2458,21 +2493,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    onOk: function onOk() {
+    selected: function selected(rows) {
+      this.session = rows[0];
+      console.log("Selected ".concat(this.session.id));
+      Event.$emit('session-selected', this.session);
+    },
+    viewSession: function viewSession() {
       var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var content;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                content = null;
+                console.log(_this4.session);
+                _context4.next = 4;
+                return axios.get("/sessions/edit/".concat(_this4.session.id)).then(function (response) {
+                  var content = $(response.data).find('form#mySessionEditForm').first().parent().html();
+
+                  _this4.$refs['viewSituationModal'].show();
+
+                  _this4.viewContent = content;
+                });
+
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    onOk: function onOk() {
+      var _this5 = this;
 
       var form = document.getElementById('mySessionCreateForm');
       var data = new FormData(form);
       axios.post("/sessions/create", data).then(function (response) {
         console.log(response.data);
 
-        _this4.$refs['addSituationModal'].hide();
+        _this5.$refs['addSituationModal'].hide();
 
-        _this4.getSessions(_this4.program.id);
+        _this5.getSessions(_this5.program.id);
       });
     },
     onCancel: function onCancel() {
       this.$refs['addSituationModal'].hide();
+    },
+    closePreview: function closePreview() {
+      this.$refs['viewSituationModal'].hide();
     }
   },
   data: function data() {
@@ -2481,7 +2552,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       sessions: [],
       keys: [],
       session: null,
-      formContent: null
+      formContent: null,
+      viewContent: null
     };
   },
   mounted: function mounted() {
@@ -49711,6 +49783,7 @@ var render = function() {
             _vm._v(" "),
             _vm.programs.length > 0
               ? _c("b-table", {
+                  ref: "ProgramsTable",
                   attrs: {
                     striped: "",
                     small: "",
@@ -49826,6 +49899,19 @@ var render = function() {
                 on: { click: _vm.addSession }
               },
               [_c("i", { staticClass: "mdi mdi-google-circles-group" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                staticClass: "float-right mr-1",
+                attrs: {
+                  variant: "warning",
+                  title: "Pregledaj podatke sesije"
+                },
+                on: { click: _vm.viewSession }
+              },
+              [_c("i", { staticClass: "mdi mdi-view-agenda" })]
             )
           ],
           1
@@ -49848,8 +49934,10 @@ var render = function() {
                     fields: _vm.keys,
                     "sticky-header": "250px",
                     small: "",
+                    selectable: "",
                     "select-mode": "single"
-                  }
+                  },
+                  on: { "row-selected": _vm.selected }
                 })
               : _vm._e()
           ],
@@ -49861,7 +49949,12 @@ var render = function() {
         "b-modal",
         {
           ref: "addSituationModal",
-          attrs: { id: "addSituationModal", size: "lg" },
+          attrs: {
+            id: "addSituationModal",
+            size: "lg",
+            "header-bg-variant": "dark",
+            "header-text-variant": "light"
+          },
           scopedSlots: _vm._u([
             {
               key: "modal-title",
@@ -49877,7 +49970,7 @@ var render = function() {
                   _c(
                     "b-button",
                     { attrs: { variant: "primary" }, on: { click: _vm.onOk } },
-                    [_vm._v("Ok")]
+                    [_vm._v("Prihvati")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -49886,7 +49979,7 @@ var render = function() {
                       attrs: { variant: "light" },
                       on: { click: _vm.onCancel }
                     },
-                    [_vm._v("Cancel")]
+                    [_vm._v("Odustani")]
                   )
                 ]
               },
@@ -49897,6 +49990,48 @@ var render = function() {
         [
           _vm._v(" "),
           _c("span", { domProps: { innerHTML: _vm._s(_vm.formContent) } })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "viewSituationModal",
+          attrs: {
+            id: "viewSituationModal",
+            size: "lg",
+            "header-bg-variant": "dark",
+            "header-text-variant": "light"
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "modal-title",
+              fn: function() {
+                return [_vm._v(_vm._s(_vm.viewsessiontitle))]
+              },
+              proxy: true
+            },
+            {
+              key: "modal-footer",
+              fn: function() {
+                return [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "light" },
+                      on: { click: _vm.closePreview }
+                    },
+                    [_vm._v("Zatvori")]
+                  )
+                ]
+              },
+              proxy: true
+            }
+          ])
+        },
+        [
+          _vm._v(" "),
+          _c("span", { domProps: { innerHTML: _vm._s(_vm.viewContent) } })
         ]
       )
     ],

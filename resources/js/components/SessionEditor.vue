@@ -6,6 +6,7 @@
                     {{ title }}<span v-if="program != null"> za </span><span v-if="program != null" class="font-weight-bold">{{ program.profile}}</span>
                 </span>
                 <b-button variant="success" class="float-right" title="Dodaj novu sesiju" @click="addSession"><i class="mdi mdi-google-circles-group"></i></b-button>
+                <b-button variant="warning" class="float-right mr-1" title="Pregledaj podatke sesije" @click="viewSession"><i class="mdi mdi-view-agenda"></i></b-button>
             </div>
             <div class="card-body">
                 <span v-if="program == null">No active programs</span>
@@ -17,15 +18,24 @@
                     :fields="keys"
                     sticky-header="250px"
                     small
-                    select-mode="single"></b-table>
+                    selectable
+                    select-mode="single"
+                    @row-selected="selected"></b-table>
             </div>
         </div>
-        <b-modal id="addSituationModal" ref="addSituationModal" size="lg" >
+        <b-modal id="addSituationModal" ref="addSituationModal" size="lg" header-bg-variant="dark" header-text-variant="light">
             <template #modal-title>{{ addsessiontitle }}</template>
             <span v-html="formContent"></span>
             <template #modal-footer>
-                <b-button variant="primary" @click="onOk">Ok</b-button>
-                <b-button variant="light" @click="onCancel">Cancel</b-button>
+                <b-button variant="primary" @click="onOk">Prihvati</b-button>
+                <b-button variant="light" @click="onCancel">Odustani</b-button>
+            </template>
+        </b-modal>
+        <b-modal id="viewSituationModal" ref="viewSituationModal" size="lg" header-bg-variant="dark" header-text-variant="light">
+            <template #modal-title >{{ viewsessiontitle }}</template>
+            <span v-html="viewContent"></span>
+            <template #modal-footer>
+                <b-button variant="light" @click="closePreview">Zatvori</b-button>
             </template>
         </b-modal>
     </div>
@@ -37,8 +47,9 @@ export default {
     name: "SessionEditor",
     props: {
         mentorid: Number,
-        title: {typeof: String, default: 'Mentorske sesije'},
-        addsessiontitle: {typeof:String, default: 'Dodaj novu sesiju'}
+        title: { typeof: String, default: 'Mentorske sesije'},
+        addsessiontitle: { typeof: String, default: 'Dodaj novu sesiju'},
+        viewsessiontitle: { typeof: String, default: 'Pregledaj sesiju'}
     },
     methods : {
         async programSelected(program) {
@@ -60,7 +71,21 @@ export default {
                     let content = $(response.data).find('form#mySessionCreateForm').first().parent().html();
                     this.$refs['addSituationModal'].show();
                     this.formContent = content;
-                    console.log(content);
+                });
+        },
+        selected(rows) {
+            this.session = rows[0];
+            console.log(`Selected ${this.session.id}`);
+            Event.$emit('session-selected', this.session);
+        },
+        async viewSession() {
+            let content = null;
+            console.log(this.session);
+            await axios.get(`/sessions/edit/${this.session.id}`)
+                .then(response => {
+                    let content = $(response.data).find('form#mySessionEditForm').first().parent().html();
+                    this.$refs['viewSituationModal'].show();
+                    this.viewContent = content;
                 });
         },
         onOk() {
@@ -76,6 +101,9 @@ export default {
         },
         onCancel() {
             this.$refs['addSituationModal'].hide();
+        },
+        closePreview() {
+            this.$refs['viewSituationModal'].hide();
         }
     },
     data() {
@@ -84,7 +112,8 @@ export default {
             sessions: [],
             keys: [],
             session: null,
-            formContent: null
+            formContent: null,
+            viewContent: null
         }
     },
     mounted() {

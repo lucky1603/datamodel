@@ -100,7 +100,7 @@ class Attribute extends Model
             return $datetime->format('d.m.Y.');
         } else if($this->type === 'timestamp') {
             $datetime = new \DateTime($value);
-            return $datetime->format('h:i A');
+            return $datetime->format('h:i');
         } else
         {
             return (isset($value) && strlen($value) > 0) ? strval($value) : '-';

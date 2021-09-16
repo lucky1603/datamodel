@@ -9,6 +9,7 @@
             <div class="card-body font-12">
                 <p v-if="this.programs.length == 0">There are currently no programs attached</p>
                 <b-table
+                    ref="ProgramsTable"
                     v-if="programs.length > 0"
                     striped
                     small
@@ -119,12 +120,16 @@ export default {
             formContent: null,
         }
     },
-    mounted() {
+    async mounted() {
         console.log(this.addprogramtitle);
         this.buttonTitle = this.addprogramtitle;
         this.buttonRoute = this.addroute;
 
-        this.getPrograms();
+        await this.getPrograms();
+
+        if(this.programs.length > 0) {
+            this.$refs['ProgramsTable'].selectRow(0);
+        }
     },
 
 }

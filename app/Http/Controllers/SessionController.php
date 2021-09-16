@@ -62,4 +62,21 @@ class SessionController extends Controller
 
         return redirect(route('mentors.profile', ['mentor' => $mentorid]));
     }
+
+    public function edit($sessionId) {
+        $session = Session::find($sessionId);
+
+        return view('sessions.edit', ['session' => $session]);
+    }
+
+    public function update(Request $request) {
+        $data = $request->post();
+        foreach($data as $key=>$value) {
+            echo 'data['.$key.'] = '.$value.'<br />';
+        }
+    }
+
+    public function show(Session $session) {
+        return view('sessions.show', ['session' => $session]);
+    }
 }

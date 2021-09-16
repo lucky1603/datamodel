@@ -115,6 +115,8 @@ Route::post('/selection/update/{selection}', 'SelectionController@update')->name
 Route::post('/contracts/update/{contract}', 'ContractsController@update')->name('contract.update');
 
 Route::post('sessions/create', 'SessionController@store')->name('sessions.store');
+Route::post('sessions/update', 'SessionController@update')->name('sessions.update');
+Route::get('sessions/edit/{session}', 'SessionController@edit')->name('sessions.edit');
 Route::get('sessions/create/{program}/{mentor}', 'SessionController@create')->name('sessions.create');
 
 
