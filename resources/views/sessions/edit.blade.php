@@ -50,7 +50,7 @@
                 <textarea id="session_short_note" name="session_short_note" rows="4" class="form-control form-control-sm">{{ $session->getAttribute('session_short_note')->getText() }}</textarea>
             </div>
 
-            <div class="form-control">
+            <div class="form-group">
                 @php
                     $attribute = $session->getAttribute('has_client_feedback');
                 @endphp
@@ -71,6 +71,51 @@
                         }
                         ">
             </div>
+            @if($attribute->getValue() == true)
+                @php
+                    $attribute = $session->getAttribute('client_feedback');
+                @endphp
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="client_feedback">{{__('Client\'s feedback')}}</label>
+                        <textarea id="client_feedback" name="client_feedback" rows="4" class="form-control form-control-sm">{{ $attribute->getText() }}</textarea>
+                    </div>
+                </div>
+            @endif
+
+            <div class="form-group">
+                @php
+                    $attribute = $session->getAttribute('has_mentor_feedback');
+                @endphp
+                <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
+                <span class="attribute-label mr-1">{!! $attribute->label !!}  </span>
+                <input
+                    class="checkbox-aligned"
+                    type="checkbox"
+                    id="{{ $attribute->name }}"
+                    name="{{$attribute->name}}"
+                    @if($attribute->getValue()) checked @endif style="padding-top: 10px"
+                    onclick="
+                        if(document.getElementById('{{ $attribute->name }}').checked)
+                        {
+                        document.getElementById('{{ $attribute->name }}Hidden').disabled = true
+                        } else {
+                        document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
+                        }
+                        ">
+            </div>
+            @if($attribute->getValue() == true)
+                @php
+                    $attribute = $session->getAttribute('mentor_feedback');
+                @endphp
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="client_feedback">{{__('Mentor\'s feedback')}}</label>
+                        <textarea id="client_feedback" name="client_feedback" rows="4" class="form-control form-control-sm">{{ $attribute->getText() }}</textarea>
+                    </div>
+                </div>
+            @endif
+
 
         </form>
     </div>

@@ -30,6 +30,7 @@ Vue.use(IconsPlugin);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('session-editor', require('./components/SessionEditor').default);
 Vue.component('program-list', require('./components/ProgramList').default);
+Vue.component('mentor-data', require('./components/MentorData').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

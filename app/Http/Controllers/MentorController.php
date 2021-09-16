@@ -52,6 +52,12 @@ class MentorController extends Controller
 
     }
 
+    public function edit($mentorId) {
+        $mentor = Mentor::find($mentorId);
+        $action = route('mentors.update');
+        return view('mentors.edit', ['model' => $mentor, 'action' => $action]);
+    }
+
     public function profile($mentorId) {
         $mentor = Mentor::find($mentorId);
         return view('mentors.profile', ['mentor' => $mentor]);
@@ -199,6 +205,23 @@ class MentorController extends Controller
             'values' => $values,
         ];
 
+    }
+
+    public function showData($mentorId) {
+        $mentor = Mentor::find($mentorId);
+        $data = [];
+
+        $order = ['name', 'company', 'email', 'phone', 'address', 'photo', 'specialities', 'mentor-type', 'remark'];
+
+        foreach($order as $key) {
+            $attribute = $mentor->getAttribute($key);
+            $data[$attribute->name] = [
+                'label' => $attribute->label,
+                'value' => $attribute->getText()
+            ];
+        }
+
+        return json_encode($data);
     }
 
 }
