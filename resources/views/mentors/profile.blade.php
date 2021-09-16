@@ -84,14 +84,14 @@
                     </div>
             <div class="card h-50 w-100 shadow">
                 <program-list
-                    title="{{mb_strtoupper( __("Programs I am involved at")) }}" mentorid="{{ $mentor->getId() }}"
+                    title="{{mb_strtoupper( __("Programs I am involved at")) }}" :mentorid="{{ $mentor->getId() }}"
                     addRoute="{{ route('mentors.addprogram', ['mentor' => $mentor->getId()]) }}"
                     addProgramTitle="{{ __('Connect Program') }}" >
                 </program-list>
             </div>
         </div>
         <div class="col-lg-6 h-100">
-            <session-editor test="ANYTHING"></session-editor>
+            <session-editor :mentorid="{{ $mentor->getId() }}"></session-editor>
         </div>
     </div>
 

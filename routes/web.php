@@ -105,6 +105,7 @@ Route::get('mentors/create', 'MentorController@create')->name('mentors.create');
 Route::post('mentors/create', 'MentorController@store')->name('mentors.store');
 Route::get('mentors/delete/{mentor}/{program}', "MentorController@deleteProgram")->name('mentors.delete');
 Route::get('mentors/programs/{mentor}', 'MentorController@programs')->name('mentors.programs');
+Route::get('mentors/sessions/{program}/{mentor}', 'MentorController@sessions')->name('mentors.sessions');
 Route::get('mentors/addprogram/{mentor}', 'MentorController@addProgram')->name('mentors.addprogram');
 Route::post('mentors/addprogram', 'MentorController@storeProgram')->name('mentors.storeprogram');
 Route::get('mentors/profile/{mentor}', 'MentorController@profile')->name('mentors.profile');
@@ -113,5 +114,7 @@ Route::post('/preselection/update/{preselection}', 'PreselectionController@updat
 Route::post('/selection/update/{selection}', 'SelectionController@update')->name('selection.update');
 Route::post('/contracts/update/{contract}', 'ContractsController@update')->name('contract.update');
 
+Route::post('sessions/create', 'SessionController@store')->name('sessions.store');
+Route::get('sessions/create/{program}/{mentor}', 'SessionController@create')->name('sessions.create');
 
 

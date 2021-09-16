@@ -495,7 +495,7 @@
        $('#newClient').on('click', function(evt) {
            var where = $('#newClient').attr('href');
            $.get(where, function(data) {
-               var content = $(data).find('form')[0];
+               var content = $(data).find('form').first();
                var title = $(data).find('h1').first().text();
                $('#dialogHost.modal .modal-dialog .modal-content .modal-body').html(content);
                $('#dialogHost.modal .modal-dialog .modal-content .modal-header .modal-title').text("Kreirajte novi profil");

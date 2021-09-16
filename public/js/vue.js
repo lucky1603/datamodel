@@ -2146,6 +2146,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProgramList",
   props: {
@@ -2159,12 +2168,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     addprogramtitle: {
       "typeof": String,
-      "default": ''
+      "default": 'Poveži'
+    },
+    deleteprogramtitle: {
+      "typeof": String,
+      "default": 'Obriši'
     },
     title: {
       "typeof": String,
       "default": ''
-    }
+    },
+    token: null
   },
   methods: {
     getPrograms: function getPrograms() {
@@ -2204,8 +2218,80 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     selected: function selected(rows) {
-      var program = rows[0];
-      Event.$emit('program-selected', program.id);
+      this.program = rows[0];
+      Event.$emit('program-selected', this.program);
+    },
+    showModal: function showModal() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var content;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                content = null;
+                _context2.next = 3;
+                return axios.get("/mentors/addprogram/".concat(_this2.mentorid)).then(function (response) {
+                  var content = $(response.data).find('form#myFormAddMentorProgram').first().parent().html();
+
+                  _this2.$refs['addProgramModal'].show();
+
+                  _this2.formContent = content;
+                  console.log(content);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    onOk: function onOk() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var form, token, data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                form = $('form#myFormAddMentorProgram').first();
+                token = $(form).find('input[name="_token"]').val();
+                console.log(token);
+                data = form.serialize();
+                _context3.next = 6;
+                return $.ajax({
+                  url: '/mentors/addprogram',
+                  data: data,
+                  method: "POST",
+                  headers: {
+                    'X-CSRF-Token': token
+                  },
+                  success: function success(data) {
+                    console.log(data);
+                  }
+                });
+
+              case 6:
+                _this3.$refs['addProgramModal'].hide();
+
+                _context3.next = 9;
+                return _this3.getPrograms();
+
+              case 9:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    deleteProgram: function deleteProgram(programId) {},
+    onCancel: function onCancel() {
+      this.$refs['addProgramModal'].hide();
     }
   },
   data: function data() {
@@ -2220,7 +2306,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         "typeof": String,
         "default": ''
       },
-      buttonTitle: 'Ovo je proba'
+      buttonTitle: 'Ovo je proba',
+      formContent: null
     };
   },
   mounted: function mounted() {
@@ -2244,6 +2331,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2270,69 +2376,116 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SessionEditor",
   props: {
-    test: {
-      type: String,
-      "default": ''
+    mentorid: Number,
+    title: {
+      "typeof": String,
+      "default": 'Mentorske sesije'
+    },
+    addsessiontitle: {
+      "typeof": String,
+      "default": 'Dodaj novu sesiju'
     }
   },
   methods: {
-    programSelected: function programSelected(programId) {
-      alert("Program (".concat(programId, ") selected!"));
+    programSelected: function programSelected(program) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.program = program;
+                _context.next = 3;
+                return _this.getSessions(program.id);
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getSessions: function getSessions(programid) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.get("/mentors/sessions/".concat(programid, "/").concat(_this2.mentorid)).then(function (response) {
+                  console.log(response.data);
+                  _this2.sessions = response.data.values;
+                  _this2.keys = response.data.keys;
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    addSession: function addSession() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var content;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                content = null;
+                _context3.next = 3;
+                return axios.get("/sessions/create/".concat(_this3.program.id, "/").concat(_this3.mentorid)).then(function (response) {
+                  var content = $(response.data).find('form#mySessionCreateForm').first().parent().html();
+
+                  _this3.$refs['addSituationModal'].show();
+
+                  _this3.formContent = content;
+                  console.log(content);
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    onOk: function onOk() {
+      var _this4 = this;
+
+      var form = document.getElementById('mySessionCreateForm');
+      var data = new FormData(form);
+      axios.post("/sessions/create", data).then(function (response) {
+        console.log(response.data);
+
+        _this4.$refs['addSituationModal'].hide();
+
+        _this4.getSessions(_this4.program.id);
+      });
+    },
+    onCancel: function onCancel() {
+      this.$refs['addSituationModal'].hide();
     }
   },
   data: function data() {
     return {
-      programName: {
-        type: String,
-        "default": ''
-      },
-      programs: [],
+      program: null,
       sessions: [],
-      selectedProgram: {
-        type: Object,
-        "default": null
-      },
-      selectedSession: {
-        type: Object,
-        "default": null
-      },
-      items: [{
-        age: 40,
-        first_name: 'Dickerson',
-        last_name: 'Macdonald'
-      }, {
-        age: 21,
-        first_name: 'Larsen',
-        last_name: 'Shaw'
-      }, {
-        age: 89,
-        first_name: 'Geneva',
-        last_name: 'Wilson'
-      }, {
-        age: 38,
-        first_name: 'Jami',
-        last_name: 'Carney'
-      }, {
-        age: 40,
-        first_name: 'Dickerson',
-        last_name: 'Macdonald'
-      }, {
-        age: 21,
-        first_name: 'Larsen',
-        last_name: 'Shaw'
-      }, {
-        age: 89,
-        first_name: 'Geneva',
-        last_name: 'Wilson'
-      }, {
-        age: 38,
-        first_name: 'Jami',
-        last_name: 'Carney'
-      }]
+      keys: [],
+      session: null,
+      formContent: null
     };
   },
   mounted: function mounted() {
-    if (this.test.length > 0) this.programName = this.test;
+    console.log("Mentor ID is ".concat(this.mentorid));
     Event.$on('program-selected', this.programSelected);
   }
 });
@@ -49514,53 +49667,114 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card h-100 w-100" }, [
-    _c("div", { staticClass: "card-header text-dark" }, [
-      _c("span", { staticClass: "mb-0 mt-0 h5 attribute-label" }, [
-        _vm._v(_vm._s(_vm.title))
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "card h-100 w-100" }, [
+        _c(
+          "div",
+          { staticClass: "card-header text-dark" },
+          [
+            _c("span", { staticClass: "mb-0 mt-0 h5 attribute-label" }, [
+              _vm._v(_vm._s(_vm.title))
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                staticClass: "float-right",
+                attrs: { variant: "success", title: _vm.addprogramtitle },
+                on: { click: _vm.showModal }
+              },
+              [_c("i", { staticClass: "uil-document" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                staticClass: "float-right mr-1",
+                attrs: { variant: "danger", title: _vm.deleteprogramtitle }
+              },
+              [_c("i", { staticClass: "mdi mdi-delete" })]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "card-body font-12" },
+          [
+            this.programs.length == 0
+              ? _c("p", [_vm._v("There are currently no programs attached")])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.programs.length > 0
+              ? _c("b-table", {
+                  attrs: {
+                    striped: "",
+                    small: "",
+                    "sticky-header": "",
+                    "select-mode": "single",
+                    hover: "",
+                    selectable: "",
+                    items: _vm.programs,
+                    fields: _vm.fields,
+                    "head-variant": "dark"
+                  },
+                  on: { "row-selected": _vm.selected }
+                })
+              : _vm._e()
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
       _c(
-        "a",
+        "b-modal",
         {
-          staticClass: "btn btn-success btn-sm float-right",
-          attrs: {
-            href: _vm.buttonRoute,
-            title: _vm.buttonTitle,
-            id: "btnAddProgram"
-          }
-        },
-        [_c("i", { staticClass: "uil-document" })]
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "card-body font-12" },
-      [
-        this.programs.length == 0
-          ? _c("p", [_vm._v("There are currently no programs attached")])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.programs.length > 0
-          ? _c("b-table", {
-              attrs: {
-                striped: "",
-                small: "",
-                "sticky-header": "",
-                "select-mode": "single",
-                hover: "",
-                selectable: "",
-                items: _vm.programs,
-                fields: _vm.fields
+          ref: "addProgramModal",
+          attrs: { id: "addProgramModal" },
+          scopedSlots: _vm._u([
+            {
+              key: "modal-title",
+              fn: function() {
+                return [_vm._v(_vm._s(_vm.addprogramtitle))]
               },
-              on: { "row-selected": _vm.selected }
-            })
-          : _vm._e()
-      ],
-      1
-    )
-  ])
+              proxy: true
+            },
+            {
+              key: "modal-footer",
+              fn: function() {
+                return [
+                  _c(
+                    "b-button",
+                    { attrs: { variant: "primary" }, on: { click: _vm.onOk } },
+                    [_vm._v("Ok")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "light" },
+                      on: { click: _vm.onCancel }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ]
+              },
+              proxy: true
+            }
+          ])
+        },
+        [
+          _vm._v(" "),
+          _c("span", { domProps: { innerHTML: _vm._s(_vm.formContent) } })
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -49585,55 +49799,111 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "h-100 w-100 mt-0 pt-2 pb-2" }, [
-    _c("div", { staticClass: "card h-50 w-100 shadow" }, [
-      _c("div", { staticClass: "card-header text-dark" }, [
-        _c("span", { staticClass: "mb-0 mt-0 attribute-label" }, [
-          _vm._v("\n                SESSION "),
-          _vm.programName.length > 0
-            ? _c("span", { staticClass: "font-weight-bold" }, [
-                _vm._v(_vm._s(_vm.programName))
-              ])
-            : _vm._e()
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card h-50 w-100 shadow" }, [
-      _vm._m(0),
+  return _c(
+    "div",
+    { staticClass: "h-100 w-100 mt-0 pt-2 pb-2" },
+    [
+      _c("div", { staticClass: "card h-50 w-100 shadow" }, [
+        _c(
+          "div",
+          { staticClass: "card-header text-dark" },
+          [
+            _c("span", { staticClass: "mb-0 mt-0 attribute-label" }, [
+              _vm._v("\n                " + _vm._s(_vm.title)),
+              _vm.program != null ? _c("span", [_vm._v(" za ")]) : _vm._e(),
+              _vm.program != null
+                ? _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v(_vm._s(_vm.program.profile))
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                staticClass: "float-right",
+                attrs: { variant: "success", title: "Dodaj novu sesiju" },
+                on: { click: _vm.addSession }
+              },
+              [_c("i", { staticClass: "mdi mdi-google-circles-group" })]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "card-body" },
+          [
+            _vm.program == null
+              ? _c("span", [_vm._v("No active programs")])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.program != null
+              ? _c("b-table", {
+                  attrs: {
+                    striped: "",
+                    hover: "",
+                    items: _vm.sessions,
+                    fields: _vm.keys,
+                    "sticky-header": "250px",
+                    small: "",
+                    "select-mode": "single"
+                  }
+                })
+              : _vm._e()
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
       _c(
-        "div",
-        { staticClass: "card-body" },
-        [
-          _c("b-table", {
-            attrs: {
-              striped: "",
-              hover: "",
-              items: _vm.items,
-              "sticky-header": "250px",
-              small: "",
-              "select-mode": "single"
+        "b-modal",
+        {
+          ref: "addSituationModal",
+          attrs: { id: "addSituationModal", size: "lg" },
+          scopedSlots: _vm._u([
+            {
+              key: "modal-title",
+              fn: function() {
+                return [_vm._v(_vm._s(_vm.addsessiontitle))]
+              },
+              proxy: true
+            },
+            {
+              key: "modal-footer",
+              fn: function() {
+                return [
+                  _c(
+                    "b-button",
+                    { attrs: { variant: "primary" }, on: { click: _vm.onOk } },
+                    [_vm._v("Ok")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "light" },
+                      on: { click: _vm.onCancel }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ]
+              },
+              proxy: true
             }
-          })
-        ],
-        1
+          ])
+        },
+        [
+          _vm._v(" "),
+          _c("span", { domProps: { innerHTML: _vm._s(_vm.formContent) } })
+        ]
       )
-    ])
-  ])
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header text-dark" }, [
-      _c("span", { staticClass: "mb-0 mt-0 attribute-label" }, [
-        _vm._v("\n                SESSION DETAILS\n            ")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

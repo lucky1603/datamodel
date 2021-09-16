@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Business\Mentor;
 use App\Business\Program;
+use App\Business\Session;
 use Illuminate\Http\Request;
 
 class MentorController extends Controller
@@ -101,25 +102,70 @@ class MentorController extends Controller
     }
 
     /**
-     * Return programs for
+     * API call.
+     * Gets the sessions table definition for the chosen program and mentor.
+     * @param $programId
      * @param $mentorId
-     * @return false|string
+     * @return array[]
      */
-    public function programs($mentorId) {
+    public function sessions($programId, $mentorId): array
+    {
+        $arr = [];
+
+        $sessions = Session::find()->filter(function($session) use($programId, $mentorId) {
+            if($session->getProgram()->getId() == $programId && $session->getMentor()->getId() == $mentorId) {
+                return true;
+            }
+
+            return false;
+        });
+
+        foreach($sessions as $session) {
+            $arr[] = new class($session) {
+                public $id;
+                public $title;
+                public $date;
+                public $hasfeedback;
+                public function __construct($session)
+                {
+                    $this->id = $session->getId();
+                    $this->title = $session->getValue('session_title');
+                    $this->date = $session->getValue('session_start_date');
+                    $this->hasfeedback = $session->getText('has_mentor_feedback');
+                }
+            };
+        }
+
+        $keys = [
+            new class {
+                public $key = 'title';
+                public $label = 'Naslov';
+            },
+            new class {
+                public $key = 'date';
+                public $label = 'Datum';
+            },
+            new class {
+                public $key = 'hasfeedback';
+                public $label = 'Ima feedback';
+            }
+        ];
+
+        return [
+            'keys' => $keys,
+            'values' => $arr
+        ];
+    }
+
+    /**
+     * API call.
+     * Return programs table definition for the chosen mentor.
+     * @param $mentorId
+     * @return array[]
+     */
+    public function programs($mentorId): array
+    {
         $mentor = Mentor::find($mentorId);
-//        $programs = $mentor->getPrograms()->map(function($program, $key) {
-//            return new class($program) {
-//                public $id;
-//                public $profile;
-//                public $program;
-//                public function __construct($program)
-//                {
-//                    $this->id = $program->getId();
-//                    $this->profile = $program->getProfile()->getValue('name');
-//                    $this->program = $program->getValue('program_name');
-//                }
-//            } ;
-//        });
         $programs = $mentor->getPrograms();
         $values = [];
         foreach($programs as $program) {
@@ -138,11 +184,6 @@ class MentorController extends Controller
         }
 
         $keys = [
-//            new class {
-//                public $key = 'id';
-//                public $label = 'Id';
-//                public $visible = false;
-//            },
             new class {
                 public $key = 'profile';
                 public $label = 'Profil';
