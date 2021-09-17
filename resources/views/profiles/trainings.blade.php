@@ -1,4 +1,4 @@
-@extends('layouts.hyper-vertical-profile-shortdata')
+@extends('layouts.hyper-vertical-profile')
 
 @section('profile-content')
     <div class="card" style="height: 100%;">
