@@ -23,12 +23,12 @@
                     @row-selected="selected"></b-table>
             </div>
         </div>
-        <b-modal id="addProgramModal" ref="addProgramModal" >
+        <b-modal id="addProgramModal" ref="addProgramModal" header-bg-variant="dark" header-text-variant="light" >
             <template #modal-title>{{ addprogramtitle }}</template>
             <span v-html="formContent"></span>
             <template #modal-footer>
-                <b-button variant="primary" @click="onOk">Ok</b-button>
-                <b-button variant="light" @click="onCancel">Cancel</b-button>
+                <b-button variant="primary" @click="onOk">Prihvati</b-button>
+                <b-button variant="light" @click="onCancel">Odustani</b-button>
             </template>
         </b-modal>
     </div>

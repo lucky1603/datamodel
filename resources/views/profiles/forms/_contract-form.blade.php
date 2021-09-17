@@ -112,7 +112,7 @@
         </div>
 
         <div class="text-center" style="position: absolute; bottom: 40px; width: 90%">
-            <button type="button" id="btnNotifyClientContract" class="btn btn-sm btn-warning presel-button" @if($status != 6) disabled @endif>{{__('gui.contract-notify')}}</button>
+            <button type="button" id="btnNotifyClientContract" class="btn btn-sm btn-warning presel-button" @if( $status != 6) disabled @endif>{{__('gui.contract-notify')}}</button>
             <button type="button" id="btnSaveContract" class="btn btn-sm btn-primary presel-button" @if($status != 6) disabled @endif>{{__('gui.contract-save')}}</button>
             <button type="button" id="btnContractSigned" class="btn btn-sm btn-success presel-button" @if($status != 6) disabled @endif>
                 <span id="button_spinner_contract_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>

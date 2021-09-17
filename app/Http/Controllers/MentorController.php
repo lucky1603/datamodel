@@ -55,7 +55,30 @@ class MentorController extends Controller
     public function edit($mentorId) {
         $mentor = Mentor::find($mentorId);
         $action = route('mentors.update');
-        return view('mentors.edit', ['model' => $mentor, 'action' => $action]);
+        return view('mentors.edit1', ['mentor' => $mentor, 'action' => $action]);
+    }
+
+    public function update(Request $request) {
+        $data = $request->post();
+
+        $photo = $request->file('photo');
+        if($photo != null) {
+            $originalFileName = $photo->getClientOriginalName();
+            $path = $photo->store('documents');
+            $path = asset($path);
+            $data['photo'] = [
+                'filename' => $originalFileName,
+                'filelink' => $path
+            ];
+        }
+
+        $mentorid = $data['mentorid'];
+        unset($data['mentorid']);
+
+        $mentor = Mentor::find($mentorid);
+        $mentor->setData($data);
+
+        return redirect(route('mentors.profile', ['mentor' => $mentorid]));
     }
 
     public function profile($mentorId) {
@@ -215,10 +238,18 @@ class MentorController extends Controller
 
         foreach($order as $key) {
             $attribute = $mentor->getAttribute($key);
-            $data[$attribute->name] = [
-                'label' => $attribute->label,
-                'value' => $attribute->getText()
-            ];
+            if($attribute->name != 'photo') {
+                $data[$attribute->name] = [
+                    'label' => $attribute->label,
+                    'value' => $attribute->getText()
+                ];
+            } else {
+                $data[$attribute->name] = [
+                    'label' => $attribute->label,
+                    'value' => $attribute->getValue()['filelink']
+                ];
+            }
+
         }
 
         return json_encode($data);

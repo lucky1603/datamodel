@@ -2141,6 +2141,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MentorData",
   props: {
@@ -2148,6 +2159,10 @@ __webpack_require__.r(__webpack_exports__);
     aboutme: {
       "typeof": String,
       "default": 'About Me'
+    },
+    editmentortitle: {
+      type: String,
+      "default": 'Edit Mentor Data'
     }
   },
   methods: {
@@ -2159,13 +2174,43 @@ __webpack_require__.r(__webpack_exports__);
           _this.mentor = response.data;
         });
       }
+    },
+    showModal: function showModal() {
+      var _this2 = this;
+
+      axios.get("/mentors/edit/".concat(this.mentorid)).then(function (response) {
+        _this2.$refs['editMentorModal'].show();
+
+        _this2.formContent = $(response.data).find('form#myMentorEditForm').first().parent().html();
+      });
+    },
+    onOk: function onOk() {
+      var _this3 = this;
+
+      var form = document.getElementById('myMentorEditForm');
+      var data = new FormData(form);
+      axios.post("/mentors/edit", data).then(function (response) {
+        console.log(response.data);
+
+        _this3.$refs['editMentorModal'].hide();
+
+        _this3.getData();
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this3.$refs['editMentorModal'].hide();
+      });
+    },
+    onCancel: function onCancel() {
+      this.$refs['editMentorModal'].hide();
     }
   },
   data: function data() {
     return {
       mentor: null,
       keys: [],
-      values: []
+      values: [],
+      formContent: null
     };
   },
   mounted: function mounted() {
@@ -49886,83 +49931,140 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card h-100 w-100 shadow" }, [
-    _c(
-      "div",
-      { staticClass: "card-header" },
-      [
-        _c("span", { staticClass: "h5 attribute-label" }, [
-          _vm._v(_vm._s(_vm.aboutme.toUpperCase()))
-        ]),
-        _vm._v(" "),
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "card h-100 w-100 shadow" }, [
         _c(
-          "b-button",
-          {
-            staticClass: "float-right",
-            attrs: { variant: "success", title: "Promeni podatke" }
-          },
-          [_c("i", { staticClass: "dripicons-user" })]
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-body pt-0 pb-0" }, [
-      _c("div", { staticClass: "row h-100" }, [
-        _c("div", { staticClass: "col-lg-4 h-100 p-1" }, [
-          _c("div", { staticClass: "h-100 w-100 overflow-hidden" }, [
-            _vm.mentor != null &&
-            _vm.mentor.photo != null &&
-            _vm.mentor.photo.value.length > 0
-              ? _c("img", {
-                  staticClass: "h-100",
-                  attrs: { src: _vm.mentor.photo.value }
-                })
-              : _vm._e(),
+          "div",
+          { staticClass: "card-header" },
+          [
+            _c("span", { staticClass: "h5 attribute-label" }, [
+              _vm._v(_vm._s(_vm.aboutme.toUpperCase()))
+            ]),
             _vm._v(" "),
-            _vm.mentor == null ||
-            _vm.mentor.photo == null ||
-            _vm.mentor.photo.value.length == 0
-              ? _c("img", {
-                  staticClass: "h-100",
-                  attrs: { src: "/images/custom/nophoto2.png" }
-                })
-              : _vm._e()
-          ])
-        ]),
+            _c(
+              "b-button",
+              {
+                staticClass: "float-right",
+                attrs: { variant: "success", title: "Promeni podatke" },
+                on: { click: _vm.showModal }
+              },
+              [_c("i", { staticClass: "dripicons-user" })]
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "col-lg-8 h-100 overflow-auto pt-1" }, [
-          _c(
-            "table",
-            { staticClass: "table table-sm table-borderless table-striped" },
-            [
+        _c("div", { staticClass: "card-body pt-0 pb-0" }, [
+          _c("div", { staticClass: "row h-100" }, [
+            _c("div", { staticClass: "col-lg-4 h-100 p-1" }, [
+              _c("div", { staticClass: "h-100 w-100 overflow-hidden" }, [
+                _vm.mentor != null &&
+                _vm.mentor.photo != null &&
+                _vm.mentor.photo.value.length > 0
+                  ? _c("img", {
+                      staticClass: "h-100",
+                      attrs: { src: _vm.mentor.photo.value }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.mentor == null ||
+                _vm.mentor.photo == null ||
+                _vm.mentor.photo.value.length == 0
+                  ? _c("img", {
+                      staticClass: "h-100",
+                      attrs: { src: "/images/custom/nophoto2.png" }
+                    })
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-8 h-100 overflow-auto pt-1" }, [
               _c(
-                "tbody",
-                { staticClass: "font-12 text-dark" },
-                _vm._l(_vm.mentor, function(value, name) {
-                  return !["photo", "remark"].includes(name)
-                    ? _c("tr", [
-                        _c(
-                          "td",
-                          {
-                            staticClass: "text-dark",
-                            staticStyle: { width: "20%" }
-                          },
-                          [_c("strong", [_vm._v(_vm._s(value.label))])]
-                        ),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(value.value))])
-                      ])
-                    : _vm._e()
-                }),
-                0
+                "table",
+                {
+                  staticClass: "table table-sm table-borderless table-striped"
+                },
+                [
+                  _c(
+                    "tbody",
+                    { staticClass: "font-12 text-dark" },
+                    _vm._l(_vm.mentor, function(value, name) {
+                      return !["photo", "remark"].includes(name)
+                        ? _c("tr", [
+                            _c(
+                              "td",
+                              {
+                                staticClass: "text-dark",
+                                staticStyle: { width: "20%" }
+                              },
+                              [_c("strong", [_vm._v(_vm._s(value.label))])]
+                            ),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(value.value))])
+                          ])
+                        : _vm._e()
+                    }),
+                    0
+                  )
+                ]
               )
-            ]
-          )
+            ])
+          ])
         ])
-      ])
-    ])
-  ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "editMentorModal",
+          attrs: {
+            id: "editMentorModal",
+            size: "lg",
+            "header-bg-variant": "dark",
+            "header-text-variant": "light"
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "modal-title",
+              fn: function() {
+                return [_vm._v(_vm._s(_vm.editmentortitle))]
+              },
+              proxy: true
+            },
+            {
+              key: "modal-footer",
+              fn: function() {
+                return [
+                  _c(
+                    "b-button",
+                    { attrs: { variant: "primary" }, on: { click: _vm.onOk } },
+                    [_vm._v("Prihvati")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "light" },
+                      on: { click: _vm.onCancel }
+                    },
+                    [_vm._v("Odustani")]
+                  )
+                ]
+              },
+              proxy: true
+            }
+          ])
+        },
+        [
+          _vm._v(" "),
+          _c("span", { domProps: { innerHTML: _vm._s(_vm.formContent) } })
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50055,7 +50157,11 @@ var render = function() {
         "b-modal",
         {
           ref: "addProgramModal",
-          attrs: { id: "addProgramModal" },
+          attrs: {
+            id: "addProgramModal",
+            "header-bg-variant": "dark",
+            "header-text-variant": "light"
+          },
           scopedSlots: _vm._u([
             {
               key: "modal-title",
@@ -50071,7 +50177,7 @@ var render = function() {
                   _c(
                     "b-button",
                     { attrs: { variant: "primary" }, on: { click: _vm.onOk } },
-                    [_vm._v("Ok")]
+                    [_vm._v("Prihvati")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -50080,7 +50186,7 @@ var render = function() {
                       attrs: { variant: "light" },
                       on: { click: _vm.onCancel }
                     },
-                    [_vm._v("Cancel")]
+                    [_vm._v("Odustani")]
                   )
                 ]
               },

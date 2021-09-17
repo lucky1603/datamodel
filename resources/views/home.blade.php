@@ -4,19 +4,25 @@
 
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <profile-card title="{{ strtoupper( __('Profiles')) }}" class="m-5" :hasFooter="false">
-                <a href="{{ route('profiles.index') }}"><img src="images/custom/clients.png" width="100%"/></a>
-            </profile-card>
+            <div class="card">
+                <div class="card-header">{{ strtoupper( __('Profiles')) }}</div>
+                <div class="card-body"><a href="{{ route('profiles.index') }}"><img src="images/custom/clients.png" width="100%"/></a></div>
+            </div>
+
         </div>
         <div class="col-md-4">
-            <profile-card title="{{ __('Users')}}" class="m-5" :hasFooter="false">
-                <a href="{{ route('users') }}"><img src="images/custom/contract.png" width="100%"/></a>
-            </profile-card>
+            <div class="card">
+                <div class="card-header">{{ __('Users')}}</div>
+                <div class="card-body"><a href="{{ route('users') }}"><img src="images/custom/contract.png" width="100%"/></a></div>
+            </div>
+
         </div>
         <div class="col-md-4">
-            <profile-card title="{{ __('Sessions') }}" class="m-5" :hasFooter="false">
-                <a href="{{ route('trainings') }}"><img src="images/custom/events.png" width="100%"/></a>
-            </profile-card>
+            <div class="card">
+                <div class="card-header">{{ __('Sessions') }}</div>
+                <div class="card-body"><a href="{{ route('trainings') }}"><img src="images/custom/events.png" width="100%"/></a></div>
+            </div>
+
         </div>
     </div>
 
