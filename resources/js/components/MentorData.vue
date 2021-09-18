@@ -3,7 +3,7 @@
         <div class="card h-100 w-100 shadow">
             <div class="card-header">
                 <span class="h5 attribute-label">{{ aboutme.toUpperCase() }}</span>
-                <b-button variant="success" class="float-right" title="Promeni podatke" @click="showModal"><i class="dripicons-user"></i></b-button>
+                <b-button variant="primary" class="float-right" title="Promeni podatke" @click="showModal"><i class="dripicons-user"></i></b-button>
             </div>
             <div class="card-body pt-0 pb-0">
                 <div class="row h-100">
@@ -35,6 +35,14 @@
                 <b-button variant="light" @click="onCancel">Odustani</b-button>
             </template>
         </b-modal>
+        <b-modal id="addSituationModal" ref="addSituationModal" size="lg" header-bg-variant="dark" header-text-variant="light">
+            <template #modal-title>{{ addsessiontitle }}</template>
+            <span v-html="formContent"></span>
+            <template #modal-footer>
+                <b-button variant="primary" @click="onOk">Prihvati</b-button>
+                <b-button variant="light" @click="onCancel">Odustani</b-button>
+            </template>
+        </b-modal>
     </div>
 
 </template>
@@ -45,7 +53,7 @@ export default {
     props: {
         mentorid: 0,
         aboutme: {typeof: String, default: 'About Me'},
-        editmentortitle: { type: String, default: 'Edit Mentor Data'}
+        editmentortitle: { type: String, default: 'Edit Mentor Data'},
     },
     methods : {
         getData() {

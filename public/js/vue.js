@@ -2152,6 +2152,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MentorData",
   props: {
@@ -2877,12 +2885,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SessionEditorTable",
   props: {
     mentorid: 0,
     programid: 0,
     viewContent: null,
+    formContent: null,
     addsessiontitle: {
       "typeof": String,
       "default": 'Dodaj novu sesiju'
@@ -2961,6 +2979,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
+    newSession: function newSession() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var content;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                content = null;
+                _context3.next = 3;
+                return axios.get("/sessions/create/".concat(_this3.programId, "/").concat(_this3.mentorId)).then(function (response) {
+                  var content = $(response.data).find('form#mySessionCreateForm').first().parent().html();
+
+                  _this3.$refs['addSituationModal'].show();
+
+                  _this3.formContent = content;
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
     mentorSelected: function mentorSelected(mentorid) {
       this.mentorId = mentorid;
       this.getSessions();
@@ -2971,22 +3016,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.viewSession();
     },
     onOk: function onOk() {
-      var _this3 = this;
+      var _this4 = this;
 
       var form = document.getElementById('mySessionEditForm');
       var data = new FormData(form);
       axios.post("/sessions/edit", data).then(function (response) {
-        _this3.$refs['viewSituationModal'].hide();
+        _this4.$refs['viewSituationModal'].hide();
 
-        _this3.getSessions();
+        _this4.getSessions();
       })["catch"](function (error) {
         console.log(error);
 
-        _this3.$refs['viewSituationModal'].hide();
+        _this4.$refs['viewSituationModal'].hide();
+      });
+    },
+    onAddOk: function onAddOk() {
+      var _this5 = this;
+
+      var form = document.getElementById('mySessionCreateForm');
+      var data = new FormData(form);
+      axios.post("/sessions/create", data).then(function (response) {
+        _this5.$refs['addSituationModal'].hide();
+
+        _this5.getSessions();
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this5.$refs['addSituationModal'].hide();
       });
     },
     onCancel: function onCancel() {
       this.$refs['viewSituationModal'].hide();
+    },
+    onAddCancel: function onAddCancel() {
+      this.$refs['addSituationModal'].hide();
     },
     closePreview: function closePreview() {
       this.$refs['viewSituationModal'].hide();
@@ -50546,7 +50609,7 @@ var render = function() {
               "b-button",
               {
                 staticClass: "float-right",
-                attrs: { variant: "success", title: "Promeni podatke" },
+                attrs: { variant: "primary", title: "Promeni podatke" },
                 on: { click: _vm.showModal }
               },
               [_c("i", { staticClass: "dripicons-user" })]
@@ -50629,6 +50692,54 @@ var render = function() {
               key: "modal-title",
               fn: function() {
                 return [_vm._v(_vm._s(_vm.editmentortitle))]
+              },
+              proxy: true
+            },
+            {
+              key: "modal-footer",
+              fn: function() {
+                return [
+                  _c(
+                    "b-button",
+                    { attrs: { variant: "primary" }, on: { click: _vm.onOk } },
+                    [_vm._v("Prihvati")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "light" },
+                      on: { click: _vm.onCancel }
+                    },
+                    [_vm._v("Odustani")]
+                  )
+                ]
+              },
+              proxy: true
+            }
+          ])
+        },
+        [
+          _vm._v(" "),
+          _c("span", { domProps: { innerHTML: _vm._s(_vm.formContent) } })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "addSituationModal",
+          attrs: {
+            id: "addSituationModal",
+            size: "lg",
+            "header-bg-variant": "dark",
+            "header-text-variant": "light"
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "modal-title",
+              fn: function() {
+                return [_vm._v(_vm._s(_vm.addsessiontitle))]
               },
               proxy: true
             },
@@ -51146,9 +51257,23 @@ var render = function() {
         "div",
         { staticClass: "card h-100 w-100 shadow", attrs: { role: "button" } },
         [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v("\n            Sessions\n        ")
-          ]),
+          _c(
+            "div",
+            { staticClass: "card-header" },
+            [
+              _vm._v("\n            Sessions\n            "),
+              _c(
+                "b-button",
+                {
+                  staticClass: "float-right",
+                  attrs: { variant: "primary" },
+                  on: { click: _vm.newSession }
+                },
+                [_c("i", { staticClass: "dripicons-user-group" })]
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -51224,6 +51349,57 @@ var render = function() {
           _vm._v(" "),
           _c("span", { domProps: { innerHTML: _vm._s(_vm.viewContent) } })
         ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "addSituationModal",
+          attrs: {
+            id: "addSituationModal",
+            size: "lg",
+            "header-bg-variant": "dark",
+            "header-text-variant": "light"
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "modal-title",
+              fn: function() {
+                return [_vm._v(_vm._s(_vm.addsessiontitle))]
+              },
+              proxy: true
+            },
+            {
+              key: "modal-footer",
+              fn: function() {
+                return [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "primary" },
+                      on: { click: _vm.onAddOk }
+                    },
+                    [_vm._v("Prihvati")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "light" },
+                      on: { click: _vm.onAddCancel }
+                    },
+                    [_vm._v("Odustani")]
+                  )
+                ]
+              },
+              proxy: true
+            }
+          ])
+        },
+        [
+          _vm._v(" "),
+          _c("span", { domProps: { innerHTML: _vm._s(_vm.formContent) } })
+        ]
       )
     ],
     1
@@ -51277,7 +51453,7 @@ var render = function() {
         "div",
         {
           staticClass:
-            "card-body p-0 font-11 text-center bg-success text-light align-items-center h-25"
+            "card-body p-0 font-11 text-center bg-primary text-light align-items-center h-25"
         },
         [_c("span", { staticClass: "mt-2" }, [_vm._v(_vm._s(_vm.title))])]
       )

@@ -4,7 +4,7 @@
             <img v-if="photo != ''" class="h-100 p-0" :src="photo">
             <img v-if="photo == ''" class="h-100 p-0" src="/images/custom/nophoto2.png">
         </div>
-        <div class="card-body p-0 font-11 text-center bg-success text-light align-items-center h-25">
+        <div class="card-body p-0 font-11 text-center bg-primary text-light align-items-center h-25">
             <span class="mt-2">{{ title }}</span>
         </div>
     </div>

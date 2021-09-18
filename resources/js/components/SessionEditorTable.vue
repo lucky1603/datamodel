@@ -3,6 +3,7 @@
         <div class="card h-100 w-100 shadow" role="button">
             <div class="card-header">
                 Sessions
+                <b-button class="float-right" variant="primary" @click="newSession"><i class="dripicons-user-group"></i></b-button>
             </div>
             <div class="card-body overflow-auto">
                 <div v-for="(row, index) in rows" class="row">
@@ -20,6 +21,14 @@
                 <b-button variant="light" @click="onCancel">Zatvori</b-button>
             </template>
         </b-modal>
+        <b-modal id="addSituationModal" ref="addSituationModal" size="lg" header-bg-variant="dark" header-text-variant="light">
+            <template #modal-title>{{ addsessiontitle }}</template>
+            <span v-html="formContent"></span>
+            <template #modal-footer>
+                <b-button variant="primary" @click="onAddOk">Prihvati</b-button>
+                <b-button variant="light" @click="onAddCancel">Odustani</b-button>
+            </template>
+        </b-modal>
     </div>
 
 </template>
@@ -31,6 +40,7 @@ export default {
         mentorid: 0,
         programid: 0,
         viewContent: null,
+        formContent: null,
         addsessiontitle: { typeof: String, default: 'Dodaj novu sesiju'},
         viewsessiontitle: { typeof: String, default: 'Pregledaj sesiju'}
     },
@@ -69,6 +79,15 @@ export default {
                     this.viewContent = content;
                 });
         },
+        async newSession() {
+            let content = null;
+            await axios.get(`/sessions/create/${this.programId}/${this.mentorId}`)
+                .then(response => {
+                    let content = $(response.data).find('form#mySessionCreateForm').first().parent().html();
+                    this.$refs['addSituationModal'].show();
+                    this.formContent = content;
+                });
+        },
         mentorSelected(mentorid) {
             this.mentorId = mentorid;
             this.getSessions();
@@ -91,8 +110,24 @@ export default {
                     this.$refs['viewSituationModal'].hide();
                 });
         },
+        onAddOk() {
+            const form = document.getElementById('mySessionCreateForm');
+            const data = new FormData(form);
+            axios.post(`/sessions/create`, data)
+                .then(response => {
+                    this.$refs['addSituationModal'].hide();
+                    this.getSessions();
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.$refs['addSituationModal'].hide();
+                });
+        },
         onCancel() {
             this.$refs['viewSituationModal'].hide();
+        },
+        onAddCancel() {
+            this.$refs['addSituationModal'].hide();
         },
         closePreview() {
             this.$refs['viewSituationModal'].hide();
