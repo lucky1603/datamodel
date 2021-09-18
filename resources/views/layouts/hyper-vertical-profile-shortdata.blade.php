@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row" style="height: 100%; overflow: hidden">
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <div class="card text-center">
                 <div class="card-header p-0">
                     <div id="img-container" class="image-container">
@@ -92,7 +92,7 @@
 
         </div> <!-- end col-->
 
-        <div class="col-sm-10" style="height: 100%; overflow: auto">
+        <div class="col-sm-9" style="height: 100%; overflow: auto">
             @yield('profile-content')
         </div> <!-- end col -->
     </div>

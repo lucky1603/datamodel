@@ -31,16 +31,6 @@
 @include('profiles.partials._ibitf_infrastructure')
 @include('profiles.partials._ibitf_attachments')
 
-<div class="text-center mt-4">
 
-        <button type="submit" id="save" class="btn btn-primary m-1" >
-            {{ __('Save') }}
-        </button>
-        <button type="button" id="send" class="btn btn-success m-1">
-            <span id="button_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-            <span id="button_text">{{ __('Send') }}</span>
-        </button>
-        <button id="cancel" type="button" class="btn btn-light m-1">{{ __('Cancel') }}</button>
-</div>
 
 

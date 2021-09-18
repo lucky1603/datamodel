@@ -70,10 +70,15 @@ class SessionController extends Controller
     }
 
     public function update(Request $request) {
+        // TODO: Validation
+
         $data = $request->post();
-        foreach($data as $key=>$value) {
-            echo 'data['.$key.'] = '.$value.'<br />';
-        }
+        $sessionId = $data['sessionid'];
+        $session = Session::find($sessionId);
+        $profileId = $session->getProgram()->getProfile()->getId();
+        $session->setData($data);
+
+        return redirect(route('profiles.sessions', ['profile' => $profileId]));
     }
 
     public function show(Session $session) {

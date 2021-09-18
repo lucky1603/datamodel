@@ -16,7 +16,8 @@
             <template #modal-title >{{ viewsessiontitle }}</template>
             <span v-html="viewContent"></span>
             <template #modal-footer>
-                <b-button variant="light" @click="closePreview">Zatvori</b-button>
+                <b-button variant="primary" @click="onOk">Prihvati</b-button>
+                <b-button variant="light" @click="onCancel">Zatvori</b-button>
             </template>
         </b-modal>
     </div>
@@ -76,6 +77,22 @@ export default {
             console.log(`Tile ${id} selected`);
             this.sessionId = id;
             this.viewSession();
+        },
+        onOk() {
+            const form = document.getElementById('mySessionEditForm');
+            const data = new FormData(form);
+            axios.post(`/sessions/edit`, data)
+                .then(response => {
+                    this.$refs['viewSituationModal'].hide();
+                    this.getSessions();
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.$refs['viewSituationModal'].hide();
+                });
+        },
+        onCancel() {
+            this.$refs['viewSituationModal'].hide();
         },
         closePreview() {
             this.$refs['viewSituationModal'].hide();

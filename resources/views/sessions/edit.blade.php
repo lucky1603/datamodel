@@ -10,6 +10,7 @@
             @csrf
             <input type="hidden" name="mentorid" value="{{ $session->getMentor()->getId() }}">
             <input type="hidden" name="programid" value="{{ $session->getProgram()->getId() }}">
+            <input type="hidden" name="sessionid" value="{{ $session->getId() }}">
 
             <div class="form-group">
                 <label for="session_title">{{__('Session Title')}}</label>

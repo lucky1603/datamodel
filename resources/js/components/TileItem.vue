@@ -1,11 +1,11 @@
 <template>
     <div class="card shadow" style="width: 100px; height: 140px" @click="tileSelected">
-        <div class="card-header p-0">
-            <img v-if="photo != ''" class="w-100" :src="photo">
-            <img v-if="photo == ''" class="w-100" src="/images/custom/nophoto2.png">
+        <div class="card-header p-0 border h-75">
+            <img v-if="photo != ''" class="h-100 p-0" :src="photo">
+            <img v-if="photo == ''" class="h-100 p-0" src="/images/custom/nophoto2.png">
         </div>
-        <div class="card-body p-0 font-11 text-center bg-dark text-light align-items-center">
-            <span>{{ title }}</span>
+        <div class="card-body p-0 font-11 text-center bg-success text-light align-items-center h-25">
+            <span class="mt-2">{{ title }}</span>
         </div>
     </div>
 </template>

@@ -2876,6 +2876,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SessionEditorTable",
   props: {
@@ -2968,6 +2969,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       console.log("Tile ".concat(id, " selected"));
       this.sessionId = id;
       this.viewSession();
+    },
+    onOk: function onOk() {
+      var _this3 = this;
+
+      var form = document.getElementById('mySessionEditForm');
+      var data = new FormData(form);
+      axios.post("/sessions/edit", data).then(function (response) {
+        _this3.$refs['viewSituationModal'].hide();
+
+        _this3.getSessions();
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this3.$refs['viewSituationModal'].hide();
+      });
+    },
+    onCancel: function onCancel() {
+      this.$refs['viewSituationModal'].hide();
     },
     closePreview: function closePreview() {
       this.$refs['viewSituationModal'].hide();
@@ -51183,9 +51202,15 @@ var render = function() {
                 return [
                   _c(
                     "b-button",
+                    { attrs: { variant: "primary" }, on: { click: _vm.onOk } },
+                    [_vm._v("Prihvati")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
                     {
                       attrs: { variant: "light" },
-                      on: { click: _vm.closePreview }
+                      on: { click: _vm.onCancel }
                     },
                     [_vm._v("Zatvori")]
                   )
@@ -51235,14 +51260,14 @@ var render = function() {
       on: { click: _vm.tileSelected }
     },
     [
-      _c("div", { staticClass: "card-header p-0" }, [
+      _c("div", { staticClass: "card-header p-0 border h-75" }, [
         _vm.photo != ""
-          ? _c("img", { staticClass: "w-100", attrs: { src: _vm.photo } })
+          ? _c("img", { staticClass: "h-100 p-0", attrs: { src: _vm.photo } })
           : _vm._e(),
         _vm._v(" "),
         _vm.photo == ""
           ? _c("img", {
-              staticClass: "w-100",
+              staticClass: "h-100 p-0",
               attrs: { src: "/images/custom/nophoto2.png" }
             })
           : _vm._e()
@@ -51252,9 +51277,9 @@ var render = function() {
         "div",
         {
           staticClass:
-            "card-body p-0 font-11 text-center bg-dark text-light align-items-center"
+            "card-body p-0 font-11 text-center bg-success text-light align-items-center h-25"
         },
-        [_c("span", [_vm._v(_vm._s(_vm.title))])]
+        [_c("span", { staticClass: "mt-2" }, [_vm._v(_vm._s(_vm.title))])]
       )
     ]
   )
