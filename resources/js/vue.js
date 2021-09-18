@@ -31,6 +31,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('session-editor', require('./components/SessionEditor').default);
 Vue.component('program-list', require('./components/ProgramList').default);
 Vue.component('mentor-data', require('./components/MentorData').default);
+Vue.component('program-sessions', require('./components/ProgramSessions').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

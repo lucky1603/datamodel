@@ -107,6 +107,7 @@ Route::get('mentors/edit/{mentor}', 'MentorController@edit')->name('mentors.edit
 Route::post('mentors/edit', 'MentorController@update')->name('mentors.update');
 Route::get('mentors/showdata/{mentor}', 'MentorController@showData')->name('mentors.showdata');
 Route::get('mentors/delete/{mentor}/{program}', "MentorController@deleteProgram")->name('mentors.delete');
+Route::get('mentors/forprogram/{program}', 'MentorController@forProgram')->name('mentors.forprogram');
 Route::get('mentors/programs/{mentor}', 'MentorController@programs')->name('mentors.programs');
 Route::get('mentors/sessions/{program}/{mentor}', 'MentorController@sessions')->name('mentors.sessions');
 Route::get('mentors/addprogram/{mentor}', 'MentorController@addProgram')->name('mentors.addprogram');

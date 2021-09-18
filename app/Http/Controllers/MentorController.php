@@ -255,4 +255,29 @@ class MentorController extends Controller
         return json_encode($data);
     }
 
+    public function forProgram($programId) {
+        $program = Program::find($programId);
+        $mentors = $program->getMentors()->map(function($mentor) {
+            return new class($mentor) {
+                public $id;
+                public $photo;
+                public $name;
+
+                public function __construct($mentor)
+                {
+                    $this->id = $mentor->getId();
+                    $this->photo = $mentor->getValue('photo')['filelink'];
+                    $this->name = $mentor->getValue('name');
+                    $this->address = $mentor->getValue('address');
+                }
+            } ;
+        });
+        $arr = [];
+        foreach ($mentors as $mentor) {
+            $arr[] = $mentor;
+        }
+
+        return $arr;
+    }
+
 }

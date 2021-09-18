@@ -79,4 +79,8 @@ class SessionController extends Controller
     public function show(Session $session) {
         return view('sessions.show', ['session' => $session]);
     }
+
+    public function forMentor($mentorid) {
+
+    }
 }
