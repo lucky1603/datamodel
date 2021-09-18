@@ -49,8 +49,8 @@ export default {
     },
     methods : {
         getData() {
-            if(this.mentorid != 0) {
-                axios.get(`/mentors/showdata/${this.mentorid}`)
+            if(this.mentorId != 0) {
+                axios.get(`/mentors/showdata/${this.mentorId}`)
                     .then(response => {
                          this.mentor = response.data;
                     });
@@ -79,19 +79,27 @@ export default {
         },
         onCancel() {
             this.$refs['editMentorModal'].hide();
+        },
+        mentorSelected(mentorid) {
+            this.mentorId = mentorid;
+            this.getData();
         }
     },
     data() {
         return {
             mentor: null,
+            mentorId: 0,
             keys: [],
             values: [],
             formContent: null
         }
     },
     mounted() {
+        this.mentorId = this.mentorid;
         this.getData();
-    }
+        Event.$on('mentor-selected', this.mentorSelected)
+    },
+
 
 }
 </script>
