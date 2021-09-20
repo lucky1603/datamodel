@@ -2160,6 +2160,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MentorData",
   props: {
@@ -2171,13 +2174,17 @@ __webpack_require__.r(__webpack_exports__);
     editmentortitle: {
       type: String,
       "default": 'Edit Mentor Data'
+    },
+    usertype: {
+      "typeof": String,
+      "default": 'administrator'
     }
   },
   methods: {
     getData: function getData() {
       var _this = this;
 
-      if (this.mentorId != 0) {
+      if (this.mentorId != 0 && this.mentorId != null) {
         axios.get("/mentors/showdata/".concat(this.mentorId)).then(function (response) {
           _this.mentor = response.data;
         });
@@ -2540,6 +2547,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProgramSessions",
   components: {},
@@ -2551,6 +2565,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     title: {
       "typeof": String,
       "default": 'Sesije'
+    },
+    usertype: {
+      "typeof": String,
+      "default": 'administrator'
     }
   },
   methods: {
@@ -2600,13 +2618,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _this2.getMentors();
 
             case 2:
-              console.log(_this2.mentors);
-
               if (_this2.mentors.length > 0) {
                 _this2.selectMentor(_this2.mentors[0].id);
               }
 
-            case 4:
+            case 3:
             case "end":
               return _context2.stop();
           }
@@ -2859,6 +2875,15 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -50601,79 +50626,98 @@ var render = function() {
           "div",
           { staticClass: "card-header" },
           [
-            _c("span", { staticClass: "h5 attribute-label" }, [
+            _c("span", { staticClass: "h4 attribute-label" }, [
               _vm._v(_vm._s(_vm.aboutme.toUpperCase()))
             ]),
             _vm._v(" "),
-            _c(
-              "b-button",
-              {
-                staticClass: "float-right",
-                attrs: { variant: "primary", title: "Promeni podatke" },
-                on: { click: _vm.showModal }
-              },
-              [_c("i", { staticClass: "dripicons-user" })]
-            )
+            _vm.mentor != null && _vm.usertype === "administrator"
+              ? _c(
+                  "b-button",
+                  {
+                    staticClass: "float-right",
+                    attrs: { variant: "primary", title: "Promeni podatke" },
+                    on: { click: _vm.showModal }
+                  },
+                  [_c("i", { staticClass: "dripicons-user" })]
+                )
+              : _vm._e()
           ],
           1
         ),
         _vm._v(" "),
         _c("div", { staticClass: "card-body pt-0 pb-0" }, [
-          _c("div", { staticClass: "row h-100" }, [
-            _c("div", { staticClass: "col-lg-4 h-100 p-1" }, [
-              _c("div", { staticClass: "h-100 w-100 overflow-hidden" }, [
-                _vm.mentor != null &&
-                _vm.mentor.photo != null &&
-                _vm.mentor.photo.value.length > 0
-                  ? _c("img", {
-                      staticClass: "h-100",
-                      attrs: { src: _vm.mentor.photo.value }
-                    })
-                  : _vm._e(),
+          _vm.mentor != null
+            ? _c("div", { staticClass: "row h-100" }, [
+                _c("div", { staticClass: "col-lg-4 h-100 p-1" }, [
+                  _c("div", { staticClass: "h-100 w-100 overflow-hidden" }, [
+                    _vm.mentor != null &&
+                    _vm.mentor.photo != null &&
+                    _vm.mentor.photo.value.length > 0
+                      ? _c("img", {
+                          staticClass: "h-100",
+                          attrs: { src: _vm.mentor.photo.value }
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.mentor == null ||
+                    _vm.mentor.photo == null ||
+                    _vm.mentor.photo.value.length == 0
+                      ? _c("img", {
+                          staticClass: "h-100",
+                          attrs: { src: "/images/custom/nophoto2.png" }
+                        })
+                      : _vm._e()
+                  ])
+                ]),
                 _vm._v(" "),
-                _vm.mentor == null ||
-                _vm.mentor.photo == null ||
-                _vm.mentor.photo.value.length == 0
-                  ? _c("img", {
-                      staticClass: "h-100",
-                      attrs: { src: "/images/custom/nophoto2.png" }
-                    })
-                  : _vm._e()
+                _c(
+                  "div",
+                  { staticClass: "col-lg-8 h-100 overflow-auto pt-1" },
+                  [
+                    _c(
+                      "table",
+                      {
+                        staticClass:
+                          "table table-sm table-borderless table-striped"
+                      },
+                      [
+                        _c(
+                          "tbody",
+                          { staticClass: "font-12 text-dark" },
+                          _vm._l(_vm.mentor, function(value, name) {
+                            return !["photo", "remark"].includes(name)
+                              ? _c("tr", [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "text-dark",
+                                      staticStyle: { width: "20%" }
+                                    },
+                                    [
+                                      _c("strong", [
+                                        _vm._v(_vm._s(value.label))
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(value.value))])
+                                ])
+                              : _vm._e()
+                          }),
+                          0
+                        )
+                      ]
+                    )
+                  ]
+                )
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-8 h-100 overflow-auto pt-1" }, [
-              _c(
-                "table",
-                {
-                  staticClass: "table table-sm table-borderless table-striped"
-                },
-                [
-                  _c(
-                    "tbody",
-                    { staticClass: "font-12 text-dark" },
-                    _vm._l(_vm.mentor, function(value, name) {
-                      return !["photo", "remark"].includes(name)
-                        ? _c("tr", [
-                            _c(
-                              "td",
-                              {
-                                staticClass: "text-dark",
-                                staticStyle: { width: "20%" }
-                              },
-                              [_c("strong", [_vm._v(_vm._s(value.label))])]
-                            ),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(value.value))])
-                          ])
-                        : _vm._e()
-                    }),
-                    0
-                  )
-                ]
-              )
-            ])
-          ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.mentor == null
+            ? _c("div", [
+                _vm._v("\n                Nije izabran mentor.\n            ")
+              ])
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -50937,91 +50981,138 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card h-100 w-100" }, [
-    _c("div", { staticClass: "card-header" }, [
-      _vm._v("\n        " + _vm._s(_vm.title) + "\n    ")
-    ]),
+    _vm.mentors.length > 0
+      ? _c("div", { staticClass: "card-header bg-dark text-light" }, [
+          _vm._v("\n        " + _vm._s(_vm.title.toUpperCase()) + "\n    ")
+        ])
+      : _vm._e(),
     _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row h-100" }, [
-        _c("div", { staticClass: "col-lg-5" }, [
-          _c(
-            "div",
-            { staticStyle: { height: "60%" } },
-            [_c("mentor-data", { attrs: { mentorid: _vm.mentorId } })],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "card", staticStyle: { height: "35%" } }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Mentori")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body overflow-auto" }, [
+    _vm.mentors.length > 0
+      ? _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "row h-100" }, [
+            _c("div", { staticClass: "col-lg-5" }, [
               _c(
                 "div",
-                { staticClass: "inbox-widget" },
-                _vm._l(_vm.mentors, function(mentor, index) {
-                  return _c(
-                    "div",
-                    {
-                      staticClass: "inbox-item",
-                      on: {
-                        click: function($event) {
-                          return _vm.selectMentor(mentor.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "inbox-item-img" }, [
-                        mentor.photo.length > 0
-                          ? _c("img", {
-                              staticClass: "rounded-circle",
-                              attrs: { src: mentor.photo, alt: "" }
-                            })
-                          : _vm._e(),
-                        _vm._v(" "),
-                        mentor.photo.length == 0
-                          ? _c("img", {
-                              staticClass: "rounded-circle",
-                              attrs: {
-                                src: "/images/custom/nophoto2.png",
-                                alt: ""
+                { staticStyle: { height: "60%" } },
+                [
+                  _c("mentor-data", {
+                    attrs: {
+                      mentorid: _vm.mentorId,
+                      aboutme: "PODACI O MENTORU",
+                      usertype: _vm.usertype
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "card", staticStyle: { height: "35%" } },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body overflow-auto" }, [
+                    _c(
+                      "div",
+                      { staticClass: "inbox-widget" },
+                      _vm._l(_vm.mentors, function(mentor, index) {
+                        return _c(
+                          "div",
+                          {
+                            staticClass: "inbox-item",
+                            on: {
+                              click: function($event) {
+                                return _vm.selectMentor(mentor.id)
                               }
-                            })
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "inbox-item-author" }, [
-                        _vm._v(_vm._s(mentor.name))
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "inbox-item-text" }, [
-                        _vm._v("prazno")
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(0, true)
-                    ]
-                  )
-                }),
-                0
+                            }
+                          },
+                          [
+                            _c("div", { staticClass: "inbox-item-img" }, [
+                              mentor.photo.length > 0
+                                ? _c("img", {
+                                    staticClass: "rounded-circle",
+                                    attrs: { src: mentor.photo, alt: "" }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              mentor.photo.length == 0
+                                ? _c("img", {
+                                    staticClass: "rounded-circle",
+                                    attrs: {
+                                      src: "/images/custom/nophoto2.png",
+                                      alt: ""
+                                    }
+                                  })
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "inbox-item-author" }, [
+                              _vm._v(_vm._s(mentor.name))
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "inbox-item-text" }, [
+                              _vm._v("prazno")
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(1, true)
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ]
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-lg-7" },
+              [
+                _c("session-editor-table", {
+                  attrs: { mentorid: this.mentorId, programid: this.programid }
+                })
+              ],
+              1
+            )
           ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-lg-7" },
-          [
-            _c("session-editor-table", {
-              attrs: { mentorid: this.mentorId, programid: this.programid }
-            })
-          ],
-          1
-        )
-      ])
-    ])
+        ])
+      : _c("div", { staticClass: "card-body" }, [
+          _c("img", {
+            staticStyle: {
+              position: "absolute",
+              left: "0px",
+              top: "0px",
+              width: "100%",
+              opacity: "0.3"
+            },
+            attrs: { src: "/images/custom/sizif.jpg" }
+          }),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-primary rounded-pill",
+              staticStyle: { position: "absolute", left: "45%", top: "50%" },
+              attrs: { type: "button" }
+            },
+            [_vm._v("DODAJ MENTORA")]
+          )
+        ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("span", { staticClass: "h4 attribute-label" }, [_vm._v("MENTORI")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -51036,6 +51127,29 @@ var staticRenderFns = [
         [_c("i", { staticClass: "mdi mdi-pencil" })]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticStyle: { position: "absolute", left: "100px", top: "100px" } },
+      [
+        _c(
+          "p",
+          {
+            staticClass: "text-light",
+            staticStyle: {
+              "font-family": "'Roboto Light'",
+              "font-size": "38px",
+              "font-weight": "bold"
+            }
+          },
+          [_vm._v("NEMA IZABRANIH MENTORA")]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -51261,7 +51375,10 @@ var render = function() {
             "div",
             { staticClass: "card-header" },
             [
-              _vm._v("\n            Sessions\n            "),
+              _c("span", { staticClass: "h4 attribute-label" }, [
+                _vm._v("SESIJE")
+              ]),
+              _vm._v(" "),
               _c(
                 "b-button",
                 {
@@ -51277,28 +51394,19 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "card-body overflow-auto" },
-            _vm._l(_vm.rows, function(row, index) {
-              return _c(
-                "div",
-                { staticClass: "row" },
-                _vm._l(row.cols, function(session) {
-                  return _c(
-                    "div",
-                    { staticClass: "col-lg-2" },
-                    [
-                      _c("tile-item", {
-                        attrs: { title: session.title, id: session.id },
-                        on: { "tile-selected": _vm.tileSelected }
-                      })
-                    ],
-                    1
-                  )
-                }),
-                0
-              )
+            {
+              staticClass: "card-body overflow-auto",
+              staticStyle: { display: "flex", "flex-wrap": "wrap" }
+            },
+            _vm._l(_vm.sessions, function(session, index) {
+              return _c("tile-item", {
+                key: session.id,
+                staticClass: "mr-2",
+                attrs: { title: session.title, id: session.id },
+                on: { "tile-selected": _vm.tileSelected }
+              })
             }),
-            0
+            1
           )
         ]
       ),

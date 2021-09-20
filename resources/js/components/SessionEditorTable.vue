@@ -2,15 +2,24 @@
     <div class="h-100 w-100">
         <div class="card h-100 w-100 shadow" role="button">
             <div class="card-header">
-                Sessions
+                <span class="h4 attribute-label">SESIJE</span>
                 <b-button class="float-right" variant="primary" @click="newSession"><i class="dripicons-user-group"></i></b-button>
             </div>
-            <div class="card-body overflow-auto">
-                <div v-for="(row, index) in rows" class="row">
-                    <div v-for="session in row.cols" class="col-lg-2">
-                        <tile-item :title="session.title" :id="session.id" @tile-selected="tileSelected"></tile-item>
-                    </div>
-                </div>
+            <div class="card-body overflow-auto" style="display: flex; flex-wrap: wrap">
+<!--                <div v-for="(row, index) in rows" class="row">-->
+<!--                    <div v-for="session in row.cols" class="col-lg-2">-->
+<!--                        <tile-item :title="session.title" :id="session.id" @tile-selected="tileSelected"></tile-item>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <tile-item
+                    v-for="(session, index) in sessions"
+                    :title="session.title"
+                    :id="session.id"
+                    :key="session.id"
+                    class="mr-2"
+                    @tile-selected="tileSelected"></tile-item>
+
             </div>
         </div>
         <b-modal id="viewSituationModal" ref="viewSituationModal" size="lg" header-bg-variant="dark" header-text-variant="light">

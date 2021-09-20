@@ -1,16 +1,16 @@
 <template>
     <div class="card h-100 w-100">
-        <div class="card-header">
-            {{ title}}
+        <div v-if="mentors.length > 0" class="card-header bg-dark text-light">
+            {{ title.toUpperCase()}}
         </div>
-        <div class="card-body">
+        <div v-if="mentors.length > 0" class="card-body">
             <div class="row h-100">
                 <div class="col-lg-5">
                     <div style="height: 60%">
-                        <mentor-data :mentorid="mentorId"></mentor-data>
+                        <mentor-data :mentorid="mentorId" aboutme="PODACI O MENTORU" :usertype="usertype"></mentor-data>
                     </div>
                     <div class="card" style="height: 35%">
-                        <div class="card-header">Mentori</div>
+                        <div class="card-header"><span class="h4 attribute-label">MENTORI</span></div>
                         <div class="card-body overflow-auto">
                             <div class="inbox-widget">
                                 <div v-for="(mentor, index) in mentors" class="inbox-item" @click="selectMentor(mentor.id)">
@@ -39,6 +39,13 @@
                 </div>
             </div>
         </div>
+        <div v-else class="card-body">
+            <img src="/images/custom/sizif.jpg" style="position: absolute; left: 0px; top: 0px; width: 100%; opacity: 0.3">
+            <div style="position: absolute; left: 100px; top: 100px">
+                <p class="text-light" style="font-family: 'Roboto Light'; font-size: 38px; font-weight: bold">NEMA IZABRANIH MENTORA</p>
+            </div>
+            <button type="button" class="btn btn-sm btn-primary rounded-pill" style="position: absolute; left: 45%; top: 50%">DODAJ MENTORA</button>
+        </div>
     </div>
 </template>
 
@@ -50,7 +57,8 @@ export default {
     },
     props : {
         programid: { typeof: Number, default: 0 },
-        title : { typeof: String, default: 'Sesije'}
+        title : { typeof: String, default: 'Sesije'},
+        usertype: { typeof: String, default: 'administrator'}
     },
     methods: {
         async getMentors() {
@@ -74,11 +82,11 @@ export default {
     },
     async mounted() {
         await this.getMentors();
-        console.log(this.mentors);
         if(this.mentors.length > 0)
         {
             this.selectMentor(this.mentors[0].id);
         }
+
     }
 }
 </script>

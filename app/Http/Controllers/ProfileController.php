@@ -89,11 +89,6 @@ class ProfileController extends Controller
     public function store(Request $request) {
         $data = $request->post();
 
-        // Hash code the password.
-        if(isset($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
-        }
-
         // If the client fills it set the status to 'interested'
         if(auth()->user()->isRole('client')) {
             $data['profile_status'] = 2;
@@ -111,7 +106,7 @@ class ProfileController extends Controller
             $user = User::create([
                 'name' => $data['contact_person'],
                 'email' => $data['contact_email'],
-                'password' => $data['password'],
+                'password' => Hash::make(Str::random(10)),
                 'position' => "Zastupnik",
             ]);
 

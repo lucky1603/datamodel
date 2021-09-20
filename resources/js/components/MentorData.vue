@@ -2,11 +2,11 @@
     <div>
         <div class="card h-100 w-100 shadow">
             <div class="card-header">
-                <span class="h5 attribute-label">{{ aboutme.toUpperCase() }}</span>
-                <b-button variant="primary" class="float-right" title="Promeni podatke" @click="showModal"><i class="dripicons-user"></i></b-button>
+                <span class="h4 attribute-label">{{ aboutme.toUpperCase() }}</span>
+                <b-button v-if="mentor != null && usertype === 'administrator'" variant="primary" class="float-right" title="Promeni podatke" @click="showModal"><i class="dripicons-user"></i></b-button>
             </div>
             <div class="card-body pt-0 pb-0">
-                <div class="row h-100">
+                <div v-if="mentor != null" class="row h-100">
                     <div class="col-lg-4 h-100 p-1">
                         <div class="h-100 w-100 overflow-hidden">
                             <img v-if="mentor != null && mentor.photo != null && mentor.photo.value.length > 0" :src="mentor.photo.value" class="h-100"/>
@@ -24,6 +24,9 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div v-if="mentor == null">
+                    Nije izabran mentor.
                 </div>
             </div>
         </div>
@@ -54,10 +57,11 @@ export default {
         mentorid: 0,
         aboutme: {typeof: String, default: 'About Me'},
         editmentortitle: { type: String, default: 'Edit Mentor Data'},
+        usertype: { typeof: String, default: 'administrator'}
     },
     methods : {
         getData() {
-            if(this.mentorId != 0) {
+            if(this.mentorId != 0 && this.mentorId != null) {
                 axios.get(`/mentors/showdata/${this.mentorId}`)
                     .then(response => {
                          this.mentor = response.data;
@@ -106,6 +110,7 @@ export default {
         this.mentorId = this.mentorid;
         this.getData();
         Event.$on('mentor-selected', this.mentorSelected)
+
     },
 
 

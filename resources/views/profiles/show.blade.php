@@ -285,8 +285,8 @@
                     url: '/contracts/update/' + id,
                     async: true,
                     data: formData,
-                    contentType: false, //this is requireded please see answers above
-                    processData: false, //this is requireded please see answers above
+                    contentType: false, //this is required please see answers above
+                    processData: false, //this is required please see answers above
                     cache: false, //not sure but works for me without this
                     error   : function (error) {
                         console.log(error);

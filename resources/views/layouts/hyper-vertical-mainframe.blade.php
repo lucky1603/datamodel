@@ -33,7 +33,7 @@
     <li class="side-nav-item">
         <a href="{{ route('trainings') }}" class="side-nav-link">
             <i class="uil-laptop-cloud"></i>
-            <span>{{ strtoupper(__('Sessions')) }}</span>
+            <span>{{ mb_strtoupper(__('Events')) }}</span>
         </a>
     </li>
     @elseif(\Illuminate\Support\Facades\Auth::user()->isRole('client'))

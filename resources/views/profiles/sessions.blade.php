@@ -1,7 +1,9 @@
 @extends('layouts.hyper-vertical-profile')
 
 @section('profile-content')
-    <program-sessions :programid="{{ $model->getActiveProgram()->getId() }}"></program-sessions>
+    <program-sessions
+        :programid="{{ $model->getActiveProgram()->getId() }}"
+            usertype="{{ $model->getUsers()->first()->roles->first()->name }}"></program-sessions>
 @endsection
 @section ('scripts')
     <script type="text/javascript">
@@ -13,6 +15,7 @@
                     $(this).removeClass('mm_active');
                 }
             });
+
         });
     </script>
 @endsection

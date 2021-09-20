@@ -8,12 +8,12 @@
                     class="nav-link text-muted"
                     id="newClient"
                     href="{{ route('trainings.create') }}">
-                    <i class="dripicons-document-new font-20"></i><span class="ml-0 mt-2 font-weight-bold"> {{strtoupper(__('Add New Session'))}}</span>
+                    <i class="dripicons-document-new font-20"></i><span class="ml-0 mt-2 font-weight-bold"> {{mb_strtoupper(__('Add New Event'))}}</span>
                 </a>
             </li>
         </ul>
         <ul class="nav page-title" >
-            <li class="nav-item"><label style="margin-top: 8px"><strong>{{ __('SESSION FILTER') }}:</strong></label></li>
+            <li class="nav-item"><label style="margin-top: 8px"><strong>{{ mb_strtoupper( __('Event Filter')) }}:</strong></label></li>
             <li class="nav-item" style="margin-left: 20px">
                 <div class="input-group input-group-sm" style="margin-top: 2px;">
                     <div class="input-group-prepend">
