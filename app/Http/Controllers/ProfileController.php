@@ -200,6 +200,7 @@ class ProfileController extends Controller
     /**
      * Shows the form for the application for a program.
      * @param $programType
+     * @param $profileId
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function apply($programType, $profileId) {
@@ -238,7 +239,7 @@ class ProfileController extends Controller
     /**
      * Creates the new program, based on the data entered.
      * @param Request $request
-     * @param Profile $profile
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function saveApplicationData(Request $request) {
         $data = $request->post();
@@ -283,6 +284,11 @@ class ProfileController extends Controller
 
     }
 
+    /**
+     * Checks if the form is ready for sending.
+     * @param $profileId
+     * @return array|false|string
+     */
     public function check($profileId) {
         $profile = new Profile(['instance_id' => $profileId]);
         if($profile->instance == null) {
@@ -410,7 +416,8 @@ class ProfileController extends Controller
      * @param Request $request
      * @return array
      */
-    public function evalPreselection(Request $request) {
+    public function evalPreselection(Request $request): array
+    {
         $data = $request->post();
 
         if(!isset($data['profile'])) {

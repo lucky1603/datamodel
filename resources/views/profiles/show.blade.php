@@ -1,21 +1,18 @@
 @extends('layouts.hyper-profile-admin')
 
 @section('application-data')
-    <div class="card shadow" style="height: 98%;overflow: auto">
+    <div class="card shadow " style="height: 100%;overflow: auto">
 
         @if(in_array($model->getAttribute('profile_status')->getValue(), [1,2]))
-            <div class="text-center w-100">
+            <div class="row h-100" style="display: flex; flex-direction: column; justify-content: center">
                 <img class="ml-auto mr-auto" src="/images/custom/waitingicon.png" width="200px"/>
+                <h4 class="text-center">{{ __('Waiting for the client to choose the program') }}</h4>
             </div>
-            <div class="text-center w-100">
-                <h4>{{ __('Waiting for the client to choose the program') }}</h4>
-            </div>
+
         @elseif($model->getAttribute('profile_status')->getValue() == 3)
-            <div class="text-center w-100">
+            <div class="row h-100" style="display: flex; flex-direction: column; justify-content: center">
                 <img class="ml-auto mr-auto" src="/images/custom/waitingicon.png" width="200px"/>
-            </div>
-            <div class="text-center w-100">
-                <h4>{{ __('Waiting for the client to complete the form') }}</h4>
+                <h4 class="text-center">{{ __('Waiting for the client to complete the form') }}</h4>
             </div>
         @elseif($model->getAttribute('profile_status')->getValue() == 4)
             <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
@@ -32,8 +29,8 @@
                     </a>
                 </li>
             </ul>
-            <div class="tab-content overflow-auto" style="height: 90%!important;">
-                <div class="tab-pane show active"  id="preselection">
+            <div class="tab-content overflow-auto " style="height: 90%!important;">
+                <div class="tab-pane show active h-100 overflow-auto"  id="preselection">
                     @include('profiles.forms._preselection-form',
                                 [
                                     'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),
@@ -67,14 +64,14 @@
                 </li>
             </ul>
             <div class="tab-content overflow-auto" style="height: 90%!important;">
-                <div class="tab-pane show active" id="selection">
+                <div class="tab-pane show active h-100 overflow-auto" id="selection">
                     @include('profiles.forms._selection-form', [
                         'attributes' => $model->getActiveProgram()->getSelection()->getAttributes(),
                         'id' => $model->getActiveProgram()->getSelection()->getId(),
                         'status' => $model->getAttribute('profile_status')->getValue()
                     ])
                 </div>
-                <div class="tab-pane"  id="preselection">
+                <div class="tab-pane h-100 overflow-auto"  id="preselection">
                     @include('profiles.forms._preselection-form',
                                 [
                                     'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),
@@ -114,21 +111,21 @@
                 </li>
             </ul>
             <div class="tab-content overflow-auto" style="height: 90%!important;">
-                <div class="tab-pane show active" id="contract">
+                <div class="tab-pane h-100 overflow-auto show active" id="contract">
                     @include('profiles.forms._contract-form', [
                         'attributes' => $model->getActiveProgram()->getContract()->getAttributes(),
                         'id' => $model->getActiveProgram()->getContract()->getId(),
                         'status' => $model->getAttribute('profile_status')->getValue()
                     ])
                 </div>
-                <div class="tab-pane" id="selection">
+                <div class="tab-pane h-100 overflow-auto" id="selection">
                     @include('profiles.forms._selection-form', [
                         'attributes' => $model->getActiveProgram()->getSelection()->getAttributes(),
                         'id' => $model->getActiveProgram()->getSelection()->getId(),
                         'status' => $model->getAttribute('profile_status')->getValue()
                     ])
                 </div>
-                <div class="tab-pane"  id="preselection">
+                <div class="tab-pane h-100 overflow-auto"  id="preselection">
                     @include('profiles.forms._preselection-form',
                                 [
                                     'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),

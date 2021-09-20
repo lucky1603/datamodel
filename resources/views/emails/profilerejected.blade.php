@@ -7,7 +7,7 @@
         $preselection = $program->getPreselection();
         $selection = $program->getSelection();
     @endphp
-    <div class="container" style="font-family: 'Roboto Light'">
+    <div class="container" style="font-family: 'Roboto'; font-size: 12px; font-weight: normal">
         <p>Poštovani(a) {{ $recipient }},</p>
         <p></p>
         @if($selection == null)
