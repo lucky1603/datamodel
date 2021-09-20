@@ -42,7 +42,7 @@
     </li>
     @else
         <li class="side-nav-item">
-            <a href="{{route('profiles.show', ['profile' => $model->getId()])}}" class="side-nav-link">
+            <a href="{{route('profiles.profile', ['profile' => $model->getId()])}}" class="side-nav-link">
                 <i class="uil-dashboard"></i>
                 <span>{{ mb_strtoupper( __('Profile')) }}</span>
             </a>

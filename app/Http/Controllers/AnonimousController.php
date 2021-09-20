@@ -36,11 +36,6 @@ class AnonimousController extends Controller
     public function store(Request $request) {
         $data = $request->post();
 
-        // Hash code the password.
-        if(isset($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
-        }
-
         // Set as 'interested'.
         $data['profile_status'] = 2;
 
@@ -51,7 +46,7 @@ class AnonimousController extends Controller
             $user = User::create([
                 'name' => $data['contact_person'],
                 'email' => $data['contact_email'],
-                'password' => $data['password'],
+                'password' => Hash::make(Str::random(10)),
                 'position' => "Zastupnik"
             ]);
             $user->setRememberToken(Str::random(60));
