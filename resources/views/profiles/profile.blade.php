@@ -1,8 +1,8 @@
 @extends('layouts.hyper-vertical-profile-shortdata')
 
 @section('profile-content')
-    <div class="card" style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px">
-        <div class="card-body">
+    <div class="card h-100 overflow-auto p-0" style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px">
+        <div class="card-body p-0">
             @php
                 $status = $model->getAttribute('profile_status')->getValue();
                 $program = $model->getActiveProgram();
@@ -142,6 +142,15 @@
                         <div class="text-center">
                             <button>Ok</button>
                         </div>
+                    </div>
+                </div>
+            @else
+                <div class="card" style="height: 95%">
+                    <div class="card-header bg-dark text-light">
+                        {{ mb_strtoupper( __("Application Form"))}}
+                    </div>
+                    <div class="card-body overflow-auto p-0" style="height: 80%">
+                        @include('profiles.partials._show_profile_data')
                     </div>
                 </div>
             @endif

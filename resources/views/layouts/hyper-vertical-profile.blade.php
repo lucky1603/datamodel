@@ -47,6 +47,27 @@
                 <span>{{ mb_strtoupper( __('Profile')) }}</span>
             </a>
         </li>
+        @if($model->getValue('profile_status') == 7
+            || ($model->getValue('profile_status') > 4 && $model->getActiveProgram()->getValue('program_type') == \App\Business\Program::$RAISING_STARTS))
+            <li class="side-nav-item">
+                <a href="#" class="side-nav-link">
+                    <i class="uil-dashboard"></i>
+                    <span>{{ mb_strtoupper( __('Mentoring Sessions')) }}</span>
+                </a>
+                <a href="#" class="side-nav-link">
+                    <i class="uil-dashboard"></i>
+                    <span>{{ mb_strtoupper( __('Events')) }}</span>
+                </a>
+                <a href="#" class="side-nav-link">
+                    <i class="uil-dashboard"></i>
+                    <span>{{ mb_strtoupper( __('Reports')) }}</span>
+                </a>
+                <a href="#" class="side-nav-link">
+                    <i class="uil-dashboard"></i>
+                    <span>{{ mb_strtoupper( __('Other Profiles')) }}</span>
+                </a>
+            </li>
+        @endif
 
     @endif
 @endsection
