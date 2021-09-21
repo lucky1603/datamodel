@@ -5,8 +5,8 @@
                 <span  class="mb-0 mt-0 attribute-label">
                     {{ title.toUpperCase() }}<span v-if="program != null"> - </span><span v-if="program != null" class="font-weight-bold">{{ program.profile}}</span>
                 </span>
-                <b-button variant="success" class="float-right" title="Dodaj novu sesiju" @click="addSession"><i class="mdi mdi-google-circles-group"></i></b-button>
-                <b-button variant="warning" class="float-right mr-1" title="Pregledaj podatke sesije" @click="viewSession"><i class="mdi mdi-view-agenda"></i></b-button>
+                <b-button variant="primary" class="float-right" title="Dodaj novu sesiju" @click="addSession"><i class="mdi mdi-google-circles-group"></i></b-button>
+                <b-button variant="primary-outline" class="float-right mr-1" title="Pregledaj podatke sesije" @click="viewSession"><i class="mdi mdi-view-agenda"></i></b-button>
             </div>
             <div class="card-body">
                 <span v-if="program == null">No active programs</span>

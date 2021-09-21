@@ -7,6 +7,7 @@ namespace App\Business;
 use App\Attribute;
 use App\Entity;
 use App\Instance;
+use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -259,6 +260,25 @@ class BusinessModel
     }
 
     /**
+     * Checks if the business model contains
+     * the attribute with the given name.
+     * @param $attributeName
+     * @return bool
+     */
+    public static function hasAttribute($attributeName): bool
+    {
+        $object = static::find()->first();
+        if($object == null)
+            return false;
+
+        $attribute = Attribute::where('name', $attributeName)->first();
+        if($attribute == null)
+            return false;
+
+        return $object->getAttributes()->contains($attribute);
+    }
+
+    /**
      * Gets the attibute from the collection of attributes or create the new one.
      * @param array $array
      * @return mixed
@@ -280,6 +300,63 @@ class BusinessModel
         }
 
         return $attribute;
+    }
+
+    /**
+     * Remove the attribute from entity and all its instances.
+     * @param Attribute $attribute
+     * @throws Exception
+     */
+    public static function removeOverallAttribute(Attribute $attribute) {
+
+        // Remove attributes from all instances of the object.
+        static::find()->each(function($object) use ($attribute) {
+
+            // Check for entity and delete attribute if contained.
+            $entity = $object->instance->entity;
+            if($entity->attributes->contains($attribute)) {
+                $entity->attributes()->detach($attribute);
+            }
+
+            $object->removeAttribute($attribute);
+        });
+
+        // Delete attribute.
+        $attribute->delete();
+    }
+
+    /**
+     * Get the largest sorting order of the object attributes.
+     */
+    public static function getLastAttributeSortOrder() {
+        $attributes = static::getAttributesDefinition();
+        if(is_array($attributes))
+            $attributes = collect($attributes);
+
+        return $attributes->map(function($attribute) {
+            return $attribute->sort_order;
+        })->max();
+    }
+
+    /**
+     * Adds new attribute to entity and all of its instances
+     * and sets the default value if any.
+     * @param Attribute $attribute
+     * @param null $value
+     */
+    public static function addOverallAttribute(Attribute $attribute, $value=null) {
+        static::find()->each(function($object) use($attribute, $value) {
+            $object->addAttribute($attribute);
+            $entity = $object->instance->entity;
+            if(!$entity->attributes->contains($attribute)) {
+                $entity->attributes()->sync($attribute, false);
+            }
+
+            if($value != null) {
+                $objAttribute = $object->getAttribute($attribute->name);
+                $objAttribute->setValue($value);
+            }
+        });
     }
 
     /**

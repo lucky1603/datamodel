@@ -3,8 +3,8 @@
         <div class="card h-100 w-100">
             <div class="card-header text-dark">
                 <span class="mb-0 mt-0 h5 attribute-label">{{ title }}</span>
-                <b-button class="float-right" variant="success" :title="addprogramtitle" @click="showModal"><i class="uil-document"></i></b-button>
-                <b-button class="float-right mr-1" variant="danger" :title="deleteprogramtitle"><i class="mdi mdi-delete"></i></b-button>
+                <b-button class="float-right" variant="primary" :title="addprogramtitle" @click="showModal"><i class="uil-document"></i></b-button>
+                <b-button class="float-right mr-1" variant="primary-outline" :title="deleteprogramtitle"><i class="mdi mdi-delete"></i></b-button>
             </div>
             <div class="card-body font-12">
                 <p v-if="this.programs.length == 0">There are currently no programs attached</p>

@@ -50859,7 +50859,7 @@ var render = function() {
               "b-button",
               {
                 staticClass: "float-right",
-                attrs: { variant: "success", title: _vm.addprogramtitle },
+                attrs: { variant: "primary", title: _vm.addprogramtitle },
                 on: { click: _vm.showModal }
               },
               [_c("i", { staticClass: "uil-document" })]
@@ -50869,7 +50869,10 @@ var render = function() {
               "b-button",
               {
                 staticClass: "float-right mr-1",
-                attrs: { variant: "danger", title: _vm.deleteprogramtitle }
+                attrs: {
+                  variant: "primary-outline",
+                  title: _vm.deleteprogramtitle
+                }
               },
               [_c("i", { staticClass: "mdi mdi-delete" })]
             )
@@ -51197,7 +51200,7 @@ var render = function() {
               "b-button",
               {
                 staticClass: "float-right",
-                attrs: { variant: "success", title: "Dodaj novu sesiju" },
+                attrs: { variant: "primary", title: "Dodaj novu sesiju" },
                 on: { click: _vm.addSession }
               },
               [_c("i", { staticClass: "mdi mdi-google-circles-group" })]
@@ -51208,7 +51211,7 @@ var render = function() {
               {
                 staticClass: "float-right mr-1",
                 attrs: {
-                  variant: "warning",
+                  variant: "primary-outline",
                   title: "Pregledaj podatke sesije"
                 },
                 on: { click: _vm.viewSession }
