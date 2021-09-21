@@ -1,12 +1,12 @@
 <div class="container h-100">
-    <form id="myForm" method="POST" enctype='multipart/form-data' action="" class="p-2 h-100" >
+    <form id="myForm" method="POST" enctype='multipart/form-data' action="" class="pl-2 pr-2 h-100" >
         <div class="row" style="height: 10%">
-            <div class="col-12">
+            <div class="col-12 h-100">
                 <h3 class="text-center">{{ __('Preselection') }}</h3>
             </div>
         </div>
         <div class="row overflow-auto" style="height: 75%">
-            <div class="col-12">
+            <div class="col-12 pt-3">
                 @csrf
                 <input type="hidden" id="id" name="id" value="{{ $id }}">
                 <div class="form-group">

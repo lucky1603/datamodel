@@ -1,12 +1,12 @@
 <div class="container h-100">
-    <form id="myFormContract" method="POST" enctype='multipart/form-data' action="" class="p-3 h-100">
+    <form id="myFormContract" method="POST" enctype='multipart/form-data' action="" class="h-100 pl-3 pr-3">
         <div class="row" style="height: 10%">
-            <div class="col-12">
+            <div class="col-12 h-100 ">
                 <h3 class="text-center">{{ __('Contract') }}</h3>
             </div>
         </div>
         <div class="row overflow-auto" style="height: 75%;">
-            <div class="col-12">
+            <div class="col-12 pt-3">
                 @csrf
                 <input type="hidden" id="contractId" name="id" value="{{ $id }}">
 
@@ -58,16 +58,6 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
-
-                <!-- Predmet ugovora -->
-                <div class="form-group">
-                    @php
-                        $attribute = $attributes->where('name', 'contract_subject')->first();
-                        $value = $attribute->getValue() ?? null;
-                    @endphp
-                    <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
-                    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $value }}</textarea>
                 </div>
 
                 <div class="form-group row">
