@@ -100,7 +100,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="training_name">{{ __('Event Host') }}*</label>
+                            <label for="training_host">{{ __('Event Host') }}*</label>
                             <input type="text" id="training_host" name="training_host" class="form-control">
                         </div>
 

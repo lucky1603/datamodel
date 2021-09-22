@@ -2133,6 +2133,75 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "EventGenerator",
   props: {
@@ -2165,6 +2234,22 @@ __webpack_require__.r(__webpack_exports__);
       this.event = id;
       this.$refs['eventType'].value = this.event.toString();
       Event.$emit('tile-selected', this.event);
+    },
+    initTextArea: function initTextArea() {
+      $('#sinisa').summernote({
+        height: 150,
+        callbacks: {
+          onUpdate: function onUpdate() {
+            alert('updated!');
+          }
+        }
+      });
+    },
+    buttonClicked: function buttonClicked() {
+      var files = $('input[type="file"].custom-file-input')[0].files;
+      files.forEach(function (file) {
+        console.log(file);
+      });
     }
   },
   data: function data() {
@@ -2172,11 +2257,13 @@ __webpack_require__.r(__webpack_exports__);
       event: {
         "typeof": Number,
         "default": 1
-      }
+      },
+      file1: []
     };
   },
   mounted: function mounted() {
     this.selectEventType(1);
+    this.initTextArea();
   }
 });
 
@@ -50812,7 +50899,7 @@ var render = function() {
   return _c("div", { staticClass: "card h-100 w-100" }, [
     _c("div", { staticClass: "card-header" }, [
       _c("span", { staticClass: "h4" }, [
-        _vm._v("KREIRAJ DOGADJAJ - "),
+        _vm._v("KREIRAJ DOGAĐAJ - "),
         _c("span", { staticClass: "attribute-label" }, [
           _vm._v(_vm._s(_vm.getEventType))
         ])
@@ -50900,8 +50987,53 @@ var render = function() {
                 )
               ])
             ])
-          ])
-        ]
+          ]),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _vm._m(3),
+          _vm._v(" "),
+          _vm._m(4),
+          _vm._v(" "),
+          _vm._m(5),
+          _vm._v(" "),
+          _vm._m(6),
+          _vm._v(" "),
+          _vm._m(7),
+          _vm._v(" "),
+          _c("b-form-file", {
+            attrs: {
+              state: Boolean(_vm.file1),
+              placeholder: "Izaberite datoteke ili ih prevucite ovde...",
+              "drop-placeholder": "Prevucite datoteke ovde...",
+              multiple: ""
+            },
+            model: {
+              value: _vm.file1,
+              callback: function($$v) {
+                _vm.file1 = $$v
+              },
+              expression: "file1"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "text-center" },
+            [
+              _c(
+                "b-button",
+                {
+                  attrs: { variant: "primary", size: "sm" },
+                  on: { click: _vm.buttonClicked }
+                },
+                [_vm._v("Ok")]
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ])
   ])
@@ -50970,6 +51102,200 @@ var staticRenderFns = [
         )
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group mt-3" }, [
+      _c(
+        "label",
+        { staticClass: "attribute-label", attrs: { for: "training_name" } },
+        [_vm._v("Naziv događaja")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control form-control-sm",
+        attrs: { type: "text", id: "training_name", name: "training_name" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-4 form-group" }, [
+        _c(
+          "label",
+          {
+            staticClass: "attribute-label",
+            attrs: { for: "training_start_date" }
+          },
+          [_vm._v("Datum početka*")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control form-control-sm",
+          attrs: {
+            type: "date",
+            id: "training_start_date",
+            name: "training_start_date"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-4 form-group" }, [
+        _c(
+          "label",
+          {
+            staticClass: "attribute-label",
+            attrs: { for: "training_start_time" }
+          },
+          [_vm._v("Počinje u*")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control form-control-sm",
+          attrs: {
+            type: "time",
+            id: "training_start_time",
+            name: "training_start_time"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-4 form-group" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", [_vm._v("Trajanje*")]),
+          _vm._v(" "),
+          _c("div", { staticStyle: { display: "flex", width: "100%" } }, [
+            _c("input", {
+              staticClass: "form-control form-control-sm",
+              staticStyle: { "flex-grow": "1", width: "50%" },
+              attrs: {
+                type: "text",
+                id: "training_duration",
+                name: "training_duration"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                staticClass: "ml-1 form-control form-control-sm",
+                staticStyle: { "flex-grow": "1", width: "50%" },
+                attrs: {
+                  id: "training_duration_unit",
+                  name: "training_duration_unit"
+                }
+              },
+              [
+                _c("option", { attrs: { value: "1" } }, [_vm._v("min")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "2" } }, [_vm._v("h")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "3" } }, [_vm._v("d")])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        { staticClass: "attribute-label", attrs: { for: "location" } },
+        [_vm._v("Lokacija*")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "input-group" }, [
+        _c("div", { staticClass: "input-group-prepend" }, [
+          _c("span", { staticClass: "input-group-text form-control-sm" }, [
+            _c("i", { staticClass: "dripicons-location" })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control form-control-sm",
+          attrs: {
+            type: "text",
+            id: "location",
+            name: "location",
+            placeholder: "Soba, zgrada, adresa itd."
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        { staticClass: "attribute-label", attrs: { for: "training_host" } },
+        [_vm._v("Domaćin događaja*")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "text", id: "training_host", name: "training_host" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        { staticClass: "attribute-label", attrs: { for: "training_name" } },
+        [_vm._v("Kratka beleška")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          id: "training_short_note",
+          name: "training_short_note",
+          placeholder: "Kratka beleška o treningu ..."
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        {
+          staticClass: "attribute-label",
+          attrs: { for: "training_description" }
+        },
+        [_vm._v("\n                    Agenda\n                ")]
+      ),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "sinisa" } }),
+      _vm._v(" "),
+      _c("textarea", {
+        attrs: {
+          id: "training_description",
+          name: "training_description",
+          hidden: ""
+        }
+      })
+    ])
   }
 ]
 render._withStripped = true
