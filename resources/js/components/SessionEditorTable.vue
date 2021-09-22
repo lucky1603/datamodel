@@ -1,6 +1,6 @@
 <template>
     <div class="h-100 w-100">
-        <div class="card h-100 w-100 shadow" role="button">
+        <div class="card w-100 h-100 shadow" role="button">
             <div class="card-header">
                 <span class="h4 attribute-label">SESIJE</span>
                 <b-button class="float-right" variant="primary" @click="newSession"><i class="dripicons-user-group"></i></b-button>
@@ -18,7 +18,7 @@
                     :id="session.id"
                     :key="session.id"
                     class="mr-2"
-                    @tile-selected="tileSelected"></tile-item>
+                    @tile-clicked="tileClicked"></tile-item>
 
             </div>
         </div>
@@ -101,7 +101,7 @@ export default {
             this.mentorId = mentorid;
             this.getSessions();
         },
-        tileSelected(id) {
+        tileClicked(id) {
             console.log(`Tile ${id} selected`);
             this.sessionId = id;
             this.viewSession();

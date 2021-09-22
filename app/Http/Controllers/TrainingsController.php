@@ -55,7 +55,8 @@ class TrainingsController extends Controller
      * @return Application|Factory|View
      */
     public function create() {
-        return view('trainings.create');
+        $token = csrf_token();
+        return view('trainings.create1', ['token' => $token]);
     }
 
     /**
