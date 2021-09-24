@@ -31,8 +31,9 @@
     @foreach($trainings as $training)
         @if($loop->iteration % 4 == 1)
             <div class="row" style="height: 45%">
-                @endif
-                <div class="col-md-3 h-100">
+        @endif
+
+        <div class="col-md-3 h-100">
                     <div class="card shadow-sm border-left border-success h-100" style="border-width: 5px!important;">
                         <div class="card-body">
                             <div class="row">
@@ -86,7 +87,7 @@
                     </div>
                 </div>
 
-                @if($loop->iteration % 4 == 0 || $loop->iteration == $trainings->count())
+        @if($loop->iteration % 4 == 0 || $loop->iteration == $trainings->count())
             </div>
         @endif
     @endforeach
