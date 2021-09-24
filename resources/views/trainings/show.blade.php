@@ -18,19 +18,19 @@
             </h4>
 
 
-            @if(Auth::user()->isAdmin())
-                <a href="{{ route('trainings') }}" class="btn btn-sm btn-dark" style="display: table-column; float: right">< {{ __('Go Back') }}</a>
-                <a href="#" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Edit') }}</a>
-            @else
-                <a href="{{ route('trainings.forme') }}" class="btn btn-sm btn-dark" style="display: table-column; float: right">< {{ __('Go Back') }}</a>
-                <form action="{{ route('trainings.signup') }}" method="post" enctype="multipart/form-data" id="myForm">
-                    @csrf
-                    <input type="hidden" id="client_id" name="client_id" value="{{ $client->getId() }}">
-                    <input type="hidden" id="training_id" name="training_id" value="{{ $training->getId() }}">
-                    <button type="submit" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Apply for') }}</button>
-                </form>
+{{--            @if(Auth::user()->isAdmin())--}}
+{{--                <a href="{{ route('trainings') }}" class="btn btn-sm btn-dark" style="display: table-column; float: right">< {{ __('Go Back') }}</a>--}}
+{{--                <a href="#" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Edit') }}</a>--}}
+{{--            @else--}}
+{{--                <a href="{{ route('trainings.forme') }}" class="btn btn-sm btn-dark" style="display: table-column; float: right">< {{ __('Go Back') }}</a>--}}
+{{--                <form action="{{ route('trainings.signup') }}" method="post" enctype="multipart/form-data" id="myForm">--}}
+{{--                    @csrf--}}
+{{--                    <input type="hidden" id="client_id" name="client_id" value="{{ $client->getId() }}">--}}
+{{--                    <input type="hidden" id="training_id" name="training_id" value="{{ $training->getId() }}">--}}
+{{--                    <button type="submit" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Apply for') }}</button>--}}
+{{--                </form>--}}
 
-            @endif
+{{--            @endif--}}
         </div>
     </div>
     <div style="background-color: white; position: absolute; left: 270px; right: 10px; top: 150px; bottom: 70px; overflow-y: auto" class="shadow-sm">
@@ -81,7 +81,7 @@
 
 @section('sidemenu')
     <li class="side-nav-item">
-        <a href="@if(Auth::user()->isAdmin())  {{ route('trainings') }} @else {{ route('trainings.forme') }} @endif" class="side-nav-link">
+        <a href="{{ Illuminate\Support\Facades\URL::previous() }}" class="side-nav-link">
             <i class="uil-laptop-cloud"></i>
             <span>{{ strtoupper(__('Back to Sessions')) }}</span>
         </a>

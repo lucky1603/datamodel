@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
 class TrainingsController extends Controller
@@ -142,11 +143,13 @@ class TrainingsController extends Controller
     public function show($id) {
         $training = Training::find($id);
         $user = Auth::user();
+        $backroute = Route::currentRouteName();
         if($user->isAdmin()) {
-            return view('trainings.show', ['training' => $training]);
+            return view('trainings.show', ['training' => $training, 'backroute' => $backroute]);
         } else {
-            $client = $user->client();
-            return view('trainings.show', ['training' => $training, 'client' => $client]);
+
+            $profile = $user->profile();
+            return view('trainings.show', ['training' => $training, 'profile' => $profile, 'backroute' => $backroute]);
         }
 
     }

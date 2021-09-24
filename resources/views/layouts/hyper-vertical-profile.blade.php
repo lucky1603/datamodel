@@ -59,7 +59,7 @@
                 </a>
             </li>
             <li class="side-nav-item" id="navEvents">
-                <a href="#" class="side-nav-link">
+                <a href="{{route('profiles.trainings', ['profile' => $model->getId()])}}" class="side-nav-link">
                     <i class="uil-dashboard"></i>
                     <span>{{ mb_strtoupper( __('Events')) }}</span>
                 </a>
