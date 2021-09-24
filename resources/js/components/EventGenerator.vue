@@ -5,13 +5,13 @@
         </div>
         <div class="card-body">
             <form
-                id="createEventForm"
-                ref="createEventForm"
+                :id="formid"
+                :ref="formid"
                 method="POST"
                 enctype="multipart/form-data"
-                action="#">
+                action="#" @submit="submitForm">
                 <input type="hidden" name="_token" :value="token">
-                <input type="hidden" name="eventType" ref="eventType" :value="event">
+                <input type="hidden" name="training_type" ref="eventType" :value="event">
                 <div class="row" style="height: 160px">
                     <div class="offset-2 col-8 h-100">
                         <div class="card h-100 shadow">
@@ -104,22 +104,35 @@
                     <label for="training_description" class="attribute-label">
                         Agenda
                     </label>
-                    <div id="sinisa"></div>
-                    <textarea id="training_description" name="training_description" hidden></textarea>
+                    <div ref="sinisa" id="sinisa"></div>
+                    <textarea ref="trainingDescription" id="training_description" name="training_description" hidden></textarea>
                 </div>
 
-                <b-form-file
-                    v-model="file1"
-                    :state="Boolean(file1)"
-                    placeholder="Izaberite datoteke ili ih prevucite ovde..."
-                    drop-placeholder="Prevucite datoteke ovde..." multiple
-                ></b-form-file>
+                <div class="form-group">
+                    <label class="attribute-label">Priložite datoteke</label>
+                    <b-form-file
+                        v-model="file1"
+                        :state="Boolean(file1)"
+                        placeholder="Izaberite datoteke ili ih prevucite ovde..."
+                        drop-placeholder="Prevucite datoteke ovde..." multiple
+                    ></b-form-file>
+                </div>
+
+
+                <div class="text-center mt-4">
+                    <h4>DODAJTE UČESNIKE</h4>
+                </div>
+
+                <div class="row form-group">
+                    <label class="attribute-label">SPISAK KOMPANIJA</label>
+                    <b-form-select v-model="selected" :options="candidates" multiple :select-size="4"></b-form-select>
+                </div>
 
                 <div class="text-center">
-                    <b-button variant="primary" size="sm" @click="buttonClicked">Ok</b-button>
+                    <b-button type="submit" class="mt-3" variant="primary" size="sm">Ok</b-button>
                 </div>
-
             </form>
+
         </div>
     </div>
 </template>
@@ -129,6 +142,7 @@ export default {
     name: "EventGenerator",
     props: {
         token: { typeof: String, default: ''},
+        formid: { typeof: String, default: 'createEventForm'}
     },
     computed: {
         getEventType() {
@@ -164,23 +178,66 @@ export default {
                 }
             });
         },
-        buttonClicked() {
+        submitForm(event) {
+            console.log('form submitted');
+            event.preventDefault();
+
+            let description = $('#sinisa').summernote('code');
+            $('#training_description').text(description);
+
+            const form = document.getElementById(this.formid);
+            const data = new FormData(form);
+
+            // Add selected files.
             let files = $('input[type="file"].custom-file-input')[0].files;
             files.forEach(file => {
                 console.log(file);
+                data.append('attachment[]', file);
             });
 
+            // Add selected companies.
+            if(this.selected != null && this.selected.length > 0) {
+                this.selected.forEach(id => {
+                    data.append('candidate[]', id);
+                });
+            }
+
+            axios.post(`/trainings/create`, data)
+            .then(response => {
+                console.log(response.data);
+                document.location.href = `/trainings`;
+            });
+
+        },
+        getCandidates() {
+            axios.get(`/profiles/trainingCandidates`)
+            .then(response => {
+                console.log(response.data);
+                this.candidates.length = 0;
+                let programs = response.data;
+                let candidates = [];
+                programs.forEach(program => {
+                    candidates.push({value: program.id, text: program.profile });
+                });
+
+                this.candidates = candidates;
+                console.log(this.candidates);
+            });
         }
     },
     data() {
         return {
             event: { typeof: Number, default: 1},
-            file1: []
+            file1: [],
+            candidates : [],
+            selected : [],
+            description : null
         }
     },
     mounted() {
         this.selectEventType(1);
         this.initTextArea();
+        this.getCandidates();
     },
 }
 </script>

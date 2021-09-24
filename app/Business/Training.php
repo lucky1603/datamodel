@@ -23,13 +23,13 @@ class Training extends BusinessModel
     public static function getAttributesDefinition() : Collection {
         $attributes = collect([]);
 
-        $attributes->add(self::selectOrCreateAttribute(['training_name', 'Naziv obuke', 'varchar', NULL, 1]));
-        $attributes->add(self::selectOrCreateAttribute(['training_description', 'Opis obuke', 'text', NULL, 2]));
+        $attributes->add(self::selectOrCreateAttribute(['training_name', 'Naziv događaja', 'varchar', NULL, 1]));
+        $attributes->add(self::selectOrCreateAttribute(['training_description', 'Opis događaja', 'text', NULL, 2]));
         $attributes->add(self::selectOrCreateAttribute(['training_start_date', 'Datum početka', 'datetime', NULL, 3]));
         $attributes->add(self::selectOrCreateAttribute(['training_start_time', 'Vreme početka', 'timestamp', NULL, 4]));
-        $attributes->add(self::selectOrCreateAttribute(['training_duration', 'Trajanje treninga', 'integer', NULL, 5]));
+        $attributes->add(self::selectOrCreateAttribute(['training_duration', 'Trajanje događaja', 'integer', NULL, 5]));
 
-        $duration = self::selectOrCreateAttribute(['training_duration_unit', 'Jedinica trajanja treninga', 'select', NULL, 6]);
+        $duration = self::selectOrCreateAttribute(['training_duration_unit', 'Jedinica trajanja događaja', 'select', NULL, 6]);
         if(count($duration->getOptions()) == 0) {
             $duration->addOption(['value' => 1, 'text' => 'min']);
             $duration->addOption(['value' => 2, 'text' => 'h']);
@@ -40,7 +40,7 @@ class Training extends BusinessModel
         $attributes->add(self::selectOrCreateAttribute(['lecturer_name', 'Ime predavača', 'varchar', NULL, 7]));
         $attributes->add(self::selectOrCreateAttribute(['training_short_note', 'Kratka beleška', 'text', NULL, 8]));
 
-        $training_type = self::selectOrCreateAttribute(['training_type', 'Tip obuke', 'select', NULL, 9]);
+        $training_type = self::selectOrCreateAttribute(['training_type', 'Tip događaja', 'select', NULL, 9]);
         if(count($training_type->getOptions()) == 0) {
             $training_type->addOption(['value' => 1, 'text' => __('Workshop')]);
             $training_type->addOption(['value' => 2, 'text' => __('Training')]);
@@ -52,7 +52,7 @@ class Training extends BusinessModel
 
         $attributes->add(self::selectOrCreateAttribute(['location', 'Mesto održavanja', 'varchar', NULL, 10]));
         $attributes->add(self::selectOrCreateAttribute(['training_host', 'Moderator', 'varchar', NULL, 11]));
-        $attributes->add(self::selectOrCreateAttribute(['interests', "Oblasti interesovanja", 'select', null, 200]));
+        $attributes->add(self::selectOrCreateAttribute(['training_finished', 'Događaj završen', 'bool', NULL, 12]));
 
         return $attributes;
 
@@ -91,6 +91,7 @@ class Training extends BusinessModel
     public function setData($data) {
         parent::setData($data);
 
+        // Addd files.
         $counter = 1;
         while(isset($data['file_'.$counter])) {
             $attribute = $this->getAttribute('file_'.$counter);
@@ -129,11 +130,12 @@ class Training extends BusinessModel
         $this->getAttribute('training_start_date')->setValue($data['training_start_date'] ?? null);
         $this->getAttribute('training_start_time')->setValue($data['training_start_time'] ?? null);
         $this->getAttribute('training_duration')->setValue($data['training_duration'] ?? null);
-        $this->getAttribute('duration_unit')->setValue($data['duration_unit'] ?? 1);
+        $this->getAttribute('training_duration_unit')->setValue($data['training_duration_unit'] ?? 1);
         $this->getAttribute('lecturer_name')->setValue($data['lecturer_name'] ?? null);
         $this->getAttribute('training_short_note')->setValue($data['training_short_note'] ?? null);
         $this->getAttribute('training_type')->setValue($data['training_type'] ?? 1);
-        $this->getAttribute('interests')->setValue($data['interests'] ?? 0);
+        $this->setValue('training_host', $data['training_host'] ?? '');
+        $this->setValue('location', $data['location'] ?? '');
 
     }
 

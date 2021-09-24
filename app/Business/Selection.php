@@ -76,7 +76,7 @@ class Selection extends BusinessModel
         if($programInstance == null)
             return null;
 
-        return new Program(['instance_id' => $programInstance->id]);
+        return new Program(0,['instance_id' => $programInstance->id]);
     }
 
 }

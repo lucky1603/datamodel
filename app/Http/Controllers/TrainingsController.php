@@ -4,8 +4,10 @@
 namespace App\Http\Controllers;
 
 
+use App\Business\Attendance;
 use App\Business\Client;
 use App\Business\ClientAtTraining;
+use App\Business\Program;
 use App\Business\Training;
 use App\Business\TrainingForClient;
 use Illuminate\Auth\Access\Response;
@@ -27,11 +29,7 @@ class TrainingsController extends Controller
      * @return Application|Factory|View
      */
     public function index() {
-        $trainings = Training::all()->filter(function($training) {
-            if($training->getValue('training_type') == 1 /* Exclude mentor session */)
-                return false;
-            return true;
-        });
+        $trainings = Training::all();
 
         return view('trainings.index', ['trainings' => $trainings]);
     }
@@ -85,10 +83,27 @@ class TrainingsController extends Controller
 
         $training = new Training();
         $training->setData($data);
-        if(isset($data['client']) && is_array($data['client'])) {
-            foreach($data['client'] as $clientId) {
-                $client = new Client(['instance_id' => $clientId]);
-                $training->addClient($client);
+
+        // Add attendances.
+        $attendanceIds = $data['candidate'];
+
+        $filteredPrograms = Program::find()->filter(function($program) use ($attendanceIds) {
+            if(in_array($program->getId(), $attendanceIds))
+                return true;
+            return false;
+        });
+
+        foreach ($filteredPrograms as $filteredProgram) {
+            if(in_array($filteredProgram->getId(), $attendanceIds)) {
+                $attendance = new Attendance();
+                $attendance->setData([
+                    'attendance' => 1,
+                    'has_client_feedback' => false,
+                    'client_feedback' => null
+                ]);
+
+                $filteredProgram->addAttendance($attendance);
+                $training->addAttendance($attendance);
             }
         }
 
@@ -105,6 +120,12 @@ class TrainingsController extends Controller
     public function delete($id) {
         $training = Training::find($id);
         if($training != null) {
+            $attendances = $training->getAttendances();
+            $attendances->each(function($attendance) use($training) {
+                $training->removeAttendance($attendance);
+                $attendance->delete();
+            });
+
             $training->delete();
         }
 

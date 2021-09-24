@@ -71,6 +71,7 @@ Route::get('/clients/profile/{client}', 'ClientController@profile')->name('clien
 Route::get('profiles', 'ProfileController@index')->name('profiles.index');
 Route::get('profiles/create', 'ProfileController@create')->name('profiles.create');
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
+Route::get('profiles/trainingCandidates', 'ProfileController@getTrainingCandidates')->name('profiles.trainingcandidates');
 Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');
 Route::get('profiles/testMail/{profile}', 'ProfileController@testMail')->name('profiles.testmail');
 Route::get('profiles/reports/{profile}', "ProfileController@reports")->name('profiles.reports');

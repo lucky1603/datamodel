@@ -651,6 +651,36 @@ class ProfileController extends Controller
 
     }
 
+    public function getTrainingCandidates() {
+        $programs = Program::find();
+        $candidates = $programs->filter(function($program) {
+            $profile = $program->getProfile();
+            if(($program->getValue('program_type') == Program::$RAISING_STARTS && $profile->getValue('profile_status') > 4) ||
+                $profile->getValue('profile_status') == 7) {
+                return true;
+            }
+
+            return false;
+        })->map(function($program) {
+            return new class ($program) {
+                public $id;
+                public $programType;
+                public $programName;
+                public $profile;
+
+                public function __construct($program)
+                {
+                    $this->id = $program->getId();
+                    $this->programType = $program->getValue('program_type');
+                    $this->programName = $program->getValue('program_name');
+                    $this->profile = $program->getProfile()->getValue('name');
+                }
+            };
+        });
+
+        return $candidates;
+    }
+
     /**
      * Gets the file from the request and pack it to the recognizable form.
      * @param Request $request
@@ -672,4 +702,5 @@ class ProfileController extends Controller
 
         return null;
     }
+
 }

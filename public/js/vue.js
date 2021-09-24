@@ -2202,12 +2202,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "EventGenerator",
   props: {
     token: {
       "typeof": String,
       "default": ''
+    },
+    formid: {
+      "typeof": String,
+      "default": 'createEventForm'
     }
   },
   computed: {
@@ -2245,10 +2262,47 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    buttonClicked: function buttonClicked() {
+    submitForm: function submitForm(event) {
+      console.log('form submitted');
+      event.preventDefault();
+      var description = $('#sinisa').summernote('code');
+      $('#training_description').text(description);
+      var form = document.getElementById(this.formid);
+      var data = new FormData(form); // Add selected files.
+
       var files = $('input[type="file"].custom-file-input')[0].files;
       files.forEach(function (file) {
         console.log(file);
+        data.append('attachment[]', file);
+      }); // Add selected companies.
+
+      if (this.selected != null && this.selected.length > 0) {
+        this.selected.forEach(function (id) {
+          data.append('candidate[]', id);
+        });
+      }
+
+      axios.post("/trainings/create", data).then(function (response) {
+        console.log(response.data);
+        document.location.href = "/trainings";
+      });
+    },
+    getCandidates: function getCandidates() {
+      var _this = this;
+
+      axios.get("/profiles/trainingCandidates").then(function (response) {
+        console.log(response.data);
+        _this.candidates.length = 0;
+        var programs = response.data;
+        var candidates = [];
+        programs.forEach(function (program) {
+          candidates.push({
+            value: program.id,
+            text: program.profile
+          });
+        });
+        _this.candidates = candidates;
+        console.log(_this.candidates);
       });
     }
   },
@@ -2258,12 +2312,16 @@ __webpack_require__.r(__webpack_exports__);
         "typeof": Number,
         "default": 1
       },
-      file1: []
+      file1: [],
+      candidates: [],
+      selected: [],
+      description: null
     };
   },
   mounted: function mounted() {
     this.selectEventType(1);
     this.initTextArea();
+    this.getCandidates();
   }
 });
 
@@ -50910,13 +50968,14 @@ var render = function() {
       _c(
         "form",
         {
-          ref: "createEventForm",
+          ref: _vm.formid,
           attrs: {
-            id: "createEventForm",
+            id: _vm.formid,
             method: "POST",
             enctype: "multipart/form-data",
             action: "#"
-          }
+          },
+          on: { submit: _vm.submitForm }
         },
         [
           _c("input", {
@@ -50926,7 +50985,7 @@ var render = function() {
           _vm._v(" "),
           _c("input", {
             ref: "eventType",
-            attrs: { type: "hidden", name: "eventType" },
+            attrs: { type: "hidden", name: "training_type" },
             domProps: { value: _vm.event }
           }),
           _vm._v(" "),
@@ -50999,23 +51058,82 @@ var render = function() {
           _vm._v(" "),
           _vm._m(6),
           _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              {
+                staticClass: "attribute-label",
+                attrs: { for: "training_description" }
+              },
+              [_vm._v("\n                    Agenda\n                ")]
+            ),
+            _vm._v(" "),
+            _c("div", { ref: "sinisa", attrs: { id: "sinisa" } }),
+            _vm._v(" "),
+            _c("textarea", {
+              ref: "trainingDescription",
+              attrs: {
+                id: "training_description",
+                name: "training_description",
+                hidden: ""
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
+              _c("label", { staticClass: "attribute-label" }, [
+                _vm._v("Priložite datoteke")
+              ]),
+              _vm._v(" "),
+              _c("b-form-file", {
+                attrs: {
+                  state: Boolean(_vm.file1),
+                  placeholder: "Izaberite datoteke ili ih prevucite ovde...",
+                  "drop-placeholder": "Prevucite datoteke ovde...",
+                  multiple: ""
+                },
+                model: {
+                  value: _vm.file1,
+                  callback: function($$v) {
+                    _vm.file1 = $$v
+                  },
+                  expression: "file1"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
           _vm._m(7),
           _vm._v(" "),
-          _c("b-form-file", {
-            attrs: {
-              state: Boolean(_vm.file1),
-              placeholder: "Izaberite datoteke ili ih prevucite ovde...",
-              "drop-placeholder": "Prevucite datoteke ovde...",
-              multiple: ""
-            },
-            model: {
-              value: _vm.file1,
-              callback: function($$v) {
-                _vm.file1 = $$v
-              },
-              expression: "file1"
-            }
-          }),
+          _c(
+            "div",
+            { staticClass: "row form-group" },
+            [
+              _c("label", { staticClass: "attribute-label" }, [
+                _vm._v("SPISAK KOMPANIJA")
+              ]),
+              _vm._v(" "),
+              _c("b-form-select", {
+                attrs: {
+                  options: _vm.candidates,
+                  multiple: "",
+                  "select-size": 4
+                },
+                model: {
+                  value: _vm.selected,
+                  callback: function($$v) {
+                    _vm.selected = $$v
+                  },
+                  expression: "selected"
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -51024,16 +51142,15 @@ var render = function() {
               _c(
                 "b-button",
                 {
-                  attrs: { variant: "primary", size: "sm" },
-                  on: { click: _vm.buttonClicked }
+                  staticClass: "mt-3",
+                  attrs: { type: "submit", variant: "primary", size: "sm" }
                 },
                 [_vm._v("Ok")]
               )
             ],
             1
           )
-        ],
-        1
+        ]
       )
     ])
   ])
@@ -51276,25 +51393,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "label",
-        {
-          staticClass: "attribute-label",
-          attrs: { for: "training_description" }
-        },
-        [_vm._v("\n                    Agenda\n                ")]
-      ),
-      _vm._v(" "),
-      _c("div", { attrs: { id: "sinisa" } }),
-      _vm._v(" "),
-      _c("textarea", {
-        attrs: {
-          id: "training_description",
-          name: "training_description",
-          hidden: ""
-        }
-      })
+    return _c("div", { staticClass: "text-center mt-4" }, [
+      _c("h4", [_vm._v("DODAJTE UČESNIKE")])
     ])
   }
 ]
