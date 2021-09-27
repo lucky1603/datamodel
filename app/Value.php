@@ -50,14 +50,26 @@ class Value extends Model
         ]);
 
         if($attribute->type === 'file') {
-            $file = $query->get(['value', 'link'])->first();
-            $value = [];
-            $value['filename'] = isset($file->value) ? $file->value : '';
-            $value['filelink'] = isset($file->link) ? $file->link: '';
-            return $value;
+            $files = $query->get(['value', 'link'])->get();
+            if($files->count() == 1) {
+                $file = $files->first();
+                $value = [];
+                $value['filename'] = $file->value ?? '';
+                $value['filelink'] = $file->link ?? '';
+                return $value;
+            } else if($files->count() > 1) {
+                $values = [];
+                foreach($files as $file) {
+                    $value = [];
+                    $value['filename'] = $file->value;
+                    $value['filelink'] = $file->link;
+                    $values[] = $value;
+                }
+                return $values;
+            }
         }
 
-        if($attribute->type === 'select') {
+        if($attribute->type === 'select' || $attribute->type === 'varchar') {
             $value = $query->get('value')->map(function($item) {
                 return $item->value;
             })->toArray();
@@ -108,18 +120,39 @@ class Value extends Model
                 $tablename = 'select_values';
                 break;
             case 'file':
-                $filename = $value['filename'];
-                $filelink = $value['filelink'];
-
-                return DB::table('file_values')->updateOrInsert(
-                    [
+                if(is_array($value)) {
+                    $query = DB::table('file_values')->where([
                         'attribute_id' => $attribute->id,
                         'instance_id' => $instance_id
-                    ],
-                    [
-                        'value' => $filename,
-                        'link' => $filelink,
                     ]);
+
+                    $query->delete();
+
+                    foreach($value as $fileitem) {
+                        DB::table('file_values')->insert([
+                            'attribute_id' => $attribute->id,
+                            'instance_id' => $instance_id,
+                            'value' => $fileitem->value,
+                            'link' => $fileitem->link
+                        ]);
+                    }
+
+                    return count($value);
+                } else {
+                    $filename = $value['filename'];
+                    $filelink = $value['filelink'];
+
+                    return DB::table('file_values')->updateOrInsert(
+                        [
+                            'attribute_id' => $attribute->id,
+                            'instance_id' => $instance_id
+                        ],
+                        [
+                            'value' => $filename,
+                            'link' => $filelink,
+                        ]);
+                }
+
             default:
                 $tablename = 'bool_values';
                 if($value === 'on') $value = true;

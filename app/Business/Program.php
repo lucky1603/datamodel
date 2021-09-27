@@ -526,7 +526,9 @@ class Program extends SituationsModel
                 break;
             case Program::$RAISING_STARTS:
                 // Raising starts
-
+                $attributeData = self::getRaisingStartsAttributesAndGroups();
+                $attributeGroups = $attributeGroups->concat($attributeData['attributeGroups']);
+                $attributes = $attributes->concat($attributeData['attributes']);
                 break;
             case Program::$PREDINKUBACIJA:
                 // Predinkubacija
@@ -541,7 +543,6 @@ class Program extends SituationsModel
                 $attributeData = self::getInkubacijaBitfAttributesAndGroups();
                 $attributeGroups = $attributeGroups->concat($attributeData['attributeGroups']);
                 $attributes = $attributes->concat($attributeData['attributes']);
-
                 break;
             case Program::$RASTUCE_KOMPANIJE:
                 // Rastuce kompanije
@@ -558,6 +559,181 @@ class Program extends SituationsModel
             'attributes' => $attributes
         ]);
     }
+
+    /**
+     * Get attributes for RAISING STARTS
+     * @return Collection
+     */
+    public static function getRaisingStartsAttributesAndGroups(): Collection
+    {
+        $attributes = collect([]);
+        $attributeGroups = collect([]);
+
+        // -------------------------------------- OSNOVNI PODACI ----------------------------------------- //
+        $ag_general = self::getAttributeGroup('rstarts_general',__('General Data'), 1);
+        $attributeGroups->add($ag_general);
+
+        $apptype = self::selectOrCreateAttribute(['app_type', 'Prijavljuje se kao', 'select', NULL, 1]);
+        if(count($apptype->getOptions()) == 0) {
+            $apptype->addOption(['value' => 1, 'text' => 'Startap tim (minimum 2 člana tima)']);
+            $apptype->addOption(['value' => 2, 'text' => 'Registrovano privredno društvo ne starije od 2 godine u većinski srpskom vlasništvu']);
+        }
+
+        $ag_general->addAttribute($apptype);
+
+        // -------------------------------------- PODNOSILAC PRIJAVE --------------------------------------- //
+        $ag_applicant = self::getAttributeGroup('rstarts_applicant', __('Applicant'), 2);
+        $attributeGroups->add($ag_applicant);
+
+        $ag_applicant->add(self::selectOrCreateAttribute(['rstarts_startup_name', __('Startup Name'), 'varchar', NULL, 3]));
+        $ag_applicant->add(self::selectOrCreateAttribute(['rstarts_applicant_name', __('Applicant Name'), 'varchar', NULL, 4]));
+        $ag_applicant->add(self::selectOrCreateAttribute(['rstarts_position', __('Position'), 'varchar', NULL, 5]));
+        $ag_applicant->add(self::selectOrCreateAttribute(['rstarts_address', __('Address'), 'varchar', NULL, 6]));
+        $ag_applicant->add(self::selectOrCreateAttribute(['rstarts_email', __('Email'), 'varchar', ['ui' => 'email'], 7]));
+        $ag_applicant->add(self::selectOrCreateAttribute(['rstarts_telephone', __('Telephone'), 'varchar', NULL, 8]));
+        $ag_applicant->add(self::selectOrCreateAttribute(['rstarts_logo', __('Logo'), 'file', NULL, 9]));
+        $ag_applicant->add(self::selectOrCreateAttribute(['rstarts_webpage', __('Webpage'), 'varchar', NULL, 10]));
+        $ag_applicant->add(self::selectOrCreateAttribute(['rstarts_founding_date', __('Founding Date'), 'datetime', NULL, 11]));
+        $ag_applicant->add(self::selectOrCreateAttribute(['rstarts_id_number', __('ID Number'), 'varchar', NULL, 12]));
+        $ag_applicant->add(self::selectOrCreateAttribute(['rstarts_basic_registered_activity', __('Basic Registered Activity'), 'varchar', NULL, 13]));
+        $ag_applicant->add(self::selectOrCreateAttribute(['rstarts_short_ino_desc', __('Short Innovation Description'), 'text', NULL, 14]));
+        $product_type = self::selectOrCreateAttribute(['rstarts_product_type', __('Product Type'), 'select', NULL, 15]);
+        if(count($product_type->getOptions()) == 0) {
+            $product_type->addOption(['value' => 1, 'text' => __('Software')]);
+            $product_type->addOption(['value' => 2, 'text' => __('Hardware/material product')]);
+            $product_type->addOption(['value' => 3, 'text' => __('Combined')]);
+        }
+        $ag_applicant->add($product_type);
+
+        // ------------------------------------------- TIM ------------------------------------------- //
+        // (TIM) Biće dodano prilikom kreiranja programa
+        // (OSNIVACI - STRUKTURA) Biće dodano prilikom kreiranja programa
+        $ag_tim = self::getAttributeGroup('rstarts_tim', __('Team'), 3);
+        $attributeGroups->add($ag_tim);
+        $ag_tim->add(self::selectOrCreateAttribute(['rstarts_team_history', __('Team history'), 'text', NULL, 16]));
+        $ag_tim->add(self::selectOrCreateAttribute(['rstarts_app_motive', __('Application Motive'), 'text', NULL, 17]));
+
+        // -------------------------------------- POSLOVNA IDEJA ------------------------------------- //
+        $ag_ideja = self::getAttributeGroup('rstarts_ideja', __('Idea'), 4);
+        $attributeGroups->add($ag_ideja);
+        $ag_ideja->add(self::selectOrCreateAttribute(['rstarts_tagline', __('Tagline'), 'text', NULL, 18]));
+        $ag_ideja->add(self::selectOrCreateAttribute(['rstarts_solve_problem', __('Which Problem is Solved'), 'text', NULL, 19]));
+        $ag_ideja->add(self::selectOrCreateAttribute(['rstarts_targetted_market', __('Targetted Market'), 'text', NULL, 20]));
+        $ag_ideja->add(self::selectOrCreateAttribute(['rstarts_problem_solve', __('Whose Problem is Being Solved'), 'text', NULL, 21]));
+        $ag_ideja->add(self::selectOrCreateAttribute(['rstarts_which_product', __('Which Innovative Product is being Developed'), 'text', NULL, 22]));
+        $ag_ideja->add(self::selectOrCreateAttribute(['rstarts_benefits', __('What Benefits'), 'text', NULL, 23]));
+        $howInnovative = self::selectOrCreateAttribute(['rstarts_how_innovative', __('How innovative'), 'select', NULL, 24]);
+        if(count($howInnovative->getOptions()) == 0) {
+            $howInnovative->addOption(['value' => 1, 'text' =>'Već postojeći proizvod/usluga']);
+            $howInnovative->addOption(['value' => 2, 'text' =>'Poznat, ali nedovoljno primenjen proizvod i/ili usluga ']);
+            $howInnovative->addOption(['value' => 3, 'text' => 'Poboljšan postojeći proizvod i/ili usluga']);
+            $howInnovative->addOption(['value' => 4, 'text' => 'Značajno poboljšan postojeći proizvod i/ili usluga']);
+            $howInnovative->addOption(['value' => 5, 'text' => 'Potpuno nov proizvod i/ili usluga']);
+        }
+        $ag_ideja->add($howInnovative);
+
+        $ag_ideja->add(self::selectOrCreateAttribute(['rstarts_clarification_innovative', __('Clarification Innovative'), 'text', NULL, 25]));
+
+        $dev_phase_tech = self::selectOrCreateAttribute(['rstarts_dev_phase_tech', __('Development Phase Tech Development'), 'select', NULL, 26]);
+        if(count($dev_phase_tech->getOptions()) == 0) {
+            $dev_phase_tech->addOption(['value' => 1, 'text' => 'Ideja/prepoznat osnovni koncept']);
+            $dev_phase_tech->addOption(['value' => 2, 'text' => 'Dokaz koncepta']);
+            $dev_phase_tech->addOption(['value' => 3, 'text' => 'Razvijen prvi prototip / razvijena alpha verzija']);
+            $dev_phase_tech->addOption(['value' => 4, 'text' => 'Razvijen drugi prototip / razvijena beta verzija']);
+            $dev_phase_tech->addOption(['value' => 5, 'text' => 'MVP 1.0']);
+            $dev_phase_tech->addOption(['value' => 6, 'text' => 'Stabilna prva verzija proizvoda koja se kontinuirano unapredjuje']);
+        }
+        $ag_ideja->add($dev_phase_tech);
+
+        $dev_phase_business = self::selectOrCreateAttribute(['rstarts_dev_phase_bussines', __('Development Phase Business Development'), 'select', NULL, 27]);
+        if(count($dev_phase_business) == 0) {
+            $dev_phase_business->addOption(['value' => 1, 'text' => 'Hipoteza o mogućim potrebama']);
+            $dev_phase_business->addOption(['value' => 2, 'text' => 'Indetifikovane potrebe na tržistu']);
+            $dev_phase_business->addOption(['value' => 3, 'text' => 'Uspostavljene prve povratne informacije sa tržista']);
+            $dev_phase_business->addOption(['value' => 4, 'text' => 'Potvrdjeni problem / potrebe nekoliko kupaca i / ili korisnika']);
+            $dev_phase_business->addOption(['value' => 5, 'text' => 'Utvrđeno interesovanje za proizvod i uspostavljeni odnosi sa ciljnom grupom']);
+            $dev_phase_business->addOption(['value' => 6, 'text' => 'Prednosti rešenja potvrđene prvim testiranjem kupaca i/ili partnerstvom za pristup tržištu ']);
+            $dev_phase_business->addOption(['value' => 7, 'text' => 'Kupci u dužem/kontinuiranom ispitivanju proizvoda i / ili ostvarene prve probne prodaje u periodu ne dužem od 6 meseci']);
+            $dev_phase_business->addOption(['value' => 8, 'text' => 'U prethodnih 6 meseci generisan prihod veći od 10 hiljada ili 15 hiljada švajcarskih franaka']);
+            $dev_phase_business->addOption(['value' => 9, 'text' => 'Rasprostranjena prodaja proizvoda / širenje tržista']);
+        }
+        $ag_ideja->add($dev_phase_business);
+
+        $ippactivities = self::selectOrCreateAttribute(['rstarts_intellectual_property', __('Intellectual Property Protection Activities'), 'select', NULL, 28]);
+        if(count($ippactivities->getOptions()) == 0) {
+            $ippactivities->addOption(['value' => 1, 'text' => 'Inicijalno istraživanje (konsultacije sa Zavodom za IP)']);
+            $ippactivities->addOption(['value' => 2, 'text' => 'Dobijen Izveštaj o obavljenom istraživanju od strane Zavoda za zaštitu intelektualne svojine']);
+            $ippactivities->addOption(['value' => 3, 'text' => 'Podneta aplikacija za zaštitu nekog prava IP']);
+            $ippactivities->addOption(['value' => 4, 'text' => 'Zaštićen logo, autorsko delo i neko srodno pravo']);
+            $ippactivities->addOption(['value' => 5, 'text' => 'Zaštićen logo, autorsko delo i neko srodno pravo']);
+        }
+        $ag_ideja->add($ippactivities);
+
+        $ag_ideja->add(self::selectOrCreateAttribute(['rstarts_research', __('Research Description'), 'text', NULL, 29]));
+
+        $innovative_area = self::selectOrCreateAttribute(['rstarts_innovative_area', __('Innovative Area'), 'select', NULL, 30]);
+        if(count($innovative_area->getOptions()) == 0) {
+            $innovative_area->addOption(['value' => 'IKT-1', 'text' => 'Masovni podaci (Big data) i poslovna analitika (Business analytics)']);
+            $innovative_area->addOption(['value' => 'IKT-2', 'text' => 'Računarstvo u oblaku (Cloud computing)']);
+            $innovative_area->addOption(['value' => 'IKT-3', 'text' => 'Internet stvari (Internet of Things)']);
+            $innovative_area->addOption(['value' => 'IKT-4', 'text' => 'Razvoj softvera']);
+            $innovative_area->addOption(['value' => 'IKT-5', 'text' => 'Ugrađeni sistemi (Embedded Systems)']);
+            $innovative_area->addOption(['value' => 'FF-1', 'text' => 'Visoko tehnološka poljoprivreda']);
+            $innovative_area->addOption(['value' => 'FF-2', 'text' => 'Hrana sa dodatom vrednošću']);
+            $innovative_area->addOption(['value' => 'FF-3', 'text' => 'Održiva poljoprivreda i proizvodnja hrane']);
+            $innovative_area->addOption(['value' => 'CI-1', 'text' => 'Kreativna Digitalna Audiovizuelna Produkcija ']);
+            $innovative_area->addOption(['value' => 'CI-2', 'text' => 'Industrija video igara 46']);
+            $innovative_area->addOption(['value' => 'CI-3', 'text' => 'Pametna i aktivna ambalaža']);
+            $innovative_area->addOption(['value' => 'MPP-1', 'text' => 'Mašine specifične namene']);
+            $innovative_area->addOption(['value' => 'MPP-2', 'text' => 'Informacije u službi pametnog upravljanja-industrija 4.0']);
+            $innovative_area->addOption(['value' => 'MPP-3', 'text' => 'Premijum alatnice i komponente za atomobilsku, železničku i avionsku industriju']);
+            $innovative_area->addOption(['value' => 'MPP-4', 'text' => 'Uređaji za sagorevanje na eco-friendly i održivim gorivima']);
+            $innovative_area->addOption(['value' => 'MPP-5', 'text' => 'Rešenja za pametna okruženja']);
+        }
+        $ag_ideja->add($innovative_area);
+
+        $ag_ideja->add(self::selectOrCreateAttribute(['rstarts_business_plan', __('Business Plan'), 'text', NULL, 31]));
+
+        // ------------------------------------------------- VAŠA STARTAP PRIČA ------------------------------------------------ //
+        $ag_startup_story = self::getAttributeGroup('startup_story', 'Vaša startup priča', 5);
+        $attributeGroups->add($ag_startup_story);
+
+        $ag_startup_story->add(self::selectOrCreateAttribute(['rstarts_statup_progress', 'Startup napredak', 'text', NULL, 32]));
+        $ag_startup_story->add(self::selectOrCreateAttribute(['rstarts_files', 'Prilozeni fajlovi', 'file', 'multiple', 33]));
+        $ag_startup_story->add(self::selectOrCreateAttribute(['rstarts_links', 'Prilozeni linkovi', 'varchar', 'multiple', 34]));
+        $ag_startup_story->add(self::selectOrCreateAttribute(['rstarts_mentor_program_history', 'Da li ste vec ucestvovali u programu', 'text', NULL, 35]));
+        $ag_startup_story->add(self::selectOrCreateAttribute(['rstarts_financing_sources', 'Da li ste vec dosad prikupili bilo koji izvor finansiranja', 'text', NULL, 36]));
+        $ag_startup_story->add(self::selectOrCreateAttribute(['rstarts_financing_proof_files', 'Dokazni fajlovi', 'file', 'multiple', 37]));
+        $ag_startup_story->add(self::selectOrCreateAttribute(['rstarts_financing_proof_links', 'Dokazni linkovi', 'varchar', 'multiple', 38]));
+        $ag_startup_story->add(self::selectOrCreateAttribute(['rstarts_expectations', 'Šta očekujete od učešća u programu', 'text', NULL, 39]));
+        $ag_startup_story->add(self::selectOrCreateAttribute(['rstarts_howmuchmoney', 'Koliko sredstava potrebno', 'text', NULL, 40]));
+        $ag_startup_story->add(self::selectOrCreateAttribute(['rstarts_linkclip', 'Link video klipa', 'varchar', NULL, 41]));
+
+        $howdiduhear = self::selectOrCreateAttribute(['rstarts_howdiduhear', 'Kako ste culi za nas', 'select', NULL, 42]);
+        if(count($howdiduhear->getOptions()) == 0) {
+            $howdiduhear->addOption(['value' => 1, 'text' => 'Zvanične društvene mreže NTP Beograd i Raising Starts']);
+            $howdiduhear->addOption(['value' => 2, 'text' => 'E-mail/newsletter NTP Beograd']);
+            $howdiduhear->addOption(['value' => 3, 'text' => 'Webstranice NTP Beograd']);
+            $howdiduhear->addOption(['value' => 4, 'text' => 'Mediji (TV, radio)']);
+            $howdiduhear->addOption(['value' => 5, 'text' => 'Dodati opciju - Other']);
+        }
+
+        $ag_startup_story->add($howdiduhear);
+
+        $ag_dodatna_dokumentacija = self::getAttributeGroup('dodatna_dokumentacija', 'Dodatna dokumentacija', 7);
+        $attributeGroups->add($ag_dodatna_dokumentacija);
+
+        $ag_dodatna_dokumentacija->add(self::selectOrCreateAttribute(['rstarts_dodatni_dokumenti', 'Dodatni dokumenti', 'file', 'multiple', 43]));
+
+
+        return collect(
+            [
+                'attributes' => $attributes,
+                'attributeGroups' => $attributeGroups
+            ]);
+    }
+
+
 
     /**
      * Get attributes for INKUBACIJA BITF
@@ -882,6 +1058,7 @@ class Program extends SituationsModel
 
         return $attributes;
     }
+
 
 
 }

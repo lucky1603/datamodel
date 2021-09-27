@@ -5,6 +5,7 @@ namespace App\Business;
 
 
 use App\Attribute;
+use App\AttributeGroup;
 use App\Entity;
 use App\Instance;
 use Exception;
@@ -357,6 +358,19 @@ class BusinessModel
                 $objAttribute->setValue($value);
             }
         });
+    }
+
+    /**
+     * Function that returns or creates (if ther is none) attribute group.
+     * @param $groupName
+     * @param null $groupLabel
+     * @param null $sort_order
+     */
+    public static function getAttributeGroup($groupName, $groupLabel=null, $sort_order=null ) {
+        $group = AttributeGroup::get($groupName);
+        if($group == null) {
+            $group = AttributeGroup::create(['name' => $groupName, 'label' => $groupLabel, 'sort_order' => $sort_order]);
+        }
     }
 
     /**
