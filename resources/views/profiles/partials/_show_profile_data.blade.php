@@ -139,17 +139,20 @@
                         @elseif($attributeGroup->name == 'ibitf_attachments')
                             <table class="table table-sm">
                                 <tbody>
-                                    <tr>
-                                        @php
-                                            $attribute = $attributes->where('name', 'resenje_apr_link')->first();
-                                        @endphp
-                                        <td class="bg-primary text-light">{{ $attribute->label }}</td>
-                                        <td><a href="{{ $attribute->getValue() }}">{{ $attribute->getValue() }}</a></td>
-                                    </tr>
+                                    @php
+                                        $attribute = $attributes->where('name', 'resenje_apr_link')->first();
+                                    @endphp
+                                    @if($attribute != null)
+                                        <tr>
+
+                                            <td class="bg-primary text-light">{{ $attribute->label }}</td>
+                                            <td><a href="{{$attribute->getValue() }}">{{ $attribute->getValue() }}</a></td>
+                                        </tr>
+                                    @endif
                                     @php
                                         $attribute = $attributes->where('name', 'resenje_fajl')->first();
                                     @endphp
-                                    @if(strlen($attribute->getValue()['filename']) > 0)
+                                    @if($attribute != null && $attribute->getValue() != null && strlen($attribute->getValue()['filename']) > 0)
                                     <tr>
                                         <td class="bg-primary text-light">{{ $attribute->label }}</td>
                                         <td>
@@ -157,17 +160,20 @@
                                         </td>
                                     </tr>
                                     @endif
-                                    <tr>
-                                        @php
-                                            $attribute = $attributes->where('name', 'linkedin_founders')->first();
-                                        @endphp
-                                        <td class="bg-primary text-light">{{ $attribute->label }}</td>
-                                        <td><a href="{{ $attribute->getValue() }}">{{ $attribute->getValue() }}</a></td>
-                                    </tr>
+                                    @php
+                                        $attribute = $attributes->where('name', 'linkedin_founders')->first();
+                                    @endphp
+                                    @if($attribute != null)
+                                        <tr>
+
+                                            <td class="bg-primary text-light">{{ $attribute->label }}</td>
+                                            <td><a href="{{ $attribute->getValue() }}">{{ $attribute->getValue() }}</a></td>
+                                        </tr>
+                                    @endif
                                     @php
                                         $attribute = $attributes->where('name', 'founders_cv')->first();
                                     @endphp
-                                    @if(strlen($attribute->getValue()['filename']) > 0)
+                                    @if($attribute != null && $attribute->getValue() != null && strlen($attribute->getValue()['filename']) > 0)
                                         <tr>
                                             <td class="bg-primary text-light">{{ $attribute->label }}</td>
                                             <td>

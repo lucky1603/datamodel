@@ -206,6 +206,7 @@ class ProfileController extends Controller
         }
 
         $attributeData = Program::getAttributesDefinition($programType);
+
         $programName = "Ostalo";
         switch ($programType) {
             case Program::$INKUBACIJA_BITF:
@@ -238,6 +239,8 @@ class ProfileController extends Controller
      */
     public function saveApplicationData(Request $request) {
         $data = $request->post();
+        var_dump($data);
+        die();
 
         $fileData = $this->addFileToData($request, 'resenje_fajl');
         if($fileData != null) {

@@ -371,6 +371,8 @@ class BusinessModel
         if($group == null) {
             $group = AttributeGroup::create(['name' => $groupName, 'label' => $groupLabel, 'sort_order' => $sort_order]);
         }
+
+        return $group;
     }
 
     /**

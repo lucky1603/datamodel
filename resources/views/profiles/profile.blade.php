@@ -62,7 +62,7 @@
                                         <h5 class="card-title">RAISING STARTS</h5>
                                         <p class="card-text">Nešto o programu. Nešto o programu. Nešto o programu. Nešto o programu.
                                             Nešto o programu. Nešto o programu. Nešto o programu.</p>
-                                        <a href="#" class="btn btn-primary">Prijavi se</a>
+                                        <a href="{{ route('profiles.apply', ['program' => \App\Business\Program::$RAISING_STARTS, 'profile' => $model->getId()]) }}" class="btn btn-primary">Prijavi se</a>
                                     </div> <!-- end card-body-->
                                 </div> <!-- end col -->
                             </div> <!-- end row-->

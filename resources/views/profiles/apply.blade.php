@@ -18,14 +18,13 @@
                         @endif
                         @switch($programType)
                             @case(\App\Business\Program::$INKUBACIJA_BITF)
-                            @include('profiles.partials._ibitf')
-                            @break
+                                @include('profiles.partials._ibitf')
+                                @break
                             @case(\App\Business\Program::$RASTUCE_KOMPANIJE)
-
-                            @break
+                                @break
                             @case(\App\Business\Program::$RAISING_STARTS)
-
-                            @break
+                                @include('profiles.partials._rstarts')
+                                @break
                         @endswitch
                     </div>
                 </div>
