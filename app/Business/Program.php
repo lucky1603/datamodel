@@ -300,6 +300,107 @@ class Program extends SituationsModel
     }
 
     /**
+     * Adds the founder to the program.
+     * @param $founder
+     */
+    public function addFounder($founder) {
+        $this->instance->instances()->save($founder->instance);
+        $this->instance->refresh();
+    }
+
+    /**
+     * Removes founder from program and deletes it.
+     * @param $founder
+     */
+    public function removeFounder($founder) {
+        $this->instance->instances()->detach($founder->instance->id);
+        $this->instance->refresh();
+        $founder->delete();
+    }
+
+    /**
+     * Removes all founders from program.
+     */
+    public function removeAllFounders() {
+        $this->instance->instances->filter(function($instance) {
+            if($instance->entity->name == 'Founder')
+                return true;
+            return false;
+        })->each(function($instance) {
+            $instance->delete();
+        });
+
+        $this->instance->refresh();
+    }
+
+
+    /**
+     * Get the list of all founders.
+     * @return mixed
+     */
+    public function getFounders() {
+        return $this->instance->instances->filter(function($instance) {
+            if($instance->entity->name == 'Founder')
+                return true;
+            return false;
+        })->map(function($instance) {
+            return new Founder(['instance_id' => $instance->id]);
+        });
+    }
+
+    // ------------- Team Members ------------------
+
+    /**
+     * Adds the founder to the program.
+     * @param $founder
+     */
+    public function addTeamMember($member) {
+        $this->instance->instances()->save($member->instance);
+        $this->instance->refresh();
+    }
+
+    /**
+     * Removes founder from program and deletes it.
+     * @param $founder
+     */
+    public function removeTeamMember($member) {
+        $this->instance->instances()->detach($member->instance->id);
+        $this->instance->refresh();
+        $member->delete();
+    }
+
+    /**
+     * Removes all founders from program.
+     */
+    public function removeAllMembers() {
+        $this->instance->instances->filter(function($instance) {
+            if($instance->entity->name == 'TeamMember')
+                return true;
+            return false;
+        })->each(function($instance) {
+            $instance->delete();
+        });
+
+        $this->instance->refresh();
+    }
+
+    /**
+     * Return the list of team members.
+     * @return mixed
+     */
+    public function getTeamMembers() {
+        return $this->instance->instances->filter(function($instance) {
+            if($instance->entity->name == 'TeamMembers')
+                return true;
+            return false;
+        })->map(function($instance) {
+            return new TeamMember(['instance_id' => $instance->id]);
+        });
+    }
+
+    // -------------- End of Team Members ----------
+
+    /**
      * Add training to the program.
      * @param $training
      * @return mixed
@@ -608,6 +709,7 @@ class Program extends SituationsModel
         // ------------------------------------------- TIM ------------------------------------------- //
         // (TIM) Biće dodano prilikom kreiranja programa
         // (OSNIVACI - STRUKTURA) Biće dodano prilikom kreiranja programa
+
         $ag_tim = self::getAttributeGroup('rstarts_tim', __('Team'), 3);
         $attributeGroups->add($ag_tim);
         $ag_tim->add(self::selectOrCreateAttribute(['rstarts_team_history', __('Team history'), 'text', NULL, 16]));

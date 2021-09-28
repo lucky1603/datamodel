@@ -50,7 +50,7 @@ class Value extends Model
         ]);
 
         if($attribute->type === 'file') {
-            $files = $query->get(['value', 'link'])->get();
+            $files = $query->get(['value', 'link']);
             if($files->count() == 1) {
                 $file = $files->first();
                 $value = [];
