@@ -47,6 +47,11 @@
 </div>
 
 <div class="form-group">
+    <label class="attribute-label col-form-label col-form-label-sm">CV-jevi osnivaca</label>
+    <input type="file" multiple name="founderCVs[]" class="form-control form-control-sm">
+</div>
+
+<div class="form-group">
     @php
         $attribute = $attributes->where('name', 'rstarts_team_history')->first();
     @endphp
@@ -66,14 +71,12 @@
     <script type="text/javascript">
         $(function() {
             $('#btnAddMember').click(function() {
-                // $('#row1').clone().appendTo('tbody#membersBody');
                 let cloned = $('#membersRow1').clone();
                 cloned.find('textarea').val('');
                 cloned.appendTo('tbody#membersBody');
             });
 
             $('#btnAddFounder').click(function() {
-                // $('#row1').clone().appendTo('tbody#membersBody');
                 let cloned = $('#foundersRow1').clone();
                 cloned.find('input').val('');
                 cloned.appendTo('tbody#foundersBody');

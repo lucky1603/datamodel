@@ -239,18 +239,36 @@ class ProfileController extends Controller
      */
     public function saveApplicationData(Request $request) {
         $data = $request->post();
-        var_dump($data);
-        die();
 
-        $fileData = $this->addFileToData($request, 'resenje_fajl');
-        if($fileData != null) {
-            $data['resenje_fajl'] = $fileData;
+        if($data['programType'] == Program::$INKUBACIJA_BITF) {
+            $fileData = $this->addFileToData($request, 'resenje_fajl');
+            if($fileData != null) {
+                $data['resenje_fajl'] = $fileData;
+            }
+
+            $fileData = $this->addFileToData($request, 'founders_cv');
+            if($fileData != null) {
+                $data['founders_cv'] = $fileData;
+            }
+        } else if($data['programType'] == Program::$RAISING_STARTS) {
+
+            $data['CVFiles'] = $this->getFileNamesFromRequest($request, 'founderCVs');
+            $data['rstarts_files'] = $this->getFileNamesFromRequest($request, 'rstarts_files');
+            $data['rstarts_financing_proof_files'] = $this->getFileNamesFromRequest($request, 'rstarts_financing_proof_files');
+            $data['rstarts_financing_proof_files'] = $this->getFileNamesFromRequest($request, 'rstarts_financing_proof_files');
+            $data['rstarts_dodatni_dokumenti'] = $this->getFileNamesFromRequest($request, 'rstarts_dodatni_dokumenti');
+
+            foreach($data as $key=>$value) {
+                if(is_array($value)) {
+                    $value = implode(',', $value);
+                }
+
+                echo 'data['.$key.'] = '.$value.'<br />';
+            }
+
+            die();
         }
 
-        $fileData = $this->addFileToData($request, 'founders_cv');
-        if($fileData != null) {
-            $data['founders_cv'] = $fileData;
-        }
 
         // Check if the program already exists and is attached to the profile.
         if(isset($data['instance_id'])) {
@@ -704,6 +722,17 @@ class ProfileController extends Controller
         }
 
         return null;
+    }
+
+    private function getFileNamesFromRequest(Request $request, $filename) {
+        if($request->hasFile($filename)) {
+            $files = [];
+            foreach($request->file($filename) as $file) {
+                $files[] = $file->getClientOriginalName();
+            }
+
+            return $files;
+        }
     }
 
 }

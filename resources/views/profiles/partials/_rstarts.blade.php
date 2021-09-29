@@ -15,3 +15,6 @@
 
 @include('profiles.partials._rstarts_general_data')
 @include('profiles.partials._rstarts_team')
+@include('profiles.partials._rstarts_business_model')
+@include('profiles.partials._rstarts_startup_story')
+@include('profiles.partials._rstarts_additional_doc')
