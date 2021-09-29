@@ -13,11 +13,13 @@ class Founder extends BusinessModel
      * @return mixed
      */
     public function getProgram() {
-        return $this->instance->parentInstances->filter(function($instance) {
+        $programInstance = $this->instance->parentInstances->filter(function($instance) {
             if($instance->entity->name == 'Program')
                 return true;
             return false;
         })->first();
+
+        return new Program(0, ['instance_id' => $programInstance->id]);
     }
 
     /**

@@ -132,8 +132,8 @@ class Value extends Model
                         DB::table('file_values')->insert([
                             'attribute_id' => $attribute->id,
                             'instance_id' => $instance_id,
-                            'value' => $fileitem->value,
-                            'link' => $fileitem->link
+                            'value' => $fileitem['filename'],
+                            'link' => $fileitem['filelink']
                         ]);
                     }
 

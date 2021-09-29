@@ -713,6 +713,8 @@ class Program extends SituationsModel
 
         $ag_tim = self::getAttributeGroup('rstarts_tim', __('Team'), 3);
         $attributeGroups->add($ag_tim);
+        $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_founder_cvs', __('Founder CV\'s'), 'file', 'multiple', 16])));
+        $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_founder_links', __('Founder Links'), 'text', NULL, 16])));
         $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_team_history', __('Team history'), 'text', NULL, 16])));
         $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_app_motive', __('Application Motive'), 'text', NULL, 17])));
 

@@ -28,9 +28,8 @@
     <table class="table-bordered w-100">
         <thead class="bg-dark text-light">
         <tr>
-            <th style="width: 33%">Ime i prezime/naziv privrednog drustva</th>
-            <th style="width: 33%">Udeo u startapu kao  registrovanom privrednom društvu</th>
-            <th style="width: 33%">Linkedin profil</th>
+            <th style="width: 50%">Ime i prezime/naziv privrednog drustva</th>
+            <th style="width: 50%">Udeo u startapu kao  registrovanom privrednom društvu</th>
         </tr>
         </thead>
         <tbody id="foundersBody">
@@ -39,7 +38,6 @@
                     <input type="text" name="founderName[]" class="w-100">
                 </td>
                 <td><input type="text" name="founderPart[]" class="w-100"></td>
-                <td><input type="text" name="linkedinProfile[]" class="w-100"></td>
             </tr>
         </tbody>
     </table>
@@ -47,13 +45,35 @@
 </div>
 
 <div class="form-group">
+    @php
+        $attribute = $attributes->where('name', 'rstarts_founder_cvs')->first();
+    @endphp
     <label class="attribute-label col-form-label col-form-label-sm">CV-jevi osnivaca</label>
-    <input type="file" multiple name="founderCVs[]" class="form-control form-control-sm">
+    <input type="file" multiple name="rstarts_founder_cvs[]" class="form-control">
+    @if($attribute != null && $attribute->getValue() != null)
+        @if(!is_array($attribute->getValue()))
+            <a href="{{$attribute->getValue()['filelink']}}" target="_blank">{{ $attribute->getValue()['filename'] }}</a>
+        @else
+            <div style="display: flex">
+                @foreach($attribute->getValue() as $file)
+                    <a class="mr-2" href="{{$file['filelink']}}" target="_blank">{{ $file['filename'] }}</a>
+                @endforeach
+            </div>
+        @endif
+    @endif
 </div>
 
 <div class="form-group">
     @php
-        $attribute = $attributes->where('name', 'rstarts_team_history')->first();
+        $attribute = $attributes->where('name', 'rstarts_founder_links')->first();
+    @endphp
+    <label class="attribute-label" for="{{ $attribute->name }}">Linkovi na profile osnivača</label>
+    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+</div>
+
+<div class="form-group">
+    @php
+        $attribute = $attributes->where('name', 'rstarts_founder_links')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Da li ste do sada, kao tim, saradjivali na zajedničkim projektima/u poslovanju?</label>
     <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
@@ -63,7 +83,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_app_motive')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
+    <label class="attribute-label" for="{{ $attribute->name }}">Šta vas je motivisalo da se prijavite za ovaj Program?</label>
     <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
 </div>
 

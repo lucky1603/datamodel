@@ -7,10 +7,12 @@ use App\AttributeGroup;
 use App\Business\BusinessModel;
 use App\Business\Client;
 use App\Business\Contract;
+use App\Business\Founder;
 use App\Business\Preselection;
 use App\Business\Profile;
 use App\Business\Program;
 use App\Business\Selection;
+use App\Business\TeamMember;
 use App\Business\Training;
 use App\Http\Middleware\Authenticate;
 use App\Mail\MeetingNotification;
@@ -252,21 +254,13 @@ class ProfileController extends Controller
             }
         } else if($data['programType'] == Program::$RAISING_STARTS) {
 
-            $data['CVFiles'] = $this->getFileNamesFromRequest($request, 'founderCVs');
-            $data['rstarts_files'] = $this->getFileNamesFromRequest($request, 'rstarts_files');
-            $data['rstarts_financing_proof_files'] = $this->getFileNamesFromRequest($request, 'rstarts_financing_proof_files');
-            $data['rstarts_financing_proof_files'] = $this->getFileNamesFromRequest($request, 'rstarts_financing_proof_files');
-            $data['rstarts_dodatni_dokumenti'] = $this->getFileNamesFromRequest($request, 'rstarts_dodatni_dokumenti');
+            // get the files
+            $data['rstarts_logo'] = $this->getFilesFromRequest($request, 'rstarts_logo');
+            $data['rstarts_files'] = $this->getFilesFromRequest($request, 'rstarts_files');
+            $data['rstarts_financing_proof_files'] = $this->getFilesFromRequest($request, 'rstarts_financing_proof_files');
+            $data['rstarts_dodatni_dokumenti'] = $this->getFilesFromRequest($request, 'rstarts_dodatni_dokumenti');
+            $data['founderCVs'] = $this->getFilesFromRequest($request, 'founderCVs');
 
-            foreach($data as $key=>$value) {
-                if(is_array($value)) {
-                    $value = implode(',', $value);
-                }
-
-                echo 'data['.$key.'] = '.$value.'<br />';
-            }
-
-            die();
         }
 
 
@@ -277,10 +271,39 @@ class ProfileController extends Controller
             $program->setData($data);
 
         } else {
-
             // Create program.
             $programType = $data['programType'];
             $program = new Program($programType, $data);
+
+            if($programType == Program::$RAISING_STARTS) {
+                // get the team members
+                $memberCount = count($data['memberName']);
+                if( $memberCount > 0 && $data['memberName'][0] != null) {
+                    for($i = 0; $i < $memberCount; $i++) {
+                        $teamMember = new TeamMember([
+                            'team_member_name' => $data['memberName'][$i],
+                            'team_education' => $data['memberEducation'][$i],
+                            'team_role' => $data['memberRole'][$i],
+                            'team_other_job' => $data['memberOtherJob'][$i]
+                        ]);
+
+                        $program->addTeamMember($teamMember);
+                    }
+                }
+
+                // get the founders
+                $founderCount = count($data['founderName']);
+                if( $founderCount > 0 && $data['founderName'][0] != null) {
+                    for($i = 0; $i < $founderCount; $i++) {
+                        $founder = new Founder([
+                            'founder_name' => $data['founderName'][$i],
+                            'founder_part' => $data['founderPart'][$i],
+                        ]);
+
+                        $program->addFounder($founder);
+                    }
+                }
+            }
 
             // Add it to the profile.
             $profile = new Profile(['instance_id' => $data['profile_id']]);
@@ -724,15 +747,27 @@ class ProfileController extends Controller
         return null;
     }
 
-    private function getFileNamesFromRequest(Request $request, $filename) {
+    /**
+     * Gets multiple files form the single file parameter in request.
+     * @param Request $request
+     * @param $filename
+     * @return array
+     */
+    private function getFilesFromRequest(Request $request, $filename) {
+        $files = [];
         if($request->hasFile($filename)) {
-            $files = [];
             foreach($request->file($filename) as $file) {
-                $files[] = $file->getClientOriginalName();
+                $originalFileName = $file->getClientOriginalName();
+                $path = $file->store('documents');
+                $path = asset($path);
+                $files[] = [
+                    'filelink' => $path,
+                    'filename' => $originalFileName
+                ];
             }
-
-            return $files;
         }
+
+        return $files;
     }
 
 }
