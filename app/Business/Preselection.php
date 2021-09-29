@@ -14,10 +14,6 @@ class Preselection extends BusinessModel
         $entity = Entity::where('name', 'Preselection')->first();
         if($entity == null) {
             $entity = Entity::create(['name' => 'Preselection', 'description' => __('Preselection')]);
-            $attributes = self::getAttributesDefinition();
-            foreach ($attributes as $attribute) {
-                $entity->addAttribute($attribute);
-            }
         }
 
         return $entity;

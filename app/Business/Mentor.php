@@ -14,10 +14,6 @@ class Mentor extends SituationsModel
         $entity = Entity::where('name', 'Mentor')->first();
         if($entity == null) {
             $entity = Entity::create(['name' => 'Mentor', 'description' => 'Mentor organizacije']);
-            $attributes = self::getAttributesDefinition();
-            foreach ($attributes as $attribute) {
-                $entity->addAttribute($attribute);
-            }
         }
 
         return $entity;

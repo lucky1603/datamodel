@@ -28,7 +28,13 @@ class BusinessModel
         } else {
             $entity = $this->getEntity();
             $this->instance = Instance::create(['entity_id' => $entity->id]);
-            $this->instance->getTemplateAttributes();
+            $attributeIds = [];
+            $attributes = static::getAttributesDefinition();
+            foreach($attributes as $attribute) {
+                $attributeIds[] = $attribute->id;
+            }
+
+            $this->instance->setAttributes($attributeIds);
             $this->setAttributes($data);
         }
     }

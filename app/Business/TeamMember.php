@@ -45,10 +45,6 @@ class TeamMember extends BusinessModel
         $entity = Entity::where('name', 'TeamMember')->first();
         if($entity == null) {
             $entity = Entity::create(['name' => 'TeamMember', 'description' => 'Član tima']);
-            $attributes = self::getAttributesDefinition();
-            foreach ($attributes as $attribute) {
-                $entity->addAttribute($attribute);
-            }
         }
 
         return $entity;

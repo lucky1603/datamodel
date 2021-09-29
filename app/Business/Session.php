@@ -44,10 +44,6 @@ class Session extends SituationsModel
         $entity = Entity::where('name', 'Session')->first();
         if($entity == null) {
             $entity = Entity::create(['name' => 'Session', 'description' => __('mentors Session')]);
-            $attributes = self::getAttributesDefinition();
-            foreach ($attributes as $attribute) {
-                $entity->addAttribute($attribute);
-            }
         }
 
         return $entity;

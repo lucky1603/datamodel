@@ -12,7 +12,7 @@ class AttributeGroup extends Model
         return $this->belongsToMany(Attribute::class);
     }
 
-    public function entities() {
+    public function instances() {
         return $this->belongsToMany(Entity::class);
     }
 
@@ -25,7 +25,4 @@ class AttributeGroup extends Model
         return AttributeGroup::whereName($attributeName)->first();
     }
 
-//    public function getAttributes() {
-//        return $this->attributes()->get()->sortBy('sort_order');
-//    }
 }

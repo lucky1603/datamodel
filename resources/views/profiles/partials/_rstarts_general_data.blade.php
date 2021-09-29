@@ -53,7 +53,7 @@
         <table class="table table-responsive">
             @if($attribute->getValue() != null)
             <tr>
-                <td><a href="{{ $attribute->getValue()['filelink'] }}">{{ $attribute->getValue()['filename'] }}</a></td>
+                <td><a href="{{ $attribute->getValue()['filelink'] }}" target="_blank">{{ $attribute->getValue()['filename'] }}</a></td>
             </tr>
             @endif
             <tr>

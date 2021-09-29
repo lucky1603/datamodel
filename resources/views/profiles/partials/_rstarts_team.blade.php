@@ -51,7 +51,7 @@
     <label class="attribute-label col-form-label col-form-label-sm">CV-jevi osnivaca</label>
     <input type="file" multiple name="rstarts_founder_cvs[]" class="form-control">
     @if($attribute != null && $attribute->getValue() != null)
-        @if(!is_array($attribute->getValue()))
+        @if(isset($attribute->getValue()['filelink']))
             <a href="{{$attribute->getValue()['filelink']}}" target="_blank">{{ $attribute->getValue()['filename'] }}</a>
         @else
             <div style="display: flex">

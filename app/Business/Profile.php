@@ -25,10 +25,6 @@ class Profile extends SituationsModel
         $entity = Entity::where('name', 'Profile')->first();
         if($entity == null) {
             $entity = Entity::create(['name' => 'Profile', 'description' => __('Client Profile')]);
-            $attributes = self::getAttributesDefinition();
-            foreach ($attributes as $attribute) {
-                $entity->addAttribute($attribute);
-            }
         }
 
         return $entity;

@@ -819,12 +819,6 @@ class Client extends SituationsModel
         $entity = Entity::where('name', 'Client')->first();
         if(!$entity) {
             $entity = Entity::create(['name' => 'Client', 'description' => 'The company interested in cooperation.']);
-
-            $attributes = self::getAttributesDefinition();
-            foreach ($attributes as $attribute) {
-                $entity->addAttribute($attribute);
-            }
-
         }
 
         return $entity;

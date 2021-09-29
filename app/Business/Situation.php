@@ -139,11 +139,6 @@ class Situation extends BusinessModel
         $entity = Entity::where('name', 'Situation')->first();
         if(!$entity) {
             $entity = Entity::create(['name' => 'Situation', 'description' => 'The data which will be connected to a specific event.']);
-
-            $attributes = self::getAttributesDefinition();
-            foreach ($attributes as $attribute) {
-                $entity->addAttribute($attribute);
-            }
         }
 
         return $entity;

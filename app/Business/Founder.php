@@ -61,10 +61,6 @@ class Founder extends BusinessModel
         $entity = Entity::where('name', 'Founder')->first();
         if($entity == null) {
             $entity = Entity::create(['name' => 'Founder', 'description' => 'Osnivač']);
-            $attributes = self::getAttributesDefinition();
-            foreach ($attributes as $attribute) {
-                $entity->addAttribute($attribute);
-            }
         }
 
         return $entity;

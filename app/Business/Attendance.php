@@ -61,11 +61,6 @@ class Attendance extends BusinessModel
         $entity = Entity::where('name', 'Attendance')->first();
         if($entity == null) {
             $entity = Entity::create(['name' => 'Attendance', 'description' => __('Attendance at Training')]);
-
-            $attributes = self::getAttributesDefinition();
-            foreach ($attributes as $attribute) {
-                $entity->addAttribute($attribute);
-            }
         }
 
         return $entity;

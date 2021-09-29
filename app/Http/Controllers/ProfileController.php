@@ -256,10 +256,14 @@ class ProfileController extends Controller
 
             // get the files
             $data['rstarts_logo'] = $this->getFilesFromRequest($request, 'rstarts_logo');
+            var_dump($data['rstarts_logo']);
+
             $data['rstarts_files'] = $this->getFilesFromRequest($request, 'rstarts_files');
+            var_dump($data['rstarts_files']);
+
             $data['rstarts_financing_proof_files'] = $this->getFilesFromRequest($request, 'rstarts_financing_proof_files');
             $data['rstarts_dodatni_dokumenti'] = $this->getFilesFromRequest($request, 'rstarts_dodatni_dokumenti');
-            $data['founderCVs'] = $this->getFilesFromRequest($request, 'founderCVs');
+            $data['rstarts_founder_cvs'] = $this->getFilesFromRequest($request, 'rstarts_founder_cvs');
 
         }
 
@@ -754,20 +758,39 @@ class ProfileController extends Controller
      * @return array
      */
     private function getFilesFromRequest(Request $request, $filename) {
-        $files = [];
-        if($request->hasFile($filename)) {
-            foreach($request->file($filename) as $file) {
-                $originalFileName = $file->getClientOriginalName();
-                $path = $file->store('documents');
-                $path = asset($path);
-                $files[] = [
-                    'filelink' => $path,
-                    'filename' => $originalFileName
-                ];
+        if(!$request->hasFile($filename))
+            return [
+                'filelink' => '',
+                'filename' => ''
+            ];
+
+        if(is_array($request->file($filename))) {
+            $files = [];
+            if($request->hasFile($filename)) {
+                foreach($request->file($filename) as $file) {
+                    $originalFileName = $file->getClientOriginalName();
+                    $path = $file->store('documents');
+                    $path = asset($path);
+                    $files[] = [
+                        'filelink' => $path,
+                        'filename' => $originalFileName
+                    ];
+                }
             }
+
+            return $files;
         }
 
-        return $files;
+
+        $file = $request->file($filename);
+        $originalFileName = $file->getClientOriginalName();
+        $path = $file->store('documents');
+        $path = asset($path);
+        return [
+            'filelink' => $path,
+            'filename' => $originalFileName
+        ];
+
     }
 
 }

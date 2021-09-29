@@ -120,7 +120,7 @@ class Value extends Model
                 $tablename = 'select_values';
                 break;
             case 'file':
-                if(is_array($value)) {
+                if($value != null && is_array($value) && !isset($value['filename'])) {
                     $query = DB::table('file_values')->where([
                         'attribute_id' => $attribute->id,
                         'instance_id' => $instance_id
@@ -138,9 +138,10 @@ class Value extends Model
                     }
 
                     return count($value);
-                } else {
+                } else if($value != null) {
                     $filename = $value['filename'];
                     $filelink = $value['filelink'];
+
 
                     return DB::table('file_values')->updateOrInsert(
                         [

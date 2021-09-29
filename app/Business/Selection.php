@@ -40,10 +40,6 @@ class Selection extends BusinessModel
         $entity = Entity::where('name', 'Selection')->first();
         if($entity == null) {
             $entity = Entity::create(['name' => 'Selection', 'description' => __('Final Selection')]);
-            $attributes = self::getAttributesDefinition();
-            foreach ($attributes as $attribute) {
-                $entity->addAttribute($attribute);
-            }
         }
 
         return $entity;

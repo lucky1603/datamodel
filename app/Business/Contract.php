@@ -57,11 +57,6 @@ class Contract extends BusinessModel
         $entity = Entity::where('name', 'Contract')->first();
         if(!$entity) {
             $entity = Entity::create(['name' => 'Contract', 'description' => 'The document that bounds two or more parties.']);
-            $attributes = self::getAttributesDefinition();
-            foreach($attributes as $attribute) {
-                $entity->addAttribute($attribute);
-            }
-
         }
 
         return $entity;

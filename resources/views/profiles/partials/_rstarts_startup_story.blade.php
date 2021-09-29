@@ -20,8 +20,22 @@
     linkovi, dokumenta/nacrti. Obratiti pažnju da tehnološka izvodljivost mora biti u skladu sa naznačenim stepenom razvoja u delu 3.9</h5>
 
 <div class="form-group">
+    @php
+        $attribute = $attributes->where('name', 'rstarts_files')->first();
+    @endphp
     <label class="attribute-label col-form-label col-form-label-sm font-12">Fajlovi</label>
     <input type="file" name="rstarts_files[]" multiple class="form-control">
+    @if($attribute != null && $attribute->getValue() != null)
+        @if(isset($attribute->getValue()['filelink']))
+            <a href="{{$attribute->getValue()['filelink']}}" target="_blank">{{ $attribute->getValue()['filename'] }}</a>
+        @else
+            <div style="display: flex">
+                @foreach($attribute->getValue() as $file)
+                    <a class="mr-2" href="{{$file['filelink']}}" target="_blank">{{ $file['filename'] }}</a>
+                @endforeach
+            </div>
+        @endif
+    @endif
 </div>
 
 <div class="form-group mb-5">
@@ -62,8 +76,22 @@
 <h5 class="text-center attribute-label mt-2">Potvrde finansiranja</h5>
 
 <div class="form-group">
+    @php
+        $attribute = $attributes->where('name', 'rstarts_financing_proof_files')->first();
+    @endphp
     <label class="attribute-label col-form-label col-form-label-sm font-12">Fajlovi</label>
     <input type="file" name="rstarts_financing_proof_files[]" multiple class="form-control">
+    @if($attribute != null && $attribute->getValue() != null)
+        @if(isset($attribute->getValue()['filelink']))
+            <a href="{{$attribute->getValue()['filelink']}}" target="_blank">{{ $attribute->getValue()['filename'] }}</a>
+        @else
+            <div style="display: flex">
+                @foreach($attribute->getValue() as $file)
+                    <a class="mr-2" href="{{$file['filelink']}}" target="_blank">{{ $file['filename'] }}</a>
+                @endforeach
+            </div>
+        @endif
+    @endif
 </div>
 
 <div class="form-group mb-5">

@@ -33,17 +33,16 @@ class Program extends SituationsModel
             $attributeData = self::getAttributesDefinition($programType);
 
             $attributes = $attributeData['attributes'];
-            foreach($attributes as $attribute) {
-                $entity->addAttribute($attribute);
-            }
-
             $attributeGroups = $attributeData['attributeGroups'];
-            foreach($attributeGroups as $attributeGroup) {
-                $entity->attribute_groups()->sync($attributeGroup, false);
-            }
 
             $this->instance = Instance::create(['entity_id' => $entity->id]);
-            $this->instance->getTemplateAttributes();
+            $this->instance->setAttributes($attributes->map(function($attribute) {
+                return $attribute->id;
+            }));
+
+            foreach($attributeGroups as $attributeGroup) {
+                $this->instance->attribute_groups()->sync($attributeGroup, false);
+            }
 
             $this->setData([
                 'program_type' => $programType,

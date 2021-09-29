@@ -10,14 +10,11 @@ class Instance extends Model
     protected $fillable = ['entity_id'];
 
     /**
-     * Must be called after the constructor, in order
-     * to get the template attributes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function getTemplateAttributes() {
-        $entity = $this->entity()->first();
-        $attributes = $entity->attributes()->get();
-        $this->setAttributes($attributes);
-
+    public function attribute_groups() {
+        return $this->belongsToMany(AttributeGroup::class);
     }
 
     /**
@@ -87,37 +84,6 @@ class Instance extends Model
     }
 
     /**
-     * Return the child instances whose data are presented as the array.
-     * @return array
-     */
-    public function children() {
-        $children = [];
-        foreach($this->instances()->get() as $instance) {
-            $childItem = [];
-            $childItem['type'] = $instance->entity()->get()->first()->name;
-            $childItem['id'] = $instance->id;
-            $attributeValues = $instance->getAttributeValues();
-            $children[$instance->id] = array_merge($childItem, $attributeValues);
-        }
-
-        return $children;
-    }
-
-    /**
-     * Returns the array of attribute key-value pairs.
-     * @return array
-     */
-    public function getAttributeValues() {
-        $attributeValues = [];
-        foreach ($this->attributes()->get() as $attribute) {
-            $value = $attribute->getValue();
-            $attributeValues[$attribute->name] = $value;
-        }
-
-        return $attributeValues;
-    }
-
-    /**
      * Initialize attributes with the default values.
      */
     public function initAttributes() {
@@ -172,5 +138,20 @@ class Instance extends Model
      */
     public function attachUser($user) {
         $this->users()->sync($user, false);
+    }
+
+    /**
+     * Returns the array of attribute key-value pairs.
+     * @return array
+     */
+    public function getAttributeValues(): array
+    {
+        $attributeValues = [];
+        foreach ($this->attributes()->get() as $attribute) {
+            $value = $attribute->getValue();
+            $attributeValues[$attribute->name] = $value;
+        }
+
+        return $attributeValues;
     }
 }
