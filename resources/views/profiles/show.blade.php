@@ -16,12 +16,14 @@
             </div>
         @elseif($model->getAttribute('profile_status')->getValue() == 4)
             <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                @if($model->getActiveProgram()->getPreselection() != null)
                 <li class="nav-item">
                     <a href="#preselection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
                         <i class="mdi mdi-face-agent d-md-none d-block"></i>
                         <span class="d-none d-md-block">{{ strtoupper(__('Preselection')) }}</span>
                     </a>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a href="#appform" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
                         <i class="mdi mdi-face-agent d-md-none d-block"></i>
@@ -30,6 +32,7 @@
                 </li>
             </ul>
             <div class="tab-content overflow-auto " style="height: 90%!important;">
+                @if($model->getActiveProgram()->getPreselection() != null)
                 <div class="tab-pane show active h-100 overflow-auto"  id="preselection">
                     @include('profiles.forms._preselection-form',
                                 [
@@ -38,6 +41,7 @@
                                     'status' => $model->getAttribute('profile_status')->getValue()
                                 ])
                 </div>
+                @endif
                 <div class="tab-pane overflow-auto h-100"  id="appform">
                     @include('profiles.partials._show_profile_data')
                 </div>

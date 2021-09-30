@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody id="membersBody">
-            @if($teamMembers == null || $teamMembers->count() == 0)
+            @if(!isset($teamMembers) || $teamMembers == null || $teamMembers->count() == 0)
                 <tr>
                     <td><textarea name="memberName[]" rows="4" class="w-100">aaa</textarea></td>
                     <td><textarea name="memberEducation[]" rows="4" class="w-100"></textarea> </td>
@@ -44,7 +44,7 @@
         </tr>
         </thead>
         <tbody id="foundersBody">
-            @if($founders == null || $founders->count() == 0)
+            @if( !isset($founders) || $founders == null || $founders->count() == 0)
                 <tr>
                     <td><input type="text" name="founderName[]" class="w-100"></td>
                     <td><input type="text" name="founderPart[]" class="w-100"></td>
@@ -86,7 +86,18 @@
         $attribute = $attributes->where('name', 'rstarts_founder_links')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Linkovi na profile osnivača</label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">
+        @if(is_array($attribute->getValue()))
+            @foreach($attribute->getValue() as $link)
+                @if($loop->iteration != 1)
+                    ;
+                @endif
+                {{$link}}
+            @endforeach
+        @else
+            {{ $attribute->getValue() }}
+        @endif
+    </textarea>
 </div>
 
 <div class="form-group">
@@ -94,7 +105,18 @@
         $attribute = $attributes->where('name', 'rstarts_founder_links')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Da li ste do sada, kao tim, saradjivali na zajedničkim projektima/u poslovanju?</label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">
+        @if(is_array($attribute->getValue()))
+            @foreach($attribute->getValue() as $link)
+                @if($loop->iteration != 1)
+                    ;
+                @endif
+                {{$link}}
+            @endforeach
+        @else
+            {{ $attribute->getValue() }}
+        @endif
+    </textarea>
 </div>
 
 <div class="form-group">

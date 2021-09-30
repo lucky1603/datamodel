@@ -71,6 +71,13 @@ class Program extends SituationsModel
             $groups->add(AttributeGroup::get('ibitf_generate_income'));
             $groups->add(AttributeGroup::get('ibitf_infrastructure'));
             $groups->add(AttributeGroup::get('ibitf_attachments'));
+        } else if( $this->getValue('program_type') == Program::$RAISING_STARTS) {
+            $groups->add(AttributeGroup::get('rstarts_general'));
+            $groups->add(AttributeGroup::get('rstarts_applicant'));
+            $groups->add(AttributeGroup::get('rstarts_tim'));
+            $groups->add(AttributeGroup::get('rstarts_ideja'));
+            $groups->add(AttributeGroup::get('startup_story'));
+            $groups->add(AttributeGroup::get('dodatna_dokumentacija'));
         }
 
         return $groups;
@@ -851,7 +858,7 @@ class Program extends SituationsModel
         $attributes->add($ag_applicant->addAttribute(self::selectOrCreateAttribute(['rstarts_position', __('Position'), 'varchar', NULL, 5])));
         $attributes->add($ag_applicant->addAttribute(self::selectOrCreateAttribute(['rstarts_address', __('Address'), 'varchar', NULL, 6])));
         $attributes->add($ag_applicant->addAttribute(self::selectOrCreateAttribute(['rstarts_email', __('Email'), 'varchar', ['ui' => 'email'], 7])));
-        $attributes->add($ag_applicant->addAttribute(self::selectOrCreateAttribute(['rstarts_telephone', __('Telephone'), 'varchar', NULL, 8])));
+        $attributes->add($ag_applicant->addAttribute(self::selectOrCreateAttribute(['rstarts_telephone', __('Phone'), 'varchar', NULL, 8])));
         $attributes->add($ag_applicant->addAttribute(self::selectOrCreateAttribute(['rstarts_logo', __('Logo'), 'file', NULL, 9])));
         $attributes->add($ag_applicant->addAttribute(self::selectOrCreateAttribute(['rstarts_webpage', __('Webpage'), 'varchar', NULL, 10])));
         $attributes->add($ag_applicant->addAttribute(self::selectOrCreateAttribute(['rstarts_founding_date', __('Founding Date'), 'datetime', NULL, 11])));
@@ -873,21 +880,21 @@ class Program extends SituationsModel
         $ag_tim = self::getAttributeGroup('rstarts_tim', __('Team'), 3);
         $attributeGroups->add($ag_tim);
         $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_founder_cvs', __('Founder CV\'s'), 'file', 'multiple', 16])));
-        $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_founder_links', __('Founder Links'), 'text', NULL, 16])));
-        $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_team_history', __('Team history'), 'text', NULL, 16])));
-        $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_app_motive', __('Application Motive'), 'text', NULL, 17])));
+        $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_founder_links', __('Founder Links'), 'varchar', 'multiple', 17])));
+        $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_team_history', __('Team history'), 'text', NULL, 18])));
+        $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_app_motive', __('Application Motive'), 'text', NULL, 19])));
 
         // -------------------------------------- POSLOVNA IDEJA ------------------------------------- //
         $ag_ideja = self::getAttributeGroup('rstarts_ideja', __('Idea'), 4);
         $attributeGroups->add($ag_ideja);
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_tagline', __('Tagline'), 'text', NULL, 18])));
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_solve_problem', __('Which Problem is Solved'), 'text', NULL, 19])));
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_targetted_market', __('Targetted Market'), 'text', NULL, 20])));
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_problem_solve', __('Whose Problem is Being Solved'), 'text', NULL, 21])));
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_which_product', __('Which Innovative Product is being Developed'), 'text', NULL, 22])));
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_benefits', __('What Benefits'), 'text', NULL, 23])));
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_customer_problem_solve', __('How are the Customers solving the Problem?'), 'text', NULL, 24])));
-        $howInnovative = self::selectOrCreateAttribute(['rstarts_how_innovative', __('How innovative'), 'select', NULL, 25]);
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_tagline', __('Tagline'), 'text', NULL, 19])));
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_solve_problem', __('Which Problem is Solved'), 'text', NULL, 20])));
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_targetted_market', __('Targeted Market'), 'text', NULL, 21])));
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_problem_solve', __('Whose Problem is Being Solved'), 'text', NULL, 22])));
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_which_product', __('Which Innovative Product is being Developed'), 'text', NULL, 23])));
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_benefits', __('What Benefits'), 'text', NULL, 24])));
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_customer_problem_solve', __('How are the Customers solving the Problem?'), 'text', NULL, 25])));
+        $howInnovative = self::selectOrCreateAttribute(['rstarts_how_innovative', __('How innovative'), 'select', NULL, 26]);
         if(count($howInnovative->getOptions()) == 0) {
             $howInnovative->addOption(['value' => 1, 'text' =>'Već postojeći proizvod/usluga']);
             $howInnovative->addOption(['value' => 2, 'text' =>'Poznat, ali nedovoljno primenjen proizvod i/ili usluga ']);
@@ -897,9 +904,9 @@ class Program extends SituationsModel
         }
         $attributes->add($ag_ideja->addAttribute($howInnovative));
 
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_clarification_innovative', __('Clarification Innovative'), 'text', NULL, 26])));
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_clarification_innovative', __('Clarification Innovative'), 'text', NULL, 27])));
 
-        $dev_phase_tech = self::selectOrCreateAttribute(['rstarts_dev_phase_tech', __('Development Phase Tech Development'), 'select', NULL, 27]);
+        $dev_phase_tech = self::selectOrCreateAttribute(['rstarts_dev_phase_tech', "Tehnološki razvoj", 'select', NULL, 28]);
         if(count($dev_phase_tech->getOptions()) == 0) {
             $dev_phase_tech->addOption(['value' => 1, 'text' => 'Ideja/prepoznat osnovni koncept']);
             $dev_phase_tech->addOption(['value' => 2, 'text' => 'Dokaz koncepta']);
@@ -910,7 +917,7 @@ class Program extends SituationsModel
         }
         $attributes->add($ag_ideja->addAttribute($dev_phase_tech));
 
-        $dev_phase_business = self::selectOrCreateAttribute(['rstarts_dev_phase_bussines', __('Development Phase Business Development'), 'select', NULL, 28]);
+        $dev_phase_business = self::selectOrCreateAttribute(['rstarts_dev_phase_bussines', "Poslovni razvoj", 'select', NULL, 29]);
         if(count($dev_phase_business->getOptions()) == 0) {
             $dev_phase_business->addOption(['value' => 1, 'text' => 'Hipoteza o mogućim potrebama']);
             $dev_phase_business->addOption(['value' => 2, 'text' => 'Indetifikovane potrebe na tržistu']);
@@ -924,7 +931,7 @@ class Program extends SituationsModel
         }
         $attributes->add($ag_ideja->addAttribute($dev_phase_business));
 
-        $ippactivities = self::selectOrCreateAttribute(['rstarts_intellectual_property', __('Intellectual Property Protection Activities'), 'select', NULL, 29]);
+        $ippactivities = self::selectOrCreateAttribute(['rstarts_intellectual_property', 'Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine?', 'select', NULL, 30]);
         if(count($ippactivities->getOptions()) == 0) {
             $ippactivities->addOption(['value' => 1, 'text' => 'Inicijalno istraživanje (konsultacije sa Zavodom za IP)']);
             $ippactivities->addOption(['value' => 2, 'text' => 'Dobijen Izveštaj o obavljenom istraživanju od strane Zavoda za zaštitu intelektualne svojine']);
@@ -934,9 +941,12 @@ class Program extends SituationsModel
         }
         $attributes->add($ag_ideja->addAttribute($ippactivities));
 
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_research', __('Research Description'), 'text', NULL, 30])));
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_research', 'Molimo vas opišite, sa najviše 50 reči,
+        da li ste sproveli neko istraživanje na temu intelektualne svojine, mogućnosti zaštite intelektualne svojine ili ukoliko ste zaštitili logotip,
+        patent, mali patent ili slično. Ukoliko ste zaštitili ili planirate da zaštitite neko pravo intelektualne svojine, navedite ko su vlasnici
+        ili ko bi bili vlasnici te intelektualne svojine', 'text', NULL, 31])));
 
-        $innovative_area = self::selectOrCreateAttribute(['rstarts_innovative_area', __('Innovative Area'), 'select', NULL, 31]);
+        $innovative_area = self::selectOrCreateAttribute(['rstarts_innovative_area', 'Kojoj oblasti pripada inovativni proizvod i/ili usluga koje razvijate?', 'select', NULL, 32]);
         if(count($innovative_area->getOptions()) == 0) {
             $innovative_area->addOption(['value' => 1, 'text' => 'Masovni podaci (Big data) i poslovna analitika (Business analytics)']);
             $innovative_area->addOption(['value' => 2, 'text' => 'Računarstvo u oblaku (Cloud computing)']);
@@ -957,24 +967,24 @@ class Program extends SituationsModel
         }
         $attributes->add($ag_ideja->addAttribute($innovative_area));
 
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_business_plan', __('Business Plan'), 'text', NULL, 32])));
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_business_plan', 'Kako vaš startap planira da zaradjuje?', 'text', NULL, 33])));
 
         // ------------------------------------------------- VAŠA STARTAP PRIČA ------------------------------------------------ //
         $ag_startup_story = self::getAttributeGroup('startup_story', 'Vaša startup priča', 5);
         $attributeGroups->add($ag_startup_story);
 
-        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_statup_progress', 'Startup napredak', 'text', NULL, 33])));
-        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_files', 'Prilozeni fajlovi', 'file', 'multiple', 34])));
-        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_links', 'Prilozeni linkovi', 'varchar', 'multiple', 35])));
-        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_mentor_program_history', 'Da li ste vec ucestvovali u programu', 'text', NULL, 36])));
-        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_financing_sources', 'Da li ste vec dosad prikupili bilo koji izvor finansiranja', 'text', NULL, 37])));
-        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_financing_proof_files', 'Dokazni fajlovi', 'file', 'multiple', 38])));
-        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_financing_proof_links', 'Dokazni linkovi', 'varchar', NULL, 39])));
-        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_expectations', 'Šta očekujete od učešća u programu', 'text', NULL, 40])));
-        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_howmuchmoney', 'Koliko sredstava potrebno', 'text', NULL, 41])));
-        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_linkclip', 'Link video klipa', 'varchar', NULL, 42])));
+        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_statup_progress', 'Startup napredak', 'text', NULL, 34])));
+        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_files', 'Prilozeni fajlovi', 'file', 'multiple', 35])));
+        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_links', 'Prilozeni linkovi', 'varchar', 'multiple', 36])));
+        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_mentor_program_history', 'Da li ste vec ucestvovali u programu', 'text', NULL, 37])));
+        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_financing_sources', 'Da li ste vec dosad prikupili bilo koji izvor finansiranja', 'text', NULL, 38])));
+        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_financing_proof_files', 'Dokazni fajlovi', 'file', 'multiple', 39])));
+        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_financing_proof_links', 'Dokazni linkovi', 'varchar', 'multiple', 40])));
+        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_expectations', 'Šta očekujete od učešća u programu', 'text', NULL, 41])));
+        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_howmuchmoney', 'Koliko sredstava potrebno', 'text', NULL, 42])));
+        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_linkclip', 'Link video klipa', 'varchar', 'link', 43])));
 
-        $howdiduhear = self::selectOrCreateAttribute(['rstarts_howdiduhear', 'Kako ste culi za nas', 'select', NULL, 43]);
+        $howdiduhear = self::selectOrCreateAttribute(['rstarts_howdiduhear', 'Kako ste culi za nas', 'select', NULL, 44]);
         if(count($howdiduhear->getOptions()) == 0) {
             $howdiduhear->addOption(['value' => 1, 'text' => 'Zvanične društvene mreže NTP Beograd i Raising Starts']);
             $howdiduhear->addOption(['value' => 2, 'text' => 'E-mail/newsletter NTP Beograd']);
@@ -984,12 +994,12 @@ class Program extends SituationsModel
         }
 
         $attributes->add($ag_startup_story->addAttribute($howdiduhear));
-        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_other_sources', "Dodatni izvori informisanja", 'varchar', NULL, 44])));
+        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_other_sources', "Dodatni izvori informisanja", 'text', NULL, 45])));
 
         $ag_dodatna_dokumentacija = self::getAttributeGroup('dodatna_dokumentacija', 'Dodatna dokumentacija', 7);
         $attributeGroups->add($ag_dodatna_dokumentacija);
 
-        $attributes->add($ag_dodatna_dokumentacija->addAttribute(self::selectOrCreateAttribute(['rstarts_dodatni_dokumenti', 'Dodatni dokumenti', 'file', 'multiple', 45])));
+        $attributes->add($ag_dodatna_dokumentacija->addAttribute(self::selectOrCreateAttribute(['rstarts_dodatni_dokumenti', 'Dodatni dokumenti', 'file', 'multiple', 46])));
 
 
         return collect(

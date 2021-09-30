@@ -100,6 +100,13 @@ class Value extends Model
                 break;
             case 'varchar':
                 $tablename = 'varchar_values';
+                if($attribute->extra == 'multiple') {
+                    $value = explode(';', $value);
+                    foreach ($value as $val) {
+                        if($val == '')
+                            unset($val);
+                    }
+                }
                 break;
             case 'integer':
                 $tablename = 'integer_values';

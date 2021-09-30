@@ -64704,7 +64704,9 @@ __webpack_require__.r(__webpack_exports__);
  * building robust, powerful web applications using Vue and Laravel.
  */
 
- // import 'bootstrap/dist/css/bootstrap.css'
+
+/* Ovo zakomentarisati da bi se koristila tema  */
+// import 'bootstrap/dist/css/bootstrap.css'
 
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");

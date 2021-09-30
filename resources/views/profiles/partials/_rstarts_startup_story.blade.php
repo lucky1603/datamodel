@@ -44,7 +44,18 @@
 <div class="form-group mb-5">
     <label class="attribute-label col-form-label col-form-label-sm font-12">Linkovi
         <span class="font-12 text-dark font-weight-normal">(linkove upisati u ovo polje, odvojene tačkom-zarezom)</span></label>
-    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm">{{ $attribute->getValue() }}</textarea>
+    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm">{
+        @if(is_array($attribute->getValue()))
+            @foreach($attribute->getValue() as $link)
+                @if($loop->iteration != 1)
+                    ;
+                @endif
+                {{$link}}
+            @endforeach
+        @else
+            {{ $attribute->getValue() }}
+        @endif
+    </textarea>
 </div>
 
 
@@ -104,7 +115,18 @@
 <div class="form-group mb-5">
     <label class="attribute-label col-form-label col-form-label-sm font-12">Linkovi
         <span class="font-12 text-dark font-weight-normal">(linkove upisati u ovo polje, odvojene tačkom-zarezom)</span></label>
-    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm">{{ $attribute->getValue() }}</textarea>
+    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm">
+        @if(is_array($attribute->getValue()))
+            @foreach($attribute->getValue() as $link)
+                @if($loop->iteration != 1)
+                    ;
+                @endif
+                {{$link}}
+            @endforeach
+        @else
+            {{ $attribute->getValue() }}
+        @endif
+    </textarea>
 </div>
 
 <div class="form-group">
