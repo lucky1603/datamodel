@@ -332,6 +332,31 @@ class Program extends SituationsModel
         $this->instance->refresh();
     }
 
+    /**
+     * Remove the named founder.
+     * @param $founderName
+     */
+    public function removeFounderByName($founderName) {
+        $founderToRemove = $this->getFounderByName($founderName);
+        if($founderToRemove != null) {
+            $this->removeFounder($founderToRemove);
+        }
+    }
+
+
+    /**
+     * Gets founder by the given name.
+     * @param $founderName
+     * @return mixed
+     */
+    public function getFounderByName($founderName) {
+        return $this->getFounders()->filter(function($founder) use($founderName) {
+            if($founder->getValue('founder_name') == $founderName)
+                return true;
+            return false;
+        })->first();
+    }
+
 
     /**
      * Get the list of all founders.
@@ -347,10 +372,62 @@ class Program extends SituationsModel
         });
     }
 
+    /**
+     * Update founders collection from the supplied data object.
+     * @param $foundersData
+     */
+    public function updateFounders($foundersData) {
+        $founders = $this->getFounders();
+        if(count($foundersData) == 0)
+            return;
+
+        $foundersCount = $founders->count();
+        $foundersDataCount = count($foundersData);
+
+        $count = min($foundersCount, $foundersDataCount);
+
+        for($i = 0; $i < $count; $i++) {
+            $founder = $founders->get($i);
+            $founderData = $foundersData[$i];
+
+            $founder->setValue('founder_name', $founderData['founder_name']);
+            $founder->setValue('founder_part', $founderData['founder_part']);
+        }
+
+        // Obrisi suvisne clanove
+        if($count < $foundersCount) {
+            $ids = [];
+            for($i = $foundersCount - 1; $i >= $count; $i-- )
+            {
+                $ids[] = $founders->get($i)->getId();
+            }
+
+            $founders->filter(function($founder) use($ids) {
+                if(in_array($founder->getId(), $ids))
+                    return true;
+                return false;
+            })->each(function($founder) {
+                $this->removeFounder($founder);
+            });
+        }
+
+        // Add new members, if membersData is larger than the current
+        // members' collection.
+        if($count < $foundersDataCount)  {
+            for($i = $count; $i < $foundersDataCount; $i++) {
+                $founder = $foundersData[$i];
+                $this->addFounder(new Founder([
+                    'founder_name' => $founder['founder_name'],
+                    'founder_part' => $founder['founder_part'],
+                ]));
+            }
+        }
+    }
+
     // ------------- Team Members ------------------
 
     /**
-     * Adds the founder to the program.
+     * Adds the team member to the program.
      * @param $founder
      */
     public function addTeamMember($member) {
@@ -359,13 +436,37 @@ class Program extends SituationsModel
     }
 
     /**
-     * Removes founder from program and deletes it.
+     * Removes team member from program and deletes it.
      * @param $founder
      */
     public function removeTeamMember($member) {
         $this->instance->instances()->detach($member->instance->id);
         $this->instance->refresh();
         $member->delete();
+    }
+
+    /**
+     * Removes the named team member.
+     * @param $memberName
+     */
+    public function removeTeamMemberByName($memberName) {
+        $memberToRemove = $this->getTeamMemberByName($memberName);
+        if($memberToRemove != null) {
+            $this->removeTeamMember($memberToRemove);
+        }
+    }
+
+    /**
+     * Gets the team member by its name.
+     * @param $memberName
+     * @return mixed
+     */
+    public function getTeamMemberByName($memberName) {
+        return $this->getTeamMembers()->filter(function($member) use($memberName) {
+            if($member->getValue('team_member_name') == $memberName)
+                return true;
+            return false;
+        })->first();
     }
 
     /**
@@ -389,12 +490,71 @@ class Program extends SituationsModel
      */
     public function getTeamMembers() {
         return $this->instance->instances->filter(function($instance) {
-            if($instance->entity->name == 'TeamMembers')
+            if($instance->entity->name == 'TeamMember')
                 return true;
             return false;
         })->map(function($instance) {
             return new TeamMember(['instance_id' => $instance->id]);
         });
+    }
+
+    /**
+     * Updates the team members from the given data structure.
+     * @param $membersData
+     */
+    public function updateTeamMembers($membersData) {
+        $members = $this->getTeamMembers();
+        if(count($membersData) == 0)
+            return;
+
+        $membersCount = $members->count();
+        $membersDataCount = count($membersData);
+
+        $count = min($membersCount, $membersDataCount);
+
+        $counter = 0;
+        foreach($members as $member)
+        {
+            $memberData = $membersData[$counter];
+
+            $member->setValue('team_member_name', $memberData['team_member_name']);
+            $member->setValue('team_education', $memberData['team_education']);
+            $member->setValue('team_role', $memberData['team_role']);
+            $member->setValue('team_other_job', $memberData['team_other_job']);
+            $counter++;
+        }
+
+        // Obrisi suvisne clanove
+        if($count < $membersCount) {
+            $ids = [];
+            for($i = $membersCount - 1; $i >= $count; $i-- )
+            {
+                $ids[] = $members->get($i)->getId();
+            }
+
+            $members->filter(function($member) use($ids) {
+                if(in_array($member->getId(), $ids))
+                    return true;
+                return false;
+            })->each(function($member) {
+                $this->removeTeamMember($member);
+            });
+        }
+
+        // Add new members, if membersData is larger than the current
+        // members' collection.
+        if($count < $membersDataCount)  {
+            for($i = $count; $i < $membersDataCount; $i++) {
+                $member = $membersData[$i];
+
+                $this->addTeamMember(new TeamMember([
+                    'team_member_name' => $member['team_member_name'],
+                    'team_education' => $member['team_education'],
+                    'team_role' => $member['team_role'],
+                    'team_other_job' => $member['team_other_job']
+                ]));
+            }
+        }
     }
 
     // -------------- End of Team Members ----------

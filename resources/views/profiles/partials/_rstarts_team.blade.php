@@ -12,12 +12,23 @@
         </tr>
         </thead>
         <tbody id="membersBody">
-            <tr id="membersRow1">
-                <td><textarea name="memberName[]" rows="4" class="w-100"></textarea></td>
-                <td><textarea name="memberEducation[]" rows="4" class="w-100"></textarea> </td>
-                <td><textarea name="memberRole[]" rows="4" class="w-100"></textarea></td>
-                <td><textarea name="memberOtherJob[]" rows="4" class="w-100"></textarea></td>
-            </tr>
+            @if($teamMembers == null || $teamMembers->count() == 0)
+                <tr>
+                    <td><textarea name="memberName[]" rows="4" class="w-100">aaa</textarea></td>
+                    <td><textarea name="memberEducation[]" rows="4" class="w-100"></textarea> </td>
+                    <td><textarea name="memberRole[]" rows="4" class="w-100"></textarea></td>
+                    <td><textarea name="memberOtherJob[]" rows="4" class="w-100"></textarea></td>
+                </tr>
+            @else
+                @foreach($teamMembers as $teamMember)
+                    <tr>
+                        <td><textarea name="memberName[]" rows="4" class="w-100">{{ $teamMember->getValue('team_member_name') }}</textarea></td>
+                        <td><textarea name="memberEducation[]" rows="4" class="w-100">{{ $teamMember->getValue('team_education') }}</textarea> </td>
+                        <td><textarea name="memberRole[]" rows="4" class="w-100">{{ $teamMember->getValue('team_role') }}</textarea></td>
+                        <td><textarea name="memberOtherJob[]" rows="4" class="w-100">{{ $teamMember->getValue('team_other_job') }}</textarea></td>
+                    </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
     <button id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj člana tima" >+</button>
@@ -33,12 +44,19 @@
         </tr>
         </thead>
         <tbody id="foundersBody">
-            <tr id="foundersRow1">
-                <td>
-                    <input type="text" name="founderName[]" class="w-100">
-                </td>
-                <td><input type="text" name="founderPart[]" class="w-100"></td>
-            </tr>
+            @if($founders == null || $founders->count() == 0)
+                <tr>
+                    <td><input type="text" name="founderName[]" class="w-100"></td>
+                    <td><input type="text" name="founderPart[]" class="w-100"></td>
+                </tr>
+            @else
+                @foreach($founders as $founder)
+                    <tr>
+                        <td><input type="text" name="founderName[]" class="w-100" value="{{ $founder->getValue('founder_name') }}"></td>
+                        <td><input type="text" name="founderPart[]" class="w-100" value="{{ $founder->getValue('founder_part') }}"></td>
+                    </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
     <button id="btnAddFounder" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj osnivača" >+</button>
@@ -91,13 +109,13 @@
     <script type="text/javascript">
         $(function() {
             $('#btnAddMember').click(function() {
-                let cloned = $('#membersRow1').clone();
+                let cloned = $('tbody#membersBody tr:first-child').clone();
                 cloned.find('textarea').val('');
                 cloned.appendTo('tbody#membersBody');
             });
 
             $('#btnAddFounder').click(function() {
-                let cloned = $('#foundersRow1').clone();
+                let cloned = $('tbody#foundersBody tr:first-child').clone();
                 cloned.find('input').val('');
                 cloned.appendTo('tbody#foundersBody');
             });

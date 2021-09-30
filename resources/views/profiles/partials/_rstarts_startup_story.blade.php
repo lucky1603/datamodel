@@ -38,10 +38,13 @@
     @endif
 </div>
 
+@php
+    $attribute = $attributes->where('name', 'rstarts_links')->first();
+@endphp
 <div class="form-group mb-5">
     <label class="attribute-label col-form-label col-form-label-sm font-12">Linkovi
         <span class="font-12 text-dark font-weight-normal">(linkove upisati u ovo polje, odvojene tačkom-zarezom)</span></label>
-    <textarea rows="2" name="rstarts_links" class="form-control form-control-sm"></textarea>
+    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm">{{ $attribute->getValue() }}</textarea>
 </div>
 
 
@@ -94,10 +97,14 @@
     @endif
 </div>
 
+@php
+    $attribute = $attributes->where('name', 'rstarts_financing_proof_links')->first();
+@endphp
+
 <div class="form-group mb-5">
     <label class="attribute-label col-form-label col-form-label-sm font-12">Linkovi
         <span class="font-12 text-dark font-weight-normal">(linkove upisati u ovo polje, odvojene tačkom-zarezom)</span></label>
-    <textarea rows="2" name="rstarts_links" class="form-control form-control-sm"></textarea>
+    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm">{{ $attribute->getValue() }}</textarea>
 </div>
 
 <div class="form-group">
