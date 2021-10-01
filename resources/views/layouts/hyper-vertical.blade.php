@@ -488,7 +488,7 @@
 
 <script src="/js/vue.js"></script>
 
-
+@yield('scripts')
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -556,7 +556,7 @@
     });
 </script>
 
-@yield('scripts')
+
 
 </body>
 </html>

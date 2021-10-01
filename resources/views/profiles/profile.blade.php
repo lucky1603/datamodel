@@ -145,7 +145,7 @@
                     </div>
                 </div>
             @else
-                <div class="card" style="height: 95%">
+                <div class="card border" style="height: 95%">
                     <div class="card-header bg-dark text-light">
                         {{ mb_strtoupper( __("Application Form"))}}
                     </div>

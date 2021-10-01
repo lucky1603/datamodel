@@ -80,12 +80,27 @@
                                                     @endphp
                                                     @if(count($cvs) > 0)
                                                         @foreach($cvs as $cv)
+                                                            @if(is_array($cv))
                                                             <a href="{{ $cv['filelink'] }}" target="_blank" class="mr-3">{{ $cv['filename'] }}</a>
+                                                            @endif
                                                         @endforeach
                                                     @endif
-
                                                 @else
-                                                    {{ $attribute->getText() }}
+                                                    @if(!is_array($attribute->getValue()))
+                                                        {{ $attribute->getText() }}
+                                                    @elseif($attribute->type == 'varchar' && $attribute->extra == 'multiple')
+                                                        <div style="display: flex; flex-wrap: wrap; width: 100%">
+                                                            @foreach($attribute->getValue() as $link)
+                                                                @php
+                                                                    if(!str_contains('http://', $link))
+                                                                        $link = "http://".$link;
+                                                                @endphp
+                                                                <a href="{{$link}}" target="_blank" class="ml-1">{{ $link }}</a>
+                                                            @endforeach
+                                                        </div>
+                                                    @elseif($attribute->type == 'varchar' && $attribute->extra == 'link')
+                                                        <a href="{{ $attribute->getValue() }}" target="_blank">{{ $attribute->getValue() }}</a>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </td>
@@ -127,6 +142,8 @@
                                                         <a href="{{ $link }}" target="_blank" class="mr-2">{{ $link }}</a>
                                                     @endforeach
                                                 </div>
+                                            @elseif($attribute->type == 'varchar' && $attribute->extra == 'link')
+                                                <a href="{{ $attribute->getValue() }}" target="_blank">{{ $attribute->getValue() }}</a>
                                             @elseif($attribute->type == 'file' && $attribute->extra == 'multiple')
                                                 @php
                                                     $files = $attribute->getValue();
@@ -135,7 +152,9 @@
                                                 @endphp
                                                 <div style="display: flex; flex-wrap: wrap; width: 100%">
                                                     @foreach($files as $file)
-                                                        <a href="{{ $file['filelink'] }}" target="_blank" class="mr-2">{{ $file['filename'] }}</a>
+                                                        @if(is_array($file))
+                                                            <a href="{{ $file['filelink'] }}" target="_blank" class="mr-2">{{ $file['filename'] }}</a>
+                                                        @endif
                                                     @endforeach
                                                 </div>
                                             @else

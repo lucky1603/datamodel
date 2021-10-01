@@ -38,24 +38,18 @@
     @endif
 </div>
 
-@php
-    $attribute = $attributes->where('name', 'rstarts_links')->first();
-@endphp
 <div class="form-group mb-5">
+    @php
+        $attribute = $attributes->where('name', 'rstarts_links')->first();
+        if(is_array($attribute->getValue())) {
+            $val = implode(';', $attribute->getValue());
+        } else {
+            $val = $attribute->getValue();
+        }
+    @endphp
     <label class="attribute-label col-form-label col-form-label-sm font-12">Linkovi
         <span class="font-12 text-dark font-weight-normal">(linkove upisati u ovo polje, odvojene tačkom-zarezom)</span></label>
-    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm">{
-        @if(is_array($attribute->getValue()))
-            @foreach($attribute->getValue() as $link)
-                @if($loop->iteration != 1)
-                    ;
-                @endif
-                {{$link}}
-            @endforeach
-        @else
-            {{ $attribute->getValue() }}
-        @endif
-    </textarea>
+    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm">{{ $val }}</textarea>
 </div>
 
 
@@ -113,20 +107,17 @@
 @endphp
 
 <div class="form-group mb-5">
+    @php
+        $attribute = $attributes->where('name', 'rstarts_links')->first();
+        if(is_array($attribute->getValue())) {
+            $val = implode(';', $attribute->getValue());
+        } else {
+            $val = $attribute->getValue();
+        }
+    @endphp
     <label class="attribute-label col-form-label col-form-label-sm font-12">Linkovi
         <span class="font-12 text-dark font-weight-normal">(linkove upisati u ovo polje, odvojene tačkom-zarezom)</span></label>
-    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm">
-        @if(is_array($attribute->getValue()))
-            @foreach($attribute->getValue() as $link)
-                @if($loop->iteration != 1)
-                    ;
-                @endif
-                {{$link}}
-            @endforeach
-        @else
-            {{ $attribute->getValue() }}
-        @endif
-    </textarea>
+    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm">{{ $val }}</textarea>
 </div>
 
 <div class="form-group">

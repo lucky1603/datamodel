@@ -393,9 +393,9 @@ class Program extends SituationsModel
 
         $count = min($foundersCount, $foundersDataCount);
 
-        for($i = 0; $i < $count; $i++) {
-            $founder = $founders->get($i);
-            $founderData = $foundersData[$i];
+        $counter = 0;
+        foreach($founders as $founder) {
+            $founderData = $foundersData[$counter++];
 
             $founder->setValue('founder_name', $founderData['founder_name']);
             $founder->setValue('founder_part', $founderData['founder_part']);

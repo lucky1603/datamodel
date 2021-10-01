@@ -4,6 +4,7 @@ namespace App;
 
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -102,9 +103,13 @@ class Value extends Model
                 $tablename = 'varchar_values';
                 if($attribute->extra == 'multiple') {
                     $value = explode(';', $value);
+                    $counter = 0;
                     foreach ($value as $val) {
+                        $val = trim($val);
                         if($val == '')
-                            unset($val);
+                            unset($value[$counter]);
+                        $value[$counter] = $val;
+                        $counter++;
                     }
                 }
                 break;
@@ -183,17 +188,21 @@ class Value extends Model
                 'instance_id' => $instance_id
             ]);
 
-            if($query->count() > 1) {
-                $query->delete();
+            $query->delete();
+
+            try {
+                echo $attribute->id.'<br />';
+                foreach ($value as $item) {
+                    DB::table($tablename)->insert([
+                        'attribute_id' => $attribute->id,
+                        'instance_id' => $instance_id,
+                        'value' => $item]);
+                }
+            } catch (QueryException $ex) {
+                echo $ex->getMessage().'<br />';
+                var_dump($attribute->id);
             }
 
-            $query->delete();
-            foreach ($value as $item) {
-                DB::table($tablename)->insert([
-                    'attribute_id' => $attribute->id,
-                    'instance_id' => $instance_id,
-                    'value' => $item]);
-            }
         }
 
     }

@@ -86,37 +86,22 @@
         $attribute = $attributes->where('name', 'rstarts_founder_links')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Linkovi na profile osnivača</label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">
-        @if(is_array($attribute->getValue()))
-            @foreach($attribute->getValue() as $link)
-                @if($loop->iteration != 1)
-                    ;
-                @endif
-                {{$link}}
-            @endforeach
-        @else
-            {{ $attribute->getValue() }}
-        @endif
-    </textarea>
+    @php
+        if(is_array($attribute->getValue())) {
+            $val = implode(';', $attribute->getValue());
+        } else {
+            $val = $attribute->getValue();
+        }
+    @endphp
+    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $val }}</textarea>
 </div>
 
 <div class="form-group">
     @php
-        $attribute = $attributes->where('name', 'rstarts_founder_links')->first();
+        $attribute = $attributes->where('name', 'rstarts_team_history')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Da li ste do sada, kao tim, saradjivali na zajedničkim projektima/u poslovanju?</label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">
-        @if(is_array($attribute->getValue()))
-            @foreach($attribute->getValue() as $link)
-                @if($loop->iteration != 1)
-                    ;
-                @endif
-                {{$link}}
-            @endforeach
-        @else
-            {{ $attribute->getValue() }}
-        @endif
-    </textarea>
+    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
 </div>
 
 <div class="form-group">
@@ -127,21 +112,4 @@
     <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
 </div>
 
-@section('scripts')
-    <script type="text/javascript">
-        $(function() {
-            $('#btnAddMember').click(function() {
-                let cloned = $('tbody#membersBody tr:first-child').clone();
-                cloned.find('textarea').val('');
-                cloned.appendTo('tbody#membersBody');
-            });
 
-            $('#btnAddFounder').click(function() {
-                let cloned = $('tbody#foundersBody tr:first-child').clone();
-                cloned.find('input').val('');
-                cloned.appendTo('tbody#foundersBody');
-            });
-
-        })
-    </script>
-@endsection

@@ -50,31 +50,47 @@
 
 @section('scripts')
     <script type="text/javascript">
-        $('#send').on('click', function() {
-            $('#button_spinner').attr('hidden', false);
-            var profileId = <?php echo $model->getId(); ?>;
+        $(document).ready(function() {
+            $('#btnAddMember').click(function() {
+                let cloned = $('tbody#membersBody tr:first-child').clone();
+                cloned.find('textarea').val('');
+                cloned.appendTo('tbody#membersBody');
+            });
 
-            var result = 0;
-            $.get('/profiles/check/' + profileId, function(data) {
-                var result = JSON.parse(data);
-                console.log(result);
-                $('#button_spinner').attr('hidden', true);
+            $('#btnAddFounder').click(function() {
+                let cloned = $('tbody#foundersBody tr:first-child').clone();
+                cloned.find('input').val('');
+                cloned.appendTo('tbody#foundersBody');
+            });
 
-                if(result.code == 0) {
-                    $.toast(result.message);
+            $('#send').on('click', function() {
+                alert('click');
+                $('#button_spinner').attr('hidden', false);
+                var profileId = <?php echo $model->getId(); ?>;
 
-                } else {
-                    $.toast({
-                        text : result.message,
-                        afterHidden : function() {
-                            location.reload();
-                        }
-                    });
-                }
+                var result = 0;
+                $.get('/profiles/check/' + profileId, function(data) {
+                    var result = JSON.parse(data);
+                    console.log(result);
+                    $('#button_spinner').attr('hidden', true);
+
+                    if(result.code == 0) {
+                        $.toast(result.message);
+
+                    } else {
+                        $.toast({
+                            text : result.message,
+                            afterHidden : function() {
+                                location.reload();
+                            }
+                        });
+                    }
+
+                });
 
             });
 
-        });
+        })
 
     </script>
 @endsection
