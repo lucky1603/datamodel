@@ -84,6 +84,41 @@ class Program extends SituationsModel
     }
 
     /**
+     * Adds the new demo day to the program.
+     * @param DemoDay $demoDay
+     * @return DemoDay
+     */
+    public function addDemoDay(DemoDay $demoDay) {
+        $this->instance->instances()->save($demoDay->instance);
+        $this->instance->refresh();
+        return $demoDay;
+    }
+
+    /**
+     * Removes the demo day from the project and deletes it.
+     */
+    public function removeDemoDay() {
+        $demoDay = $this->getDemoDay();
+        $this->instance->instances()->detach($demoDay->instance->id);
+        $demoDay->delete();
+    }
+
+    /**
+     * Gets the demo day of the current program.
+     * @return DemoDay
+     */
+    public function getDemoDay(): DemoDay
+    {
+        $demoDayInstance = $this->instance->instances->filter(function($instance) {
+            if($instance->entity->name == 'DemoDay')
+                return true;
+            return false;
+        })->first();
+
+        return new DemoDay(['instance_id' => $demoDayInstance->id]);
+    }
+
+    /**
      * Add preselection to program.
      * @param Preselection $preselection
      * @return Preselection
