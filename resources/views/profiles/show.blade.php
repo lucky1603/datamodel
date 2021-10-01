@@ -46,7 +46,7 @@
                     @include('profiles.partials._show_profile_data')
                 </div>
             </div>
-        @elseif($model->getAttribute('profile_status')->getValue() == 5)
+        @elseif($model->getAttribute('profile_status')->getValue() == 6)
             <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
                 <li class="nav-item">
                     <a href="#selection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
@@ -87,7 +87,7 @@
                     @include('profiles.partials._show_profile_data')
                 </div>
             </div>
-        @elseif(in_array($model->getValue('profile_status'), [6,7]))
+        @elseif(in_array($model->getValue('profile_status'), [7,8]))
             <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
                 <li class="nav-item">
                     <a href="#contract" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
@@ -141,7 +141,7 @@
                     @include('profiles.partials._show_profile_data')
                 </div>
             </div>
-        @elseif($model->getAttribute('profile_status')->getValue() == 8)
+        @elseif($model->getAttribute('profile_status')->getValue() == 9)
             @php
                 $selection = $model->getActiveProgram()->getSelection();
                 $preselection = $model->getActiveProgram()->getPreselection();

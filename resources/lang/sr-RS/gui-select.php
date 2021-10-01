@@ -54,6 +54,7 @@ return [
     'PS-Interest' => 'Interes',
     'PS-Application' => 'Prijava',
     'PS-Preselection' => 'Preselekcija',
+    'PS-DemoDay' => 'Demo Day',
     'PS-Selection' => 'Selekcija',
     'PS-Contract' => 'Ugovor',
     'PS-InProgram' => 'U programu',

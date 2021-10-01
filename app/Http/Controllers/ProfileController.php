@@ -450,7 +450,7 @@ class ProfileController extends Controller
                 ]);
             $program->addPreselection(new Preselection());
         } else {
-            $profile->getAttribute('profile_status')->setValue(5);
+            $profile->getAttribute('profile_status')->setValue(6); // Selection
         }
 
         return json_encode([
@@ -493,7 +493,7 @@ class ProfileController extends Controller
             ]);
 
             // Go to selection.
-            $profile->setData(['profile_status' => 5]);
+            $profile->setData(['profile_status' => 6]);
 
             // Add selection to profile.
             $profile->getActiveProgram()->addSelection(new Selection());
@@ -505,7 +505,7 @@ class ProfileController extends Controller
             ]);
 
             // Set status 'rejected'
-            $profile->setData(['profile_status' => 8]);
+            $profile->setData(['profile_status' => 9]);
 
             // Send rejection email to the user.
             $email = $profile->getAttribute('contact_email')->getValue();
@@ -551,7 +551,7 @@ class ProfileController extends Controller
 
             if($profile->getActiveProgram()->getAttribute('needs_contract')->getValue() == true) {
                 // Go to contract
-                $profile->setData(['profile_status' => 6]);
+                $profile->setData(['profile_status' => 7]);
 
                 // Add contract to profile.
                 $profile->getActiveProgram()->addContract(new Contract());
@@ -560,7 +560,7 @@ class ProfileController extends Controller
                 $profile->addSituationByData(__('Contract Signing'), []);
             } else {
                 // Go to acceptance.
-                $profile->setData(['profile_status' => 7]);
+                $profile->setData(['profile_status' => 8]);
 
                 // Add situation.
                 $profile->addSituationByData(__('Accepted for Program'), []);
@@ -573,7 +573,7 @@ class ProfileController extends Controller
             ]);
 
             // Set status 'rejected'
-            $profile->setData(['profile_status' => 8]);
+            $profile->setData(['profile_status' => 9]);
 
             // Send rejection email to the user.
             $email = $profile->getAttribute('contact_email')->getValue();
@@ -642,7 +642,7 @@ class ProfileController extends Controller
         $profile->addSituationByData(__('Contract Signed'), []);
 
         // Change status, move forward.
-        $profile->getAttribute('profile_status')->setValue(7);
+        $profile->getAttribute('profile_status')->setValue(8);
 
         return json_encode([
             'code' => 0,
@@ -710,7 +710,7 @@ class ProfileController extends Controller
         $candidates = $programs->filter(function($program) {
             $profile = $program->getProfile();
             if(($program->getValue('program_type') == Program::$RAISING_STARTS && $profile->getValue('profile_status') > 4) ||
-                $profile->getValue('profile_status') == 7) {
+                $profile->getValue('profile_status') == 8) {
                 return true;
             }
 

@@ -70,7 +70,7 @@
                     </div>
                 </div>
 
-            @elseif($status >= 4 && $status < 6)
+            @elseif($status >= 4 && $status < 7)
                 <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
                     <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper('Uspešna prijava na program') }}</div>
                     <div class="card-body">
@@ -96,7 +96,7 @@
 
                     </div>
                 </div>
-            @elseif($status == 6)
+            @elseif($status == 7)
                 <div class="card position-absolute" style="left: 0px; top: 0px; right: 0px; bottom: 0px" >
                     <div class="card-header bg-dark text-light text-center">
                         {{ mb_strtoupper(__('Contract Signing')) }}
@@ -115,7 +115,7 @@
 
                     </div>
                 </div>
-            @elseif($status == 8)
+            @elseif($status == 9)
                 <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
                     <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper(__('Application Rejected')) }}</div>
                     <div class="card-body">

@@ -11,7 +11,7 @@ class Selection extends BusinessModel
      * Returns the attribute definition for this object.
      * @return \Illuminate\Support\Collection
      */
-    private static function getAttributesDefinition(): Collection
+    public static function getAttributesDefinition(): Collection
     {
         $attributes = collect([]);
         $attributes->add(self::selectOrCreateAttribute(['selection_date', __('Selection Date'), 'datetime', NULL, 1]));

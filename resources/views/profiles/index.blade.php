@@ -71,12 +71,13 @@
                                                 @break
                                             @case(4)
                                             @case(5)
+                                            @case(6)
                                                 ribbon-two-warning
                                                 @break
-                                            @case(7)
+                                            @case(8)
                                                 ribbon-two-primary
                                                 @break
-                                            @case(8)
+                                            @case(9)
                                                 ribbon-two-secondary
                                                 @break
                                             @default

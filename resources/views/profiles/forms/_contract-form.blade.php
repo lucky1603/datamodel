@@ -110,14 +110,15 @@
 
 
         <div class="row text-center" style="height: 15%; display: flex; flex-direction: row; justify-content: center; align-items: center">
-            <button type="button" id="btnNotifyClientContract" class="btn btn-sm btn-warning w-15 h-50" @if( $status != 6) disabled @endif>{{__('gui.contract-notify')}}</button>
-            <button type="button" id="btnSaveContract" class="btn btn-sm btn-primary w-15 h-50 ml-1" @if($status != 6) disabled @endif>{{__('gui.contract-save')}}</button>
-            <button type="button" id="btnContractSigned" class="btn btn-sm btn-success w-15 h-50 ml-1" @if($status != 6) disabled @endif>
+            <button type="button" id="btnNotifyClientContract" class="btn btn-sm btn-warning w-15 h-50" @if( $status != 7) disabled @endif>{{__('gui.contract-notify')}}</button>
+            <button type="button" id="btnSaveContract" class="btn btn-sm btn-primary w-15 h-50 ml-1" @if($status != 7) disabled @endif>{{__('gui.contract-save')}}</button>
+            <button type="button" id="btnContractSigned" class="btn btn-sm btn-success w-15 h-50 ml-1" @if($status != 7) disabled @endif>
                 <span id="button_spinner_contract_ok" class="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.contract-sign')}}</span>
             </button>
         </div>
     </form>
+
 </div>
 
 

@@ -139,11 +139,20 @@
                                                 @endphp
                                                 <div style="display: flex; flex-wrap: wrap; width: 100%">
                                                     @foreach($links as $link)
+                                                        @php
+                                                            if(!str_contains('http://', $link))
+                                                                $link = "http://".$link;
+                                                        @endphp
                                                         <a href="{{ $link }}" target="_blank" class="mr-2">{{ $link }}</a>
                                                     @endforeach
                                                 </div>
                                             @elseif($attribute->type == 'varchar' && $attribute->extra == 'link')
-                                                <a href="{{ $attribute->getValue() }}" target="_blank">{{ $attribute->getValue() }}</a>
+                                                @php
+                                                    $link = $attribute->getValue();
+                                                    if(!str_contains('http://', $link) && !str_contains('https', $link))
+                                                        $link = "http://".$link;
+                                                @endphp
+                                                <a href="{{ $link }}" target="_blank">{{ $link }}</a>
                                             @elseif($attribute->type == 'file' && $attribute->extra == 'multiple')
                                                 @php
                                                     $files = $attribute->getValue();

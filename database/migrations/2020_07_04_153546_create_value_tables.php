@@ -21,7 +21,7 @@ class CreateValueTables extends Migration
             $table->string('value')->nullable(true);
             $table->timestamps();
 
-            $table->unique(['attribute_id','instance_id']);
+//            $table->unique(['attribute_id','instance_id']);
             $table->foreign('attribute_id')->on('attributes')->references('id')->onDelete('cascade');
             $table->foreign('instance_id')->on('instances')->references('id')->onDelete('cascade');
         });

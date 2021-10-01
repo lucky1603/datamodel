@@ -64,7 +64,6 @@
             });
 
             $('#send').on('click', function() {
-                alert('click');
                 $('#button_spinner').attr('hidden', false);
                 var profileId = <?php echo $model->getId(); ?>;
 

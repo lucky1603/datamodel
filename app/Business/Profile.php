@@ -127,10 +127,11 @@ class Profile extends SituationsModel
             $status->addOption(['value' => 2, 'text' => __('gui-select.PS-Interest')]);
             $status->addOption(['value' => 3, 'text' => __('gui-select.PS-Application')]);
             $status->addOption(['value' => 4, 'text' => __('gui-select.PS-Preselection')]);
-            $status->addOption(['value' => 5, 'text' => __('gui-select.PS-Selection')]);
-            $status->addOption(['value' => 6, 'text' => __('gui-select.PS-Contract')]);
-            $status->addOption(['value' => 7, 'text' => __('gui-select.PS-InProgram')]);
-            $status->addOption(['value' => 8, 'text' => __('gui-select.PS-Rejected')]);
+            $status->addOption(['value' => 5, 'text' => __('gui-select.PS-DemoDay')]);
+            $status->addOption(['value' => 6, 'text' => __('gui-select.PS-Selection')]);
+            $status->addOption(['value' => 7, 'text' => __('gui-select.PS-Contract')]);
+            $status->addOption(['value' => 8, 'text' => __('gui-select.PS-InProgram')]);
+            $status->addOption(['value' => 9, 'text' => __('gui-select.PS-Rejected')]);
 
         }
         $attributes[] = $status;
