@@ -6,6 +6,7 @@
             @php
                 $status = $model->getAttribute('profile_status')->getValue();
                 $program = $model->getActiveProgram();
+                $programType = $program->getValue('program_type');
             @endphp
             @if( in_array($status, [1,2]))
                 <h1 class="text-center">Programi</h1>
@@ -70,7 +71,8 @@
                     </div>
                 </div>
 
-            @elseif($status >= 4 && $status < 7)
+            @elseif( $programType != \App\Business\Program::$RAISING_STARTS && (  $status >= 4 && $status < 7) ||
+                     $programType == \App\Business\Program::$RAISING_STARTS && ( $status == 4 || $status == 6))
                 <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
                     <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper('Uspešna prijava na program') }}</div>
                     <div class="card-body">
@@ -94,6 +96,38 @@
                             </div>
                         </div>
 
+                    </div>
+                </div>
+            @elseif($programType == \App\Business\Program::$RAISING_STARTS && $status == 5)
+                <div class="card row w-100 shadow" style="height:96%">
+                    <div class="card-header bg-primary text-light">
+                        <span class="h4 text-center">Demo Day</span>
+                    </div>
+                    <div class="card-body">
+                        @php
+                            $program = $model->getActiveProgram();
+                            $demoday = $program->getDemoDay();
+                        @endphp
+                        <p class="font-weight-light font-14 ">Uspešno ste prošli proces predselekcije.</p>
+                        <p class="font-weight-light font-14 ">Sada je neophodno da nam do {{ $demoday->getText('demoday_date') }} prosledite sledeće datoteke:
+                            1.) Opis datoteke 1; 2.) Opis datoteke 2.</p>
+                        <h4 class="text-center mt-5">Priložite datoteke</h4>
+                        <form id="myFilesForm" method="POST" enctype="multipart/form-data" action="{{route('demoday.sendfiles')}}">
+                            @csrf
+                            <input type="hidden" id="demodayId" name="demodayId" value="{{ $demoday->getId() }}">
+                            <input type="hidden" id="profileId" name="profileId" value="{{ $program->getProfile()->getId() }}">
+                            <div class="form-group">
+                                <label for="demoday_files" class="col-form-label col-form-label-sm">Priložite datoteke</label>
+                                <input type="file" id="demoday_files" name="demoday_files[]" multiple class="form-control">
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-sm btn-primary" id="buttonSendFiles">
+                                    <span id="button_spinner_send" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                                    <span id="button_text">Posalji fajlove</span>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary" id="buttonReset">Odustani</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             @elseif($status == 7)
@@ -156,6 +190,41 @@
             @endif
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#buttonSendFiles').click(function() {
+                $('#button_spinner_send').attr('hidden', false);
+                var data = new FormData($('form#myFilesForm')[0]);
+                var token = $('form#myFilesForm input[name="_token"]').val();
+                $.ajax({
+                    url: '/demoday/sendfiles',
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    headers: {
+                        'X-CSRF-Token' : token
+                    },
+                    success: function (data) {
+                        // The file was uploaded successfully...
+                        console.log(data);
+                        $('#button_spinner_send').attr('hidden', true);
+                    },
+                    error: function (data) {
+                        // there was an error.
+                        console.log(data);
+                        $('#button_spinner_send').attr('hidden', true);
+                    }
+                });
+            });
+            $('#buttonReset').click(function() {
+                location.reload();
+            })
+        })
+    </script>
 @endsection
 
 

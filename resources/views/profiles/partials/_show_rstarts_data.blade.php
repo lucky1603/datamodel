@@ -149,7 +149,7 @@
                                             @elseif($attribute->type == 'varchar' && $attribute->extra == 'link')
                                                 @php
                                                     $link = $attribute->getValue();
-                                                    if(!str_contains('http://', $link) && !str_contains('https', $link))
+                                                    if(!str_contains($link, 'http://') && !str_contains($link, 'https' ))
                                                         $link = "http://".$link;
                                                 @endphp
                                                 <a href="{{ $link }}" target="_blank">{{ $link }}</a>

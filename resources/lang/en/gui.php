@@ -51,25 +51,17 @@ return [
     'resenje_fajl' => 'Document / decision on company registration',
     'linkedin_founders' => 'Links to Linkedin profiles, if any, for each person',
     'founders_cv' => 'A file with short biographies of all the founders',
+    'demo_note' => 'You have passed the preselection and have to send the required files for the demo day.',
 
     /*
      * PRESELECTION form
      */
 
-    'preselection-notify' => 'Notify',
-    'preselection-save' => 'Save',
-    'preselection-accept' => 'Accept',
-    'preselection-reject' => 'Reject',
-
-    'selection-notify' => 'Notify',
-    'selection-save' => 'Save',
-    'selection-accept' => 'Accept',
-    'selection-reject' => 'Reject',
-
-    'contract-notify' => 'Notify',
-    'contract-save' => 'Save',
-    'contract-sign' => 'Sign',
-    'contract-reject' => 'Reject',
+    'notify' => 'Notify',
+    'save' => 'Save',
+    'accept' => 'Accept',
+    'reject' => 'Reject',
+    'sign' => 'Sign',
 
     /*
      * Validation Errors

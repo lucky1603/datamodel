@@ -28,8 +28,9 @@ class DemoDay extends BusinessModel
         if($data == null) {
             $data = [
                 'demoday_date' => now(),
-                'demoday_note' => null,
-                'demoday_files' => null
+                'demoday_note' => __('gui.demoday_note'),
+                'demoday_files' => null,
+                'demoday_client_notified' => false
             ];
         }
 
@@ -40,7 +41,8 @@ class DemoDay extends BusinessModel
      * Returns the program to which this instance belongs.
      * @return Program|null
      */
-    public function getProgram() {
+    public function getProgram(): ?Program
+    {
         $programInstance = $this->instance->parentInstances()->first();
         if($programInstance == null)
             return null;
@@ -57,6 +59,9 @@ class DemoDay extends BusinessModel
         $attributes->add(self::selectOrCreateAttribute(['demoday_date', __('Demo Day Date'), 'datetime', NULL, 1]));
         $attributes->add(self::selectOrCreateAttribute(['demoday_note', __('Demo Day Note'), 'text', NULL, 2]));
         $attributes->add(self::selectOrCreateAttribute(['demoday_files', __('Demo Day Files'), 'file', 'multiple', 3]));
+        $attributes->add(self::selectOrCreateAttribute(['demoday_client_notified', __('Demo Day Client Notified'), 'bool', NULL, 4]));
+
+        return $attributes;
     }
 
 

@@ -7,6 +7,7 @@ use App\AttributeGroup;
 use App\Business\BusinessModel;
 use App\Business\Client;
 use App\Business\Contract;
+use App\Business\DemoDay;
 use App\Business\Founder;
 use App\Business\Preselection;
 use App\Business\Profile;
@@ -492,12 +493,19 @@ class ProfileController extends Controller
                 'preselection_passed' => true
             ]);
 
-            // Go to selection.
-            $profile->setData(['profile_status' => 6]);
+            if($profile->getActiveProgram()->getValue('program_type') == Program::$RAISING_STARTS) {
+                // Go to selection.
+                $profile->setData(['profile_status' => 5]);
 
-            // Add selection to profile.
-            $profile->getActiveProgram()->addSelection(new Selection());
+                // Add selection to profile.
+                $profile->getActiveProgram()->addDemoDay(new DemoDay());
+            } else {
+                // Go to selection.
+                $profile->setData(['profile_status' => 6]);
 
+                // Add selection to profile.
+                $profile->getActiveProgram()->addSelection(new Selection());
+            }
         } else {
             // Add situation (preselection result).
             $profile->addSituationByData(__('Preselection Done'), [
@@ -518,6 +526,7 @@ class ProfileController extends Controller
         ];
 
     }
+
 
     /**
      * Evaluatie selection.

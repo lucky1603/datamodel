@@ -105,15 +105,18 @@ class Program extends SituationsModel
 
     /**
      * Gets the demo day of the current program.
-     * @return DemoDay
+     * @return DemoDay|null
      */
-    public function getDemoDay(): DemoDay
+    public function getDemoDay(): ?DemoDay
     {
         $demoDayInstance = $this->instance->instances->filter(function($instance) {
             if($instance->entity->name == 'DemoDay')
                 return true;
             return false;
         })->first();
+
+        if($demoDayInstance == null)
+            return null;
 
         return new DemoDay(['instance_id' => $demoDayInstance->id]);
     }

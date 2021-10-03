@@ -46,6 +46,49 @@
                     @include('profiles.partials._show_profile_data')
                 </div>
             </div>
+        @elseif($model->getValue('profile_status') == 5)
+            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                <li class="nav-item">
+                    <a href="#demoday" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                        <span class="d-none d-md-block">{{ strtoupper(__('Demo Day')) }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#preselection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                        <span class="d-none d-md-block">{{ strtoupper(__('Preselection')) }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#appform" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                        <span class="d-none d-md-block">{{ strtoupper( __('Application Form')) }}</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content overflow-auto" style="height: 90%!important;">
+                <div class="tab-pane show active h-100 overflow-auto" id="demoday">
+                    @include('profiles.forms._demoday-form', [
+                        'attributes' => $model->getActiveProgram()->getDemoDay()->getAttributes(),
+                        'id' => $model->getActiveProgram()->getDemoDay()->getId(),
+                        'status' => $model->getAttribute('profile_status')->getValue(),
+                        'notified' => $model->getActiveProgram()->getDemoDay()->getValue('demoday_client_notified')
+                    ])
+                </div>
+                <div class="tab-pane h-100 overflow-auto"  id="preselection">
+                    @include('profiles.forms._preselection-form',
+                                [
+                                    'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),
+                                    'id' => $model->getActiveProgram()->getPreselection()->getId(),
+                                    'status' => $model->getAttribute('profile_status')->getValue()
+                                ])
+                </div>
+                <div class="tab-pane overflow-auto h-100"  id="appform">
+                    @include('profiles.partials._show_profile_data')
+                </div>
+            </div>
+
         @elseif($model->getAttribute('profile_status')->getValue() == 6)
             <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
                 <li class="nav-item">
@@ -278,6 +321,19 @@
                 $.post('/selection/update/' + id, data, function(data, status, xhr) {
                     location.reload();
                 });
+            });
+
+            $('#btnSaveDemoDay').click(function(evt) {
+                const id = $('#id');
+                let notified = $('#demoday_client_notified').val();
+                let data = $('form#myDemoDayForm').serialize();
+                if(notified === 'false')
+                    $('#demoday_client_notified').val('true');
+
+                $.post('/demoday/update/' + id, data, function(data, status, xhr) {
+                    console.log(data);
+                    location.reload();
+            });
             });
 
             $('#btnSaveContract').click(function(evt) {

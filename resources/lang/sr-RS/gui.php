@@ -51,25 +51,17 @@ return [
     'resenje_fajl' => 'Dokument/rešenje o registraciji privrednog društva',
     'linkedin_founders' => 'Linkovi ka Linkedin profilima, ukoliko postoje, za svako lice',
     'founders_cv' => 'Fajl sa kratkim biografijama svih osnivača',
+    'demo_note' => 'Prošli ste proces predselekcije i sada je neophodno da posaljete trazene dokumente.',
 
     /*
      * PRESELECTION form
      */
 
-    'preselection-notify' => 'Obavesti',
-    'preselection-save' => 'Sačuvaj',
-    'preselection-accept' => 'Prihvati',
-    'preselection-reject' => 'Odbij',
-
-    'selection-notify' => 'Obavesti',
-    'selection-save' => 'Sačuvaj',
-    'selection-accept' => 'Prihvati',
-    'selection-reject' => 'Odbij',
-
-    'contract-notify' => 'Obavesti',
-    'contract-save' => 'Sačuvaj',
-    'contract-sign' => 'Potpiši',
-    'contract-reject' => 'Odbij',
+    'notify' => 'Obavesti',
+    'save' => 'Sačuvaj',
+    'accept' => 'Prihvati',
+    'reject' => 'Odbij',
+    'sign' => 'Potpiši',
 
     /*
      * Validation Errors

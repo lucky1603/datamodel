@@ -79,21 +79,21 @@
 
         <div class="row text-center " style="height: 15%; display: flex; flex-direction: row; justify-content: center; align-items: center">
 
-                <button type="button" id="btnNotifyClientPreselection" class="btn btn-sm btn-warning h-50 w-15" @if($status != 4) disabled @endif>{{__('gui.preselection-notify')}}</button>
+                <button type="button" id="btnNotifyClientPreselection" class="btn btn-sm btn-warning h-50 w-15" @if($status != 4) disabled @endif>{{__('gui.notify')}}</button>
 
 
-                <button type="button" id="btnSavePreselection" class="btn btn-sm btn-primary h-50 w-15 ml-1"  @if($status != 4) disabled @endif>{{__('gui.preselection-save')}}</button>
+                <button type="button" id="btnSavePreselection" class="btn btn-sm btn-primary h-50 w-15 ml-1"  @if($status != 4) disabled @endif>{{__('gui.save')}}</button>
 
 
                 <button type="button" id="btnPreselectionPassed" class="btn btn-sm btn-success h-50 w-15 ml-1"  @if($status != 4) disabled @endif>
                     <span id="button_spinner_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-                    <span id="button_text">{{__('gui.preselection-accept')}}</span>
+                    <span id="button_text">{{__('gui.accept')}}</span>
                 </button>
 
 
                 <button type="button" id="btnPreselectionFailed" class="btn btn-sm btn-danger h-50 w-15 ml-1"  @if($status != 4) disabled @endif>
                     <span id="button_spinner_cancel" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-                    <span id="button_text">{{__('gui.preselection-reject')}}</span>
+                    <span id="button_text">{{__('gui.eject')}}</span>
                 </button>
 
         </div>
