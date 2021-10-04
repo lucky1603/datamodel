@@ -16,6 +16,7 @@ use App\Business\Selection;
 use App\Business\TeamMember;
 use App\Business\Training;
 use App\Http\Middleware\Authenticate;
+use App\Mail\DemoDayNotification;
 use App\Mail\MeetingNotification;
 use App\Mail\ProfileCreated;
 use App\Mail\ProfileRejected;
@@ -499,6 +500,10 @@ class ProfileController extends Controller
 
                 // Add selection to profile.
                 $profile->getActiveProgram()->addDemoDay(new DemoDay());
+
+                // Send rejection email to the user.
+                $email = $profile->getAttribute('contact_email')->getValue();
+                Mail::to($email)->send(new DemoDayNotification($profile, false));
             } else {
                 // Go to selection.
                 $profile->setData(['profile_status' => 6]);
@@ -525,6 +530,56 @@ class ProfileController extends Controller
             'message' => 'Success'
         ];
 
+    }
+
+    public function evalDemoDay(Request $request) {
+        $data = $request->post();
+
+        if(!isset($data['profile'])) {
+            return [
+                'code' => 1,
+                'message' => __('Wrong Parameters'),
+            ];
+        }
+
+        $profileId = $data['profile'];
+        $profile = Profile::find($profileId);
+        if($profile == null) {
+            return [
+                'code' => 2,
+                'message' => __('Profile doesn\'t exist'),
+            ];
+        }
+
+        if($data['passed'] == 'true') {
+
+            // Add situation.
+            $profile->addSituationByData(__('Demo Day Passed'), [
+                'demoday_passed' => true
+            ]);
+
+            $profile->setValue('profile_status', 6);
+
+            // Add selection to profile.
+            $profile->getActiveProgram()->addSelection(new Selection());
+
+            // Send rejection email to the user.
+            $email = $profile->getAttribute('contact_email')->getValue();
+            Mail::to($email)->send(new DemoDayNotification($profile, true));
+
+        } else {
+            // Add situation (preselection result).
+            $profile->addSituationByData(__('Demo Day Passed'), [
+                'demoday_passed' => false
+            ]);
+
+            // Set status 'rejected'
+            $profile->setData(['profile_status' => 9]);
+
+            // Send rejection email to the user.
+            $email = $profile->getAttribute('contact_email')->getValue();
+            Mail::to($email)->send(new ProfileRejected($profile));
+        }
     }
 
 

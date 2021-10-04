@@ -213,6 +213,18 @@ class Profile extends SituationsModel
                 $situation = new Situation($data);
                 $situation->addAttribute(self::selectOrCreateAttribute(['preselection_passed', __("Preselection Passed"), 'bool', NULL, 5]));
                 break;
+            case __('Demo Day Passed'):
+                $data = [
+                    'name' => $situationType,
+                    'description' => __('gui-situations.PROFILE-DEMODAY-DONE', [
+                        'client' => $this->getValue('name')
+                    ]),
+                    'sender' => 'NTP'
+                ];
+
+                $situation = new Situation($data);
+                $situation->addAttribute(self::selectOrCreateAttribute(['demoday_passed', __("Demo Day   Passed"), 'bool', NULL, 5]));
+                break;
             case __('Ready for Selection'):
                 $data = [
                     'name' => $situationType,

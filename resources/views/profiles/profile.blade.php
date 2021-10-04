@@ -1,12 +1,14 @@
 @extends('layouts.hyper-vertical-profile-shortdata')
 
 @section('profile-content')
+    <h4>{{ $model->getValue('name') }}</h4>
     <div class="card h-100 overflow-auto p-0" style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px">
         <div class="card-body p-0">
             @php
-                $status = $model->getAttribute('profile_status')->getValue();
+                $status = $model->getValue('profile_status');
                 $program = $model->getActiveProgram();
-                $programType = $program->getValue('program_type');
+                if($program != null)
+                    $programType = $program->getValue('program_type');
             @endphp
             @if( in_array($status, [1,2]))
                 <h1 class="text-center">Programi</h1>
@@ -108,26 +110,39 @@
                             $program = $model->getActiveProgram();
                             $demoday = $program->getDemoDay();
                         @endphp
-                        <p class="font-weight-light font-14 ">Uspešno ste prošli proces predselekcije.</p>
-                        <p class="font-weight-light font-14 ">Sada je neophodno da nam do {{ $demoday->getText('demoday_date') }} prosledite sledeće datoteke:
-                            1.) Opis datoteke 1; 2.) Opis datoteke 2.</p>
-                        <h4 class="text-center mt-5">Priložite datoteke</h4>
-                        <form id="myFilesForm" method="POST" enctype="multipart/form-data" action="{{route('demoday.sendfiles')}}">
-                            @csrf
-                            <input type="hidden" id="demodayId" name="demodayId" value="{{ $demoday->getId() }}">
-                            <input type="hidden" id="profileId" name="profileId" value="{{ $program->getProfile()->getId() }}">
-                            <div class="form-group">
-                                <label for="demoday_files" class="col-form-label col-form-label-sm">Priložite datoteke</label>
-                                <input type="file" id="demoday_files" name="demoday_files[]" multiple class="form-control">
-                            </div>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-sm btn-primary" id="buttonSendFiles">
-                                    <span id="button_spinner_send" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-                                    <span id="button_text">Posalji fajlove</span>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary" id="buttonReset">Odustani</button>
-                            </div>
-                        </form>
+                        @if(!$demoday->getValue('demoday_files_sent'))
+                            <p class="font-weight-light font-14 ">Uspešno ste prošli proces predselekcije.</p>
+                            @if($program->getDemoDay()->getValue('demoday_client_notified'))
+                            <p class="font-weight-light font-14 ">Sada je neophodno da nam do {{ $demoday->getText('demoday_date') }} prosledite sledeće datoteke:
+                                1.) Opis datoteke 1; 2.) Opis datoteke 2.</p>
+                            <h4 class="text-center mt-5">Priložite datoteke</h4>
+                            <form id="myFilesForm" method="POST" enctype="multipart/form-data" action="{{route('demoday.sendfiles')}}">
+                                @csrf
+                                <input type="hidden" id="demodayId" name="demodayId" value="{{ $demoday->getId() }}">
+                                <input type="hidden" id="profileId" name="profileId" value="{{ $program->getProfile()->getId() }}">
+                                <div class="form-group">
+                                    <label for="demoday_files" class="col-form-label col-form-label-sm">Priložite datoteke</label>
+                                    <input type="file" id="demoday_files" name="demoday_files[]" multiple class="form-control">
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-sm btn-primary" id="buttonSendFiles">
+                                        <span id="button_spinner_send" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                                        <span id="button_text">Posalji fajlove</span>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" id="buttonReset">Odustani</button>
+                                </div>
+                            </form>
+                            @else
+                                <p>Uskoro ćete dobiti datum do kojeg je neophodno da pošaljete sledeće dokumente u formi elektronskih datoteka:</p>
+                                <ul>
+                                    <li>1. Datoteka 1</li>
+                                    <li>2. Datoteka 2</li>
+                                </ul>
+                            @endif
+                        @else
+                            <p>Datoteke su uspešno poslate!</p>
+                            <p>Uskoro ćete dobiti rezultate komisije.</p>
+                        @endif
                     </div>
                 </div>
             @elseif($status == 7)
@@ -212,11 +227,13 @@
                         // The file was uploaded successfully...
                         console.log(data);
                         $('#button_spinner_send').attr('hidden', true);
+                        location.reload();
                     },
                     error: function (data) {
                         // there was an error.
                         console.log(data);
                         $('#button_spinner_send').attr('hidden', true);
+                        location.reload();
                     }
                 });
             });

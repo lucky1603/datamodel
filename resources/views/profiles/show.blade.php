@@ -97,6 +97,14 @@
                         <span class="d-none d-md-block">{{ strtoupper(__('Selection')) }}</span>
                     </a>
                 </li>
+                @if($model->getActiveProgram()->getValue('program_type') == \App\Business\Program::$RAISING_STARTS)
+                    <li class="nav-item">
+                        <a href="#demoday" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                            <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                            <span class="d-none d-md-block">{{ strtoupper(__('Demo Day')) }}</span>
+                        </a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <a href="#preselection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
                         <i class="mdi mdi-face-agent d-md-none d-block"></i>
@@ -118,6 +126,16 @@
                         'status' => $model->getAttribute('profile_status')->getValue()
                     ])
                 </div>
+                @if($model->getActiveProgram()->getValue('program_type') == \App\Business\Program::$RAISING_STARTS)
+                    <div class="tab-pane h-100 overflow-auto" id="demoday">
+                        @include('profiles.forms._demoday-form', [
+                            'attributes' => $model->getActiveProgram()->getDemoDay()->getAttributes(),
+                            'id' => $model->getActiveProgram()->getDemoDay()->getId(),
+                            'status' => $model->getAttribute('profile_status')->getValue(),
+                            'notified' => $model->getActiveProgram()->getDemoDay()->getValue('demoday_client_notified')
+                        ])
+                    </div>
+                @endif
                 <div class="tab-pane h-100 overflow-auto"  id="preselection">
                     @include('profiles.forms._preselection-form',
                                 [
@@ -144,6 +162,14 @@
                         <span class="d-none d-md-block">{{ strtoupper(__('Selection')) }}</span>
                     </a>
                 </li>
+                @if($model->getActiveProgram()->getValue('program_type') == \App\Business\Program::$RAISING_STARTS)
+                    <li class="nav-item">
+                        <a href="#demoday" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                            <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                            <span class="d-none d-md-block">{{ strtoupper(__('Demo Day')) }}</span>
+                        </a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <a href="#preselection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
                         <i class="mdi mdi-face-agent d-md-none d-block"></i>
@@ -172,6 +198,16 @@
                         'status' => $model->getAttribute('profile_status')->getValue()
                     ])
                 </div>
+                @if($model->getActiveProgram()->getValue('program_type') == \App\Business\Program::$RAISING_STARTS)
+                    <div class="tab-pane h-100 overflow-auto" id="demoday">
+                        @include('profiles.forms._demoday-form', [
+                            'attributes' => $model->getActiveProgram()->getDemoDay()->getAttributes(),
+                            'id' => $model->getActiveProgram()->getDemoDay()->getId(),
+                            'status' => $model->getAttribute('profile_status')->getValue(),
+                            'notified' => $model->getActiveProgram()->getDemoDay()->getValue('demoday_client_notified')
+                        ])
+                    </div>
+                @endif
                 <div class="tab-pane h-100 overflow-auto"  id="preselection">
                     @include('profiles.forms._preselection-form',
                                 [
@@ -326,14 +362,16 @@
             $('#btnSaveDemoDay').click(function(evt) {
                 const id = $('#id');
                 let notified = $('#demoday_client_notified').val();
-                let data = $('form#myDemoDayForm').serialize();
+
                 if(notified === 'false')
                     $('#demoday_client_notified').val('true');
+
+                let data = $('form#myDemoDayForm').serialize();
 
                 $.post('/demoday/update/' + id, data, function(data, status, xhr) {
                     console.log(data);
                     location.reload();
-            });
+                });
             });
 
             $('#btnSaveContract').click(function(evt) {
@@ -391,6 +429,35 @@
                         alert('email not sent');
                     }
 
+                });
+            });
+
+            $('#btnDemoDayPassed').click(function() {
+                $('#button_spinner_ok').attr('hidden', false);
+                const id = <?php echo $model->getId() ?>;
+                const obj = {
+                    profile: id,
+                    passed: true,
+                };
+                const token = $('form#myDemoDayForm input[name="_token"]').val();
+
+                $.ajax({
+                    url: '/profiles/evalDemoDay',
+                    data: obj,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-Token' : token
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $('#button_spinner_ok').attr('hidden', true);
+                        location.reload();
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        $('#button_spinner_ok').attr('hidden', true);
+                        location.reload();
+                    }
                 });
             });
 

@@ -10,21 +10,16 @@ class DemoDayController extends Controller
     public function update(Request $request, $id): array
     {
         $data = $request->post();
-
-        var_dump($data['demoday_client_notified']);
-
-        if($data['demoday_client_notified'] == 'false')
-            $data['demoday_client_notified'] = false;
-        else
-            $data['demoday_client_notified'] = true;
+        $data['demoday_client_notified'] = true;
 
         $demoday = new DemoDay(['instance_id' => $data['id']]);
-        if($demoday == null) {
+        if($demoday->instance == null) {
             return [
                 'code' => 1,
                 'message' => 'No demo day with id' .$id,
             ];
         }
+
         $demoday->setData($data);
         return [
             'code' => 0,
@@ -32,7 +27,8 @@ class DemoDayController extends Controller
         ];
     }
 
-    public function sendfiles(Request $request) {
+    public function sendfiles(Request $request): array
+    {
         $data = $request->post();
         $profileId = $data['profileId'];
         $id = $data['demodayId'];
@@ -40,6 +36,7 @@ class DemoDayController extends Controller
 
         $demoday = DemoDay::find($id);
         $demoday->setValue('demoday_files', $files);
+        $demoday->setValue('demoday_files_sent', true);
 
         return [
             'profileId' => $profileId,

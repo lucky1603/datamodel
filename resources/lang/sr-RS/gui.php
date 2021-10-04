@@ -51,7 +51,7 @@ return [
     'resenje_fajl' => 'Dokument/rešenje o registraciji privrednog društva',
     'linkedin_founders' => 'Linkovi ka Linkedin profilima, ukoliko postoje, za svako lice',
     'founders_cv' => 'Fajl sa kratkim biografijama svih osnivača',
-    'demo_note' => 'Prošli ste proces predselekcije i sada je neophodno da posaljete trazene dokumente.',
+    'demoday_note' => 'Prošli ste proces predselekcije i sada je neophodno da posaljete trazene dokumente.',
 
     /*
      * PRESELECTION form

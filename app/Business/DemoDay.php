@@ -3,6 +3,7 @@
 namespace App\Business;
 
 use App\Entity;
+use Illuminate\Support\Collection;
 
 class DemoDay extends BusinessModel
 {
@@ -30,7 +31,8 @@ class DemoDay extends BusinessModel
                 'demoday_date' => now(),
                 'demoday_note' => __('gui.demoday_note'),
                 'demoday_files' => null,
-                'demoday_client_notified' => false
+                'demoday_client_notified' => false,
+                'demoday_files_sent' => false,
             ];
         }
 
@@ -53,13 +55,15 @@ class DemoDay extends BusinessModel
     /**
      * Gets the attributes definitions of this instance.
      */
-    public static function getAttributesDefinition() {
+    public static function getAttributesDefinition(): Collection
+    {
         $attributes = collect([]);
 
         $attributes->add(self::selectOrCreateAttribute(['demoday_date', __('Demo Day Date'), 'datetime', NULL, 1]));
         $attributes->add(self::selectOrCreateAttribute(['demoday_note', __('Demo Day Note'), 'text', NULL, 2]));
         $attributes->add(self::selectOrCreateAttribute(['demoday_files', __('Demo Day Files'), 'file', 'multiple', 3]));
         $attributes->add(self::selectOrCreateAttribute(['demoday_client_notified', __('Demo Day Client Notified'), 'bool', NULL, 4]));
+        $attributes->add(self::selectOrCreateAttribute(['demoday_files_sent', __('Demo Day Requested Files Sent'), 'bool', NULL, 5]));
 
         return $attributes;
     }

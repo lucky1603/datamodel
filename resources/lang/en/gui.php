@@ -51,7 +51,7 @@ return [
     'resenje_fajl' => 'Document / decision on company registration',
     'linkedin_founders' => 'Links to Linkedin profiles, if any, for each person',
     'founders_cv' => 'A file with short biographies of all the founders',
-    'demo_note' => 'You have passed the preselection and have to send the required files for the demo day.',
+    'demoday_note' => 'You have passed the preselection and have to send the required files for the demo day.',
 
     /*
      * PRESELECTION form

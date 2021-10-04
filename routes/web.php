@@ -83,6 +83,7 @@ Route::get('profiles/check/{profile}', 'ProfileController@check')->name('profile
 Route::post('profiles/evalPreselection', 'ProfileController@evalPreselection')->name('profiles.evalpreselection');
 Route::post('profiles/evalSelection', 'ProfileController@evalSelection')->name('profiles.evalselection');
 Route::post('profiles/evalContract', 'ProfileController@evalContract')->name('profiles.evalcontract');
+Route::post('profiles/evalDemoDay', 'ProfileController@evalDemoDay')->name('profiles.evalDemoDay');
 Route::post('profiles/notifyContract', 'ProfileController@notifyContract')->name('profiles.notifycontract');
 Route::post('profiles/saveApplicationData', 'ProfileController@saveApplicationData')->name('profiles.saveapplicationdata');
 Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->name('profiles.apply');

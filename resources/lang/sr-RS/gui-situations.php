@@ -16,6 +16,6 @@ return [
     'PROFILE-SELECTION-DONE' => 'Selekcija klijenta :client za program :program je završena',
     'PROFILE-CONTRACT-SIGNING' => 'Za uključenje klijenta :client u realizaciju programa :program neophodan je potpis ugovora.',
     'PROFILE-CONTRACT-SIGNED' => 'Klijent :client je potpisao ugovor za realizaciju programa :program .',
-    'PROFILE-CONTRACT-DATE-SENT' => 'Klijent :client je obavešten datum potpisa ugovora'
-
+    'PROFILE-CONTRACT-DATE-SENT' => 'Klijent :client je obavešten datum potpisa ugovora',
+    'PROFILE-DEMODAY-DONE' => 'Klijent :client je uspešno završio fazu - \'Demo Day\'',
 ];
