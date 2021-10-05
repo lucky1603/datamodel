@@ -2424,7 +2424,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MentorData",
   props: {
@@ -51459,8 +51458,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "h-100" },
     [
-      _c("div", { staticClass: "card h-100 w-100 shadow" }, [
+      _c("div", { staticClass: "card shadow h-100" }, [
         _c(
           "div",
           { staticClass: "card-header" },
@@ -51484,7 +51484,7 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body pt-0 pb-0" }, [
+        _c("div", { staticClass: "card-body pt-0 pb-0 h-100 " }, [
           _vm.mentor != null
             ? _c("div", { staticClass: "row h-100" }, [
                 _c("div", { staticClass: "col-lg-4 h-100 p-1" }, [
@@ -51493,7 +51493,7 @@ var render = function() {
                     _vm.mentor.photo != null &&
                     _vm.mentor.photo.value.length > 0
                       ? _c("img", {
-                          staticClass: "h-100",
+                          staticStyle: { width: "100%" },
                           attrs: { src: _vm.mentor.photo.value }
                         })
                       : _vm._e(),
@@ -51684,6 +51684,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "h-100" },
     [
       _c("div", { staticClass: "card h-100 w-100" }, [
         _c(
@@ -51835,7 +51836,7 @@ var render = function() {
             _c("div", { staticClass: "col-lg-5" }, [
               _c(
                 "div",
-                { staticStyle: { height: "60%" } },
+                { staticStyle: { height: "55%" } },
                 [
                   _c("mentor-data", {
                     attrs: {
@@ -51850,7 +51851,10 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "card", staticStyle: { height: "35%" } },
+                {
+                  staticClass: "card shadow mt-2",
+                  staticStyle: { height: "45%" }
+                },
                 [
                   _vm._m(0),
                   _vm._v(" "),

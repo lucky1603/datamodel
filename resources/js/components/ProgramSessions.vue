@@ -6,10 +6,10 @@
         <div v-if="mentors.length > 0" class="card-body">
             <div class="row h-100">
                 <div class="col-lg-5">
-                    <div style="height: 60%">
+                    <div style="height: 55%">
                         <mentor-data :mentorid="mentorId" aboutme="PODACI O MENTORU" :usertype="usertype"></mentor-data>
                     </div>
-                    <div class="card" style="height: 35%">
+                    <div class="card shadow mt-2" style="height: 45%">
                         <div class="card-header"><span class="h4 attribute-label">MENTORI</span></div>
                         <div class="card-body overflow-auto">
                             <div class="inbox-widget">

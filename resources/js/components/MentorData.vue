@@ -1,18 +1,17 @@
 <template>
-    <div>
-        <div class="card h-100 w-100 shadow">
+    <div class="h-100">
+        <div class="card shadow h-100">
             <div class="card-header">
                 <span class="h4 attribute-label">{{ aboutme.toUpperCase() }}</span>
                 <b-button v-if="mentor != null && usertype === 'administrator'" variant="primary" class="float-right" title="Promeni podatke" @click="showModal"><i class="dripicons-user"></i></b-button>
             </div>
-            <div class="card-body pt-0 pb-0">
+            <div class="card-body pt-0 pb-0 h-100 ">
                 <div v-if="mentor != null" class="row h-100">
                     <div class="col-lg-4 h-100 p-1">
                         <div class="h-100 w-100 overflow-hidden">
-                            <img v-if="mentor != null && mentor.photo != null && mentor.photo.value.length > 0" :src="mentor.photo.value" class="h-100"/>
+                            <img v-if="mentor != null && mentor.photo != null && mentor.photo.value.length > 0" :src="mentor.photo.value"  style="width: 100%"/>
                             <img v-if="mentor == null || mentor.photo == null || mentor.photo.value.length == 0" src="/images/custom/nophoto2.png" class="h-100"/>
                         </div>
-
                     </div>
                     <div class="col-lg-8 h-100 overflow-auto pt-1">
                         <table class="table table-sm table-borderless table-striped">

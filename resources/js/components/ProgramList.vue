@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="h-100">
         <div class="card h-100 w-100">
             <div class="card-header text-dark">
                 <span class="mb-0 mt-0 h5 attribute-label">{{ title }}</span>
