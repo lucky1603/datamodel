@@ -243,7 +243,8 @@ class BusinessModel
         return $this->instance->users;
     }
 
-    /** Returns the attribute set for the creation form.
+    /**
+     * Returns the attribute set for the creation form.
      * @return mixed
      */
     public function getInitialAttributes() {

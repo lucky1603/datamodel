@@ -35,6 +35,7 @@
             <template #modal-title >{{ viewsessiontitle }}</template>
             <span v-html="viewContent"></span>
             <template #modal-footer>
+                <b-button variant="primary" @click="onUpdate">Prihvati</b-button>
                 <b-button variant="light" @click="closePreview">Zatvori</b-button>
             </template>
         </b-modal>
@@ -98,6 +99,16 @@ export default {
                     this.getSessions(this.program.id);
                 });
 
+        },
+        onUpdate() {
+            const form = document.getElementById('mySessionEditForm');
+            const data = new FormData(form);
+            axios.post(`/sessions/edit`, data)
+                .then(response => {
+                    console.log(response.data);
+                    this.$refs['addSituationModal'].hide();
+                    this.getSessions(this.program.id);
+                });
         },
         onCancel() {
             this.$refs['addSituationModal'].hide();

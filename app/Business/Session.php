@@ -50,6 +50,32 @@ class Session extends SituationsModel
     }
 
     /**
+     * Reveals if there is client feedback or not.
+     * @return bool
+     */
+    public function hasClientFeedback(): bool
+    {
+        if($this->getValue('client_feedback') == null || strlen($this->getValue('client_feedback')) == 0)
+            return false;
+        return true;
+    }
+
+    /**
+     * Reveals if there is mentors feedback or not.
+     * @return bool
+     */
+    public function hasMentorFeedback(): bool
+    {
+        if($this->getValue('mentor_feedback') == null || strlen($this->getValue('mentor_feedback')) == 0)
+            return false;
+        return true;
+    }
+
+    public function isFinished() {
+        return $this->getValue('session_is_finished');
+    }
+
+    /**
      * Sets the default attribute values for this object type.
      * @param null $data
      */
@@ -64,10 +90,9 @@ class Session extends SituationsModel
                 'session_duration' => 0,
                 'session_duration_unit' => 0,
                 'session_short_note' => null,
-                'has_mentor_feedback' => false,
                 'mentors_feedback' => null,
-                'has_client_feedback' => false,
                 'client_feedback' => null,
+                'session_is_finished' => false
             ];
         }
 
@@ -106,10 +131,9 @@ class Session extends SituationsModel
         }
         $attributes->add($attendance);
 
-        $attributes->add(self::selectOrCreateAttribute(['has_mentor_feedback', __('Has Mentor\'s feedback'), 'bool', NULL, 9]));
-        $attributes->add(self::selectOrCreateAttribute(['mentor_feedback', __('Mentor\'s Feedback'), 'text', NULL, 10]));
-        $attributes->add(self::selectOrCreateAttribute(['has_client_feedback', __('Has Client\'s feedback'), 'bool', NULL, 11]));
-        $attributes->add(self::selectOrCreateAttribute(['client_feedback', __('Mentor\'s Feedback'), 'text', NULL, 12]));
+        $attributes->add(self::selectOrCreateAttribute(['mentor_feedback', __("Mentor's Feedback"), 'text', NULL, 9]));
+        $attributes->add(self::selectOrCreateAttribute(['client_feedback', __("Client's Feedback"), 'text', NULL, 10]));
+        $attributes->add(self::selectOrCreateAttribute(['session_is_finished', __('Is Session Finished'), 'bool', NULl, 11]));
 
         return $attributes;
     }

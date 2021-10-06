@@ -63,6 +63,25 @@ class Role extends Model
             }
         }
 
+        if(Role::whereName('mentor')->first() == null) {
+            $role = Role::create(['name' => 'mentor']);
+            $availableAbilities = collect([
+                Ability::whereName('read_client_profile')->firstOrFail(),
+                Ability::whereName('list_client_profiles')->firstOrFail(),
+                Ability::whereName('read_event_data')->firstOrFail(),
+                Ability::whereName('read_situation_data')->firstOrFail(),
+                Ability::whereName('read_session_data')->firstOrFail(),
+                Ability::whereName('write_session_data')->firstOrFail(),
+                Ability::whereName('manage_mentor_session')->firstOrFail(),
+
+
+            ]);
+
+            foreach($availableAbilities as $ability) {
+                $role->allowTo($ability);
+            }
+        }
+
 
     }
 

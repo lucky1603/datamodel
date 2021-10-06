@@ -5,7 +5,13 @@ namespace App\Http\Controllers;
 use App\Business\Mentor;
 use App\Business\Program;
 use App\Business\Session;
+use App\Mail\MentorCreated;
+use App\Mail\ProfileCreated;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class MentorController extends Controller
 {
@@ -47,6 +53,27 @@ class MentorController extends Controller
         }
 
         $mentor = new Mentor($data);
+        $user = User::where(['email' => $data['email']])->first();
+        if($user == null) {
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make(Str::random(10)),
+                'position' => "Mentor",
+            ]);
+
+            $user->setRememberToken(Str::random(60));
+            $user->save();
+
+            $user->assignRole('mentor');
+        }
+
+        $mentor->attachUser($user);
+
+        // TODO - Send email to the user.
+        $email = $mentor->getValue('email');
+        Mail::to($email)->send(new MentorCreated($mentor));
+
 
         return redirect(route('mentors.index'));
 

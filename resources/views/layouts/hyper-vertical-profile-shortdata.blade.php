@@ -61,7 +61,7 @@
                         <div class="dropdown-menu dropdown-menu-right">
 
                             <!-- item-->
-                            <a href="{{ route('user.add') }}" class="dropdown-item nav-link edituser" data-toggle="modal" data-target="#dialogHost" >{{ __('Add User') }}</a>
+                            <a href="{{ route('user.addforprofile', ['profile' => $model->getId()]) }}" class="dropdown-item nav-link edituser" data-toggle="modal" data-target="#dialogHost" >{{ __('Add User') }}</a>
                         </div>
                     </div>
                     <h4 class="header-title">{{__('SUPPORT TEAM')}}</h4>

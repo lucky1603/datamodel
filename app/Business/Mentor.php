@@ -99,6 +99,22 @@ class Mentor extends SituationsModel
         // Now remove it from here.
         $this->instance->instances()->detach($session->instance->id);
         $this->instance->refresh();
+
+        // and delete it.
+        $session->delete();
+    }
+
+    /**
+     * Deletes the mentor.
+     */
+    public function delete()
+    {
+        $sessions = $this->getSessions();
+        $sessions->each(function($session) {
+            $this->removeSession($session);
+        });
+
+        parent::delete();
     }
 
     /**

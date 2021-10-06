@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business\Client;
+use App\Business\Mentor;
 use App\Business\Profile;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,10 @@ class HomeController extends Controller
             else if(isset($instance) && $instance->entity->name === 'Profile') {
                 $profile = Profile::find($instance->id);
                 return redirect(route('profiles.profile', $profile->getId()));
+            }
+            else if(isset($instance) && $instance->entity->name === 'Mentor') {
+                $mentor = Mentor::find($instance->id);
+                return redirect(route('mentors.profile', $mentor->getId()));
             }
             else {
                 return redirect('/');

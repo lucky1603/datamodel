@@ -50,7 +50,7 @@
                 <span>{{ mb_strtoupper( __('Profile')) }}</span>
             </a>
         </li>
-        @if($model->getValue('profile_status') == 9
+        @if($model->getValue('profile_status') == 8
             || ($model->getValue('profile_status') > 4 && $model->getActiveProgram()->getValue('program_type') == \App\Business\Program::$RAISING_STARTS))
             <li class="side-nav-item" id="navProfile">
                 <a href="{{route('profiles.sessions', ['profile' => $model->getId()])}}" class="side-nav-link">
@@ -59,7 +59,7 @@
                 </a>
             </li>
             @endif
-        @if($model->getValue('profile_status') == 9 ||
+        @if($model->getValue('profile_status') == 8 ||
             ($model->getValue('profile_status') > 6 && $model->getActiveProgram()->getValue('program_type') == \App\Business\Program::$RAISING_STARTS))
             <li class="side-nav-item" id="navEvents">
                 <a href="{{route('profiles.trainings', ['profile' => $model->getId()])}}" class="side-nav-link">

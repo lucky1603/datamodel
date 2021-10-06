@@ -25,6 +25,5 @@
             <h4>{{ $session->getAttribute('session_short_note')->label }}</h4>
             <p>{{ $session->getText('session_short_note') }}</p>
         </div>
-        <div><span>{{ $session->getAttribute('has_mentor_feedback') }}</span></div>
     </div>
 @endsection

@@ -2958,6 +2958,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SessionEditor",
   props: {
@@ -3090,6 +3091,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this5.$refs['addSituationModal'].hide();
 
         _this5.getSessions(_this5.program.id);
+      });
+    },
+    onUpdate: function onUpdate() {
+      var _this6 = this;
+
+      var form = document.getElementById('mySessionEditForm');
+      var data = new FormData(form);
+      axios.post("/sessions/edit", data).then(function (response) {
+        console.log(response.data);
+
+        _this6.$refs['addSituationModal'].hide();
+
+        _this6.getSessions(_this6.program.id);
       });
     },
     onCancel: function onCancel() {
@@ -52163,6 +52177,15 @@ var render = function() {
               key: "modal-footer",
               fn: function() {
                 return [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "primary" },
+                      on: { click: _vm.onUpdate }
+                    },
+                    [_vm._v("Prihvati")]
+                  ),
+                  _vm._v(" "),
                   _c(
                     "b-button",
                     {

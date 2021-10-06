@@ -92,5 +92,18 @@ class Ability extends Model
         if(Ability::whereName('write_user_data')->first() == null) {
             Ability::create(['name' => 'write_user_data', 'label' => 'Upis/promena korisničkih podataka']);
         }
+
+        if(Ability::whereName('read_session_data')->first() == null) {
+            Ability::create(['name' => 'read_session_data', 'label' => 'Pregled podataka o mentorskoj sesiji']);
+        }
+
+        if(Ability::whereName('write_session_data')->first() == null) {
+            Ability::create(['name' => 'write_session_data', 'label' => 'Azuriranje podataka o mentorskoj sesiji']);
+        }
+
+        if(Ability::whereName('manage_mentor_session')->first() == null) {
+            Ability::create(['name' => 'manage_mentor_session', 'label' => 'Manipulisanje mentorskim sesijama']);
+        }
+
     }
 }
