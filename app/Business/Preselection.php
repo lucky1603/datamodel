@@ -3,9 +3,12 @@
 namespace App\Business;
 
 use App\Entity;
+use Illuminate\Support\Collection;
 
-class Preselection extends BusinessModel
+class Preselection extends BusinessModel implements Phase
 {
+    private int $statusValue = -1;
+
     /**
      * Gets the entity template.
      */
@@ -51,7 +54,8 @@ class Preselection extends BusinessModel
         return new Program(0,['instance_id' => $programInstance->id]);
     }
 
-    public static function getAttributesDefinition() {
+    public static function getAttributesDefinition(): Collection
+    {
         $attributes = collect([]);
 
         $attributes->add(self::selectOrCreateAttribute(['conditions_met', __('Conditions Met'), 'bool', NULL, 1]));
@@ -64,4 +68,37 @@ class Preselection extends BusinessModel
     }
 
 
+    public function getDisplayName()
+    {
+        return __('Preselection');
+    }
+
+    public function getDisplayId(): string
+    {
+        return '#preselection';
+    }
+
+    public function getUI(): string
+    {
+        return 'profiles.forms._preselection-form';
+    }
+
+    public function getAttributesData(): array
+    {
+        return [
+            'attributes' => $this->getAttributes(),
+            'id' => $this->getId(),
+            'validStatus' => $this->statusValue
+        ];
+    }
+
+    public function getStatusValue(): int
+    {
+        return $this->statusValue;
+    }
+
+    public function setStatusValue($value)
+    {
+        $this->statusValue = $value;
+    }
 }

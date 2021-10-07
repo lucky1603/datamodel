@@ -5,8 +5,10 @@ namespace App\Business;
 use App\Entity;
 use Illuminate\Support\Collection;
 
-class DemoDay extends BusinessModel
+class DemoDay extends BusinessModel implements Phase
 {
+    private int $status = -1;
+
     /**
      * Gets the entity of the given instance.
      */
@@ -69,4 +71,38 @@ class DemoDay extends BusinessModel
     }
 
 
+    public function getDisplayName()
+    {
+        return __('Demo Day');
+    }
+
+    public function getDisplayId(): string
+    {
+        return '#demoday';
+    }
+
+    public function getUI(): string
+    {
+        return 'profiles.forms._demoday-form';
+    }
+
+    public function getAttributesData(): array
+    {
+        return [
+            'attributes' => $this->getAttributes(),
+            'id' => $this->getId(),
+            'validStatus' => $this->getStatusValue(),
+            'notified' => $this->getValue('demoday_client_notified')
+        ];
+    }
+
+    public function getStatusValue(): int
+    {
+        return $this->status;
+    }
+
+    public function setStatusValue($value)
+    {
+        $this->status = $value;
+    }
 }

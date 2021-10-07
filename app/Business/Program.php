@@ -6,18 +6,21 @@ use App\Attribute;
 use App\AttributeGroup;
 use App\Entity;
 use App\Instance;
+use App\Mail\DemoDayNotification;
 use \Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class Program extends SituationsModel
 {
-    public static $COLOSSEUM_SPORTS_TECH_SERBIA = 0;
-    public static $IMAGINEIF = 1;
-    public static $RAISING_STARTS = 2;
-    public static $PREDINKUBACIJA = 3;
-    public static $INKUBACIJA_NTP = 4;
-    public static $INKUBACIJA_BITF = 5;
-    public static $RASTUCE_KOMPANIJE = 6;
+    public static int $COLOSSEUM_SPORTS_TECH_SERBIA = 0;
+    public static int $IMAGINEIF = 1;
+    public static int $RAISING_STARTS = 2;
+    public static int $PREDINKUBACIJA = 3;
+    public static int $INKUBACIJA_NTP = 4;
+    public static int $INKUBACIJA_BITF = 5;
+    public static int $RASTUCE_KOMPANIJE = 6;
+
+    public Workflow $workflow;
 
     /**
      * Constructor with arguments
@@ -43,6 +46,8 @@ class Program extends SituationsModel
             foreach($attributeGroups as $attributeGroup) {
                 $this->instance->attribute_groups()->sync($attributeGroup, false);
             }
+
+            $this->initWorkflow($programType);
 
             $this->setData([
                 'program_type' => $programType,
@@ -1367,7 +1372,34 @@ class Program extends SituationsModel
         return $attributes;
     }
 
+    private function initWorkflow($programType)
+    {
+        $this->workflow = new Workflow($this);
+        $this->workflow->addPhase(1, new ProgramApplication($this->instance->id));
 
+        switch ($programType) {
+            case Program::$INKUBACIJA_BITF:
+                $this->workflow->addPhase(2, new Preselection());
+                $this->workflow->addPhase(3, new Selection());
+                $this->workflow->addPhase(4, new Contract());
+                break;
+            case Program::$RAISING_STARTS:
+                $this->workflow->addPhase(2, new Faza1());
+                $this->workflow->addPhase(3, new DemoDay());
+                $this->workflow->addPhase(4, new Contract());
+                break;
+            default:
+                break;
+        }
+    }
+
+    public function getStatus() {
+        return $this->workflow->getCurrentIndex();
+    }
+
+    public function setStatus(int $status) {
+        $this->workflow->setCurrentIndex($status);
+    }
 
 
 }

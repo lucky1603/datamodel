@@ -5,8 +5,9 @@ namespace App\Business;
 use App\Entity;
 use \Illuminate\Support\Collection;
 
-class Selection extends BusinessModel
+class Selection extends BusinessModel implements Phase
 {
+    private int $status = -1;
     /**
      * Returns the attribute definition for this object.
      * @return \Illuminate\Support\Collection
@@ -75,4 +76,37 @@ class Selection extends BusinessModel
         return new Program(0,['instance_id' => $programInstance->id]);
     }
 
+    public function getDisplayName()
+    {
+        return __('Selection');
+    }
+
+    public function getDisplayId(): string
+    {
+        return '#selection';
+    }
+
+    public function getUI(): string
+    {
+        return 'profiles.forms._selection-form';
+    }
+
+    public function getAttributesData(): array
+    {
+        return [
+            'attributes' => $this->getAttributes(),
+            'id' => $this->getId(),
+            'validStatus' => $this->getStatusValue()
+        ];
+    }
+
+    public function getStatusValue(): int
+    {
+        return $this->status;
+    }
+
+    public function setStatusValue($value)
+    {
+        $this->status = $value;
+    }
 }

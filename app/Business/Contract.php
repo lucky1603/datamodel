@@ -6,10 +6,10 @@ namespace App\Business;
 use App\Entity;
 use Illuminate\Support\Collection;
 
-class Contract extends BusinessModel
+class Contract extends BusinessModel implements Phase
 {
 
-
+    private $status = -1;
 
     /**
      * Returns the program the contract belongs to.
@@ -95,4 +95,37 @@ class Contract extends BusinessModel
 
     }
 
+    public function getDisplayName()
+    {
+        return __('Contract');
+    }
+
+    public function getDisplayId(): string
+    {
+        return '#contract';
+    }
+
+    public function getUI(): string
+    {
+        return 'profiles.forms._contract-form';
+    }
+
+    public function getAttributesData(): array
+    {
+        return [
+            'attributes' => $this->getAttributes(),
+            'id' => $this->getId(),
+            'validStatus' => $this->getStatusValue()
+        ];
+    }
+
+    public function getStatusValue()
+    {
+        return $this->status;
+    }
+
+    public function setStatusValue($value)
+    {
+        $this->status = $value;
+    }
 }
