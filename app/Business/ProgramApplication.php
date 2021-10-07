@@ -2,19 +2,21 @@
 
 namespace App\Business;
 
-class ProgramApplication implements Phase
+use App\Entity;
+use Illuminate\Support\Collection;
+
+class ProgramApplication extends BusinessModel implements Phase
 {
+    private int $status = -1;
 
-    public Program $program;
-
-    public function __construct($programId)
+    protected function getEntity()
     {
-        $this->program = new Program(0, ['instance_id' => $programId]);
-    }
+        $entity = Entity::where('name', 'ProgramApplication')->first();
+        if($entity == null) {
+            $entity = Entity::create(['name' => 'ProgramApplication', 'description' => __('Prijava na program')]);
+        }
 
-    public function getId()
-    {
-        return $this->program->getId();
+        return $entity;
     }
 
     public function getDisplayName(): string
@@ -37,13 +39,22 @@ class ProgramApplication implements Phase
         return [];
     }
 
-    public function getStatusValue()
+    public function getStatusValue(): int
     {
-        // TODO: Implement getStatusValue() method.
+        return $this->status;
     }
 
     public function setStatusValue($value)
     {
-        // TODO: Implement setStatusValue() method.
+        $this->status = $value;
+    }
+
+    public static function getAttributesDefinition(): Collection
+    {
+        $attributes = collect([]);
+
+        $attributes->add(self::selectOrCreateAttribute(['program_type', __('Program Type'), 'integer', NULL, 1]));
+
+        return $attributes;
     }
 }

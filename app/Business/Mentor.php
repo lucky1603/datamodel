@@ -73,7 +73,7 @@ class Mentor extends SituationsModel
              if($instance->entity->name == 'Program')
                  return true;
         })->map(function($instance) {
-            return new Program(0, ['instance_id' => $instance->id]);
+            return ProgramFactory::resolve($instance->id);
         });
     }
 

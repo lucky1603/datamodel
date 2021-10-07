@@ -18,7 +18,7 @@ class TeamMember extends BusinessModel
             return false;
         })->first();
 
-        return new Program(0, ['instance_id' => $programInstance->id]);
+        return ProgramFactory::resolve($programInstance->id);
     }
 
     /**

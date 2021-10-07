@@ -73,79 +73,65 @@
                     </div>
                 </div>
 
-            @elseif( $programType != \App\Business\Program::$RAISING_STARTS && (  $status >= 4 && $status < 7) ||
-                     $programType == \App\Business\Program::$RAISING_STARTS && ( $status == 4 || $status == 6))
-                <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
-                    <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper('Uspešna prijava na program') }}</div>
-                    <div class="card-body">
-                        <p class="font-weight-light font-14 ">Prijava na program <span class="attribute-label font-weight-bold">{{ $model->getActiveProgram()->getAttribute('program_name')->getValue() }}</span>
-                            je uspešno izvršena. Podaci koje ste poslali će biti analizirani i naša komisija će odlučiti da li vaša kandidatura odgovara
-                            vašim realnim mogućnostima. Takođe, moguće je da ćete biti pozvani na sastanak, ukoliko će biti neophodno da detaljnije objasnite neke
-                            od podataka koje ste naveli u prijavi.</p>
-                        <p class="font-weight-light font-14">
-                            U slučaju pozitivnog odgovora komisije, u zavisnosti od programa koji ste izabrali, može da se desi da budete pozvani na potpis ugovora.
-                            Ukoliko nije neophodan potpis ugovora, po pozitivnoj odluci komisije, bićete odmah u mogućnosti da koristite mogućnosti predviđene programom
-                            koji ste odabrali.
-                        </p>
-                        <p class="font-weight-light font-14">U međuvremenu možete pogledati video koji smo pripremili u kojem su u kratkim crtama opisane aktivnosti
-                            koje se sprovode u okviru naših programa.
-                        </p>
-                        <div class="row">
-                            <div class="offset-sm-2 col-sm-8">
-                                <div class="embed-responsive embed-responsive-4by3">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PrUxWZiQfy4?ecver=1"></iframe>
-                                </div>
+            @elseif( $status == 3 && $programStatus == 1)
+                <div class="card border" style="height: 95%">
+                    <div class="card-header bg-dark text-light">
+                        {{ mb_strtoupper( __("Application Form"))}}
+                    </div>
+                    <div class="card-body overflow-auto p-0" style="height: 80%">
+                        @include('profiles.partials._show_profile_data')
+                    </div>
+                </div>
+            @elseif( $status == 3 && $programStatus > 1)
+                @if($program instanceof \App\Business\RaisingStartsProgram)
+                    @if($programStatus == 2)
+                        <div class="card row w-100 shadow" style="height:96%">
+                            <div class="card-header bg-primary text-light">
+                                <span class="h4 text-center">Faza 1</span>
+                            </div>
+                            <div class="card-body">
+
                             </div>
                         </div>
+                    @else
+                        <div class="card row w-100 shadow" style="height:96%">
+                            <div class="card-header bg-primary text-light">
+                                <span class="h4 text-center">Fajlovi uspesno poslati</span>
+                            </div>
+                            <div class="card-body">
 
-                    </div>
-                </div>
-            @elseif($programType == \App\Business\Program::$RAISING_STARTS && $status == 5)
-                <div class="card row w-100 shadow" style="height:96%">
-                    <div class="card-header bg-primary text-light">
-                        <span class="h4 text-center">Demo Day</span>
-                    </div>
-                    <div class="card-body">
-                        @php
-                            $program = $model->getActiveProgram();
-                            $demoday = $program->getDemoDay();
-                        @endphp
-                        @if(!$demoday->getValue('demoday_files_sent'))
-                            <p class="font-weight-light font-14 ">Uspešno ste prošli proces predselekcije.</p>
-                            @if($program->getDemoDay()->getValue('demoday_client_notified'))
-                            <p class="font-weight-light font-14 ">Sada je neophodno da nam do {{ $demoday->getText('demoday_date') }} prosledite sledeće datoteke:
-                                1.) Opis datoteke 1; 2.) Opis datoteke 2.</p>
-                            <h4 class="text-center mt-5">Priložite datoteke</h4>
-                            <form id="myFilesForm" method="POST" enctype="multipart/form-data" action="{{route('demoday.sendfiles')}}">
-                                @csrf
-                                <input type="hidden" id="demodayId" name="demodayId" value="{{ $demoday->getId() }}">
-                                <input type="hidden" id="profileId" name="profileId" value="{{ $program->getProfile()->getId() }}">
-                                <div class="form-group">
-                                    <label for="demoday_files" class="col-form-label col-form-label-sm">Priložite datoteke</label>
-                                    <input type="file" id="demoday_files" name="demoday_files[]" multiple class="form-control">
+                            </div>
+                        </div>
+                    @endif
+                @else
+                    <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
+                        <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper('Uspešna prijava na program') }}</div>
+                        <div class="card-body">
+                            <p class="font-weight-light font-14 ">Prijava na program <span class="attribute-label font-weight-bold">{{ $model->getActiveProgram()->getAttribute('program_name')->getValue() }}</span>
+                                je uspešno izvršena. Podaci koje ste poslali će biti analizirani i naša komisija će odlučiti da li vaša kandidatura odgovara
+                                vašim realnim mogućnostima. Takođe, moguće je da ćete biti pozvani na sastanak, ukoliko će biti neophodno da detaljnije objasnite neke
+                                od podataka koje ste naveli u prijavi.</p>
+                            <p class="font-weight-light font-14">
+                                U slučaju pozitivnog odgovora komisije, u zavisnosti od programa koji ste izabrali, može da se desi da budete pozvani na potpis ugovora.
+                                Ukoliko nije neophodan potpis ugovora, po pozitivnoj odluci komisije, bićete odmah u mogućnosti da koristite mogućnosti predviđene programom
+                                koji ste odabrali.
+                            </p>
+                            <p class="font-weight-light font-14">U međuvremenu možete pogledati video koji smo pripremili u kojem su u kratkim crtama opisane aktivnosti
+                                koje se sprovode u okviru naših programa.
+                            </p>
+                            <div class="row">
+                                <div class="offset-sm-2 col-sm-8">
+                                    <div class="embed-responsive embed-responsive-4by3">
+                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PrUxWZiQfy4?ecver=1"></iframe>
+                                    </div>
                                 </div>
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-sm btn-primary" id="buttonSendFiles">
-                                        <span id="button_spinner_send" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-                                        <span id="button_text">Posalji fajlove</span>
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" id="buttonReset">Odustani</button>
-                                </div>
-                            </form>
-                            @else
-                                <p>Uskoro ćete dobiti datum do kojeg je neophodno da pošaljete sledeće dokumente u formi elektronskih datoteka:</p>
-                                <ul>
-                                    <li>1. Datoteka 1</li>
-                                    <li>2. Datoteka 2</li>
-                                </ul>
-                            @endif
-                        @else
-                            <p>Datoteke su uspešno poslate!</p>
-                            <p>Uskoro ćete dobiti rezultate komisije.</p>
-                        @endif
+                            </div>
+
+                        </div>
                     </div>
-                </div>
-            @elseif($status == 7)
+                @endif
+
+            @elseif($status == 4)
                 <div class="card position-absolute" style="left: 0px; top: 0px; right: 0px; bottom: 0px" >
                     <div class="card-header bg-dark text-light text-center">
                         {{ mb_strtoupper(__('Contract Signing')) }}
@@ -164,7 +150,7 @@
 
                     </div>
                 </div>
-            @elseif($status == 9)
+            @elseif($status == 5)
                 <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
                     <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper(__('Application Rejected')) }}</div>
                     <div class="card-body">

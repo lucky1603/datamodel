@@ -45,13 +45,13 @@ class DemoDay extends BusinessModel implements Phase
      * Returns the program to which this instance belongs.
      * @return Program|null
      */
-    public function getProgram(): ?Program
+    public function getWorkflow(): ?Program
     {
         $programInstance = $this->instance->parentInstances()->first();
         if($programInstance == null)
             return null;
 
-        return new Program(0,['instance_id' => $programInstance->id]);
+        return ProgramFactory::resolve($programInstance);
     }
 
     /**

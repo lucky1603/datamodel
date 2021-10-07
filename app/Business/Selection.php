@@ -73,7 +73,7 @@ class Selection extends BusinessModel implements Phase
         if($programInstance == null)
             return null;
 
-        return new Program(0,['instance_id' => $programInstance->id]);
+        return ProgramFactory::resolve($programInstance->id);
     }
 
     public function getDisplayName()

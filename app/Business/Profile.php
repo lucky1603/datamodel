@@ -302,7 +302,7 @@ class Profile extends SituationsModel
         $programs = [];
         foreach($this->instance->instances as $instance) {
             if($instance->entity->name === 'Program') {
-                $programs[] = new Program(0, ['instance_id' => $instance->id]);
+                $programs[] = ProgramFactory::resolve($instance->id);
             }
         }
 
@@ -315,7 +315,7 @@ class Profile extends SituationsModel
 
         foreach($this->instance->instances as $instance) {
             if($instance->entity->name === 'Program') {
-                return new Program(0, ['instance_id' => $instance->id]);
+                return ProgramFactory::resolve($instance->id);
             }
         }
         return null;

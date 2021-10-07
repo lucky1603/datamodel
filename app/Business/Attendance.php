@@ -19,7 +19,7 @@ class Attendance extends BusinessModel
                 return true;
             return false;
         })->map(function($instance) {
-            return new Program(0, ['instance_id' => $instance->id]);
+            return ProgramFactory::resolve($instance->id);
         })->first();
     }
 

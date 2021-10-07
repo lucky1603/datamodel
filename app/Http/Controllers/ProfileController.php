@@ -9,9 +9,12 @@ use App\Business\Client;
 use App\Business\Contract;
 use App\Business\DemoDay;
 use App\Business\Founder;
+use App\Business\IncubationProgram;
 use App\Business\Preselection;
 use App\Business\Profile;
 use App\Business\Program;
+use App\Business\ProgramFactory;
+use App\Business\RaisingStartsProgram;
 use App\Business\Selection;
 use App\Business\TeamMember;
 use App\Business\Training;
@@ -212,7 +215,12 @@ class ProfileController extends Controller
             abort(401);
         }
 
-        $attributeData = Program::getAttributesDefinition($programType);
+        if($programType == Program::$RAISING_STARTS)
+        {
+            $attributeData = RaisingStartsProgram::getAttributesDefinition();
+        } else {
+            $attributeData = IncubationProgram::getAttributesDefinition();
+        }
 
         $programName = "Ostalo";
         switch ($programType) {
@@ -271,13 +279,13 @@ class ProfileController extends Controller
         // Check if the program already exists and is attached to the profile.
         if(isset($data['instance_id'])) {
             // If the program exist, update its properties.
-            $program = new Program(0, ['instance_id' => $data['instance_id']]);
+            $program = ProgramFactory::resolve($data['instance_id']);
             $program->setData($data);
 
         } else {
             // Create program.
             $programType = $data['programType'];
-            $program = new Program($programType, $data);
+            $program = ProgramFactory::create($programType, $data);
 
             // Add it to the profile.
             $profile = new Profile(['instance_id' => $data['profile_id']]);
@@ -293,8 +301,8 @@ class ProfileController extends Controller
             $profile->setData(['profile_status' => 3]);
         }
 
-        if($data['programType'] == Program::$RAISING_STARTS) {
-
+        if($program instanceof RaisingStartsProgram)
+        {
             // get the team members
             $memberCount = count($data['memberName']);
             if( $memberCount > 0 && $data['memberName'][0] != null) {
@@ -443,17 +451,19 @@ class ProfileController extends Controller
                 'program_name' => $program->getAttribute('program_name')->getValue()
             ]);
 
-        if($program->getAttribute('needs_preselection')->getValue() == true) {
-            $profile->getAttribute('profile_status')->setValue(4);
-            $profile->addSituationByData(__('Preselection needed'),
-                [
-                    'program_type' => $program->getAttribute('program_type')->getValue(),
-                    'program_name' => $program->getAttribute('program_name')->getValue()
-                ]);
-            $program->addPreselection(new Preselection());
-        } else {
-            $profile->getAttribute('profile_status')->setValue(6); // Selection
-        }
+        $program->getWorkflow()->nextPhase();
+
+//        if($program->getAttribute('needs_preselection')->getValue() == true) {
+//            $profile->getAttribute('profile_status')->setValue(4);
+//            $profile->addSituationByData(__('Preselection needed'),
+//                [
+//                    'program_type' => $program->getAttribute('program_type')->getValue(),
+//                    'program_name' => $program->getAttribute('program_name')->getValue()
+//                ]);
+//            $program->addPreselection(new Preselection());
+//        } else {
+//            $profile->getAttribute('profile_status')->setValue(6); // Selection
+//        }
 
         return json_encode([
             'code' => 1,

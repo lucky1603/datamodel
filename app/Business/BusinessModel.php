@@ -461,8 +461,11 @@ class BusinessModel
 
     public function getAttributeGroups() {}
     protected function getInitAttributesNamesCollection() {}
-    protected function getEntity() {}
-    protected function setAttributes($data = null) {}
+    protected function getEntity()  {}
+
+    protected function setAttributes($data = null) {
+        $this->setData($data);
+    }
 
 
 }
