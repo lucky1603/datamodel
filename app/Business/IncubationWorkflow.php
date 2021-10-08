@@ -22,7 +22,9 @@ class IncubationWorkflow extends Workflow
         if($this->instance->instances->count() > 0) {
             $counter = 0;
             foreach($this->instance->instances as $instance) {
-                $this->phases->put(++$counter, PhaseFactory::resolve($instance->id));
+                $phase = PhaseFactory::resolve($instance->id);
+                $phase->setStatusValue(++$counter);
+                $this->phases->put($counter, $phase);
             }
         } else {
             $this->addPhase(1, new ProgramApplication(['program_type' => Program::$INKUBACIJA_BITF]));

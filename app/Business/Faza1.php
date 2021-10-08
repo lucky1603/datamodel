@@ -3,6 +3,7 @@
 namespace App\Business;
 
 use App\Entity;
+use Illuminate\Mail\Mailable;
 
 class Faza1 extends BusinessModel implements Phase
 {
@@ -75,5 +76,45 @@ class Faza1 extends BusinessModel implements Phase
         $attributes->add(self::selectOrCreateAttribute(['requested_files', __('Requested Files'), 'file', 'multiple', 3]));
 
         return $attributes;
+    }
+
+    public function requiresEntryEmail()
+    {
+        return false;
+    }
+
+    public function getEntryEmailTemplate()
+    {
+        return null;
+    }
+
+    public function requiresEntrySituation(): bool
+    {
+        return false;
+    }
+
+    public function getEntrySituation() : ?Situation
+    {
+        return null;
+    }
+
+    public function requiresExitSituation(): bool
+    {
+        return false;
+    }
+
+    public function getExitSituation() : ?Situation
+    {
+        return null;
+    }
+
+    public function requiresExitEmail(): bool
+    {
+        return false;
+    }
+
+    public function getExitEmailTemplate() : ?Mailable
+    {
+        return null;
     }
 }

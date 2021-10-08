@@ -136,22 +136,12 @@
                 @endif
 
             @elseif($status == 4)
-                <div class="card position-absolute" style="left: 0px; top: 0px; right: 0px; bottom: 0px" >
-                    <div class="card-header bg-dark text-light text-center">
-                        {{ mb_strtoupper(__('Contract Signing')) }}
+                <div class="card border" style="height: 95%">
+                    <div class="card-header bg-dark text-light">
+                        {{ mb_strtoupper( __("Application Form"))}}
                     </div>
-                    <div class="card-body">
-                        @php
-                            $preselection = $program->getPreselection();
-                        @endphp
-                        <p>Zadovoljstvo nam je da Vas obavestimo da ste prošli postupak @if($preselection != null) preselekcije i @endif selekcije.</p>
-                        <p>Program koji ste izabrali - '{{ $program->getValue('program_name') }}' podrazumeva potpis ugovora.</p>
-                        @if($program->getContract()->getValue('signed_at') == null)
-                            <p>Bićete obavešteni putem e-mail-a o mestu i vremenu potpisa ugovora.</p>
-                        @else
-                            <p>Potpis ugovora će se održati u prostorijama NTP {{ $program->getContract()->getText('signed_at') }}.</p>
-                        @endif
-
+                    <div class="card-body overflow-auto p-0" style="height: 80%">
+                        @include('profiles.partials._show_profile_data')
                     </div>
                 </div>
             @elseif($status == 5)

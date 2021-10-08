@@ -46,10 +46,14 @@
                             $phase = $workflow->getPhase($i);
                             $attributesData = $phase->getAttributesData();
                             $attributesData['status'] = $status;
+                            if($model->getValue('profile_status') > 3)
+                                $attributesData['validStatus'] = 0;
+                            else
+                                $attributesData['validStatus'] = $i;
                         @endphp
 
                         <div class="tab-pane @if($i == $status) show active @endif h-100 overflow-auto"  id="{{ ltrim($phase->getDisplayId(), '#') }}">
-                            @include($phase->getDisplayForm(), $phase->getAttributesData())
+                            @include($phase->getDisplayForm(), $attributesData)
                         </div>
                     @endfor
                 </div>
@@ -254,7 +258,7 @@
 
 
                 $.ajax({
-                    url : '/profiles/evalPreselection',
+                    url : '/profiles/evalPhase',
                     data: obj,
                     method: 'POST',
                     headers: {
@@ -284,7 +288,7 @@
                 var token = $('form#myFormSelection input[name="_token"]').val();
 
                 $.ajax({
-                    url : '/profiles/evalSelection',
+                    url : '/profiles/evalPhase',
                     data: obj,
                     method: 'POST',
                     headers: {
@@ -314,7 +318,7 @@
                 var token = $('form#myFormContract input[name="_token"]').val();
 
                 $.ajax({
-                    url : '/profiles/evalContract',
+                    url : '/profiles/evalPhase',
                     data: obj,
                     method: 'POST',
                     headers: {
@@ -357,7 +361,7 @@
                 var token = $('form#myForm input[name="_token"]').val();
 
                 $.ajax({
-                    url : '/profiles/evalPreselection',
+                    url : '/profiles/evalPhase',
                     data: obj,
                     method: 'POST',
                     headers: {
@@ -386,7 +390,7 @@
                 var token = $('form#myFormSelection input[name="_token"]').val();
 
                 $.ajax({
-                    url : '/profiles/evalSelection',
+                    url : '/profiles/evalPhase',
                     data: obj,
                     method: 'POST',
                     headers: {

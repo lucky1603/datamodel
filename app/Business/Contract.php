@@ -4,6 +4,7 @@
 namespace App\Business;
 
 use App\Entity;
+use Illuminate\Mail\Mailable;
 use Illuminate\Support\Collection;
 
 class Contract extends BusinessModel implements Phase
@@ -127,5 +128,55 @@ class Contract extends BusinessModel implements Phase
     public function setStatusValue($value)
     {
         $this->status = $value;
+    }
+
+    public function requiresEntryEmail(): bool
+    {
+        return false;
+    }
+
+    public function getEntryEmailTemplate() : ?Mailable
+    {
+        return null;
+    }
+
+    public function requiresEntrySituation(): bool
+    {
+        return true;
+    }
+
+    public function getEntrySituation(): Situation
+    {
+        return new Situation([
+            'name' => 'Potpisivanje ugovora',
+            'description' => 'Klijent je pozvan na potpis ugovora',
+            'sender' => 'NTP'
+        ]);
+    }
+
+    public function requiresExitSituation(): bool
+    {
+        return true;
+    }
+
+    public function getExitSituation(): Situation
+    {
+        $situation = new Situation([
+            'name' => 'Potpisan ugovor',
+            'description' => 'Klijent je potpisao ugovor u prostorijama NTP.',
+            'sender' => 'NTP'
+        ]);
+
+        return $situation;
+    }
+
+    public function requiresExitEmail(): bool
+    {
+        return false;
+    }
+
+    public function getExitEmailTemplate() : ?Mailable
+    {
+        return null;
     }
 }

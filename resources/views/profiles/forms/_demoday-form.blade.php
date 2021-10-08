@@ -59,16 +59,16 @@
 
         <div class="row text-center " style="height: 15%; display: flex; flex-direction: row; justify-content: center; align-items: center">
             @if(!$notified)
-                <button type="button" id="btnNotifyClientDemoDay" class="btn btn-sm btn-warning h-50 w-15" @if($status != 5) disabled @endif>{{__('gui.notify')}}</button>
+                <button type="button" id="btnNotifyClientDemoDay" class="btn btn-sm btn-warning h-50 w-15" @if($status != $validStatus) disabled @endif>{{__('gui.notify')}}</button>
             @endif
 
-            <button type="button" id="btnSaveDemoDay" class="btn btn-sm btn-primary h-50 w-15 ml-1"  @if($status != 5) disabled @endif>{{__('gui.save')}}</button>
-            <button type="button" id="btnDemoDayPassed" class="btn btn-sm btn-success h-50 w-15 ml-1"  @if($status != 5) disabled @endif>
+            <button type="button" id="btnSaveDemoDay" class="btn btn-sm btn-primary h-50 w-15 ml-1"  @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
+            <button type="button" id="btnDemoDayPassed" class="btn btn-sm btn-success h-50 w-15 ml-1"  @if($status != $validStatus) disabled @endif>
                 <span id="button_spinner_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.accept')}}</span>
             </button>
 
-            <button type="button" id="btnDemoDayFailed" class="btn btn-sm btn-danger h-50 w-15 ml-1"  @if($status != 5) disabled @endif>
+            <button type="button" id="btnDemoDayFailed" class="btn btn-sm btn-danger h-50 w-15 ml-1"  @if($status != $validStatus) disabled @endif>
                 <span id="button_spinner_cancel" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.reject')}}</span>
             </button>

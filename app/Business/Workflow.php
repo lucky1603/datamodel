@@ -88,6 +88,13 @@ class Workflow extends BusinessModel
         $this->phaseIterator->rewind();
     }
 
+    public function isLastStep(): bool
+    {
+        if($this->phases->count() == $this->getCurrentIndex())
+            return true;
+        return false;
+    }
+
     protected function initPhases(){
         $this->phases = collect([]);
     }

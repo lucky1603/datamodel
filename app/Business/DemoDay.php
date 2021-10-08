@@ -3,6 +3,7 @@
 namespace App\Business;
 
 use App\Entity;
+use Illuminate\Mail\Mailable;
 use Illuminate\Support\Collection;
 
 class DemoDay extends BusinessModel implements Phase
@@ -104,5 +105,45 @@ class DemoDay extends BusinessModel implements Phase
     public function setStatusValue($value)
     {
         $this->status = $value;
+    }
+
+    public function requiresEntryEmail()
+    {
+        return false;
+    }
+
+    public function getEntryEmailTemplate()
+    {
+        return null;
+    }
+
+    public function requiresEntrySituation(): bool
+    {
+        return false;
+    }
+
+    public function getEntrySituation() : ?Situation
+    {
+        return null;
+    }
+
+    public function requiresExitSituation(): bool
+    {
+        return false;
+    }
+
+    public function getExitSituation() : ?Situation
+    {
+        return null;
+    }
+
+    public function requiresExitEmail(): bool
+    {
+        return false;
+    }
+
+    public function getExitEmailTemplate() : ?Mailable
+    {
+        return null;
     }
 }

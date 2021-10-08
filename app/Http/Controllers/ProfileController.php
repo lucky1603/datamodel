@@ -16,6 +16,7 @@ use App\Business\Program;
 use App\Business\ProgramFactory;
 use App\Business\RaisingStartsProgram;
 use App\Business\Selection;
+use App\Business\Situation;
 use App\Business\TeamMember;
 use App\Business\Training;
 use App\Http\Middleware\Authenticate;
@@ -453,7 +454,8 @@ class ProfileController extends Controller
                 'program_name' => $program->getAttribute('program_name')->getValue()
             ]);
 
-        $program->setValue('program_status', /* $program->getWorkflow()->nextPhase()->getStatusValue() */2  );
+        $program->setStatus($program->getStatus() + 1);
+//        $program->setValue('program_status', /* $program->getWorkflow()->nextPhase()->getStatusValue() */2  );
 
 //        if($program->getAttribute('needs_preselection')->getValue() == true) {
 //            $profile->getAttribute('profile_status')->setValue(4);
@@ -472,6 +474,69 @@ class ProfileController extends Controller
             'message' => "Prijava uspešno popunjena i poslata! Sačekajte da budete preusmereni."
         ]);
 
+    }
+
+    /**
+     * Evaluacija faze prstupa programu pre prelaska na sledecu.
+     * @param Request $request
+     * @return array|void
+     */
+    public function evalPhase(Request $request) {
+        $data = $request->post();
+
+        if(!isset($data['profile'])) {
+            return [
+                'code' => 1,
+                'message' => __('Wrong parameters')
+            ];
+        }
+
+        $profileId = $data['profile'];
+        $profile = Profile::find($profileId);
+        if($profile == null) {
+            return [
+                'code' => 2,
+                'message' => __('Profile doesn\'t exist'),
+            ];
+        }
+
+        $program = $profile->getActiveProgram();
+
+        if($data['passed'] == 'true') {
+            if($program->workflow->isLastStep())
+            {
+                $profile->setValue('profile_status', 4);
+                $profile->addSituation(new Situation([
+                    'name' => 'U PROGRAMU',
+                    'description' => 'Klijent je počeo da koristi program',
+                    'sender' => 'NTP'
+                ]));
+            } else {
+                $programStatus = $program->getStatus();
+                $phase = $program->workflow->getCurrentPhase();
+                if($phase->requiresExitSituation()) {
+                    $situation = $phase->getExitSituation();
+                    if($situation != null)
+                        $profile->addSituation($phase->getExitSituation());
+                }
+
+                $program->setStatus($programStatus + 1);
+                $phase = $program->workflow->getCurrentPhase();
+                if($phase->requiresEntrySituation()) {
+                    $situation = $phase->getEntrySituation();
+                    if($situation != null)
+                        $profile->addSituation($phase->getEntrySituation());
+                }
+            }
+        } else {
+            $profile->setValue('profile_status', 5);
+            $phase = $program->workflow->getCurrentPhase();
+            $profile->addSituation(new Situation([
+                'name' => 'ODBIJEN',
+                'description' => 'Klijent je odbijen u fazi - "'.$phase->getDisplayName().'".',
+                'sender' => 'NTP'
+            ]));
+        }
     }
 
     /**
@@ -523,6 +588,7 @@ class ProfileController extends Controller
                 // Add selection to profile.
                 $profile->getActiveProgram()->addSelection(new Selection());
             }
+
         } else {
             // Add situation (preselection result).
             $profile->addSituationByData(__('Preselection Done'), [
@@ -530,7 +596,7 @@ class ProfileController extends Controller
             ]);
 
             // Set status 'rejected'
-            $profile->setData(['profile_status' => 9]);
+            $profile->setData(['profile_status' => 5]);
 
             // Send rejection email to the user.
             $email = $profile->getAttribute('contact_email')->getValue();
