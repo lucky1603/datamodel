@@ -29,7 +29,7 @@ class ProgramApplication extends BusinessModel implements Phase
         return '#application';
     }
 
-    public function getUI(): string
+    public function getDisplayForm(): string
     {
         return 'profiles.partials._show_profile_data';
     }

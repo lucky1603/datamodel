@@ -29,7 +29,7 @@ class Faza1 extends BusinessModel implements Phase
         return '#phase1';
     }
 
-    public function getUI(): string
+    public function getDisplayForm(): string
     {
         return 'profiles.forms._phase1-form';
     }

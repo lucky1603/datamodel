@@ -78,7 +78,7 @@ class Preselection extends BusinessModel implements Phase
         return '#preselection';
     }
 
-    public function getUI(): string
+    public function getDisplayForm(): string
     {
         return 'profiles.forms._preselection-form';
     }

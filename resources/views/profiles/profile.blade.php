@@ -7,9 +7,12 @@
             @php
                 $status = $model->getValue('profile_status');
                 $program = $model->getActiveProgram();
-                if($program != null)
+                if($program != null) {
                     $programType = $program->getValue('program_type');
+                    $programStatus = $program->getValue('program_status');
+                    }
             @endphp
+
             @if( in_array($status, [1,2]))
                 <h1 class="text-center">Programi</h1>
                 <p class="text-center font-16 font-italic mb-4">Da biste nastavili neophodno je da izaberite jedan od programa.
@@ -74,6 +77,7 @@
                 </div>
 
             @elseif( $status == 3 && $programStatus == 1)
+                <span class="text-light">{{ $status }} -- {{ $programStatus }}</span>
                 <div class="card border" style="height: 95%">
                     <div class="card-header bg-dark text-light">
                         {{ mb_strtoupper( __("Application Form"))}}

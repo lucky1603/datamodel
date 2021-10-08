@@ -105,7 +105,7 @@ class Contract extends BusinessModel implements Phase
         return '#contract';
     }
 
-    public function getUI(): string
+    public function getDisplayForm(): string
     {
         return 'profiles.forms._contract-form';
     }

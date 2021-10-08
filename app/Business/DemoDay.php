@@ -81,7 +81,7 @@ class DemoDay extends BusinessModel implements Phase
         return '#demoday';
     }
 
-    public function getUI(): string
+    public function getDisplayForm(): string
     {
         return 'profiles.forms._demoday-form';
     }

@@ -75,7 +75,7 @@ class ProfileController extends Controller
 
         $profile = new Profile(['instance_id' => $id]);
 //        $situations = $profile->getSituations();
-        return view('profiles.show', ['model' => $profile, /* 'situations' => $situations */]);
+        return view('profiles.show1', ['model' => $profile, /* 'situations' => $situations */]);
     }
 
     public function create() {
@@ -179,7 +179,9 @@ class ProfileController extends Controller
         }
 
         $program = $profile->getActiveProgram();
-        if($program != null && $profile->getAttribute('profile_status')->getValue() == 3) {
+        if($program != null &&
+            $profile->getAttribute('profile_status')->getValue() == 3 &&
+            $program->getStatus() == 1) {
             $programType = $program->getAttribute('program_type' )->getValue();
             $programName = $program->getAttribute('program_name')->getValue();
             $attributeGroups = $program->getAttributeGroups();
@@ -451,7 +453,7 @@ class ProfileController extends Controller
                 'program_name' => $program->getAttribute('program_name')->getValue()
             ]);
 
-        $program->getWorkflow()->nextPhase();
+        $program->setValue('program_status', /* $program->getWorkflow()->nextPhase()->getStatusValue() */2  );
 
 //        if($program->getAttribute('needs_preselection')->getValue() == true) {
 //            $profile->getAttribute('profile_status')->setValue(4);

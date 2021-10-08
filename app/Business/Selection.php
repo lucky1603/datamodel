@@ -86,7 +86,7 @@ class Selection extends BusinessModel implements Phase
         return '#selection';
     }
 
-    public function getUI(): string
+    public function getDisplayForm(): string
     {
         return 'profiles.forms._selection-form';
     }

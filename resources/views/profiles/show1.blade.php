@@ -21,16 +21,18 @@
             @else
                 @php
                     $program = $model->getActiveProgram();
-                    $workflow = $program->getWorkflow();
+                    $workflow = $program->workflow;
+
                 @endphp
+
                 <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
-                    @for($i = 1; $i <= min($status, $workflow->phases->count()); $i++)
+                    @for($i = 1; $i <= $status; $i++)
                         @php
                             $phase = $workflow->getPhase($i);
                         @endphp
 
                         <li class="nav-item">
-                            <a href="{{ ltrim($phase->getDisplayId(), '#') }}" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 @if($i == $status) active @endif">
+                            <a href="{{ $phase->getDisplayId() }}" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 @if($i == $status) active @endif">
                                 <i class="mdi mdi-face-agent d-md-none d-block"></i>
                                 <span class="d-none d-md-block">{{ $phase->getDisplayName() }}</span>
                             </a>
@@ -39,19 +41,20 @@
                 </ul>
 
                 <div class="tab-content overflow-auto " style="height: 90%!important;">
-                    @for($i = 1; $i <= min($status, $workflow->phases->count); $i++)
+                    @for($i = 1; $i <= $status; $i++)
                         @php
                             $phase = $workflow->getPhase($i);
                             $attributesData = $phase->getAttributesData();
                             $attributesData['status'] = $status;
                         @endphp
 
-                        <div class="tab-pane show active h-100 overflow-auto"  id="preselection">
-                            @include($phase->getDisplayName(), $attributesData)
+                        <div class="tab-pane @if($i == $status) show active @endif h-100 overflow-auto"  id="{{ ltrim($phase->getDisplayId(), '#') }}">
+                            @include($phase->getDisplayForm(), $phase->getAttributesData())
                         </div>
                     @endfor
                 </div>
             @endif
+        @endif
     </div>
 @endsection
 

@@ -19,7 +19,7 @@ class Workflow extends BusinessModel
         $this->phaseIterator = $this->phases->getIterator();
     }
 
-    protected function getEntity() : ?Entity
+    protected function getEntity()
     {
         $entity = Entity::where('name', 'Workflow')->first();
         if($entity == null) {
@@ -53,6 +53,12 @@ class Workflow extends BusinessModel
 
     public function getPhase(int $index) : ?Phase {
         return $this->phases->get($index);
+    }
+
+    public function getPhases() {
+        return $this->instance->instances->map(function($instance) {
+            return PhaseFactory::resolve($instance->id);
+        });
     }
 
     // Navigation.
