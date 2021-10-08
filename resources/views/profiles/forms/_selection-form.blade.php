@@ -9,30 +9,7 @@
             <div class="col-12 pt-3">
                 @csrf
                 <input type="hidden" id="selectionId" name="id" value="{{ $id }}">
-
-                <!-- Datum selekcije -->
-                <div class="form-group row">
-                    @php
-                        $attribute = $attributes->where('name', 'selection_date')->first();
-                    @endphp
-
-                    <label for="{{ $attribute->name }}" class="col-sm-3 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
-                    <div class="col-sm-3">
-                        <input type="date" class="form-control form-control-sm" id="{{ $attribute->name }}"
-                               name="{{ $attribute->name }}"
-                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif>
-                    </div>
-                </div>
-
-                <!-- Beleske sa sastanka -->
-                <div class="form-group">
-                    @php
-                        $attribute = $attributes->where('name', 'meeting_notes')->first();
-                        $value = $attribute->getValue() ?? null;
-                    @endphp
-                    <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
-                    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $value }}</textarea>
-                </div>
+                <input type="hidden" id="profile" name="profile" value="{{ $profile }}">
 
                 <div class="form-group row">
                     <!-- Stepen ispunjenosti -->
@@ -60,6 +37,57 @@
                                name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
                     </div>
                 </div>
+
+                <!-- Beleske sa sastanka -->
+                <div class="form-group">
+                    @php
+                        $attribute = $attributes->where('name', 'meeting_notes')->first();
+                        $value = $attribute->getValue() ?? null;
+                    @endphp
+                    <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+                    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $value }}</textarea>
+                </div>
+
+                <!-- Datum selekcije -->
+                <div class="form-group row">
+                    @php
+                        $attribute = $attributes->where('name', 'selection_date')->first();
+                    @endphp
+
+                    <label for="{{ $attribute->name }}" class="col-lg-3 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+                    <div class="col-lg-3">
+                        <input type="date" class="form-control form-control-sm" id="{{ $attribute->name }}"
+                               name="{{ $attribute->name }}"
+                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif>
+                    </div>
+                    <div class="col-lg-3">
+                        @php
+                            $attribute = $attributes->where('name', 'passed')->first();
+                            $value = $attribute->getValue() ?? false;
+                        @endphp
+
+                        <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
+                        <label class="attribute-label mr-1 col-form-label col-form-label-sm">{!! $attribute->label !!}  </label>
+                        <input
+                            class="checkbox-aligned"
+                            type="checkbox"
+                            id="{{ $attribute->name }}"
+                            name="{{$attribute->name}}"
+                            @if($value) checked @endif style="padding-top: 10px"
+                            onclick="
+                                if(document.getElementById('{{ $attribute->name }}').checked)
+                                {
+                                document.getElementById('{{ $attribute->name }}Hidden').disabled = true
+                                } else {
+                                document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
+                                }
+                                ">
+                    </div>
+
+
+                </div>
+
+
             </div>
         </div>
 
@@ -67,13 +95,9 @@
         <div class="row text-center" style="height: 15%; display: flex; flex-direction: row; justify-content: center; align-items: center">
             <button type="button" id="btnNotifyClientSelection" class="btn btn-sm btn-warning h-50 w-15" @if($status != $validStatus) disabled @endif>{{__('gui.notify')}}</button>
             <button type="button" id="btnSaveSelection" class="btn btn-sm btn-primary h-50 w-15 ml-1" @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
-            <button type="button" id="btnSelectionPassed" class="btn btn-sm btn-success h-50 w-15 ml-1" @if($status != $validStatus) disabled @endif>
+            <button type="button" id="btnExitSelection" class="btn btn-sm btn-success h-50 w-15 ml-1 btnNext" @if($status != $validStatus) disabled @endif>
                 <span id="button_spinner_sel_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.accept')}}</span>
-            </button>
-            <button type="button" id="btnSelectionFailed" class="btn btn-sm btn-danger h-50 w-15 ml-1" @if($status != $validStatus) disabled @endif>
-                <span id="button_spinner_sel_cancel" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-                <span id="button_text">{{__('gui.reject')}}</span>
             </button>
         </div>
     </form>

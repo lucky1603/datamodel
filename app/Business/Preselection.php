@@ -6,7 +6,7 @@ use App\Entity;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Collection;
 
-class Preselection extends BusinessModel implements Phase
+class Preselection extends PhaseImpl
 {
     private int $statusValue = -1;
 
@@ -31,7 +31,7 @@ class Preselection extends BusinessModel implements Phase
     {
         if($data == null) {
             $data = [
-                'condition_met' => false,
+                'passed' => false,
                 'note' => null,
                 'date_of_session' => now(),
                 'average_mark' => 0.0,
@@ -42,24 +42,11 @@ class Preselection extends BusinessModel implements Phase
         $this->setData($data);
     }
 
-    /**
-     * Returns the program the preselection belongs to.
-     * @return Program|null
-     */
-    public function getProgram(): ?Program
-    {
-        $programInstance = $this->instance->parentInstances()->first();
-        if($programInstance == null)
-            return null;
-
-        return ProgramFactory::resolve($programInstance->id);
-    }
-
     public static function getAttributesDefinition(): Collection
     {
         $attributes = collect([]);
 
-        $attributes->add(self::selectOrCreateAttribute(['conditions_met', __('Conditions Met'), 'bool', NULL, 1]));
+        $attributes->add(self::selectOrCreateAttribute(['passed', __('Passed'), 'bool', NULL, 1]));
         $attributes->add(self::selectOrCreateAttribute(['note', __('Note'), 'text', NULL, 2]));
         $attributes->add(self::selectOrCreateAttribute(['date_of_session', __('Date of Session'), 'datetime', NULL, 3]));
         $attributes->add(self::selectOrCreateAttribute(['average_mark', __('Average Mark'), 'double', NULL, 4]));
@@ -89,7 +76,8 @@ class Preselection extends BusinessModel implements Phase
         return [
             'attributes' => $this->getAttributes(),
             'id' => $this->getId(),
-            'validStatus' => $this->statusValue
+            'validStatus' => $this->statusValue,
+            'profile' => $this->getWorkflow()->getProgram()->getProfile()->getId()
         ];
     }
 

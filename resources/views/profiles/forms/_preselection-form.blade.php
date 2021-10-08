@@ -9,9 +9,11 @@
             <div class="col-12 pt-3">
                 @csrf
                 <input type="hidden" id="id" name="id" value="{{ $id }}">
+                <input type="hidden" id="profile" name="profile" value="{{ $profile }}">
+
                 <div class="form-group">
                     @php
-                        $attribute = $attributes->where('name', 'conditions_met')->first();
+                        $attribute = $attributes->where('name', 'passed')->first();
                         $value = $attribute->getValue() ?? false;
                     @endphp
 
@@ -81,19 +83,11 @@
 
                 <button type="button" id="btnNotifyClientPreselection" class="btn btn-sm btn-warning h-50 w-15" @if($status != $validStatus) disabled @endif>{{__('gui.notify')}}</button>
 
-
                 <button type="button" id="btnSavePreselection" class="btn btn-sm btn-primary h-50 w-15 ml-1"  @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
 
-
-                <button type="button" id="btnPreselectionPassed" class="btn btn-sm btn-success h-50 w-15 ml-1"  @if($status != $validStatus) disabled @endif>
+                <button type="button" id="btnNext" class="btn btn-sm btn-success h-50 w-15 ml-1 btnNext"  @if($status != $validStatus) disabled @endif>
                     <span id="button_spinner_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                     <span id="button_text">{{__('gui.accept')}}</span>
-                </button>
-
-
-                <button type="button" id="btnPreselectionFailed" class="btn btn-sm btn-danger h-50 w-15 ml-1"  @if($status != $validStatus) disabled @endif>
-                    <span id="button_spinner_cancel" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-                    <span id="button_text">{{__('gui.reject')}}</span>
                 </button>
 
         </div>

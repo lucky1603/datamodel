@@ -486,6 +486,18 @@ class Program extends SituationsModel
         });
     }
 
+    /**
+     * Deletes the program and all of its instances.
+     */
+    public function delete()
+    {
+        $this->instance->instances->each(function($instance) {
+            $instance->delete();
+        });
+
+        parent::delete();
+    }
+
     protected function getEntity()
     {
         $entity = Entity::where('name', 'Program')->first();

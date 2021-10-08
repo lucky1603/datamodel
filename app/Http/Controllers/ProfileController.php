@@ -502,7 +502,7 @@ class ProfileController extends Controller
 
         $program = $profile->getActiveProgram();
 
-        if($data['passed'] == 'true') {
+        if($data['passed'] == 'on') {
             if($program->workflow->isLastStep())
             {
                 $profile->setValue('profile_status', 4);

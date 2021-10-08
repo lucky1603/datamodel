@@ -5,7 +5,7 @@ namespace App\Business;
 use App\Entity;
 use \Illuminate\Support\Collection;
 
-class Selection extends BusinessModel implements Phase
+class Selection extends PhaseImpl
 {
     private int $status = -1;
     /**
@@ -28,6 +28,7 @@ class Selection extends BusinessModel implements Phase
         $attributes->add($fulfillment_grade);
 
         $attributes->add(self::selectOrCreateAttribute(['average_mark_selection', __('Average Mark'), 'double', NULL, 4]));
+        $attributes->add(self::selectOrCreateAttribute(['passed', __('Passed'), 'bool', NULL, 5]));
 
         return $attributes;
 
@@ -96,7 +97,8 @@ class Selection extends BusinessModel implements Phase
         return [
             'attributes' => $this->getAttributes(),
             'id' => $this->getId(),
-            'validStatus' => $this->getStatusValue()
+            'validStatus' => $this->getStatusValue(),
+            'profile' => $this->getWorkflow()->getProgram()->getProfile()->getId()
         ];
     }
 

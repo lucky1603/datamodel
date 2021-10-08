@@ -7,7 +7,7 @@ use App\Entity;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Collection;
 
-class Contract extends BusinessModel implements Phase
+class Contract extends PhaseImpl
 {
 
     private $status = -1;
@@ -91,6 +91,7 @@ class Contract extends BusinessModel implements Phase
         $attributes->add($validity_unit);
 
         $attributes->add(self::selectOrCreateAttribute(['contract_document', 'Dokument ugovora', 'file', NULL, 8]));
+        $attributes->add(self::selectOrCreateAttribute(['passed', __('Passed'), 'bool', NULL, 9]));
 
         return $attributes;
 
@@ -116,7 +117,8 @@ class Contract extends BusinessModel implements Phase
         return [
             'attributes' => $this->getAttributes(),
             'id' => $this->getId(),
-            'validStatus' => $this->getStatusValue()
+            'validStatus' => $this->getStatusValue(),
+            'profile' => $this->getWorkflow()->getProgram()->getProfile()->getId()
         ];
     }
 

@@ -118,6 +118,18 @@
                 }
             });
 
+            $('.btnNext').click(function() {
+                const id = <?php echo $model->getId() ?>;
+                $('#button_spinner_ok').attr('hidden', false);
+                let some = $($('form#myForm')[0]).serialize();
+
+                const token = $('form#myForm input[name="_token"]').val();
+
+                $.post('/profiles/evalPhase', some, function(data, status, xhr) {
+                    console.log(data);
+                    location.reload();
+                });
+            });
 
             $('#btnSendMail').on('click', function(evt) {
                 var profileId = <?php echo $model->getId();?>;
