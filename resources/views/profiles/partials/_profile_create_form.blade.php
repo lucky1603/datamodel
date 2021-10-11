@@ -89,6 +89,22 @@
         <input type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" class="form-control form-control-sm">
     </div>
 
+    <div class="form-group">
+        @php
+            $attribute = $attributes->where('name', 'profile_logo')->first();
+        @endphp
+        <label for="{{$attribute->name}}" class="attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+        <input type="file" id="{{ $attribute->name }}" name="{{ $attribute->name }}" class="form-control form-control-file">
+    </div>
+
+    <div class="form-group">
+        @php
+            $attribute = $attributes->where('name', 'profile_background')->first();
+        @endphp
+        <label for="{{$attribute->name}}" class="attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+        <input type="file" id="{{ $attribute->name }}" name="{{ $attribute->name }}" class="form-control form-control-file">
+    </div>
+
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">

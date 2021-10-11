@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="row" style="height: 100%; overflow: hidden">
-        <div class="col-sm-3">
-            <div class="card text-center">
+        <div class="col-sm-3 h-100">
+            <div class="card text-center h-75">
                 <div class="card-header p-0">
                     <div id="img-container" class="image-container">
-                        <img src="@if( $model->getAttribute('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $model->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile"/>
-                        <img class="shadow image-container-logo" src="{{ $model->getAttribute('logo') != null && strlen($model->getAttribute('logo')->getValue()['filelink']) > 0 ? $model->getAttribute('logo')->getValue()['filelink'] : '/images/custom/avatar-default.png' }}" />
+                        <img src="@if( $model->getAttribute('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $model->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile" style="height: 150px"/>
+                        <img class="shadow image-container-logo" src="{{ $model->getAttribute('profile_logo') != null && $model->getValue('profile_logo') != null && strlen($model->getAttribute('profile_logo')->getValue()['filelink']) > 0 ? $model->getAttribute('profile_logo')->getValue()['filelink'] : '/images/custom/avatar-default.png' }}"  />
                     </div>
                 </div>
                 <div class="card-body">
@@ -52,7 +52,7 @@
             </div> <!-- end card -->
 
             <!-- Messages-->
-            <div class="card">
+            <div class="card h-25">
                 <div class="card-header p-2">
                     <div class="dropdown float-right">
                         <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">

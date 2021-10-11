@@ -87,4 +87,9 @@ class PhaseImpl extends BusinessModel implements Phase
 
         return WorkflowFactory::resolve($instance->id);
     }
+
+    public function isVisibleInHistory(): bool
+    {
+        return true;
+    }
 }

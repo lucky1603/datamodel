@@ -21,4 +21,5 @@ interface Phase
     public function getEntrySituation();
     public function requiresExitSituation();
     public function getExitSituation();
+    public function isVisibleInHistory();
 }

@@ -112,10 +112,15 @@ class AppFormEvaluation extends PhaseImpl
     {
         $attributes = collect([]);
 
-        $attributes->add(self::selectOrCreateAttribute(['assertion_date', __("Date of Assertion"), 'datetime', NULL, 1]));
+        $attributes->add(self::selectOrCreateAttribute(['assertion_date', __("Assertion Date"), 'datetime', NULL, 1]));
         $attributes->add(self::selectOrCreateAttribute(['passed', __('Passed'), 'bool', NULL, 2]));
         $attributes->add(self::selectOrCreateAttribute(['note', __('Note'), 'text', NULL, 3]));
 
         return $attributes;
+    }
+
+    public function isVisibleInHistory(): bool
+    {
+        return false;
     }
 }

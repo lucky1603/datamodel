@@ -47,14 +47,15 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'rstarts_logo')->first();
+        $value = $attribute->getValue() ?? $model->getValue('profile_logo');
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <table class="table table-responsive">
-            @if($attribute->getValue() != null)
+            @if($value != null)
             <tr>
-                <td><a href="{{ $attribute->getValue()['filelink'] }}" target="_blank">{{ $attribute->getValue()['filename'] }}</a></td>
+                <td><a href="{{ $value['filelink'] }}" target="_blank">{{ $value['filename'] }}</a></td>
             </tr>
             @endif
             <tr>

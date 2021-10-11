@@ -106,6 +106,16 @@ class ProfileController extends Controller
             $data['profile_status'] = 1;
         }
 
+        $profile_photo = Utils::getFilesFromRequest($request, 'profile_logo');
+        if($profile_photo != null) {
+            $data['profile_logo'] = $profile_photo;
+        }
+
+        $profile_background = Utils::getFilesFromRequest($request, 'profile_background');
+        if($profile_background != null) {
+            $data['profile_background'] = $profile_background;
+        }
+
         $profile = new Profile($data);
 
         $user = User::where(['email' => $data['contact_email']])->first();

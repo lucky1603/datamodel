@@ -133,4 +133,9 @@ class DemoDay extends PhaseImpl
     {
         return null;
     }
+
+    public function isVisibleInHistory(): bool
+    {
+        return false;
+    }
 }

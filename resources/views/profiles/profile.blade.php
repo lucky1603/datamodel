@@ -146,6 +146,22 @@
                         </div>
                     @elseif($programStatus == 4)
                         <!-- Demo Day -->
+                        <div class="card w-100 h-100 shadow">
+                            <div class="card-header bg-primary text-light">
+                                DEMO DAY
+                            </div>
+                            <div class="card-body">
+                                <p>Da biste bili prihvaceni na program, morate odslusati sledece treninge:</p>
+                                <ul>
+                                    <li>1. Trening I</li>
+                                    <li>2. Trening II</li>
+                                    <li>3. Trening III</li>
+                                    <li>4. Trening IV</li>
+                                    <li>5. Trening V</li>
+                                </ul>
+                            </div>
+
+                        </div>
                     @else
                         <!-- Contract -->
                         <div class="card row w-100 shadow" style="height:96%">

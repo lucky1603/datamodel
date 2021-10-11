@@ -5,7 +5,7 @@ namespace App\Business;
 use App\Entity;
 use Illuminate\Support\Collection;
 
-class ProgramApplication extends BusinessModel implements Phase
+class ProgramApplication extends PhaseImpl
 {
     private int $status = -1;
 

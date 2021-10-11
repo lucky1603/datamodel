@@ -64,29 +64,24 @@
                                         @switch($status)
                                             @case(1)
                                             @case(2)
-                                                ribbon-two-danger
+                                                ribbon-two-primary
                                                 @break
                                             @case(3)
                                                 ribbon-two-info
                                                 @break
                                             @case(4)
+                                                ribbon-two-success
+                                                @break
                                             @case(5)
-                                            @case(6)
-                                                ribbon-two-warning
-                                                @break
-                                            @case(8)
-                                                ribbon-two-primary
-                                                @break
-                                            @case(9)
-                                                ribbon-two-secondary
+                                                ribbon-two-danger
                                                 @break
                                             @default
                                                 ribbon-two-success
                                                 @break
                                         @endswitch"><span>{{ $status_text }}</span></div>
                                 <div id="img-container" class="image-container">
-                                    <img src="@if( $profile->getAttribute('profile_background') != null && strlen($profile->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $profile->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile"/>
-                                    <img class="shadow image-container-logo" src="{{ $profile->getAttribute('logo') != null && strlen($profile->getAttribute('logo')->getValue()['filelink']) > 0 ? $profile->getAttribute('logo')->getValue()['filelink'] : '/images/custom/avatar-default.png' }}" />
+                                    <img src="@if( $profile->getAttribute('profile_background') != null && strlen($profile->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $profile->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile" style="height: 150px"/>
+                                    <img class="shadow image-container-logo" src="{{ $profile->getAttribute('profile_logo') != null && $profile->getValue('profile_logo') != null && strlen($profile->getAttribute('profile_logo')->getValue()['filelink']) > 0 ? $profile->getAttribute('profile_logo')->getValue()['filelink'] : '/images/custom/avatar-default.png' }}" />
                                 </div>
 
                                 <h4 class="text-center mt-5 mb-2 text-secondary">{{ $data['name'] }}</h4>

@@ -27,9 +27,14 @@
 
                 <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
                     @for($i = 1; $i <= $status; $i++)
+
                         @php
                             $phase = $workflow->getPhase($i);
                         @endphp
+
+                        @if($i < $status && !$phase->isVisibleInHistory())
+                            @continue
+                        @endif
 
                         <li class="nav-item">
                             <a href="{{ $phase->getDisplayId() }}" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 @if($i == $status) active @endif">
@@ -51,6 +56,10 @@
                             else
                                 $attributesData['validStatus'] = $i;
                         @endphp
+
+                        @if($i < $status && !$phase->isVisibleInHistory())
+                            @continue
+                        @endif
 
                         <div class="tab-pane @if($i == $status) show active @endif h-100 overflow-auto"  id="{{ ltrim($phase->getDisplayId(), '#') }}">
                             @include($phase->getDisplayForm(), $attributesData)
