@@ -9,6 +9,7 @@
             <div class="col-12 pt-3">
                 @csrf
                 <input type="hidden" id="contractId" name="id" value="{{ $id }}">
+                <input type="hidden" id="profile" name="profile" value="{{$profile}}">
 
                 <!-- Contract Number -->
                 <div class="form-group row">

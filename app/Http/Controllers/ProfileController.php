@@ -455,19 +455,6 @@ class ProfileController extends Controller
             ]);
 
         $program->setStatus($program->getStatus() + 1);
-//        $program->setValue('program_status', /* $program->getWorkflow()->nextPhase()->getStatusValue() */2  );
-
-//        if($program->getAttribute('needs_preselection')->getValue() == true) {
-//            $profile->getAttribute('profile_status')->setValue(4);
-//            $profile->addSituationByData(__('Preselection needed'),
-//                [
-//                    'program_type' => $program->getAttribute('program_type')->getValue(),
-//                    'program_name' => $program->getAttribute('program_name')->getValue()
-//                ]);
-//            $program->addPreselection(new Preselection());
-//        } else {
-//            $profile->getAttribute('profile_status')->setValue(6); // Selection
-//        }
 
         return json_encode([
             'code' => 1,
@@ -537,6 +524,11 @@ class ProfileController extends Controller
                 'sender' => 'NTP'
             ]));
         }
+
+        return [
+            'code' => 0,
+            'message' => __('Profile doesn\'t exist'),
+        ];
     }
 
     /**

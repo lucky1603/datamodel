@@ -5,7 +5,7 @@ namespace App\Business;
 use App\Entity;
 use Illuminate\Mail\Mailable;
 
-class Faza1 extends BusinessModel implements Phase
+class Faza1 extends PhaseImpl
 {
 
     private int $status = -1;
@@ -32,7 +32,7 @@ class Faza1 extends BusinessModel implements Phase
 
     public function getDisplayForm(): string
     {
-        return 'profiles.forms._phase1-form';
+        return 'profiles.forms._faza1-form';
     }
 
     public function getAttributesData(): array
@@ -40,7 +40,8 @@ class Faza1 extends BusinessModel implements Phase
         return [
             'attributes' => $this->getAttributes(),
             'id' => $this->getId(),
-            'validStatus' => $this->getStatusValue()
+            'validStatus' => $this->getStatusValue(),
+            'profile' => $this->getWorkflow()->getProgram()->getProfile()->getId(),
         ];
     }
 
@@ -58,9 +59,10 @@ class Faza1 extends BusinessModel implements Phase
     {
         if($data == null) {
             $data = [
-                'has_passed' => false,
+                'passed' => false,
                 'short_note' => null,
                 'requested_files' => null,
+                'due_date' => null,
             ];
         }
 
@@ -71,9 +73,11 @@ class Faza1 extends BusinessModel implements Phase
     {
         $attributes = collect([]);
 
-        $attributes->add(self::selectOrCreateAttribute(['has_passed', __('Had Passed'), 'bool', NULL, 1]));
+        $attributes->add(self::selectOrCreateAttribute(['passed', __('Passed'), 'bool', NULL, 1]));
         $attributes->add(self::selectOrCreateAttribute(['short_note', __('Short Note'), 'text', NULL, 2]));
         $attributes->add(self::selectOrCreateAttribute(['requested_files', __('Requested Files'), 'file', 'multiple', 3]));
+        $attributes->add(self::selectOrCreateAttribute(['due_date', __('Due Date'), 'datetime', NULL, 4]));
+        $attributes->add(self::selectOrCreateAttribute(['files_sent', __('Files Sent'), 'bool', NULL, 5]));
 
         return $attributes;
     }

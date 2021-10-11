@@ -20,6 +20,8 @@ class PhaseFactory
                 return new Contract(['instance_id' => $instanceId]);
             case 'ProgramApplication':
                 return new ProgramApplication(['instance_id' => $instanceId]);
+            case 'AppFormEvaluation':
+                return new AppFormEvaluation((['instance_id' => $instanceId]));
             default:
                 return new Faza1(['instance_id' => $instanceId]);
         }

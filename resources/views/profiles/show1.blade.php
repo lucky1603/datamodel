@@ -118,16 +118,78 @@
                 }
             });
 
-            $('.btnNext').click(function() {
+            $('#btnNext').click(function() {
                 const id = <?php echo $model->getId() ?>;
                 $('#button_spinner_ok').attr('hidden', false);
                 let some = $($('form#myForm')[0]).serialize();
 
                 const token = $('form#myForm input[name="_token"]').val();
 
-                $.post('/profiles/evalPhase', some, function(data, status, xhr) {
-                    console.log(data);
-                    location.reload();
+                $.ajax({
+                    url: '/profiles/evalPhase',
+                    data: some,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-Token' : token
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        // location.reload();
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+
+                });
+            });
+
+            $('#btnEvalDecision').click(function() {
+                $('#button_spinner_ok').attr('hidden', false);
+                let some = $($('form#myAppEvalForm')[0]).serialize();
+                const token = $('form#myAppEvalForm input[name="_token"]').val();
+
+                $.ajax({
+                    url: '/profiles/evalPhase',
+                    data: some,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-Token' : token
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $('#button_spinner_ok').attr('hidden', true);
+                        location.reload();
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        $('#button_spinner_ok').attr('hidden', true);
+                    }
+
+                });
+            });
+
+            $('#btnFaza1Passed').click(function() {
+                $('#button_spinner_ok').attr('hidden', false);
+                let formData = new FormData($('form#myFaza1Form')[0]);
+                const token = $('form#myFaza1Form input[name="_token"]').val();
+                $.ajax({
+                    url: '/profiles/evalPhase',
+                    data: formData,
+                    method: 'POST',
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-Token' : token,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $('#button_spinner_ok').attr('hidden', true);
+                        location.reload();
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        $('#button_spinner_ok').attr('hidden', true);
+                    }
                 });
             });
 
@@ -138,6 +200,15 @@
                     alert('Mail je poslat!');
                 });
 
+            });
+
+            $('#btnSaveDecision').click(function() {
+                let id = $('#id').val();
+                let data = $('form#myAppEvalForm').serialize();
+                $.post('/appeval/update/' + id, data, function(data, status, xhr) {
+                    console.log(data);
+                    location.reload();
+                });
             });
 
             $('#btnSavePreselection').on('click', function(evt) {
@@ -156,19 +227,53 @@
                 });
             });
 
-            $('#btnSaveDemoDay').click(function(evt) {
-                const id = $('#id');
-                let notified = $('#demoday_client_notified').val();
+            $('#btnSaveFaza1').click(function() {
+                let formData = new FormData($('form#myFaza1Form')[0]);
+                const token = $('form#myFaza1Form input[name="_token"]').val();
 
-                if(notified === 'false')
-                    $('#demoday_client_notified').val('true');
-
-                let data = $('form#myDemoDayForm').serialize();
-
-                $.post('/demoday/update/' + id, data, function(data, status, xhr) {
-                    console.log(data);
-                    location.reload();
+                $.ajax({
+                    url: `/faza1/update`,
+                    data: formData,
+                    method: 'POST',
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-Token': token
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        location.reload();
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
                 });
+            });
+
+            $('#btnSaveDemoDay').click(function(evt) {
+                $('#save-demo-day-spinner').attr('hidden', false);
+                let formData = new FormData($('form#myDemoDayForm')[0]);
+                const token = $('form#myDemoDayForm input[name="_token"]').val();
+                $.ajax({
+                    url: '/demoday/update',
+                    data: formData,
+                    method: 'POST',
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-Token': token,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $('#save-demo-day-spinner').attr('hidden', true);
+
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        $('#save-demo-day-spinner').attr('hidden', true);
+                    }
+                });
+
             });
 
             $('#btnSaveContract').click(function(evt) {
@@ -231,17 +336,15 @@
 
             $('#btnDemoDayPassed').click(function() {
                 $('#button_spinner_ok').attr('hidden', false);
-                const id = <?php echo $model->getId() ?>;
-                const obj = {
-                    profile: id,
-                    passed: true,
-                };
+                let formData = new FormData($('form#myDemoDayForm')[0]);
                 const token = $('form#myDemoDayForm input[name="_token"]').val();
 
                 $.ajax({
-                    url: '/profiles/evalDemoDay',
-                    data: obj,
+                    url: '/profiles/evalPhase',
+                    data: formData,
                     method: 'POST',
+                    processData: false,
+                    contentType: false,
                     headers: {
                         'X-CSRF-Token' : token
                     },
@@ -319,40 +422,38 @@
 
             });
 
-            $('#btnContractSigned').click(function(evt) {
+            $('#btnCS').click(function(evt) {
                 $('#button_spinner_contract_ok').attr('hidden', false);
-                var id = <?php echo $model->getId() ?>;
-                var obj = {
-                    profile : id,
-                    passed : true,
-                };
-
+                let formData = new FormData($('form#myFormContract')[0]);
                 var token = $('form#myFormContract input[name="_token"]').val();
 
                 $.ajax({
                     url : '/profiles/evalPhase',
-                    data: obj,
+                    data: formData,
                     method: 'POST',
                     headers: {
                         'X-CSRF-Token' : token
                     },
+                    processData: false,
+                    contentType: false,
                     success: function(data) {
                         $('#button_spinner_contract_ok').attr('hidden', true);
                         console.log(data);
-                        var result = JSON.parse(data);
-
-                        console.log(result);
-                        if(result.code != 0) {
-                            console.log(result.message);
-                            $.toast(result.message);
-                        } else {
-                            $.toast({
-                                text: result.message,
-                                afterHidden: function() {
-                                    location.reload();
-                                }
-                            });
-                        }
+                        location.reload();
+                        // var result = JSON.parse(data);
+                        //
+                        // console.log(result);
+                        // if(result.code != 0) {
+                        //     console.log(result.message);
+                        //     $.toast(result.message);
+                        // } else {
+                        //     $.toast({
+                        //         text: result.message,
+                        //         afterHidden: function() {
+                        //             location.reload();
+                        //         }
+                        //     });
+                        // }
                     },
                     error: function(data) {
                         $('#button_spinner_contract_ok').attr('hidden', true);

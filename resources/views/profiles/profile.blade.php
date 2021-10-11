@@ -91,13 +91,63 @@
                     @if($programStatus == 2)
                         <div class="card row w-100 shadow" style="height:96%">
                             <div class="card-header bg-primary text-light">
-                                <span class="h4 text-center">Faza 1</span>
+                                <span class="h4 text-center">Evaluacija prijave</span>
                             </div>
                             <div class="card-body">
-
+                                <p>Vasa prijava se trenutno ocenjunje.</p>
+                                <p>Uskoro cete biti obavesteni o rezultatima ocenjivanja.</p>
                             </div>
                         </div>
+                    @elseif($programStatus == 3)
+                        <div class="card row w-100 shadow" style="height:96%">
+                            <div class="card-header bg-primary text-light">
+                                <span class="h4 text-center">Faza 1</span>
+                            </div>
+                            @php
+                                $faza = $program->getWorkflow()->phases->get(3);
+                                $filesSent = $faza->getValue('files_sent');
+                                $date = $faza->getValue('due_date');
+                                $formattedDate = $faza->getText('due_date');
+                            @endphp
+                            <div class="card-body">
+                                <p>Vasa prijava je prihvaćena.</p>
+                                @if($date != null)
+                                    @if($filesSent != true)
+                                        <p>Do {{ $formattedDate }} je neophodno da upload-ujete sledece fajlove:</p>
+                                        <ul>
+                                            <li>1. Fajl 1</li>
+                                            <li>2. Fajl 2</li>
+                                            <li>3. Fajl 3</li>
+                                        </ul>
+                                        <form
+                                            id="myFilesForm"
+                                            method="POST"
+                                            enctype="multipart/form-data"
+                                            action="/faza1/sendfiles">
+                                            @csrf
+                                            <input type="hidden" id="id" name="id" value="{{ $faza->getId() }}">
+                                            <input type="hidden" id="profile" name="profile" value="{{ $model->getId() }}">
+                                            <div class="form-group">
+                                                <label for="requested_files" class="col-form-label col-form-label-sm attribute-label">Datoteke za slanje</label>
+                                                <input type="file" multiple id="requested_files" name="requested_files[]" class="form-control form-control-sm form-control-file">
+                                            </div>
+                                            <div class="text-center">
+                                                <button type="button" id="buttonSendFiles" class="btn btn-sm btn-primary">Pošalji</button>
+                                            </div>
+                                        </form>
+                                    @else
+                                        <p>Datoteke su uspešno poslate.</p>
+                                        <p>Uskoro ćete biti obavešteni o odluci komisije.</p>
+                                    @endif
+                                @else
+                                    <p>Uskoro cete dobiti instrukcije o datotekama koje je potrebno da posaljete, kao i vremenski rok do kojeg je neophodno da to ucinite.</p>
+                                @endif
+                            </div>
+                        </div>
+                    @elseif($programStatus == 4)
+                        <!-- Demo Day -->
                     @else
+                        <!-- Contract -->
                         <div class="card row w-100 shadow" style="height:96%">
                             <div class="card-header bg-primary text-light">
                                 <span class="h4 text-center">Fajlovi uspesno poslati</span>
@@ -108,32 +158,9 @@
                         </div>
                     @endif
                 @else
-                    <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
-                        <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper('Uspešna prijava na program') }}</div>
-                        <div class="card-body">
-                            <p class="font-weight-light font-14 ">Prijava na program <span class="attribute-label font-weight-bold">{{ $model->getActiveProgram()->getAttribute('program_name')->getValue() }}</span>
-                                je uspešno izvršena. Podaci koje ste poslali će biti analizirani i naša komisija će odlučiti da li vaša kandidatura odgovara
-                                vašim realnim mogućnostima. Takođe, moguće je da ćete biti pozvani na sastanak, ukoliko će biti neophodno da detaljnije objasnite neke
-                                od podataka koje ste naveli u prijavi.</p>
-                            <p class="font-weight-light font-14">
-                                U slučaju pozitivnog odgovora komisije, u zavisnosti od programa koji ste izabrali, može da se desi da budete pozvani na potpis ugovora.
-                                Ukoliko nije neophodan potpis ugovora, po pozitivnoj odluci komisije, bićete odmah u mogućnosti da koristite mogućnosti predviđene programom
-                                koji ste odabrali.
-                            </p>
-                            <p class="font-weight-light font-14">U međuvremenu možete pogledati video koji smo pripremili u kojem su u kratkim crtama opisane aktivnosti
-                                koje se sprovode u okviru naših programa.
-                            </p>
-                            <div class="row">
-                                <div class="offset-sm-2 col-sm-8">
-                                    <div class="embed-responsive embed-responsive-4by3">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PrUxWZiQfy4?ecver=1"></iframe>
-                                    </div>
-                                </div>
-                            </div>
 
-                        </div>
-                    </div>
                 @endif
+
 
             @elseif($status == 4)
                 <div class="card border" style="height: 95%">
@@ -183,7 +210,7 @@
                 var data = new FormData($('form#myFilesForm')[0]);
                 var token = $('form#myFilesForm input[name="_token"]').val();
                 $.ajax({
-                    url: '/demoday/sendfiles',
+                    url: '/faza1/sendfiles',
                     type: 'POST',
                     processData: false,
                     contentType: false,

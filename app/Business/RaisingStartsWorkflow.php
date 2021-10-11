@@ -29,9 +29,10 @@ class RaisingStartsWorkflow extends Workflow
             }
         } else {
             $this->addPhase(1, new ProgramApplication(['program_type' => Program::$RAISING_STARTS]));
-            $this->addPhase(2, new Faza1());
-            $this->addPhase(3, new DemoDay());
-            $this->addPhase(4, new Contract());
+            $this->addPhase(2, new AppFormEvaluation());
+            $this->addPhase(3, new Faza1());
+            $this->addPhase(4, new DemoDay());
+            $this->addPhase(5, new Contract());
         }
     }
 }

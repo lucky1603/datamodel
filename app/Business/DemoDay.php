@@ -6,7 +6,7 @@ use App\Entity;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Collection;
 
-class DemoDay extends BusinessModel implements Phase
+class DemoDay extends PhaseImpl
 {
     private int $status = -1;
 
@@ -31,28 +31,11 @@ class DemoDay extends BusinessModel implements Phase
     {
         if($data == null) {
             $data = [
-                'demoday_date' => now(),
-                'demoday_note' => __('gui.demoday_note'),
-                'demoday_files' => null,
-                'demoday_client_notified' => false,
-                'demoday_files_sent' => false,
+                'passed' => false,
             ];
         }
 
         $this->setData($data);
-    }
-
-    /**
-     * Returns the program to which this instance belongs.
-     * @return Program|null
-     */
-    public function getWorkflow(): ?Program
-    {
-        $programInstance = $this->instance->parentInstances()->first();
-        if($programInstance == null)
-            return null;
-
-        return ProgramFactory::resolve($programInstance);
     }
 
     /**
@@ -62,11 +45,13 @@ class DemoDay extends BusinessModel implements Phase
     {
         $attributes = collect([]);
 
-        $attributes->add(self::selectOrCreateAttribute(['demoday_date', __('Demo Day Date'), 'datetime', NULL, 1]));
-        $attributes->add(self::selectOrCreateAttribute(['demoday_note', __('Demo Day Note'), 'text', NULL, 2]));
-        $attributes->add(self::selectOrCreateAttribute(['demoday_files', __('Demo Day Files'), 'file', 'multiple', 3]));
-        $attributes->add(self::selectOrCreateAttribute(['demoday_client_notified', __('Demo Day Client Notified'), 'bool', NULL, 4]));
-        $attributes->add(self::selectOrCreateAttribute(['demoday_files_sent', __('Demo Day Requested Files Sent'), 'bool', NULL, 5]));
+//        $attributes->add(self::selectOrCreateAttribute(['demoday_date', __('Demo Day Date'), 'datetime', NULL, 1]));
+//        $attributes->add(self::selectOrCreateAttribute(['demoday_note', __('Demo Day Note'), 'text', NULL, 2]));
+//        $attributes->add(self::selectOrCreateAttribute(['demoday_files', __('Demo Day Files'), 'file', 'multiple', 3]));
+//        $attributes->add(self::selectOrCreateAttribute(['demoday_client_notified', __('Demo Day Client Notified'), 'bool', NULL, 4]));
+//        $attributes->add(self::selectOrCreateAttribute(['demoday_files_sent', __('Demo Day Requested Files Sent'), 'bool', NULL, 5]));
+
+        $attributes->add(self::selectOrCreateAttribute(['passed', __('Passed'), 'bool', NULL, 1]));
 
         return $attributes;
     }
@@ -93,7 +78,9 @@ class DemoDay extends BusinessModel implements Phase
             'attributes' => $this->getAttributes(),
             'id' => $this->getId(),
             'validStatus' => $this->getStatusValue(),
-            'notified' => $this->getValue('demoday_client_notified')
+            'notified' => $this->getValue('demoday_client_notified'),
+            'model' => $this,
+            'profile' => $this->getWorkflow()->getProgram()->getProfile()->getId()
         ];
     }
 

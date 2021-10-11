@@ -118,10 +118,15 @@ Route::post('mentors/addprogram', 'MentorController@storeProgram')->name('mentor
 Route::get('mentors/profile/{mentor}', 'MentorController@profile')->name('mentors.profile');
 
 Route::post('/demoday/sendfiles', 'DemoDayController@sendfiles')->name('demoday.sendfiles');
+Route::post('/faza1/sendfiles', 'Faza1Controller@sendfiles')->name('faza1.sendfiles');
+Route::post('/faza1/update', 'Faza1Controller@update')->name('faza1.update');
+Route::post('/demoday/update', 'DemoDayController@update')->name('demoday.update');
 Route::post('/preselection/update/{preselection}', 'PreselectionController@update')->name('preselection.update');
 Route::post('/selection/update/{selection}', 'SelectionController@update')->name('selection.update');
 Route::post('/contracts/update/{contract}', 'ContractsController@update')->name('contract.update');
-Route::post('/demoday/update/{DemoDay}', 'DemoDayController@update')->name('demoday.update');
+Route::post('/appeval/update/{appeval}', 'AppFormEvaluationController@update')->name('appeval.update');
+
+
 
 
 Route::post('sessions/create', 'SessionController@store')->name('sessions.store');

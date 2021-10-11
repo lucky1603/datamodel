@@ -149,10 +149,12 @@
                                             @elseif($attribute->type == 'varchar' && $attribute->extra == 'link')
                                                 @php
                                                     $link = $attribute->getValue();
-                                                    if(!str_contains($link, 'http://') && !str_contains($link, 'https' ))
+                                                    if($link != null && !str_contains($link, 'http://') && !str_contains($link, 'https' ))
                                                         $link = "http://".$link;
                                                 @endphp
-                                                <a href="{{ $link }}" target="_blank">{{ $link }}</a>
+                                                @if($link != null)
+                                                    <a href="{{ $link }}" target="_blank">{{ $link }}</a>
+                                                @endif
                                             @elseif($attribute->type == 'file' && $attribute->extra == 'multiple')
                                                 @php
                                                     $files = $attribute->getValue();
