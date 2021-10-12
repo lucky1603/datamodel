@@ -853,8 +853,8 @@ class ProfileController extends Controller
         $programs = Program::find();
         $candidates = $programs->filter(function($program) {
             $profile = $program->getProfile();
-            if(($program->getValue('program_type') == Program::$RAISING_STARTS && $profile->getValue('profile_status') > 4) ||
-                $profile->getValue('profile_status') == 8) {
+            if(($program->getValue('program_type') == Program::$RAISING_STARTS && in_array($profile->getValue('profile_status'), [3,4]) ) ||
+                $profile->getValue('profile_status') == 4) {
                 return true;
             }
 

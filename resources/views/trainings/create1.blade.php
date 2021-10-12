@@ -1,7 +1,7 @@
 @extends('layouts.hyper-vertical')
 
 @section('content')
-    <div style="width: 60%">
+    <div class="container">
         <event-generator token="{{ $token }}"></event-generator>
     </div>
 

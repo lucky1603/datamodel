@@ -55,9 +55,9 @@
                     $status_text = $profile->getAttribute('profile_status')->getText();
                 @endphp
 
-                <div class="col-md-3">
+                <div class="col-md-3 mt-1 mb-1">
                     <a href="{{ route('profiles.show', $profile->getId()) }}">
-                        <div class="card shadow-sm ribbon-box" data-id="{{ $loop->iteration }}" style="margin-top:10px; margin-bottom: 10px">
+                        <div class="card h-100 shadow-sm ribbon-box" data-id="{{ $loop->iteration }}" style="margin-top:10px; margin-bottom: 10px">
 
                             <div class="card-body" style="padding: 0" >
                                 <div class="ribbon-two
@@ -83,10 +83,30 @@
                                     <img src="@if( $profile->getAttribute('profile_background') != null && strlen($profile->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $profile->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile" style="height: 150px"/>
                                     <img class="shadow image-container-logo" src="{{ $profile->getAttribute('profile_logo') != null && $profile->getValue('profile_logo') != null && strlen($profile->getAttribute('profile_logo')->getValue()['filelink']) > 0 ? $profile->getAttribute('profile_logo')->getValue()['filelink'] : '/images/custom/avatar-default.png' }}" />
                                 </div>
+                                <div class="row h-50">
+                                    @if($profile->getActiveProgram() != null)
+                                    <div class="col-sm-3 p-2" style="display: flex; align-items: center; justify-content: center">
+                                        @switch($profile->getActiveProgram()->getValue('program_type'))
+                                            @case(5)
+                                                <img src="/images/custom/inkubacija.png"  style="width: 100%">
+                                                @break
+                                            @case(2)
+                                                <img src="/images/custom/raisingstarts.png" class="bg-primary rounded-circle" style="width: 100%">
+                                                @break
+                                            @default
+                                                <img src="/images/custom/rastuce.png" class="h-100 m-4">
+                                                @break
+                                        @endswitch
+                                    </div>
+                                    @endif
+                                    <div @if($profile->getActiveProgram() != null) class="col-sm-9" @else class="col-sm-12" @endif style="display: flex; align-items: center; justify-content: center; font-family: 'Roboto Light'; font-size: 30px; font-weight: normal; flex-direction: column" >
+                                        <span class="text-center">{{ $data['name'] }}</span>
+                                        <address class="text-center font-14" style="text-align: center">{{ !isset($data['address']) || strlen($data['address']) == 0 ? 'nedostaje adresa' : $data['address'] }}</address>
+                                    </div>
+                                </div>
 
-                                <h4 class="text-center mt-5 mb-2 text-secondary">{{ $data['name'] }}</h4>
 
-                                <address class="text-center text-secondary" style="text-align: center">{{ !isset($data['address']) || strlen($data['address']) == 0 ? 'nedostaje adresa' : $data['address'] }}</address>
+
 
                             </div>
                         </div>

@@ -2,6 +2,10 @@
     <span class="float-left h4 attribute-label" style="display: table-column">{{ strtoupper( __('Attendees')) }}</span>
 </div>
 <hr/>
+{{--<form id="myAttendanceForm" method="POST" enctype="multipart/form-data" action="{{ route('trainings.updateAttendances') }}">--}}
+{{--    @csrf--}}
+{{--    --}}
+{{--</form>--}}
 <table id="myTable" class="table table-sm table-bordered shadow" style="max-height: 300px">
     <thead class="bg-dark text-light">
     <tr>
@@ -20,7 +24,7 @@
             <td><img src="@if( $profile->getAttribute('photo') != null && $profile->getValue('photo')['filelink'] != '') {{ $profile->getValue('photo')['filelink'] }} @else /images/custom/nophoto2.png @endif" class="mr-1 img-fluid avatar-xs rounded-circle">{{ $profile->getText('name') }}</td>
             <td class="text-center">
                 <span class="badge badge-pill font-16
-                    @switch($attendance->getValue('$attendance'))
+                    @switch($attendance->getValue('attendance'))
                         @case(1) badge-warning-lighten @break
                         @case(2) badge-success-lighten @break
                         @case(3) badge-danger-lighten  @break
