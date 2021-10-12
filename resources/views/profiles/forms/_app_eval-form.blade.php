@@ -32,16 +32,19 @@
                     @endphp
                     <input type="hidden" id="{{ $attribute->name }}Hidden" name="{{$attribute->name}}" value="off">
 
-                    <div class="col-lg-3">
-                        <label for="passed" class="col-form-label col-form-label-sm mr-2">{{ $attribute->label }}</label>
-                        <input type="checkbox" id="{{$attribute->name}}" name="{{$attribute->name}}"
-                               @if($value) checked @endif onclick="
-                            if(document.getElementsById('{{ $attribute->name }}').checked) {
+
+                    <div class="col-lg-3" style="display: flex">
+                        <label class="col-form-label col-form-label-sm attribute-label mr-1">{{ $attribute->label }}</label>
+                        <input type="checkbox" id="applicationPassed" name="{{$attribute->name}}"
+                               @if($value) checked @endif data-switch="primary" onclick="
+                            if(document.getElementsById('applicationPassed').checked) {
                             document.getElementById('{{$attribute->name}}Hidden').disabled = true;
                             } else {
                             document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
                             }
                             ">
+                        <label for="applicationPassed" data-on-label="Da" data-off-label="Ne" style="top:3px"></label>
+
                     </div>
                 </div>
                 <div class="form-group">

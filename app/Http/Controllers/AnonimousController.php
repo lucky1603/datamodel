@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Business\Profile;
 use App\Mail\ProfileCreated;
 use App\User;
+use Hamcrest\Util;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -35,6 +36,9 @@ class AnonimousController extends Controller
      */
     public function store(Request $request) {
         $data = $request->post();
+
+        $data['profile_logo'] = Utils::getFilesFromRequest($request, 'profile_logo');
+        $data['profile_background'] = Utils::getFilesFromRequest($request, 'profile_background');
 
         // Set as 'interested'.
         $data['profile_status'] = 2;

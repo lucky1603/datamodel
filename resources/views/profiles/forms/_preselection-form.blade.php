@@ -19,20 +19,15 @@
 
                     <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
                     <span class="attribute-label mr-1">{!! $attribute->label !!}  </span>
-                    <input
-                        class="checkbox-aligned"
-                        type="checkbox"
-                        id="{{ $attribute->name }}"
-                        name="{{$attribute->name}}"
-                        @if($value) checked @endif style="padding-top: 10px"
-                        onclick="
-                            if(document.getElementById('{{ $attribute->name }}').checked)
-                            {
-                            document.getElementById('{{ $attribute->name }}Hidden').disabled = true
-                            } else {
-                            document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
-                            }
-                            ">
+
+                    <!-- Bool Switch-->
+                    <input type="checkbox" id="{{ $attribute->name }}" name="{{ $attribute->name }}" @if($value) checked @endif data-switch="primary"
+                    onclick="if(document.getElementById('{{ $attribute->name }}').checked) {
+                        document.getElementById('{{$attribute->name}}Hidden').disabled = true;
+                    } else {
+                        document.getElementById('{{$attribute->name}}Hidden').disabled = false;
+                    }" >
+                    <label for="{{ $attribute->name }}" data-on-label="Da" data-off-label="Ne" style="top: 15px"></label>
                 </div>
                 <div class="form-group">
                     @php

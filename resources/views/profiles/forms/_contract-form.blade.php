@@ -114,20 +114,13 @@
 
                     <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
                     <span class="attribute-label mr-1">Za potpis </span>
-                    <input
-                        class="checkbox-aligned"
-                        type="checkbox"
-                        id="{{ $attribute->name }}"
-                        name="{{$attribute->name}}"
-                        @if($value) checked @endif style="padding-top: 10px"
-                        onclick="
-                            if(document.getElementById('{{ $attribute->name }}').checked)
-                            {
-                            document.getElementById('{{ $attribute->name }}Hidden').disabled = true
-                            } else {
-                            document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
-                            }
-                            ">
+                    <input type="checkbox" id="checkSignContract" name="{{ $attribute->name }}" @if($value) checked @endif data-switch="primary"
+                     onclick="if(document.getElementById('checkSignContract').checked)
+                                document.getElementById('{{ $attribute->name }}Hidden').disabled = true;
+                              else
+                                document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
+                              ">
+                    <label for="checkSignContract" data-on-label="Da" data-off-label="Ne" style="top:15px"></label>
                 </div>
             </div>
         </div>

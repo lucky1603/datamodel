@@ -6,7 +6,7 @@
             <div class="card text-center h-75">
                 <div class="card-header p-0">
                     <div id="img-container" class="image-container">
-                        <img src="@if( $model->getAttribute('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $model->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile" style="height: 150px"/>
+                        <img src="@if( $model->getAttribute('profile_background') != null && $model->getValue('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $model->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile" style="height: 150px"/>
                         <img class="shadow image-container-logo" src="{{ $model->getAttribute('profile_logo') != null && $model->getValue('profile_logo') != null && strlen($model->getAttribute('profile_logo')->getValue()['filelink']) > 0 ? $model->getAttribute('profile_logo')->getValue()['filelink'] : '/images/custom/avatar-default.png' }}"  />
                     </div>
                 </div>

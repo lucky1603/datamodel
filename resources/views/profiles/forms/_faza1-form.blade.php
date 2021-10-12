@@ -27,19 +27,24 @@
                         $value = $attribute->getValue() ?? false;
                     @endphp
                     <input type="hidden" id="{{ $attribute->name }}Hidden" name="{{ $attribute->name }}" value="off">
-                    <label for="passed" class="col-form-label col-form-label-sm mr-2 attribute-label">{{ $attribute->label }}</label>
-                    <input
-                        type="checkbox"
-                        id="{{ $attribute->name }}"
-                        name="{{ $attribute->name }}" style="top:9px; position: relative"
-                        @if($value) checked @endif
-                        onclick="
-                        if(document.getElementById('{{ $attribute->name }}').checked) {
+                    <div class="col-lg-3" style="display: flex">
+                        <label class="col-form-label col-form-label-sm mr-2 attribute-label">{{ $attribute->label }}</label>
+                        <input
+                            type="checkbox"
+                            id="faza1Passed"
+                            name="{{ $attribute->name }}" style="top:9px; position: relative"
+                            @if($value) checked @endif
+                            data-switch="primary"
+                            onclick="
+                            if(document.getElementById('faza1Passed').checked) {
                             document.getElementById('{{ $attribute->name }}Hidden').disabled = true;
-                        } else {
+                            } else {
                             document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
-                        }
-                        ">
+                            }
+                            ">
+                        <label for="faza1Passed" data-on-label="Da" data-off-label="Ne" style="top:3px"></label>
+                    </div>
+
 
                 </div>
                 <div class="form-group row">

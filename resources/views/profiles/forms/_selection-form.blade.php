@@ -60,31 +60,26 @@
                                name="{{ $attribute->name }}"
                                @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif>
                     </div>
+                    @php
+                        $attribute = $attributes->where('name', 'passed')->first();
+                        $value = $attribute->getValue() ?? false;
+                    @endphp
+                    <label class="attribute-label col-lg-1 col-form-label col-form-label-sm">{!! $attribute->label !!}  </label>
                     <div class="col-lg-3">
-                        @php
-                            $attribute = $attributes->where('name', 'passed')->first();
-                            $value = $attribute->getValue() ?? false;
-                        @endphp
-
                         <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
-                        <label class="attribute-label mr-1 col-form-label col-form-label-sm">{!! $attribute->label !!}  </label>
                         <input
-                            class="checkbox-aligned"
                             type="checkbox"
-                            id="{{ $attribute->name }}"
-                            name="{{$attribute->name}}"
-                            @if($value) checked @endif style="padding-top: 10px"
-                            onclick="
-                                if(document.getElementById('{{ $attribute->name }}').checked)
-                                {
-                                document.getElementById('{{ $attribute->name }}Hidden').disabled = true
-                                } else {
-                                document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
-                                }
-                                ">
+                            id="checkSelectionPassed"
+                            name="{{ $attribute->name }}"
+                            @if($value) checked @endif
+                            data-switch="primary"
+                            onclick="if(document.getElementById('checkSelectionPassed').checked)
+                                        document.getElementById('{{ $attribute->name }}Hidden').disabled=true;
+                                     else
+                                        document.getElementById('{{ $attribute->name }}Hidden').disabled=false;
+                                "/>
+                        <label for="checkSelectionPassed" data-on-label="Da" data-off-label="Ne" style="top:2px"></label>
                     </div>
-
-
                 </div>
 
 
@@ -95,7 +90,7 @@
         <div class="row text-center" style="height: 15%; display: flex; flex-direction: row; justify-content: center; align-items: center">
             <button type="button" id="btnNotifyClientSelection" class="btn btn-sm btn-warning h-50 w-15" @if($status != $validStatus) disabled @endif>{{__('gui.notify')}}</button>
             <button type="button" id="btnSaveSelection" class="btn btn-sm btn-primary h-50 w-15 ml-1" @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
-            <button type="button" id="btnExitSelection" class="btn btn-sm btn-success h-50 w-15 ml-1 btnNext" @if($status != $validStatus) disabled @endif>
+            <button type="button" id="btnSelectionPassed" class="btn btn-sm btn-success h-50 w-15 ml-1 btnNext" @if($status != $validStatus) disabled @endif>
                 <span id="button_spinner_sel_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.accept')}}</span>
             </button>

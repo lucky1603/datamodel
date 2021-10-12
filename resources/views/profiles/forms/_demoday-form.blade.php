@@ -16,16 +16,18 @@
                         $value = $attribute->getValue() ?? null;
                     @endphp
                     <input type="hidden" id="passedHidden" name="passed" value="off">
-                    <span class="attribute-label mr-2">Uslovi zadovoljeni</span>
+                    <label class="attribute-label mr-2">Uslovi zadovoljeni</label>
                     <input
                         type="checkbox"
-                        id="passed"
+                        id="checkboxDemoDayPassed"
                         name="passed"
+                        data-switch="primary"
                         @if($value) checked @endif
-                        onclick="if(document.getElementById('passed').checked == true)
+                        onclick="if(document.getElementById('checkboxDemoDayPassed').checked == true)
                             document.getElementById('passedHidden').disabled = true;
                         else
                             document.getElementById('passedHidden').disabled = false;">
+                    <label for="checkboxDemoDayPassed" data-on-label="Da" data-off-label="Ne" style="top: 15px"></label>
                 </div>
 
             </div>

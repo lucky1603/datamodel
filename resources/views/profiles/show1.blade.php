@@ -143,7 +143,7 @@
                     },
                     success: function(data) {
                         console.log(data);
-                        // location.reload();
+                        location.reload();
                     },
                     error: function(data) {
                         console.log(data);
@@ -403,21 +403,18 @@
 
             $('#btnSelectionPassed').click(function(evt) {
                 $('#button_spinner_sel_ok').attr('hidden', false);
-                var id = <?php echo $model->getId() ?>;
-                var obj = {
-                    profile : id,
-                    passed : true,
-                };
-
-                var token = $('form#myFormSelection input[name="_token"]').val();
+                let formData = new FormData($('form#myFormSelection')[0]);
+                const token = $('form#myFormSelection input[name="_token"]').val();
 
                 $.ajax({
                     url : '/profiles/evalPhase',
-                    data: obj,
+                    data: formData,
                     method: 'POST',
                     headers: {
                         'X-CSRF-Token' : token
                     },
+                    processData: false,
+                    contentType: false,
                     success: function(data) {
                         $('#button_spinner_sel_ok').attr('hidden', true);
                         console.log(data);

@@ -25,7 +25,7 @@
                         <div class="card">
                             <div class="row no-gutters align-items-center">
                                 <div class="col-md-4">
-                                    <img src="/images/custom/noimage.png" class="card-img" alt="...">
+                                    <img src="/images/custom/inkubacija.png" class="card-img" alt="...">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
@@ -41,8 +41,8 @@
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="row no-gutters align-items-center">
-                                <div class="col-md-4">
-                                    <img src="/images/custom/noimage.png" class="card-img" alt="...">
+                                <div class="col-md-4 bg-light">
+                                    <img src="/images/custom/rastuce.png" class="card-img" alt="...">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
@@ -60,8 +60,8 @@
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="row no-gutters align-items-center">
-                                <div class="col-md-4">
-                                    <img src="/images/custom/noimage.png" class="card-img" alt="...">
+                                <div class="col-md-4 bg-primary text-light p-3">
+                                    <img src="/images/custom/raisingstarts.png" class="card-img" alt="...">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
@@ -146,12 +146,13 @@
                         </div>
                     @elseif($programStatus == 4)
                         <!-- Demo Day -->
-                        <div class="card w-100 h-100 shadow">
+                        <div class="card w-100 h-100 shadow text-dark">
                             <div class="card-header bg-primary text-light">
                                 DEMO DAY
                             </div>
                             <div class="card-body">
-                                <p>Da biste bili prihvaceni na program, morate odslusati sledece treninge:</p>
+                                <p>Prošli ste fazu 1.</p>
+                                <p>Nadalje, da biste bili prihvaceni na program, morate odslusati sledece treninge:</p>
                                 <ul>
                                     <li>1. Trening I</li>
                                     <li>2. Trening II</li>
@@ -159,6 +160,8 @@
                                     <li>4. Trening IV</li>
                                     <li>5. Trening V</li>
                                 </ul>
+                                <p>Spisak treninnga za vas, nalazi se u delu vašeg profila, na koji ćete doći izborom opcije <b>"DOGAĐAJI"</b> iz menija sa leve strane ekrana.</p>
+                                <p>Prijavite se za sve događaje na listi i učestvujte na njima. Po uspešnom učešću na tim događajima ispunićete uslove za korišćenje programa.</p>
                             </div>
 
                         </div>
@@ -174,7 +177,26 @@
                         </div>
                     @endif
                 @else
+                    <div class="card w-100 h-100">
+                        <div class="card-header bg-primary text-light">
+                            USPEŠNA PRIJAVA
+                        </div>
+                        <div class="card-body text-dark font-14">
+                            <p>Uspešno ste se prijavili na program "{{ $program->getValue('program_name') }}".</p>
+                            <p>Uskoro će se obaviti postupak predselekcije i bićete pozvani na sastanak u prostorijama
+                                NTP Beograd. O terminu sastanka ćete biti obavešteni putem elektronske pošte, na adresu
+                                koju ste naveli u prijavi.</p>
+                            <p>Posle postupka predselekcije, ukoliko je prođete, sledi postupak selekcije, a zatim u slučaju
+                               pozitivnog ishoda selekcij i potpis ugovora. O ishodima ovih postupaka ćete biti blagovremeno
+                               obaveštavani putem elektronske pošte. U međuvremenu možete pogledati video koji ilustruje aktivnosti
+                               u okviru NTP parka.</p>
+                            <!-- 21:9 aspect ratio -->
+                            <div class="embed-responsive embed-responsive-21by9 mt-4">
+                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PrUxWZiQfy4?autohide=0&showinfo=0&controls=0"></iframe>
+                            </div>
 
+                        </div>
+                    </div>
                 @endif
 
 

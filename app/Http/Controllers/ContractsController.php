@@ -24,6 +24,7 @@ class ContractsController extends Controller
     public function update(Request $request, $contractId): array
     {
         $data = $request->post();
+        var_dump($data);
 
         $contract_file = $request->file('contract_document');
         $data['contract_file'] = $contract_file;
