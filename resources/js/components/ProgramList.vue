@@ -6,7 +6,7 @@
                 <b-button class="float-right" variant="primary" :title="addprogramtitle" @click="showModal"><i class="uil-document"></i></b-button>
                 <b-button class="float-right mr-1" variant="primary-outline" :title="deleteprogramtitle"><i class="mdi mdi-delete"></i></b-button>
             </div>
-            <div class="card-body font-12">
+            <div class="card-body font-12" style="height: 95%">
                 <p v-if="this.programs.length == 0">There are currently no programs attached</p>
                 <b-table
                     ref="ProgramsTable"
@@ -20,7 +20,7 @@
                     :items="programs"
                     :fields="fields"
                     head-variant="dark"
-                    @row-selected="selected"></b-table>
+                    @row-selected="selected" style="height: 95%"></b-table>
             </div>
         </div>
         <b-modal id="addProgramModal" ref="addProgramModal" header-bg-variant="dark" header-text-variant="light" >

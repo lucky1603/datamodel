@@ -1,15 +1,15 @@
 @extends('layouts.hyper-vertical')
 
 @section('content')
-    <div class="card h-100 w-100">
+    <div class="card h-100 w-100 ">
         <div class="card-header bg-dark text-light">
             <h4 style="display: table-column; float: left">
                 @switch($training->getData()['training_type'])
                     @case(1)
-                    {{ mb_strtoupper(__('1 on 1 session'))}}
+                    {{ mb_strtoupper(__('Workshop'))}}
                     @break
                     @case(2)
-                    {{ mb_strtoupper(__('Workshop'))}}
+                    {{ mb_strtoupper(__('Training'))}}
                     @break
                     @case(3)
                     {{ mb_strtoupper( __('Event'))}}
@@ -20,56 +20,22 @@
                 @endswitch
             </h4>
         </div>
-        <div class="card-body overflow-auto">
-            @include('trainings.partials.training-info')
+        <form id="myTrainingForm" method="POST" enctype="multipart/form-data" action="{{ route('trainings.update', ['training' => $training->getId()]) }}">
+            @csrf
+            <div class="card-body overflow-auto">
+                @include('trainings.partials.training-info2')
+                @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+                    @include('trainings.partials.attendees')
+                @endif
+            </div>
             @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
-                @include('trainings.partials.attendees')
+                <div class="text-center">
+                    <button type="submit" class="btn btn-sm btn-primary">{{ __('Accept') }}</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary">{{ __('Close') }}</button>
+                </div>
             @endif
-        </div>
+        </form>
     </div>
-{{--    <div style="width: 100%" class="border border-primary">--}}
-{{--        <div class="pt-1 pb-1 pl-2 pr-2 bg-white mb-0 attribute-label border border-success" style="display: table; width: 100%">--}}
-{{--            <h4 style="display: table-column; float: left">--}}
-{{--                @switch($training->getData()['training_type'])--}}
-{{--                    @case(1)--}}
-{{--                        {{ strtoupper(__('1 on 1 session'))}}--}}
-{{--                        @break--}}
-{{--                    @case(2)--}}
-{{--                        {{ strtoupper(__('Workshop'))}}--}}
-{{--                        @break--}}
-{{--                    @case(1)--}}
-{{--                        {{  strtoupper( __('Event'))}}--}}
-{{--                        @break--}}
-{{--                @endswitch--}}
-{{--            </h4>--}}
-
-
-{{--            @if(Auth::user()->isAdmin())--}}
-{{--                <a href="{{ route('trainings') }}" class="btn btn-sm btn-dark" style="display: table-column; float: right">< {{ __('Go Back') }}</a>--}}
-{{--                <a href="#" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Edit') }}</a>--}}
-{{--            @else--}}
-{{--                <a href="{{ route('trainings.forme') }}" class="btn btn-sm btn-dark" style="display: table-column; float: right">< {{ __('Go Back') }}</a>--}}
-{{--                <form action="{{ route('trainings.signup') }}" method="post" enctype="multipart/form-data" id="myForm">--}}
-{{--                    @csrf--}}
-{{--                    <input type="hidden" id="client_id" name="client_id" value="{{ $client->getId() }}">--}}
-{{--                    <input type="hidden" id="training_id" name="training_id" value="{{ $training->getId() }}">--}}
-{{--                    <button type="submit" class="btn btn-sm btn-success mr-1" style="display: table-column; float: right">{{ __('Apply for') }}</button>--}}
-{{--                </form>--}}
-
-{{--            @endif--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--    <div style="background-color: white; position: absolute; left: 270px; right: 10px; top: 150px; bottom: 70px; overflow-y: auto" class="shadow-sm">--}}
-{{--        <div class="container-fluid pt-4">--}}
-{{--                <div class="container">--}}
-
-{{--                        @include('trainings.partials.training-info')--}}
-{{--                        @include('trainings.partials.attendees')--}}
-
-{{--                </div>--}}
-
-{{--        </div>--}}
-{{--    </div>--}}
 @endsection
 
 @section('scripts')
@@ -109,7 +75,7 @@
     <li class="side-nav-item">
         <a href="{{ Illuminate\Support\Facades\URL::previous() }}" class="side-nav-link">
             <i class="uil-laptop-cloud"></i>
-            <span>{{ strtoupper(__('Back to Sessions')) }}</span>
+            <span>{{ mb_strtoupper(__('Back to Events')) }}</span>
         </a>
     </li>
 @endsection

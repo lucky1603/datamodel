@@ -51736,7 +51736,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "card-body font-12" },
+          { staticClass: "card-body font-12", staticStyle: { height: "95%" } },
           [
             this.programs.length == 0
               ? _c("p", [_vm._v("There are currently no programs attached")])
@@ -51745,6 +51745,7 @@ var render = function() {
             _vm.programs.length > 0
               ? _c("b-table", {
                   ref: "ProgramsTable",
+                  staticStyle: { height: "95%" },
                   attrs: {
                     striped: "",
                     small: "",

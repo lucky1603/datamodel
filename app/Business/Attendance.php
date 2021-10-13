@@ -91,7 +91,7 @@ class Attendance extends BusinessModel
     {
         $attributes = collect([]);
 
-        $attendance = self::selectOrCreateAttribute(['attendance', 'Pristustvo', 'select', NULL, 1]);
+        $attendance = self::selectOrCreateAttribute(['attendance', 'Prisustvo', 'select', NULL, 1]);
         if(count($attendance->getOptions()) == 0) {
             $attendance->addOption(['value' => 1, 'text' => __('Notified')]);
             $attendance->addOption(['value' => 2, 'text' => __('Showed Up')]);

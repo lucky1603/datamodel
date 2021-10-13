@@ -110,8 +110,8 @@
                                 $date = $faza->getValue('due_date');
                                 $formattedDate = $faza->getText('due_date');
                             @endphp
-                            <div class="card-body">
-                                <p>Vasa prijava je prihvaćena.</p>
+                            <div class="card-body text-dark">
+                                <p>Vaša prijava je prihvaćena.</p>
                                 @if($date != null)
                                     @if($filesSent != true)
                                         <p>Do {{ $formattedDate }} je neophodno da upload-ujete sledece fajlove:</p>
@@ -120,6 +120,15 @@
                                             <li>2. Fajl 2</li>
                                             <li>3. Fajl 3</li>
                                         </ul>
+                                        <p>Takođe, neophodno je da prisustvujete sledećim događajima:</p>
+                                        <ul>
+                                            <li>1. Trening I</li>
+                                            <li>2. Trening II</li>
+                                            <li>3. Trening III</li>
+                                            <li>4. Trening IV</li>
+                                            <li>5. Trening V</li>
+                                        </ul>
+                                        <p>Kao i eventualnim dodatnim događajima koje specificira NTP.</p>
                                         <form
                                             id="myFilesForm"
                                             method="POST"
@@ -130,7 +139,7 @@
                                             <input type="hidden" id="profile" name="profile" value="{{ $model->getId() }}">
                                             <div class="form-group">
                                                 <label for="requested_files" class="col-form-label col-form-label-sm attribute-label">Datoteke za slanje</label>
-                                                <input type="file" multiple id="requested_files" name="requested_files[]" class="form-control form-control-sm form-control-file">
+                                                <input type="file" multiple id="requested_files" name="requested_files[]" class="form-control form-control-file">
                                             </div>
                                             <div class="text-center">
                                                 <button type="button" id="buttonSendFiles" class="btn btn-sm btn-primary">Pošalji</button>

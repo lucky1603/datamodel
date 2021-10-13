@@ -47,6 +47,25 @@ class TrainingsController extends Controller
         return view('trainings.mine', ['trainings' => $trainings, 'model' => $profile]);
     }
 
+    public function update(Request $request, $id) {
+        $data = $request->post();
+
+        $training = Training::find($id);
+        $training->setValue('event_status', $data['event_status']);
+        $attendances = $training->getAttendances();
+        for($i = 0; $i < $attendances->count(); $i++) {
+            $id = $data['attids'][$i];
+            $attendance = $attendances->filter(function($att) use($id) {
+                if($att->getId() == $id)
+                    return true;
+                return false;
+            })->first();
+            $attendance->setValue('attendance', $data['attendances'][$i]);
+        }
+
+        return redirect(route('trainings'));
+    }
+
     /**
      *
      * Calls the creation form for the new session.

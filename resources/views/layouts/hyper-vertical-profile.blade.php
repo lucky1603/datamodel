@@ -16,7 +16,7 @@
         @if($model->getValue('profile_status') == 4 ||
             ($model->getValue('profile_status') == 3 &&
             $model->getActiveProgram() instanceof \App\Business\RaisingStartsProgram &&
-            $model->getActiveProgram()->getStatus()) > 2)
+            $model->getActiveProgram()->getStatus() > 2))
             <li class="side-nav-item" id="navEvents">
                 <a href="{{route('profiles.trainings', ['profile' => $model->getId()])}}" class="side-nav-link">
                     <i class="uil-bill"></i>
@@ -60,7 +60,7 @@
         @if($model->getValue('profile_status') == 4
             || ($model->getValue('profile_status') == 3 &&
             $model->getActiveProgram() instanceof \App\Business\RaisingStartsProgram &&
-            $model->getActiveProgram()->getStatus() >= 4))
+            $model->getActiveProgram()->getStatus() >= 3))
             <li class="side-nav-item" id="navProfile">
                 <a href="{{route('profiles.trainings', ['profile' => $model->getId()])}}" class="side-nav-link">
                     <i class="uil-bill"></i>

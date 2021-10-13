@@ -99,6 +99,7 @@ Route::post('/trainings/create', 'TrainingsController@store')->name('trainings.s
 Route::get('/trainings/forme', 'TrainingsController@forMe')->name('trainings.forme');
 Route::get('/trainings/mine', 'TrainingsController@mine')->name('trainings.mine');
 Route::post('/trainings/signup', 'TrainingsController@signup')->name('trainings.signup');
+Route::post('trainings/update/{training}', 'TrainingsController@update')->name('trainings.update');
 Route::get('/trainings/showmine/{training}', 'TrainingsController@showMine')->name('trainings.showmine');
 Route::get('/trainings/delete/{training}', 'TrainingsController@delete')->name('trainings.delete');
 Route::get('/trainings/{training}', 'TrainingsController@show')->name('trainings.show');
