@@ -73,6 +73,7 @@ class SessionController extends Controller
         // TODO: Validation
 
         $data = $request->post();
+
         $sessionId = $data['sessionid'];
         $session = Session::find($sessionId);
         $profileId = $session->getProgram()->getProfile()->getId();

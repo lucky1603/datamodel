@@ -3101,7 +3101,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.post("/sessions/edit", data).then(function (response) {
         console.log(response.data);
 
-        _this6.$refs['addSituationModal'].hide();
+        _this6.$refs['viewSituationModal'].hide();
 
         _this6.getSessions(_this6.program.id);
       });
@@ -3150,11 +3150,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3396,6 +3391,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "TileItem",
   computed: {
@@ -3413,6 +3409,31 @@ __webpack_require__.r(__webpack_exports__);
         height: this.height + 'px',
         width: this.width + 'px'
       };
+    },
+    cardClass: function cardClass() {
+      if (this.label.show) {
+        return 'card shadow ribbon-box';
+      }
+
+      return 'card shadow';
+    },
+    labelClass: function labelClass() {
+      switch (this.label.type) {
+        case 1:
+          return 'ribbon-two ribbon-two-danger';
+
+        case 2:
+          return 'ribbon-two ribbon-two-primary';
+
+        case 3:
+          return 'ribbon-two ribbon-two-success';
+
+        case 4:
+          return 'ribbon-two ribbon-two-warning';
+
+        default:
+          return 'ribbon-two ribbon-two-info';
+      }
     }
   },
   props: {
@@ -3443,6 +3464,14 @@ __webpack_require__.r(__webpack_exports__);
     width: {
       "typeof": Number,
       "default": 100
+    },
+    label: {
+      "typeof": Object,
+      "default": {
+        show: false,
+        type: 1,
+        text: 'Example'
+      }
     }
   },
   methods: {
@@ -52272,7 +52301,11 @@ var render = function() {
               return _c("tile-item", {
                 key: session.id,
                 staticClass: "mr-2",
-                attrs: { title: session.title, id: session.id },
+                attrs: {
+                  title: session.title,
+                  id: session.id,
+                  label: { show: session.isFinished, type: 2, text: "Završena" }
+                },
                 on: { "tile-clicked": _vm.tileClicked }
               })
             }),
@@ -52409,7 +52442,7 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "card shadow",
+      class: _vm.cardClass,
       style: _vm.cardStyle,
       on: { click: _vm.tileClicked }
     },
@@ -52446,6 +52479,12 @@ var render = function() {
           }
         },
         [
+          this.label.show
+            ? _c("div", { class: _vm.labelClass }, [
+                _c("span", [_vm._v(_vm._s(_vm.label.text))])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "span",
             {

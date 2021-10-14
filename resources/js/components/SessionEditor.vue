@@ -106,7 +106,7 @@ export default {
             axios.post(`/sessions/edit`, data)
                 .then(response => {
                     console.log(response.data);
-                    this.$refs['addSituationModal'].hide();
+                    this.$refs['viewSituationModal'].hide();
                     this.getSessions(this.program.id);
                 });
         },

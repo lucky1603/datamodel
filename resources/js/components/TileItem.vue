@@ -1,9 +1,10 @@
 <template>
-    <div class="card shadow" :style="cardStyle" @click="tileClicked">
+    <div :class="cardClass" :style="cardStyle" @click="tileClicked">
         <div :class="myClass" style="height: 80%; display: flex; align-items: center; justify-content: center">
             <img ref="photo" class="h-100" :src="imageSource">
         </div>
         <div class="card-body p-0 h-25" style="display: flex; align-items: center; justify-content: center; height: 20%">
+            <div v-if="this.label.show" :class="labelClass"><span>{{ label.text}}</span></div>
             <span class="font-11" style="font-family: 'Roboto Light'">{{ title }}</span>
         </div>
     </div>
@@ -30,6 +31,27 @@ export default {
                 height: this.height + 'px',
                 width: this.width + 'px'
             }
+        },
+        cardClass() {
+            if(this.label.show) {
+                return 'card shadow ribbon-box';
+            }
+
+            return 'card shadow';
+        },
+        labelClass() {
+            switch(this.label.type) {
+                case 1:
+                    return 'ribbon-two ribbon-two-danger';
+                case 2:
+                    return 'ribbon-two ribbon-two-primary';
+                case 3:
+                    return 'ribbon-two ribbon-two-success';
+                case 4:
+                    return 'ribbon-two ribbon-two-warning';
+                default:
+                    return 'ribbon-two ribbon-two-info';
+            }
         }
     },
     props: {
@@ -39,7 +61,8 @@ export default {
         photo: {typeof: String, default: ''},
         padding: { typeof: Number, default: 0 },
         height: {typeof: Number, default: 140 },
-        width: {typeof: Number, default: 100 }
+        width: {typeof: Number, default: 100 },
+        label: {typeof: Object, default: { show: false, type: 1, text: 'Example'} }
     },
     methods: {
         tileClicked() {

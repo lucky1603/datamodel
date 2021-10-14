@@ -182,12 +182,14 @@ class MentorController extends Controller
                 public $title;
                 public $date;
                 public $hasfeedback;
+                public $isFinished;
                 public function __construct($session)
                 {
                     $this->id = $session->getId();
                     $this->title = $session->getValue('session_title');
                     $this->date = $session->getValue('session_start_date');
                     $this->hasfeedback = $session->getText('has_mentor_feedback');
+                    $this->isFinished = $session->getValue('session_is_finished');
                 }
             };
         }
@@ -204,6 +206,10 @@ class MentorController extends Controller
             new class {
                 public $key = 'hasfeedback';
                 public $label = 'Ima feedback';
+            },
+            new class {
+                public $key = 'isFinished';
+                public $label = 'Završena';
             }
         ];
 

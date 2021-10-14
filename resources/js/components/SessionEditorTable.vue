@@ -6,17 +6,12 @@
                 <b-button class="float-right" variant="primary" @click="newSession"><i class="dripicons-user-group"></i></b-button>
             </div>
             <div class="card-body overflow-auto" style="display: flex; flex-wrap: wrap">
-<!--                <div v-for="(row, index) in rows" class="row">-->
-<!--                    <div v-for="session in row.cols" class="col-lg-2">-->
-<!--                        <tile-item :title="session.title" :id="session.id" @tile-selected="tileSelected"></tile-item>-->
-<!--                    </div>-->
-<!--                </div>-->
-
                 <tile-item
                     v-for="(session, index) in sessions"
                     :title="session.title"
                     :id="session.id"
                     :key="session.id"
+                    :label="{ show: session.isFinished, type: 2, text: 'Završena'}"
                     class="mr-2"
                     @tile-clicked="tileClicked"></tile-item>
 

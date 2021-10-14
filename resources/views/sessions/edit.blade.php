@@ -51,55 +51,71 @@
                 <textarea id="session_short_note" name="session_short_note" rows="4" class="form-control form-control-sm">{{ $session->getAttribute('session_short_note')->getText() }}</textarea>
             </div>
 
-            @if(\Illuminate\Support\Facades\Auth::user()->isRole('profile') && $session->isFinished())
-            @php
-                $attribute = $session->getAttribute('client_feedback');
-            @endphp
-            <div class="form-group">
+            @if($session->isFinished())
                 <div class="form-group">
-                    <label for="client_feedback">Feedback klijenta</label>
-                    <textarea id="client_feedback" name="client_feedback" rows="4" class="form-control form-control-sm">{{ $attribute->getText() }}</textarea>
+                    <label>Sesija je završena <i class="dripicons-checkmark text-success"></i></label>
                 </div>
-            </div>
-            @endif
-
-            @if(\Illuminate\Support\Facades\Auth::user()->isRole('mentor'))
-                @if($session->isFinished())
-                    @php
-                        $attribute = $session->getAttribute('mentor_feedback');
-                    @endphp
+                @php
+                    $attribute = $session->getAttribute('client_feedback');
+                @endphp
+                @if(\Illuminate\Support\Facades\Auth::user()->isRole('profile'))
+                    <div class="form-group">
+                        <label for="client_feedback">Feedback klijenta</label>
+                        <textarea id="client_feedback" name="client_feedback" rows="4" class="form-control form-control-sm">{{ $attribute->getText() }}</textarea>
+                    </div>
+                @elseif(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+                    <div class="form-group">
+                        <label for="client_feedback">Feedback klijenta</label>
+                        <div class="bg-light shadow-sm">{{ $attribute->getText() }}</div>
+                    </div>
+                @endif
+                @php
+                    $attribute = $session->getAttribute('mentor_feedback');
+                @endphp
+                @if(\Illuminate\Support\Facades\Auth::user()->isRole('mentor'))
                     <div class="form-group">
                         <div class="form-group">
                             <label for="client_feedback">Feedback mentora</label>
-                            <textarea id="client_feedback" name="client_feedback" rows="4" class="form-control form-control-sm">{{ $attribute->getText() }}</textarea>
+                            <textarea id="mentor_feedback" name="mentor_feedback" rows="4" class="form-control form-control-sm">{{ $attribute->getText() }}</textarea>
                         </div>
                     </div>
                 @else
+                    @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="client_feedback">Feedback mentora</label>
+                                <div class="bg-light shadow-sm">{{ $attribute->getText() }}</div>
+                            </div>
+                        </div>
+                    @endif
+                @endif
+
+
+            @else
+                @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
                     <div class="form-group">
-                    @php
-                        $attribute = $session->getAttribute('session_is_finished');
-                    @endphp
-                    <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
-                    <span class="attribute-label mr-1">Da li je sesija završena?</span>
-                    <input
-                        class="checkbox-aligned"
-                        type="checkbox"
-                        id="{{ $attribute->name }}"
-                        name="{{$attribute->name}}"
-                        @if($attribute->getValue()) checked @endif style="padding-top: 10px"
-                        onclick="
-                            if(document.getElementById('{{ $attribute->name }}').checked)
-                            {
-                            document.getElementById('{{ $attribute->name }}Hidden').disabled = true
-                            } else {
-                            document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
-                            }
-                            ">
-                </div>
+                        @php
+                            $attribute = $session->getAttribute('session_is_finished');
+                        @endphp
+                        <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
+                        <span class="attribute-label mr-1">Da li je sesija završena?</span>
+                        <input
+                            class="checkbox-aligned"
+                            type="checkbox"
+                            id="{{ $attribute->name }}"
+                            name="{{$attribute->name}}"
+                            @if($attribute->getValue()) checked @endif style="padding-top: 10px"
+                            onclick="
+                                if(document.getElementById('{{ $attribute->name }}').checked)
+                                {
+                                document.getElementById('{{ $attribute->name }}Hidden').disabled = true
+                                } else {
+                                document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
+                                }
+                                ">
+                    </div>
                 @endif
             @endif
-
-
         </form>
     </div>
 
