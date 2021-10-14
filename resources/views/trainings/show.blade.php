@@ -3,7 +3,7 @@
 @section('content')
     <div class="card h-100 w-100 ">
         <div class="card-header bg-dark text-light">
-            <h4 style="display: table-column; float: left">
+            <h4 style="float: left">
                 @switch($training->getData()['training_type'])
                     @case(1)
                     {{ mb_strtoupper(__('Workshop'))}}
@@ -19,6 +19,31 @@
                     @break
                 @endswitch
             </h4>
+            @if(!\Illuminate\Support\Facades\Auth::user()->isAdmin())
+                @php
+                    $attendance = $training->getAttendanceForProgram(\Illuminate\Support\Facades\Auth::user()->profile()->getActiveProgram()->getId());
+                @endphp
+                @if(isset($attendance))
+                        @switch($attendance->getValue('attendance'))
+                            @case (1)
+                                <span class="float-right mt-2 text-warning">
+                                    {{ $attendance->getText('attendance') }}
+                                    <i class="dripicons-mail ml-2"></i></span>
+                                @break
+                            @case(2)
+                                <span class="float-right mt-2 text-success">
+                                    {{ $attendance->getText('attendance') }}
+                                    <i class="dripicons-preview ml-2"></i></span>
+                                @break
+                            @default
+                                <span class="float-right mt-2 text-danger">
+                                    {{ $attendance->getText('attendance') }}
+                                    <i class="dripicons-tag-delete ml-2"></i></span>
+
+                                @break
+                        @endswitch
+                @endif
+            @endif
         </div>
         <form id="myTrainingForm" method="POST" enctype="multipart/form-data" action="{{ route('trainings.update', ['training' => $training->getId()]) }}">
             @csrf
@@ -31,7 +56,7 @@
             @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
                 <div class="text-center">
                     <button type="submit" class="btn btn-sm btn-primary">{{ __('Accept') }}</button>
-                    <button type="button" class="btn btn-sm btn-outline-primary">{{ __('Close') }}</button>
+                    <a href="{{ Illuminate\Support\Facades\URL::previous() }}" role="button" class="btn btn-sm btn-outline-primary">{{ __('Close') }}</a>
                 </div>
             @endif
         </form>

@@ -27,7 +27,7 @@
                     <h4 class="mt-0 p-1 border border-secondary shadow ">{{ $training->getData()['training_name'] }}</h4>
                 </div>
                 <div class="row">
-                    <div class="form-group mt-3 @if(\Illuminate\Support\Facades\Auth::user()->isAdmin()) col-lg-5 @else col-lg-6 @endif">
+                    <div class="form-group mt-3 col-lg-5">
                         <label class="attribute-label font-italic">{{__('When and where')}}</label>
                         <div class="p-1 border border-secondary shadow" style="display: flex; flex-wrap: wrap" >
                                 <div class="w-25" title="datum">
@@ -48,25 +48,45 @@
                                 </div>
                             </div>
                     </div>
-                    <div class="form-group mt-3 @if(\Illuminate\Support\Facades\Auth::user()->isAdmin()) col-lg-5 @else col-lg-6 @endif">
+                    <div class="form-group mt-3 col-lg-5 ">
                         <label class="attribute-label font-italic">{{ $training->getAttribute('training_host')->label }}</label>
                         <p class="mt-0 p-1 border border-secondary shadow" >{{ $training->getData()['training_host'] }}</p>
                     </div>
-                    @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
-                        <div class="form-group mt-3 col-lg-2">
-                            @php
-                                $attribute = $training->getAttributes()->where('name', 'event_status')->first();
-                                $options = $attribute->getOptions();
-                            @endphp
-                            <label class="attribute-label font-italic" for="event_status">{{ __('Event Status') }}</label>
+
+                    <div class="form-group mt-3 col-lg-2">
+                        @php
+                            $attribute = $training->getAttributes()->where('name', 'event_status')->first();
+                            $options = $attribute->getOptions();
+                        @endphp
+                        <label class="attribute-label font-italic" for="event_status">{{ __('Event Status') }}</label>
+                        @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
                             <select id="event_status" name="event_status" class="form-control">
                                 <option value="0" @if($attribute->getValue() == 0) selected @endif>Izaberite ...</option>
                                 @foreach($options as $key=>$value)
                                     <option value="{{ $key }}" @if($attribute->getValue() === $key) selected @endif>{{ $value }}</option>
                                 @endforeach
                             </select>
-                        </div>
-                    @endif
+                        @else
+                            <span class="form-control">
+                                {{ $attribute->getText() }}
+                                <i class="@switch($attribute->getValue())
+                                @case(1)
+                                    dripicons-checklist
+                                    @break
+                                @case(2)
+                                    dripicons-hourglass
+                                    @break
+                                @case(3)
+                                    dripicons-checkmark
+                                    @break
+                                @default
+                                    dripicons-trash
+                                    @break
+                                         @endswitch ml-2"></i>
+                            </span>
+                        @endif
+                    </div>
+
                 </div>
 
                 <div class="form-group">

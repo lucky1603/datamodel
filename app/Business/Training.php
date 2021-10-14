@@ -190,5 +190,14 @@ class Training extends BusinessModel
         });
     }
 
+    public function getAttendanceForProgram($programId) {
+        $program = ProgramFactory::resolve($programId);
+        return $this->getAttendances()->filter(function($attendance) use($program) {
+            if($attendance->getProgram()->getId() == $program->getId())
+                return true;
+            return false;
+        })->first();
+    }
+
 
 }
