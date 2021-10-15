@@ -3,15 +3,14 @@
 @section('content')
     <div class="row" style="height: 100%; overflow: hidden">
         <div class="col-sm-3 h-100">
-            <div class="card text-center h-75">
+            <div class="card text-center" style="height: 78%">
                 <div class="card-header p-0">
                     <div id="img-container" class="image-container">
                         <img src="@if( $model->getAttribute('profile_background') != null && $model->getValue('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $model->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile" style="height: 150px"/>
                         <img class="shadow image-container-logo" src="{{ $model->getAttribute('profile_logo') != null && $model->getValue('profile_logo') != null && strlen($model->getAttribute('profile_logo')->getValue()['filelink']) > 0 ? $model->getAttribute('profile_logo')->getValue()['filelink'] : '/images/custom/avatar-default.png' }}"  />
                     </div>
                 </div>
-                <div class="card-body">
-
+                <div class="card-body h-100">
                     <h4 class="mb-0">{{ $model->getData()['name']}}</h4>
                     <p class="text-muted font-14 mt-2">{{ __('Competes For') }}:</p>
                     <button type="button" class="btn btn-primary" style="width: 100%">@if($model->getActiveProgram() != null) {{ $model->getActiveProgram()->getAttribute('program_name')->getText() }} @else {{ __('Not applied yet') }} @endif</button>
@@ -52,7 +51,7 @@
             </div> <!-- end card -->
 
             <!-- Messages-->
-            <div class="card h-25">
+            <div class="card" style="height: 17%">
                 <div class="card-header p-2">
                     <div class="dropdown float-right">
                         <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
@@ -66,7 +65,7 @@
                     </div>
                     <h4 class="header-title">{{__('SUPPORT TEAM')}}</h4>
                 </div>
-                <div class="card-body p-1">
+                <div class="card-body h-100 p-1 overflow-auto">
                     <div class="inbox-widget">
                         @foreach($model->instance->users as $user)
                             <div class="inbox-item">
@@ -75,7 +74,7 @@
                                 <p class="inbox-item-text">{{ $user->position }}</p>
                                 <p class="inbox-item-date">
                                     <a
-                                        href="{{ route('user.edit', $user->id) }}"
+                                        href="{{ route('user.editfromadminpreview', $user->id) }}"
                                         role="button"
                                         data-toggle="modal"
                                         data-target="#dialogHost"

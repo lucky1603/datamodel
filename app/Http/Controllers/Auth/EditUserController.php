@@ -51,6 +51,7 @@ class EditUserController extends Controller
         return view('auth.edituser', ['user' => $user]);
     }
 
+
     /**
      * Updates the user with the data from the form.
      *
