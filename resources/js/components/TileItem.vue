@@ -1,11 +1,11 @@
 <template>
     <div :class="cardClass" :style="cardStyle" @click="tileClicked">
-        <div :class="myClass" style="height: 80%; display: flex; align-items: center; justify-content: center">
+        <div :class="myClass" style="height: 80%; display: flex; align-items: center; justify-content: center; overflow: hidden">
             <img ref="photo" class="h-100" :src="imageSource">
         </div>
         <div class="card-body p-0 h-25" style="display: flex; align-items: center; justify-content: center; height: 20%">
             <div v-if="this.label.show" :class="labelClass"><span>{{ label.text}}</span></div>
-            <span class="font-11" style="font-family: 'Roboto Light'">{{ title }}</span>
+            <span :class="titleClass" style="font-family: 'Roboto Light'">{{ title }}</span>
         </div>
     </div>
 </template>
@@ -19,6 +19,13 @@ export default {
                 return '/images/custom/nophoto2.png';
             return this.photo;
         },
+        titleClass() {
+            if(this.isSelected) {
+                return 'font-11 bg-primary text-light h-100 w-100 text-center align-content-center';
+            }
+
+            return 'font-11 w-100 h-100 text-center align-content-center';
+        },
         myClass() {
             const paddingStr = `p-${this.padding}`;
             if(this.isSelected)
@@ -29,7 +36,8 @@ export default {
         cardStyle() {
             return {
                 height: this.height + 'px',
-                width: this.width + 'px'
+                width: this.width + 'px',
+                overflow: 'hidden',
             }
         },
         cardClass() {

@@ -1,40 +1,49 @@
 <template>
-    <div class="card h-100 w-100">
+    <div class="card w-100" style="height: 95%">
         <div v-if="mentors.length > 0" class="card-header bg-dark text-light">
             {{ title.toUpperCase()}}
         </div>
         <div v-if="mentors.length > 0" class="card-body">
             <div class="row h-100">
-                <div class="col-lg-5">
+                <div class="col-lg-5 h-100">
                     <div style="height: 55%">
                         <mentor-data :mentorid="mentorId" aboutme="PODACI O MENTORU" :usertype="usertype"></mentor-data>
                     </div>
-                    <div class="card shadow mt-2" style="height: 45%">
+                    <div class="card shadow mt-2" style="height: 43%">
                         <div class="card-header"><span class="h4 attribute-label">MENTORI</span></div>
-                        <div class="card-body overflow-auto">
-                            <div class="inbox-widget">
-                                <div v-for="(mentor, index) in mentors" class="inbox-item" @click="selectMentor(mentor.id)">
-                                    <div class="inbox-item-img">
-                                        <img v-if="mentor.photo.length > 0" :src="mentor.photo" class="rounded-circle" alt="">
-                                        <img v-if="mentor.photo.length == 0" src="/images/custom/nophoto2.png" class="rounded-circle" alt="">
-                                    </div>
-                                    <p class="inbox-item-author">{{ mentor.name }}</p>
-                                    <p class="inbox-item-text">prazno</p>
-                                    <p class="inbox-item-date">
-                                        <a
-                                            href="#"
-                                            role="button"
-                                            class="btn btn-sm btn-link text-info font-13"
-                                            >
-                                        <i class="mdi mdi-pencil"></i>
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
+                        <div class="card-body overflow-auto" style="height: 95%; display:flex; flex-wrap: wrap">
+<!--                            <div class="inbox-widget">-->
+<!--                                <div v-for="(mentor, index) in mentors" class="inbox-item" @click="selectMentor(mentor.id)">-->
+<!--                                    <div class="inbox-item-img">-->
+<!--                                        <img v-if="mentor.photo.length > 0" :src="mentor.photo" class="rounded-circle" alt="">-->
+<!--                                        <img v-if="mentor.photo.length == 0" src="/images/custom/nophoto2.png" class="rounded-circle" alt="">-->
+<!--                                    </div>-->
+<!--                                    <p class="inbox-item-author">{{ mentor.name }}</p>-->
+<!--                                    <p class="inbox-item-text">prazno</p>-->
+<!--                                    <p class="inbox-item-date">-->
+<!--                                        <a-->
+<!--                                            href="#"-->
+<!--                                            role="button"-->
+<!--                                            class="btn btn-sm btn-link text-info font-13"-->
+<!--                                            >-->
+<!--                                        <i class="mdi mdi-pencil"></i>-->
+<!--                                        </a>-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <tile-item v-for="(mentor, index) in mentors"
+                                       :title="mentor.name"
+                                       :id="mentor.id"
+                                       :key="mentor.id"
+                                       :photo="mentor.photo"
+                                       class="mr-2"
+                                       @tile-clicked="selectMentor(mentor.id)">
+
+                            </tile-item>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-7">
+                <div class="col-lg-7 h-100">
                     <session-editor-table :mentorid="this.mentorId" :programid="this.programid"></session-editor-table>
                 </div>
             </div>
@@ -52,9 +61,6 @@
 <script>
 export default {
     name: "ProgramSessions",
-    components : {
-
-    },
     props : {
         programid: { typeof: Number, default: 0 },
         title : { typeof: String, default: 'Sesije'},
@@ -70,6 +76,7 @@ export default {
         selectMentor(mentorid) {
             Event.$emit('mentor-selected', mentorid);
             this.mentorId = mentorid;
+            Event.$emit('tile-selected', mentorid);
         }
     },
     data() {
