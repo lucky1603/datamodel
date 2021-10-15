@@ -527,6 +527,24 @@
                 const title = $(data).find('h1').first().text();
                 $('#dialogHost.modal .modal-dialog .modal-content .modal-body').html(content);
                 $('#dialogHost.modal .modal-dialog .modal-content .modal-header .modal-title').text(title);
+
+                $('#textBtn').click(function() {
+                    $('#photo').trigger('click');
+                })
+
+                $('#photo').on('change', function (evt) {
+                    let el = evt.currentTarget;
+                    console.log(el);
+                    console.log($(el)[0].files[0]);
+                    var fileReader = new FileReader();
+                    fileReader.onload = function () {
+                        var data = fileReader.result;  // data <-- in this var you have the file data in Base64 format
+                        $('#photoPreview').attr('src', data);
+                    };
+                    fileReader.readAsDataURL($(el)[0].files[0]);
+                });
+
+
             });
        });
 
@@ -556,7 +574,7 @@
     });
 </script>
 
-
+@yield('scripts')
 
 </body>
 </html>

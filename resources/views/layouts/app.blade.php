@@ -87,14 +87,18 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $( ".datepicker" ).datepicker({
-                format: {
-                    textToDisplay: function(date, format, language) {
-                        var d = new Date(date);
-                        return d.toISOString();
-                    }
-                }
-            });
+            // $( ".datepicker" ).datepicker({
+            //     format: {
+            //         textToDisplay: function(date, format, language) {
+            //             var d = new Date(date);
+            //             return d.toISOString();
+            //         }
+            //     }
+            // });
+
+            $('#textBtn').click(function() {
+                alert('clicked')
+            })
 
         });
     </script>
