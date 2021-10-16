@@ -219,6 +219,10 @@ class MentorController extends Controller
         ];
     }
 
+    public function ownSessions($mentorId) {
+        return view('mentors.ownsessions', ['mentorId' => $mentorId]);
+    }
+
     /**
      * API call.
      * Return programs table definition for the chosen mentor.

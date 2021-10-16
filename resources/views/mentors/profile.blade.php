@@ -30,12 +30,18 @@
 
 @section('sidemenu')
     <li class="side-nav-item mm-active" id="navProfile">
-        <a href="#" class="side-nav-link">
+        <a href="{{ route('mentors.profile', ['mentor' => $mentor->getId()]) }}" class="side-nav-link">
             <i class="uil-user"></i>
             <span>{{ mb_strtoupper( __('Mentor Profile')) }}</span>
         </a>
     </li>
-    <li class="side-nav-item" id="navProfile">
+    <li class="side-nav-item" id="navSessions">
+        <a href="{{ route('mentors.ownsessions', ['mentor' => $mentor->getId()]) }}" class="side-nav-link">
+            <i class="uil-user"></i>
+            <span>{{ mb_strtoupper( __('Mentor Sessions')) }}</span>
+        </a>
+    </li>
+    <li class="side-nav-item" id="navGoBack">
         <a href="{{route('mentors.index')}}" class="side-nav-link">
             <i class="uil-backward"></i>
             <span>{{ mb_strtoupper( __('Back to List')) }}</span>

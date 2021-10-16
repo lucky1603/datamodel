@@ -382,6 +382,10 @@ class BusinessModel
         return $group;
     }
 
+    public static function getValidationParameters() {
+
+    }
+
     /**
      * Search the object(s) in the database for the given criteria.
      * @param null $query

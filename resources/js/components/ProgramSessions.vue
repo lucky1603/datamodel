@@ -12,25 +12,6 @@
                     <div class="card shadow mt-2" style="height: 43%">
                         <div class="card-header"><span class="h4 attribute-label">MENTORI</span></div>
                         <div class="card-body overflow-auto" style="height: 95%; display:flex; flex-wrap: wrap">
-<!--                            <div class="inbox-widget">-->
-<!--                                <div v-for="(mentor, index) in mentors" class="inbox-item" @click="selectMentor(mentor.id)">-->
-<!--                                    <div class="inbox-item-img">-->
-<!--                                        <img v-if="mentor.photo.length > 0" :src="mentor.photo" class="rounded-circle" alt="">-->
-<!--                                        <img v-if="mentor.photo.length == 0" src="/images/custom/nophoto2.png" class="rounded-circle" alt="">-->
-<!--                                    </div>-->
-<!--                                    <p class="inbox-item-author">{{ mentor.name }}</p>-->
-<!--                                    <p class="inbox-item-text">prazno</p>-->
-<!--                                    <p class="inbox-item-date">-->
-<!--                                        <a-->
-<!--                                            href="#"-->
-<!--                                            role="button"-->
-<!--                                            class="btn btn-sm btn-link text-info font-13"-->
-<!--                                            >-->
-<!--                                        <i class="mdi mdi-pencil"></i>-->
-<!--                                        </a>-->
-<!--                                    </p>-->
-<!--                                </div>-->
-<!--                            </div>-->
                             <tile-item v-for="(mentor, index) in mentors"
                                        :title="mentor.name"
                                        :id="mentor.id"

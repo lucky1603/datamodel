@@ -96,6 +96,10 @@ export default {
             this.mentorId = mentorid;
             this.getSessions();
         },
+        programSelected(programid) {
+            this.programId = programid;
+            this.getSessions();
+        },
         tileClicked(id) {
             console.log(`Tile ${id} selected`);
             this.sessionId = id;
@@ -156,7 +160,8 @@ export default {
         if(this.mentorId != 0 && this.programId != 0)
             this.getSessions();
 
-        Event.$on('mentor-selected', this.mentorSelected)
+        Event.$on('mentor-selected', this.mentorSelected);
+        Event.$on('program-selected', this.programSelected);
     }
 
 }

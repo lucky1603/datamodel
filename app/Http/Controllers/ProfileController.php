@@ -10,6 +10,7 @@ use App\Business\Contract;
 use App\Business\DemoDay;
 use App\Business\Founder;
 use App\Business\IncubationProgram;
+use App\Business\Mentor;
 use App\Business\Preselection;
 use App\Business\Profile;
 use App\Business\Program;
@@ -456,6 +457,8 @@ class ProfileController extends Controller
                 ]);
             }
 
+        } else if($programType == Program::$RAISING_STARTS) {
+
         }
 
         $profile->addSituationByData(__('Application Sent'),
@@ -796,6 +799,50 @@ class ProfileController extends Controller
     }
 
     /**
+     * Gets the profile data for the given program.
+     * @param $programId
+     * @return false|string
+     */
+    public function getProfileData($programId)
+    {
+        $program = ProgramFactory::resolve($programId);
+        $profile = $program->getProfile();
+
+        $data = [];
+
+        $order = [
+            'name',
+            'is_company',
+            'id_number',
+            'contact_person',
+            'contact_email',
+            'contact_phone',
+            'address',
+            'university',
+            'short_ino_desc',
+            'business_branch',
+        ];
+
+        foreach($order as $key) {
+            $attribute = $profile->getAttribute($key);
+            if(!in_array($attribute->name, ['profile_logo', 'profile_background'])) {
+                $data[$attribute->name] = [
+                    'label' => $attribute->label,
+                    'value' => $attribute->getText()
+                ];
+            } else {
+                $data[$attribute->name] = [
+                    'label' => $attribute->label,
+                    'value' => $attribute->getValue()['filelink']
+                ];
+            }
+
+        }
+
+        return json_encode($data);
+    }
+
+    /**
      * Notifies the client that he should come to sign the contract.
      * @param Request $request
      * @param $profileId
@@ -847,6 +894,32 @@ class ProfileController extends Controller
             'message' => __('gui.MailSentSuccess', ['email' => $email])
         ]);
 
+    }
+
+    public function getProgramsForMentor($mentorId) {
+        $mentor = Mentor::find($mentorId);
+        $programs = $mentor->getPrograms()->map(function($program) {
+            return new class($program) {
+                public $id;
+                public $photo;
+                public $name;
+                public function __construct($program)
+                {
+                    $profile = $program->getProfile();
+                    $this->id = $program->getId();
+                    $profile_logo = $profile->getValue('profile_logo');
+                    $this->photo = $profile_logo != null ? $profile_logo['filelink'] : asset('/images/custom/nophoto2.png');
+                    $this->name = $profile->getValue('name');
+                }
+            } ;
+        });
+
+        $arr = [];
+        foreach ($programs as $program) {
+            $arr[] = $program;
+        }
+
+        return $arr;
     }
 
     public function getTrainingCandidates() {
