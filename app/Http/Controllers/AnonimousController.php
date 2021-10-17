@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business\Profile;
+use App\Business\RaisingStartsProgram;
 use App\Mail\ProfileCreated;
 use App\User;
 use Hamcrest\Util;
@@ -27,6 +28,17 @@ class AnonimousController extends Controller
 
         $action = route('storeProfileAnonimous');
         return view('profiles.create', ['attributes' => $attributes, 'action' => $action]);
+    }
+
+    public function createRaisingStarts() {
+        $attributeData = RaisingStartsProgram::getAttributesDefinition();
+        return view('anonimous.createRaisingStarts', ['attributes' => $attributeData['attributes']]);
+    }
+
+    public function storeRaisingStarts(Request $request) {
+        $data = $request->post();
+        var_dump($data);
+        die();
     }
 
     /**

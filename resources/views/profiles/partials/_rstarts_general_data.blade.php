@@ -5,7 +5,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', $key)->first();
-        $value = $attribute->getValue() ?? $model->getValue($value);
+        $value = $attribute->getValue() ?? isset($model) ? $model->getValue('name') : null;
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
@@ -17,7 +17,7 @@
 
 @php
     $attribute = $attributes->where('name', 'rstarts_email')->first();
-    $value = $attribute->getValue() ?? $model->getValue('contact_email') ;
+    $value = $attribute->getValue() ?? isset($model) ?  $model->getValue('contact_email') : null ;
 @endphp
 <div class="form-group row">
     <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm" >{!! $attribute->label !!}</label>
@@ -35,7 +35,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'rstarts_telephone')->first();
-        $value = $attribute->getValue() ?? $model->getValue('contact_phone') ;
+        $value = $attribute->getValue() ?? isset($model) ? $model->getValue('contact_phone') : null;
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
@@ -47,7 +47,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'rstarts_logo')->first();
-        $value = $attribute->getValue() ?? $model->getValue('profile_logo');
+        $value = $attribute->getValue() ?? isset($model) ?  $model->getValue('profile_logo') : null;
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>

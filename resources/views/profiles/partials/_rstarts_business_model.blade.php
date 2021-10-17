@@ -17,7 +17,8 @@
             Da li ovaj problem postoji globalno? Da li mislite da je ovaj problem težak i opišite zašto.
             Kako ste saznali za taj problem?</span>
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" required>{{ $attribute->getValue() }}</textarea>
+    <div class="invalid-feedback">Please provide '{{ $attribute->label }}'</div>
 </div>
 
 <div class="form-group">

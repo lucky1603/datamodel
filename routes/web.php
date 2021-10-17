@@ -39,6 +39,8 @@ Route::get('/verify/{token}', 'AnonimousController@verify')->name('user.verify')
 Route::get('/notify/{token}', 'AnonimousController@notifyUser')->name('user.notify');
 Route::get('/createProfile', 'AnonimousController@createProfile')->name('createProfileAnonimous');
 Route::post('/createProfile', 'AnonimousController@store')->name('storeProfileAnonimous');
+Route::get('/createRaisingStarts', 'AnonimousController@createRaisingStarts')->name('createRaisingStarts');
+Route::post('/createRaisingStarts', 'AnonimousController@storeRaisingStarts')->name('storeRaisingStarts');
 
 //Route::get('/clients', 'ClientController@index')->name('clients.index');
 //Route::get('/clients/create', 'ClientController@create')->name('clients.create');
