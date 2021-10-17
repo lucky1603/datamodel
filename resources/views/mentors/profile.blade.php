@@ -6,7 +6,7 @@
             <div class="col-lg-12 h-100 p-2">
                 <div class="row" style="height: 55%">
                     <div class="col-lg-12 h-100 p-2">
-                        <mentor-data :mentorid="{{ $mentor->getId() }}" aboutme="{{ __('About Me') }}"></mentor-data>
+                        <mentor-data :mentorid="{{ $mentor->getId() }}" aboutme="{{ __('About Me') }}" editmentortitle="{{ __('Change Mentor Data') }}"></mentor-data>
                     </div>
                 </div>
 
@@ -37,15 +37,17 @@
     <li class="side-nav-item" id="navSessions">
         <a href="{{ route('mentors.ownsessions', ['mentor' => $mentor->getId()]) }}" class="side-nav-link">
             <i class="uil-user"></i>
-            <span>{{ mb_strtoupper( __('Mentor Sessions')) }}</span>
+            <span>{{ mb_strtoupper( __('Mentoring Sessions')) }}</span>
         </a>
     </li>
+    @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
     <li class="side-nav-item" id="navGoBack">
         <a href="{{route('mentors.index')}}" class="side-nav-link">
             <i class="uil-backward"></i>
             <span>{{ mb_strtoupper( __('Back to List')) }}</span>
         </a>
     </li>
+    @endif
 @endsection
 
 @section('scripts')
@@ -55,7 +57,8 @@
             $('#btnAddProgram').click(function() {
                 let url = $(this).attr('href');
                 $.get(url, function(data) {
-                    let content = $(data).find('form#myFormAddMentorProgram')[0];
+                    let content = $(data).find('form#myMentorForm')[0];
+                    console.log(content);
 
                     // const title = $(data).find('h1').first().text();
                     $('#dialogHost.modal .modal-dialog .modal-content .modal-body').html(content);

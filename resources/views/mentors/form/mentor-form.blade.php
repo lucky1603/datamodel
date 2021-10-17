@@ -1,7 +1,12 @@
 <div class="container">
-    <h1 class="text-center attribute-label">{{__('Add New Mentor')}}</h1>
-    <form id="myMentorForm" action="{{ route('mentors.store') }}" method="POST" enctype="multipart/form-data" >
+    @if($showTitle)
+        <h1 class="text-center attribute-label">{{ $title }}</h1>
+    @endif
+    <form id="myMentorForm" action="{{ $action }}" method="POST" enctype="multipart/form-data" class="mb-4">
         @csrf
+        @if(isset($mentor))
+            <input type="hidden" id="mentorid" name="mentorid" value="{{ $mentor->getId() }}">
+        @endif
         <div class="form-group">
             @php
                 $attribute = $attributes->where('name', 'name')->first();
@@ -95,10 +100,12 @@
                 </div>
             </div>
         </div>
+        @if($showCommands)
         <div class="text-center mt-3 mb-3">
             <button type="submit" id="buttonSubmit" class="btn btn-sm btn-primary rounded-pill w-15">Prihvati</button>
             <button type="button" id="buttonClose" class="btn btn-sm btn-outline-primary rounded-pill w-15" data-dismiss="modal">Zatvori</button>
         </div>
+        @endif
 
 
     </form>

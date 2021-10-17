@@ -82,7 +82,7 @@ class MentorController extends Controller
     public function edit($mentorId) {
         $mentor = Mentor::find($mentorId);
         $action = route('mentors.update');
-        return view('mentors.edit1', ['mentor' => $mentor, 'action' => $action]);
+        return view('mentors.edit2', ['mentor' => $mentor, 'action' => $action, 'attributes' => $mentor->getAttributes()]);
     }
 
     public function update(Request $request) {

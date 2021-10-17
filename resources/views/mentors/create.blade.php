@@ -7,7 +7,7 @@
 
 @extends('layouts.app')
 @section('content')
-    @include('mentors.form.mentor-form')
+    @include('mentors.form.mentor-form', ['action' => route('mentors.store'), 'showCommands' => true, 'showTitle' => true,  'title' => __('Add New Mentor')])
 @endsection
 
 @section('scripts')

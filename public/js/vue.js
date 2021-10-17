@@ -2416,14 +2416,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MentorData",
   props: {
@@ -2457,13 +2449,13 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/mentors/edit/".concat(this.mentorid)).then(function (response) {
         _this2.$refs['editMentorModal'].show();
 
-        _this2.formContent = $(response.data).find('form#myMentorEditForm').first().parent().html();
+        _this2.formContent = $(response.data).find('form#myMentorForm').first().parent().html();
       });
     },
     onOk: function onOk() {
       var _this3 = this;
 
-      var form = document.getElementById('myMentorEditForm');
+      var form = document.getElementById('myMentorForm');
       var data = new FormData(form);
       axios.post("/mentors/edit", data).then(function (response) {
         console.log(response.data);
@@ -52173,54 +52165,6 @@ var render = function() {
               key: "modal-title",
               fn: function() {
                 return [_vm._v(_vm._s(_vm.editmentortitle))]
-              },
-              proxy: true
-            },
-            {
-              key: "modal-footer",
-              fn: function() {
-                return [
-                  _c(
-                    "b-button",
-                    { attrs: { variant: "primary" }, on: { click: _vm.onOk } },
-                    [_vm._v("Prihvati")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { variant: "light" },
-                      on: { click: _vm.onCancel }
-                    },
-                    [_vm._v("Odustani")]
-                  )
-                ]
-              },
-              proxy: true
-            }
-          ])
-        },
-        [
-          _vm._v(" "),
-          _c("span", { domProps: { innerHTML: _vm._s(_vm.formContent) } })
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "b-modal",
-        {
-          ref: "addSituationModal",
-          attrs: {
-            id: "addSituationModal",
-            size: "lg",
-            "header-bg-variant": "dark",
-            "header-text-variant": "light"
-          },
-          scopedSlots: _vm._u([
-            {
-              key: "modal-title",
-              fn: function() {
-                return [_vm._v(_vm._s(_vm.addsessiontitle))]
               },
               proxy: true
             },

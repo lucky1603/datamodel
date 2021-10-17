@@ -37,14 +37,6 @@
                 <b-button variant="light" @click="onCancel">Odustani</b-button>
             </template>
         </b-modal>
-        <b-modal id="addSituationModal" ref="addSituationModal" size="lg" header-bg-variant="dark" header-text-variant="light">
-            <template #modal-title>{{ addsessiontitle }}</template>
-            <span v-html="formContent"></span>
-            <template #modal-footer>
-                <b-button variant="primary" @click="onOk">Prihvati</b-button>
-                <b-button variant="light" @click="onCancel">Odustani</b-button>
-            </template>
-        </b-modal>
     </div>
 
 </template>
@@ -71,11 +63,11 @@ export default {
             axios.get(`/mentors/edit/${this.mentorid}`)
             .then(response => {
                 this.$refs['editMentorModal'].show();
-                this.formContent = $(response.data).find('form#myMentorEditForm').first().parent().html();
+                this.formContent = $(response.data).find('form#myMentorForm').first().parent().html();
             });
         },
         onOk() {
-            const form = document.getElementById('myMentorEditForm');
+            const form = document.getElementById('myMentorForm');
             const data = new FormData(form);
             axios.post(`/mentors/edit`, data)
                 .then(response => {

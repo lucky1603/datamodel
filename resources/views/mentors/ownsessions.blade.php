@@ -19,12 +19,14 @@
             <span>{{ mb_strtoupper( __('Mentor Sessions')) }}</span>
         </a>
     </li>
+    @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
     <li class="side-nav-item" id="navGoBack">
         <a href="{{route('mentors.index')}}" class="side-nav-link">
             <i class="uil-backward"></i>
             <span>{{ mb_strtoupper( __('Back to List')) }}</span>
         </a>
     </li>
+    @endif
 @endsection
 
 @section ('scripts')
