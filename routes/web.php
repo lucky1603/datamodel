@@ -73,7 +73,7 @@ Route::get('profiles/create', 'ProfileController@create')->name('profiles.create
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
 Route::get('profiles/trainingCandidates', 'ProfileController@getTrainingCandidates')->name('profiles.trainingcandidates');
 Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');
-Route::get('profiles/getProfieData/{program}', 'ProfileController@getProfileData')->name('profiles.getprofiledata');
+Route::get('profiles/programdata/{program}', 'ProfileController@getProgramData')->name('profiles.programdata');
 Route::get('profiles/getProgramsForMentor/{mentor}', 'ProfileController@getProgramsForMentor')->name('profiles.programsformentor');
 Route::get('profiles/testMail/{profile}', 'ProfileController@testMail')->name('profiles.testmail');
 Route::get('profiles/reports/{profile}', "ProfileController@reports")->name('profiles.reports');

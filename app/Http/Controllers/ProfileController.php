@@ -803,7 +803,7 @@ class ProfileController extends Controller
      * @param $programId
      * @return false|string
      */
-    public function getProfileData($programId)
+    public function getProgramData($programId)
     {
         $program = ProgramFactory::resolve($programId);
         $profile = $program->getProfile();
@@ -821,23 +821,35 @@ class ProfileController extends Controller
             'university',
             'short_ino_desc',
             'business_branch',
+            'profile_logo',
+            'profile_background'
         ];
 
         foreach($order as $key) {
             $attribute = $profile->getAttribute($key);
+            if($attribute->name == 'program_name')
+                continue;
             if(!in_array($attribute->name, ['profile_logo', 'profile_background'])) {
                 $data[$attribute->name] = [
                     'label' => $attribute->label,
                     'value' => $attribute->getText()
                 ];
             } else {
+                if($key == 'profile_logo')
+                    $defaultImage = asset('/images/custom/nophoto2.png');
+                else
+                    $defaultImage = asset('/images/custom/backdefault.jpg');
+
+                $img = $attribute->getValue() != null && $attribute->getValue()['filelink'] != '' ? $attribute->getValue()['filelink'] : $defaultImage;
                 $data[$attribute->name] = [
                     'label' => $attribute->label,
-                    'value' => $attribute->getValue()['filelink']
+                    'value' => $img,
                 ];
             }
 
         }
+
+        $data['programName'] = $program->getValue('program_name');
 
         return json_encode($data);
     }

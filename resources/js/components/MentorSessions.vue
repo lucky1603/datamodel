@@ -1,15 +1,18 @@
 <template>
-    <div class="card w-100" style="height: 95%">
+    <div class="card w-100" style="height: 100%">
         <div v-if="programs.length > 0" class="card-header bg-dark text-light">
             {{ title.toUpperCase()}}
         </div>
         <div v-if="programs.length > 0" class="card-body">
             <div class="row h-100">
                 <div class="col-lg-5 h-100">
-                    <div style="height: 55%">
-                        // here comes program-data compoenent
+                    <div style="height: 70%">
+                        <program-data
+                            :programid="this.programId"
+                            :usertype="usertype">
+                        </program-data>
                     </div>
-                    <div class="card shadow mt-2" style="height: 43%">
+                    <div class="card shadow mt-2" style="height: 25%">
                         <div class="card-header"><span class="h4 attribute-label">PROGRAMI</span></div>
                         <div class="card-body overflow-auto" style="height: 95%; display:flex; flex-wrap: wrap">
 <!--                            <tile-item v-for="(program, index) in programs"-->

@@ -1,30 +1,29 @@
 @extends('layouts.hyper-vertical')
 
 @section('content')
-    <div class="row h-100">
-        <div class="col-lg-6 h-100 p-2">
-            <div class="row" style="height: 55%">
-
-                <div class="col-lg-12 h-100 p-2">
-                    <mentor-data :mentorid="{{ $mentor->getId() }}" aboutme="{{ __('About Me') }}"></mentor-data>
+    <div class="container h-100">
+        <div class="row h-100">
+            <div class="col-lg-12 h-100 p-2">
+                <div class="row" style="height: 55%">
+                    <div class="col-lg-12 h-100 p-2">
+                        <mentor-data :mentorid="{{ $mentor->getId() }}" aboutme="{{ __('About Me') }}"></mentor-data>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row mt-2" style="height: 45%">
-                <div class="col-lg-12 h-100 w-100">
+                <div class="row mt-2" style="height: 45%">
+                    <div class="col-lg-12 h-100 w-100">
                         <program-list
                             title="{{mb_strtoupper( __("Programs I am involved at")) }}" :mentorid="{{ $mentor->getId() }}"
                             addRoute="{{ route('mentors.addprogram', ['mentor' => $mentor->getId()]) }}"
                             addProgramTitle="{{ __('Connect Program') }}" >
                         </program-list>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-        <div class="col-lg-6 h-100 p-2">
-            <session-editor :mentorid="{{ $mentor->getId() }}"></session-editor>
+            </div>
         </div>
     </div>
+
 
 @endsection
 

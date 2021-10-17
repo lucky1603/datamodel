@@ -38,6 +38,7 @@ Vue.component('session-editor-table', require('./components/SessionEditorTable')
 Vue.component('event-generator', require('./components/EventGenerator').default);
 Vue.component('mentor-sessions', require('./components/MentorSessions').default);
 Vue.component('round-item', require('./components/RoundItem').default);
+Vue.component('program-data', require('./components/ProgramData').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
