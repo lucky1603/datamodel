@@ -78,7 +78,7 @@
                                                     @php
                                                         $cvs = $attribute->getValue();
                                                     @endphp
-                                                    @if(count($cvs) > 0)
+                                                    @if($cvs != null && count($cvs) > 0)
                                                         @foreach($cvs as $cv)
                                                             @if(is_array($cv))
                                                             <a href="{{ $cv['filelink'] }}" target="_blank" class="mr-3">{{ $cv['filename'] }}</a>

@@ -193,4 +193,26 @@ class Attribute extends Model
 
         return $results;
     }
+
+    /**
+     * Method that finds if the value exists in the database.
+     * @param $entity
+     * @param $name
+     * @param $value
+     * @return bool
+     */
+    public static function checkValue($entity, $name, $value): bool
+    {
+        $attribute = Attribute::where('name', $name)->first();
+        $matchInstances = Instance::where('entity_id', $entity->id)->get()->filter(function($instance) use($attribute, $value) {
+            if(Value::get($instance->id, $attribute) == $value)
+                return true;
+            return false;
+        });
+
+        if($matchInstances->count() > 0)
+            return true;
+
+        return false;
+    }
 }

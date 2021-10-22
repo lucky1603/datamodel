@@ -13,7 +13,8 @@
             informacije od eksperata, potencijalnih kupaca itd.).
         </span>
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <h5 class="text-center attribute-label mt-5">Priložite materijale koji dokazuju tehničku izvodljivost proizvoda koji razvijate - fotografije,
@@ -42,14 +43,15 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_links')->first();
         if(is_array($attribute->getValue())) {
-            $val = implode(';', $attribute->getValue());
+            $val = implode(';', $attribute->getValue() ?? old($attribute->name));
         } else {
-            $val = $attribute->getValue();
+            $val = $attribute->getValue() ?? old($attribute->name);
         }
     @endphp
     <label class="attribute-label col-form-label col-form-label-sm font-12">Linkovi
         <span class="font-12 text-dark font-weight-normal">(linkove upisati u ovo polje, odvojene tačkom-zarezom)</span></label>
-    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm">{{ $val }}</textarea>
+    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">{{ $val }}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 
@@ -60,7 +62,8 @@
     <label for="{{ $attribute->name }}">
         <span class="attribute-label">Navedite ukoliko ste ranije učestvovali u nekom mentorskom ili startap programu.</span>
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group">
@@ -78,7 +81,8 @@
             primljenom finansiranju/nagradi.
         </span>
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <h5 class="text-center attribute-label mt-2">Potvrde finansiranja</h5>
@@ -102,13 +106,9 @@
     @endif
 </div>
 
-@php
-    $attribute = $attributes->where('name', 'rstarts_financing_proof_links')->first();
-@endphp
-
 <div class="form-group mb-5">
     @php
-        $attribute = $attributes->where('name', 'rstarts_links')->first();
+        $attribute = $attributes->where('name', 'rstarts_financing_proof_links')->first();
         if(is_array($attribute->getValue())) {
             $val = implode(';', $attribute->getValue());
         } else {
@@ -117,7 +117,8 @@
     @endphp
     <label class="attribute-label col-form-label col-form-label-sm font-12">Linkovi
         <span class="font-12 text-dark font-weight-normal">(linkove upisati u ovo polje, odvojene tačkom-zarezom)</span></label>
-    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm">{{ $val }}</textarea>
+    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">{{ $val }}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group">
@@ -127,7 +128,8 @@
     <label for="{{ $attribute->name }}">
         <span class="attribute-label">Šta očekujete od učešća u ovom Programu? U kom segmentu razvoja startapa smatrate da vam je najpotrebnija podrška?</span>
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group">
@@ -137,7 +139,8 @@
     <label for="{{ $attribute->name }}">
         <span class="attribute-label">Koliko finansijskih sredstava mislite da vam je potrebno u trenutnoj fazi razvoja i za šta?</span>
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group">
@@ -153,21 +156,24 @@
             videti vaš video klip)
         </span>
     </label>
-    <input type="text" class="form-control form-control-sm" id="{{$attribute->name}}" name="{{$attribute->name}}" value="{{ $attribute->getValue() }}">
+    <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" value="{{ $attribute->getValue() ?? old($attribute->name)}}">
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'rstarts_howdiduhear')->first();
+        $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
     <label for="{{ $attribute->name }}" class="col-lg-3 attribute-label col-form-label col-form-label-sm">Kako ste čuli za Raising Starts?</label>
     <div class="col-lg-9">
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm">
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
             <option value="0" @if( $attribute->getValue() == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
                 <option value="{{$key}}" @if($key == $attribute->getValue()) selected @endif>{{$value}}</option>
             @endforeach
         </select>
+        @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
     </div>
 </div>
 
@@ -180,7 +186,8 @@
             putem vesti/društvenih mreža/website-a/e-mail-a/newslettera partnerskih organizacija i navedite ime organizacije,
             preko poznanika/studentske organizacije i navedite ime ili drugo - opciono dopuniti.</span>
     </label>
-    <input type="text" class="form-control form-control-sm" id="{{$attribute->name}}" name="{{$attribute->name}}" value="{{ $attribute->getValue() }}">
+    <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" value="{{ $attribute->getValue() ?? old($attribute->name)}}">
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 

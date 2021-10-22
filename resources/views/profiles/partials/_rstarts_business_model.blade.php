@@ -1,11 +1,13 @@
 <h3 class="text-center attribute-label m-4">Poslovna ideja</h3>
 
+
 <div class="form-group">
     @php
         $attribute = $attributes->where('name', 'rstarts_tagline')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group">
@@ -17,7 +19,8 @@
             Da li ovaj problem postoji globalno? Da li mislite da je ovaj problem težak i opišite zašto.
             Kako ste saznali za taj problem?</span>
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" required>{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
     <div class="invalid-feedback">Please provide '{{ $attribute->label }}'</div>
 </div>
 
@@ -30,7 +33,8 @@
             tog tržišta uz navodjenje izvora koji su korišćeni za prikupljanje tih podataka (primer izvora koji možete koristiti: https://www.statista.com/).
             Koliki prostor vidite za širenje svog biznisa odnosno za geografsku ekspanziju (navesti zemlje širenja u naredne 2 godine)? </span>
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group">
@@ -42,7 +46,8 @@
             motivi, navike, komunikacija, strahovi itd.) Opišite da li ste već ostvarili komunikaciju/sproveli aktivnosti (ankete, intervjui i sl)
             sa njima. Ukoliko jeste, sa koliko njih i koji su vaši zaključci? </span>
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group">
@@ -55,7 +60,8 @@
                 Navedite šta vaš proizvod i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste potrebe kupaca:
  </span>
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group">
@@ -68,7 +74,8 @@
             kupci trenutno koriste ili druge metode koje primenjuju za rešavanje datog problema)
         </span>
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group">
@@ -80,21 +87,24 @@
             Šta vaš proizvod  i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste/slične potrebe kupaca.
         </span>
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control  @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'rstarts_how_innovative')->first();
+        $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
     <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm">Koliko je inovativan vaš proizvod/usluga (odaberite jednu opciju)?</label>
     <div class="col-lg-7">
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm">
-            <option value="0" @if( $attribute->getValue() == 0) selected @endif>Izaberite...</option>
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+            <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
-                <option value="{{$key}}" @if($key == $attribute->getValue()) selected @endif>{{$value}}</option>
+                <option value="{{$key}}" @if($key == $selectedValue) selected @endif>{{$value}}</option>
             @endforeach
         </select>
+        @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
     </div>
 </div>
 
@@ -105,7 +115,8 @@
     <label class="attribute-label" for="{{ $attribute->name }}">Obrazložite odabranu opciju (npr. Zašto mislite da je
         vaš proizvod potpuno nov na tržištu, značajno poboljšan i drugo):
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <h5 class="text-center attribute-label mt-4">Vaša inovacija se nalazi u fazi (odaberite jednu opciju za tehnološki i jednu opciju za poslovni razvoj).</h5>
@@ -114,41 +125,47 @@
     <div class="col-lg-6 form-group">
         @php
             $attribute = $attributes->where('name', 'rstarts_dev_phase_tech')->first();
+            $selectedValue = $attribute->getValue() ?? old($attribute->name);
         @endphp
         <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm font-12 font-weight-normal">{!! $attribute->label !!}</label>
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm">
-            <option value="0" @if( $attribute->getValue() == 0) selected @endif>Izaberite...</option>
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+            <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
-                <option value="{{$key}}" @if($key == $attribute->getValue()) selected @endif>{{$value}}</option>
+                <option value="{{$key}}" @if($key == $selectedValue) selected @endif>{{$value}}</option>
             @endforeach
         </select>
+        @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
     </div>
     <div class="col-lg-6 form-group">
         @php
             $attribute = $attributes->where('name', 'rstarts_dev_phase_bussines')->first();
+            $selectedValue = $attribute->getValue() ?? old($attribute->name);
         @endphp
         <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm font-12 font-weight-normal">{!! $attribute->label !!}</label>
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm">
-            <option value="0" @if( $attribute->getValue() == 0) selected @endif>Izaberite...</option>
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+            <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
-                <option value="{{$key}}" @if($key == $attribute->getValue()) selected @endif>{{$value}}</option>
+                <option value="{{$key}}" @if($key == $selectedValue ) selected @endif>{{$value}}</option>
             @endforeach
         </select>
+        @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
     </div>
 </div>
 
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'rstarts_intellectual_property')->first();
+        $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
     <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm">Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine??</label>
     <div class="col-lg-7">
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm">
-            <option value="0" @if( $attribute->getValue() == 0) selected @endif>Izaberite...</option>
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+            <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
-                <option value="{{$key}}" @if($key == $attribute->getValue()) selected @endif>{{$value}}</option>
+                <option value="{{$key}}" @if($key == $selectedValue) selected @endif>{{$value}}</option>
             @endforeach
         </select>
+        @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
     </div>
 </div>
 
@@ -161,21 +178,24 @@
         patent, mali patent ili slično. Ukoliko ste zaštitili ili planirate da zaštitite neko pravo intelektualne svojine,
         navedite ko su vlasnici ili ko bi bili vlasnici te intelektualne svojine
     </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'rstarts_innovative_area')->first();
+        $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
     <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm">Kojoj oblasti pripada inovativni proizvod i/ili usluga koje razvijate?</label>
     <div class="col-lg-7">
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm">
-            <option value="0" @if( $attribute->getValue() == 0) selected @endif>Izaberite...</option>
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+            <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
-                <option value="{{$key}}" @if($key == $attribute->getValue()) selected @endif>{{$value}}</option>
+                <option value="{{$key}}" @if($key == $selectedValue) selected @endif>{{$value}}</option>
             @endforeach
         </select>
+        @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
     </div>
 </div>
 
@@ -183,7 +203,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_business_plan')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Kako vaš startap planira da zaradjuje?
-    </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <label class="attribute-label" for="{{ $attribute->name }}">Kako vaš startap planira da zaradjuje?</label>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>

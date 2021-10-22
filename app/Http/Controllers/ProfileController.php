@@ -148,7 +148,9 @@ class ProfileController extends Controller
         $email = $profile->getAttribute('contact_email')->getValue();
         Mail::to($email)->send(new ProfileCreated($profile));
 
-        return redirect(route('profiles.index'));
+        // Go to confirmation page.
+        $token = $user->getRememberToken();
+        return redirect(route('user.notify', ['token' => $token]));
 
     }
 

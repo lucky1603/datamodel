@@ -14,15 +14,24 @@
         <tbody id="membersBody">
             @if(!isset($teamMembers) || $teamMembers == null || $teamMembers->count() == 0)
                 <tr>
-                    <td><textarea name="memberName[]" rows="4" class="w-100">aaa</textarea></td>
-                    <td><textarea name="memberEducation[]" rows="4" class="w-100"></textarea> </td>
-                    <td><textarea name="memberRole[]" rows="4" class="w-100"></textarea></td>
-                    <td><textarea name="memberOtherJob[]" rows="4" class="w-100"></textarea></td>
+                    <td>
+                        <textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror">{{ old('memberName.0') }}</textarea>
+                        @error('memberName.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </td>
+                    <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror">{{ old('memberEducation.0') }}</textarea>
+                        @error('memberEducation.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </td>
+                    <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror">{{ old( 'memberRole.0') }}</textarea>
+                        @error('memberRole.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </td>
+                    <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror">{{ old('memberOtherJob.0') }}</textarea>
+                        @error('memberOtherJob.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </td>
                 </tr>
             @else
                 @foreach($teamMembers as $teamMember)
                     <tr>
-                        <td><textarea name="memberName[]" rows="4" class="w-100">{{ $teamMember->getValue('team_member_name') }}</textarea></td>
+                        <td><textarea name="memberName[]" rows="4" class="w-100" required>{{ $teamMember->getValue('team_member_name') }}</textarea></td>
                         <td><textarea name="memberEducation[]" rows="4" class="w-100">{{ $teamMember->getValue('team_education') }}</textarea> </td>
                         <td><textarea name="memberRole[]" rows="4" class="w-100">{{ $teamMember->getValue('team_role') }}</textarea></td>
                         <td><textarea name="memberOtherJob[]" rows="4" class="w-100">{{ $teamMember->getValue('team_other_job') }}</textarea></td>
@@ -46,8 +55,14 @@
         <tbody id="foundersBody">
             @if( !isset($founders) || $founders == null || $founders->count() == 0)
                 <tr>
-                    <td><input type="text" name="founderName[]" class="w-100"></td>
-                    <td><input type="text" name="founderPart[]" class="w-100"></td>
+                    <td>
+                        <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror" value="{{ old('founderName.0') }}">
+                        @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </td>
+                    <td>
+                        <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="{{ old('founderPart.0') }}">
+                        @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </td>
                 </tr>
             @else
                 @foreach($founders as $founder)
@@ -67,7 +82,8 @@
         $attribute = $attributes->where('name', 'rstarts_founder_cvs')->first();
     @endphp
     <label class="attribute-label col-form-label col-form-label-sm">CV-jevi osnivaca</label>
-    <input type="file" multiple name="rstarts_founder_cvs[]" class="form-control">
+    <input type="file" multiple name="rstarts_founder_cvs[]" class="form-control @error('rstarts_founder_cvs') is-invalid @enderror">
+    @error('rstarts_founder_cvs') <div class="alert alert-danger">{{ $message }}</div>@enderror
     @if($attribute != null && $attribute->getValue() != null)
         @if(isset($attribute->getValue()['filelink']))
             <a href="{{$attribute->getValue()['filelink']}}" target="_blank">{{ $attribute->getValue()['filename'] }}</a>
@@ -90,10 +106,11 @@
         if(is_array($attribute->getValue())) {
             $val = implode(';', $attribute->getValue());
         } else {
-            $val = $attribute->getValue();
+            $val = $attribute->getValue() ?? old($attribute->name);
         }
     @endphp
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $val }}</textarea>
+    <textarea class="form-control @error("rstarts_founder_links") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $val }}</textarea>
+    @error('rstarts_founder_links') <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group">
@@ -101,7 +118,8 @@
         $attribute = $attributes->where('name', 'rstarts_team_history')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Da li ste do sada, kao tim, saradjivali na zajedničkim projektima/u poslovanju?</label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error("rstarts_team_history") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    @error('rstarts_team_history') <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group">
@@ -109,7 +127,8 @@
         $attribute = $attributes->where('name', 'rstarts_app_motive')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Šta vas je motivisalo da se prijavite za ovaj Program?</label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control @error("rstarts_app_motive") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    @error('rstarts_app_motive') <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 

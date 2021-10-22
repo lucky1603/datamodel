@@ -47,9 +47,17 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
-            // $('#buttonSend').click(function() {
-            //     $('form#myRaisingStartsForm').trigger('submit');
-            // })
+            $('#btnAddMember').click(function() {
+                let cloned = $('tbody#membersBody tr:first-child').clone();
+                cloned.find('textarea').val('');
+                cloned.appendTo('tbody#membersBody');
+            });
+
+            $('#btnAddFounder').click(function() {
+                let cloned = $('tbody#foundersBody tr:first-child').clone();
+                cloned.find('input').val('');
+                cloned.appendTo('tbody#foundersBody');
+            });
 
         });
     </script>
