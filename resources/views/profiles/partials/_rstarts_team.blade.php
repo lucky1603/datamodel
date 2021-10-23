@@ -13,21 +13,26 @@
         </thead>
         <tbody id="membersBody">
             @if(!isset($teamMembers) || $teamMembers == null || $teamMembers->count() == 0)
-                <tr>
-                    <td>
-                        <textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror">{{ old('memberName.0') }}</textarea>
-                        @error('memberName.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
-                    </td>
-                    <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror">{{ old('memberEducation.0') }}</textarea>
-                        @error('memberEducation.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
-                    </td>
-                    <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror">{{ old( 'memberRole.0') }}</textarea>
-                        @error('memberRole.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
-                    </td>
-                    <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror">{{ old('memberOtherJob.0') }}</textarea>
-                        @error('memberOtherJob.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
-                    </td>
-                </tr>
+                @if(old('memberName') != null)
+                    @for($i = 0; $i < count(old('memberName')); $i++)
+                        @if( $i != 0 && old('memberName.'.$i) == '')
+                            @continue
+                        @endif
+                        <tr>
+                            <td><textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror">{{ old('memberName.'.$i) }}</textarea></td>
+                            <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror">{{ old('memberEducation.'.$i) }}</textarea></td>
+                            <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror">{{ old( 'memberRole.'.$i) }}</textarea></td>
+                            <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror">{{ old('memberOtherJob.'.$i) }}</textarea></td>
+                        </tr>
+                    @endfor
+                @else
+                    <tr>
+                        <td><textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror"></textarea></td>
+                        <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror"></textarea></td>
+                        <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror"></textarea></td>
+                        <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror"></textarea></td>
+                    </tr>
+                @endif
             @else
                 @foreach($teamMembers as $teamMember)
                     <tr>
@@ -40,6 +45,7 @@
             @endif
         </tbody>
     </table>
+    @error('memberName')<div class="alert alert-danger">{{ $message }}</div>@enderror
     <button id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj člana tima" >+</button>
 </div>
 
@@ -54,16 +60,31 @@
         </thead>
         <tbody id="foundersBody">
             @if( !isset($founders) || $founders == null || $founders->count() == 0)
-                <tr>
-                    <td>
-                        <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror" value="{{ old('founderName.0') }}">
-                        @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
-                    </td>
-                    <td>
-                        <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="{{ old('founderPart.0') }}">
-                        @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
-                    </td>
-                </tr>
+                @if(old('founderName') != null)
+                    @for($i = 0; $i < count(old('founderName')); $i ++)
+                        @if($i != 0 && old('founderName') == null)
+                            @continue
+                        @endif
+
+                        <tr>
+                            <td>
+                                <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror" value="{{ old('founderName.'.$i) }}">
+                            </td>
+                            <td>
+                                <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="{{ old('founderPart.'.$i) }}">
+                            </td>
+                        </tr>
+                    @endfor
+                @else
+                    <tr>
+                        <td>
+                            <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror" >
+                        </td>
+                        <td>
+                            <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" >
+                        </td>
+                    </tr>
+                @endif
             @else
                 @foreach($founders as $founder)
                     <tr>
@@ -74,6 +95,7 @@
             @endif
         </tbody>
     </table>
+    @error('founderName') <div class="alert alert-danger">{{ $message }}</div>@enderror
     <button id="btnAddFounder" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj osnivača" >+</button>
 </div>
 
