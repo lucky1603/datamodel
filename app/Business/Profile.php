@@ -51,6 +51,14 @@ class Profile extends SituationsModel
                 'reason_contact' => 0,
                 'note' => '',
                 'profile_status' => 0,
+                'profile_logo' => [
+                    'filename' => '',
+                    'filelink' => ''
+                ],
+                'profile_background' => [
+                    'filename' => '',
+                    'filelink' => ''
+                ]
             ];
         }
 

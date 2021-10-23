@@ -61,11 +61,31 @@ export default {
         },
         programSelected(programid) {
             this.programId = programid;
-
             this.getData();
         },
         showModal() {
-
+            axios.get(`/profiles/edit/${this.program.profileId}`)
+                .then(response => {
+                    this.$refs['editProfileModal'].show();
+                    this.formContent = $(response.data).find('form#myForm').first().parent().html();
+                });
+        },
+        onOk() {
+            const form = document.getElementById('myForm');
+            const data = new FormData(form);
+            axios.post(`/profiles/edit`, data)
+                .then(response => {
+                    console.log(response.data);
+                    this.$refs['editProfileModal'].hide();
+                    this.getData();
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.$refs['editProfileModal'].hide();
+                });
+        },
+        onCancel() {
+            this.$refs['editProfileModal'].hide();
         }
     },
     data() {

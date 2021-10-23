@@ -95,6 +95,34 @@ class ProfileController extends Controller
         return view('profiles.create', ['attributes' => $attributes, 'action' => $action]);
     }
 
+    public function edit($profileId) {
+        $this->authorize('manage_client_profiles');
+
+        $profile = Profile::find($profileId);
+        $attributes = $profile->getAttributes();
+        $action = route('profiles.update');
+
+        return view('profiles.edit', ['profile' => $profile, 'attributes' => $attributes, 'action' => $action]);
+    }
+
+    public function update(Request $request) {
+        $data = $request->post();
+
+        $profile_photo = Utils::getFilesFromRequest($request, 'profile_logo');
+        if($profile_photo != null) {
+            $data['profile_logo'] = $profile_photo;
+        }
+
+        $profile_background = Utils::getFilesFromRequest($request, 'profile_background');
+        if($profile_background != null) {
+            $data['profile_background'] = $profile_background;
+        }
+
+        $profile = Profile::find($data['profileid']);
+        $profile->setData($data);
+
+    }
+
     public function store(Request $request) {
         $data = $request->post();
 
@@ -824,7 +852,7 @@ class ProfileController extends Controller
             'short_ino_desc',
             'business_branch',
             'profile_logo',
-            'profile_background'
+            'profile_background',
         ];
 
         foreach($order as $key) {
@@ -852,6 +880,7 @@ class ProfileController extends Controller
         }
 
         $data['programName'] = $program->getValue('program_name');
+        $data['profileId'] = $profile->getId();
 
         return json_encode($data);
     }

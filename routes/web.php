@@ -73,6 +73,8 @@ Route::post('/createRaisingStarts', 'AnonimousController@storeRaisingStarts')->n
 Route::get('profiles', 'ProfileController@index')->name('profiles.index');
 Route::get('profiles/create', 'ProfileController@create')->name('profiles.create');
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
+Route::get('profiles/edit/{profile}', 'ProfileController@edit')->name('profiles.edit');
+Route::post('profiles/edit', 'ProfileController@update')->name('profiles.update');
 Route::get('profiles/trainingCandidates', 'ProfileController@getTrainingCandidates')->name('profiles.trainingcandidates');
 Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');
 Route::get('profiles/programdata/{program}', 'ProfileController@getProgramData')->name('profiles.programdata');

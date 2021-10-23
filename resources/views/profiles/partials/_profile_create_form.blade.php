@@ -1,8 +1,12 @@
 <form action="{{ $action }}" method="POST" enctype="multipart/form-data" id="myForm" class="mt-4">
     @csrf
 
+
     <div class="row">
         <div id="nameCol" class="col-lg-6">
+            @if(isset($profile))
+                <input type="hidden" id="profileid" name="profileid" value="{{ $profile->getId() }}">
+            @endif
             <div class="form-group">
                 @php
                     $attribute = $attributes->where('name', 'name')->first();
@@ -95,6 +99,11 @@
         @endphp
         <label for="{{$attribute->name}}" class="attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
         <input type="file" id="{{ $attribute->name }}" name="{{ $attribute->name }}" class="form-control form-control-file">
+        @if($attribute->getValue() != null && $attribute->getValue()['filelink'] != '')
+            <a href="{{ $attribute->getValue()['filelink'] }}" target="_blank">
+                {{ $attribute->getValue()['filename'] }}
+            </a
+        @endif
     </div>
 
     <div class="form-group">
@@ -164,13 +173,15 @@
         <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3"></textarea>
     </div>
 
-    <div class="text-center mt-4">
-        <button type="submit" id="save" class="btn btn-sm btn-primary m-1" >
-            {{ __('Create') }}
-        </button>
+    @if(!isset($profile))
+        <div class="text-center mt-4">
+            <button type="submit" id="save" class="btn btn-sm btn-primary m-1" >
+                {{ __('Create') }}
+            </button>
 
-        <button id="cancel" type="button" class="btn btn-sm btn-light m-1">{{ __('Cancel') }}</button>
-    </div>
+            <button id="cancel" type="button" class="btn btn-sm btn-light m-1">{{ __('Cancel') }}</button>
+        </div>
+    @endif
 </form>
 
 

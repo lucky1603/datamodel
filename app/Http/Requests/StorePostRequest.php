@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Attribute;
 use App\Business\Program;
 use App\Entity;
+use App\Http\Controllers\Utils;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePostRequest extends FormRequest
@@ -40,13 +41,7 @@ class StorePostRequest extends FormRequest
             'rstarts_basic_registered_activity' => 'required|max:500',
             'rstarts_short_ino_desc' => 'required|max:500',
             'rstarts_product_type' => 'in: 1,2,3',
-//            'memberName' => 'min:1',
-//            'memberEducation' => 'min:1',
-//            'memberRole' => 'min:1',
-//            'memberOtherJob' => 'min:1',
-//            'founderName.*' => 'required',
-//            'founderPart.*' => 'required',
-            'rstarts_founder_links' => 'required_without_all:rstarts_founder_cvs.*',
+            'rstarts_founder_links' => 'required_without:rstarts_founder_cvs',
             'rstarts_team_history' => 'required|max:400',
             'rstarts_app_motive' => 'required|max:400',
             'rstarts_tagline' => 'required|max:400',
@@ -65,10 +60,10 @@ class StorePostRequest extends FormRequest
             'rstarts_innovative_area' => 'in:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16',
             'rstarts_business_plan' => 'required|max:400',
             'rstarts_statup_progress' => 'required|max:400',
-            'rstarts_links' => 'required_without_all:rstarts_files.*',
+            'rstarts_links' => 'required_without:rstarts_files',
             'rstarts_mentor_program_history' => 'required',
             'rstarts_financing_sources' => 'required',
-            'rstarts_financing_proof_links' => 'required_without_all: rstarts_financing_proof_files.*',
+            'rstarts_financing_proof_links' => 'required_without: rstarts_financing_proof_files',
             'rstarts_expectations' => 'required',
             'rstarts_howmuchmoney' => 'required',
             'rstarts_linkclip' => 'required',

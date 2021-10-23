@@ -2725,7 +2725,35 @@ __webpack_require__.r(__webpack_exports__);
       this.programId = programid;
       this.getData();
     },
-    showModal: function showModal() {}
+    showModal: function showModal() {
+      var _this2 = this;
+
+      axios.get("/profiles/edit/".concat(this.program.profileId)).then(function (response) {
+        _this2.$refs['editProfileModal'].show();
+
+        _this2.formContent = $(response.data).find('form#myForm').first().parent().html();
+      });
+    },
+    onOk: function onOk() {
+      var _this3 = this;
+
+      var form = document.getElementById('myForm');
+      var data = new FormData(form);
+      axios.post("/profiles/edit", data).then(function (response) {
+        console.log(response.data);
+
+        _this3.$refs['editProfileModal'].hide();
+
+        _this3.getData();
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this3.$refs['editProfileModal'].hide();
+      });
+    },
+    onCancel: function onCancel() {
+      this.$refs['editProfileModal'].hide();
+    }
   },
   data: function data() {
     return {

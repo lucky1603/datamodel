@@ -85,7 +85,7 @@ class Program extends SituationsModel
      * Gets the profile the program belongs to.
      * @return Profile
      */
-    public function getProfile(): Profile
+    public function getProfile(): ?Profile
     {
         return $this->instance->parentInstances->filter(function($instance) {
             if($instance->entity->name == 'Profile')

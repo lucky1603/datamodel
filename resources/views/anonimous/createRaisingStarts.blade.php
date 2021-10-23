@@ -21,18 +21,16 @@
                 </div>
             </div>
         </div>
-        <div class="row w-100" style="height: 80%">
-            <div class="col-8 offset-2 h-100 w-100">
+        <div class="row w-100" >
+            <div class="col-8 offset-2 w-100">
                 <form id="myRaisingStartsForm" method="POST" enctype="multipart/form-data" action="{{ route('storeRaisingStarts') }}" class="mt-4 h-100 w-100">
                     @csrf
-                    <div class="overflow-auto p-2" style="height: 95%; width: 100%">
-                        @include('profiles.partials._rstarts')
-                    </div>
-                    <div class="text-center pt-1" style="height: 5%">
+                    @include('profiles.partials._rstarts')
+
+                    <div class="text-center pt-4 mt-3" style="height: 5%">
                         <button type="type" id="buttonSend" class="btn btn-sm btn-primary w-15 rounded-pill">Posalji</button>
                         <button type="button" class="btn btn-sm btn-outline-primary w-15 rounded-pill">Odustani</button>
                     </div>
-
                 </form>
             </div>
         </div>

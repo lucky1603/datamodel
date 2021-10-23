@@ -11,13 +11,7 @@
                 {{strtoupper(__('Create Your Profile')) }}</p>
         </div>
     </div>
-{{--    <div id="leftBar" style="position: absolute; top:100px; left:0px; bottom: 0px; width: 350px" class="bg-light shadow-lg">--}}
-{{--        <p class="font-weight-light attribute-label ml-2 mr-2" style="margin-top: 200px; font-size: 1.4em">Molimo, popunite formu za registraciju kako biste napravili svoj profil.</p>--}}
-{{--        <p class="font-weight-light attribute-label m-2" style="font-size: 1.4em">Po pravilnom popunjavanju forme i slanju podataka, dobićete e-mail poruku sa--}}
-{{--            linkom za aktivaciju profila.</p>--}}
-{{--        <p class="font-weight-light attribute-label m-2" style="font-size: 1.4em">Kada je profil aktiviran, moćićete da se prijavite sa svojim pristupnim podacima--}}
-{{--        i da izaberete željeni program.</p>--}}
-{{--    </div>--}}
+
     <div id="contentArea" style="position: absolute; top:100px; left:350px; right: 0px; bottom:0px; overflow: auto; padding: 50px 200px 0 200px">
         <div>
             @include('profiles.partials._profile_create_form')
