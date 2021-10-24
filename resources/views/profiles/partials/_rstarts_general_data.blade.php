@@ -10,7 +10,11 @@
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm ">{{ $attribute->label }}</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
+        <input type="text"
+               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
+               id="{{ $attribute->name }}"
+               name="{{ $attribute->name }}"
+               value="{{ $value }}">
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @endif
@@ -69,10 +73,12 @@
             </tr>
             @endif
             <tr>
-                <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
+                <input type="file" class="form-control @error('rstarts_logo') is-invalid @enderror" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
             </tr>
         </table>
+        @error('rstarts_logo') <div class="alert alert-danger">{{ $message }}</div>@enderror
     </div>
+
 </div>
 
 <div class="form-group row">

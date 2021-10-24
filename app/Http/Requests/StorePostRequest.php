@@ -36,12 +36,13 @@ class StorePostRequest extends FormRequest
             'rstarts_email' => 'required|email',
             'rstarts_telephone' => 'required',
             'rstarts_webpage' => 'url',
+            'rstarts_logo' => 'required|file',
             'rstarts_founding_date' => 'required|date',
-            'rstarts_id_number' => 'required',
+            'rstarts_id_number' => 'required|numeric',
             'rstarts_basic_registered_activity' => 'required|max:500',
             'rstarts_short_ino_desc' => 'required|max:500',
             'rstarts_product_type' => 'in: 1,2,3',
-            'rstarts_founder_links' => 'required_without:rstarts_founder_cvs',
+//            'rstarts_founder_links' => 'required_without:rstarts_founder_cvs',
             'rstarts_team_history' => 'required|max:400',
             'rstarts_app_motive' => 'required|max:400',
             'rstarts_tagline' => 'required|max:400',
@@ -60,14 +61,16 @@ class StorePostRequest extends FormRequest
             'rstarts_innovative_area' => 'in:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16',
             'rstarts_business_plan' => 'required|max:400',
             'rstarts_statup_progress' => 'required|max:400',
-            'rstarts_links' => 'required_without:rstarts_files',
+//            'rstarts_links' => 'required_without:rstarts_files',
             'rstarts_mentor_program_history' => 'required',
             'rstarts_financing_sources' => 'required',
-            'rstarts_financing_proof_links' => 'required_without: rstarts_financing_proof_files',
+//            'rstarts_financing_proof_links' => 'required_without: rstarts_financing_proof_files',
             'rstarts_expectations' => 'required',
             'rstarts_howmuchmoney' => 'required',
             'rstarts_linkclip' => 'required',
             'rstarts_howdiduhear' => 'in: 1,2,3,4,5',
+            'gdpr' => 'required',
+            'captcha' => 'required|captcha'
         ];
     }
 
@@ -87,6 +90,20 @@ class StorePostRequest extends FormRequest
                 $validator->errors()->add('rstarts_startup_name', 'Startap sa ovim imenom već postoji u bazi!');
             }
 
+            // Check for unique id number.
+            if(Attribute::checkValue(Entity::where('name', 'Program')->first(), 'rstarts_id_number', $data['rstarts_id_number']))
+            {
+                $validator->errors()->add('rstarts_id_number', 'Startap sa maticnim brojem već postoji u bazi!');
+            }
+
+            // Check for the foounding date.
+            $dateFounded = date('Y-m-d', strtotime($data['rstarts_founding_date']));
+            $time = strtotime('-2 year', time());
+            $boundingDate = date('Y-m-d', $time);
+            if($boundingDate > $dateFounded) {
+                $validator->errors()->add('rstarts_founding_date', 'Datum osnivanja startapa ne može biti stariji od dve godine unazad!');
+            }
+
             if(count($data['memberName']) < 2 || $data['memberName'][1] == null)
             {
                 $validator->errors()->add('memberName', 'Tim se mora sastojati od najmanje 2 člana!');
@@ -96,7 +113,29 @@ class StorePostRequest extends FormRequest
             {
                 $validator->errors()->add('founderName', 'Mora postojati bar jedan osnivač!');
             }
-        });
-    }
 
+            // Logo file check.
+            if(!$this->hasFile('rstarts_financing_proof_files')) {
+                $validator->errors()->add('rstarts_financing_proof_files', 'Morate priloziti datoteke!');
+            }
+
+            // Files check.
+            $fileAttributes = ['rstarts_files', 'rstarts_founder_cvs', 'rstarts_financing_proof_files'];
+            foreach ($fileAttributes as $fileAttribute) {
+                if(!$this->hasFile($fileAttribute)) {
+                    $validator->errors()->add($fileAttribute, 'Morate priloziti datoteke!');
+                } else {
+                    $fileEntries = $this->file($fileAttribute);
+                    foreach ($fileEntries as $file) {
+                        if ($file->getSize() > 200000) {
+                            $validator->errors()->add($fileAttribute, 'Svi fajlovi moraju da budu manji od 200KB');
+                            break;
+                        }
+                    }
+                }
+            }
+
+        });
+
+    }
 }

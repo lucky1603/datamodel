@@ -42,11 +42,23 @@ class AnonimousController extends Controller
     public function storeRaisingStarts(StorePostRequest $request) {
 
         $data = $request->post();
+
+
         $data['rstarts_logo'] = Utils::getFilesFromRequest($request, 'rstarts_logo');
         $data['rstarts_files'] = Utils::getFilesFromRequest($request, 'rstarts_files');
         $data['rstarts_financing_proof_files'] = Utils::getFilesFromRequest($request, 'rstarts_financing_proof_files');
         $data['rstarts_dodatni_dokumenti'] = Utils::getFilesFromRequest($request, 'rstarts_dodatni_dokumenti');
         $data['rstarts_founder_cvs'] = Utils::getFilesFromRequest($request, 'rstarts_founder_cvs');
+
+//        foreach($data as $key=>$value) {
+//            if(is_array($value)) {
+//                echo 'filename = '.$value['filename'].', filelink = '.$value['filelink'].'<br />';
+//            } else {
+//                echo 'data['.$key.'] = '.$value.'<br />';
+//            }
+//
+//        }
+
 
         // Create Profile
         $profileData = [
@@ -149,6 +161,11 @@ class AnonimousController extends Controller
         $token = $user->getRememberToken();
         return redirect(route('user.notify', ['token' => $token]));
 
+    }
+
+    public function refreshCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img('ntp')]);
     }
 
     /**

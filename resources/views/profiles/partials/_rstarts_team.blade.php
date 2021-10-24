@@ -5,10 +5,37 @@
     <table class="table-bordered w-100">
         <thead class="bg-dark text-light">
         <tr>
-            <th class="w-25">Ime i prezime, zvanje</th>
-            <th class="w-25">Obrazovanje, iskustvo </th>
-            <th class="w-25">Uloga u razvoju startapa, vreme posvećeno razvoju startapa</th>
-            <th class="w-25">Drugi posao </th>
+            <th class="w-25 p-1">Ime i prezime, zvanje
+
+            </th>
+            <th class="w-25 p-1">
+                Obrazovanje, iskustvo
+
+                <p class="font-11 font-weight-normal mt-2">
+                    (navedite i ukoliko ste imali prethodno iskustvo u razvoju poslovanja/pokretanju startapa ili biznisa)
+                </p>
+                <p class="font-11 font-weight-normal">
+                    Napomena: navedeno iskustvo i obrazovanje je potrebno da bude reflektovano u priloženim CV-jevima
+                </p>
+
+            </th>
+            <th class="w-25">
+                Uloga u razvoju startapa, vreme posvećeno razvoju startapa
+                <ul class="font-11 font-weight-normal text-left mt-2">
+                    <li>Potpuno posvećen,</li>
+                    <li>u većoj meri prosvećen,</li>
+                    <li>delimično posvećen,</li>
+                    <li>u manjoj meri posvećen</li>
+                </ul>
+            </th>
+            <th class="w-25">
+                Drugi posao
+                <p class="font-11 font-weight-normal mt-2">
+                    (full-time, part-time) / <strong>obaveze / studije</strong> (osnovne studije/
+                    apsolvent/ master studije) <strong>i
+                        navedite koliko ste angažovani na tome</strong>
+                </p>
+            </th>
         </tr>
         </thead>
         <tbody id="membersBody">
@@ -26,6 +53,13 @@
                         </tr>
                     @endfor
                 @else
+                    <tr>
+                        <td><textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror"></textarea></td>
+                        <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror"></textarea></td>
+                        <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror"></textarea></td>
+                        <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror"></textarea></td>
+                    </tr>
+
                     <tr>
                         <td><textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror"></textarea></td>
                         <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror"></textarea></td>

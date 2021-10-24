@@ -25,7 +25,7 @@
         $attribute = $attributes->where('name', 'rstarts_files')->first();
     @endphp
     <label class="attribute-label col-form-label col-form-label-sm font-12">Fajlovi</label>
-    <input type="file" name="rstarts_files[]" multiple class="form-control">
+    <input type="file" name="rstarts_files[]" multiple class="form-control @error('rstarts_files') is-invalid @enderror">
     @if($attribute != null && $attribute->getValue() != null)
         @if(isset($attribute->getValue()['filelink']))
             <a href="{{$attribute->getValue()['filelink']}}" target="_blank">{{ $attribute->getValue()['filename'] }}</a>
@@ -37,6 +37,7 @@
             </div>
         @endif
     @endif
+    @error('rstarts_files') <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group mb-5">
@@ -92,7 +93,7 @@
         $attribute = $attributes->where('name', 'rstarts_financing_proof_files')->first();
     @endphp
     <label class="attribute-label col-form-label col-form-label-sm font-12">Fajlovi</label>
-    <input type="file" name="rstarts_financing_proof_files[]" multiple class="form-control">
+    <input type="file" name="rstarts_financing_proof_files[]" multiple class="form-control @error('rstarts_financing_proof_files') is-invalid @enderror">
     @if($attribute != null && $attribute->getValue() != null)
         @if(isset($attribute->getValue()['filelink']))
             <a href="{{$attribute->getValue()['filelink']}}" target="_blank">{{ $attribute->getValue()['filename'] }}</a>
@@ -104,6 +105,7 @@
             </div>
         @endif
     @endif
+    @error('rstarts_financing_proof_files') <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group mb-5">
@@ -168,9 +170,9 @@
     <label for="{{ $attribute->name }}" class="col-lg-3 attribute-label col-form-label col-form-label-sm">Kako ste čuli za Raising Starts?</label>
     <div class="col-lg-9">
         <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
-            <option value="0" @if( $attribute->getValue() == 0) selected @endif>Izaberite...</option>
+            <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
-                <option value="{{$key}}" @if($key == $attribute->getValue()) selected @endif>{{$value}}</option>
+                <option value="{{$key}}" @if($key == $selectedValue) selected @endif>{{$value}}</option>
             @endforeach
         </select>
         @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
