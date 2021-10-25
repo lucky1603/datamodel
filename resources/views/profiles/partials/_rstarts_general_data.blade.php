@@ -5,7 +5,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', $key)->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue('name') : old($attribute->name);
+        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($value) : old($attribute->name);
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm ">{{ $attribute->label }}</label>

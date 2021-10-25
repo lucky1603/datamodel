@@ -7,6 +7,7 @@ use App\AttributeGroup;
 use App\Business\Profile;
 use App\Business\Program;
 use App\Business\RaisingStartsProgram;
+use App\Http\Requests\CreateProfileRequest;
 use App\Http\Requests\StorePostRequest;
 use App\Mail\ProfileCreated;
 use App\User;
@@ -31,7 +32,56 @@ class AnonimousController extends Controller
         });
 
         $action = route('storeProfileAnonimous');
-        return view('profiles.create', ['attributes' => $attributes, 'action' => $action]);
+        return view('anonimous.createProfile', ['attributes' => $attributes, 'action' => $action]);
+    }
+
+    public function storeProfile(CreateProfileRequest $request) {
+        $data = $request->post();
+
+        $profile_photo = Utils::getFilesFromRequest($request, 'profile_logo');
+        if($profile_photo != null) {
+            $data['profile_logo'] = $profile_photo;
+        }
+
+        $profile_background = Utils::getFilesFromRequest($request, 'profile_background');
+        if($profile_background != null) {
+            $data['profile_background'] = $profile_background;
+        }
+
+        $data['profile_status'] = 2;
+
+        $profile = new Profile($data);
+        $user = User::where(['email' => $data['contact_email']])->first();
+        if($user === null) {
+            $user = User::create([
+                'name' => $data['contact_person'],
+                'email' => $data['contact_email'],
+                'password' => Hash::make(Str::random(10)),
+                'position' => "Zastupnik",
+            ]);
+
+            $user->setRememberToken(Str::random(60));
+            $user->save();
+
+            $user->assignRole('profile');
+        }
+
+        // Attach default user to the instance.
+        $profile->attachUser($user);
+
+        if($profile->getAttribute('profile_status')->getValue() == 1) {
+            $profile->addSituationByData(__('Mapped'), []);
+        } else {
+            $profile->addSituationByData(__('Interest'), []);
+        }
+
+        // TODO - Send email to the user.
+        $email = $profile->getAttribute('contact_email')->getValue();
+        Mail::to($email)->send(new ProfileCreated($profile));
+
+        // Go to confirmation page.
+        $token = $user->getRememberToken();
+        return redirect(route('user.notify', ['token' => $token]));
     }
 
     public function createRaisingStarts() {
@@ -50,16 +100,6 @@ class AnonimousController extends Controller
         $data['rstarts_dodatni_dokumenti'] = Utils::getFilesFromRequest($request, 'rstarts_dodatni_dokumenti');
         $data['rstarts_founder_cvs'] = Utils::getFilesFromRequest($request, 'rstarts_founder_cvs');
 
-//        foreach($data as $key=>$value) {
-//            if(is_array($value)) {
-//                echo 'filename = '.$value['filename'].', filelink = '.$value['filelink'].'<br />';
-//            } else {
-//                echo 'data['.$key.'] = '.$value.'<br />';
-//            }
-//
-//        }
-
-
         // Create Profile
         $profileData = [
             'name' => $data['rstarts_startup_name'],
@@ -69,11 +109,7 @@ class AnonimousController extends Controller
             'contact_email' => $data['rstarts_email'],
             'contact_phone' => $data['rstarts_telephone'],
             'address' => $data['rstarts_address'],
-//            'university' => 0,
             'short_ino_desc' => $data['rstarts_short_ino_desc'],
-//            'business_branch' => $data['rstarts_basic_registered_activity'],
-//            'reason_contact' => 0,
-//            'note' => '',
             'profile_status' => 2,
             'profile_logo' => $data['rstarts_logo'],
             'profile_background' => [
