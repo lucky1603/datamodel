@@ -40,6 +40,7 @@ Vue.component('mentor-sessions', require('./components/MentorSessions').default)
 Vue.component('round-item', require('./components/RoundItem').default);
 Vue.component('program-data', require('./components/ProgramData').default);
 Vue.component('profile-item', require('./components/ProfileItem').default);
+Vue.component('profile-explorer', require('./components/ProfileExplorer').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
