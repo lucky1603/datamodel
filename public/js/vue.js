@@ -2726,7 +2726,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     cardClicked: function cardClicked() {
-      Event.$emit('card-clicked', this.id);
+      Event.$emit('profile-clicked', this.id);
     }
   },
   data: function data() {
@@ -65875,12 +65875,12 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('profile-item', __webpack_
 var app = new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
   el: '#app',
   methods: {
-    cardclick: function cardclick(id) {
+    profileClick: function profileClick(id) {
       window.location = '/profiles/' + id;
     }
   },
   mounted: function mounted() {
-    Event.$on('card-clicked', this.cardclick);
+    Event.$on('profile-clicked', this.profileClick);
   }
 });
 })();

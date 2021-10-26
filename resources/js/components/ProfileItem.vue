@@ -66,7 +66,7 @@ export default {
     },
     methods: {
         cardClicked() {
-            Event.$emit('card-clicked', this.id);
+            Event.$emit('profile-clicked', this.id);
         }
     },
     data() {
