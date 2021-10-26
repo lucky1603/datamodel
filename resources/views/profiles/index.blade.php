@@ -66,7 +66,7 @@
                         @endif
                         :id="{{ $profile->getId() }}"
                         :status="{{ $status }}"
-                        statustext="{{ $status_text }}"></profile-item>
+                        statustext="{{ $status_text }}" @card-clicked="doSomething"></profile-item>
 {{--                    <a href="{{ route('profiles.show', $profile->getId()) }}">--}}
 {{--                        <div class="card h-100 shadow-sm ribbon-box" data-id="{{ $loop->iteration }}" style="margin-top:10px; margin-bottom: 10px">--}}
 
@@ -125,6 +125,12 @@
         @endif
 
     @endforeach
+
+    <script type="text/javascript">
+        function doSomething() {
+            alert('hej!!!');
+        }
+    </script>
 @endsection
 
 

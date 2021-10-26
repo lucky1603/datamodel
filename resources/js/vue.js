@@ -49,7 +49,12 @@ Vue.component('profile-item', require('./components/ProfileItem').default);
 
 const app = new Vue({
     el: '#app',
+    methods: {
+        cardclick(id) {
+            window.location = '/profiles/' + id;
+        }
+    },
     mounted() {
-
+        Event.$on('card-clicked', this.cardclick);
     }
 });

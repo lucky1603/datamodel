@@ -2722,11 +2722,11 @@ __webpack_require__.r(__webpack_exports__);
     action: '#',
     id: 0,
     status: 1,
-    statustext: 'undetermined'
+    statustext: 'sinisa'
   },
   methods: {
     cardClicked: function cardClicked() {
-      Event.$emit('card-clicked', id);
+      Event.$emit('card-clicked', this.id);
     }
   },
   data: function data() {
@@ -52548,6 +52548,7 @@ var render = function() {
     "div",
     {
       staticClass: "card shadow ribbon-box h-100 w-100 m-2",
+      attrs: { role: "button" },
       on: { click: _vm.cardClicked }
     },
     [
@@ -65873,7 +65874,14 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('profile-item', __webpack_
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
   el: '#app',
-  mounted: function mounted() {}
+  methods: {
+    cardclick: function cardclick(id) {
+      window.location = '/profiles/' + id;
+    }
+  },
+  mounted: function mounted() {
+    Event.$on('card-clicked', this.cardclick);
+  }
 });
 })();
 

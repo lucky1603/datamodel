@@ -1,5 +1,5 @@
 <template>
-    <div class="card shadow ribbon-box h-100 w-100 m-2" @click="cardClicked">
+    <div class="card shadow ribbon-box h-100 w-100 m-2" role="button" @click="cardClicked">
         <div class="card-body p-0 h-100">
             <div :class="ribbonClass"><span>{{ statustext}}</span></div>
 
@@ -62,11 +62,11 @@ export default {
         action: '#',
         id: 0,
         status: 1,
-        statustext: 'undetermined'
+        statustext: 'sinisa'
     },
     methods: {
         cardClicked() {
-            Event.$emit('card-clicked', id);
+            Event.$emit('card-clicked', this.id);
         }
     },
     data() {
