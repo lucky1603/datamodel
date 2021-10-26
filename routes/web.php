@@ -72,6 +72,7 @@ Route::get('refreshcaptcha', 'AnonimousController@refreshCaptcha');
 //Route::get('/clients/profile/{client}', 'ClientController@profile')->name('clients.profile');
 
 Route::get('profiles', 'ProfileController@index')->name('profiles.index');
+Route::get('profiles/list', 'ProfileController@list')->name('profiles.list');
 Route::get('profiles/create', 'ProfileController@create')->name('profiles.create');
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
 Route::get('profiles/edit/{profile}', 'ProfileController@edit')->name('profiles.edit');

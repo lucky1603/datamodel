@@ -995,6 +995,31 @@ class ProfileController extends Controller
         return $candidates;
     }
 
+    public function list() {
+        return Profile::find()->map(function($profile) {
+            return new class($profile) {
+                public $id;
+                public $name;
+                public $logo;
+                public $status;
+                public $statusText;
+                public $programType;
+                public function __construct($profile)
+                {
+                    $this->id = $profile->getId();
+                    $this->name = $profile->getValue('name');
+                    $this->logo = $profile->getValue('profile_logo');
+                    $this->status = $profile->getValue('profile_status');
+                    $this->statusText = $profile->getText('profile_status');
+                    if($profile->getActiveProgram() != null)
+                        $this->programType = $profile->getActiveProgram()->getValue('program_type');
+                    else
+                        $this->programType = 0;
+                }
+            };
+        });
+    }
+
     /**
      * Gets the file from the request and pack it to the recognizable form.
      * @param Request $request

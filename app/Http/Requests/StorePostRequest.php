@@ -78,22 +78,27 @@ class StorePostRequest extends FormRequest
         $validator->after(function ($validator) {
             $data = $this->post();
 
+
             // Check for unique email.
-            if(Attribute::checkValue( Entity::where('name', 'Program')->first(), 'rstarts_email', $data['rstarts_email']))
-            {
-                $validator->errors()->add('rstarts_email', 'Ova email adresa postoji već u bazi!');
-            }
+            if(Entity::where('name', 'Profile')->first() != null) {
 
-            // Check for unique profile name.
-            if(Attribute::checkValue(Entity::where('name', 'Profile')->first(), 'name', $data['rstarts_startup_name']))
-            {
-                $validator->errors()->add('rstarts_startup_name', 'Startap sa ovim imenom već postoji u bazi!');
-            }
+                if(Attribute::checkValue( Entity::where('name', 'Profile')->first(), 'contact_email', $data['rstarts_email']))
+                {
+                    $validator->errors()->add('rstarts_email', 'Ova email adresa postoji već u bazi!');
+                }
 
-            // Check for unique id number.
-            if(Attribute::checkValue(Entity::where('name', 'Program')->first(), 'rstarts_id_number', $data['rstarts_id_number']))
-            {
-                $validator->errors()->add('rstarts_id_number', 'Startap sa maticnim brojem već postoji u bazi!');
+                // Check for unique profile name.
+                if(Attribute::checkValue(Entity::where('name', 'Profile')->first(), 'name', $data['rstarts_startup_name']))
+                {
+                    $validator->errors()->add('rstarts_startup_name', 'Startap sa ovim imenom već postoji u bazi!');
+                }
+
+                // Check for unique id number.
+                if(Attribute::checkValue(Entity::where('name', 'Profile')->first(), 'id_number', $data['rstarts_id_number']))
+                {
+                    $validator->errors()->add('rstarts_id_number', 'Startap sa maticnim brojem već postoji u bazi!');
+                }
+
             }
 
             // Check for the foounding date.
