@@ -93,7 +93,6 @@ class AnonimousController extends Controller
 
         $data = $request->post();
 
-
         $data['rstarts_logo'] = Utils::getFilesFromRequest($request, 'rstarts_logo');
         $data['rstarts_files'] = Utils::getFilesFromRequest($request, 'rstarts_files');
         $data['rstarts_financing_proof_files'] = Utils::getFilesFromRequest($request, 'rstarts_financing_proof_files');
@@ -117,28 +116,6 @@ class AnonimousController extends Controller
                 'filename' => ''
             ]
         ];
-
-//        foreach($data as $key=>$value) {
-//            if(is_array($value)) {
-//                echo '[';
-//                foreach($value as $k=>$v) {
-//                    if(is_array($v)) {
-//                        echo '[';
-//                        foreach($v as $c=>$t) {
-//                            echo $t.',';
-//                        }
-//                        echo '],';
-//                    } else {
-//                        echo $v.',';
-//                    }
-//                }
-//                echo ']<br />';
-//            } else {
-//                echo 'data['.$key.'] = '.$value.'<br />';
-//            }
-//
-//        }
-//        die();
 
         $profile = new Profile($profileData);
         $user = User::where('email', $data['rstarts_email'])->first();

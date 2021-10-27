@@ -28,7 +28,7 @@ class Faza1Controller extends Controller
     {
         $data = $request->post();
         $profileId = $data['profile'];
-        $files = $this->getFilesFromRequest($request, 'requested_files');
+        $files = Utils::getFilesFromRequest($request, 'requested_files');
 
         $faza1 = new Faza1(['instance_id' => $data['id']]);
         $faza1->setValue('requested_files', $files);
@@ -39,39 +39,5 @@ class Faza1Controller extends Controller
             'files' => $files
         ];
     }
-    private function getFilesFromRequest(Request $request, $filename): array
-    {
-        if(!$request->hasFile($filename))
-            return [
-                'message' => 'No file with that name',
-                'filelink' => '',
-                'filename' => ''
-            ];
 
-        if(is_array($request->file($filename))) {
-            $files = [];
-            $fileEntries = $request->file($filename);
-            foreach($fileEntries as $file) {
-                $originalFileName = $file->getClientOriginalName();
-                $path = $file->store('documents');
-                $path = asset($path);
-                $files[] = [
-                    'filelink' => $path,
-                    'filename' => $originalFileName
-                ];
-            }
-            return $files;
-        }
-
-
-        $file = $request->file($filename);
-        $originalFileName = $file->getClientOriginalName();
-        $path = $file->store('documents');
-        $path = asset($path);
-        return [
-            'filelink' => $path,
-            'filename' => $originalFileName
-        ];
-
-    }
 }

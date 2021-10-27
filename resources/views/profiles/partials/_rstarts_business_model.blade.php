@@ -21,7 +21,6 @@
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
-    <div class="invalid-feedback">Please provide '{{ $attribute->label }}'</div>
 </div>
 
 <div class="form-group">

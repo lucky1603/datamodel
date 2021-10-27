@@ -42,6 +42,7 @@ class Faza1 extends PhaseImpl
             'id' => $this->getId(),
             'validStatus' => $this->getStatusValue(),
             'profile' => $this->getWorkflow()->getProgram()->getProfile()->getId(),
+            'phase' => $this
         ];
     }
 
@@ -120,5 +121,10 @@ class Faza1 extends PhaseImpl
     public function getExitEmailTemplate() : ?Mailable
     {
         return null;
+    }
+
+    public function isValid(): bool
+    {
+        return ($this->getValue('due_date') != null && $this->getValue('files_sent') == true);
     }
 }
