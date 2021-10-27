@@ -52,13 +52,13 @@ class Value extends Model
 
         if($attribute->type === 'file') {
             $files = $query->get(['value', 'link']);
-            if($files->count() == 1) {
+            if($attribute->extra != 'multiple') {
                 $file = $files->first();
                 $value = [];
                 $value['filename'] = $file->value ?? '';
                 $value['filelink'] = $file->link ?? '';
                 return $value;
-            } else if($files->count() > 1) {
+            } else {
                 $values = [];
                 foreach($files as $file) {
                     $value = [];
