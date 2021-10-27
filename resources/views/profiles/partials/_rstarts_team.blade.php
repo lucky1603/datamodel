@@ -157,7 +157,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_founder_links')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Linkovi na profile osnivača</label>
+    <label class="attribute-label" for="{{ $attribute->name }}">Linkovi na profile osnivača <span class="font-12 text-dark font-weight-normal">(linkove upisati u ovo polje, odvojene tačkom-zarezom).</span></label>
     @php
         if(is_array($attribute->getValue())) {
             $val = implode(';', $attribute->getValue());

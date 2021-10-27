@@ -38,7 +38,7 @@ class StorePostRequest extends FormRequest
             'rstarts_webpage' => 'url',
             'rstarts_logo' => 'required|file',
             'rstarts_founding_date' => 'required|date',
-            'rstarts_id_number' => 'required|numeric',
+            'rstarts_id_number' => 'required|digits:8',
             'rstarts_basic_registered_activity' => 'required|max:500',
             'rstarts_short_ino_desc' => 'required|max:500',
             'rstarts_product_type' => 'in: 1,2,3',
