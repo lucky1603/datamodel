@@ -93,7 +93,6 @@ class AnonimousController extends Controller
 
         $data = $request->post();
 
-
         $data['rstarts_logo'] = Utils::getFilesFromRequest($request, 'rstarts_logo');
         $data['rstarts_files'] = Utils::getFilesFromRequest($request, 'rstarts_files');
         $data['rstarts_financing_proof_files'] = Utils::getFilesFromRequest($request, 'rstarts_financing_proof_files');

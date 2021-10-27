@@ -92,4 +92,9 @@ class PhaseImpl extends BusinessModel implements Phase
     {
         return true;
     }
+
+    public function isValid(): bool
+    {
+        return true;
+    }
 }

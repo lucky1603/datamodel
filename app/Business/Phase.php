@@ -22,4 +22,5 @@ interface Phase
     public function requiresExitSituation();
     public function getExitSituation();
     public function isVisibleInHistory();
+    public function isValid();
 }

@@ -133,7 +133,7 @@
                                             id="myFilesForm"
                                             method="POST"
                                             enctype="multipart/form-data"
-                                            action="/faza1/sendfiles">
+                                            action="#">
                                             @csrf
                                             <input type="hidden" id="id" name="id" value="{{ $faza->getId() }}">
                                             <input type="hidden" id="profile" name="profile" value="{{ $model->getId() }}">
@@ -142,7 +142,7 @@
                                                 <input type="file" multiple id="requested_files" name="requested_files[]" class="form-control form-control-file">
                                             </div>
                                             <div class="text-center">
-                                                <button type="button" id="buttonSendFiles" class="btn btn-sm btn-primary">Pošalji</button>
+                                                <button type="button" id="btnSend" class="btn btn-sm btn-primary">Pošalji</button>
                                             </div>
                                         </form>
                                     @else
@@ -253,7 +253,7 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#buttonSendFiles').click(function() {
+            $('#btnSend').click(function() {
                 $('#button_spinner_send').attr('hidden', false);
                 var data = new FormData($('form#myFilesForm')[0]);
                 var token = $('form#myFilesForm input[name="_token"]').val();
@@ -282,7 +282,7 @@
             });
             $('#buttonReset').click(function() {
                 location.reload();
-            })
+            });
         })
     </script>
 @endsection

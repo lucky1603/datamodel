@@ -535,6 +535,9 @@ class ProfileController extends Controller
         if($data['passed'] == 'on') {
             if($program->workflow->isLastStep())
             {
+                // Set data.
+                $program->workflow->getCurrentPhase()->setData($data);
+
                 $profile->setValue('profile_status', 4);
                 $profile->addSituation(new Situation([
                     'name' => 'U PROGRAMU',
@@ -544,6 +547,7 @@ class ProfileController extends Controller
             } else {
                 $programStatus = $program->getStatus();
                 $phase = $program->workflow->getCurrentPhase();
+                $phase->setData($data);
                 if($phase->requiresExitSituation()) {
                     $situation = $phase->getExitSituation();
                     if($situation != null)
@@ -561,6 +565,7 @@ class ProfileController extends Controller
         } else {
             $profile->setValue('profile_status', 5);
             $phase = $program->workflow->getCurrentPhase();
+            $phase->setData($data);
             $profile->addSituation(new Situation([
                 'name' => 'ODBIJEN',
                 'description' => 'Klijent je odbijen u fazi - "'.$phase->getDisplayName().'".',
