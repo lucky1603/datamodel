@@ -139,11 +139,11 @@ class EditUserController extends Controller
             'photo' => isset($data['photo']) ? $data['photo']['filelink'] : null
         ]);
 
-        $user->assignRole('client');
-        $client = Client::find($clientId);
-        $client->attachUser($user);
+        $user->assignRole('profile');
+        $profile = Profile::find($clientId);
+        $profile->attachUser($user);
 
-        return redirect(route('clients.profile', $client->getId()));
+        return redirect(route('profiles.profile', $profile->getId()));
 
     }
 
@@ -218,10 +218,10 @@ class EditUserController extends Controller
         $profile = Profile::find($profileId);
         $backroute = session('usereditbackto');
         if(isset($backroute)) {
-            return view('auth.addforProfile', ['profile' => $profile, 'backroute' => $backroute]);
+            return view('auth.addforprofile', ['profile' => $profile, 'backroute' => $backroute]);
         }
 
-        return view('auth.addforProfile', ['profile' => $profile]);
+        return view('auth.addforprofile', ['profile' => $profile]);
     }
 
     /**
@@ -256,7 +256,7 @@ class EditUserController extends Controller
             'photo' => isset($data['photo']) ? $data['photo']['filelink'] : null
         ]);
 
-        $user->assignRole('client');
+        $user->assignRole('profile');
         $profile = Profile::find($profileId);
         $profile->attachUser($user);
 

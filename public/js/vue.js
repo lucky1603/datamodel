@@ -52766,7 +52766,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render),
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -52774,7 +52774,7 @@ var render = function() {
     _c("div", {
       staticClass: "row border border-primary",
       staticStyle: { height: "5%" },
-      attrs: { id: "toolbar" }
+      attrs: { id: "toolbar" },
     }),
     _vm._v(" "),
     _c(
@@ -52782,17 +52782,17 @@ var render = function() {
       {
         staticClass: "row border border-danger",
         staticStyle: { height: "90%" },
-        attrs: { id: "items" }
+        attrs: { id: "items" },
       },
       [
         _c(
           "div",
           { staticClass: "col-lg-12 h-100" },
-          _vm._l(_vm.rows, function(row, index) {
+          _vm._l(_vm.rows, function (row, index) {
             return _c(
               "div",
               { staticClass: "row", staticStyle: { height: "30%" } },
-              _vm._l(row, function(item, idx) {
+              _vm._l(row, function (item, idx) {
                 return _c(
                   "div",
                   { staticClass: "col-lg-3 h-100 p-2" },
@@ -52804,9 +52804,9 @@ var render = function() {
                         type: item.programType,
                         id: item.id,
                         status: item.status,
-                        statustext: item.statusText
-                      }
-                    })
+                        statustext: item.statusText,
+                      },
+                    }),
                   ],
                   1
                 )
@@ -52815,15 +52815,15 @@ var render = function() {
             )
           }),
           0
-        )
+        ),
       ]
     ),
     _vm._v(" "),
     _c("div", {
       staticClass: "row border border-success",
       staticStyle: { height: "5%" },
-      attrs: { id: "navigator" }
-    })
+      attrs: { id: "navigator" },
+    }),
   ])
 }
 var staticRenderFns = []
