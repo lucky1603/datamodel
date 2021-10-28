@@ -36,7 +36,7 @@ class StorePostRequest extends FormRequest
             'rstarts_email' => 'required|email',
             'rstarts_telephone' => 'required',
             'rstarts_webpage' => 'url',
-            'rstarts_logo' => 'required|file',
+//            'rstarts_logo' => 'required|file',
             'rstarts_founding_date' => 'required|date',
             'rstarts_id_number' => 'required|digits:8',
             'rstarts_basic_registered_activity' => 'required|max:500',
