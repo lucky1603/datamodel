@@ -1,9 +1,11 @@
 <template>
     <div class="h-100 w-100">
-        <div id="toolbar" class="row border border-primary" style="height: 5%">
-
+        <div id="toolbar" class="row" style="height: 5%">
+           <b-col lg="2" offset="10" class="h-100" style="display: flex; justify-content: right; align-items: center">
+               <a href="#" role="button" class="text-secondary" @click="buttonClicked"><i class="dripicons-document-new"></i> NOVI PROFIL</a>
+           </b-col>
         </div>
-        <div id="items" class="row border border-danger" style="height: 90%;">
+        <div id="items" class="row" style="height: 90%;">
             <div class="col-lg-12 h-100">
                 <div v-for="(row, index) in rows" class="row" style="height: 30%">
                     <div v-for="(item, idx) in row" class="col-lg-3 h-100 p-2">
@@ -18,9 +20,19 @@
                 </div>
             </div>
         </div>
-        <div id="navigator" class="row border border-success" style="height: 5%">
+        <div id="navigator" class="row" style="height: 5%">
 
         </div>
+
+        <b-modal id="addProfileModal" ref="addProfileModal" size="lg" header-bg-variant="dark" header-text-variant="light">
+            <template #modal-title >{{ addprofiletitle }}</template>
+<!--            <span v-html="formContent"></span>-->
+            <profile-form v-model="form" ref="myProfileForm" action="/profiles/create"></profile-form>
+            <template #modal-footer>
+                <b-button type="button" variant="primary" @click="onOk">Prihvati</b-button>
+                <b-button type="button" variant="light" @click="onCancel">Zatvori</b-button>
+            </template>
+        </b-modal>
     </div>
 
 </template>
@@ -29,7 +41,9 @@
 export default {
     name: "ProfileExplorer",
     props: {
-        itemsperpage: { typeof: Number, default: 12 }
+        itemsperpage: { typeof: Number, default: 12 },
+        newitemaction: { typeof: String, default: '#'},
+        addprofiletitle: { typeof: String, default: 'DODAJ NOVI PROFIL'}
     },
     computed : {
         logoSrc() {
@@ -43,6 +57,16 @@ export default {
                 this.items = response.data;
                 console.log(this.items);
             });
+        },
+        async shouldRefresh() {
+            console.log('got refresh event');
+            await this.getData();
+            this.setPage(this.currentPage);
+            $('body').css('cursor', 'default');
+
+        },
+        async buttonClicked() {
+            this.$refs['addProfileModal'].show();
         },
         setPage(pageNumber) {
             if(pageNumber * this.itemsPerPage < this.items.length && pageNumber >= 0) {
@@ -76,12 +100,21 @@ export default {
                     this.rows.push(row);
 
             }
+        },
+        async onOk() {
+            $('body').css('cursor', 'progress');
+            await Event.$emit('submit', 'createProfile');
+            this.$refs['addProfileModal'].hide();
+        },
+        onCancel() {
+            this.$refs['addProfileModal'].hide();
         }
     },
     async mounted() {
         this.itemsPerPage = this.itemsperpage;
         await this.getData();
         this.setPage(this.currentPage);
+        Event.$on('refresh', this.shouldRefresh);
     },
     data() {
         return {
@@ -90,7 +123,8 @@ export default {
             rows:[],
             columns:[],
             itemsPerPage : { typeof: Number, default: 12 },
-            currentPage : 0
+            currentPage : 0,
+            formContent : null,
         }
     }
 }

@@ -283,4 +283,13 @@ class AnonimousController extends Controller
         echo 'Token is '.$user->getRememberToken().'<br />';
         die();
     }
+
+    public function test() {
+        return view('anonimous.test');
+    }
+
+    public function storeTest(Request $request) {
+        $data = $request->post();
+
+    }
 }

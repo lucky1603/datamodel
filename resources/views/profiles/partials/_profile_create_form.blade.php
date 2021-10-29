@@ -230,7 +230,7 @@
     @endif
 
     @if(!isset($profile))
-        <div class="text-center mt-4">
+        <div class="text-center mt-4" ref="submitButtons" id="submitButtons">
             <button type="submit" id="save" class="btn btn-sm btn-primary m-1" >
                 {{ __('Create') }}
             </button>

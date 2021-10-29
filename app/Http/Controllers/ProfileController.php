@@ -51,7 +51,7 @@ class ProfileController extends Controller
         $this->authorize('manage_client_profiles');
         $profiles = Profile::find();
 
-        return view('profiles.index', ['profiles' => $profiles]);
+        return view('profiles.index1', ['profiles' => $profiles]);
     }
 
 
@@ -125,6 +125,7 @@ class ProfileController extends Controller
 
     public function store(Request $request) {
         $data = $request->post();
+
 
         // If the client fills it set the status to 'interested'
         if(auth()->user()->isRole('client')) {

@@ -2686,12 +2686,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProfileExplorer",
   props: {
     itemsperpage: {
       "typeof": Number,
       "default": 12
+    },
+    newitemaction: {
+      "typeof": String,
+      "default": '#'
+    },
+    addprofiletitle: {
+      "typeof": String,
+      "default": 'DODAJ NOVI PROFIL'
     }
   },
   computed: {
@@ -2718,6 +2738,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee);
+      }))();
+    },
+    shouldRefresh: function shouldRefresh() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                console.log('got refresh event');
+                _context2.next = 3;
+                return _this2.getData();
+
+              case 3:
+                _this2.setPage(_this2.currentPage);
+
+                $('body').css('cursor', 'default');
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    buttonClicked: function buttonClicked() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this3.$refs['addProfileModal'].show();
+
+              case 1:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     },
     setPage: function setPage(pageNumber) {
@@ -2752,29 +2815,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         if (row.length > 0) this.rows.push(row);
       }
+    },
+    onOk: function onOk() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                $('body').css('cursor', 'progress');
+                _context4.next = 3;
+                return Event.$emit('submit', 'createProfile');
+
+              case 3:
+                _this4.$refs['addProfileModal'].hide();
+
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    onCancel: function onCancel() {
+      this.$refs['addProfileModal'].hide();
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this5 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
-              _this2.itemsPerPage = _this2.itemsperpage;
-              _context2.next = 3;
-              return _this2.getData();
+              _this5.itemsPerPage = _this5.itemsperpage;
+              _context5.next = 3;
+              return _this5.getData();
 
             case 3:
-              _this2.setPage(_this2.currentPage);
+              _this5.setPage(_this5.currentPage);
 
-            case 4:
+              Event.$on('refresh', _this5.shouldRefresh);
+
+            case 5:
             case "end":
-              return _context2.stop();
+              return _context5.stop();
           }
         }
-      }, _callee2);
+      }, _callee5);
     }))();
   },
   data: function data() {
@@ -2787,7 +2878,149 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         "typeof": Number,
         "default": 12
       },
-      currentPage: 0
+      currentPage: 0,
+      formContent: null
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProfileForm.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProfileForm.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "ProfileForm",
+  props: {
+    action: ''
+  },
+  methods: {
+    onSubmit: function onSubmit() {
+      console.log('on submit detected!!!'); // axios.post(action, form)
+      // .then(response => {
+      //     console.log(response.data);
+      // });
+    },
+    onReset: function onReset() {},
+    handleSubmit: function handleSubmit(formName) {
+      if (formName == 'createProfile') {
+        var formData = new FormData();
+
+        for (var property in this.form) {
+          formData.append(property, this.form[property]);
+        }
+
+        formData.append('profile_logo', this.form.profile_logo);
+        formData.append('profile_background', this.form.profile_background);
+        axios.post(this.action, formData).then(function (response) {
+          Event.$emit('refresh');
+        });
+      }
+    }
+  },
+  mounted: function mounted() {
+    Event.$on('submit', this.handleSubmit);
+  },
+  data: function data() {
+    return {
+      show: true,
+      universities: [],
+      activities: [],
+      form: {
+        name: '',
+        id_number: '',
+        is_company: false,
+        contact_person: 'Sinisa Ristic',
+        contact_email: 'sinisa.ristic@gmail.com',
+        contact_phone: '+381 11 222 333',
+        position: '',
+        address: '',
+        profile_logo: null,
+        profile_background: null,
+        ino_desc: '',
+        reason_contact: 0,
+        university: 0,
+        basic_activity: 0,
+        note: ''
+      }
     };
   }
 });
@@ -51210,6 +51443,45 @@ component.options.__file = "resources/js/components/ProfileExplorer.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/ProfileForm.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/ProfileForm.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ProfileForm_vue_vue_type_template_id_0ad43a72_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileForm.vue?vue&type=template&id=0ad43a72&scoped=true& */ "./resources/js/components/ProfileForm.vue?vue&type=template&id=0ad43a72&scoped=true&");
+/* harmony import */ var _ProfileForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfileForm.vue?vue&type=script&lang=js& */ "./resources/js/components/ProfileForm.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ProfileForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProfileForm_vue_vue_type_template_id_0ad43a72_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ProfileForm_vue_vue_type_template_id_0ad43a72_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "0ad43a72",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ProfileForm.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/ProfileItem.vue":
 /*!*************************************************!*\
   !*** ./resources/js/components/ProfileItem.vue ***!
@@ -51602,6 +51874,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ProfileForm.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/ProfileForm.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ProfileForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProfileForm.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/ProfileItem.vue?vue&type=script&lang=js&":
 /*!**************************************************************************!*\
   !*** ./resources/js/components/ProfileItem.vue?vue&type=script&lang=js& ***!
@@ -51811,6 +52099,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileExplorer_vue_vue_type_template_id_3bfa5526_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileExplorer_vue_vue_type_template_id_3bfa5526_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ProfileExplorer.vue?vue&type=template&id=3bfa5526&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProfileExplorer.vue?vue&type=template&id=3bfa5526&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileForm.vue?vue&type=template&id=0ad43a72&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/ProfileForm.vue?vue&type=template&id=0ad43a72&scoped=true& ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileForm_vue_vue_type_template_id_0ad43a72_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileForm_vue_vue_type_template_id_0ad43a72_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileForm_vue_vue_type_template_id_0ad43a72_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ProfileForm.vue?vue&type=template&id=0ad43a72&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProfileForm.vue?vue&type=template&id=0ad43a72&scoped=true&");
 
 
 /***/ }),
@@ -52770,61 +53075,515 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "h-100 w-100" }, [
-    _c("div", {
-      staticClass: "row border border-primary",
-      staticStyle: { height: "5%" },
-      attrs: { id: "toolbar" }
-    }),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "row border border-danger",
-        staticStyle: { height: "90%" },
-        attrs: { id: "items" }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "col-lg-12 h-100" },
-          _vm._l(_vm.rows, function(row, index) {
-            return _c(
-              "div",
-              { staticClass: "row", staticStyle: { height: "30%" } },
-              _vm._l(row, function(item, idx) {
-                return _c(
-                  "div",
-                  { staticClass: "col-lg-3 h-100 p-2" },
-                  [
-                    _c("profile-item", {
-                      attrs: {
-                        logo: item.logo != null ? item.logo.filelink : "",
-                        title: item.name,
-                        type: item.programType,
-                        id: item.id,
-                        status: item.status,
-                        statustext: item.statusText
-                      }
-                    })
-                  ],
-                  1
-                )
-              }),
-              0
-            )
-          }),
-          0
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", {
-      staticClass: "row border border-success",
-      staticStyle: { height: "5%" },
-      attrs: { id: "navigator" }
-    })
-  ])
+  return _c(
+    "div",
+    { staticClass: "h-100 w-100" },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "row",
+          staticStyle: { height: "5%" },
+          attrs: { id: "toolbar" }
+        },
+        [
+          _c(
+            "b-col",
+            {
+              staticClass: "h-100",
+              staticStyle: {
+                display: "flex",
+                "justify-content": "right",
+                "align-items": "center"
+              },
+              attrs: { lg: "2", offset: "10" }
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "text-secondary",
+                  attrs: { href: "#", role: "button" },
+                  on: { click: _vm.buttonClicked }
+                },
+                [
+                  _c("i", { staticClass: "dripicons-document-new" }),
+                  _vm._v(" NOVI PROFIL")
+                ]
+              )
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "row",
+          staticStyle: { height: "90%" },
+          attrs: { id: "items" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "col-lg-12 h-100" },
+            _vm._l(_vm.rows, function(row, index) {
+              return _c(
+                "div",
+                { staticClass: "row", staticStyle: { height: "30%" } },
+                _vm._l(row, function(item, idx) {
+                  return _c(
+                    "div",
+                    { staticClass: "col-lg-3 h-100 p-2" },
+                    [
+                      _c("profile-item", {
+                        attrs: {
+                          logo: item.logo != null ? item.logo.filelink : "",
+                          title: item.name,
+                          type: item.programType,
+                          id: item.id,
+                          status: item.status,
+                          statustext: item.statusText
+                        }
+                      })
+                    ],
+                    1
+                  )
+                }),
+                0
+              )
+            }),
+            0
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", {
+        staticClass: "row",
+        staticStyle: { height: "5%" },
+        attrs: { id: "navigator" }
+      }),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "addProfileModal",
+          attrs: {
+            id: "addProfileModal",
+            size: "lg",
+            "header-bg-variant": "dark",
+            "header-text-variant": "light"
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "modal-title",
+              fn: function() {
+                return [_vm._v(_vm._s(_vm.addprofiletitle))]
+              },
+              proxy: true
+            },
+            {
+              key: "modal-footer",
+              fn: function() {
+                return [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { type: "button", variant: "primary" },
+                      on: { click: _vm.onOk }
+                    },
+                    [_vm._v("Prihvati")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { type: "button", variant: "light" },
+                      on: { click: _vm.onCancel }
+                    },
+                    [_vm._v("Zatvori")]
+                  )
+                ]
+              },
+              proxy: true
+            }
+          ])
+        },
+        [
+          _vm._v(" "),
+          _c("profile-form", {
+            ref: "myProfileForm",
+            attrs: { action: "/profiles/create" },
+            model: {
+              value: _vm.form,
+              callback: function($$v) {
+                _vm.form = $$v
+              },
+              expression: "form"
+            }
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProfileForm.vue?vue&type=template&id=0ad43a72&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProfileForm.vue?vue&type=template&id=0ad43a72&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      this.show
+        ? _c(
+            "b-form",
+            {
+              ref: "forma",
+              attrs: { href: _vm.action },
+              on: { submit: _vm.onSubmit, reset: _vm.onReset }
+            },
+            [
+              _c(
+                "b-form-row",
+                [
+                  _c(
+                    "b-col",
+                    {
+                      ref: "nameColumn",
+                      attrs: { lg: _vm.form.is_company == "on" ? 6 : 12 }
+                    },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "name-group",
+                            size: "sm",
+                            label: "Ime",
+                            "label-for": "name",
+                            description: "Ovo je opis"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "name",
+                              size: "sm",
+                              placeholder: "Unesite ime"
+                            },
+                            model: {
+                              value: _vm.form.name,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "name", $$v)
+                              },
+                              expression: "form.name"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.form.is_company == "on"
+                    ? _c(
+                        "b-col",
+                        { ref: "id_number_column", attrs: { lg: "6" } },
+                        [
+                          _c(
+                            "b-form-group",
+                            {
+                              attrs: {
+                                id: "id_number_group",
+                                size: "sm",
+                                label: "Matični broj",
+                                "label-for": "name",
+                                description: "Broj od 8 cifara"
+                              }
+                            },
+                            [
+                              _c("b-form-input", {
+                                attrs: {
+                                  id: "name",
+                                  size: "sm",
+                                  placeholder: "Unesite matični broj"
+                                },
+                                model: {
+                                  value: _vm.form.id_number,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "id_number", $$v)
+                                  },
+                                  expression: "form.id_number"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-checkbox",
+                {
+                  attrs: {
+                    id: "is_company",
+                    name: "is_company",
+                    value: "on",
+                    "unchecked-value": "off"
+                  },
+                  model: {
+                    value: _vm.form.is_company,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "is_company", $$v)
+                    },
+                    expression: "form.is_company"
+                  }
+                },
+                [_vm._v("\n            Da li je kompanija?\n        ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-row",
+                { staticClass: "mt-2" },
+                [
+                  _c(
+                    "b-col",
+                    { attrs: { lg: "4", size: "sm" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "contact_person_group",
+                            size: "sm",
+                            label: "Kontakt osoba",
+                            "label-for": "contact_person"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "contact_person",
+                              size: "sm",
+                              placeholder: "Ime i prezime osobe za kontakt"
+                            },
+                            model: {
+                              value: _vm.form.contact_person,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "contact_person", $$v)
+                              },
+                              expression: "form.contact_person"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { lg: "4", size: "sm" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "contact_email_group",
+                            size: "sm",
+                            label: "Email",
+                            "label-for": "contact_email"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "contact_email",
+                              size: "sm",
+                              placeholder: "Email osobe za kontakt"
+                            },
+                            model: {
+                              value: _vm.form.contact_email,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "contact_email", $$v)
+                              },
+                              expression: "form.contact_email"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { lg: "4", size: "sm" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "contact_phone_group",
+                            size: "sm",
+                            label: "Kontakt telefon",
+                            "label-for": "contact_phone"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "contact_phone",
+                              size: "sm",
+                              placeholder: "Kontakt telefon osobe za kontakt"
+                            },
+                            model: {
+                              value: _vm.form.contact_phone,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "contact_phone", $$v)
+                              },
+                              expression: "form.contact_phone"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "address_group",
+                    size: "sm",
+                    label: "Adresa",
+                    "label-for": "address"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "address",
+                      size: "sm",
+                      placeholder: "Ime i prezime osobe za kontakt"
+                    },
+                    model: {
+                      value: _vm.form.address,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "address", $$v)
+                      },
+                      expression: "form.address"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "profile_logo_group",
+                    size: "sm",
+                    label: "Logo",
+                    "label-for": "profile_logo"
+                  }
+                },
+                [
+                  _c("b-form-file", {
+                    attrs: {
+                      id: "profile_logo",
+                      name: "profile_logo",
+                      state: Boolean(_vm.form.profile_logo),
+                      placeholder:
+                        "Izaberite sliku pritiskom na dugme ili je jednostavno prevucite ovde.",
+                      "drop-placeholder": "Spustite fajl ovde!"
+                    },
+                    model: {
+                      value: _vm.form.profile_logo,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "profile_logo", $$v)
+                      },
+                      expression: "form.profile_logo"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "profile_background_group",
+                    size: "sm",
+                    label: "Pozadina",
+                    "label-for": "profile_background"
+                  }
+                },
+                [
+                  _c("b-form-file", {
+                    attrs: {
+                      id: "profile_background",
+                      name: "profile_background",
+                      state: Boolean(_vm.form.profile_background),
+                      placeholder:
+                        "Izaberite sliku pritiskom na dugme ili je jednostavno prevucite ovde.",
+                      "drop-placeholder": "Spustite fajl ovde!"
+                    },
+                    model: {
+                      value: _vm.form.profile_background,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "profile_background", $$v)
+                      },
+                      expression: "form.profile_background"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -66172,6 +66931,7 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('round-item', __webpack_re
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('program-data', __webpack_require__(/*! ./components/ProgramData */ "./resources/js/components/ProgramData.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('profile-item', __webpack_require__(/*! ./components/ProfileItem */ "./resources/js/components/ProfileItem.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('profile-explorer', __webpack_require__(/*! ./components/ProfileExplorer */ "./resources/js/components/ProfileExplorer.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('profile-form', __webpack_require__(/*! ./components/ProfileForm */ "./resources/js/components/ProfileForm.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
