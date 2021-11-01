@@ -42,7 +42,7 @@
             </b-form-row>
 
             <b-form-group id="address_group" size="sm" label="Adresa" label-for="address">
-                <b-form-input id="address" size="sm" v-model="form.address" placeholder="Ime i prezime osobe za kontakt"></b-form-input>
+                <b-form-input id="address" size="sm" v-model="form.address" placeholder="Adresa kompanije"></b-form-input>
             </b-form-group>
 
             <b-form-group id="profile_logo_group" size="sm" label="Logo" label-for="profile_logo">

@@ -53578,7 +53578,7 @@ var render = function() {
                     attrs: {
                       id: "address",
                       size: "sm",
-                      placeholder: "Ime i prezime osobe za kontakt"
+                      placeholder: "Adresa kompanije"
                     },
                     model: {
                       value: _vm.form.address,
