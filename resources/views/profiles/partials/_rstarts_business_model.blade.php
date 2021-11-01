@@ -15,9 +15,9 @@
         $attribute = $attributes->where('name', 'rstarts_solve_problem')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Koji problem pokušavate da rešite na tržištu?
-        <span class="font-11 font-italic text-dark">Ukratko objasnite problem koji rešavate potencijalnim kupcima.
+        <span class="font-12 text-dark font-weight-normal">(Ukratko objasnite problem koji rešavate potencijalnim kupcima.
             Da li ovaj problem postoji globalno? Da li mislite da je ovaj problem težak i opišite zašto.
-            Kako ste saznali za taj problem?</span>
+            Kako ste saznali za taj problem?)</span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
@@ -28,9 +28,9 @@
         $attribute = $attributes->where('name', 'rstarts_targetted_market')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Koje je ciljano tržište koje targetirate i koja je procenjena veličina tog tržišta?
-        <span class="font-11 font-italic text-dark">Navedite koje tržište targetirate svojim proizvodom  i/ili uslugom i koja je procenjena veličina
+        <span class="font-12 text-dark font-weight-normal">(Navedite koje tržište targetirate svojim proizvodom  i/ili uslugom i koja je procenjena veličina
             tog tržišta uz navodjenje izvora koji su korišćeni za prikupljanje tih podataka (primer izvora koji možete koristiti: https://www.statista.com/).
-            Koliki prostor vidite za širenje svog biznisa odnosno za geografsku ekspanziju (navesti zemlje širenja u naredne 2 godine)? </span>
+            Koliki prostor vidite za širenje svog biznisa odnosno za geografsku ekspanziju (navesti zemlje širenja u naredne 2 godine)?) </span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
@@ -41,9 +41,9 @@
         $attribute = $attributes->where('name', 'rstarts_problem_solve')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Kome rešavate problem?
-        <span class="font-11 font-italic text-dark">Ko su vaši potencijalni kupci? Navedite koje su njihove glavne karakteristike (demografija,
+        <span class="font-12 text-dark font-weight-normal">(Ko su vaši potencijalni kupci? Navedite koje su njihove glavne karakteristike (demografija,
             motivi, navike, komunikacija, strahovi itd.) Opišite da li ste već ostvarili komunikaciju/sproveli aktivnosti (ankete, intervjui i sl)
-            sa njima. Ukoliko jeste, sa koliko njih i koji su vaši zaključci? </span>
+            sa njima. Ukoliko jeste, sa koliko njih i koji su vaši zaključci?) </span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
@@ -54,9 +54,9 @@
         $attribute = $attributes->where('name', 'rstarts_which_product')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Koji inovativni proizvod i/ili uslugu razvijate ili planirate da razvijate (najviše 100 reči)?
-        <span class="font-11 font-italic text-dark">Opišite glavne karakteristike inovativnog proizvoda i/ili usluge koju razvijate:
+        <span class="font-12 text-dark font-weight-normal">(Opišite glavne karakteristike inovativnog proizvoda i/ili usluge koju razvijate:
                 Naveditekoju tehnologiju koristite (npr. Blockchain, AI, IoT, ML):
-                Navedite šta vaš proizvod i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste potrebe kupaca:
+                Navedite šta vaš proizvod i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste potrebe kupaca:)
  </span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
@@ -68,9 +68,9 @@
         $attribute = $attributes->where('name', 'rstarts_customer_problem_solve')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Kako potencijalni kupci trenutno rešavaju problem?
-        <span class="font-11 font-italic text-dark">Ukratko objasnite kako potencijalni kupci trenutno rešavaju
+        <span class="font-12 text-dark font-weight-normal">(Ukratko objasnite kako potencijalni kupci trenutno rešavaju
             navedeni problem (navesti druge proizvode  i/ili usluge koji su direktna konkurencija, a koje potencijalni
-            kupci trenutno koriste ili druge metode koje primenjuju za rešavanje datog problema)
+            kupci trenutno koriste ili druge metode koje primenjuju za rešavanje datog problema))
         </span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
@@ -82,8 +82,8 @@
         $attribute = $attributes->where('name', 'rstarts_benefits')->first();
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Koje benefite/vrednosti svojim proizvodom  i/ili uslugom donosite kupcima?
-        <span class="font-11 font-italic text-dark">Opišite koji su to glavni benefiti koje vaši kupci dobijaju koristeći vaše proizvode/usluge.
-            Šta vaš proizvod  i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste/slične potrebe kupaca.
+        <span class="font-12 text-dark font-weight-normal">(Opišite koji su to glavni benefiti koje vaši kupci dobijaju koristeći vaše proizvode/usluge.
+            Šta vaš proizvod  i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste/slične potrebe kupaca.)
         </span>
     </label>
     <textarea class="form-control  @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
@@ -181,21 +181,20 @@
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
-<div class="form-group row">
+<div class="form-group">
     @php
         $attribute = $attributes->where('name', 'rstarts_innovative_area')->first();
         $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm">Kojoj oblasti pripada inovativni proizvod i/ili usluga koje razvijate?</label>
-    <div class="col-lg-7">
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
-            <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
-            @foreach($attribute->getOptions() as $key => $value)
-                <option value="{{$key}}" @if($key == $selectedValue) selected @endif>{{$value}}</option>
-            @endforeach
-        </select>
-        @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
-    </div>
+    <label for="{{ $attribute->name }}" class="attribute-label">Kojoj oblasti pripada inovativni proizvod i/ili usluga koje razvijate?
+        <span class="font-12 text-dark font-weight-normal">
+            (Odaberite oblast u skladu sa Strategijom pametne specijalizacije u Srbiji ukoliko je proizvod i/ili usluga iz neke od
+            navedenih oblasti sa linka (strana 45): <a href="http://www.mpn.gov.rs/wp-content/uploads/2020/03/strategija_pametne_specijalizacije.pdf" target="_blank">http://www.mpn.gov.rs/wp-content/uploads/2020/03/strategija_pametne_specijalizacije.pdf</a>
+            ili drugo ukoliko proizvod i/ili usluga ne pripada navedenim oblastima:)
+        </span>
+    </label>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="form-group">

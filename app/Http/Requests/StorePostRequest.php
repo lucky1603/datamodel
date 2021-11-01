@@ -29,6 +29,7 @@ class StorePostRequest extends FormRequest
     {
         return [
             'app_type' => 'in: 1,2,3,4',
+            'ntp' => 'in: 1,2,3',
             'rstarts_startup_name' => 'required',
             'rstarts_applicant_name' => 'required',
             'rstarts_position' => 'required',
@@ -56,9 +57,9 @@ class StorePostRequest extends FormRequest
             'rstarts_clarification_innovative' => 'required|max:400',
             'rstarts_dev_phase_tech' => 'in:1,2,3,4,5,6',
             'rstarts_dev_phase_bussines' => 'in:1,2,3,4,5,6,7,8,9',
-            'rstarts_intellectual_property' => 'in:1,2,3,4,5',
+            'rstarts_intellectual_property' => 'in:1,2,3,4,5,6',
             'rstarts_research' => 'required|max:400',
-            'rstarts_innovative_area' => 'in:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16',
+            'rstarts_innovative_area' => 'required|max:400',
             'rstarts_business_plan' => 'required|max:400',
             'rstarts_statup_progress' => 'required|max:400',
 //            'rstarts_links' => 'required_without:rstarts_files',
@@ -69,7 +70,7 @@ class StorePostRequest extends FormRequest
             'rstarts_howmuchmoney' => 'required',
             'rstarts_linkclip' => 'required',
             'rstarts_howdiduhear' => 'in: 1,2,3,4,5',
-            'gdpr' => 'required',
+//            'gdpr' => 'required',
             'captcha' => 'required|captcha'
         ];
     }
@@ -131,6 +132,10 @@ class StorePostRequest extends FormRequest
                     $validator->errors()->add($fileAttribute, 'Morate priloziti datoteke!');
                 } else {
                     $fileEntries = $this->file($fileAttribute);
+                    if($fileAttribute == 'rstarts_founder_cvs' && count($fileEntries) < 2) {
+                        $validator->errors()->add($fileAttribute, 'Morate priložiti bar 2 datoteke!');
+                    }
+
                     foreach ($fileEntries as $file) {
                         if ($file->getSize() > 200000) {
                             $validator->errors()->add($fileAttribute, 'Svi fajlovi moraju da budu manji od 200KB');

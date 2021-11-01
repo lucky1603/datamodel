@@ -2967,6 +2967,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProfileForm",
   props: {
@@ -2994,16 +3023,65 @@ __webpack_require__.r(__webpack_exports__);
           Event.$emit('refresh');
         });
       }
+    },
+    initUniversities: function initUniversities() {
+      var universities = ['Arhitektura', 'Ekonomija', 'Elektrotehnika', 'Pravo', 'FON', 'FPN', 'Šumarstvo'];
+      this.universities = [];
+      this.universities.push({
+        value: 0,
+        text: 'Izaberite'
+      });
+
+      for (var i = 0; i < universities.length; i++) {
+        this.universities.push({
+          value: i + 1,
+          text: universities[i]
+        });
+      }
+    },
+    initActivities: function initActivities() {
+      var activities = ['IOT i pametni gradovi', 'Energetska efikasnost, zelene, čiste tehnologije i ekologija', 'Veštačka inteligencija, baze podataka i analitika', 'Novi materijali i 3 D štampa', 'Tehnologija u sportu', 'Ekonomske transakcije, finansije, marketing i prodaja', 'Robotika i automatizacija', 'Turizam i putovanja', 'Edukacija , obrazovanje i usavršavanje', 'Mediji , komunikacije i društvene mreže/ Gaming i zabava', 'Medicinske tehnologije', 'Ostalo'];
+      this.activities = [];
+      this.activities.push({
+        value: 0,
+        text: 'Izaberite ...'
+      });
+
+      for (var i = 0; i < activities.length; i++) {
+        this.activities.push({
+          value: i + 1,
+          text: activities[i]
+        });
+      }
+    },
+    initContactReasons: function initContactReasons() {
+      var contactReasons = ['Reason 1', 'Reason 2', 'Reason 3'];
+      this.contactReasons = [];
+      this.contactReasons.push({
+        value: 0,
+        text: 'Izaberite ...'
+      });
+
+      for (var i = 0; i < contactReasons.length; i++) {
+        this.contactReasons.push({
+          value: i + 1,
+          text: contactReasons[i]
+        });
+      }
     }
   },
   mounted: function mounted() {
     Event.$on('submit', this.handleSubmit);
+    this.initUniversities();
+    this.initActivities();
+    this.initContactReasons();
   },
   data: function data() {
     return {
       show: true,
       universities: [],
       activities: [],
+      contactReasons: [],
       form: {
         name: '',
         id_number: '',
@@ -3015,10 +3093,10 @@ __webpack_require__.r(__webpack_exports__);
         address: '',
         profile_logo: null,
         profile_background: null,
-        ino_desc: '',
+        short_ino_desc: '',
         reason_contact: 0,
         university: 0,
-        basic_activity: 0,
+        business_branch: 0,
         note: ''
       }
     };
@@ -53572,6 +53650,154 @@ var render = function() {
                         _vm.$set(_vm.form, "profile_background", $$v)
                       },
                       expression: "form.profile_background"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-row",
+                [
+                  _c(
+                    "b-col",
+                    { attrs: { lg: "6", size: "sm" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "university_group",
+                            label: "Fakultet",
+                            "label-for": "university"
+                          }
+                        },
+                        [
+                          _c("b-form-select", {
+                            attrs: { options: _vm.universities, size: "sm" },
+                            model: {
+                              value: _vm.form.university,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "university", $$v)
+                              },
+                              expression: "form.university"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { lg: "6", size: "sm" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "activities_group",
+                            label: "Osnovna aktivnost",
+                            "label-for": "business_branch"
+                          }
+                        },
+                        [
+                          _c("b-form-select", {
+                            attrs: { options: _vm.activities, size: "sm" },
+                            model: {
+                              value: _vm.form.business_branch,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "business_branch", $$v)
+                              },
+                              expression: "form.business_branch"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "short_ino_desc_group",
+                    label: "Kratak opis inovacije",
+                    "label-for": "short_ino_desc"
+                  }
+                },
+                [
+                  _c("b-form-textarea", {
+                    attrs: {
+                      id: "short_ino_desc",
+                      placeholder: "Unesite kratak opis vaše inovacije",
+                      rows: "3"
+                    },
+                    model: {
+                      value: _vm.form.short_ino_desc,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "short_ino_desc", $$v)
+                      },
+                      expression: "form.short_ino_desc"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "reason_contact_group",
+                    label: "Razlog kontaktiranja",
+                    "label-for": "reason_contact"
+                  }
+                },
+                [
+                  _c("b-form-select", {
+                    attrs: { options: _vm.contactReasons, size: "sm" },
+                    model: {
+                      value: _vm.form.reason_contact,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "reason_contact", $$v)
+                      },
+                      expression: "form.reason_contact"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "note_group",
+                    label: "Napomena/Primedba",
+                    "label-for": "note"
+                  }
+                },
+                [
+                  _c("b-form-textarea", {
+                    attrs: {
+                      id: "note",
+                      placeholder: "Unesite primedbu ako je imate...",
+                      rows: "3"
+                    },
+                    model: {
+                      value: _vm.form.note,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "note", $$v)
+                      },
+                      expression: "form.note"
                     }
                   })
                 ],

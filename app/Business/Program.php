@@ -633,6 +633,13 @@ class Program extends SituationsModel
         $attributes->add(self::selectOrCreateAttribute(['program_type', __('Program Type'), 'integer', NULL, 1]));
         $attributes->add(self::selectOrCreateAttribute(['program_name', __('Program Name'), 'varchar', NULL, 2]));
         $attributes->add(self::selectOrCreateAttribute(['program_status', __('Program Status'), 'integer', NULL, 3]));
+        $ntp = self::selectOrCreateAttribute(['ntp', 'NTP koji daje podršku', 'select', NULL, 4]);
+        if(count($ntp->getOptions()) == 0) {
+            $ntp->addOption(['value' => 1, 'text' => 'Naučno-tehnološki park Beograd']);
+            $ntp->addOption(['value' => 2, 'text' => 'Naučno-tehnološki park Niš']);
+            $ntp->addOption(['value' => 3, 'text' => 'Naučno-tehnološki park Čačak']);
+        }
+        $attributes->add($ntp);
 
         return collect([
             'attributeGroups' => $attributeGroups,

@@ -157,7 +157,8 @@ class RaisingStartsProgram extends Program
             $ippactivities->addOption(['value' => 2, 'text' => 'Dobijen Izveštaj o obavljenom istraživanju od strane Zavoda za zaštitu intelektualne svojine']);
             $ippactivities->addOption(['value' => 3, 'text' => 'Podneta aplikacija za zaštitu nekog prava IP']);
             $ippactivities->addOption(['value' => 4, 'text' => 'Zaštićen logo, autorsko delo i neko srodno pravo']);
-            $ippactivities->addOption(['value' => 5, 'text' => 'Zaštićen logo, autorsko delo i neko srodno pravo']);
+            $ippactivities->addOption(['value' => 5, 'text' => 'Zaštićen mali patent, patent']);
+            $ippactivities->addOption(['value' => 6, 'text' => 'Zaštićeno pravo industrijskog dizajna']);
         }
         $attributes->add($ag_ideja->addAttribute($ippactivities));
 
@@ -166,27 +167,7 @@ class RaisingStartsProgram extends Program
         patent, mali patent ili slično. Ukoliko ste zaštitili ili planirate da zaštitite neko pravo intelektualne svojine, navedite ko su vlasnici
         ili ko bi bili vlasnici te intelektualne svojine', 'text', NULL, 31])));
 
-        $innovative_area = self::selectOrCreateAttribute(['rstarts_innovative_area', 'Kojoj oblasti pripada inovativni proizvod i/ili usluga koje razvijate?', 'select', NULL, 32]);
-        if(count($innovative_area->getOptions()) == 0) {
-            $innovative_area->addOption(['value' => 1, 'text' => 'Masovni podaci (Big data) i poslovna analitika (Business analytics)']);
-            $innovative_area->addOption(['value' => 2, 'text' => 'Računarstvo u oblaku (Cloud computing)']);
-            $innovative_area->addOption(['value' => 3, 'text' => 'Internet stvari (Internet of Things)']);
-            $innovative_area->addOption(['value' => 4, 'text' => 'Razvoj softvera']);
-            $innovative_area->addOption(['value' => 5, 'text' => 'Ugrađeni sistemi (Embedded Systems)']);
-            $innovative_area->addOption(['value' => 6, 'text' => 'Visoko tehnološka poljoprivreda']);
-            $innovative_area->addOption(['value' => 7, 'text' => 'Hrana sa dodatom vrednošću']);
-            $innovative_area->addOption(['value' => 8, 'text' => 'Održiva poljoprivreda i proizvodnja hrane']);
-            $innovative_area->addOption(['value' => 9, 'text' => 'Kreativna Digitalna Audiovizuelna Produkcija ']);
-            $innovative_area->addOption(['value' => 10, 'text' => 'Industrija video igara 46']);
-            $innovative_area->addOption(['value' => 11, 'text' => 'Pametna i aktivna ambalaža']);
-            $innovative_area->addOption(['value' => 12, 'text' => 'Mašine specifične namene']);
-            $innovative_area->addOption(['value' => 13, 'text' => 'Informacije u službi pametnog upravljanja-industrija 4.0']);
-            $innovative_area->addOption(['value' => 14, 'text' => 'Premijum alatnice i komponente za atomobilsku, železničku i avionsku industriju']);
-            $innovative_area->addOption(['value' => 15, 'text' => 'Uređaji za sagorevanje na eco-friendly i održivim gorivima']);
-            $innovative_area->addOption(['value' => 16, 'text' => 'Rešenja za pametna okruženja']);
-        }
-        $attributes->add($ag_ideja->addAttribute($innovative_area));
-
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_innovative_area', 'Kojoj oblasti pripada inovativni proizvod i/ili usluga koje razvijate?', 'text', NULL, 32])));
         $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_business_plan', 'Kako vaš startap planira da zaradjuje?', 'text', NULL, 33])));
 
         // ------------------------------------------------- VAŠA STARTAP PRIČA ------------------------------------------------ //

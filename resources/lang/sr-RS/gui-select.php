@@ -18,7 +18,7 @@ return [
     'U-Economics' => 'Ekonomija',
     'U-FON' => 'FON',
     'U-FPN' => 'FPN',
-    'U-Forestry' => 'Forestry',
+    'U-Forestry' => 'Šumarstvo',
 
     /*
      * Business Branches

@@ -64,6 +64,35 @@
                     placeholder="Izaberite sliku pritiskom na dugme ili je jednostavno prevucite ovde."
                     drop-placeholder="Spustite fajl ovde!"></b-form-file>
             </b-form-group>
+            <b-form-row>
+                <b-col lg="6" size="sm">
+                    <b-form-group id="university_group" label="Fakultet" label-for="university">
+                        <b-form-select v-model="form.university" :options="universities" size="sm"></b-form-select>
+                    </b-form-group>
+                </b-col>
+                <b-col lg="6" size="sm">
+                    <b-form-group id="activities_group" label="Osnovna aktivnost" label-for="business_branch">
+                        <b-form-select v-model="form.business_branch" :options="activities" size="sm"></b-form-select>
+                    </b-form-group>
+                </b-col>
+            </b-form-row>
+            <b-form-group id="short_ino_desc_group" label="Kratak opis inovacije" label-for="short_ino_desc">
+                <b-form-textarea
+                    id="short_ino_desc"
+                    v-model="form.short_ino_desc"
+                    placeholder="Unesite kratak opis vaše inovacije"
+                    rows="3"></b-form-textarea>
+            </b-form-group>
+            <b-form-group id="reason_contact_group" label="Razlog kontaktiranja" label-for="reason_contact">
+                <b-form-select v-model="form.reason_contact" :options="contactReasons" size="sm"></b-form-select>
+            </b-form-group>
+            <b-form-group id="note_group" label="Napomena/Primedba" label-for="note">
+                <b-form-textarea
+                    id="note"
+                    v-model="form.note"
+                    placeholder="Unesite primedbu ako je imate..."
+                    rows="3"></b-form-textarea>
+            </b-form-group>
         </b-form>
     </div>
 </template>
@@ -100,16 +129,60 @@ export default {
                     Event.$emit('refresh');
                 });
             }
+        },
+        initUniversities() {
+            const universities = [
+                'Arhitektura','Ekonomija', 'Elektrotehnika', 'Pravo', 'FON', 'FPN', 'Šumarstvo'
+            ];
+            this.universities = [];
+            this.universities.push({value: 0, text: 'Izaberite'});
+            for( let i = 0; i < universities.length; i++) {
+                this.universities.push({ value: i + 1, text: universities[i]});
+            }
+        },
+        initActivities() {
+            const activities = [
+                'IOT i pametni gradovi',
+                'Energetska efikasnost, zelene, čiste tehnologije i ekologija',
+                'Veštačka inteligencija, baze podataka i analitika',
+                'Novi materijali i 3 D štampa',
+                'Tehnologija u sportu',
+                'Ekonomske transakcije, finansije, marketing i prodaja',
+                'Robotika i automatizacija',
+                'Turizam i putovanja',
+                'Edukacija , obrazovanje i usavršavanje',
+                'Mediji , komunikacije i društvene mreže/ Gaming i zabava',
+                'Medicinske tehnologije',
+                'Ostalo'
+            ];
+
+            this.activities = [];
+            this.activities.push({value: 0, text: 'Izaberite ...'});
+            for(let i = 0; i < activities.length; i ++) {
+                this.activities.push({ value: i + 1, text: activities[i]});
+            }
+        },
+        initContactReasons() {
+            let contactReasons = ['Reason 1', 'Reason 2', 'Reason 3'];
+            this.contactReasons = [];
+            this.contactReasons.push({ value: 0, text: 'Izaberite ...'});
+            for(let i = 0; i < contactReasons.length; i++) {
+                this.contactReasons.push({ value: i + 1, text: contactReasons[i]});
+            }
         }
     },
     mounted() {
-        Event.$on('submit', this.handleSubmit)
+        Event.$on('submit', this.handleSubmit);
+        this.initUniversities();
+        this.initActivities();
+        this.initContactReasons();
     },
     data() {
         return {
             show: true,
             universities: [],
             activities: [],
+            contactReasons: [],
             form : {
                 name: '',
                 id_number: '',
@@ -121,10 +194,10 @@ export default {
                 address: '',
                 profile_logo: null,
                 profile_background: null,
-                ino_desc: '',
+                short_ino_desc: '',
                 reason_contact: 0,
                 university: 0,
-                basic_activity: 0,
+                business_branch: 0,
                 note: '',
             }
         }

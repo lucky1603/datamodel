@@ -27,27 +27,27 @@
                     @csrf
                     @include('profiles.partials._rstarts')
 
-                    <div class="mt-4" style="display: flex">
-                        <input
-                            type="checkbox"
-                            id="gdpr"
-                            name="gdpr"
-                            style="position: relative; top:4px"
-                            class="@error('gdpr') is-invalid @enderror"
-                            @if(old('gdpr') == 'on') checked @endif>
-                        <span class="ml-1 attribute-label">
-                            Slažem se sa
-                            <a href="https://ntpark.rs/wp-content/uploads/2020/01/Obavestenje-o-obradi-podataka-o-licnosti.pdf" target="_blank">
-                                uslovima obrade podataka o ličnosti.
-                            </a>
-                        </span>
-                    </div>
-                    @error('gdpr') <div class="alert alert-danger">{{ $message }}</div> @enderror
+{{--                    <div class="mt-4" style="display: flex">--}}
+{{--                        <input--}}
+{{--                            type="checkbox"--}}
+{{--                            id="gdpr"--}}
+{{--                            name="gdpr"--}}
+{{--                            style="position: relative; top:4px"--}}
+{{--                            class="@error('gdpr') is-invalid @enderror"--}}
+{{--                            @if(old('gdpr') == 'on') checked @endif>--}}
+{{--                        <span class="ml-1 attribute-label">--}}
+{{--                            Slažem se sa--}}
+{{--                            <a href="https://ntpark.rs/wp-content/uploads/2020/01/Obavestenje-o-obradi-podataka-o-licnosti.pdf" target="_blank">--}}
+{{--                                uslovima obrade podataka o ličnosti.--}}
+{{--                            </a>--}}
+{{--                        </span>--}}
+{{--                    </div>--}}
+{{--                    @error('gdpr') <div class="alert alert-danger">{{ $message }}</div> @enderror--}}
 
                     <div class="row mt-4">
                         <div class="col-md-4"></div>
-                        <div class="form-group col-md-4">
-                            <div class="captcha">
+                        <div class="form-group col-md-3">
+                            <div class="captcha text-center">
                                 <span>{!! captcha_img('ntp') !!}</span>
                                 <button type="button" id="refresh" class="btn btn-sm btn-success text-light"><i class="mdi mdi-refresh font-18" id="refresh"></i></button>
                             </div>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4"></div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <input id="captcha" type="text" class="form-control" placeholder="Unesite karaktere sa slike" name="captcha"></div>
 
                     </div>
