@@ -27,22 +27,22 @@
                     @csrf
                     @include('profiles.partials._rstarts')
 
-{{--                    <div class="mt-4" style="display: flex">--}}
-{{--                        <input--}}
-{{--                            type="checkbox"--}}
-{{--                            id="gdpr"--}}
-{{--                            name="gdpr"--}}
-{{--                            style="position: relative; top:4px"--}}
-{{--                            class="@error('gdpr') is-invalid @enderror"--}}
-{{--                            @if(old('gdpr') == 'on') checked @endif>--}}
-{{--                        <span class="ml-1 attribute-label">--}}
-{{--                            Slažem se sa--}}
-{{--                            <a href="https://ntpark.rs/wp-content/uploads/2020/01/Obavestenje-o-obradi-podataka-o-licnosti.pdf" target="_blank">--}}
-{{--                                uslovima obrade podataka o ličnosti.--}}
-{{--                            </a>--}}
-{{--                        </span>--}}
-{{--                    </div>--}}
-{{--                    @error('gdpr') <div class="alert alert-danger">{{ $message }}</div> @enderror--}}
+                    <div class="mt-4" style="display: flex">
+                        <input
+                            type="checkbox"
+                            id="gdpr"
+                            name="gdpr"
+                            style="position: relative; top:4px"
+                            class="@error('gdpr') is-invalid @enderror"
+                            @if(old('gdpr') == 'on') checked @endif>
+                        <span class="ml-1 attribute-label">
+                            Slažem se sa
+                            <a href="https://ntpark.rs/wp-content/uploads/2020/01/Obavestenje-o-obradi-podataka-o-licnosti.pdf" target="_blank">
+                                uslovima obrade podataka o ličnosti.
+                            </a>
+                        </span>
+                    </div>
+                    @error('gdpr') <div class="alert alert-danger">{{ $message }}</div> @enderror
 
                     <div class="row mt-4">
                         <div class="col-md-4"></div>

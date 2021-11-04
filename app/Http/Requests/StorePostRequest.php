@@ -70,7 +70,7 @@ class StorePostRequest extends FormRequest
             'rstarts_howmuchmoney' => 'required',
             'rstarts_linkclip' => 'required',
             'rstarts_howdiduhear' => 'in: 1,2,3,4,5',
-//            'gdpr' => 'required',
+            'gdpr' => 'required',
             'captcha' => 'required|captcha'
         ];
     }
