@@ -1,5 +1,5 @@
 <template>
-    <div class="card shadow ribbon-box h-100 w-100 m-2" role="button" @click="cardClicked">
+    <div class="card shadow ribbon-box m-2" role="button" @click="cardClicked">
         <div class="card-body p-0 h-100">
             <div :class="ribbonClass"><span>{{ statustext}}</span></div>
 
@@ -58,11 +58,11 @@ export default {
     props: {
         logo: '',
         type: { typeof: Number, default:1 },
-        title:'Empty',
+        title:'',
         action: '#',
         id: 0,
-        status: 1,
-        statustext: 'sinisa'
+        status: 0,
+        statustext: ''
     },
     methods: {
         cardClicked() {

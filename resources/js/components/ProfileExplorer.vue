@@ -5,29 +5,33 @@
                <a href="#" role="button" class="text-secondary" @click="buttonClicked"><i class="dripicons-document-new"></i> NOVI PROFIL</a>
            </b-col>
         </div>
-        <div id="items" class="row" style="height: 90%;">
-            <div class="col-lg-12 h-100">
-                <div v-for="(row, index) in rows" class="row" style="height: 30%">
-                    <div v-for="(item, idx) in row" class="col-lg-3 h-100 p-2">
-                        <profile-item
-                            :logo="item.logo != null ? item.logo.filelink : ''"
-                            :title="item.name"
-                            :type="item.programType"
-                            :id="item.id"
-                            :status="item.status"
-                            :statustext="item.statusText"></profile-item>
-                    </div>
-                </div>
-            </div>
+        <div id="items" class="row overflow-auto" style="height: 90%; display: flex; flex-wrap: wrap; flex-direction: row">
+
+
+                <profile-item v-for="(item, index) in visibleItems"
+                    :logo="item.logo != null ? item.logo.filelink : ''"
+                    :title="item.name"
+                    :key="item.id"
+                    :type="item.programType"
+                    :id="item.id"
+                    :status="item.status"
+                    :statustext="item.statusText" style="width: 15%; height: 30%"></profile-item>
+
+
         </div>
         <div id="navigator" class="row" style="height: 5%">
-
+            <b-pagination
+                v-model="currentPage"
+                :total-rows="items.length"
+                :per-page="this.itemsPerPage"
+                aria-controls="my-table" @input="pageChanged"
+            ></b-pagination>
         </div>
 
         <b-modal id="addProfileModal" ref="addProfileModal" size="lg" header-bg-variant="dark" header-text-variant="light">
             <template #modal-title >{{ addprofiletitle }}</template>
 <!--            <span v-html="formContent"></span>-->
-            <profile-form v-model="form" ref="myProfileForm" action="/profiles/create"></profile-form>
+            <profile-form ref="myProfileForm" action="/profiles/create"></profile-form>
             <template #modal-footer>
                 <b-button type="button" variant="primary" @click="onOk">Prihvati</b-button>
                 <b-button type="button" variant="light" @click="onCancel">Zatvori</b-button>
@@ -56,50 +60,48 @@ export default {
             .then(response => {
                 this.items = response.data;
                 console.log(this.items);
+
             });
+
+            await this.makePages();
+            Event.$emit('refresh');
         },
         async shouldRefresh() {
             console.log('got refresh event');
             await this.getData();
-            this.setPage(this.currentPage);
+            await this.showCurrentPage();
             $('body').css('cursor', 'default');
-
         },
         async buttonClicked() {
             this.$refs['addProfileModal'].show();
         },
-        setPage(pageNumber) {
-            if(pageNumber * this.itemsPerPage < this.items.length && pageNumber >= 0) {
-                this.currentPage = pageNumber;
-                let start = this.currentPage * this.itemsPerPage;
-                let end = start;
-                if(this.items.length < (start + this.itemsPerPage)) {
-                    end = this.items.length;
-                } else {
-                    end = start + this.itemsPerPage;
-                }
+        pageChanged() {
+            console.log(`Page changed ${this.currentPage}`);
+            this.showCurrentPage();
+        },
+        async makePages() {
+            this.pages = [];
+            if(this.items.length < this.itemsPerPage) {
+                let pageItems = [];
+                this.items.forEach(item => {
+                    pageItems.push(item);
+                });
 
-                console.log(`start is ${start}, end is ${end}`);
-
-                this.visibleItems = [];
-                this.rows = [];
-                let row = [];
-                for(let i = start; i < end; i++) {
-                    if(i % 4 == 0) {
-                        if(i > 0) {
-                            this.rows.push(row);
-                        }
-                        row = [];
+                this.pages.push(pageItems);
+            } else {
+                for(let i = 0; i < this.items.length - 1; i += this.itemsPerPage) {
+                    let pageItems = [];
+                    for(let j = i; j < Math.min(i + this.itemsPerPage, this.items.length); j ++) {
+                        pageItems.push(this.items[j]);
                     }
-
-                    this.visibleItems.push(this.items[i]);
-                    row.push(this.items[i]);
+                    this.pages.push(pageItems);
                 }
-
-                if(row.length > 0)
-                    this.rows.push(row);
-
             }
+
+            console.log(this.pages);
+        },
+        async showCurrentPage() {
+            this.visibleItems = this.pages[this.currentPage - 1];
         },
         async onOk() {
             $('body').css('cursor', 'progress');
@@ -113,17 +115,16 @@ export default {
     async mounted() {
         this.itemsPerPage = this.itemsperpage;
         await this.getData();
-        this.setPage(this.currentPage);
+        await this.showCurrentPage();
         Event.$on('refresh', this.shouldRefresh);
     },
     data() {
         return {
-            visibleItems : [],
+            pages : [],
             items:[],
-            rows:[],
-            columns:[],
+            visibleItems:[],
             itemsPerPage : { typeof: Number, default: 12 },
-            currentPage : 0,
+            currentPage : 1,
             formContent : null,
         }
     }

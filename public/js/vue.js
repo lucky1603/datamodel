@@ -2698,6 +2698,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProfileExplorer",
   props: {
@@ -2733,6 +2737,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
+                _context.next = 4;
+                return _this.makePages();
+
+              case 4:
+                Event.$emit('refresh');
+
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -2753,11 +2764,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this2.getData();
 
               case 3:
-                _this2.setPage(_this2.currentPage);
-
-                $('body').css('cursor', 'default');
+                _context2.next = 5;
+                return _this2.showCurrentPage();
 
               case 5:
+                $('body').css('cursor', 'default');
+
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -2783,55 +2796,45 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    setPage: function setPage(pageNumber) {
-      if (pageNumber * this.itemsPerPage < this.items.length && pageNumber >= 0) {
-        this.currentPage = pageNumber;
-        var start = this.currentPage * this.itemsPerPage;
-        var end = start;
-
-        if (this.items.length < start + this.itemsPerPage) {
-          end = this.items.length;
-        } else {
-          end = start + this.itemsPerPage;
-        }
-
-        console.log("start is ".concat(start, ", end is ").concat(end));
-        this.visibleItems = [];
-        this.rows = [];
-        var row = [];
-
-        for (var i = start; i < end; i++) {
-          if (i % 4 == 0) {
-            if (i > 0) {
-              this.rows.push(row);
-            }
-
-            row = [];
-          }
-
-          this.visibleItems.push(this.items[i]);
-          row.push(this.items[i]);
-        }
-
-        if (row.length > 0) this.rows.push(row);
-      }
+    pageChanged: function pageChanged() {
+      console.log("Page changed ".concat(this.currentPage));
+      this.showCurrentPage();
     },
-    onOk: function onOk() {
+    makePages: function makePages() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var pageItems, i, _pageItems, j;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                $('body').css('cursor', 'progress');
-                _context4.next = 3;
-                return Event.$emit('submit', 'createProfile');
+                _this4.pages = [];
+
+                if (_this4.items.length < _this4.itemsPerPage) {
+                  pageItems = [];
+
+                  _this4.items.forEach(function (item) {
+                    pageItems.push(item);
+                  });
+
+                  _this4.pages.push(pageItems);
+                } else {
+                  for (i = 0; i < _this4.items.length - 1; i += _this4.itemsPerPage) {
+                    _pageItems = [];
+
+                    for (j = i; j < Math.min(i + _this4.itemsPerPage, _this4.items.length); j++) {
+                      _pageItems.push(_this4.items[j]);
+                    }
+
+                    _this4.pages.push(_pageItems);
+                  }
+                }
+
+                console.log(_this4.pages);
 
               case 3:
-                _this4.$refs['addProfileModal'].hide();
-
-              case 4:
               case "end":
                 return _context4.stop();
             }
@@ -2839,46 +2842,88 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
+    showCurrentPage: function showCurrentPage() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _this5.visibleItems = _this5.pages[_this5.currentPage - 1];
+
+              case 1:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    onOk: function onOk() {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                $('body').css('cursor', 'progress');
+                _context6.next = 3;
+                return Event.$emit('submit', 'createProfile');
+
+              case 3:
+                _this6.$refs['addProfileModal'].hide();
+
+              case 4:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
+    },
     onCancel: function onCancel() {
       this.$refs['addProfileModal'].hide();
     }
   },
   mounted: function mounted() {
-    var _this5 = this;
+    var _this7 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context7.prev = _context7.next) {
             case 0:
-              _this5.itemsPerPage = _this5.itemsperpage;
-              _context5.next = 3;
-              return _this5.getData();
+              _this7.itemsPerPage = _this7.itemsperpage;
+              _context7.next = 3;
+              return _this7.getData();
 
             case 3:
-              _this5.setPage(_this5.currentPage);
-
-              Event.$on('refresh', _this5.shouldRefresh);
+              _context7.next = 5;
+              return _this7.showCurrentPage();
 
             case 5:
+              Event.$on('refresh', _this7.shouldRefresh);
+
+            case 6:
             case "end":
-              return _context5.stop();
+              return _context7.stop();
           }
         }
-      }, _callee5);
+      }, _callee7);
     }))();
   },
   data: function data() {
     return {
-      visibleItems: [],
+      pages: [],
       items: [],
-      rows: [],
-      columns: [],
+      visibleItems: [],
       itemsPerPage: {
         "typeof": Number,
         "default": 12
       },
-      currentPage: 0,
+      currentPage: 1,
       formContent: null
     };
   }
@@ -3183,11 +3228,11 @@ __webpack_require__.r(__webpack_exports__);
       "typeof": Number,
       "default": 1
     },
-    title: 'Empty',
+    title: '',
     action: '#',
     id: 0,
-    status: 1,
-    statustext: 'sinisa'
+    status: 0,
+    statustext: ''
   },
   methods: {
     cardClicked: function cardClicked() {
@@ -53198,50 +53243,58 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "row",
-          staticStyle: { height: "90%" },
+          staticClass: "row overflow-auto",
+          staticStyle: {
+            height: "90%",
+            display: "flex",
+            "flex-wrap": "wrap",
+            "flex-direction": "row"
+          },
           attrs: { id: "items" }
         },
-        [
-          _c(
-            "div",
-            { staticClass: "col-lg-12 h-100" },
-            _vm._l(_vm.rows, function(row, index) {
-              return _c(
-                "div",
-                { staticClass: "row", staticStyle: { height: "30%" } },
-                _vm._l(row, function(item, idx) {
-                  return _c(
-                    "div",
-                    { staticClass: "col-lg-3 h-100 p-2" },
-                    [
-                      _c("profile-item", {
-                        attrs: {
-                          logo: item.logo != null ? item.logo.filelink : "",
-                          title: item.name,
-                          type: item.programType,
-                          id: item.id,
-                          status: item.status,
-                          statustext: item.statusText
-                        }
-                      })
-                    ],
-                    1
-                  )
-                }),
-                0
-              )
-            }),
-            0
-          )
-        ]
+        _vm._l(_vm.visibleItems, function(item, index) {
+          return _c("profile-item", {
+            key: item.id,
+            staticStyle: { width: "15%", height: "30%" },
+            attrs: {
+              logo: item.logo != null ? item.logo.filelink : "",
+              title: item.name,
+              type: item.programType,
+              id: item.id,
+              status: item.status,
+              statustext: item.statusText
+            }
+          })
+        }),
+        1
       ),
       _vm._v(" "),
-      _c("div", {
-        staticClass: "row",
-        staticStyle: { height: "5%" },
-        attrs: { id: "navigator" }
-      }),
+      _c(
+        "div",
+        {
+          staticClass: "row",
+          staticStyle: { height: "5%" },
+          attrs: { id: "navigator" }
+        },
+        [
+          _c("b-pagination", {
+            attrs: {
+              "total-rows": _vm.items.length,
+              "per-page": this.itemsPerPage,
+              "aria-controls": "my-table"
+            },
+            on: { input: _vm.pageChanged },
+            model: {
+              value: _vm.currentPage,
+              callback: function($$v) {
+                _vm.currentPage = $$v
+              },
+              expression: "currentPage"
+            }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "b-modal",
@@ -53292,14 +53345,7 @@ var render = function() {
           _vm._v(" "),
           _c("profile-form", {
             ref: "myProfileForm",
-            attrs: { action: "/profiles/create" },
-            model: {
-              value: _vm.form,
-              callback: function($$v) {
-                _vm.form = $$v
-              },
-              expression: "form"
-            }
+            attrs: { action: "/profiles/create" }
           })
         ],
         1
@@ -53837,7 +53883,7 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "card shadow ribbon-box h-100 w-100 m-2",
+      staticClass: "card shadow ribbon-box m-2",
       attrs: { role: "button" },
       on: { click: _vm.cardClicked }
     },
