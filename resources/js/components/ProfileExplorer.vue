@@ -1,23 +1,30 @@
 <template>
     <div class="h-100 w-100">
-        <div id="toolbar" class="row" style="height: 5%">
-           <b-col lg="2" offset="10" class="h-100" style="display: flex; justify-content: right; align-items: center">
+        <div id="toolbar" class="row">
+            <b-col lg="10" class="h-100" style="display: flex; justify-content: left; align-items: center;">
+                <span>FILTER</span>
+                <b-input-group class="w-25 ml-2" size="sm">
+                    <b-form-input type="search" id="searchName" placeholder="Po nazivu ..."></b-form-input>
+                    <template #append>
+                        <b-input-group-text><b-icon-zoom-in></b-icon-zoom-in></b-input-group-text>
+                    </template>
+                </b-input-group>
+                <b-form-select size="sm" class="ml-2 w-25" v-model="status" :options="statuses"></b-form-select>
+
+            </b-col>
+            <b-col lg="2" class="h-100" style="display: flex; justify-content: right; align-items: center">
                <a href="#" role="button" class="text-secondary" @click="buttonClicked"><i class="dripicons-document-new"></i> NOVI PROFIL</a>
-           </b-col>
+            </b-col>
         </div>
         <div id="items" class="row overflow-auto" style="height: 90%; display: flex; flex-wrap: wrap; flex-direction: row">
-
-
-                <profile-item v-for="(item, index) in visibleItems"
-                    :logo="item.logo != null ? item.logo.filelink : ''"
-                    :title="item.name"
-                    :key="item.id"
-                    :type="item.programType"
-                    :id="item.id"
-                    :status="item.status"
-                    :statustext="item.statusText" style="width: 15%; height: 30%"></profile-item>
-
-
+            <profile-item v-for="(item, index) in visibleItems"
+                :logo="item.logo != null ? item.logo.filelink : ''"
+                :title="item.name"
+                :key="item.id"
+                :type="item.programType"
+                :id="item.id"
+                :status="item.status"
+                :statustext="item.statusText" style="width: 15%; height: 30%"></profile-item>
         </div>
         <div id="navigator" class="row" style="height: 5%">
             <b-pagination
@@ -79,6 +86,9 @@ export default {
             console.log(`Page changed ${this.currentPage}`);
             this.showCurrentPage();
         },
+        searchIconClick() {
+            console.log('icon clicked!');
+        },
         async makePages() {
             this.pages = [];
             if(this.items.length < this.itemsPerPage) {
@@ -126,6 +136,10 @@ export default {
             itemsPerPage : { typeof: Number, default: 12 },
             currentPage : 1,
             formContent : null,
+            statuses : [
+                { value: 0, text: "Po statusu"}
+            ],
+            status: 0,
         }
     }
 }

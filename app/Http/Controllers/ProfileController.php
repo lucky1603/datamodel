@@ -1026,6 +1026,10 @@ class ProfileController extends Controller
         });
     }
 
+    public function filter(Request $request) {
+
+    }
+
     /**
      * Gets the file from the request and pack it to the recognizable form.
      * @param Request $request
