@@ -1,4 +1,4 @@
-@extends('layouts.backbone')
+@extends('layouts.backbosne')
 
 @section('body-content')
     <div class="h-100 w-100 position-absolute">
@@ -62,7 +62,7 @@
                     @error('captcha') <div class="alert alert-danger text-center">{{ $message }}</div>@enderror
 
                     <div class="text-center pt-4 mt-3" style="height: 5%">
-                        <button type="type" id="buttonSend" class="btn btn-sm btn-primary w-15 rounded-pill">Posalji</button>
+                        <button type="submit" id="buttonSend" class="btn btn-sm btn-primary w-15 rounded-pill">Posalji</button>
                         <button type="button" class="btn btn-sm btn-outline-primary w-15 rounded-pill">Odustani</button>
                     </div>
                 </form>
