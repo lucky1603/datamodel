@@ -4,7 +4,8 @@
             <div :class="ribbonClass"><span>{{ statustext}}</span></div>
 
                 <div :class="imageContainerClass" style="display: flex; justify-content: center; align-items: center">
-                    <img :src="currentImage" class="h-100">
+                    <img v-if="background != ''" :src="background" class="h-100">
+                    <img v-else :src="defaultBackground" class="h-100">
                 </div>
 
                 <div class="h-50" style="display: flex; justify-content: center; align-items: center">
@@ -57,6 +58,7 @@ export default {
     },
     props: {
         logo: '',
+        background: '',
         type: { typeof: Number, default:1 },
         title:'',
         action: '#',
@@ -72,6 +74,7 @@ export default {
     data() {
         return {
             defaultLogo: '/images/custom/emptylogo.png',
+            defaultBackground: '/images/custom/backdefault.jpg'
         }
     }
 }

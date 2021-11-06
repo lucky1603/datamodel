@@ -24,9 +24,10 @@
             </div>
             <profile-item v-for="(item, index) in visibleItems"
                 :logo="item.logo != null ? item.logo.filelink : ''"
+                :background="item.background != null ? item.background.filelink : ''"
                 :title="item.name"
                 :key="item.id"
-                :type="item.programType"
+                type="2"
                 :id="item.id"
                 :status="item.status"
                 :statustext="item.statusText" style="width: 15%; height: 30%"></profile-item>

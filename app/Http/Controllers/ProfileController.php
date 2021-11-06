@@ -1046,7 +1046,7 @@ class ProfileController extends Controller
                 public $logo;
                 public $status;
                 public $statusText;
-                public $programType;
+                public $background;
                 public function __construct($profile)
                 {
                     $this->id = $profile->getId();
@@ -1054,10 +1054,11 @@ class ProfileController extends Controller
                     $this->logo = $profile->getValue('profile_logo');
                     $this->status = $profile->getValue('profile_status');
                     $this->statusText = $profile->getText('profile_status');
-                    if($profile->getActiveProgram() != null)
-                        $this->programType = $profile->getActiveProgram()->getValue('program_type');
-                    else
-                        $this->programType = 0;
+                    $this->background = $profile->getValue('profile_background');
+//                    if($profile->getActiveProgram() != null)
+//                        $this->programType = $profile->getActiveProgram()->getValue('program_type');
+//                    else
+//                        $this->programType = 0;
                 }
             };
         });

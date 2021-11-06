@@ -2714,6 +2714,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProfileExplorer",
   props: {
@@ -3256,6 +3257,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProfileItem",
   computed: {
@@ -3300,6 +3302,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     logo: '',
+    background: '',
     type: {
       "typeof": Number,
       "default": 1
@@ -3317,7 +3320,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      defaultLogo: '/images/custom/emptylogo.png'
+      defaultLogo: '/images/custom/emptylogo.png',
+      defaultBackground: '/images/custom/backdefault.jpg'
     };
   }
 });
@@ -53434,8 +53438,10 @@ var render = function () {
               staticStyle: { width: "15%", height: "30%" },
               attrs: {
                 logo: item.logo != null ? item.logo.filelink : "",
+                background:
+                  item.background != null ? item.background.filelink : "",
                 title: item.name,
-                type: item.programType,
+                type: "2",
                 id: item.id,
                 status: item.status,
                 statustext: item.statusText,
@@ -54081,10 +54087,15 @@ var render = function () {
             },
           },
           [
-            _c("img", {
-              staticClass: "h-100",
-              attrs: { src: _vm.currentImage },
-            }),
+            _vm.background != ""
+              ? _c("img", {
+                  staticClass: "h-100",
+                  attrs: { src: _vm.background },
+                })
+              : _c("img", {
+                  staticClass: "h-100",
+                  attrs: { src: _vm.defaultBackground },
+                }),
           ]
         ),
         _vm._v(" "),
