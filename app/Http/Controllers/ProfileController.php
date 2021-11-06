@@ -1027,6 +1027,40 @@ class ProfileController extends Controller
     }
 
     public function filter(Request $request) {
+        $data = $request->post();
+
+        $filter = [];
+        if($data['name'] == '')
+            unset($data['name']);
+
+        if($data['profile_status'] == 0)
+            unset($data['profile_status']);
+
+        if(count($data) == 0)
+            $data = null;
+
+        return Profile::find($data)->map(function($profile) {
+            return new class($profile) {
+                public $id;
+                public $name;
+                public $logo;
+                public $status;
+                public $statusText;
+                public $programType;
+                public function __construct($profile)
+                {
+                    $this->id = $profile->getId();
+                    $this->name = $profile->getValue('name');
+                    $this->logo = $profile->getValue('profile_logo');
+                    $this->status = $profile->getValue('profile_status');
+                    $this->statusText = $profile->getText('profile_status');
+                    if($profile->getActiveProgram() != null)
+                        $this->programType = $profile->getActiveProgram()->getValue('program_type');
+                    else
+                        $this->programType = 0;
+                }
+            };
+        });
 
     }
 

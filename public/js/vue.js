@@ -2738,28 +2738,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var formData, property;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 console.log('getting data');
-                _context.next = 3;
-                return axios.get('/profiles/list').then(function (response) {
+                _this.loading = true;
+                formData = new FormData();
+
+                for (property in _this.form) {
+                  formData.append(property, _this.form[property]);
+                }
+
+                _this.items = [];
+                _context.next = 7;
+                return axios.post('/profiles/filter', formData).then(function (response) {
                   console.log('data got');
-                  _this.items = response.data;
+
+                  for (var _property in response.data) {
+                    console.log(response.data[_property]);
+
+                    _this.items.push(response.data[_property]);
+                  }
+
                   console.log(_this.items);
                 });
 
-              case 3:
+              case 7:
                 console.log('trying to make pages');
-                _context.next = 6;
+                _context.next = 10;
                 return _this.makePages();
 
-              case 6:
-                console.log('pages made');
-                Event.$emit('refresh');
+              case 10:
+                _this.loading = false;
+                console.log('pages made'); // Event.$emit('refresh');
 
-              case 8:
+              case 12:
               case "end":
                 return _context.stop();
             }
@@ -2812,6 +2827,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
+    onSubmit: function onSubmit() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return _this4.shouldRefresh();
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
     pageChanged: function pageChanged() {
       console.log("Page changed ".concat(this.currentPage));
       this.showCurrentPage();
@@ -2820,58 +2854,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       console.log('icon clicked!');
     },
     makePages: function makePages() {
-      var _this4 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-        var pageItems, i, _pageItems, j;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _this4.pages = [];
-
-                if (_this4.items.length < _this4.itemsPerPage) {
-                  pageItems = [];
-
-                  _this4.items.forEach(function (item) {
-                    pageItems.push(item);
-                  });
-
-                  _this4.pages.push(pageItems);
-                } else {
-                  for (i = 0; i < _this4.items.length - 1; i += _this4.itemsPerPage) {
-                    _pageItems = [];
-
-                    for (j = i; j < Math.min(i + _this4.itemsPerPage, _this4.items.length); j++) {
-                      _pageItems.push(_this4.items[j]);
-                    }
-
-                    _this4.pages.push(_pageItems);
-                  }
-                }
-
-                console.log(_this4.pages);
-
-              case 3:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }))();
-    },
-    showCurrentPage: function showCurrentPage() {
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        var pageItems, i, _pageItems, j;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _this5.visibleItems = _this5.pages[_this5.currentPage - 1];
+                _this5.pages = [];
 
-              case 1:
+                if (_this5.items.length < _this5.itemsPerPage) {
+                  pageItems = [];
+
+                  _this5.items.forEach(function (item) {
+                    pageItems.push(item);
+                  });
+
+                  _this5.pages.push(pageItems);
+                } else {
+                  for (i = 0; i < _this5.items.length - 1; i += _this5.itemsPerPage) {
+                    _pageItems = [];
+
+                    for (j = i; j < Math.min(i + _this5.itemsPerPage, _this5.items.length); j++) {
+                      _pageItems.push(_this5.items[j]);
+                    }
+
+                    _this5.pages.push(_pageItems);
+                  }
+                }
+
+                console.log(_this5.pages);
+
+              case 3:
               case "end":
                 return _context5.stop();
             }
@@ -2879,7 +2895,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5);
       }))();
     },
-    onOk: function onOk() {
+    showCurrentPage: function showCurrentPage() {
       var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
@@ -2887,14 +2903,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                $('body').css('cursor', 'progress');
-                _context6.next = 3;
-                return Event.$emit('submit', 'createProfile');
+                _this6.visibleItems = [];
+                _this6.visibleItems = _this6.pages[_this6.currentPage - 1];
 
-              case 3:
-                _this6.$refs['addProfileModal'].hide();
-
-              case 4:
+              case 2:
               case "end":
                 return _context6.stop();
             }
@@ -2902,35 +2914,58 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee6);
       }))();
     },
+    onOk: function onOk() {
+      var _this7 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                $('body').css('cursor', 'progress');
+                _context7.next = 3;
+                return Event.$emit('submit', 'createProfile');
+
+              case 3:
+                _this7.$refs['addProfileModal'].hide();
+
+              case 4:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }))();
+    },
     onCancel: function onCancel() {
       this.$refs['addProfileModal'].hide();
     }
   },
   mounted: function mounted() {
-    var _this7 = this;
+    var _this8 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
         while (1) {
-          switch (_context7.prev = _context7.next) {
+          switch (_context8.prev = _context8.next) {
             case 0:
-              _this7.itemsPerPage = _this7.itemsperpage;
-              _context7.next = 3;
-              return _this7.getData();
+              _this8.itemsPerPage = _this8.itemsperpage;
+              _context8.next = 3;
+              return _this8.getData();
 
             case 3:
-              _context7.next = 5;
-              return _this7.showCurrentPage();
+              _context8.next = 5;
+              return _this8.showCurrentPage();
 
             case 5:
-              Event.$on('refresh', _this7.shouldRefresh);
+              Event.$on('refresh', _this8.shouldRefresh);
 
             case 6:
             case "end":
-              return _context7.stop();
+              return _context8.stop();
           }
         }
-      }, _callee7);
+      }, _callee8);
     }))();
   },
   data: function data() {
@@ -2947,8 +2982,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       statuses: [{
         value: 0,
         text: "Po statusu"
+      }, {
+        value: 1,
+        text: 'Mapiran'
+      }, {
+        value: 2,
+        text: 'Zainteresovan'
+      }, {
+        value: 3,
+        text: 'Prijava'
+      }, {
+        value: 4,
+        text: 'U programu'
       }],
-      status: 0
+      status: 0,
+      loading: false,
+      form: {
+        name: '',
+        profile_status: 0
+      }
     };
   }
 });
@@ -53279,6 +53331,14 @@ var render = function () {
                           id: "searchName",
                           placeholder: "Po nazivu ...",
                         },
+                        on: { update: _vm.onSubmit },
+                        model: {
+                          value: _vm.form.name,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.form, "name", $$v)
+                          },
+                          expression: "form.name",
+                        },
                       }),
                     ],
                     1
@@ -53287,12 +53347,13 @@ var render = function () {
                   _c("b-form-select", {
                     staticClass: "ml-2 w-25",
                     attrs: { size: "sm", options: _vm.statuses },
+                    on: { change: _vm.onSubmit },
                     model: {
-                      value: _vm.status,
+                      value: _vm.form.profile_status,
                       callback: function ($$v) {
-                        _vm.status = $$v
+                        _vm.$set(_vm.form, "profile_status", $$v)
                       },
-                      expression: "status",
+                      expression: "form.profile_status",
                     },
                   }),
                 ],
@@ -53345,7 +53406,7 @@ var render = function () {
           attrs: { id: "items" },
         },
         [
-          _vm.visibleItems.length == 0
+          _vm.loading == true
             ? _c(
                 "div",
                 {
@@ -53395,7 +53456,7 @@ var render = function () {
         [
           _c("b-pagination", {
             attrs: {
-              "total-rows": _vm.items.length,
+              "total-rows": _vm.items != null ? _vm.items.length : 0,
               "per-page": this.itemsPerPage,
               "aria-controls": "my-table",
             },

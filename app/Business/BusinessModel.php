@@ -433,7 +433,11 @@ class BusinessModel
 
             $entity_id = Entity::all()->where('name', $className)->first()->id;
 
-            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id])->get();
+//            $temporary_results = DB::table($tableName)->select('instance_id')->where(['value' => $value, 'attribute_id' => $attribute->id])->get();
+            $temporary_results = DB::table($tableName)->select('instance_id')
+                ->where('value', 'like', $value.'%')
+                ->where('attribute_id', '=', $attribute->id)
+                ->get();
             $temporary_results = $temporary_results->map(function($item, $key) {
                 return $item->instance_id;
             });
@@ -448,7 +452,7 @@ class BusinessModel
 
         }
 
-        if($results->count() === 0) {
+        if($results == null || $results->count() === 0) {
             return $results;
         }
 

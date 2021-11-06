@@ -5,12 +5,12 @@
                 <span>FILTER</span>
                 <b-form id="filterForm" style="width: 90%" inline>
                     <b-input-group class="w-25 ml-2" size="sm">
-                        <b-form-input type="search" id="searchName" placeholder="Po nazivu ..."></b-form-input>
+                        <b-form-input v-model="form.name" type="search" id="searchName" placeholder="Po nazivu ..." @update="onSubmit"></b-form-input>
                         <template #append>
                             <b-input-group-text><b-icon-zoom-in></b-icon-zoom-in></b-input-group-text>
                         </template>
                     </b-input-group>
-                    <b-form-select size="sm" class="ml-2 w-25" v-model="status" :options="statuses"></b-form-select>
+                    <b-form-select size="sm" class="ml-2 w-25" v-model="form.profile_status" :options="statuses" @change="onSubmit"></b-form-select>
                 </b-form>
             </b-col>
             <b-col lg="2" class="h-100" style="display: flex; justify-content: right; align-items: center">
@@ -18,7 +18,7 @@
             </b-col>
         </div>
         <div id="items" class="row overflow-auto" style="height: 90%; display: flex; flex-wrap: wrap; flex-direction: row">
-            <div v-if="visibleItems.length == 0" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; flex-direction: column">
+            <div v-if="loading == true" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; flex-direction: column">
                 <b-spinner label="busy"></b-spinner>
                 <p class="mt-4">Učitava se ...</p>
             </div>
@@ -34,7 +34,7 @@
         <div id="navigator" class="row" style="height: 5%">
             <b-pagination
                 v-model="currentPage"
-                :total-rows="items.length"
+                :total-rows="items != null ? items.length : 0"
                 :per-page="this.itemsPerPage"
                 aria-controls="my-table" @input="pageChanged"
             ></b-pagination>
@@ -69,18 +69,32 @@ export default {
     methods : {
         async getData() {
             console.log('getting data');
-            await axios.get('/profiles/list')
+            this.loading = true;
+
+            let formData = new FormData();
+            for(const property in this.form) {
+                formData.append(property, this.form[property]);
+            }
+
+            this.items = [];
+
+            await axios.post('/profiles/filter', formData)
             .then(response => {
                 console.log('data got');
-                this.items = response.data;
+                for(const property in response.data) {
+                    console.log(response.data[property]);
+                    this.items.push(response.data[property]);
+                }
+
                 console.log(this.items);
 
             });
 
             console.log('trying to make pages');
             await this.makePages();
+            this.loading = false;
             console.log('pages made');
-            Event.$emit('refresh');
+            // Event.$emit('refresh');
         },
         async shouldRefresh() {
             console.log('got refresh event');
@@ -90,6 +104,9 @@ export default {
         },
         async buttonClicked() {
             this.$refs['addProfileModal'].show();
+        },
+        async onSubmit() {
+            await this.shouldRefresh();
         },
         pageChanged() {
             console.log(`Page changed ${this.currentPage}`);
@@ -120,6 +137,7 @@ export default {
             console.log(this.pages);
         },
         async showCurrentPage() {
+            this.visibleItems = [];
             this.visibleItems = this.pages[this.currentPage - 1];
         },
         async onOk() {
@@ -146,9 +164,18 @@ export default {
             currentPage : 1,
             formContent : null,
             statuses : [
-                { value: 0, text: "Po statusu"}
+                { value: 0, text: "Po statusu"},
+                { value: 1, text: 'Mapiran'},
+                { value: 2, text: 'Zainteresovan'},
+                { value: 3, text: 'Prijava'},
+                { value: 4, text: 'U programu'}
             ],
             status: 0,
+            loading: false,
+            form: {
+                name: '',
+                profile_status: 0
+            }
         }
     }
 }
