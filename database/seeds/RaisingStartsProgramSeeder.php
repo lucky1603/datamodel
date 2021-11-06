@@ -78,12 +78,10 @@ class RaisingStartsProgramSeeder extends Seeder
             'rstarts_other_sources' => $faker->text(),
         ];
 
-        $file = $faker->file('public/storage', 'public/documents');
-        $file = str_replace('public/documents\\', '', $file);
+        $file = $faker->file('public/storage', 'public/documents', false);
         $filelink = asset('documents/'.$file);
 
-        $file1 = $faker->file('public/storage', 'public/documents');
-        $file1 = str_replace('public/documents\\', '', $file1);
+        $file1 = $faker->file('public/storage', 'public/documents', false);
         $filelink1 = asset('documents/'.$file1);
 
         $programData['rstarts_founder_cvs'] = [
@@ -211,8 +209,8 @@ class RaisingStartsProgramSeeder extends Seeder
         $program->setStatus(2);
 
         // Send verification email to the user.
-        $email = $profile->getAttribute('contact_email')->getValue();
-        Mail::to($email)->send(new ProfileCreated($profile));
+//        $email = $profile->getAttribute('contact_email')->getValue();
+//        Mail::to($email)->send(new ProfileCreated($profile));
 
         return $program;
     }
