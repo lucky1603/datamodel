@@ -19,16 +19,16 @@ class RaisingStartsProgramSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i < 12; $i++) {
+        for($i = 0; $i < 1; $i++) {
             $program = $this->createProgram();
-            echo $program->getProfile()->getValue('name').' created <br />';
+            echo $program->getProfile()->getValue('name')." created \n";
         }
 
     }
 
     private function createProgram() {
         $name = Faker\Provider\sr_Latn_RS\Person::firstNameFemale();
-        $faker = \Faker\Factory::create('sr_RS');
+        $faker = \Faker\Factory::create('sr_Latn_RS');
         $programData = [
             'program_type' => \App\Business\Program::$RAISING_STARTS,
             'program_name' => 'RAISING STARTS',
