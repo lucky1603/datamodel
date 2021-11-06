@@ -2709,6 +2709,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProfileExplorer",
   props: {
@@ -2737,20 +2742,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                console.log('getting data');
+                _context.next = 3;
                 return axios.get('/profiles/list').then(function (response) {
+                  console.log('data got');
                   _this.items = response.data;
                   console.log(_this.items);
                 });
 
-              case 2:
-                _context.next = 4;
+              case 3:
+                console.log('trying to make pages');
+                _context.next = 6;
                 return _this.makePages();
 
-              case 4:
+              case 6:
+                console.log('pages made');
                 Event.$emit('refresh');
 
-              case 5:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -53236,45 +53245,59 @@ var render = function () {
               _c("span", [_vm._v("FILTER")]),
               _vm._v(" "),
               _c(
-                "b-input-group",
+                "b-form",
                 {
-                  staticClass: "w-25 ml-2",
-                  attrs: { size: "sm" },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "append",
-                      fn: function () {
-                        return [
-                          _c("b-input-group-text", [_c("b-icon-zoom-in")], 1),
-                        ]
-                      },
-                      proxy: true,
-                    },
-                  ]),
+                  staticStyle: { width: "90%" },
+                  attrs: { id: "filterForm", inline: "" },
                 },
                 [
-                  _c("b-form-input", {
-                    attrs: {
-                      type: "search",
-                      id: "searchName",
-                      placeholder: "Po nazivu ...",
+                  _c(
+                    "b-input-group",
+                    {
+                      staticClass: "w-25 ml-2",
+                      attrs: { size: "sm" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "append",
+                          fn: function () {
+                            return [
+                              _c(
+                                "b-input-group-text",
+                                [_c("b-icon-zoom-in")],
+                                1
+                              ),
+                            ]
+                          },
+                          proxy: true,
+                        },
+                      ]),
+                    },
+                    [
+                      _c("b-form-input", {
+                        attrs: {
+                          type: "search",
+                          id: "searchName",
+                          placeholder: "Po nazivu ...",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("b-form-select", {
+                    staticClass: "ml-2 w-25",
+                    attrs: { size: "sm", options: _vm.statuses },
+                    model: {
+                      value: _vm.status,
+                      callback: function ($$v) {
+                        _vm.status = $$v
+                      },
+                      expression: "status",
                     },
                   }),
                 ],
                 1
               ),
-              _vm._v(" "),
-              _c("b-form-select", {
-                staticClass: "ml-2 w-25",
-                attrs: { size: "sm", options: _vm.statuses },
-                model: {
-                  value: _vm.status,
-                  callback: function ($$v) {
-                    _vm.status = $$v
-                  },
-                  expression: "status",
-                },
-              }),
             ],
             1
           ),
@@ -53321,21 +53344,45 @@ var render = function () {
           },
           attrs: { id: "items" },
         },
-        _vm._l(_vm.visibleItems, function (item, index) {
-          return _c("profile-item", {
-            key: item.id,
-            staticStyle: { width: "15%", height: "30%" },
-            attrs: {
-              logo: item.logo != null ? item.logo.filelink : "",
-              title: item.name,
-              type: item.programType,
-              id: item.id,
-              status: item.status,
-              statustext: item.statusText,
-            },
-          })
-        }),
-        1
+        [
+          _vm.visibleItems.length == 0
+            ? _c(
+                "div",
+                {
+                  staticStyle: {
+                    display: "flex",
+                    "align-items": "center",
+                    "justify-content": "center",
+                    width: "100%",
+                    height: "100%",
+                    "flex-direction": "column",
+                  },
+                },
+                [
+                  _c("b-spinner", { attrs: { label: "busy" } }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mt-4" }, [_vm._v("Učitava se ...")]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.visibleItems, function (item, index) {
+            return _c("profile-item", {
+              key: item.id,
+              staticStyle: { width: "15%", height: "30%" },
+              attrs: {
+                logo: item.logo != null ? item.logo.filelink : "",
+                title: item.name,
+                type: item.programType,
+                id: item.id,
+                status: item.status,
+                statustext: item.statusText,
+              },
+            })
+          }),
+        ],
+        2
       ),
       _vm._v(" "),
       _c(

@@ -3,7 +3,7 @@
         <div id="toolbar" class="row">
             <b-col lg="10" class="h-100" style="display: flex; justify-content: left; align-items: center;">
                 <span>FILTER</span>
-                <b-form id="filterForm">
+                <b-form id="filterForm" style="width: 90%" inline>
                     <b-input-group class="w-25 ml-2" size="sm">
                         <b-form-input type="search" id="searchName" placeholder="Po nazivu ..."></b-form-input>
                         <template #append>
@@ -18,6 +18,10 @@
             </b-col>
         </div>
         <div id="items" class="row overflow-auto" style="height: 90%; display: flex; flex-wrap: wrap; flex-direction: row">
+            <div v-if="visibleItems.length == 0" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; flex-direction: column">
+                <b-spinner label="busy"></b-spinner>
+                <p class="mt-4">Učitava se ...</p>
+            </div>
             <profile-item v-for="(item, index) in visibleItems"
                 :logo="item.logo != null ? item.logo.filelink : ''"
                 :title="item.name"
@@ -64,14 +68,18 @@ export default {
     },
     methods : {
         async getData() {
+            console.log('getting data');
             await axios.get('/profiles/list')
             .then(response => {
+                console.log('data got');
                 this.items = response.data;
                 console.log(this.items);
 
             });
 
+            console.log('trying to make pages');
             await this.makePages();
+            console.log('pages made');
             Event.$emit('refresh');
         },
         async shouldRefresh() {
