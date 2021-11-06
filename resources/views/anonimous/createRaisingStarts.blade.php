@@ -1,4 +1,4 @@
-@extends('layouts.backbosne')
+@extends('layouts.backbone')
 
 @section('body-content')
     <div class="h-100 w-100 position-absolute">
