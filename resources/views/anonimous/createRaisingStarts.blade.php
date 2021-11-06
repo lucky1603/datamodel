@@ -62,15 +62,15 @@
                     @error('captcha') <div class="alert alert-danger text-center">{{ $message }}</div>@enderror
 
                     <div class="text-center pt-4 mt-3" style="height: 5%">
-                        <button type="submit" id="buttonSend" class="btn btn-sm btn-primary w-15 rounded-pill">Posalji</button>
+                        <button type="button" id="buttonSend" class="btn btn-sm btn-primary w-15 rounded-pill">
+                            <span id="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Posalji
+                        </button>
                         <button type="button" class="btn btn-sm btn-outline-primary w-15 rounded-pill">Odustani</button>
                     </div>
                 </form>
             </div>
         </div>
-
-
-
 
     </div>
 
@@ -80,6 +80,12 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
+            $('#okSpinner').hide();
+            $('#buttonSend').click(function() {
+                $('#okSpinner').show();
+                $('#myRaisingStartsForm').submit();
+            });
+
             $('#btnAddMember').click(function() {
                 let cloned = $('tbody#membersBody tr:first-child').clone();
                 cloned.find('textarea').val('');
