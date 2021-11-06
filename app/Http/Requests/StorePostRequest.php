@@ -137,8 +137,8 @@ class StorePostRequest extends FormRequest
                     }
 
                     foreach ($fileEntries as $file) {
-                        if ($file->getSize() > 200000) {
-                            $validator->errors()->add($fileAttribute, 'Svi fajlovi moraju da budu manji od 200KB');
+                        if ($file->getSize() > 2000000) {
+                            $validator->errors()->add($fileAttribute, 'Svi fajlovi moraju da budu manji od 2MB');
                             break;
                         }
                     }
