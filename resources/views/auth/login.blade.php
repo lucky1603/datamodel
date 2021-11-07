@@ -50,12 +50,26 @@
                         <label for="password">{{ __('Password') }}</label>
                         <input class="form-control" type="password" required="" id="password" name="password" placeholder="{{ __('Enter your password') }}">
                     </div>
-                    <div class="form-group mb-3">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="remember" name="remember">
-                            <label class="custom-control-label" for="checkbox-signin">{{ __('Remember me') }}</label>
+{{--                    <div class="form-group mb-3">--}}
+{{--                        <div class="custom-control custom-checkbox">--}}
+{{--                            <input type="checkbox" class="custom-control-input" id="remember" name="remember">--}}
+{{--                            <label class="custom-control-label" for="checkbox-signin">{{ __('Remember me') }}</label>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+
+                    <div class="form-group row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                <label class="form-check-label" for="remember">
+                                    {{ __('Remember Me') }}
+                                </label>
+                            </div>
                         </div>
                     </div>
+
                     <div class="form-group mb-0 text-center">
                         <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login mr-1"></i>{{ __('Log in') }}</button>
                     </div>
