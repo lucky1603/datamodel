@@ -66,7 +66,10 @@
                             <span id="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                             Posalji
                         </button>
-                        <button type="button" class="btn btn-sm btn-outline-primary w-15 rounded-pill">Odustani</button>
+                        <button type="button" id="buttonCancel" class="btn btn-sm btn-outline-primary w-15 rounded-pill">
+                            <span id="cancelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Odustani
+                        </button>
                     </div>
                 </form>
             </div>
@@ -81,9 +84,15 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#okSpinner').hide();
+            $('#cancelSpinner').hide();
             $('#buttonSend').click(function() {
                 $('#okSpinner').show();
                 $('#myRaisingStartsForm').submit();
+            });
+
+            $('#buttonCancel').click(function() {
+                $('#cancelSpinner').show();
+                location.href = 'https://ntpark.rs/raising-starts/';
             });
 
             $('#btnAddMember').click(function() {
