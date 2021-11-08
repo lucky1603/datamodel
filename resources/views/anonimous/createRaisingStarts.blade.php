@@ -36,10 +36,10 @@
                             class="@error('gdpr') is-invalid @enderror"
                             @if(old('gdpr') == 'on') checked @endif>
                         <span class="ml-1 attribute-label">
-                            Slažem se sa
-                            <a href="https://ntpark.rs/wp-content/uploads/2020/01/Obavestenje-o-obradi-podataka-o-licnosti.pdf" target="_blank">
-                                uslovima obrade podataka o ličnosti.
-                            </a>
+                            Popunjavanjem i podnošenjem ove prijave potvrdjujem da sam saglasan sa svim navedenim uslovima poziva.
+{{--                            <a href="https://ntpark.rs/wp-content/uploads/2020/01/Obavestenje-o-obradi-podataka-o-licnosti.pdf" target="_blank">--}}
+{{--                                uslovima obrade podataka o ličnosti.--}}
+{{--                            </a>--}}
                         </span>
                     </div>
                     @error('gdpr') <div class="alert alert-danger">{{ $message }}</div> @enderror
