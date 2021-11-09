@@ -44,7 +44,7 @@ class StorePostRequest extends FormRequest
             'rstarts_product_type' => 'in: 1,2,3',
 //            'rstarts_founder_links' => 'required_without:rstarts_founder_cvs',
             'rstarts_team_history' => 'required|max:400',
-            'rstarts_app_motive' => 'required|max:400',
+            'rstarts_app_motive' => 'required|max:1050',
             'rstarts_tagline' => 'required|max:400',
             'rstarts_solve_problem' => 'required|max:400',
             'rstarts_targetted_market' => 'required|max:400',
@@ -127,11 +127,20 @@ class StorePostRequest extends FormRequest
                 $validator->errors()->add('founderName', 'Mora postojati bar jedan osnivač!');
             }
 
+            if(count($data['memberEducation']) > 0) {
+                foreach($data['memberEducation'] as $education) {
+                    if(strlen($education) > 1050) {
+                        $validator->errors()->add('memberEducation', 'Ovaj unos ne sme imati više od 1050 karaktera!');
+                        break;
+                    }
+                }
+            }
+
             // Files check.
             $fileAttributes = ['rstarts_files', 'rstarts_founder_cvs'];
             foreach ($fileAttributes as $fileAttribute) {
                 if(!$this->hasFile($fileAttribute)) {
-                    $validator->errors()->add($fileAttribute, 'Morate priloziti datoteke!');
+                    $validator->errors()->add($fileAttribute, 'Morate priložiti datoteke!');
                 } else {
                     $fileEntries = $this->file($fileAttribute);
                     if($fileAttribute == 'rstarts_founder_cvs' && count($fileEntries) < 2) {

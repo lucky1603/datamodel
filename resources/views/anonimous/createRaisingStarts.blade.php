@@ -2,18 +2,18 @@
 
 @section('body-content')
     <div class="h-100 w-100 position-absolute">
-        <div class="row bg-dark" style="height: 100px">
+        <div class="row bg-dark" style="height: 200px">
             <div class="col-6 col-lg-2 h-100">
-                <img src="/images/custom/white-logo-transparent-full.png" class="ml-3 mt-2 h-75" />
+                <img src="/images/custom/ntplogo.png" class="ml-3 mt-2 h-75" />
             </div>
             <div class="col-lg-8 text-center" style="display: flex; align-items: center; horiz-align: center">
-            <span class="font-24 text-light w-100" style="font-family: 'Roboto Light'">
-                Prijava na RAISING STARTS</span>
+            <span class="text-light w-100" style="font-family: 'Roboto Light'; font-size: 38px">
+                PRIJAVNI FORMULAR</span>
             </div>
             <div class="col-6 col-lg-2 h-100">
                 <div class="row h-100">
                     <div class="col-4 h-100" style="align-items: center; display: flex">
-                        <img src="/images/custom/raisingstarts.png" class="h-75 mt-auto mb-auto" />
+                        <img src="/images/custom/rstartslogo.png" class="h-75 mt-auto mb-auto" />
                     </div>
 {{--                    <div class="col-8 h-100" style="align-items: center; display: flex">--}}
 {{--                        <span class="text-light font-24" style="font-family: 'Roboto Light'">ACCELERATOR</span>--}}
@@ -23,6 +23,27 @@
         </div>
         <div class="row w-100" >
             <div class="col-8 offset-2 w-100">
+
+                <div class="mt-4 font-18 attribute-label">
+                    <p>Zdravo, budući Raising Starteri!</p>
+                    <p>
+                        Pred vama je prijavni formular za program Raising Starts. Program realizuje Naučno-tehnološki park Beograd
+                        u partnerstvu sa Naučno-tehnološkim parkom Niš i Naučno-tehnološkim parkom Čačak. Prijavni formular je isti
+                        za sve, potrebno je izabrati NTP prema regionu/području u kojem želite da se prijavite.
+                    </p>
+                    <p>
+                        Molimo vas da pažljivo pročitate pitanja, popunite prijavu i budete što precizniji u odgovorima kako bi
+                        prijava bila adekvatno ocenjena. Pre popunjavanja prijavnog obrasca obavezno pročitajte Javni poziv i
+                        Raising Starts VODIČ. (dokumenta možete preuzeti na sajtu <a href="https://ntpark.rs/raising-starts/" target="_blank" class="font-weight-bold">programa</a> )
+                    </p><p>
+                        Prijave su otvorene od …. do …. u ponoć
+                    </p>
+                    <p>
+                        Srećno!
+                    </p>
+
+                </div>
+
                 <form id="myRaisingStartsForm" method="POST" enctype="multipart/form-data" action="{{ route('storeRaisingStarts') }}" class="mt-4 h-100 w-100">
                     @csrf
                     @include('profiles.partials._rstarts')
@@ -35,12 +56,9 @@
                             style="position: relative; top:4px"
                             class="@error('gdpr') is-invalid @enderror"
                             @if(old('gdpr') == 'on') checked @endif>
-                        <span class="ml-1 attribute-label">
+                        <label class="ml-1 attribute-label">
                             Popunjavanjem i podnošenjem ove prijave potvrdjujem da sam saglasan sa svim navedenim uslovima poziva.
-{{--                            <a href="https://ntpark.rs/wp-content/uploads/2020/01/Obavestenje-o-obradi-podataka-o-licnosti.pdf" target="_blank">--}}
-{{--                                uslovima obrade podataka o ličnosti.--}}
-{{--                            </a>--}}
-                        </span>
+                        </label>
                     </div>
                     @error('gdpr') <div class="alert alert-danger">{{ $message }}</div> @enderror
 
@@ -126,7 +144,7 @@
                     $('#rstart_id_number_group').show();
                     $('#rstarts_basic_registered_activity_group').show();
                 }
-            })
+            });
 
         });
     </script>

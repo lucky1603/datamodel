@@ -55,7 +55,7 @@
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Koji inovativni proizvod i/ili uslugu razvijate ili planirate da razvijate (najviše 100 reči)?
         <span class="font-12 text-dark font-weight-normal">(Opišite glavne karakteristike inovativnog proizvoda i/ili usluge koju razvijate:
-                Naveditekoju tehnologiju koristite (npr. Blockchain, AI, IoT, ML):
+                Navedite koju tehnologiju koristite (npr. Blockchain, AI, IoT, ML):
                 Navedite šta vaš proizvod i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste potrebe kupaca:)
  </span>
     </label>

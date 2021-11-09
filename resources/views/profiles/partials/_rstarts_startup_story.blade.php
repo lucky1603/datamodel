@@ -21,8 +21,7 @@
     <label class="attribute-label mt-5">Priložite materijale koji dokazuju tehničku izvodljivost proizvoda koji razvijate - fotografije,
         linkovi, dokumenta/nacrti. Obratiti pažnju da tehnološka izvodljivost mora biti u skladu sa naznačenim stepenom razvoja u delu 3.9
         <span class="font-12 text-dark font-weight-normal">
-            ( Dokaz mora imati jasno obrazloženje šta predstavlja. Slika/skica/nacrt bez obraloženja neće biti uzeta u razmatranje.
-            Obratiti pažnju da tehnološka izvodljivost mora biti u skladu sa naznačenim stepenom razvoja u delu 3.9 )
+            ( Dokaz mora imati jasno obrazloženje šta predstavlja. Slika/skica/nacrt bez obraloženja neće biti uzeta u razmatranje.)
         </span>
     </label>
 </div>
@@ -161,7 +160,7 @@
         <span class="font-12 text-dark font-weight-normal">
             (Želimo da vas bolje upoznamo! Pokažite nam ko ste, kako radite kao tim, koje su vaše vrednosti i kako vidite budućnost svog startapa.
             Primer Video prezentaciju (video klip) možete okačiti na platforme Youtube, Vimeo, Google Drive i sl a nama dostavljate link do samog
-            videa. Naša prekoporuka je Youtube, jer je besplatan a video možete okačiti pod opcijom unlisted (te samo korisnici sa linkom mogu
+            videa. Naša preporuka je Youtube, jer je besplatan a video možete okačiti pod opcijom unlisted (te samo korisnici sa linkom mogu
             videti vaš video klip))
         </span>
     </label>
