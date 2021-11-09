@@ -89,7 +89,7 @@
         <thead class="bg-dark text-light">
         <tr>
             <th style="width: 50%">Ime i prezime/naziv privrednog drustva</th>
-            <th style="width: 50%">Udeo u startapu kao  registrovanom privrednom društvu</th>
+            <th style="width: 50%">Udeo u startapu kao  registrovanom privrednom društvu [%]</th>
         </tr>
         </thead>
         <tbody id="foundersBody">

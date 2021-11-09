@@ -159,6 +159,7 @@ class RaisingStartsProgram extends Program
             $ippactivities->addOption(['value' => 4, 'text' => 'Zaštićen logo, autorsko delo i neko srodno pravo']);
             $ippactivities->addOption(['value' => 5, 'text' => 'Zaštićen mali patent, patent']);
             $ippactivities->addOption(['value' => 6, 'text' => 'Zaštićeno pravo industrijskog dizajna']);
+            $ippactivities->addOption(['value' => 7, 'text' => 'Nismo']);
         }
         $attributes->add($ag_ideja->addAttribute($ippactivities));
 
