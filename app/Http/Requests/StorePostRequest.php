@@ -27,7 +27,7 @@ class StorePostRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $validationRules = [
             'app_type' => 'in: 1,2,3,4',
             'ntp' => 'in: 1,2,3',
             'rstarts_startup_name' => 'required',
@@ -36,11 +36,10 @@ class StorePostRequest extends FormRequest
             'rstarts_address' => 'required',
             'rstarts_email' => 'required|email',
             'rstarts_telephone' => 'required',
-            'rstarts_webpage' => 'url',
-//            'rstarts_logo' => 'required|file',
+            'rstarts_webpage' => 'required|url',
             'rstarts_founding_date' => 'required|date',
-            'rstarts_id_number' => 'required|digits:8',
-            'rstarts_basic_registered_activity' => 'required|max:500',
+//            'rstarts_id_number' => 'required|digits:8',
+//            'rstarts_basic_registered_activity' => 'required|max:500',
             'rstarts_short_ino_desc' => 'required|max:500',
             'rstarts_product_type' => 'in: 1,2,3',
 //            'rstarts_founder_links' => 'required_without:rstarts_founder_cvs',
@@ -57,7 +56,7 @@ class StorePostRequest extends FormRequest
             'rstarts_clarification_innovative' => 'required|max:400',
             'rstarts_dev_phase_tech' => 'in:1,2,3,4,5,6',
             'rstarts_dev_phase_bussines' => 'in:1,2,3,4,5,6,7,8,9',
-            'rstarts_intellectual_property' => 'in:1,2,3,4,5,6',
+            'rstarts_intellectual_property' => 'in:1,2,3,4,5,6,7',
             'rstarts_research' => 'required|max:400',
             'rstarts_innovative_area' => 'required|max:400',
             'rstarts_business_plan' => 'required|max:400',
@@ -73,6 +72,14 @@ class StorePostRequest extends FormRequest
             'gdpr' => 'required',
             'captcha' => 'required|captcha'
         ];
+
+        // Ako je firma (registrovano društvo) u pitanju.
+        if($this['app_type'] == 2) {
+            $validationRules['rstarts_id_number'] = 'required|digits:8';
+            $validationRules['rstarts_basic_registered_activity'] = 'required|max:500';
+        }
+
+        return $validationRules;
     }
 
     public function withValidator($validator) {
@@ -120,13 +127,8 @@ class StorePostRequest extends FormRequest
                 $validator->errors()->add('founderName', 'Mora postojati bar jedan osnivač!');
             }
 
-            // Logo file check.
-            if(!$this->hasFile('rstarts_financing_proof_files')) {
-                $validator->errors()->add('rstarts_financing_proof_files', 'Morate priloziti datoteke!');
-            }
-
             // Files check.
-            $fileAttributes = ['rstarts_files', 'rstarts_founder_cvs', 'rstarts_financing_proof_files'];
+            $fileAttributes = ['rstarts_files', 'rstarts_founder_cvs'];
             foreach ($fileAttributes as $fileAttribute) {
                 if(!$this->hasFile($fileAttribute)) {
                     $validator->errors()->add($fileAttribute, 'Morate priloziti datoteke!');

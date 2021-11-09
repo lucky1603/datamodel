@@ -81,7 +81,7 @@
             <div class="navbar-custom frame-padding">
                 @if(isset($model))
                 <div style="display: inline; margin-top: 50px; padding: 10px; position: relative; top: 20px; left:20px; font-size: 25px">
-                    {{ __('PROFILE') }} - {{ $model->getValue('name') }} - <span class="text-info">{{ $model->getAttribute('profile_status')->getText() }}</span>
+                    {{ mb_strtoupper( __('Profile')) }} - {{ $model->getValue('name') }} - <span class="text-info">{{ $model->getAttribute('profile_status')->getText() }}</span>
                 </div>
                 @endif
                 <ul class="list-unstyled topbar-right-menu float-right mb-0">

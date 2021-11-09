@@ -106,6 +106,7 @@
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
+        <div class="font-12 text-dark">Naziv web stranice mora obavezno imati prefix http:// ili https:// </div>
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
@@ -128,7 +129,7 @@
     </div>
 </div>
 
-<div class="form-group row">
+<div class="form-group row" id="rstart_id_number_group">
     @php
         $attribute = $attributes->where('name', 'rstarts_id_number')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
@@ -143,7 +144,7 @@
     </div>
 </div>
 
-<div class="form-group row">
+<div class="form-group row" id="rstarts_basic_registered_activity_group">
     @php
         $attribute = $attributes->where('name', 'rstarts_basic_registered_activity')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
