@@ -107,7 +107,7 @@
                 $('#rstart_id_number_group').show();
                 $('#rstarts_basic_registered_activity_group').show();
             }
-            
+
             $('#okSpinner').hide();
             $('#cancelSpinner').hide();
             $('#buttonSend').click(function() {
@@ -160,6 +160,22 @@
                     $('#rstarts_basic_registered_activity_group').show();
                 }
             });
+
+            $('input[type="file"]').change(function(evt) {
+                let hasBig = false;
+                for(let f of $(this)[0].files) {
+                    if(f.size > 1024 * 1024) {
+                        alert("Velicina datoteke ne moze biti veca od 1MB");
+                        hasBig = true;
+                        break;
+                    }
+                }
+
+                if(hasBig) {
+                    $(this).wrap("<form>").closest("form").get(0).reset();
+                    $(this).unwrap();
+                }
+            })
 
         });
     </script>

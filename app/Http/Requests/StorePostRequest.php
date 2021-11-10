@@ -152,7 +152,7 @@ class StorePostRequest extends FormRequest
                     }
 
                     foreach ($fileEntries as $file) {
-                        if ($file->getSize() > 1000000) {
+                        if ($file->getSize() > 1024 * 1024) {
                             $validator->errors()->add($fileAttribute, 'Svi fajlovi moraju da budu manji od 1MB');
                             break;
                         }
