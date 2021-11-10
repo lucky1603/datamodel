@@ -98,6 +98,16 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
+
+            const appType = $('#app_type').val();
+            if(appType == 1) {
+                $('#rstart_id_number_group').hide();
+                $('#rstarts_basic_registered_activity_group').hide();
+            } else {
+                $('#rstart_id_number_group').show();
+                $('#rstarts_basic_registered_activity_group').show();
+            }
+            
             $('#okSpinner').hide();
             $('#cancelSpinner').hide();
             $('#buttonSend').click(function() {
