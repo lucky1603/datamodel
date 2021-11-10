@@ -38,6 +38,7 @@ class StorePostRequest extends FormRequest
             'rstarts_telephone' => 'required',
             'rstarts_webpage' => 'required|url',
             'rstarts_founding_date' => 'required|date',
+            'rstarts_logo' => 'file|max:100',
 //            'rstarts_id_number' => 'required|digits:8',
 //            'rstarts_basic_registered_activity' => 'required|max:500',
             'rstarts_short_ino_desc' => 'required|max:500',
@@ -70,7 +71,8 @@ class StorePostRequest extends FormRequest
             'rstarts_linkclip' => 'required',
             'rstarts_howdiduhear' => 'in: 1,2,3,4,5',
             'gdpr' => 'required',
-            'captcha' => 'required|captcha'
+            'captcha' => 'required|captcha',
+            'rstarts_founder_cvs.*' => 'required|max:2000'
         ];
 
         // Ako je firma (registrovano društvo) u pitanju.
@@ -83,80 +85,83 @@ class StorePostRequest extends FormRequest
     }
 
     public function withValidator($validator) {
-        $validator->after(function ($validator) {
-            $data = $this->post();
+        try {
+            $validator->after(function ($validator) {
+                $data = $this->post();
 
+                // Check for unique email.
+                if(Entity::where('name', 'Profile')->first() != null) {
 
-            // Check for unique email.
-            if(Entity::where('name', 'Profile')->first() != null) {
-
-                if(Attribute::checkValue( Entity::where('name', 'Profile')->first(), 'contact_email', $data['rstarts_email']))
-                {
-                    $validator->errors()->add('rstarts_email', 'Ova email adresa postoji već u bazi!');
-                }
-
-                // Check for unique profile name.
-                if(Attribute::checkValue(Entity::where('name', 'Profile')->first(), 'name', $data['rstarts_startup_name']))
-                {
-                    $validator->errors()->add('rstarts_startup_name', 'Startap sa ovim imenom već postoji u bazi!');
-                }
-
-                // Check for unique id number.
-                if(Attribute::checkValue(Entity::where('name', 'Profile')->first(), 'id_number', $data['rstarts_id_number']))
-                {
-                    $validator->errors()->add('rstarts_id_number', 'Startap sa maticnim brojem već postoji u bazi!');
-                }
-
-            }
-
-            // Check for the foounding date.
-            $dateFounded = date('Y-m-d', strtotime($data['rstarts_founding_date']));
-            $time = strtotime('-2 year', time());
-            $boundingDate = date('Y-m-d', $time);
-            if($boundingDate > $dateFounded) {
-                $validator->errors()->add('rstarts_founding_date', 'Datum osnivanja startapa ne može biti stariji od dve godine unazad!');
-            }
-
-            if(count($data['memberName']) < 2 || $data['memberName'][1] == null)
-            {
-                $validator->errors()->add('memberName', 'Tim se mora sastojati od najmanje 2 člana!');
-            }
-
-            if($data['founderName'][0] == null)
-            {
-                $validator->errors()->add('founderName', 'Mora postojati bar jedan osnivač!');
-            }
-
-            if(count($data['memberEducation']) > 0) {
-                foreach($data['memberEducation'] as $education) {
-                    if(strlen($education) > 1050) {
-                        $validator->errors()->add('memberEducation', 'Ovaj unos ne sme imati više od 1050 karaktera!');
-                        break;
-                    }
-                }
-            }
-
-            // Files check.
-            $fileAttributes = ['rstarts_files', 'rstarts_founder_cvs'];
-            foreach ($fileAttributes as $fileAttribute) {
-                if(!$this->hasFile($fileAttribute)) {
-                    $validator->errors()->add($fileAttribute, 'Morate priložiti datoteke!');
-                } else {
-                    $fileEntries = $this->file($fileAttribute);
-                    if($fileAttribute == 'rstarts_founder_cvs' && count($fileEntries) < 2) {
-                        $validator->errors()->add($fileAttribute, 'Morate priložiti bar 2 datoteke!');
+                    if(Attribute::checkValue( Entity::where('name', 'Profile')->first(), 'contact_email', $data['rstarts_email']))
+                    {
+                        $validator->errors()->add('rstarts_email', 'Ova email adresa postoji već u bazi!');
                     }
 
-                    foreach ($fileEntries as $file) {
-                        if ($file->getSize() > 22000000) {
-                            $validator->errors()->add($fileAttribute, 'Svi fajlovi moraju da budu manji od 22MB');
+                    // Check for unique profile name.
+                    if(Attribute::checkValue(Entity::where('name', 'Profile')->first(), 'name', $data['rstarts_startup_name']))
+                    {
+                        $validator->errors()->add('rstarts_startup_name', 'Startap sa ovim imenom već postoji u bazi!');
+                    }
+
+                    // Check for unique id number.
+                    if(Attribute::checkValue(Entity::where('name', 'Profile')->first(), 'id_number', $data['rstarts_id_number']))
+                    {
+                        $validator->errors()->add('rstarts_id_number', 'Startap sa maticnim brojem već postoji u bazi!');
+                    }
+
+                }
+
+                // Check for the foounding date.
+                $dateFounded = date('Y-m-d', strtotime($data['rstarts_founding_date']));
+                $time = strtotime('-2 year', time());
+                $boundingDate = date('Y-m-d', $time);
+                if($boundingDate > $dateFounded) {
+                    $validator->errors()->add('rstarts_founding_date', 'Datum osnivanja startapa ne može biti stariji od dve godine unazad!');
+                }
+
+                if(count($data['memberName']) < 2 || $data['memberName'][1] == null)
+                {
+                    $validator->errors()->add('memberName', 'Tim se mora sastojati od najmanje 2 člana!');
+                }
+
+                if($data['founderName'][0] == null)
+                {
+                    $validator->errors()->add('founderName', 'Mora postojati bar jedan osnivač!');
+                }
+
+                if(count($data['memberEducation']) > 0) {
+                    foreach($data['memberEducation'] as $education) {
+                        if(strlen($education) > 1050) {
+                            $validator->errors()->add('memberEducation', 'Ovaj unos ne sme imati više od 1050 karaktera!');
                             break;
                         }
                     }
                 }
-            }
 
-        });
+                // Files check.
+                $fileAttributes = ['rstarts_files', 'rstarts_founder_cvs'];
+                foreach ($fileAttributes as $fileAttribute) {
+                    if(!$this->hasFile($fileAttribute)) {
+                        $validator->errors()->add($fileAttribute, 'Morate priložiti datoteke!');
+                    } else {
+                        $fileEntries = $this->file($fileAttribute);
+                        if($fileAttribute == 'rstarts_founder_cvs' && count($fileEntries) < 2) {
+                            $validator->errors()->add($fileAttribute, 'Morate priložiti bar 2 datoteke!');
+                        }
+
+                        foreach ($fileEntries as $file) {
+                            if ($file->getSize() > 1000000) {
+                                $validator->errors()->add($fileAttribute, 'Svi fajlovi moraju da budu manji od 1MB');
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            });
+        } catch (\Throwable $e) {
+            $validator->errors('post_size', "Post too big!");
+        }
 
     }
 }

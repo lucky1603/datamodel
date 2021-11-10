@@ -15,15 +15,12 @@
                     <div class="col-4 h-100" style="align-items: center; display: flex">
                         <img src="/images/custom/rstartslogo.png" class="h-75 mt-auto mb-auto" />
                     </div>
-{{--                    <div class="col-8 h-100" style="align-items: center; display: flex">--}}
-{{--                        <span class="text-light font-24" style="font-family: 'Roboto Light'">ACCELERATOR</span>--}}
-{{--                    </div>--}}
                 </div>
             </div>
         </div>
         <div class="row w-100" >
             <div class="col-8 offset-2 w-100">
-
+                @error('post_too_big') <div class="alert alert-danger">{{ $message }}</div>@enderror
                 <div class="mt-4 font-18 attribute-label">
                     <p>Zdravo, budući Raising Starteri!</p>
                     <p>
@@ -105,7 +102,15 @@
             $('#cancelSpinner').hide();
             $('#buttonSend').click(function() {
                 $('#okSpinner').show();
-                $('#myRaisingStartsForm').submit();
+
+
+                try {
+                    // $('#myRaisingStartsForm').submit();
+                    document.getElementById('myRaisingStartsForm').submit();
+                } catch (e) {
+                    console.log(e.message);
+                }
+
             });
 
             $('#buttonCancel').click(function() {

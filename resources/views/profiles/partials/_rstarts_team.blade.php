@@ -138,7 +138,7 @@
         $attribute = $attributes->where('name', 'rstarts_founder_cvs')->first();
     @endphp
     <label class="attribute-label col-form-label col-form-label-sm">CV-jevi minimum dva postojeća/planirana osnivača startapa</label>
-    <input type="file" multiple name="rstarts_founder_cvs[]" class="form-control @error('rstarts_founder_cvs') is-invalid @enderror">
+    <input type="file" multiple name="rstarts_founder_cvs[]" id="rstarts_founder_cvs" class="form-control @error('rstarts_founder_cvs') is-invalid @enderror">
     @error('rstarts_founder_cvs') <div class="alert alert-danger">{{ $message }}</div>@enderror
     @if($attribute != null && $attribute->getValue() != null)
         @if(isset($attribute->getValue()['filelink']))
