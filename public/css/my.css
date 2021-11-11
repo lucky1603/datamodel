@@ -178,6 +178,15 @@
     background: url("../assets/images/bg-auth.jpg") center !important;
 }
 
+.mandatory-field {
+    background: #d0dfef;
+}
+
+.mandatory-label:after {
+    content: ' *';
+    color: red;
+}
+
 
 /*.row.zebra:first-of-type {*/
 /*    background-color: #1d643b;*/

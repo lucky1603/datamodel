@@ -9,9 +9,9 @@
         $attribute = $attributes->where('name', 'app_type')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm">{!! $attribute->label !!}</label>
+    <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
     <div class="col-lg-10">
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm" required @error($attribute->name) is-error @enderror>
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm bg-light text-primary" required @error($attribute->name) is-error @enderror>
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $val)
                 <option value="{{$key}}" @if($key == $value) selected @endif>{{$val}}</option>
@@ -27,9 +27,9 @@
         $attribute = $attributes->where('name', 'ntp')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm">{!! $attribute->label !!}</label>
+    <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
     <div class="col-lg-10">
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm" required @error($attribute->name) is-error @enderror>
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm bg-light text-primary" required @error($attribute->name) is-error @enderror>
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $val)
                 <option value="{{$key}}" @if($key == $value) selected @endif>{{$val}}</option>
@@ -46,5 +46,7 @@
 @include('profiles.partials._rstarts_business_model')
 @include('profiles.partials._rstarts_startup_story')
 @include('profiles.partials._rstarts_additional_doc')
-@include('profiles.partials._rstarts_izjave')
+@if(auth()->user() == null)
+    @include('profiles.partials._rstarts_izjave')
+@endif
 

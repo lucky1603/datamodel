@@ -51,6 +51,27 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
+
+            const appType = $('#app_type').val();
+            if(appType == 1) {
+                $('#rstart_id_number_group').hide();
+                $('#rstarts_basic_registered_activity_group').hide();
+            } else {
+                $('#rstart_id_number_group').show();
+                $('#rstarts_basic_registered_activity_group').show();
+            }
+
+            $('#app_type').change(function() {
+                const appType = $('#app_type').val();
+                if(appType == 1) {
+                    $('#rstart_id_number_group').hide();
+                    $('#rstarts_basic_registered_activity_group').hide();
+                } else {
+                    $('#rstart_id_number_group').show();
+                    $('#rstarts_basic_registered_activity_group').show();
+                }
+            });
+
             $('#btnAddMember').click(function() {
                 let cloned = $('tbody#membersBody tr:first-child').clone();
                 cloned.find('textarea').val('');
@@ -88,6 +109,22 @@
                 });
 
             });
+
+            $('input[type="file"]').change(function(evt) {
+                let hasBig = false;
+                for(let f of $(this)[0].files) {
+                    if(f.size > 1024 * 1024) {
+                        alert("Velicina datoteke ne moze biti veca od 1MB");
+                        hasBig = true;
+                        break;
+                    }
+                }
+
+                if(hasBig) {
+                    $(this).wrap("<form>").closest("form").get(0).reset();
+                    $(this).unwrap();
+                }
+            })
 
         })
 

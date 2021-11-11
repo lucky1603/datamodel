@@ -179,14 +179,14 @@ class AnonimousController extends Controller
         // attach program to profile
         $profile->addProgram($program);
 
-        $profile->addSituationByData(__('Application Sent'),
+        $profile->addSituationByData(__('Applying'),
             [
                 'program_type' => Program::$RAISING_STARTS,
                 'program_name' => 'RAISING STARTS'
             ]);
 
         $profile->setValue('profile_status', 3);
-        $program->setStatus(2);
+        $program->setStatus(1);
 
         // Send verification email to the user.
         $email = $profile->getAttribute('contact_email')->getValue();

@@ -8,10 +8,10 @@
         $value = $attribute->getValue() ?? isset($model) ? $model->getValue($val) : old($attribute->name);
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm ">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text"
-               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
+               class="bg-light text-primary form-control form-control-sm @error($attribute->name) is-invalid @enderror"
                id="{{ $attribute->name }}"
                name="{{ $attribute->name }}"
                value="{{ $value }}">
@@ -27,9 +27,9 @@
     $value = $attribute->getValue() ?? old($attribute->name) ;
 @endphp
 <div class="form-group row">
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
+        <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror bg-light text-primary" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
         @error($attribute->name)
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
@@ -43,10 +43,10 @@
     $value = $attribute->getValue() ?? isset($model) ?  $model->getValue('contact_email') : old($attribute->name) ;
 @endphp
 <div class="form-group row">
-    <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm" >{!! $attribute->label !!}</label>
+    <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label" >{!! $attribute->label !!}</label>
     <div class="col-lg-10">
         <input type="email"
-               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
+               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror bg-light text-primary"
                id="{{ $attribute->name }}"
                name="{{$attribute->name}}"
                value="{{ $value }}"
@@ -64,9 +64,9 @@
         $value = $attribute->getValue() ?? isset($model) ? $model->getValue('contact_phone') : old($attribute->name);
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
+        <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror bg-light text-primary" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
@@ -77,10 +77,13 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'rstarts_logo')->first();
-        $value = $attribute->getValue() ?? isset($model) ?  $model->getValue('profile_logo') : old($attribute->name);
+        $value = $attribute->getValue();
+        if($value == null || (is_array($value) && $value['filelink'] == '' && isset($model))) {
+            $value = $model->getValue('profile_logo');
+        }
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <table class="table table-responsive">
             @if($value != null)
@@ -89,7 +92,7 @@
             </tr>
             @endif
             <tr>
-                <input type="file" class="form-control @error('rstarts_logo') is-invalid @enderror" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
+                <input type="file" class="form-control @error('rstarts_logo') is-invalid @enderror bg-light text-primary" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
             </tr>
         </table>
         @error('rstarts_logo') <div class="alert alert-danger">{{ $message }}</div>@enderror
@@ -103,9 +106,9 @@
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
+        <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror bg-light text-primary" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
         <div class="font-12 text-dark">Naziv web stranice mora obavezno imati prefix http:// ili https:// </div>
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
@@ -120,9 +123,9 @@
         $value = $attribute->getValue() ?? old($attribute->name) ;
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
-        <input type="date" class="form-control form-control-sm" @error($attribute->name) is-invalid @enderror" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
+        <input type="date" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror bg-light text-primary" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
@@ -135,9 +138,9 @@
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control form-control-sm  @error($attribute->name) is-invalid @enderror" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
+        <input type="text" class="form-control form-control-sm  @error($attribute->name) is-invalid @enderror bg-light text-primary" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
 
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
@@ -165,8 +168,8 @@
         $attribute = $attributes->where('name', 'rstarts_short_ino_desc')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $value }}</textarea>
+    <label class="attribute-label mandatory-label" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror bg-light text-primary" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $value }}</textarea>
     @error($attribute->name)
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror

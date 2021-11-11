@@ -21,6 +21,7 @@ use App\Business\Situation;
 use App\Business\TeamMember;
 use App\Business\Training;
 use App\Http\Middleware\Authenticate;
+use App\Http\Requests\StorePostRequest;
 use App\Mail\DemoDayNotification;
 use App\Mail\MeetingNotification;
 use App\Mail\ProfileCreated;
@@ -313,11 +314,30 @@ class ProfileController extends Controller
         } else if($data['programType'] == Program::$RAISING_STARTS) {
 
             // get the files
-            $data['rstarts_logo'] = $this->getFilesFromRequest($request, 'rstarts_logo');
-            $data['rstarts_files'] = $this->getFilesFromRequest($request, 'rstarts_files');
-            $data['rstarts_financing_proof_files'] = $this->getFilesFromRequest($request, 'rstarts_financing_proof_files');
-            $data['rstarts_dodatni_dokumenti'] = $this->getFilesFromRequest($request, 'rstarts_dodatni_dokumenti');
-            $data['rstarts_founder_cvs'] = $this->getFilesFromRequest($request, 'rstarts_founder_cvs');
+            $files = Utils::getFilesFromRequest($request, 'rstarts_logo');
+            if($files != null) {
+                $data['rstarts_logo'] = $files;
+            }
+
+            $files = Utils::getFilesFromRequest($request, 'rstarts_files');
+            if($files != null) {
+                $data['rstarts_files'] = $files;
+            }
+
+            $files = Utils::getFilesFromRequest($request, 'rstarts_financing_proof_files');
+            if($files != null) {
+                $data['rstarts_financing_proof_files'] = $files;
+            }
+
+            $files = Utils::getFilesFromRequest($request, 'rstarts_dodatni_dokumenti');
+            if($files != null) {
+                $data['rstarts_dodatni_dokumenti'] = $files;
+            }
+
+            $files = Utils::getFilesFromRequest($request, 'rstarts_founder_cvs');
+            if($files != null) {
+                $data['rstarts_founder_cvs'] = $files;
+            }
 
         }
 

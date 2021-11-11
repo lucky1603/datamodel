@@ -6,14 +6,11 @@ use Illuminate\Http\Request;
 
 class Utils
 {
-    public static function getFilesFromRequest(Request $request, $filename): array
+    public static function getFilesFromRequest(Request $request, $filename): ?array
     {
-        if(!$request->hasFile($filename))
-            return [
-                'message' => 'No file with that name',
-                'filelink' => '',
-                'filename' => ''
-            ];
+        if (!$request->hasFile($filename)) {
+            return null;
+        }
 
         if(is_array($request->file($filename))) {
             $files = [];
