@@ -79,11 +79,11 @@
                     <div class="text-center pt-4 mt-3" style="height: 5%">
                         <button type="button" id="buttonSend" class="btn btn-sm btn-primary w-15 rounded-pill">
                             <span id="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Posalji
+                            {{ __('Send') }}
                         </button>
                         <button type="button" id="buttonCancel" class="btn btn-sm btn-outline-primary w-15 rounded-pill">
                             <span id="cancelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Odustani
+                            {{ __('Cancel') }}
                         </button>
                     </div>
                 </form>
