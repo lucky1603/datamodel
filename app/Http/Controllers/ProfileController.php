@@ -22,6 +22,7 @@ use App\Business\TeamMember;
 use App\Business\Training;
 use App\Http\Middleware\Authenticate;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdateRaisingStartsRequest;
 use App\Mail\DemoDayNotification;
 use App\Mail\MeetingNotification;
 use App\Mail\ProfileCreated;
@@ -298,7 +299,7 @@ class ProfileController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function saveApplicationData(Request $request) {
+    public function saveApplicationData(UpdateRaisingStartsRequest $request) {
         $data = $request->post();
 
         if($data['programType'] == Program::$INKUBACIJA_BITF) {
@@ -509,7 +510,10 @@ class ProfileController extends Controller
             }
 
         } else if($programType == Program::$RAISING_STARTS) {
-
+            $assertion = $this->checkRaisingStartsProgramData($program);
+            if($assertion['code'] == 0) {
+                return json_encode($assertion);
+            }
         }
 
         $profile->addSituationByData(__('Application Sent'),
@@ -525,6 +529,78 @@ class ProfileController extends Controller
             'message' => "Prijava uspešno popunjena i poslata! Sačekajte da budete preusmereni."
         ]);
 
+    }
+
+    private function checkRaisingStartsProgramData(RaisingStartsProgram $program) {
+        $data = $program->getData();
+
+        // Dropdowns.
+        $dropdowns = [
+            'rstarts_product_type',
+            'rstarts_how_innovative',
+            'rstarts_dev_phase_tech',
+            'rstarts_dev_phase_bussines',
+            'rstarts_intellectual_property',
+            'rstarts_howdiduhear'
+        ];
+
+        foreach($dropdowns as $dropdown) {
+            if($data[$dropdown] == 0) {
+                $att = Attribute::where('name', $dropdown)->first();
+                return [
+                    'code' => 0,
+                    'message' => "'".$att->label."' mora imati validnu vrednost!"
+                ];
+            }
+        }
+
+        // Texts.
+        $texts = [
+            'rstarts_team_history',
+            'rstarts_app_motive',
+            'rstarts_tagline',
+            'rstarts_solve_problem',
+            'rstarts_targetted_market',
+            'rstarts_problem_solve',
+            'rstarts_which_product',
+            'rstarts_customer_problem_solve',
+            'rstarts_benefits',
+            'rstarts_clarification_innovative',
+            'rstarts_research',
+            'rstarts_innovative_area',
+            'rstarts_business_plan',
+            'rstarts_statup_progress',
+            'rstarts_mentor_program_history',
+            'rstarts_financing_sources',
+            'rstarts_expectations',
+            'rstarts_howmuchmoney',
+            'rstarts_linkclip',
+            'rstarts_founder_cvs',
+            'rstarts_files',
+        ];
+
+        foreach($texts as $text) {
+            if(!isset($data[$text])
+                || (is_string($data[$text]) && strlen($data[$text]) == 0) ) {
+                $attribute = Attribute::where('name', $text)->first();
+                return [
+                    'code' => 0,
+                    'message' => 'Niste uneli parametar ----- ['.$attribute->name.'] -> "'.$attribute->label.'"',
+                ];
+            }
+        }
+
+        if(count($data['rstarts_files']) == 1) {
+            return [
+                'code' => 0,
+                'message' => 'Moraju se priložiti bar 2 datoteke za CV-jeve osnivača!',
+            ];
+        }
+
+        return [
+            'code' => 1,
+            'message' => 'Kontrola prošla uspešno!'
+        ];
     }
 
     /**

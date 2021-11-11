@@ -1,3 +1,6 @@
+@if(isset($model) && count($errors) > 0)
+    <div class="alert alert-danger">Promene nisu sačuvane zbog validacionih grešaka. Prekontrolišite formu. Polja sa porgrešnim unosima su označena crvenom bojom.</div>
+@endif
 <div class="text-center mt-4 mb-4">
     <h1 class="attribute-label">PRIJAVA</h1>
 </div>
@@ -11,7 +14,10 @@
     @endphp
     <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
     <div class="col-lg-10">
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm bg-light text-primary" required @error($attribute->name) is-error @enderror>
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}"
+                class="form-control form-control-sm bg-light text-primary"
+                @error($attribute->name) is-error @enderror
+                @if(isset($model)) disabled @endif>
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $val)
                 <option value="{{$key}}" @if($key == $value) selected @endif>{{$val}}</option>
@@ -29,7 +35,11 @@
     @endphp
     <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
     <div class="col-lg-10">
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm bg-light text-primary" required @error($attribute->name) is-error @enderror>
+        <select id="{{$attribute->name}}"
+                name="{{$attribute->name}}"
+                class="form-control form-control-sm bg-light text-primary"
+                @error($attribute->name) is-error @enderror
+                @if(isset($model)) disabled @endif>
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $val)
                 <option value="{{$key}}" @if($key == $value) selected @endif>{{$val}}</option>

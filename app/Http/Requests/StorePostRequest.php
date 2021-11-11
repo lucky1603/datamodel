@@ -161,7 +161,7 @@ class StorePostRequest extends FormRequest
 //            }
 //
 //            // Facultative files.
-//            $otherFileAttributes = ['rstarts_files', 'rstarts_financing_proof_files', 'rstarts_dodatni_dokumenti'];
+//            $otherFileAttributes = ['rstarts_financing_proof_files', 'rstarts_dodatni_dokumenti'];
 //            foreach($otherFileAttributes as $otherFileAttribute) {
 //                if($this->hasFile($otherFileAttribute)) {
 //                    $fileEntries = $this->file($otherFileAttribute);
