@@ -4,8 +4,9 @@
 <div class="text-center mt-4 mb-4">
     <h1 class="attribute-label">PRIJAVA</h1>
 </div>
-<div class="bg-light attribute-label mb-2" style="height: 50px; display: flex; align-items: center; justify-content: center">
-    ** U cilju boljeg razumevanja Prijavnog formulara, obe kategorije se u daljem tekstu nazivaju “startap”. U prvom delu prijave, odgovorite na pitanja koja se odnose na vas.
+<div class="bg-light attribute-label mb-2 p-2" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+    <p>U cilju boljeg razumevanja Prijavnog formulara, obe kategorije se u daljem tekstu nazivaju “startap”. U prvom delu prijave, odgovorite na pitanja koja se odnose na vas.</p>
+    <p>Obavezna polja su označena zvezdicom (<span class="text-danger">*</span>) i različitom pozadinom.</p>
 </div>
 <div class="form-group row">
     @php
