@@ -24,18 +24,22 @@ return [
      * Business Branches
      */
 
-    'BB-IOT' => "IoT and Smart Cities",
-    'BB-EnEff' => 'Energetic Efficiency, Green, Clean Technologies and Ecology',
-    'BB-AI' => 'Artificial Intelligence, Databases and Analytics',
-    'BB-NewMat' => 'New Materials and 3D Printing',
-    'BB-TechSport' => 'Technology in Sports',
-    'BB-EcoTrans' => 'Economic Transactions, Finances, Marketing and Sales',
-    'BB-RoboAuto' => 'Robotics and Mechanization',
-    'BB-Tourism' => 'Tourism and Trips',
-    'BB-Education' => 'Education and Improvement',
-    'BB-MediaGaming' => 'Media, Communication and Social Networks/ Gaming and Fun',
-    'BB-MedTech' => 'Medical Technologies',
-    'BB-Other' => "Other",
+    'BB-IOT' => "IoT, povezani uređaji i pametni gradovi",
+    'BB-EnEff' => 'Energetska efikasnost, zelene, čiste tehnologije i biotehnologija',
+    'BB-AI' => 'Veštačka inteligencija, baze podataka i analitika',
+    'BB-NewMat' => 'Novi materijali i 3 D štampa',
+    'BB-Civic' => 'Građevina, konstrukcija, arhitektura',
+    'BB-TechSport' => 'Tehnologije u sportu, wellness & fitness',
+    'BB-Finance' => 'Finansije, logistika i lanci snabdevanja, unapređenje poslovanja',
+    'BB-Marketing' => 'Marketing i prodaja',
+    'BB-EcoTrans' => 'Ekonomske transakcije, finansije, marketing i prodaja',
+    'BB-RoboAuto' => 'Robotika i automatizacija',
+    'BB-Tourism' => 'Turizam, odmor i putovanja',
+    'BB-Education' => 'Edukacija , obrazovanje i usavršavanje',
+    'BB-MediaGaming' => 'Mediji , komunikacije i društvene mreže/ Gaming i zabava',
+    'BB-MedTech' => 'Medicinske tehnologije i farmacija',
+    'BB-Agriculture' => 'Poljoprivreda i prehranrana',
+    'BB-Other' => "Ostalo",
 
     /*
      * Contact Reasons

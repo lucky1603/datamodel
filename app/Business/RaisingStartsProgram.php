@@ -92,6 +92,7 @@ class RaisingStartsProgram extends Program
             $product_type->addOption(['value' => 3, 'text' => __('Combined')]);
         }
         $attributes->add($ag_applicant->addAttribute($product_type));
+        $attributes->add($ag_applicant->addAttribute(self::selectOrCreateAttribute(['jmbg', 'JMBG', 'varchar', NULL, 47])));
 
         // ------------------------------------------- TIM ------------------------------------------- //
         // (TIM) Biće dodano prilikom kreiranja programa
@@ -133,7 +134,7 @@ class RaisingStartsProgram extends Program
             $dev_phase_tech->addOption(['value' => 3, 'text' => 'Razvijen prvi prototip / razvijena alpha verzija']);
             $dev_phase_tech->addOption(['value' => 4, 'text' => 'Razvijen drugi prototip / razvijena beta verzija']);
             $dev_phase_tech->addOption(['value' => 5, 'text' => 'MVP 1.0']);
-            $dev_phase_tech->addOption(['value' => 6, 'text' => 'Stabilna prva verzija proizvoda koja se kontinuirano unapredjuje']);
+            $dev_phase_tech->addOption(['value' => 6, 'text' => 'Stabilna prva verzija proizvoda koja se kontinuirano unapređuje']);
         }
         $attributes->add($ag_ideja->addAttribute($dev_phase_tech));
 
@@ -142,7 +143,7 @@ class RaisingStartsProgram extends Program
             $dev_phase_business->addOption(['value' => 1, 'text' => 'Hipoteza o mogućim potrebama']);
             $dev_phase_business->addOption(['value' => 2, 'text' => 'Indetifikovane potrebe na tržistu']);
             $dev_phase_business->addOption(['value' => 3, 'text' => 'Uspostavljene prve povratne informacije sa tržista']);
-            $dev_phase_business->addOption(['value' => 4, 'text' => 'Potvrdjeni problem / potrebe nekoliko kupaca i / ili korisnika']);
+            $dev_phase_business->addOption(['value' => 4, 'text' => 'Potvrđeni problem / potrebe nekoliko kupaca i / ili korisnika']);
             $dev_phase_business->addOption(['value' => 5, 'text' => 'Utvrđeno interesovanje za proizvod i uspostavljeni odnosi sa ciljnom grupom']);
             $dev_phase_business->addOption(['value' => 6, 'text' => 'Prednosti rešenja potvrđene prvim testiranjem kupaca i/ili partnerstvom za pristup tržištu ']);
             $dev_phase_business->addOption(['value' => 7, 'text' => 'Kupci u dužem/kontinuiranom ispitivanju proizvoda i / ili ostvarene prve probne prodaje u periodu ne dužem od 6 meseci']);
@@ -150,6 +151,8 @@ class RaisingStartsProgram extends Program
             $dev_phase_business->addOption(['value' => 9, 'text' => 'Rasprostranjena prodaja proizvoda / širenje tržista']);
         }
         $attributes->add($ag_ideja->addAttribute($dev_phase_business));
+
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['six_months_income', 'Navedite iznos prihoda u poslednjih 6 meseci', 'double', NULL, 48])));
 
         $ippactivities = self::selectOrCreateAttribute(['rstarts_intellectual_property', 'Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine?', 'select', NULL, 30]);
         if(count($ippactivities->getOptions()) == 0) {
@@ -168,7 +171,7 @@ class RaisingStartsProgram extends Program
         patent, mali patent ili slično. Ukoliko ste zaštitili ili planirate da zaštitite neko pravo intelektualne svojine, navedite ko su vlasnici
         ili ko bi bili vlasnici te intelektualne svojine', 'text', NULL, 31])));
 
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_innovative_area', 'Kojoj oblasti pripada inovativni proizvod i/ili usluga koje razvijate?', 'text', NULL, 32])));
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_innovative_area', 'Kojoj oblasti pripada inovativni proizvod i/ili usluga koju razvijate?', 'text', NULL, 32])));
         $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_business_plan', 'Kako vaš startap planira da zaradjuje?', 'text', NULL, 33])));
 
         // ------------------------------------------------- VAŠA STARTAP PRIČA ------------------------------------------------ //
@@ -188,11 +191,14 @@ class RaisingStartsProgram extends Program
 
         $howdiduhear = self::selectOrCreateAttribute(['rstarts_howdiduhear', 'Kako ste culi za nas', 'select', NULL, 44]);
         if(count($howdiduhear->getOptions()) == 0) {
-            $howdiduhear->addOption(['value' => 1, 'text' => 'Zvanične društvene mreže NTP Beograd i Raising Starts']);
-            $howdiduhear->addOption(['value' => 2, 'text' => 'E-mail/newsletter NTP Beograd']);
-            $howdiduhear->addOption(['value' => 3, 'text' => 'Webstranice NTP Beograd']);
-            $howdiduhear->addOption(['value' => 4, 'text' => 'Mediji (TV, radio)']);
-            $howdiduhear->addOption(['value' => 5, 'text' => 'Dodati opciju - Other']);
+            $howdiduhear->addOption(['value' => 1, 'text' => 'Zvanične društvene mreže programa Raising Starts']);
+            $howdiduhear->addOption(['value' => 2, 'text' => 'Zvanične društvene mreže NTP Beograd']);
+            $howdiduhear->addOption(['value' => 3, 'text' => 'Zvanične društvene mreže NTP Niš i Čačak']);
+            $howdiduhear->addOption(['value' => 4, 'text' => 'E-mail/newsletter NTP Beograd/NTP Niš/NTP Čačak']);
+            $howdiduhear->addOption(['value' => 5, 'text' => 'Webstranice NTP Beograd/NTP Niš/NTP Čačak']);
+            $howdiduhear->addOption(['value' => 6, 'text' => 'Mediji (TV, web, štampa ...)']);
+            $howdiduhear->addOption(['value' => 7, 'text' => 'Saradnik/poznanik mi je preporučio program']);
+            $howdiduhear->addOption(['value' => 8, 'text' => 'Dodati opciju - Other']);
         }
 
         $attributes->add($ag_startup_story->addAttribute($howdiduhear));
@@ -202,6 +208,7 @@ class RaisingStartsProgram extends Program
         $attributeGroups->add($ag_dodatna_dokumentacija);
 
         $attributes->add($ag_dodatna_dokumentacija->addAttribute(self::selectOrCreateAttribute(['rstarts_dodatni_dokumenti', 'Dodatni dokumenti', 'file', 'multiple', 46])));
+
 
 
         return collect(

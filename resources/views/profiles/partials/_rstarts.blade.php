@@ -16,7 +16,7 @@
     <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
     <div class="col-lg-10">
         <select id="{{$attribute->name}}" name="{{$attribute->name}}"
-                class="form-control form-control-sm bg-light text-primary"
+                class="form-control form-control-sm mandatory-field"
                 @error($attribute->name) is-error @enderror
                 @if(isset($model)) disabled @endif>
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>
@@ -38,7 +38,7 @@
     <div class="col-lg-10">
         <select id="{{$attribute->name}}"
                 name="{{$attribute->name}}"
-                class="form-control form-control-sm bg-light text-primary"
+                class="form-control form-control-sm mandatory-field"
                 @error($attribute->name) is-error @enderror
                 @if(isset($model)) disabled @endif>
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>

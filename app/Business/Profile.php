@@ -107,14 +107,18 @@ class Profile extends SituationsModel
             $business_branch->addOption(['value' => 2, 'text' => __('gui-select.BB-EnEff')]);
             $business_branch->addOption(['value' => 3, 'text' => __('gui-select.BB-AI')]);
             $business_branch->addOption(['value' => 4, 'text' => __('gui-select.BB-NewMat')]);
-            $business_branch->addOption(['value' => 5, 'text' => __('gui-select.BB-TechSport')]);
-            $business_branch->addOption(['value' => 6, 'text' => __('gui-select.BB-EcoTrans')]);
-            $business_branch->addOption(['value' => 7, 'text' => __('gui-select.BB-RoboAuto')]);
-            $business_branch->addOption(['value' => 8, 'text' => __('gui-select.BB-Tourism')]);
-            $business_branch->addOption(['value' => 9, 'text' => __('gui-select.BB-Education')]);
-            $business_branch->addOption(['value' => 10,'text' => __('gui-select.BB-MediaGaming')]);
-            $business_branch->addOption(['value' => 11, 'text' => __('gui-select.BB-MedTech')]);
-            $business_branch->addOption(['value' => 12, 'text' => __('gui-select.BB-Other')]);
+            $business_branch->addOption(['value' => 5, 'text' => __('gui-select.BB-Civic')]);
+            $business_branch->addOption(['value' => 6, 'text' => __('gui-select.BB-TechSport')]);
+            $business_branch->addOption(['value' => 7, 'text' => __('gui-select.BB-Finance')]);
+            $business_branch->addOption(['value' => 8, 'text' => __('gui-select.BB-Marketing')]);
+            $business_branch->addOption(['value' => 9, 'text' => __('gui-select.BB-EcoTrans')]);
+            $business_branch->addOption(['value' => 10, 'text' => __('gui-select.BB-RoboAuto')]);
+            $business_branch->addOption(['value' => 11, 'text' => __('gui-select.BB-Tourism')]);
+            $business_branch->addOption(['value' => 12, 'text' => __('gui-select.BB-Education')]);
+            $business_branch->addOption(['value' => 13,'text' => __('gui-select.BB-MediaGaming')]);
+            $business_branch->addOption(['value' => 14, 'text' => __('gui-select.BB-MedTech')]);
+            $business_branch->addOption(['value' => 15, 'text' => __('gui-select.BB-Agriculture')]);
+            $business_branch->addOption(['value' => 16, 'text' => __('gui-select.BB-Other')]);
         }
         $attributes[] = $business_branch;
 

@@ -42,7 +42,7 @@
     @endphp
     <label class="attribute-label" for="{{ $attribute->name }}">Kome rešavate problem?
         <span class="font-12 text-dark font-weight-normal">(Ko su vaši potencijalni kupci? Navedite koje su njihove glavne karakteristike (demografija,
-            motivi, navike, komunikacija, strahovi itd.) Opišite da li ste već ostvarili komunikaciju/sproveli aktivnosti (ankete, intervjui i sl)
+            motivi, navike, komunikacija, strahovi itd.) Opišite da li ste već ostvarili komunikaciju/sproveli aktivnosti (ankete, intervjui i sl.)
             sa njima. Ukoliko jeste, sa koliko njih i koji su vaši zaključci?) </span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>

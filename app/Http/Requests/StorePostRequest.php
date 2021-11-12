@@ -44,7 +44,7 @@ class StorePostRequest extends FormRequest
             'rstarts_short_ino_desc' => 'required|max:500',
 //            'rstarts_product_type' => 'in: 1,2,3',
 //            'rstarts_founder_links' => 'required_without:rstarts_founder_cvs',
-//            'rstarts_team_history' => 'required|max:400',
+            'rstarts_team_history' => 'max:1050',
 //            'rstarts_app_motive' => 'required|max:1050',
 //            'rstarts_tagline' => 'required|max:400',
 //            'rstarts_solve_problem' => 'required|max:400',

@@ -11,7 +11,7 @@
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text"
-               class="bg-light text-primary form-control form-control-sm @error($attribute->name) is-invalid @enderror"
+               class="mandatory-field form-control form-control-sm @error($attribute->name) is-invalid @enderror"
                id="{{ $attribute->name }}"
                name="{{ $attribute->name }}"
                value="{{ $value }}" @if(isset($model)) disabled @endif>
@@ -30,7 +30,7 @@
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text"
-               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror bg-light text-primary"
+               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
                id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
         @error($attribute->name)
         <div class="alert alert-danger">{{ $message }}</div>
@@ -48,7 +48,7 @@
     <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label" >{!! $attribute->label !!}</label>
     <div class="col-lg-10">
         <input type="email"
-               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror bg-light text-primary"
+               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
                id="{{ $attribute->name }}"
                name="{{$attribute->name}}"
                value="{{ $value }}"
@@ -69,7 +69,7 @@
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text"
-               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror bg-light text-primary"
+               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
                id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
@@ -100,7 +100,7 @@
             @endif
             <tr>
                 <input type="file"
-                       class="form-control @error('rstarts_logo') is-invalid @enderror bg-light text-primary"
+                       class="form-control @error('rstarts_logo') is-invalid @enderror mandatory-field"
                        id="{{ $attribute->name }}" name="{{ $attribute->name }}" @if(isset($model)) disabled @endif>
             </tr>
         </table>
@@ -118,7 +118,7 @@
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text"
-               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror bg-light text-primary"
+               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
                id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
         <div class="font-12 text-dark">Naziv web stranice mora obavezno imati prefix http:// ili https:// </div>
         @error($attribute->name)
@@ -137,7 +137,7 @@
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="date"
-               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror bg-light text-primary"
+               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
                id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
@@ -154,7 +154,7 @@
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text"
-               class="form-control form-control-sm  @error($attribute->name) is-invalid @enderror bg-light text-primary"
+               class="form-control form-control-sm  @error($attribute->name) is-invalid @enderror mandatory-field"
                id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
 
         @error($attribute->name)
