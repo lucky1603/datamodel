@@ -598,6 +598,21 @@ class ProfileController extends Controller
             ];
         }
 
+        // Check for the team members.
+        if($program->getTeamMembers()->count() < 2) {
+            return [
+                'code' => 0,
+                'message' => 'Unesite bar 2 člana tima!',
+            ];
+        }
+
+        if($program->getFounders()->count() == 0) {
+            return [
+                'code' => 0,
+                'message' => 'Mora postojati bar jedan osnivač!',
+            ];
+        }
+
         return [
             'code' => 1,
             'message' => 'Kontrola prošla uspešno!'
