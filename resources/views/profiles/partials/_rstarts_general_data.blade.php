@@ -90,7 +90,7 @@
 
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">Dodajte svoj logo ako ga imate</label>
     <div class="col-sm-10">
         <table class="table table-responsive">
             @if($value != null)
