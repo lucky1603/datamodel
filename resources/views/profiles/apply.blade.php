@@ -101,6 +101,26 @@
                 cloned.appendTo('tbody#foundersBody');
             });
 
+            $('#input').on('click', function() {
+                $('#send').attr('disabled', 'disabled');
+            });
+
+            $('select').change(function() {
+                $('#send').attr('disabled', 'disabled');
+            });
+
+            $('textarea').change(function() {
+                $('#send').attr('disabled', 'disabled');
+            });
+
+            $('form#myForm').on('submit', function() {
+                $('#send').removeAttr('disabled');
+            });
+
+            $('#cancel').click(function() {
+                location.reload();
+            });
+
             $('#send').on('click', function() {
                 $('#button_spinner').attr('hidden', false);
                 var profileId = <?php echo $model->getId(); ?>;
