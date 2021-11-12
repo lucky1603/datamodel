@@ -141,6 +141,7 @@ class Profile extends SituationsModel
 
         $attributes[] = self::selectOrCreateAttribute(['profile_logo', __('Profile Logo'), 'file', NULL, 15]);
         $attributes[] = self::selectOrCreateAttribute(['profile_background', __('Profile Background'), 'file', NULL, 16]);
+        $attributes[] = self::selectOrCreateAttribute(['profile_webpage', __('Profile Webpage'), 'varchar', NULL, 17]);
 
         return $attributes;
     }

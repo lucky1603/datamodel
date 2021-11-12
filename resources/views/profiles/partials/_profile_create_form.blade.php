@@ -106,6 +106,16 @@
 
     <div class="form-group">
         @php
+            $attribute = $attributes->where('name', 'profile_webpage')->first();
+        @endphp
+        <label for="name" class="attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+        <input type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() ?? old($attribute->name) }}"
+               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+        @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
+    </div>
+
+    <div class="form-group">
+        @php
             $attribute = $attributes->where('name', 'profile_logo')->first();
         @endphp
         <label for="{{$attribute->name}}" class="attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>

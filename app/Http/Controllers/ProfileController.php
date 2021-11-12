@@ -128,7 +128,6 @@ class ProfileController extends Controller
     public function store(Request $request) {
         $data = $request->post();
 
-
         // If the client fills it set the status to 'interested'
         if(auth()->user()->isRole('client')) {
             $data['profile_status'] = 2;
@@ -534,24 +533,49 @@ class ProfileController extends Controller
     private function checkRaisingStartsProgramData(RaisingStartsProgram $program) {
         $data = $program->getData();
 
-        // Dropdowns.
-        $dropdowns = [
-            'rstarts_product_type',
-            'rstarts_how_innovative',
-            'rstarts_dev_phase_tech',
-            'rstarts_dev_phase_bussines',
-            'rstarts_intellectual_property',
-            'rstarts_howdiduhear'
-        ];
+        if($data['rstarts_product_type'] == 0) {
+            $attribute = $program->getAttribute('rstarts_product_type');
+            return [
+                'code' => 0,
+                'message' => 'Nevalidna vrednost za parametar "'.$attribute->label.'"',
+            ];
+        }
 
-        foreach($dropdowns as $dropdown) {
-            if($data[$dropdown] == 0) {
-                $att = Attribute::where('name', $dropdown)->first();
+        // Check for the team members.
+        if($program->getTeamMembers()->count() < 2) {
+            return [
+                'code' => 0,
+                'message' => 'Unesite bar 2 člana tima!',
+            ];
+        }
+
+        // Checking for the founders.
+        if($program->getFounders()->count() == 0) {
+            return [
+                'code' => 0,
+                'message' => 'Mora postojati bar jedan osnivač!',
+            ];
+        }
+        else {
+            $founders = $program->getFounders();
+            $total = 0.0;
+            foreach($founders as $founder) {
+                $total += $founder->getValue('founder_part');
+            }
+
+            if($total > 100.0) {
                 return [
                     'code' => 0,
-                    'message' => "'".$att->label."' mora imati validnu vrednost!"
+                    'message' => 'Suma osnivačkih procenata ne može premašivati 100!',
                 ];
             }
+        }
+
+        if(!isset($data['rstarts_founder_cvs']) || count($data['rstarts_founder_cvs']) == 1){
+            return [
+                'code' => 0,
+                'message' => 'Moraju se priložiti bar 2 datoteke za CV-jeve osnivača!',
+            ];
         }
 
         // Texts.
@@ -565,53 +589,65 @@ class ProfileController extends Controller
             'rstarts_which_product',
             'rstarts_customer_problem_solve',
             'rstarts_benefits',
+            'rstarts_how_innovative',
             'rstarts_clarification_innovative',
+            'rstarts_dev_phase_tech',
+            'rstarts_dev_phase_bussines',
+            'rstarts_intellectual_property',
             'rstarts_research',
             'rstarts_innovative_area',
             'rstarts_business_plan',
             'rstarts_statup_progress',
+            'rstarts_files',
             'rstarts_mentor_program_history',
             'rstarts_financing_sources',
             'rstarts_expectations',
             'rstarts_howmuchmoney',
             'rstarts_linkclip',
-            'rstarts_founder_cvs',
-            'rstarts_files',
+            'rstarts_howdiduhear',
         ];
 
         foreach($texts as $text) {
             if(!isset($data[$text])
-                || (is_string($data[$text]) && strlen($data[$text]) == 0) ) {
+                || ( is_array($data[$text]) && count($data[$text]) == 0)
+                || (is_string($data[$text]) && strlen($data[$text]) == 0)
+                || ($program->getAttribute($text)->type == 'select' && $data[$text] == 0)) {
                 $attribute = Attribute::where('name', $text)->first();
-                return [
-                    'code' => 0,
-                    'message' => 'Niste uneli parametar ----- ['.$attribute->name.'] -> "'.$attribute->label.'"',
-                ];
+                if($attribute == null) {
+                    continue;
+                }
+
+                if($attribute->type != 'select') {
+                    return [
+                        'code' => 0,
+                        'message' => 'Niste uneli parametar "'.$attribute->label.'"',
+                    ];
+                } else {
+                    return [
+                        'code' => 0,
+                        'message' => 'Nevalidna vrednost za parametar "'.$attribute->label.'"',
+                    ];
+                }
             }
         }
 
-        // Check CVs file number. Should at least be 2.
-        if(count($data['rstarts_founder_cvs']) == 1) {
-            return [
-                'code' => 0,
-                'message' => 'Moraju se priložiti bar 2 datoteke za CV-jeve osnivača!',
-            ];
-        }
-
-        // Check for the team members.
-        if($program->getTeamMembers()->count() < 2) {
-            return [
-                'code' => 0,
-                'message' => 'Unesite bar 2 člana tima!',
-            ];
-        }
-
-        if($program->getFounders()->count() == 0) {
-            return [
-                'code' => 0,
-                'message' => 'Mora postojati bar jedan osnivač!',
-            ];
-        }
+//        // Dropdowns.
+//        $dropdowns = [
+//
+//
+//
+//
+//        ];
+//
+//        foreach($dropdowns as $dropdown) {
+//            if($data[$dropdown] == 0) {
+//                $att = Attribute::where('name', $dropdown)->first();
+//                return [
+//                    'code' => 0,
+//                    'message' => "'".$att->label."' mora imati validnu vrednost!"
+//                ];
+//            }
+//        }
 
         return [
             'code' => 1,

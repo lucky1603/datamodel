@@ -108,6 +108,7 @@ class AnonimousController extends Controller
             'contact_email' => $data['rstarts_email'],
             'contact_phone' => $data['rstarts_telephone'],
             'address' => $data['rstarts_address'],
+            'profile_webpage' => $data['rstarts_webpage'],
             'short_ino_desc' => $data['rstarts_short_ino_desc'],
             'profile_status' => 2,
             'profile_logo' => $data['rstarts_logo'],
