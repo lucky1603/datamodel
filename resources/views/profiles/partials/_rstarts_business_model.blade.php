@@ -151,6 +151,22 @@
     </div>
 </div>
 
+<div class="form-group row" id="income-6" style="display: none">
+    @php
+        $attribute = $attributes->where('name', 'six_months_income')->first();
+        $value = $attribute->getValue() ?? old($attribute->name);
+    @endphp
+    <label for="{{ $attribute->name }}" class="col-sm-5 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <div class="col-sm-2">
+        <input type="text"
+               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
+               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
+        @error($attribute->name)
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'rstarts_intellectual_property')->first();
@@ -193,7 +209,12 @@
             ili drugo ukoliko proizvod i/ili usluga ne pripada navedenim oblastima:)
         </span>
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+        <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
+        @foreach($attribute->getOptions() as $key => $value)
+            <option value="{{$key}}" @if($key == $selectedValue) selected @endif>{{$value}}</option>
+        @endforeach
+    </select>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 

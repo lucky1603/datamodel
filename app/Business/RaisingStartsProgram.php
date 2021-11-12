@@ -102,7 +102,7 @@ class RaisingStartsProgram extends Program
         $attributeGroups->add($ag_tim);
         $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_founder_cvs', __('Founder CV\'s'), 'file', 'multiple', 16])));
         $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_founder_links', __('Founder Links'), 'varchar', 'multiple', 17])));
-        $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_team_history', __('Team history'), 'text', NULL, 18])));
+        $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_team_history', __('Team History'), 'text', NULL, 18])));
         $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['rstarts_app_motive', __('Application Motive'), 'text', NULL, 19])));
 
         // -------------------------------------- POSLOVNA IDEJA ------------------------------------- //
@@ -171,7 +171,28 @@ class RaisingStartsProgram extends Program
         patent, mali patent ili slično. Ukoliko ste zaštitili ili planirate da zaštitite neko pravo intelektualne svojine, navedite ko su vlasnici
         ili ko bi bili vlasnici te intelektualne svojine', 'text', NULL, 31])));
 
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_innovative_area', 'Kojoj oblasti pripada inovativni proizvod i/ili usluga koju razvijate?', 'text', NULL, 32])));
+        $oblast = $ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_innovative_area', 'Kojoj oblasti pripada inovativni proizvod i/ili usluga koju razvijate?', 'select', NULL, 32]));
+        if(count($oblast->getOptions()) == 0) {
+            $oblast->addOption(['value' => 1, 'text' => __('gui-select.BB-IOT')]);
+            $oblast->addOption(['value' => 2, 'text' => __('gui-select.BB-EnEff')]);
+            $oblast->addOption(['value' => 3, 'text' => __('gui-select.BB-AI')]);
+            $oblast->addOption(['value' => 4, 'text' => __('gui-select.BB-NewMat')]);
+            $oblast->addOption(['value' => 5, 'text' => __('gui-select.BB-Civic')]);
+            $oblast->addOption(['value' => 6, 'text' => __('gui-select.BB-TechSport')]);
+            $oblast->addOption(['value' => 7, 'text' => __('gui-select.BB-Finance')]);
+            $oblast->addOption(['value' => 8, 'text' => __('gui-select.BB-Marketing')]);
+            $oblast->addOption(['value' => 9, 'text' => __('gui-select.BB-EcoTrans')]);
+            $oblast->addOption(['value' => 10, 'text' => __('gui-select.BB-RoboAuto')]);
+            $oblast->addOption(['value' => 11, 'text' => __('gui-select.BB-Tourism')]);
+            $oblast->addOption(['value' => 12, 'text' => __('gui-select.BB-Education')]);
+            $oblast->addOption(['value' => 13,'text' => __('gui-select.BB-MediaGaming')]);
+            $oblast->addOption(['value' => 14, 'text' => __('gui-select.BB-MedTech')]);
+            $oblast->addOption(['value' => 15, 'text' => __('gui-select.BB-Agriculture')]);
+            $oblast->addOption(['value' => 16, 'text' => __('gui-select.BB-Other')]);
+        }
+
+        $attributes->add($oblast);
+
         $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_business_plan', 'Kako vaš startap planira da zaradjuje?', 'text', NULL, 33])));
 
         // ------------------------------------------------- VAŠA STARTAP PRIČA ------------------------------------------------ //
@@ -208,8 +229,6 @@ class RaisingStartsProgram extends Program
         $attributeGroups->add($ag_dodatna_dokumentacija);
 
         $attributes->add($ag_dodatna_dokumentacija->addAttribute(self::selectOrCreateAttribute(['rstarts_dodatni_dokumenti', 'Dodatni dokumenti', 'file', 'multiple', 46])));
-
-
 
         return collect(
             [

@@ -108,6 +108,23 @@
                 $('#rstarts_basic_registered_activity_group').show();
             }
 
+            let dev_phase_business = $('#rstarts_dev_phase_bussines').val();
+            console.log(dev_phase_business);
+            if(dev_phase_business < 7) {
+                $('#income-6').hide();
+            } else {
+                $('#income-6').show();
+            }
+
+            $('#rstarts_dev_phase_bussines').on('change', function() {
+                console.log('changed');
+                if($(this).val() < 7) {
+                    $('#income-6').hide();
+                } else {
+                    $('#income-6').show();
+                }
+            });
+
             $('#okSpinner').hide();
             $('#cancelSpinner').hide();
             $('#buttonSend').click(function() {

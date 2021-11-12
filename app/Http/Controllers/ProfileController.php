@@ -563,10 +563,10 @@ class ProfileController extends Controller
                 $total += $founder->getValue('founder_part');
             }
 
-            if($total > 100.0) {
+            if($total != 100.0) {
                 return [
                     'code' => 0,
-                    'message' => 'Suma osnivačkih procenata ne može premašivati 100!',
+                    'message' => 'Suma osnivačkih procenata mora iznositi 100%!',
                 ];
             }
         }

@@ -23,6 +23,23 @@
 @endforeach
 
 @php
+    $attribute = $attributes->where('name', 'jmbg')->first();
+    $value = $attribute->getValue() ?? old($attribute->name);
+@endphp
+
+<div class="form-group row">
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
+    <div class="col-sm-10">
+        <input type="text"
+               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
+               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
+        @error($attribute->name)
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+
+@php
     $attribute = $attributes->where('name', 'rstarts_position')->first();
     $value = $attribute->getValue() ?? old($attribute->name) ;
 @endphp
