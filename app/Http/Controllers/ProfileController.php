@@ -590,7 +590,8 @@ class ProfileController extends Controller
             }
         }
 
-        if(count($data['rstarts_files']) == 1) {
+        // Check CVs file number. Should at least be 2.
+        if(count($data['rstarts_founder_cvs']) == 1) {
             return [
                 'code' => 0,
                 'message' => 'Moraju se priložiti bar 2 datoteke za CV-jeve osnivača!',
