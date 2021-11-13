@@ -107,7 +107,7 @@
 
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">Dodajte svoj logo ako ga imate</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">Dodajte svoj logo ako ga imate</label>
     <div class="col-sm-10">
         <table class="table table-responsive">
             @if($value != null)
@@ -117,7 +117,7 @@
             @endif
             <tr>
                 <input type="file"
-                       class="form-control @error('rstarts_logo') is-invalid @enderror mandatory-field"
+                       class="form-control @error('rstarts_logo') is-invalid @enderror"
                        id="{{ $attribute->name }}" name="{{ $attribute->name }}" @if(isset($model)) disabled @endif>
             </tr>
         </table>
