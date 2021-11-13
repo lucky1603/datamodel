@@ -94,7 +94,7 @@
 
         </div> <!-- end col-->
 
-        <div class="col-sm-9" style="height: 100%; overflow: auto">
+        <div class="col-sm-9" style="height: 100%; overflow: hidden">
             @yield('profile-content')
         </div> <!-- end col -->
     </div>

@@ -14,6 +14,9 @@
         <div class="row w-100" style="margin-left: 12px; margin-right: 12px">
             <div class="col-12 col-lg-8 offset-lg-2">
                 @error('post_too_big') <div class="alert alert-danger">{{ $message }}</div>@enderror
+                <div class="text-center mt-4 mb-4">
+                    <h1 class="attribute-label">PRIJAVA</h1>
+                </div>
                 <div class="mt-4 font-14 attribute-label shadow p-4">
                     <p>Zdravo, budući Raising Starteri!</p>
                     <p>

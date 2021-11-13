@@ -1,13 +1,13 @@
 @if(isset($model) && count($errors) > 0)
     <div class="alert alert-danger">Promene nisu sačuvane zbog validacionih grešaka. Prekontrolišite formu. Polja sa porgrešnim unosima su označena crvenom bojom.</div>
 @endif
-<div class="text-center mt-4 mb-4">
-    <h1 class="attribute-label">PRIJAVA</h1>
-</div>
+
+@if(!isset($model))
 <div class="bg-light attribute-label font-14 m-1 p-4 shadow" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
     <p>U cilju boljeg razumevanja Prijavnog formulara, obe kategorije se u daljem tekstu nazivaju “startap”.</p>
     <p>Obavezna polja su označena zvezdicom (<span class="text-danger">*</span>) i različitom pozadinom.</p>
 </div>
+@endif
 <div class="form-group row mt-2">
     @php
         $attribute = $attributes->where('name', 'app_type')->first();

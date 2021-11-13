@@ -285,7 +285,7 @@
             <!-- end Topbar -->
 
             <!-- Start Content-->
-            <div style="position: absolute; top: 70px; bottom: 70px; left: 270px; right: 0px; overflow: auto; padding: 20px" id="app">
+            <div style="position: absolute; top: 70px; bottom: 0px; left: 270px; right: 0px; overflow: auto; padding: 15px" id="app">
 
                 @yield('content')
 
@@ -330,22 +330,22 @@
         </div> <!-- content -->
 
         <!-- Footer Start -->
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
-                        <script>document.write(new Date().getFullYear())</script> © Hyper - Coderthemes.com
-                    </div>
-                    <div class="col-md-6">
-                        <div class="text-md-right footer-links d-none d-md-block">
-                            <a href="javascript: void(0);">About</a>
-                            <a href="javascript: void(0);">Support</a>
-                            <a href="javascript: void(0);">Contact Us</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+{{--        <footer class="footer">--}}
+{{--            <div class="container-fluid">--}}
+{{--                <div class="row">--}}
+{{--                    <div class="col-md-6">--}}
+{{--                        <script>document.write(new Date().getFullYear())</script> © Hyper - Coderthemes.com--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-6">--}}
+{{--                        <div class="text-md-right footer-links d-none d-md-block">--}}
+{{--                            <a href="javascript: void(0);">About</a>--}}
+{{--                            <a href="javascript: void(0);">Support</a>--}}
+{{--                            <a href="javascript: void(0);">Contact Us</a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </footer>--}}
         <!-- end Footer -->
 
     </div>
