@@ -101,7 +101,19 @@
                 cloned.appendTo('tbody#foundersBody');
             });
 
-            $('#input').on('click', function() {
+            $('input[type="text"]').keypress(function() {
+                $('#send').attr('disabled', 'disabled');
+            });
+
+            $('input[type="file"]').change(function() {
+                $('#send').attr('disabled', 'disabled');
+            });
+
+            $('input[type="date"]').change(function() {
+                $('#send').attr('disabled', 'disabled');
+            });
+
+            $('input[type="checkbox"]').change(function() {
                 $('#send').attr('disabled', 'disabled');
             });
 
@@ -109,7 +121,7 @@
                 $('#send').attr('disabled', 'disabled');
             });
 
-            $('textarea').change(function() {
+            $('textarea').keypress(function() {
                 $('#send').attr('disabled', 'disabled');
             });
 
@@ -119,6 +131,7 @@
 
             $('#cancel').click(function() {
                 $('form#myForm').trigger('reset');
+                $('#send').removeAttr('disabled');
             });
 
             $('#send').on('click', function() {
