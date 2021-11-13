@@ -118,7 +118,7 @@
             });
 
             $('#cancel').click(function() {
-                location.reload();
+                $('form#myForm').trigger('reset');
             });
 
             $('#send').on('click', function() {
