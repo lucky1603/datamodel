@@ -1,7 +1,7 @@
 @extends('layouts.backbone')
 
 @section('body-content')
-    <div class="h-100 w-100 p-3">
+    <div class="h-100 w-100 pl-3">
         <div class="row bg-dark" >
             <div class="col-lg-5 h-100">
                 <img src="/images/custom/ntplogo.png" class="ml-3 m-4" style="width: 90%"/>
@@ -11,10 +11,10 @@
                 <img src="/images/custom/rstartslogo.png" class="m-4" style="height: 150px"/>
             </div>
         </div>
-        <div class="row w-100" >
-            <div class="col-12 col-lg-8 offset-lg-2 w-100">
+        <div class="row w-100" style="margin-left: 12px; margin-right: 12px">
+            <div class="col-12 col-lg-8 offset-lg-2">
                 @error('post_too_big') <div class="alert alert-danger">{{ $message }}</div>@enderror
-                <div class="mt-4 font-18 attribute-label">
+                <div class="mt-4 font-14 attribute-label shadow p-4">
                     <p>Zdravo, budući Raising Starteri!</p>
                     <p>
                         Pred vama je prijavni formular za program Raising Starts. Program realizuje Naučno-tehnološki park Beograd
