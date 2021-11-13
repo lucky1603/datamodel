@@ -104,7 +104,6 @@
                 $value = $model->getValue('profile_logo');
             }
         }
-
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">Dodajte svoj logo ako ga imate</label>
