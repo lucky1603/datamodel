@@ -1,7 +1,7 @@
 @extends('layouts.backbone')
 
 @section('body-content')
-    <div class="h-100 w-100 pl-4">
+    <div class="h-100 w-100">
         <div class="row bg-dark" >
             <div class="col-12 col-lg-10 h-100">
                 <img src="/images/custom/ntplogo.png" class="ml-3 m-4" style="height: 150px"/>
