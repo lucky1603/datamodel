@@ -4,11 +4,11 @@
 <div class="text-center mt-4 mb-4">
     <h1 class="attribute-label">PRIJAVA</h1>
 </div>
-<div class="bg-light attribute-label font-14 mb-2 p-4 shadow" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+<div class="bg-light attribute-label font-14 m-1 p-4 shadow" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
     <p>U cilju boljeg razumevanja Prijavnog formulara, obe kategorije se u daljem tekstu nazivaju “startap”.</p>
     <p>Obavezna polja su označena zvezdicom (<span class="text-danger">*</span>) i različitom pozadinom.</p>
 </div>
-<div class="form-group row">
+<div class="form-group row mt-2">
     @php
         $attribute = $attributes->where('name', 'app_type')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
