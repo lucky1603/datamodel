@@ -1,25 +1,18 @@
 @extends('layouts.backbone')
 
 @section('body-content')
-    <div class="h-100 w-100 position-absolute">
-        <div class="row bg-dark" style="height: 200px">
-            <div class="col-6 col-lg-2 h-100">
-                <img src="/images/custom/ntplogo.png" class="ml-3 mt-2 h-75" />
+    <div class="h-100 w-100 pl-4">
+        <div class="row bg-dark" >
+            <div class="col-12 col-lg-10 h-100">
+                <img src="/images/custom/ntplogo.png" class="ml-3 m-4" style="height: 150px"/>
             </div>
-            <div class="col-lg-8 text-center" style="display: flex; align-items: center; horiz-align: center">
-            <span class="text-light w-100" style="font-family: 'Roboto Light'; font-size: 38px">
-                PRIJAVNI FORMULAR</span>
-            </div>
-            <div class="col-6 col-lg-2 h-100">
-                <div class="row h-100">
-                    <div class="col-4 h-100" style="align-items: center; display: flex">
-                        <img src="/images/custom/rstartslogo.png" class="h-75 mt-auto mb-auto" />
-                    </div>
-                </div>
+
+            <div class="col-lg-2 h-100" style="display: flex; align-items: center; justify-content: center">
+                <img src="/images/custom/rstartslogo.png" class="m-4" style="height: 150px"/>
             </div>
         </div>
         <div class="row w-100" >
-            <div class="col-8 offset-2 w-100">
+            <div class="col-12 col-lg-8 offset-lg-2 w-100">
                 @error('post_too_big') <div class="alert alert-danger">{{ $message }}</div>@enderror
                 <div class="mt-4 font-18 attribute-label">
                     <p>Zdravo, budući Raising Starteri!</p>
@@ -76,15 +69,20 @@
                     </div>
                     @error('captcha') <div class="alert alert-danger text-center">{{ $message }}</div>@enderror
 
-                    <div class="text-center pt-4 mt-3" style="height: 5%">
-                        <button type="button" id="buttonSend" class="btn btn-sm btn-primary w-15 rounded-pill">
-                            <span id="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            {{ __('Send') }}
-                        </button>
-                        <button type="button" id="buttonCancel" class="btn btn-sm btn-outline-primary w-15 rounded-pill">
-                            <span id="cancelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            {{ __('Cancel') }}
-                        </button>
+{{--                    <div class="row pt-4 mt-3" style="height: 5%">--}}
+                        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center">
+
+                            <button type="button" id="buttonSend" class="btn btn-sm btn-primary rounded-pill mr-2 mt-4" style="width: 100px">
+                                <span id="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                {{ __('Send') }}
+                            </button>
+
+                            <button type="button" id="buttonCancel" class="btn btn-sm btn-outline-primary rounded-pill ml-2 mt-4" style="width: 100px">
+                                <span id="cancelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                {{ __('Cancel') }}
+                            </button>
+
+
                     </div>
                 </form>
             </div>
