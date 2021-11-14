@@ -52,7 +52,7 @@ class UpdateRaisingStartsRequest extends FormRequest
             'memberEducation' => 'max:400',
             'memberRolw' => 'max:400',
             'memberOtherJob' => 'max:200',
-            'founderName' => 'max: 100',
+            'founderName.*' => 'max: 100',
             'founderPart.*' => 'numeric'
         ];
 

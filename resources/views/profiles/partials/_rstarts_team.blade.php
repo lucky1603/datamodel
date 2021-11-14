@@ -103,9 +103,11 @@
                         <tr>
                             <td>
                                 <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror" value="{{ old('founderName.'.$i) }}">
+                                @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
                             <td>
                                 <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="{{ old('founderPart.'.$i) }}">
+                                @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
                         </tr>
                     @endfor
@@ -113,9 +115,11 @@
                     <tr>
                         <td>
                             <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror" >
+                            @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
                             <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" >
+                            @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                     </tr>
                 @endif
@@ -124,11 +128,12 @@
                     <tr>
                         <td>
                             <input type="text" name="founderName[]" class="w-100" value="{{ $founder->getValue('founder_name') }}">
-                            @error('founderName') <div class="alert alert-danger">{{ $message }}</div>@enderror
+                            @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
                             <input type="text" name="founderPart[]" class="w-100" value="{{ $founder->getValue('founder_part') }}">
-                            @error('founderPart') <div class="alert alert-danger">{{ $message }}</div>@enderror</td>
+                            @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
+                        </td>
                     </tr>
                 @endforeach
             @endif
