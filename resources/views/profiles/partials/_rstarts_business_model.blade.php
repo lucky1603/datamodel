@@ -67,7 +67,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_customer_problem_solve')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Kako potencijalni kupci trenutno rešavaju problem?
+    <label class="attribute-label" for="{{ $attribute->name }}">Kako potencijalni kupci trenutno rešavaju navedeni problem?
         <span class="font-12 text-dark font-weight-normal">(Ukratko objasnite kako potencijalni kupci trenutno rešavaju
             navedeni problem (navesti druge proizvode  i/ili usluge koji su direktna konkurencija, a koje potencijalni
             kupci trenutno koriste ili druge metode koje primenjuju za rešavanje datog problema))
@@ -188,10 +188,11 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_research')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Molimo vas opišite, sa najviše 50 reči, da li ste sproveli neko
-        istraživanje na temu intelektualne svojine, mogućnosti zaštite intelektualne svojine ili ukoliko ste zaštitili logotip,
-        patent, mali patent ili slično. Ukoliko ste zaštitili ili planirate da zaštitite neko pravo intelektualne svojine,
-        navedite ko su vlasnici ili ko bi bili vlasnici te intelektualne svojine
+    <label class="attribute-label" for="{{ $attribute->name }}">
+        Ukoliko ste sproveli neko istraživanje na temu intelektualne svojine, mogućnosti zaštite intelektualne
+        svojine ili ukoliko ste zaštitili logotip, patent, mali patent ili slično opišite, sa najviše 50 reči.
+        Ukoliko ste zaštitili ili planirate da zaštitite neko pravo intelektualne svojine, navedite ko su
+        vlasnici ili ko bi bili vlasnici te intelektualne svojine.
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror

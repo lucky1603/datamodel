@@ -49,7 +49,7 @@ class UpdateRaisingStartsRequest extends FormRequest
             'rstarts_other_sources' => 'max:200',
             'six_months_income' => 'numeric',
             'memberName' => 'max:200',
-            'memberEducation' => 'max:400',
+            'memberEducation' => 'max:1050',
             'memberRolw' => 'max:400',
             'memberOtherJob' => 'max:200',
             'founderName.*' => 'max: 100',

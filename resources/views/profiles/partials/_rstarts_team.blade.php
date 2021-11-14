@@ -148,7 +148,10 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_founder_cvs')->first();
     @endphp
-    <label class="attribute-label col-form-label col-form-label-sm">CV-jevi minimum dva postojeća/planirana osnivača startapa</label>
+    <label class="attribute-label col-form-label col-form-label-sm">
+        CV-jevi minimum dva postojeća/planirana osnivača startapa <i class="dripicons-information font-18" title="Datoteke moraju biti u
+        formatu (.pdf, .docx, .xlsx) i njihova valičina ne sme premašivati 1MB"></i>
+    </label>
     <input type="file" multiple name="rstarts_founder_cvs[]" id="rstarts_founder_cvs" class="form-control @error('rstarts_founder_cvs') is-invalid @enderror">
     @error('rstarts_founder_cvs') <div class="alert alert-danger">{{ $message }}</div>@enderror
     @if($attribute != null && $attribute->getValue() != null)
@@ -184,7 +187,13 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_team_history')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Da li ste do sada, kao tim, saradjivali na zajedničkim projektima/u poslovanju?</label>
+    <label class="attribute-label" for="{{ $attribute->name }}">
+        Da li ste do sada, kao tim, saradjivali na zajedničkim projektima/u poslovanju?
+        <span class="font-12 text-dark font-weight-normal">
+            Navedite da li ste prethodno kao tim (ili deo članova tima) radili na razvoju
+            startap ideje ili ukoliko ste saradjivali u poslovanju ili zajednički radili u okviru iste organizacije.
+        </span>
+    </label>
     <textarea class="form-control @error("rstarts_team_history") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error('rstarts_team_history') <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
