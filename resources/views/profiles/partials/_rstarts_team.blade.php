@@ -122,14 +122,20 @@
             @else
                 @foreach($founders as $founder)
                     <tr>
-                        <td><input type="text" name="founderName[]" class="w-100" value="{{ $founder->getValue('founder_name') }}"></td>
-                        <td><input type="text" name="founderPart[]" class="w-100" value="{{ $founder->getValue('founder_part') }}"></td>
+                        <td>
+                            <input type="text" name="founderName[]" class="w-100" value="{{ $founder->getValue('founder_name') }}">
+                            @error('founderName') <div class="alert alert-danger">{{ $message }}</div>@enderror
+                        </td>
+                        <td>
+                            <input type="text" name="founderPart[]" class="w-100" value="{{ $founder->getValue('founder_part') }}">
+                            @error('founderPart') <div class="alert alert-danger">{{ $message }}</div>@enderror</td>
                     </tr>
                 @endforeach
             @endif
         </tbody>
     </table>
-    @error('founderName') <div class="alert alert-danger">{{ $message }}</div>@enderror
+
+
     <button id="btnAddFounder" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj osnivača" >+</button>
 </div>
 

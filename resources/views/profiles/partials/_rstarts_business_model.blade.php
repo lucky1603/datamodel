@@ -154,7 +154,7 @@
 <div class="form-group row" id="income-6" style="display: none">
     @php
         $attribute = $attributes->where('name', 'six_months_income')->first();
-        $value = $attribute->getValue() ?? old($attribute->name);
+        $value = $attribute->getValue() ?? old($attribute->name) ?? 0;
     @endphp
     <label for="{{ $attribute->name }}" class="col-sm-5 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
     <div class="col-sm-2">

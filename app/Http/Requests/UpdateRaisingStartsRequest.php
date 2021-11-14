@@ -40,7 +40,22 @@ class UpdateRaisingStartsRequest extends FormRequest
             'rstarts_innovative_area' => 'max:400',
             'rstarts_business_plan' => 'max:400',
             'rstarts_statup_progress' => 'max:400',
-            'rstarts_mentor_program_history' => 'max:1050'
+            'rstarts_mentor_program_history' => 'max:1050',
+            'rstarts_logo' => 'mimes:jpg,jpeg,bmp,png,gif',
+            'rstarts_founder_links' => 'max:200',
+            'rstarts_links' => 'max:200',
+            'rstarts_financing_proof_links' => 'max:200',
+            'rstarts_linkclip' => 'max: 200',
+            'rstarts_other_sources' => 'max:200',
+            'six_months_income' => 'numeric',
+            'memberName' => 'max:200',
+            'memberEducation' => 'max:400',
+            'memberRolw' => 'max:400',
+            'memberOtherJob' => 'max:200',
+            'founderName' => 'max: 100',
+            'founderPart.*' => 'numeric'
+
+
         ];
 
         return $validationRules;
