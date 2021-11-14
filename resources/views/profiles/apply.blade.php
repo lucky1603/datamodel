@@ -31,8 +31,9 @@
                 <div class="row" style="height: 15%">
                     <div class="col-lg-12">
                         <div class="text-center mt-4">
-                            <button type="submit" id="save" class="btn btn-primary m-1" >
-                                {{ __('Save') }}
+                            <button type="button" id="save" class="btn btn-primary m-1" >
+                                <span id="button_save_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                                <span id="button_save_text">{{ __('Save') }}</span>
                             </button>
 
                                 <button type="button" id="send" class="btn btn-success m-1">
@@ -224,6 +225,10 @@
                 $('#exampleModal').modal();
             });
 
+            $('#save').click(function() {
+                $('#button_save_spinner').attr('hidden', false);
+                $('form#myForm').submit();
+            });
 
             $('#send').on('click', function() {
                 if(dirty === true) {
