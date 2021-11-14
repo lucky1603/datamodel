@@ -54,8 +54,6 @@ class UpdateRaisingStartsRequest extends FormRequest
             'memberOtherJob' => 'max:200',
             'founderName' => 'max: 100',
             'founderPart.*' => 'numeric'
-
-
         ];
 
         return $validationRules;
