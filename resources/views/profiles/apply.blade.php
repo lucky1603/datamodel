@@ -1,12 +1,12 @@
 @extends('layouts.hyper-vertical-profile')
 
 @section('content')
-    <div class="card" style="height: 98%">
+    <div class="card" style="height: 90vh">
         <div class="card-header bg-dark text-light">
             <h2 class="text-center">Prijava na <span class="attribute-label">{{ $programName }}</span></h2>
         </div>
         <div class="card-body">
-            <form class="h-100" id="myForm" method="post" enctype="multipart/form-data" action="{{ route('profiles.saveapplicationdata') }}">
+            <form id="myForm" style="height: 98%" method="post" enctype="multipart/form-data" action="{{ route('profiles.saveapplicationdata') }}" >
                 @csrf
                 <input type="hidden" id="programType" name="programType" value="{{ $programType }}">
                 <input type="hidden" id="profile_id" name="profile_id" value="{{ $model->getId() }}">

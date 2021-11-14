@@ -23,9 +23,9 @@
 
 </head>
 
-<body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": false}'>
+<body class="loading overflow-hidden" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": false}'>
 <!-- Begin page -->
-<div class="wrapper border border-warning">
+<div class="wrapper">
     <!-- ========== Left Sidebar Start ========== -->
     <div class="left-side-menu">
 
@@ -75,15 +75,10 @@
     <!-- Start Page Content here -->
     <!-- ============================================================== -->
 
-    <div class="content-page frame-padding">
+    <div class="content-page frame-padding border border-primary">
         <div class="content" >
             <!-- Topbar Start -->
             <div class="navbar-custom frame-padding">
-                @if(isset($model))
-                <div style="display: inline; margin-top: 50px; padding: 10px; position: relative; top: 20px; left:20px; font-size: 25px">
-                    {{ mb_strtoupper( __('Profile')) }} - {{ $model->getValue('name') }} - <span class="text-info">{{ $model->getAttribute('profile_status')->getText() }}</span>
-                </div>
-                @endif
                 <ul class="list-unstyled topbar-right-menu float-right mb-0">
                     <li class="dropdown notification-list d-lg-none">
                         <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -140,7 +135,7 @@
             <!-- end Topbar -->
 
             <!-- Start Content-->
-            <div class="position-relative mb-auto h-100 overflow-auto" id="app">
+            <div class="position-relative overflow-hidden" id="app" style="height: 90vh">
 
                 @yield('content')
 

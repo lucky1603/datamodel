@@ -1,8 +1,7 @@
 @extends('layouts.hyper-vertical-profile')
 
 @section('content')
-    <h4>{{ $model->getValue('name') }}</h4>
-    <div class="card h-100 overflow-auto p-0">
+    <div class="card overflow-auto p-0" style="height: 90vh">
         <div class="card-body p-0 h-100 mb-auto">
             @php
                 $status = $model->getValue('profile_status');
@@ -90,7 +89,7 @@
             @elseif( $status == 3 && $programStatus > 1)
                 @if($program instanceof \App\Business\RaisingStartsProgram)
                     @if($programStatus == 2)
-                        <div class="card w-100 border border-danger" style="height:100%">
+                        <div class="card w-100" style="height:100%">
                             <div class="card-header bg-primary text-light">
                                 <span class="h4 text-center">Evaluacija prijave</span>
                             </div>
