@@ -1,7 +1,7 @@
 <h3 class="text-center attribute-label m-4">{{ \App\AttributeGroup::where('name', 'rstarts_tim')->first()->label }}</h3>
 
 <div class="text-center mt-2 mb-2">
-    <h4 class="attribute-label">Članovi tima</h4>
+    <h4 class="attribute-label @if(isset($model)) mandatory-label @endif">Članovi tima </h4>
     <table class="table-bordered w-100">
         <thead class="bg-dark text-light">
         <tr>
@@ -84,7 +84,7 @@
 </div>
 
 <div class="text-center mt-4 mb-2">
-    <h4 class="attribute-label">Planirana/postojeća osnivačka struktura startapa</h4>
+    <h4 class="attribute-label  @if(isset($model)) mandatory-label @endif">Planirana/postojeća osnivačka struktura startapa</h4>
     <table class="table-bordered w-100">
         <thead class="bg-dark text-light">
         <tr>
@@ -148,7 +148,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_founder_cvs')->first();
     @endphp
-    <label class="attribute-label col-form-label col-form-label-sm">
+    <label class="attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">
         CV-jevi minimum dva postojeća/planirana osnivača startapa <i class="dripicons-information font-18" title="Datoteke moraju biti u
         formatu (.pdf, .docx, .xlsx) i njihova valičina ne sme premašivati 1MB"></i>
     </label>
@@ -187,7 +187,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_team_history')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         Da li ste do sada, kao tim, saradjivali na zajedničkim projektima/u poslovanju?
         <span class="font-12 text-dark font-weight-normal">
             Navedite da li ste prethodno kao tim (ili deo članova tima) radili na razvoju
@@ -202,7 +202,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_app_motive')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Šta vas je motivisalo da se prijavite za ovaj Program?</label>
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Šta vas je motivisalo da se prijavite za ovaj Program?</label>
     <textarea class="form-control @error("rstarts_app_motive") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error('rstarts_app_motive') <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>

@@ -217,7 +217,8 @@
         $attribute = $attributes->where('name', 'rstarts_product_type')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm">{!! $attribute->label !!}</label>
+    <label for="{{ $attribute->name }}"
+           class="col-lg-2 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">{!! $attribute->label !!}</label>
     <div class="col-lg-10">
         <select id="{{$attribute->name}}"
                 name="{{$attribute->name}}"

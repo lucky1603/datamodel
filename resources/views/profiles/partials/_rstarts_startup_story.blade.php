@@ -4,7 +4,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_statup_progress')->first();
     @endphp
-    <label for="{{ $attribute->name }}">
+    <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         <span class="attribute-label">Ukratko opišite napredak koji ste postigli do sada</span>
         <span class="font-12 text-dark font-weight-normal">
             ( Opišite koliko dugo je vaš tim okupljen oko razvoja ideje. Takođe, ukratko opišite
@@ -18,7 +18,7 @@
 </div>
 
 <div class="form-group">
-    <label class="attribute-label mt-5">Priložite materijale koji dokazuju tehničku izvodljivost proizvoda koji razvijate - fotografije,
+    <label class="attribute-label mt-5 @if(isset($model)) mandatory-label @endif">Priložite materijale koji dokazuju tehničku izvodljivost proizvoda koji razvijate - fotografije,
         linkovi, dokumenta/nacrti. Obratiti pažnju da tehnološka izvodljivost mora biti u skladu sa naznačenim stepenom razvoja u delu 3.9
         <span class="font-12 text-dark font-weight-normal">
             ( Dokaz mora imati jasno obrazloženje šta predstavlja. Slika/skica/nacrt bez obraloženja neće biti uzeta u razmatranje. <strong>Svi
@@ -31,7 +31,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_files')->first();
     @endphp
-    <label class="attribute-label col-form-label col-form-label-sm font-12">
+    <label class="attribute-label col-form-label col-form-label-sm font-12 @if(isset($model)) mandatory-label @endif">
         Fajlovi <i class="dripicons-information font-18" title="Datoteke moraju biti u
         formatu (.png, .jpg, .jpeg, .gif, .bmp, .pdf, .docx, .xlsx) i njihova valičina ne sme premašivati 1MB"></i>
     </label>
@@ -70,7 +70,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_mentor_program_history')->first();
     @endphp
-    <label for="{{ $attribute->name }}">
+    <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         <span class="attribute-label">Navedite ukoliko ste ranije učestvovali u nekom mentorskom ili startap programu.</span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
@@ -81,7 +81,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_financing_sources')->first();
     @endphp
-    <label for="{{ $attribute->name }}">
+    <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         <span class="attribute-label">Navedite da li ste do sada prikupili bilo koji izvor finansiranja
             (grant, VC, novčane nagrade, kredit itd.), opišite i navedite iznos, a kao potvrdu priložite
             relevantne dokumente.
@@ -102,7 +102,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_financing_proof_files')->first();
     @endphp
-    <label class="attribute-label col-form-label col-form-label-sm font-12">
+    <label class="attribute-label col-form-label col-form-label-sm font-12 @if(isset($model)) mandatory-label @endif">
         Fajlovi  <i class="dripicons-information font-18" title="Datoteke moraju biti u
         formatu (.png, .jpg, .jpeg, .gif, .bmp, .pdf, .docx, .xlsx) i njihova valičina ne sme premašivati 1MB"></i>
     </label>
@@ -140,7 +140,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_expectations')->first();
     @endphp
-    <label for="{{ $attribute->name }}">
+    <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         <span class="attribute-label">Šta očekujete od učešća u ovom Programu? U kom segmentu razvoja startapa smatrate da vam je najpotrebnija podrška?</span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
@@ -151,7 +151,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_howmuchmoney')->first();
     @endphp
-    <label for="{{ $attribute->name }}">
+    <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         <span class="attribute-label">Koliko finansijskih sredstava mislite da vam je potrebno u trenutnoj fazi razvoja i za šta?</span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
@@ -163,7 +163,7 @@
         $attribute = $attributes->where('name', 'rstarts_linkclip')->first();
     @endphp
     <label for="{{ $attribute->name }}">
-        <span class="attribute-label">Priložite link video klipa (u trajanju od max 120 sekundi) koji na kreativan način predstavlja vaš tim</span>
+        <span class="attribute-label @if(isset($model)) mandatory-label @endif">Priložite link video klipa (u trajanju od max 120 sekundi) koji na kreativan način predstavlja vaš tim</span>
         <span class="font-12 text-dark font-weight-normal">
             (Želimo da vas bolje upoznamo! Pokažite nam ko ste, kako radite kao tim, koje su vaše vrednosti i kako vidite budućnost svog startapa.
             Primer Video prezentaciju (video klip) možete okačiti na platforme Youtube, Vimeo, Google Drive i sl a nama dostavljate link do samog
@@ -180,7 +180,7 @@
         $attribute = $attributes->where('name', 'rstarts_howdiduhear')->first();
         $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}" class="col-lg-3 attribute-label col-form-label col-form-label-sm">Kako ste čuli za Raising Starts?</label>
+    <label for="{{ $attribute->name }}" class="col-lg-3 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">Kako ste čuli za Raising Starts?</label>
     <div class="col-lg-9">
         <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
             <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>

@@ -5,7 +5,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_tagline')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
@@ -14,7 +14,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_solve_problem')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Koji problem pokušavate da rešite na tržištu?
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Koji problem pokušavate da rešite na tržištu?
         <span class="font-12 text-dark font-weight-normal">(Ukratko objasnite problem koji rešavate potencijalnim kupcima.
             Da li ovaj problem postoji globalno? Da li mislite da je ovaj problem težak i opišite zašto.
             Kako ste saznali za taj problem?)</span>
@@ -27,7 +27,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_targetted_market')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Koje je ciljano tržište koje targetirate i koja je procenjena veličina tog tržišta?
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Koje je ciljano tržište koje targetirate i koja je procenjena veličina tog tržišta?
         <span class="font-12 text-dark font-weight-normal">(Navedite koje tržište targetirate svojim proizvodom  i/ili uslugom i koja je procenjena veličina
             tog tržišta uz navodjenje izvora koji su korišćeni za prikupljanje tih podataka (primer izvora koji možete koristiti: https://www.statista.com/).
             Koliki prostor vidite za širenje svog biznisa odnosno za geografsku ekspanziju (navesti zemlje širenja u naredne 2 godine)?) </span>
@@ -40,7 +40,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_problem_solve')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Kome rešavate problem?
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Kome rešavate problem?
         <span class="font-12 text-dark font-weight-normal">(Ko su vaši potencijalni kupci? Navedite koje su njihove glavne karakteristike (demografija,
             motivi, navike, komunikacija, strahovi itd.) Opišite da li ste već ostvarili komunikaciju/sproveli aktivnosti (ankete, intervjui i sl.)
             sa njima. Ukoliko jeste, sa koliko njih i koji su vaši zaključci?) </span>
@@ -53,7 +53,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_which_product')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Koji inovativni proizvod i/ili uslugu razvijate ili planirate da razvijate (najviše 100 reči)?
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Koji inovativni proizvod i/ili uslugu razvijate ili planirate da razvijate (najviše 100 reči)?
         <span class="font-12 text-dark font-weight-normal">(Opišite glavne karakteristike inovativnog proizvoda i/ili usluge koju razvijate:
                 Navedite koju tehnologiju koristite (npr. Blockchain, AI, IoT, ML):
                 Navedite šta vaš proizvod i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste potrebe kupaca:)
@@ -67,7 +67,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_customer_problem_solve')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Kako potencijalni kupci trenutno rešavaju navedeni problem?
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Kako potencijalni kupci trenutno rešavaju navedeni problem?
         <span class="font-12 text-dark font-weight-normal">(Ukratko objasnite kako potencijalni kupci trenutno rešavaju
             navedeni problem (navesti druge proizvode  i/ili usluge koji su direktna konkurencija, a koje potencijalni
             kupci trenutno koriste ili druge metode koje primenjuju za rešavanje datog problema))
@@ -81,12 +81,12 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_benefits')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Koje benefite/vrednosti svojim proizvodom  i/ili uslugom donosite kupcima?
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Koje benefite/vrednosti svojim proizvodom  i/ili uslugom donosite kupcima?
         <span class="font-12 text-dark font-weight-normal">(Opišite koji su to glavni benefiti koje vaši kupci dobijaju koristeći vaše proizvode/usluge.
             Šta vaš proizvod  i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste/slične potrebe kupaca.)
         </span>
     </label>
-    <textarea class="form-control  @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -95,7 +95,7 @@
         $attribute = $attributes->where('name', 'rstarts_how_innovative')->first();
         $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm">Koliko je inovativan vaš proizvod/usluga (odaberite jednu opciju)?</label>
+    <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">Koliko je inovativan vaš proizvod/usluga (odaberite jednu opciju)?</label>
     <div class="col-lg-7">
         <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
             <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
@@ -111,7 +111,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_clarification_innovative')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Obrazložite odabranu opciju (npr. Zašto mislite da je
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Obrazložite odabranu opciju (npr. Zašto mislite da je
         vaš proizvod potpuno nov na tržištu, značajno poboljšan i drugo):
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
@@ -126,7 +126,7 @@
             $attribute = $attributes->where('name', 'rstarts_dev_phase_tech')->first();
             $selectedValue = $attribute->getValue() ?? old($attribute->name);
         @endphp
-        <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm font-12 font-weight-normal">{!! $attribute->label !!}</label>
+        <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm font-12 font-weight-normal @if(isset($model)) mandatory-label @endif">{!! $attribute->label !!}</label>
         <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
             <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
@@ -140,7 +140,7 @@
             $attribute = $attributes->where('name', 'rstarts_dev_phase_bussines')->first();
             $selectedValue = $attribute->getValue() ?? old($attribute->name);
         @endphp
-        <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm font-12 font-weight-normal">{!! $attribute->label !!}</label>
+        <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm font-12 font-weight-normal @if(isset($model)) mandatory-label @endif">{!! $attribute->label !!}</label>
         <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
             <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
@@ -156,7 +156,7 @@
         $attribute = $attributes->where('name', 'six_months_income')->first();
         $value = $attribute->getValue() ?? old($attribute->name) ?? 0;
     @endphp
-    <label for="{{ $attribute->name }}" class="col-sm-5 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-5 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">{{ $attribute->label }}</label>
     <div class="col-sm-2">
         <input type="text"
                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
@@ -172,7 +172,7 @@
         $attribute = $attributes->where('name', 'rstarts_intellectual_property')->first();
         $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm">Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine??</label>
+    <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine??</label>
     <div class="col-lg-7">
         <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
             <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
@@ -188,7 +188,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_research')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         Ukoliko ste sproveli neko istraživanje na temu intelektualne svojine, mogućnosti zaštite intelektualne
         svojine ili ukoliko ste zaštitili logotip, patent, mali patent ili slično opišite, sa najviše 50 reči.
         Ukoliko ste zaštitili ili planirate da zaštitite neko pravo intelektualne svojine, navedite ko su
@@ -203,7 +203,7 @@
         $attribute = $attributes->where('name', 'rstarts_innovative_area')->first();
         $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}" class="attribute-label">Kojoj oblasti pripada inovativni proizvod i/ili usluga koje razvijate?
+    <label for="{{ $attribute->name }}" class="attribute-label @if(isset($model)) mandatory-label @endif">Kojoj oblasti pripada inovativni proizvod i/ili usluga koje razvijate?
         <span class="font-12 text-dark font-weight-normal">
             (Odaberite oblast u skladu sa Strategijom pametne specijalizacije u Srbiji ukoliko je proizvod i/ili usluga iz neke od
             navedenih oblasti sa linka (strana 45): <a href="http://www.mpn.gov.rs/wp-content/uploads/2020/03/strategija_pametne_specijalizacije.pdf" target="_blank">http://www.mpn.gov.rs/wp-content/uploads/2020/03/strategija_pametne_specijalizacije.pdf</a>
@@ -223,7 +223,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_business_plan')->first();
     @endphp
-    <label class="attribute-label" for="{{ $attribute->name }}">Kako vaš startap planira da zaradjuje?</label>
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Kako vaš startap planira da zaradjuje?</label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
