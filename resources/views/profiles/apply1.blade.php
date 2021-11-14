@@ -1,6 +1,6 @@
-@extends('layouts.hyper-vertical-profile')
+@extends('layouts.hyper-vertical-profile-shortdata')
 
-@section('content')
+@section('profile-content')
     <div class="card" style="height: 98%">
         <div class="card-header bg-dark text-light">
             <h2 class="text-center">Prijava na <span class="attribute-label">{{ $programName }}</span></h2>
@@ -18,13 +18,13 @@
                         @endif
                         @switch($programType)
                             @case(\App\Business\Program::$INKUBACIJA_BITF)
-                                @include('profiles.partials._ibitf')
-                                @break
+                            @include('profiles.partials._ibitf')
+                            @break
                             @case(\App\Business\Program::$RASTUCE_KOMPANIJE)
-                                @break
+                            @break
                             @case(\App\Business\Program::$RAISING_STARTS)
-                                @include('profiles.partials._rstarts')
-                                @break
+                            @include('profiles.partials._rstarts')
+                            @break
                         @endswitch
                     </div>
                 </div>
@@ -36,10 +36,10 @@
                                 <span id="button_save_text">{{ __('Save') }}</span>
                             </button>
 
-                                <button type="button" id="send" class="btn btn-success m-1">
-                                    <span id="button_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-                                    <span id="button_text">{{ __('Send') }}</span>
-                                </button>
+                            <button type="button" id="send" class="btn btn-success m-1">
+                                <span id="button_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                                <span id="button_text">{{ __('Send') }}</span>
+                            </button>
 
                             <button id="cancel" type="button" class="btn btn-light m-1">{{ __('Cancel') }}</button>
                             <button id="help" type="button" class="btn btn-dark m-1">{{ __('Help') }}<i class="dripicons-question font-16 ml-1"></i></button>
@@ -108,13 +108,13 @@
             let result = 0;
 
             await axios.get('/user/getsessionvalue/warned')
-            .then(response => {
-                console.log(`Warned is ${response.data}`);
-                if(response.data != -11) {
-                    warned = true;
-                }
-                result = response.data;
-            })
+                .then(response => {
+                    console.log(`Warned is ${response.data}`);
+                    if(response.data != -11) {
+                        warned = true;
+                    }
+                    result = response.data;
+                })
 
             const appType = $('#app_type').val();
             if(appType == 1) {

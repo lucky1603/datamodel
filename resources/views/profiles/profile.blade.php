@@ -1,9 +1,9 @@
-@extends('layouts.hyper-vertical-profile-shortdata')
+@extends('layouts.hyper-vertical-profile')
 
-@section('profile-content')
+@section('content')
     <h4>{{ $model->getValue('name') }}</h4>
-    <div class="card h-100 overflow-auto p-0" style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px">
-        <div class="card-body p-0">
+    <div class="card h-100 overflow-auto p-0">
+        <div class="card-body p-0 h-100 mb-auto">
             @php
                 $status = $model->getValue('profile_status');
                 $program = $model->getActiveProgram();
@@ -90,11 +90,11 @@
             @elseif( $status == 3 && $programStatus > 1)
                 @if($program instanceof \App\Business\RaisingStartsProgram)
                     @if($programStatus == 2)
-                        <div class="card row w-100 shadow" style="height:96%">
+                        <div class="card w-100 border border-danger" style="height:100%">
                             <div class="card-header bg-primary text-light">
                                 <span class="h4 text-center">Evaluacija prijave</span>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body h-100">
                                 <p>Vasa prijava se trenutno ocenjunje.</p>
                                 <p>Uskoro cete biti obavesteni o rezultatima ocenjivanja.</p>
                             </div>
