@@ -364,6 +364,12 @@ class ProfileController extends Controller
 
             // Update the profile status.
             $profile->setData(['profile_status' => 3]);
+
+        }
+
+        if(isset($data['rstarts_logo'])) {
+            $profile = $program->getProfile();
+            $profile->setValue('profile_logo', $data['rstarts_logo']);
         }
 
         if($program instanceof RaisingStartsProgram)
