@@ -76,5 +76,7 @@ return [
     'Application-Save' => 'Sačuvaj podatke unete od poslednjeg sačuvanog stanja',
     'Application-Send' => 'Podnošenje prijave',
     'Application-Reset' => 'Poništi unos od poslednjeg sačuvanog stanja',
-    'Application-Help' => 'Pokaži instrukcije za unos'
+    'Application-Help' => 'Pokaži instrukcije za unos',
+    'Application-SaveDataAndSendApp' => 'Kreiraj korisnički profil i sačuvaj podatke prijave u njega. Kada se prijavite na profil, moći ćete da nastavite sa unosom podataka.',
+    'Application-ReturnToMain' => 'Vrati se na glavnu stranicu programa'
 ];
