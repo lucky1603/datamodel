@@ -3,7 +3,7 @@
 @endif
 
 @if(!isset($model))
-<div class="bg-light attribute-label font-14 m-1 p-4 shadow" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+<div class="attribute-label font-14 m-1 p-4" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
     <p>U cilju boljeg razumevanja Prijavnog formulara, obe kategorije se u daljem tekstu nazivaju “startap”.</p>
     <p>Obavezna polja su označena zvezdicom (<span class="text-danger">*</span>) i različitom pozadinom.</p>
 </div>
