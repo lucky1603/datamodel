@@ -120,7 +120,7 @@
             <tr>
                 <input type="file"
                        class="form-control @error('rstarts_logo') is-invalid @enderror"
-                       id="{{ $attribute->name }}" name="{{ $attribute->name }}" @if(isset($model)) disabled @endif style="width: 90%">
+                       id="{{ $attribute->name }}" name="{{ $attribute->name }}" style="width: 90%">
             </tr>
         </table>
         @error('rstarts_logo') <div class="alert alert-danger">{{ $message }}</div>@enderror
