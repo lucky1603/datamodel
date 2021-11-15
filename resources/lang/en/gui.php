@@ -76,5 +76,7 @@ return [
     'Application-Save' => 'Save Current Entries',
     'Application-Send' => 'Submit Application',
     'Application-Reset' => 'Reset tne data entered from the last saved state.',
-    'Application-Help' => 'Show entry instructions.'
+    'Application-Help' => 'Show entry instructions.',
+    'Application-SaveDataAndSendApp' => 'Kreiraj korisnički profil i sačuvaj podatke prijave u njega. Kada se prijavite na profil, moći ćete da nastavite sa unosom podataka.',
+    'Application-ReturnToMain' => 'Vrati se na glavnu stranicu programa'
 ];

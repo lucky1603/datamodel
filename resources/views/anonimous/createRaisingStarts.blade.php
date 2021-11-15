@@ -75,14 +75,14 @@
 {{--                    <div class="row pt-4 mt-3" style="height: 5%">--}}
                         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center">
 
-                            <button type="button" id="buttonSend" class="btn btn-sm btn-primary rounded-pill mr-2 mt-4" style="width: 100px">
+                            <button type="button" id="buttonSend" class="btn btn-sm btn-primary rounded-pill mr-2 mt-4" style="width: 250px" title="{{ __('gui.Application-SaveDataAndSendApp') }}">
                                 <span id="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                {{ __('Send') }}
+                                {{ __('Save Data and Create Profile') }}
                             </button>
 
-                            <button type="button" id="buttonCancel" class="btn btn-sm btn-outline-primary rounded-pill ml-2 mt-4" style="width: 100px">
+                            <button type="button" id="buttonCancel" class="btn btn-sm btn-outline-primary rounded-pill ml-2 mt-4" style="width: 250px" title="{{ __('gui.Application-ReturnToMain') }}">
                                 <span id="cancelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                {{ __('Cancel') }}
+                                {{ __('Return to Main Page') }}
                             </button>
 
 
