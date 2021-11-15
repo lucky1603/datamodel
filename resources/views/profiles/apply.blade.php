@@ -233,8 +233,8 @@
                     // alert('morate prvo sacuvati formu!');
                     let oldHtml = $('.modal-body').html();
                     $('.modal-body').html(`
-                        <p class="text-dark">Da biste pokušali slanje, morate prvo sačuvati aktivne izmene pritiskom na dugme "Sačuvaj" ili
-                           odustali od njih pritiskom na dugme "Odustani".
+                        <p class="text-dark">Da biste pokušali slanje, morate prvo sačuvati aktivne izmene pritiskom na dugme <strong>"Sačuvaj unos"</strong> ili
+                           odustali od njih pritiskom na dugme <strong>"Poništi unos"</strong>.
                         </p>
                     `);
                     $('.modal-footer').hide();
