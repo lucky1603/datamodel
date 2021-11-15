@@ -188,10 +188,10 @@
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text"
-               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
+               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
                id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
@@ -205,7 +205,7 @@
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
     <label class="attribute-label mandatory-label" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror bg-light text-primary"
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror mandatory-field"
               id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if(isset($model)) disabled @endif>{{ $value }}</textarea>
     @error($attribute->name)
         <div class="alert alert-danger">{{ $message }}</div>
