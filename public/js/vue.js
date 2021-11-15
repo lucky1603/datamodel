@@ -3258,6 +3258,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProfileItem",
   computed: {
@@ -53435,7 +53440,6 @@ var render = function () {
           _vm._l(_vm.visibleItems, function (item, index) {
             return _c("profile-item", {
               key: item.id,
-              staticStyle: { width: "15%", height: "30%" },
               attrs: {
                 logo: item.logo != null ? item.logo.filelink : "",
                 background:
@@ -54067,60 +54071,37 @@ var render = function () {
     "div",
     {
       staticClass: "card shadow ribbon-box m-2",
+      staticStyle: { width: "200px", height: "200px" },
       attrs: { role: "button" },
       on: { click: _vm.cardClicked },
     },
     [
-      _c("div", { staticClass: "card-body p-0 h-100" }, [
-        _c("div", { class: _vm.ribbonClass }, [
-          _c("span", [_vm._v(_vm._s(_vm.statustext))]),
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            class: _vm.imageContainerClass,
-            staticStyle: {
-              display: "flex",
-              "justify-content": "center",
-              "align-items": "center",
-            },
-          },
-          [
-            _vm.background != ""
-              ? _c("img", {
-                  staticClass: "h-100",
-                  attrs: { src: _vm.background },
-                })
-              : _c("img", {
-                  staticClass: "h-100",
-                  attrs: { src: _vm.defaultBackground },
-                }),
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "h-50",
-            staticStyle: {
-              display: "flex",
-              "justify-content": "center",
-              "align-items": "center",
-            },
-          },
-          [
-            _vm.logo != ""
-              ? _c("img", { staticClass: "h-75", attrs: { src: _vm.logo } })
-              : _c("img", {
-                  staticClass: "h-75",
-                  attrs: { src: _vm.defaultLogo },
-                }),
-            _vm._v(" "),
-            _c("span", { staticClass: "h4 ml-2" }, [_vm._v(_vm._s(_vm.title))]),
-          ]
-        ),
-      ]),
+      _c(
+        "div",
+        {
+          staticClass:
+            "card-body d-flex flex-column align-items-center justify-content-center",
+        },
+        [
+          _c("div", { class: _vm.ribbonClass }, [
+            _c("span", [_vm._v(_vm._s(_vm.statustext))]),
+          ]),
+          _vm._v(" "),
+          _vm.logo != ""
+            ? _c("img", {
+                staticStyle: { height: "75px" },
+                attrs: { src: _vm.logo },
+              })
+            : _c("img", {
+                staticStyle: { height: "75px" },
+                attrs: { src: _vm.defaultLogo },
+              }),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("span", { staticClass: "h5 ml-2" }, [_vm._v(_vm._s(_vm.title))]),
+        ]
+      ),
     ]
   )
 }

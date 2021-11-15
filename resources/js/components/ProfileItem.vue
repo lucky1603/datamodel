@@ -1,18 +1,23 @@
 <template>
-    <div class="card shadow ribbon-box m-2" role="button" @click="cardClicked">
-        <div class="card-body p-0 h-100">
+    <div class="card shadow ribbon-box m-2" role="button" @click="cardClicked" style="width: 200px; height: 200px">
+        <div class="card-body d-flex flex-column align-items-center justify-content-center">
             <div :class="ribbonClass"><span>{{ statustext}}</span></div>
 
-                <div :class="imageContainerClass" style="display: flex; justify-content: center; align-items: center">
-                    <img v-if="background != ''" :src="background" class="h-100">
-                    <img v-else :src="defaultBackground" class="h-100">
-                </div>
+            <img v-if="logo != ''" :src="logo" style="height: 75px">
+            <img v-else :src="defaultLogo" style="height: 75px">
+            <hr/>
+            <span class="h5 ml-2">{{ title }}</span>
 
-                <div class="h-50" style="display: flex; justify-content: center; align-items: center">
-                    <img v-if="logo != ''" :src="logo" class="h-75">
-                    <img v-else :src="defaultLogo" class="h-75">
-                    <span class="h4 ml-2">{{ title }}</span>
-                </div>
+
+<!--            <div :class="imageContainerClass" style="display: flex; justify-content: center; align-items: center; overflow: hidden">-->
+<!--                <img v-if="logo != ''" :src="logo" class="h-75">-->
+<!--                <img v-else :src="defaultLogo" class="h-75">-->
+<!--            </div>-->
+
+<!--            <div class="h-50" style="display: flex; justify-content: center; align-items: center">-->
+<!--                <span class="h5 ml-2">{{ title }}</span>-->
+<!--            </div>-->
+
 
         </div>
     </div>

@@ -30,7 +30,7 @@
                 type="2"
                 :id="item.id"
                 :status="item.status"
-                :statustext="item.statusText" style="width: 15%; height: 30%"></profile-item>
+                :statustext="item.statusText" ></profile-item>
         </div>
         <div id="navigator" class="row" style="height: 5%">
             <b-pagination
