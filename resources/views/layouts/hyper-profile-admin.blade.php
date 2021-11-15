@@ -1,11 +1,11 @@
 @extends('layouts.hyper-vertical-profile-shortdata')
 
 @section('profile-content')
-    <div class="row" style="height: 95%">
-        <div class="col-sm-9 h-100">
+    <div class="row">
+        <div class="col-md-9" style="min-height: 800px">
             @yield('application-data')
         </div>
-        <div class="col-sm-3 h-100 overflow-hidden">
+        <div class="col-md-3 overflow-hidden" style="min-height: 800px">
             @yield('activities')
         </div>
     </div>

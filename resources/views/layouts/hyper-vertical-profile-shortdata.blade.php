@@ -1,9 +1,9 @@
 @extends('layouts.hyper-vertical-profile')
 
 @section('content')
-    <div class="row" style="height: 100%; overflow: hidden">
-        <div class="col-sm-3 h-100">
-            <div class="card text-center" style="height: 78%">
+    <div class="row" >
+        <div class="d-none d-xl-block col-xl-3">
+            <div class="card text-center" >
                 <div class="card-header p-0">
                     <div id="img-container" class="image-container">
                         <img src="@if( $model->getAttribute('profile_background') != null && $model->getValue('profile_background') != null && strlen($model->getAttribute('profile_background')->getValue()['filelink']) > 0 ) {{ $model->getAttribute('profile_background')->getValue()['filelink'] }} @else /images/custom/backdefault.jpg @endif" class="image-container-profile" style="height: 150px"/>
@@ -54,7 +54,7 @@
             </div> <!-- end card -->
 
             <!-- Messages-->
-            <div class="card" style="height: 17%">
+            <div class="card" >
                 <div class="card-header p-2">
                     <div class="dropdown float-right">
                         <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
@@ -94,7 +94,7 @@
 
         </div> <!-- end col-->
 
-        <div class="col-sm-9" style="height: 100%; overflow: hidden">
+        <div class="col-xl-9 col-12" >
             @yield('profile-content')
         </div> <!-- end col -->
     </div>
