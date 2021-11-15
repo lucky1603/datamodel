@@ -41,6 +41,7 @@ class RaisingStartsProgramSeeder extends Seeder
             'rstarts_address' => $faker->address,
             'rstarts_email' => $faker->email,
             'rstarts_telephone' => $faker->e164PhoneNumber,
+            'jmbg' => $faker->numerify('#############'),
             'rstarts_logo' => [
                 'filename' => $faker->image(),
                 'filelink' => $faker->imageUrl()
@@ -64,9 +65,10 @@ class RaisingStartsProgramSeeder extends Seeder
             'rstarts_clarification_innovative' => $faker->text(),
             'rstarts_dev_phase_tech' => $faker->numberBetween(1, 6),
             'rstarts_dev_phase_bussines' => $faker->numberBetween(1,9),
-            'rstarts_intellectual_property' => $faker->numberBetween(1,6),
+            'six_months_income' => $faker->numerify('###'),
+            'rstarts_intellectual_property' => $faker->numberBetween(1,7),
             'rstarts_research' => $faker->text(),
-            'rstarts_innovative_area' => $faker->text(),
+            'rstarts_innovative_area' => $faker->numberBetween(1,16),
             'rstarts_business_plan' => $faker->text(),
             'rstarts_statup_progress' => $faker->text(),
             'rstarts_mentor_program_history' => $faker->text(),
