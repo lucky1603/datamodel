@@ -195,7 +195,7 @@ class AnonimousController extends Controller
 
         // Go to confirmation page.
         $token = $user->getRememberToken();
-        return redirect(route('user.notify', ['token' => $token]));
+        return redirect(route('user.notify'));
 
     }
 
@@ -269,11 +269,11 @@ class AnonimousController extends Controller
         );
     }
 
-    public function notifyUser($token) {
-        $user = User::where('remember_token', $token)->first();
-        if($user == null) {
-            abort(401);
-        }
+    public function notifyUser() {
+//        $user = User::where('remember_token', $token)->first();
+//        if($user == null) {
+//            abort(401);
+//        }
 
         return view('anonimous.notify-user');
     }

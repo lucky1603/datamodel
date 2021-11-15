@@ -1,23 +1,13 @@
 @extends('layouts.backbone')
 
 @section('body-content')
-    <div class="row bg-dark" style="height: 100px">
-        <div class="col-6 col-lg-2 h-100">
-            <img src="/images/custom/white-logo-transparent-full.png" class="ml-3 mt-2 h-75" />
+    <div class="row bg-dark" >
+        <div class="col-lg-5 h-100">
+            <img src="/images/custom/ntplogo.png" class="ml-3 m-4" style="width: 90%"/>
         </div>
-        <div class="col-lg-8 text-center" style="display: flex; align-items: center; horiz-align: center">
-            <span class="font-24 text-light w-100" style="font-family: 'Roboto Light'">
-                {{strtoupper(__('Create Your Profile')) }}</span>
-        </div>
-        <div class="col-6 col-lg-2 h-100">
-            <div class="row h-100">
-                <div class="col-4 h-100" style="align-items: center; display: flex">
-                    <img src="/images/custom/whiterocket.png" class="h-75 mt-auto mb-auto" />
-                </div>
-                <div class="col-8 h-100" style="align-items: center; display: flex">
-                    <span class="text-light font-24" style="font-family: 'Roboto Light'">ACCELERATOR</span>
-                </div>
-            </div>
+
+        <div class="col-lg-2 offset-lg-5 h-100" style="display: flex; align-items: center; justify-content: center">
+            <img src="/images/custom/rstartslogo.png" class="m-4" style="height: 150px"/>
         </div>
     </div>
     <div class="row" style="height: 600px; margin: auto">

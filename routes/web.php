@@ -38,7 +38,7 @@ Route::get('/edituser/editfromadminpreview/{client}', 'Auth\EditUserController@e
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/testuser/{user}', 'AnonimousController@testuser')->name('user.test');
 Route::get('/verify/{token}', 'AnonimousController@verify')->name('user.verify');
-Route::get('/notify/{token}', 'AnonimousController@notifyUser')->name('user.notify');
+Route::get('notify', 'AnonimousController@notifyUser')->name('user.notify');
 Route::get('/createProfile', 'AnonimousController@createProfile')->name('createProfileAnonimous');
 Route::post('/createProfile', 'AnonimousController@storeProfile')->name('storeProfileAnonimous');
 Route::get('/createRaisingStarts', 'AnonimousController@createRaisingStarts')->name('createRaisingStarts');

@@ -68,6 +68,13 @@ return [
      */
 
     'contract-validation-error' => 'Sva polja osim ":fieldname", treba da budu popunjena',
-    'CONTRACT-DATE-MISSING' => 'Nedostaje datum potpisa ugovora'
+    'CONTRACT-DATE-MISSING' => 'Nedostaje datum potpisa ugovora',
 
+    /*
+     * Forma za unos
+     */
+    'Application-Save' => 'Sačuvaj podatke unete od poslednjeg sačuvanog stanja',
+    'Application-Send' => 'Podnošenje prijave',
+    'Application-Reset' => 'Poništi unos od poslednjeg sačuvanog stanja',
+    'Application-Help' => 'Pokaži instrukcije za unos'
 ];
