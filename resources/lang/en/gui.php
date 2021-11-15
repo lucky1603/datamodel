@@ -68,5 +68,13 @@ return [
      */
 
     'contract-validation-error' => 'All fields except ":fieldname", should be filled!',
-    'CONTRACT-DATE-MISSING' => 'Signing date missing!'
+    'CONTRACT-DATE-MISSING' => 'Signing date missing!',
+
+    /*
+     * Forma za unos
+     */
+    'Application-Save' => 'Save Current Entries',
+    'Application-Send' => 'Submit Application',
+    'Application-Reset' => 'Reset tne data entered from the last saved state.',
+    'Application-Help' => 'Show entry instructions.'
 ];

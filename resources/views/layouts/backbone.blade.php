@@ -19,6 +19,16 @@
     <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
     <link href="/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
     <link href="/css/my.css" rel="stylesheet" type="text/css" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-184526977-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-184526977-1');
+    </script>
+
     <!-- Facebook Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s)

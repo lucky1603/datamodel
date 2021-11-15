@@ -30,15 +30,15 @@ class StorePostRequest extends FormRequest
         $validationRules = [
             'app_type' => 'in: 1,2,3,4',
             'ntp' => 'in: 1,2,3',
-            'rstarts_startup_name' => 'required',
-            'rstarts_applicant_name' => 'required',
-            'rstarts_position' => 'required',
-            'rstarts_address' => 'required',
+            'rstarts_startup_name' => 'required|max:255',
+            'rstarts_applicant_name' => 'required|max:255',
+            'rstarts_position' => 'required|max:255',
+            'rstarts_address' => 'required|max:255',
             'jmbg' => 'required|digits:13',
-            'rstarts_email' => 'required|email',
-            'rstarts_telephone' => 'required',
-            'rstarts_webpage' => 'required|url',
-            'rstarts_founding_date' => 'required|date',
+            'rstarts_email' => 'required|email|max:255',
+            'rstarts_telephone' => 'required|max:30',
+            'rstarts_webpage' => 'required|url|max:255',
+            'rstarts_founding_date' => 'required|date|max:30',
             'rstarts_logo' => 'file|mimes:jpg,jpeg,bmp,png,gif',
             'rstarts_team_history' => 'max:400',
             'rstarts_app_motive' => 'max:1050',
@@ -61,12 +61,12 @@ class StorePostRequest extends FormRequest
             'rstarts_linkclip' => 'max: 200',
             'rstarts_other_sources' => 'max:200',
             'six_months_income' => 'numeric',
-            'memberName' => 'max:200',
-            'memberEducation' => 'max:1050',
-            'memberRolw' => 'max:400',
-            'memberOtherJob' => 'max:200',
-            'founderName.*' => 'max: 100',
-            'founderPart.*' => 'numeric',
+//            'memberName.*' => 'max:200',
+//            'memberEducation.*' => 'max:1050',
+//            'memberRole.*' => 'max:400',
+//            'memberOtherJob.*' => 'max:200',
+//            'founderName.*' => 'max: 100',
+//            'founderPart.*' => 'numeric',
             'gdpr' => 'required',
             'captcha' => 'required|captcha',
         ];
@@ -126,6 +126,7 @@ class StorePostRequest extends FormRequest
 //            {
 //                $validator->errors()->add('founderName', 'Mora postojati bar jedan osnivač!');
 //            }
+
 //
 //            if(count($data['memberEducation']) > 0) {
 //                foreach($data['memberEducation'] as $education) {

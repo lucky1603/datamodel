@@ -31,18 +31,18 @@
                 <div class="row" style="height: 15%">
                     <div class="col-lg-12">
                         <div class="text-center mt-4">
-                            <button type="button" id="save" class="btn btn-primary m-1" >
+                            <button type="button" id="save" class="btn btn-primary m-1" title="{{ __('gui.Application-Save') }}" style="width: 150px">
                                 <span id="button_save_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-                                <span id="button_save_text">{{ __('Save') }}</span>
+                                <span id="button_save_text">{{ __('Save Entries') }}</span>
                             </button>
 
-                                <button type="button" id="send" class="btn btn-success m-1">
+                                <button type="button" id="send" class="btn btn-success m-1" title="{{ __('gui.Application-Send') }}" style="width: 150px">
                                     <span id="button_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
-                                    <span id="button_text">{{ __('Send') }}</span>
+                                    <span id="button_text">{{ __('Send Application') }}</span>
                                 </button>
 
-                            <button id="cancel" type="button" class="btn btn-light m-1">{{ __('Cancel') }}</button>
-                            <button id="help" type="button" class="btn btn-dark m-1">{{ __('Help') }}<i class="dripicons-question font-16 ml-1"></i></button>
+                            <button id="cancel" type="button" class="btn btn-light m-1" title="{{ __('gui.Application-Reset') }}" style="width: 150px">{{ __('Reset Entries') }}</button>
+                            <button id="help" type="button" class="btn btn-dark m-1" title="{{ __('gui.Application-Help') }}" style="width: 150px">{{ __('Help') }}<i class="dripicons-question font-16 ml-1"></i></button>
                         </div>
                     </div>
                 </div>
@@ -66,21 +66,19 @@
                         </p>
                         <h3>VALIDNOST PODATAKA</h3>
                         <p class="text-dark">
-                            Popunite prazna polja pre slanja prijave. Polja označena zvezdicom u obavezna i bez njih
-                            je prijava nevalidna, o čemu ćete svaki puta biti obavešteni prilikom pokušaja da pošaljete
-                            nepotpune podatke.
+                            Popunite prazna polja označena zvezdicom pre pokušaja podnošenja prijave.
                         </p>
                         <h3>ČUVANJE PODATAKA</h3>
                         <p class="text-dark">
-                            Moguće je nebrojeno puta sačuvati podatke koje ste dosad uneli pritiskom na dugme "Sačuvaj".
-                            Takođe je neophodno da svi podaci budu sačuvani pre nego što pokušate da pošaljete prijavu.
-                            Prilikom slanja prijave, ukoliko postoje podaci koji nisu prethodno sačuvani, dobićete upozorenje i
-                            nećete biti u mogućnosti da pošaljete formu pre nego što sačuvate podatke ili otkažete promene izborom
-                            dugmeta "Otkaži", koje će vas vratiti na prethodno sačuvano stanje.
+                            Moguće je nebrojeno puta sačuvati podatke koje ste dosad uneli pritiskom na dugme "Sačuvaj unos".
+                            Takođe je neophodno da svi podaci budu sačuvani pre nego što pokušate da podnesete prijavu.
+                            Prilikom podnošenja prijave, ukoliko postoje podaci koji nisu prethodno sačuvani, dobićete upozorenje i
+                            nećete biti u mogućnosti da podnesete prijavu pre nego što sačuvate podatke ili otkažete promene izborom
+                            dugmeta "Poništi unos", koje će vas vratiti na prethodno sačuvano stanje.
                         </p>
-                        <h3>SLANJE PRIJAVE</h3>
+                        <h3>PODNOŠENJE PRIJAVE</h3>
                         <p class="text-dark">
-                            Ukoliko mislite da ste uneli sve neophodne podatke pritisnite dugme "Pošalji". Ukoliko su podaci u redu,
+                            Ukoliko mislite da ste uneli sve neophodne podatke pritisnite dugme "Podnesi prijavu". Ukoliko su podaci u redu,
                             dobićete potvrdu da je prijava uspešna. Ukoliko vam nedostaje još neki podatak, dobićete obaveštenje o prvom
                             parametru u nizu parametara koji nedostaju.
                         </p>
