@@ -203,13 +203,7 @@
         $attribute = $attributes->where('name', 'rstarts_innovative_area')->first();
         $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}" class="attribute-label @if(isset($model)) mandatory-label @endif">Kojoj oblasti pripada inovativni proizvod i/ili usluga koje razvijate?
-        <span class="font-12 text-dark font-weight-normal">
-            (Odaberite oblast u skladu sa Strategijom pametne specijalizacije u Srbiji ukoliko je proizvod i/ili usluga iz neke od
-            navedenih oblasti sa linka (strana 45): <a href="http://www.mpn.gov.rs/wp-content/uploads/2020/03/strategija_pametne_specijalizacije.pdf" target="_blank">http://www.mpn.gov.rs/wp-content/uploads/2020/03/strategija_pametne_specijalizacije.pdf</a>
-            ili drugo ukoliko proizvod i/ili usluga ne pripada navedenim oblastima:)
-        </span>
-    </label>
+    <label for="{{ $attribute->name }}" class="attribute-label @if(isset($model)) mandatory-label @endif">Kojoj oblasti pripada inovativni proizvod i/ili usluga koje razvijate?</label>
     <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
         <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
         @foreach($attribute->getOptions() as $key => $value)
