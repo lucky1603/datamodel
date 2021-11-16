@@ -17,7 +17,7 @@
                <a href="#" role="button" class="text-secondary" @click="buttonClicked"><i class="dripicons-document-new"></i> NOVI PROFIL</a>
             </b-col>
         </div>
-        <div id="items" class="row overflow-auto" style="height: 90%; display: flex; flex-wrap: wrap; flex-direction: row">
+        <div id="items" class="row overflow-auto p-4" style="height: 90%; display: flex; flex-wrap: wrap; flex-direction: row">
             <div v-if="loading == true" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; flex-direction: column">
                 <b-spinner label="busy"></b-spinner>
                 <p class="mt-4">Učitava se ...</p>

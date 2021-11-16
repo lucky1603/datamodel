@@ -53405,7 +53405,7 @@ var render = function () {
       _c(
         "div",
         {
-          staticClass: "row overflow-auto",
+          staticClass: "row overflow-auto p-4",
           staticStyle: {
             height: "90%",
             display: "flex",

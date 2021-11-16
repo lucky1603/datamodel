@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row" >
-        <div class="d-none d-xl-block col-xl-3">
+        <div class="d-none d-xl-block col-xl-3" style="min-height: 450px">
             <div class="card text-center" >
                 <div class="card-header p-0">
                     <div id="img-container" class="image-container">
@@ -32,24 +32,6 @@
                             <span class="ml-2">{{ $model->getAttribute('profile_webpage')->getValue() }}</span></p>
                     </div>
 
-{{--                    <ul class="social-list list-inline mt-3 mb-0">--}}
-{{--                        <li class="list-inline-item">--}}
-{{--                            <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i--}}
-{{--                                    class="mdi mdi-facebook"></i></a>--}}
-{{--                        </li>--}}
-{{--                        <li class="list-inline-item">--}}
-{{--                            <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i--}}
-{{--                                    class="mdi mdi-google"></i></a>--}}
-{{--                        </li>--}}
-{{--                        <li class="list-inline-item">--}}
-{{--                            <a href="javascript: void(0);" class="social-list-item border-info text-info"><i--}}
-{{--                                    class="mdi mdi-twitter"></i></a>--}}
-{{--                        </li>--}}
-{{--                        <li class="list-inline-item">--}}
-{{--                            <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i--}}
-{{--                                    class="mdi mdi-github-circle"></i></a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
                 </div> <!-- end card-body -->
             </div> <!-- end card -->
 
@@ -68,7 +50,7 @@
                     </div>
                     <h4 class="header-title">{{__('SUPPORT TEAM')}}</h4>
                 </div>
-                <div class="card-body h-100 p-1 overflow-auto">
+                <div class="card-body h-100 overflow-auto" style="min-height: 190px">
                     <div class="inbox-widget">
                         @foreach($model->instance->users as $user)
                             <div class="inbox-item">
