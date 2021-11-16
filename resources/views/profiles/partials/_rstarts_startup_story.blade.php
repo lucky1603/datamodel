@@ -197,7 +197,7 @@
         $attribute = $attributes->where('name', 'rstarts_other_sources')->first();
     @endphp
     <label for="{{ $attribute->name }}">
-        <span class="attribute-label">Ukoliko ste obeležili “dodati opciju - other” molimo vas da navedete da li ste čuli
+        <span class="attribute-label">Ukoliko ste obeležili “Ostalo” molimo vas da navedete da li ste čuli
             putem vesti/društvenih mreža/website-a/e-mail-a/newslettera partnerskih organizacija i navedite ime organizacije,
             preko poznanika/studentske organizacije i navedite ime ili drugo - opciono dopuniti.</span>
     </label>
