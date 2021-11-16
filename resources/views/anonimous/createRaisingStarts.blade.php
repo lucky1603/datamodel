@@ -21,8 +21,8 @@
                     <p>Zdravo, budući Raising Starteri!</p>
                     <p>
                         Pred vama je prijavni formular za program Raising Starts. Program realizuje Naučno-tehnološki park Beograd
-                        u partnerstvu sa Naučno-tehnološkim parkom Niš i Naučno-tehnološkim parkom Čačak. Prijavni formular je isti
-                        za sve, potrebno je izabrati NTP prema regionu/području u kojem želite da se prijavite.
+                        u partnerstvu sa Naučno-tehnološkim parkom Niš i Naučno-tehnološkim parkom Čačak uz podršku Vlade Švajcarske.
+                        Prijavni formular je isti za sve, potrebno je izabrati NTP prema regionu/području u kojem želite da se prijavite.
                     </p>
                     <p>
                         Molimo vas da pažljivo pročitate pitanja, popunite prijavu i budete što precizniji u odgovorima kako bi
