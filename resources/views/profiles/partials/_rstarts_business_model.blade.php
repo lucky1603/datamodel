@@ -53,7 +53,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_which_product')->first();
     @endphp
-    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Koji inovativni proizvod i/ili uslugu razvijate ili planirate da razvijate (najviše 100 reči)?
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Koji inovativni proizvod i/ili uslugu razvijate ili planirate da razvijate (najviše 700 karaktera)?
         <span class="font-12 text-dark font-weight-normal">(Opišite glavne karakteristike inovativnog proizvoda i/ili usluge koju razvijate:
                 Navedite koju tehnologiju koristite (npr. Blockchain, AI, IoT, ML):
                 Navedite šta vaš proizvod i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste potrebe kupaca:)
@@ -172,7 +172,7 @@
         $attribute = $attributes->where('name', 'rstarts_intellectual_property')->first();
         $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine??</label>
+    <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine? (max 400 karatera)</label>
     <div class="col-lg-7">
         <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
             <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>

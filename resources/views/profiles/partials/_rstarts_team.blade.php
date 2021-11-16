@@ -17,6 +17,9 @@
                 <p class="font-11 font-weight-normal">
                     Napomena: navedeno iskustvo i obrazovanje je potrebno da bude reflektovano u priloženim CV-jevima
                 </p>
+                <p class="font-10 font-weight-normal">
+                    (max 1050 karaktera)
+                </p>
 
             </th>
             <th class="w-25">
@@ -202,7 +205,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_app_motive')->first();
     @endphp
-    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Šta vas je motivisalo da se prijavite za ovaj Program?</label>
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Šta vas je motivisalo da se prijavite za ovaj Program? (max 1050 karaktera)</label>
     <textarea class="form-control @error("rstarts_app_motive") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error('rstarts_app_motive') <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
