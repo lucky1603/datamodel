@@ -215,6 +215,20 @@
 
 <div class="form-group">
     @php
+        $attribute = $attributes->where('name', 'rstarts_innovative_area_other')->first();
+        $value = $attribute->getValue() ?? old($attribute->name);
+    @endphp
+    <label for="{{ $attribute->name }}" class="attribute-label">{{ $attribute->label }}</label>
+    <input type="text"
+           id="{{ $attribute->name }}"
+           name="{{ $attribute->name }}"
+           class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
+           value="{{ $value }}">
+    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
+</div>
+
+<div class="form-group">
+    @php
         $attribute = $attributes->where('name', 'rstarts_business_plan')->first();
     @endphp
     <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Kako vaš startap planira da zaradjuje?</label>

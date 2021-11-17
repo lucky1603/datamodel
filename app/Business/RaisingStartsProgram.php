@@ -108,7 +108,7 @@ class RaisingStartsProgram extends Program
         // -------------------------------------- POSLOVNA IDEJA ------------------------------------- //
         $ag_ideja = self::getAttributeGroup('rstarts_ideja', __('Idea'), 4);
         $attributeGroups->add($ag_ideja);
-        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_tagline', __('Tagline'), 'text', NULL, 19])));
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_tagline', __('Navedite slogan vašeg startapa'), 'text', NULL, 19])));
         $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_solve_problem', __('Which Problem is Solved'), 'text', NULL, 20])));
         $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_targetted_market', __('Targeted Market'), 'text', NULL, 21])));
         $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_problem_solve', __('Whose Problem is Being Solved'), 'text', NULL, 22])));
@@ -193,6 +193,8 @@ class RaisingStartsProgram extends Program
 
         $attributes->add($oblast);
 
+        $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_innovative_area_other', 'Ukoliko je izbor "Ostalo" navedite oblast', 'varchar', NULL, 47])));
+
         $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_business_plan', 'Kako vaš startap planira da zaradjuje?', 'text', NULL, 33])));
 
         // ------------------------------------------------- VAŠA STARTAP PRIČA ------------------------------------------------ //
@@ -219,11 +221,12 @@ class RaisingStartsProgram extends Program
             $howdiduhear->addOption(['value' => 5, 'text' => 'Webstranice NTP Beograd/NTP Niš/NTP Čačak']);
             $howdiduhear->addOption(['value' => 6, 'text' => 'Mediji (TV, web, štampa ...)']);
             $howdiduhear->addOption(['value' => 7, 'text' => 'Saradnik/poznanik mi je preporučio program']);
-            $howdiduhear->addOption(['value' => 8, 'text' => 'Dodati opciju - Other']);
+            $howdiduhear->addOption(['value' => 8, 'text' => 'Ostalo']);
         }
 
         $attributes->add($ag_startup_story->addAttribute($howdiduhear));
-        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_other_sources', "Dodatni izvori informisanja", 'text', NULL, 45])));
+
+        $attributes->add($ag_startup_story->addAttribute(self::selectOrCreateAttribute(['rstarts_other_sources', "Ukoliko ste obeležili “Ostalo” molimo vas da navedete da li ste čuli putem vesti/društvenih mreža/website-a/e-mail-a/newslettera partnerskih organizacija i navedite ime organizacije, preko poznanika/studentske organizacije i navedite ime ili drugo - opciono dopuniti.", 'text', NULL, 45])));
 
         $ag_dodatna_dokumentacija = self::getAttributeGroup('dodatna_dokumentacija', 'Dodatna dokumentacija', 7);
         $attributeGroups->add($ag_dodatna_dokumentacija);

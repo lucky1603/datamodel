@@ -218,11 +218,11 @@
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
     <label for="{{ $attribute->name }}"
-           class="col-lg-2 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">{!! $attribute->label !!}</label>
+           class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
     <div class="col-lg-10">
         <select id="{{$attribute->name}}"
                 name="{{$attribute->name}}"
-                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field" @if(isset($model)) disabled @endif>
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $val)
                 <option value="{{$key}}" @if($key == $value) selected @endif>{{$val}}</option>
