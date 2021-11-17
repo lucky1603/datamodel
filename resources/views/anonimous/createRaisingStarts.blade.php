@@ -7,7 +7,7 @@
                 <img src="/images/custom/ntplogo.png" class="ml-3 m-4" style="width: 90%"/>
             </div>
 
-            <div class="col-lg-2 offset-lg-6 h-100" style="display: flex; align-items: center; justify-content: center">
+            <div class="col-lg-3 offset-lg-5 h-100" style="display: flex; align-items: center; justify-content: center">
                 <img src="/images/custom/rstartslogo.png" class="m-4" style="height: 150px"/>
             </div>
         </div>
