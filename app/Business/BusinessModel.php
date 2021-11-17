@@ -355,10 +355,6 @@ class BusinessModel
     public static function addOverallAttribute(Attribute $attribute, $value=null) {
         static::find()->each(function($object) use($attribute, $value) {
             $object->addAttribute($attribute);
-//            $entity = $object->instance->entity;
-//            if(!$entity->attributes->contains($attribute)) {
-//                $entity->attributes()->sync($attribute, false);
-//            }
 
             if($value != null) {
                 $objAttribute = $object->getAttribute($attribute->name);

@@ -195,13 +195,10 @@
 <div class="form-group">
     @php
         $attribute = $attributes->where('name', 'rstarts_other_sources')->first();
+        $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}">
-        <span class="attribute-label">Ukoliko ste obeležili “Ostalo” molimo vas da navedete da li ste čuli
-            putem vesti/društvenih mreža/website-a/e-mail-a/newslettera partnerskih organizacija i navedite ime organizacije,
-            preko poznanika/studentske organizacije i navedite ime ili drugo - opciono dopuniti.</span>
-    </label>
-    <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" value="{{ $attribute->getValue() ?? old($attribute->name)}}">
+    <label for="{{ $attribute->name }}" class="attribute-label">{{ $attribute->label }}</label>
+    <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" value="{{ $value }}">
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 

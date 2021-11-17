@@ -117,6 +117,20 @@ class StorePostRequest extends FormRequest
                 $validator->errors()->add('rstarts_founding_date', 'Datum osnivanja startapa ne može biti stariji od dve godine unazad!');
             }
 
+            if($data['rstarts_innovative_area'] == 16) {
+                if($data['rstarts_innovative_area_other'] == '') {
+                    $validator->errors()->add('rstarts_innovative_area_other', 'Ako je gornja opcija "Ostalo" ovo polje mora imati vrednost');
+                }
+            }
+
+            if($data['rstarts_howdiduhear'] == 8) {
+                if($data['rstarts_other_sources'] == '') {
+                    $validator->errors()->add('rstarts_other_sources', 'Ako je gornja opcija "Ostalo" ovo polje mora imati vrednost');
+                }
+            }
+
+
+
 //            if(count($data['memberName']) < 2 || $data['memberName'][1] == null)
 //            {
 //                $validator->errors()->add('memberName', 'Tim se mora sastojati od najmanje 2 člana!');
