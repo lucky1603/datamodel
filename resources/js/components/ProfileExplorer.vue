@@ -1,22 +1,26 @@
 <template>
     <div class="h-100 w-100">
-        <div id="toolbar" class="row">
-            <b-col lg="10" class="h-100" style="display: flex; justify-content: left; align-items: center;">
-                <span>FILTER</span>
-                <b-form id="filterForm" style="width: 90%" inline>
-                    <b-input-group class="w-25 ml-2" size="sm">
+        <b-form id="filterForm" inline class="w-100 bg-light">
+            <b-row id="toolbar" class="row w-100">
+                <b-col xl="1" lg="1" class="pt-1">
+                    <span class="m-2 position-relative" style="top:12px" >FILTER</span>
+                </b-col>
+                <b-col xl="2" lg="4" style="display: flex; flex-direction: row; justify-content: left">
+                    <b-input-group class="w-100 m-2 mt-3 mt-sm-3 mt-lg-2" size="sm">
                         <b-form-input v-model="form.name" type="search" id="searchName" placeholder="Po nazivu ..." @update="onSubmit"></b-form-input>
                         <template #append>
                             <b-input-group-text><b-icon-zoom-in></b-icon-zoom-in></b-input-group-text>
                         </template>
                     </b-input-group>
-                    <b-form-select size="sm" class="ml-2 w-25" v-model="form.profile_status" :options="statuses" @change="onSubmit"></b-form-select>
-                </b-form>
-            </b-col>
-            <b-col lg="2" class="h-100" style="display: flex; justify-content: right; align-items: center">
-               <a href="#" role="button" class="text-secondary" @click="buttonClicked"><i class="dripicons-document-new"></i> NOVI PROFIL</a>
-            </b-col>
-        </div>
+                </b-col>
+                <b-col xl="2" lg="4" style="display: flex; justify-content: left">
+                    <b-form-select size="sm" class="m-2 w-100" v-model="form.profile_status" :options="statuses" @change="onSubmit"></b-form-select>
+                </b-col>
+                <b-col xl="2" lg="3" offset-xl="5" class="d-flex flex-row flex-lg-row-reverse" >
+                   <a href="#" role="button" class="text-secondary m-2 position-relative" style="top:5px" @click="buttonClicked"><i class="dripicons-document-new"></i> NOVI PROFIL</a>
+                </b-col>
+            </b-row>
+        </b-form>
         <div id="items" class="row overflow-auto p-4" style="height: 90%; display: flex; flex-wrap: wrap; flex-direction: row">
             <div v-if="loading == true" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; flex-direction: column">
                 <b-spinner label="busy"></b-spinner>
@@ -30,7 +34,7 @@
                 type="2"
                 :id="item.id"
                 :status="item.status"
-                :statustext="item.statusText" ></profile-item>
+                :statustext="item.statusText"></profile-item>
         </div>
         <div id="navigator" class="row" style="height: 5%">
             <b-pagination

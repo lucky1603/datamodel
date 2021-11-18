@@ -2715,6 +2715,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProfileExplorer",
   props: {
@@ -53288,34 +53292,46 @@ var render = function () {
     { staticClass: "h-100 w-100" },
     [
       _c(
-        "div",
-        { staticClass: "row", attrs: { id: "toolbar" } },
+        "b-form",
+        {
+          staticClass: "w-100 bg-light",
+          attrs: { id: "filterForm", inline: "" },
+        },
         [
           _c(
-            "b-col",
-            {
-              staticClass: "h-100",
-              staticStyle: {
-                display: "flex",
-                "justify-content": "left",
-                "align-items": "center",
-              },
-              attrs: { lg: "10" },
-            },
+            "b-row",
+            { staticClass: "row w-100", attrs: { id: "toolbar" } },
             [
-              _c("span", [_vm._v("FILTER")]),
+              _c(
+                "b-col",
+                { staticClass: "pt-1", attrs: { xl: "1", lg: "1" } },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "m-2 position-relative",
+                      staticStyle: { top: "12px" },
+                    },
+                    [_vm._v("FILTER")]
+                  ),
+                ]
+              ),
               _vm._v(" "),
               _c(
-                "b-form",
+                "b-col",
                 {
-                  staticStyle: { width: "90%" },
-                  attrs: { id: "filterForm", inline: "" },
+                  staticStyle: {
+                    display: "flex",
+                    "flex-direction": "row",
+                    "justify-content": "left",
+                  },
+                  attrs: { xl: "2", lg: "4" },
                 },
                 [
                   _c(
                     "b-input-group",
                     {
-                      staticClass: "w-25 ml-2",
+                      staticClass: "w-100 m-2 mt-3 mt-sm-3 mt-lg-2",
                       attrs: { size: "sm" },
                       scopedSlots: _vm._u([
                         {
@@ -53352,9 +53368,19 @@ var render = function () {
                     ],
                     1
                   ),
-                  _vm._v(" "),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                {
+                  staticStyle: { display: "flex", "justify-content": "left" },
+                  attrs: { xl: "2", lg: "4" },
+                },
+                [
                   _c("b-form-select", {
-                    staticClass: "ml-2 w-25",
+                    staticClass: "m-2 w-100",
                     attrs: { size: "sm", options: _vm.statuses },
                     on: { change: _vm.onSubmit },
                     model: {
@@ -53368,35 +53394,31 @@ var render = function () {
                 ],
                 1
               ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            {
-              staticClass: "h-100",
-              staticStyle: {
-                display: "flex",
-                "justify-content": "right",
-                "align-items": "center",
-              },
-              attrs: { lg: "2" },
-            },
-            [
+              _vm._v(" "),
               _c(
-                "a",
+                "b-col",
                 {
-                  staticClass: "text-secondary",
-                  attrs: { href: "#", role: "button" },
-                  on: { click: _vm.buttonClicked },
+                  staticClass: "d-flex flex-row flex-lg-row-reverse",
+                  attrs: { xl: "2", lg: "3", "offset-xl": "5" },
                 },
                 [
-                  _c("i", { staticClass: "dripicons-document-new" }),
-                  _vm._v(" NOVI PROFIL"),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-secondary m-2 position-relative",
+                      staticStyle: { top: "5px" },
+                      attrs: { href: "#", role: "button" },
+                      on: { click: _vm.buttonClicked },
+                    },
+                    [
+                      _c("i", { staticClass: "dripicons-document-new" }),
+                      _vm._v(" NOVI PROFIL"),
+                    ]
+                  ),
                 ]
               ),
-            ]
+            ],
+            1
           ),
         ],
         1
