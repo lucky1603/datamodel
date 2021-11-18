@@ -7,10 +7,10 @@
     <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         <span class="attribute-label">Ukratko opišite napredak koji ste postigli do sada</span>
         <span class="font-12 text-dark font-weight-normal">
-            ( Opišite koliko dugo je vaš tim okupljen oko razvoja ideje. Takođe, ukratko opišite
+            Opišite koliko dugo je vaš tim okupljen oko razvoja ideje. Takođe, ukratko opišite
             ključne ciljeve koje ste do sada postigli (npr. uključivanje novih članova sa
             potrebnim ekspertizama, razvijen dokaz koncepta /prototip /MVP, dobijene povratne
-            informacije od eksperata, potencijalnih kupaca itd.). )
+            informacije od eksperata, potencijalnih kupaca itd.)
         </span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
@@ -19,10 +19,10 @@
 
 <div class="form-group">
     <label class="attribute-label mt-5 @if(isset($model)) mandatory-label @endif">Priložite materijale koji dokazuju tehničku izvodljivost proizvoda koji razvijate - fotografije,
-        linkovi, dokumenta/nacrti. Obratiti pažnju da tehnološka izvodljivost mora biti u skladu sa naznačenim stepenom razvoja u delu 3.9
+        linkovi, dokumenta/nacrti.
         <span class="font-12 text-dark font-weight-normal">
-            ( Dokaz mora imati jasno obrazloženje šta predstavlja. Slika/skica/nacrt bez obraloženja neće biti uzeta u razmatranje. <strong>Svi
-                file-ovi moraju istovremeno biti obeleženi i dodati</strong> )
+            Dokaz mora imati jasno obrazloženje šta predstavlja. Slika/skica/nacrt bez obraloženja neće biti uzeta u razmatranje.
+            Obratiti pažnju da tehnološka izvodljivost mora biti u skladu sa naznačenim stepenom razvoja u delu 3.9.
         </span>
     </label>
 </div>

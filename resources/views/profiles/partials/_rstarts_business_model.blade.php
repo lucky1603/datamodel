@@ -111,7 +111,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_clarification_innovative')->first();
     @endphp
-    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Obrazložite odabranu opciju (npr. Zašto mislite da je
+    <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Obrazložite odabranu opciju (npr. zašto mislite da je
         vaš proizvod potpuno nov na tržištu, značajno poboljšan i drugo):
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>

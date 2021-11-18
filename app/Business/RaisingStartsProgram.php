@@ -117,7 +117,7 @@ class RaisingStartsProgram extends Program
         $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_customer_problem_solve', __('How are the Customers solving the Problem?'), 'text', NULL, 25])));
         $howInnovative = self::selectOrCreateAttribute(['rstarts_how_innovative', __('How innovative'), 'select', NULL, 26]);
         if(count($howInnovative->getOptions()) == 0) {
-            $howInnovative->addOption(['value' => 1, 'text' =>'Već postojeći proizvod/usluga']);
+            $howInnovative->addOption(['value' => 1, 'text' =>'Već postojeći proizvod/ili usluga']);
             $howInnovative->addOption(['value' => 2, 'text' =>'Poznat, ali nedovoljno primenjen proizvod i/ili usluga ']);
             $howInnovative->addOption(['value' => 3, 'text' => 'Poboljšan postojeći proizvod i/ili usluga']);
             $howInnovative->addOption(['value' => 4, 'text' => 'Značajno poboljšan postojeći proizvod i/ili usluga']);
@@ -156,10 +156,10 @@ class RaisingStartsProgram extends Program
 
         $ippactivities = self::selectOrCreateAttribute(['rstarts_intellectual_property', 'Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine?', 'select', NULL, 30]);
         if(count($ippactivities->getOptions()) == 0) {
-            $ippactivities->addOption(['value' => 1, 'text' => 'Inicijalno istraživanje (konsultacije sa Zavodom za IP)']);
+            $ippactivities->addOption(['value' => 1, 'text' => 'Inicijalno istraživanje (konsultacije sa Zavodom za intelektualnu svojinu RS)']);
             $ippactivities->addOption(['value' => 2, 'text' => 'Dobijen Izveštaj o obavljenom istraživanju od strane Zavoda za zaštitu intelektualne svojine']);
             $ippactivities->addOption(['value' => 3, 'text' => 'Podneta aplikacija za zaštitu nekog prava IP']);
-            $ippactivities->addOption(['value' => 4, 'text' => 'Zaštićen logo, autorsko delo i neko srodno pravo']);
+            $ippactivities->addOption(['value' => 4, 'text' => 'Zaštićen logo, autorsko delo i/ili neko srodno pravo']);
             $ippactivities->addOption(['value' => 5, 'text' => 'Zaštićen mali patent, patent']);
             $ippactivities->addOption(['value' => 6, 'text' => 'Zaštićeno pravo industrijskog dizajna']);
             $ippactivities->addOption(['value' => 7, 'text' => 'Nismo']);
