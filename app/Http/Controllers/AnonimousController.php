@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use PharIo\Manifest\InvalidEmailException;
 
 class AnonimousController extends Controller
 {
@@ -191,7 +192,11 @@ class AnonimousController extends Controller
 
         // Send verification email to the user.
         $email = $profile->getAttribute('contact_email')->getValue();
-        Mail::to($email)->send(new ProfileCreated($profile));
+        try {
+            Mail::to($email)->send(new ProfileCreated($profile));
+        } catch (\Exception $ioe) {
+
+        }
 
         // Go to confirmation page.
         $token = $user->getRememberToken();
