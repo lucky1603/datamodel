@@ -135,7 +135,7 @@
             <!-- end Topbar -->
 
             <!-- Start Content-->
-            <div class="position-relative overflow-auto p-2" id="app" style="height: 90vh">
+            <div class="position-relative overflow-auto p-2 pb-0" id="app" style="height: 90vh">
 
                 @yield('content')
 
