@@ -172,7 +172,7 @@
         $attribute = $attributes->where('name', 'rstarts_intellectual_property')->first();
         $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine? (max 400 karatera)</label>
+    <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine?</label>
     <div class="col-lg-7">
         <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
             <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
@@ -192,7 +192,7 @@
         Ukoliko ste sproveli neko istraživanje na temu intelektualne svojine, mogućnosti zaštite intelektualne
         svojine ili ukoliko ste zaštitili logotip, patent, mali patent ili slično opišite, sa najviše 50 reči.
         Ukoliko ste zaštitili ili planirate da zaštitite neko pravo intelektualne svojine, navedite ko su
-        vlasnici ili ko bi bili vlasnici te intelektualne svojine.
+        vlasnici ili ko bi bili vlasnici te intelektualne svojine (max 400 karatera).
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
