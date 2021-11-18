@@ -117,7 +117,7 @@ class RaisingStartsProgram extends Program
         $attributes->add($ag_ideja->addAttribute(self::selectOrCreateAttribute(['rstarts_customer_problem_solve', __('How are the Customers solving the Problem?'), 'text', NULL, 25])));
         $howInnovative = self::selectOrCreateAttribute(['rstarts_how_innovative', __('How innovative'), 'select', NULL, 26]);
         if(count($howInnovative->getOptions()) == 0) {
-            $howInnovative->addOption(['value' => 1, 'text' =>'Već postojeći proizvod/ili usluga']);
+            $howInnovative->addOption(['value' => 1, 'text' =>'Već postojeći proizvod i/ili usluga']);
             $howInnovative->addOption(['value' => 2, 'text' =>'Poznat, ali nedovoljno primenjen proizvod i/ili usluga ']);
             $howInnovative->addOption(['value' => 3, 'text' => 'Poboljšan postojeći proizvod i/ili usluga']);
             $howInnovative->addOption(['value' => 4, 'text' => 'Značajno poboljšan postojeći proizvod i/ili usluga']);
