@@ -44,6 +44,7 @@ Route::post('/createProfile', 'AnonimousController@storeProfile')->name('storePr
 Route::get('/createRaisingStarts', 'AnonimousController@createRaisingStarts')->name('createRaisingStarts');
 Route::post('/createRaisingStarts', 'AnonimousController@storeRaisingStarts')->name('storeRaisingStarts');
 Route::get('refreshcaptcha', 'AnonimousController@refreshCaptcha');
+Route::get('testmail/{email}', 'AnonimousController@testMail');
 
 //Route::get('/clients', 'ClientController@index')->name('clients.index');
 //Route::get('/clients/create', 'ClientController@create')->name('clients.create');

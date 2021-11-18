@@ -10,6 +10,7 @@ use App\Business\RaisingStartsProgram;
 use App\Http\Requests\CreateProfileRequest;
 use App\Http\Requests\StorePostRequest;
 use App\Mail\ProfileCreated;
+use App\Mail\TestMail;
 use App\User;
 use Hamcrest\Util;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use PharIo\Manifest\InvalidEmailException;
+use PHPUnit\Util\Test;
 
 class AnonimousController extends Controller
 {
@@ -296,6 +298,15 @@ class AnonimousController extends Controller
 
     public function storeTest(Request $request) {
         $data = $request->post();
+
+    }
+
+    public function testMail($email) {
+        try {
+            Mail::to($email)->send(new TestMail());
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+        }
 
     }
 }

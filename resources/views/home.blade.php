@@ -25,6 +25,9 @@
 
         </div>
     </div>
+{{--    <div class="text-center">--}}
+{{--        <button type="button" id="btnTestMail" class="btn btn-sm btn-primary rounded-pill">Test Email</button>--}}
+{{--    </div>--}}
 
 @endsection
 
@@ -42,6 +45,12 @@
             if($('#link_contracts').hasClass('active')) {
                 $('#link_contracts').removeClass('active');
             }
+
+            $('#btnTestMail').click(function() {
+                $.get('testmail/sinisa.ristic@prosmart.rs', function(data) {
+                    console.log(data);
+                }) ;
+            });
         });
     </script>
 @endsection
