@@ -28,7 +28,7 @@
 @endphp
 
 <div class="form-group row">
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">JMBG PODNOSIOCA PRIJAVE</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">JMBG podnosioca prijave</label>
     <div class="col-sm-10">
         <input type="text"
                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
