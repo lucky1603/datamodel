@@ -151,7 +151,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_founder_cvs')->first();
     @endphp
-    <label class="attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">
+    <label class="attribute-label col-form-label col-form-label-sm">
         CV-jevi minimum dva postojeća/planirana osnivača startapa <i class="dripicons-information font-18" title="Datoteke moraju biti u
         formatu (.pdf, .docx, .xlsx) i njihova valičina ne sme premašivati 1MB"></i>
     </label>

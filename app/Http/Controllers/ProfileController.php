@@ -23,6 +23,7 @@ use App\Business\Training;
 use App\Http\Middleware\Authenticate;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdateRaisingStartsRequest;
+use App\Mail\ApplicationSuccess;
 use App\Mail\DemoDayNotification;
 use App\Mail\MeetingNotification;
 use App\Mail\ProfileCreated;
@@ -529,6 +530,14 @@ class ProfileController extends Controller
 
         $program->setStatus($program->getStatus() + 1);
 
+        // Send confirmation mail.
+        $email = $profile->getValue('contact_email');
+        try {
+            Mail::to($email)->send(new ApplicationSuccess($profile));
+        } catch (\Exception $e) {
+
+        }
+
         return json_encode([
             'code' => 1,
             'message' => "Prijava uspešno popunjena i poslata! Sačekajte da budete preusmereni."
@@ -577,12 +586,12 @@ class ProfileController extends Controller
             }
         }
 
-        if(!isset($data['rstarts_founder_cvs']) || count($data['rstarts_founder_cvs']) < 2){
-            return [
-                'code' => 0,
-                'message' => 'Moraju se priložiti bar 2 datoteke za CV-jeve osnivača!',
-            ];
-        }
+//        if(!isset($data['rstarts_founder_cvs']) || count($data['rstarts_founder_cvs']) < 2){
+//            return [
+//                'code' => 0,
+//                'message' => 'Moraju se priložiti bar 2 datoteke za CV-jeve osnivača!',
+//            ];
+//        }
 
         // Texts.
         $texts = [

@@ -38,7 +38,6 @@ class StorePostRequest extends FormRequest
             'rstarts_email' => 'required|email|max:255',
             'rstarts_telephone' => 'required|max:30',
             'rstarts_webpage' => 'required|url|max:255',
-            'rstarts_founding_date' => 'required|date|max:30',
             'rstarts_logo' => 'file|mimes:jpg,jpeg,bmp,png,gif',
             'rstarts_team_history' => 'max:400',
             'rstarts_app_motive' => 'max:1050',
@@ -72,8 +71,9 @@ class StorePostRequest extends FormRequest
         ];
 
         // Ako je firma (registrovano društvo) u pitanju.
-        if($this['app_type'] != 1) {
+        if($this['app_type'] == 2) {
             $validationRules['rstarts_id_number'] = 'required|digits:8';
+            $validationRules['rstarts_founding_date'] = 'required|date|max:30';
 //            $validationRules['rstarts_basic_registered_activity'] = 'required|max:500';
         }
 
@@ -110,11 +110,13 @@ class StorePostRequest extends FormRequest
             }
 
             // Check for the foounding date.
-            $dateFounded = date('Y-m-d', strtotime($data['rstarts_founding_date']));
-            $time = strtotime('-2 year', time());
-            $boundingDate = date('Y-m-d', $time);
-            if($boundingDate > $dateFounded) {
-                $validator->errors()->add('rstarts_founding_date', 'Datum osnivanja startapa ne može biti stariji od dve godine unazad!');
+            if($data['app_type'] == 2) {
+                $dateFounded = date('Y-m-d', strtotime($data['rstarts_founding_date']));
+                $time = strtotime('-2 year', time());
+                $boundingDate = date('Y-m-d', $time);
+                if($boundingDate > $dateFounded) {
+                    $validator->errors()->add('rstarts_founding_date', 'Datum osnivanja startapa ne može biti stariji od dve godine unazad!');
+                }
             }
 
             if($data['rstarts_innovative_area'] == 16) {

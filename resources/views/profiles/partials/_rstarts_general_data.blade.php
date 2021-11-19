@@ -147,7 +147,7 @@
 
 </div>
 
-<div class="form-group row">
+<div class="form-group row" id="rstarts_founding_date_group">
     @php
         $attribute = $attributes->where('name', 'rstarts_founding_date')->first();
         $value = $attribute->getValue() ?? old($attribute->name) ;

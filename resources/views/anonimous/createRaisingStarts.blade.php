@@ -104,9 +104,11 @@
             if(appType == 1) {
                 $('#rstart_id_number_group').hide();
                 $('#rstarts_basic_registered_activity_group').hide();
+                $('#rstarts_founding_date_group').hide();
             } else {
                 $('#rstart_id_number_group').show();
                 $('#rstarts_basic_registered_activity_group').show();
+                $('#rstarts_founding_date_group').show();
             }
 
             let dev_phase_business = $('#rstarts_dev_phase_bussines').val();
@@ -173,9 +175,11 @@
                 if(appType == 1) {
                     $('#rstart_id_number_group').hide();
                     $('#rstarts_basic_registered_activity_group').hide();
+                    $('#rstarts_founding_date_group').hide();
                 } else {
                     $('#rstart_id_number_group').show();
                     $('#rstarts_basic_registered_activity_group').show();
+                    $('#rstarts_founding_date_group').show();
                 }
             });
 
