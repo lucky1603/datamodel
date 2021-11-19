@@ -586,12 +586,12 @@ class ProfileController extends Controller
             }
         }
 
-//        if(!isset($data['rstarts_founder_cvs']) || count($data['rstarts_founder_cvs']) < 2){
-//            return [
-//                'code' => 0,
-//                'message' => 'Moraju se priložiti bar 2 datoteke za CV-jeve osnivača!',
-//            ];
-//        }
+        if(!isset($data['rstarts_founder_cvs']) || count($data['rstarts_founder_cvs']) < 2){
+            return [
+                'code' => 0,
+                'message' => 'Moraju se priložiti bar 2 datoteke za CV-jeve osnivača!',
+            ];
+        }
 
         // Texts.
         $texts = [
