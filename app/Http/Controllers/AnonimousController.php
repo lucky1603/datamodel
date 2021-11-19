@@ -268,12 +268,17 @@ class AnonimousController extends Controller
     public function verify($token) {
         $user = User::where('remember_token', $token)->first();
 
-        $user->setAttribute('email_verified_at', now());
-        $user->save();
+        if($user != null) {
+            $user->setAttribute('email_verified_at', now());
+            $user->save();
 
-        return view('auth.changepassword')->with(
-            ['token' => $token, 'email' => $user->getAttribute('email')]
-        );
+            return view('auth.changepassword')->with(
+                ['token' => $token, 'email' => $user->getAttribute('email')]
+            );
+        }
+
+
+
     }
 
     public function notifyUser() {

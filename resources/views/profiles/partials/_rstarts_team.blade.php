@@ -121,7 +121,7 @@
                             @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
-                            <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" >
+                            <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="0">
                             @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                     </tr>

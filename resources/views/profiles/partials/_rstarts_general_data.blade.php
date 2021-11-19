@@ -134,11 +134,11 @@
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text"
-               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
-               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
+               class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
+               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" >
         <div class="font-12 text-dark">Naziv web stranice mora obavezno imati prefix http:// ili https:// </div>
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>

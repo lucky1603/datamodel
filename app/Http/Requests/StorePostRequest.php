@@ -37,7 +37,6 @@ class StorePostRequest extends FormRequest
             'jmbg' => 'required|digits:13',
             'rstarts_email' => 'required|email|max:255',
             'rstarts_telephone' => 'required|max:30',
-            'rstarts_webpage' => 'required|url|max:255',
             'rstarts_logo' => 'file|mimes:jpg,jpeg,bmp,png,gif',
             'rstarts_team_history' => 'max:400',
             'rstarts_app_motive' => 'max:1050',
@@ -65,7 +64,7 @@ class StorePostRequest extends FormRequest
 //            'memberRole.*' => 'max:400',
 //            'memberOtherJob.*' => 'max:200',
 //            'founderName.*' => 'max: 100',
-//            'founderPart.*' => 'numeric',
+            'founderPart.*' => 'numeric',
             'gdpr' => 'required',
             'captcha' => 'required|captcha',
         ];
@@ -131,6 +130,15 @@ class StorePostRequest extends FormRequest
                 }
             }
 
+            if(isset($data['rstarts_webpage'])) {
+                if(strlen($data['rstarts_webpage']) > 255) {
+                    $validator->errors()->add('rstarts_webpage', 'Ovo polje ne može imati više od 255 karaktera!');
+                }
+
+                if(!str_contains($data['rstarts_webpage'], 'http://') && !str_contains($data['rstarts_webpage'], 'https://')) {
+                    $validator->errors()->add('rstarts_webpage', 'Pogrešan format!');
+                }
+            }
 
 
 //            if(count($data['memberName']) < 2 || $data['memberName'][1] == null)

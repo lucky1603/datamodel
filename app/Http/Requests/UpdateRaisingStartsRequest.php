@@ -85,6 +85,16 @@ class UpdateRaisingStartsRequest extends FormRequest
                 }
             }
 
+            if(isset($data['rstarts_webpage'])) {
+                if(strlen($data['rstarts_webpage']) > 255) {
+                    $validator->errors()->add('rstarts_webpage', 'Ovo polje ne može imati više od 255 karaktera!');
+                }
+
+                if(!str_contains($data['rstarts_webpage'], 'http://') && !str_contains($data['rstarts_webpage'], 'https://')) {
+                    $validator->errors()->add('rstarts_webpage', 'Pogrešan format!');
+                }
+            }
+
         });
 
     }
