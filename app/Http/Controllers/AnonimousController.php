@@ -277,7 +277,7 @@ class AnonimousController extends Controller
             );
         }
 
-
+        return view('anonimous.wrong-page');
 
     }
 
