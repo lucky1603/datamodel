@@ -53427,6 +53427,33 @@ var render = function () {
       _c(
         "div",
         {
+          staticClass: "d-flex justify-content-center align-items-center mt-2",
+          staticStyle: { height: "5%" },
+          attrs: { id: "navigator" },
+        },
+        [
+          _c("b-pagination", {
+            attrs: {
+              "total-rows": _vm.items != null ? _vm.items.length : 0,
+              "per-page": this.itemsPerPage,
+              "aria-controls": "my-table",
+            },
+            on: { input: _vm.pageChanged },
+            model: {
+              value: _vm.currentPage,
+              callback: function ($$v) {
+                _vm.currentPage = $$v
+              },
+              expression: "currentPage",
+            },
+          }),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
           staticClass: "row overflow-auto p-4",
           staticStyle: {
             height: "90%",
@@ -53476,33 +53503,6 @@ var render = function () {
           }),
         ],
         2
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "row",
-          staticStyle: { height: "5%" },
-          attrs: { id: "navigator" },
-        },
-        [
-          _c("b-pagination", {
-            attrs: {
-              "total-rows": _vm.items != null ? _vm.items.length : 0,
-              "per-page": this.itemsPerPage,
-              "aria-controls": "my-table",
-            },
-            on: { input: _vm.pageChanged },
-            model: {
-              value: _vm.currentPage,
-              callback: function ($$v) {
-                _vm.currentPage = $$v
-              },
-              expression: "currentPage",
-            },
-          }),
-        ],
-        1
       ),
       _vm._v(" "),
       _c(

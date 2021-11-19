@@ -21,6 +21,14 @@
                 </b-col>
             </b-row>
         </b-form>
+        <div id="navigator" class="d-flex justify-content-center align-items-center mt-2" style="height: 5%">
+            <b-pagination
+                v-model="currentPage"
+                :total-rows="items != null ? items.length : 0"
+                :per-page="this.itemsPerPage"
+                aria-controls="my-table" @input="pageChanged"
+            ></b-pagination>
+        </div>
         <div id="items" class="row overflow-auto p-4" style="height: 90%; display: flex; flex-wrap: wrap; flex-direction: row">
             <div v-if="loading == true" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; flex-direction: column">
                 <b-spinner label="busy"></b-spinner>
@@ -35,14 +43,6 @@
                 :id="item.id"
                 :status="item.status"
                 :statustext="item.statusText"></profile-item>
-        </div>
-        <div id="navigator" class="row" style="height: 5%">
-            <b-pagination
-                v-model="currentPage"
-                :total-rows="items != null ? items.length : 0"
-                :per-page="this.itemsPerPage"
-                aria-controls="my-table" @input="pageChanged"
-            ></b-pagination>
         </div>
 
         <b-modal id="addProfileModal" ref="addProfileModal" size="lg" header-bg-variant="dark" header-text-variant="light">
