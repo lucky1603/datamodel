@@ -13,7 +13,7 @@
                 $status = $model->getActiveProgram()->getStatus();
             @endphp
 
-            @if($status == 1)
+            @if($status == -1)
                 <div class="row h-100" style="display: flex; flex-direction: column; justify-content: center">
                     <img class="ml-auto mr-auto" src="/images/custom/waitingicon.png" width="200px"/>
                     <h4 class="text-center">{{ __('Waiting for the client to complete the form') }}</h4>
