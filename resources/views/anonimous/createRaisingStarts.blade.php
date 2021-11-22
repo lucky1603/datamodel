@@ -101,7 +101,7 @@
         $(document).ready(function() {
 
             const appType = $('#app_type').val();
-            if(appType == 1) {
+            if(appType != 2) {
                 $('#rstart_id_number_group').hide();
                 $('#rstarts_basic_registered_activity_group').hide();
                 $('#rstarts_founding_date_group').hide();
@@ -172,7 +172,7 @@
 
             $('#app_type').change(function() {
                 const appType = $('#app_type').val();
-                if(appType == 1) {
+                if(appType != 2) {
                     $('#rstart_id_number_group').hide();
                     $('#rstarts_basic_registered_activity_group').hide();
                     $('#rstarts_founding_date_group').hide();
