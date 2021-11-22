@@ -1,4 +1,4 @@
-<h3 class="text-center attribute-label m-4">Poslovna ideja</h3>
+<h3 class="text-center attribute-label" style="margin-top: 120px">Poslovna ideja</h3>
 
 
 <div class="form-group">

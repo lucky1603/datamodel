@@ -1,5 +1,9 @@
 @extends('layouts.backbone')
 
+@section('title')
+    Raising Starts - Potvrda kreiranja profila
+@endsection
+
 @section('body-content')
     <div class="row bg-dark" >
         <div class="col-lg-4 h-100">
@@ -18,10 +22,16 @@
                     Na osnovu vaših podataka kreiran je profil za vas. Na Vašu email adresu je poslat email sa verifikacionim linkom.
                     Kada se prijavite na svoj profil, bićete u mogućnosti da nastavite sa popunjavanjem podataka iz prijave.
                 </p>
+
+                <p class="font-12 mt-4 text-dark">
+                    <strong>Ukoliko ne možete da pronadjete e-mail pogledajte spam folder ili nas kontaktirajte na <a href="mailto://event@ntpark.rs">event@ntpark.rs</a></strong>
+                </p>
             </div>
             <div class="text-center mt-5">
                 <a type="button" role="button" class="btn btn-primary rounded-pill" href="https://ntpark.rs" >NA GLAVNU STRANU</a>
             </div>
+
+
         </div>
 
     </div>

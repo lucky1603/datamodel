@@ -1,5 +1,9 @@
 @extends('layouts.backbone')
 
+@section('title')
+    Raising Starts - Kreiranje novog profila
+@endsection
+
 @section('body-content')
     <div class="row bg-dark" style="height: 100px">
         <div class="col-6 col-lg-2 h-100">

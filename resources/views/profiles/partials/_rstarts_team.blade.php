@@ -1,4 +1,4 @@
-<h3 class="text-center attribute-label m-4">{{ \App\AttributeGroup::where('name', 'rstarts_tim')->first()->label }}</h3>
+<h3 class="text-center attribute-label" style="margin-top: 120px;">{{ \App\AttributeGroup::where('name', 'rstarts_tim')->first()->label }}</h3>
 
 <div class="text-center mt-2 mb-2">
     <h4 class="attribute-label @if(isset($model)) mandatory-label @endif">Članovi tima </h4>
@@ -151,11 +151,11 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_founder_cvs')->first();
     @endphp
-    <label class="attribute-label col-form-label col-form-label-sm">
+    <label class="attribute-label col-form-label col-form-label-sm mandatory-label">
         CV-jevi minimum dva postojeća/planirana osnivača startapa <i class="dripicons-information font-18" title="Datoteke moraju biti u
         formatu (.pdf, .docx, .xlsx) i njihova valičina ne sme premašivati 1MB"></i>
     </label>
-    <input type="file" multiple name="rstarts_founder_cvs[]" id="rstarts_founder_cvs" class="form-control @error('rstarts_founder_cvs') is-invalid @enderror">
+    <input type="file" multiple name="rstarts_founder_cvs[]" id="rstarts_founder_cvs" class="form-control @error('rstarts_founder_cvs') is-invalid @enderror mandatory-field">
     @error('rstarts_founder_cvs') <div class="alert alert-danger">{{ $message }}</div>@enderror
     @if($attribute != null && $attribute->getValue() != null)
         @if(isset($attribute->getValue()['filelink']))

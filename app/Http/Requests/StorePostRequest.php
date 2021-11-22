@@ -108,6 +108,16 @@ class StorePostRequest extends FormRequest
 
             }
 
+            if(Entity::where('name', 'Program')->first() != null) {
+                if(Attribute::checkValue(Entity::where('name', 'Program')->first(), 'jmbg', $data['jmbg']))
+                {
+                    if($data['app_type'] != 1) {
+                        $validator->errors()->add('jmbg', 'Matični broj se već nalazi u bazi!');
+                    }
+                }
+
+            }
+
             // Check for the foounding date.
             if($data['app_type'] == 2) {
                 $dateFounded = date('Y-m-d', strtotime($data['rstarts_founding_date']));

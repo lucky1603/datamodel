@@ -1,5 +1,9 @@
 @extends('layouts.backbone')
 
+@section('title')
+    Raising Starts - Pogrešna strana
+@endsection
+
 @section('body-content')
     <div class="row bg-dark" >
         <div class="col-lg-4 h-100">

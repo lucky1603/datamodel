@@ -1,4 +1,4 @@
-<h3 class="text-center attribute-label m-4">Vaša startap priča</h3>
+<h3 class="text-center attribute-label" style="margin-top: 120px">Vaša startap priča</h3>
 
 <div class="form-group">
     @php
