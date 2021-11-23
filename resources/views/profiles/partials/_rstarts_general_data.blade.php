@@ -87,8 +87,9 @@
     <div class="col-sm-10">
         <input type="text"
                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
-               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
-        <span class="font-12 text-dark">Unesite broj telefona u formatu 0(##) ###(#) - ###(#)</span>
+               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif data-toggle="input-mask" data-mask-format="000 000-0000">
+        <span class="font-12 text-dark">Unesite broj telefona u formatu 0(##) ### - ###(#)</span>
+
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
