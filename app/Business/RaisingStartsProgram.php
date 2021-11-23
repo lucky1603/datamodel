@@ -133,7 +133,7 @@ class RaisingStartsProgram extends Program
             $dev_phase_tech->addOption(['value' => 2, 'text' => 'Dokaz koncepta']);
             $dev_phase_tech->addOption(['value' => 3, 'text' => 'Razvijen prvi prototip / razvijena alpha verzija']);
             $dev_phase_tech->addOption(['value' => 4, 'text' => 'Razvijen drugi prototip / razvijena beta verzija']);
-            $dev_phase_tech->addOption(['value' => 5, 'text' => 'MVP 1.0']);
+            $dev_phase_tech->addOption(['value' => 5, 'text' => 'MVP']);
             $dev_phase_tech->addOption(['value' => 6, 'text' => 'Stabilna prva verzija proizvoda koja se kontinuirano unapređuje']);
         }
         $attributes->add($ag_ideja->addAttribute($dev_phase_tech));

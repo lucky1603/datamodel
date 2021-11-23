@@ -22,7 +22,7 @@
                 </p>
 
             </th>
-            <th class="w-25">
+            <th class="w-25 p-2">
                 Uloga u razvoju startapa, vreme posvećeno razvoju startapa
                 <ul class="font-11 font-weight-normal text-left mt-2">
                     <li>Potpuno posvećen,</li>
@@ -30,6 +30,9 @@
                     <li>delimično posvećen,</li>
                     <li>u manjoj meri posvećen</li>
                 </ul>
+                <p class="m-4 font-weight-bold font-11">
+                    Jasno naznačiti koji članovi tima su kreatori ideje
+                </p>
             </th>
             <th class="w-25">
                 Drugi posao

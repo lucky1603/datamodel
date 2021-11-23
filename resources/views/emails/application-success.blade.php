@@ -3,12 +3,11 @@
 @section('content')
     <div class="container" style="font-family: 'Roboto'; font-size: 12px; font-weight: normal">
         <p>Poštovani,</p>
-        <p>Vaša prijava na program '{{ $program->getValue('program_name') }}' je uspešno poslata.</p>
         <p>
-            Komisija će pregledati vašu prijavu i odlučiti da li vaša kompanija zadovoljava uslove za
-            učestvovanjeu programu. Po donošenju odluke bićete obavešteni o ishodu evaluacije.
+            Uspešno ste se prijavili za '{{ $program->getValue('program_name') }}' program.
+            Nakkon završetka procesa selekcije bićete obavešteni o rezultatima izbora druge
+            generacije Raising Starts pred-akceleratorskog programa.
         </p>
-        <p>Srdačan pozdrav,<br />
-        Vaš NTP</p>
+        <p>Puno pozdrava od NTP Beograd tima</p>
     </div>
 @endsection
