@@ -5,7 +5,7 @@
         <p>Poštovani,</p>
         <p>
             Uspešno ste se prijavili za '{{ $program->getValue('program_name') }}' program.
-            Nakkon završetka procesa selekcije bićete obavešteni o rezultatima izbora druge
+            Nakon završetka procesa selekcije bićete obavešteni o rezultatima izbora druge
             generacije Raising Starts pred-akceleratorskog programa.
         </p>
         <p>Puno pozdrava od NTP Beograd tima</p>
