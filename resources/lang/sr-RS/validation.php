@@ -95,7 +95,7 @@ return [
     'numeric' => 'Ovo polje mora biti broj.',
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
-    'regex' => 'The :attribute format is invalid.',
+    'regex' => 'Neispravan format podatka.',
     'required' => 'Ovo je polje obavezno.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
