@@ -290,6 +290,10 @@ class AnonimousController extends Controller
         return view('anonimous.notify-user');
     }
 
+    public function formSent() {
+        return view('anonimous.confsent');
+    }
+
     public function testUser($userId) {
         $user = User::find($userId);
         echo 'Name of the user is '.$user->name.'<br />';
@@ -314,4 +318,6 @@ class AnonimousController extends Controller
         }
 
     }
+
+
 }

@@ -269,7 +269,8 @@
                         $.toast({
                             text : result.message,
                             afterHidden : function() {
-                                location.reload();
+                                // location.reload();
+                                location.href = '/confsent';
                             }
                         });
                     }
