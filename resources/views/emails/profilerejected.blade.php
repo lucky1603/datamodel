@@ -8,7 +8,7 @@
         $selection = $program->getSelection();
     @endphp
     <div class="container" style="font-family: 'Roboto'; font-size: 12px; font-weight: normal">
-        <p>Poštovani(a) {{ $recipient }},</p>
+        <p>Poštovani/a {{ $recipient }},</p>
         <p></p>
         @if($selection == null)
             <p>Naša komisija je <span class="font-weight-bold">{{ $preselection->getAttribute('date_of_session')->getText() }}</span> razmatrala prijavu Vaše kompanije na za program '{{ $profile->getActiveProgram()->getAttribute('program_name')->getText() }}'.

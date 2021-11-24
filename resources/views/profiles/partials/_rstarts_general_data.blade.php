@@ -110,7 +110,7 @@
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">
         Dodajte svoj logo ako ga imate <i class="dripicons-information font-18" title="Datoteke moraju biti u
-        formatu (.png, .jpg, .jpeg, .gif, .bmp) i njihova valičina ne sme premašivati 1MB"></i>
+        formatu (.png, .jpg, .jpeg, .gif, .bmp) i njihova veličina ne sme premašivati 1MB"></i>
     </label>
     <div class="col-sm-10">
         <table class="table table-responsive">

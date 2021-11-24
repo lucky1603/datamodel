@@ -8,7 +8,7 @@
         prethodne godine poslovanja ako se prijavljujete kao privredno društvo, ukoliko u trenutku prijave
         nisu dostupni zvanični izveštaji dodati bruto bilans/bilanse dobijene od računovodstva.
         <i class="dripicons-information font-18" title="Datoteke moraju biti u
-        formatu (.pdf, .docx, .xlsx) i njihova valičina ne sme premašivati 1MB"></i>
+        formatu (.pdf, .docx, .xlsx) i njihova veličina ne sme premašivati 1MB"></i>
     </label>
     <input type="file" name="rstarts_dodatni_dokumenti[]" multiple class="form-control @error($attribute->name) is-invalid @enderror">
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror

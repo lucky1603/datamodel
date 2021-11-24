@@ -8,7 +8,7 @@
 
     @if($passed)
         <div class="container" style="font-family: 'Roboto'; font-size: 12px; font-weight: normal">
-            <p>Poštovani,</p>
+            <p>Poštovani/a,</p>
             <p>&nbsp;</p>
             <p>Datoteke koje ste poslali su uspešno primljene i validiranje. Prošli ste u proces selekcije.</p>
             <p>Po završetku procesa selekcije ćete biti obavešteni o rezultatima.</p>
@@ -18,7 +18,7 @@
         </div>
     @else
         <div class="container" style="font-family: 'Roboto'; font-size: 12px; font-weight: normal">
-            <p>Poštovani,</p>
+            <p>Poštovani/a,</p>
             <p>&nbsp;</p>
             <p>Uspešno ste prošli proces predselekcije sa srednjom ocenom - {{ $program->getPreselection()->getValue('average_mark')}}.</p>
             <p>Dalje učešće u konkurisanju za program '{{ $program->getValue('program_name') }}' podrazumeva da najkasnije do datuma {{ $demoDay->getText('demoday_date') }} pošaljete

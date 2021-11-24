@@ -33,7 +33,7 @@
     @endphp
     <label class="attribute-label col-form-label col-form-label-sm font-12 @if(isset($model)) mandatory-label @endif">
         Fajlovi <i class="dripicons-information font-18" title="Datoteke moraju biti u
-        formatu (.png, .jpg, .jpeg, .gif, .bmp, .pdf, .docx, .xlsx) i njihova valičina ne sme premašivati 1MB"></i>
+        formatu (.png, .jpg, .jpeg, .gif, .bmp, .pdf, .docx, .xlsx) i njihova veličina ne sme premašivati 1MB"></i>
     </label>
     <input type="file" name="rstarts_files[]" multiple class="form-control @error('rstarts_files') is-invalid @enderror">
     @if($attribute != null && $attribute->getValue() != null)
@@ -104,7 +104,7 @@
     @endphp
     <label class="attribute-label col-form-label col-form-label-sm font-12 @if(isset($model)) mandatory-label @endif">
         Fajlovi  <i class="dripicons-information font-18" title="Datoteke moraju biti u
-        formatu (.png, .jpg, .jpeg, .gif, .bmp, .pdf, .docx, .xlsx) i njihova valičina ne sme premašivati 1MB"></i>
+        formatu (.png, .jpg, .jpeg, .gif, .bmp, .pdf, .docx, .xlsx) i njihova veličina ne sme premašivati 1MB"></i>
     </label>
     <input type="file" name="rstarts_financing_proof_files[]" multiple class="form-control @error('rstarts_financing_proof_files') is-invalid @enderror">
     @if($attribute != null && $attribute->getValue() != null)
