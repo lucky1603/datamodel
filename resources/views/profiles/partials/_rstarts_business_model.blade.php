@@ -30,7 +30,7 @@
     <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Koje je ciljano tržište koje targetirate i koja je procenjena veličina tog tržišta?
         <span class="font-12 text-dark font-weight-normal">(Navedite koje tržište targetirate svojim proizvodom  i/ili uslugom i koja je procenjena veličina
             tog tržišta uz navodjenje izvora koji su korišćeni za prikupljanje tih podataka (primer izvora koji možete koristiti: https://www.statista.com/).
-            Koliki prostor vidite za širenje svog biznisa odnosno za geografsku ekspanziju (navesti zemlje širenja u naredne 2 godine)?) </span>
+            Koliki prostor vidite za širenje svog biznisa odnosno za geografsku ekspanziju (navesti zemlje širenja tržišta u naredne 2 godine)?) </span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
@@ -54,9 +54,9 @@
         $attribute = $attributes->where('name', 'rstarts_which_product')->first();
     @endphp
     <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Koji inovativni proizvod i/ili uslugu razvijate ili planirate da razvijate (najviše 700 karaktera)?
-        <span class="font-12 text-dark font-weight-normal">(Opišite glavne karakteristike inovativnog proizvoda i/ili usluge koju razvijate:
-                Navedite koju tehnologiju koristite (npr. Blockchain, AI, IoT, ML):
-                Navedite šta vaš proizvod i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste potrebe kupaca:)
+        <span class="font-12 text-dark font-weight-normal">(Opišite glavne karakteristike inovativnog proizvoda i/ili usluge koju razvijate;
+                Navedite koju tehnologiju koristite (npr. Blockchain, AI, IoT, ML);
+                Navedite šta vaš proizvod i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste potrebe kupaca)
  </span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
@@ -118,7 +118,7 @@
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
-<h5 class="text-center attribute-label mt-4">Vaša inovacija se nalazi u fazi (odaberite jednu opciju za tehnološki i jednu opciju za poslovni razvoj).</h5>
+<h5 class="text-center attribute-label mt-4">Vaša inovacija se nalazi u fazi (odaberite jednu opciju za tehnološki i jednu opciju za poslovni razvoj)</h5>
 
 <div class="row mb-4">
     <div class="col-lg-6 form-group">

@@ -131,8 +131,8 @@ class RaisingStartsProgram extends Program
         if(count($dev_phase_tech->getOptions()) == 0) {
             $dev_phase_tech->addOption(['value' => 1, 'text' => 'Ideja/prepoznat osnovni koncept']);
             $dev_phase_tech->addOption(['value' => 2, 'text' => 'Dokaz koncepta']);
-            $dev_phase_tech->addOption(['value' => 3, 'text' => 'Razvijen prvi prototip / razvijena alpha verzija']);
-            $dev_phase_tech->addOption(['value' => 4, 'text' => 'Razvijen drugi prototip / razvijena beta verzija']);
+            $dev_phase_tech->addOption(['value' => 3, 'text' => 'Razvijen prvi prototip/razvijena alpha verzija']);
+            $dev_phase_tech->addOption(['value' => 4, 'text' => 'Razvijen drugi prototip/razvijena beta verzija']);
             $dev_phase_tech->addOption(['value' => 5, 'text' => 'MVP']);
             $dev_phase_tech->addOption(['value' => 6, 'text' => 'Stabilna prva verzija proizvoda koja se kontinuirano unapređuje']);
         }
@@ -143,12 +143,12 @@ class RaisingStartsProgram extends Program
             $dev_phase_business->addOption(['value' => 1, 'text' => 'Hipoteza o mogućim potrebama']);
             $dev_phase_business->addOption(['value' => 2, 'text' => 'Indetifikovane potrebe na tržistu']);
             $dev_phase_business->addOption(['value' => 3, 'text' => 'Uspostavljene prve povratne informacije sa tržista']);
-            $dev_phase_business->addOption(['value' => 4, 'text' => 'Potvrđeni problem / potrebe nekoliko kupaca i / ili korisnika']);
+            $dev_phase_business->addOption(['value' => 4, 'text' => 'Potvrđeni problem/potrebe nekoliko kupaca i/ili korisnika']);
             $dev_phase_business->addOption(['value' => 5, 'text' => 'Utvrđeno interesovanje za proizvod i uspostavljeni odnosi sa ciljnom grupom']);
             $dev_phase_business->addOption(['value' => 6, 'text' => 'Prednosti rešenja potvrđene prvim testiranjem kupaca i/ili partnerstvom za pristup tržištu ']);
-            $dev_phase_business->addOption(['value' => 7, 'text' => 'Kupci u dužem/kontinuiranom ispitivanju proizvoda i / ili ostvarene prve probne prodaje u periodu ne dužem od 6 meseci']);
+            $dev_phase_business->addOption(['value' => 7, 'text' => 'Kupci u dužem/kontinuiranom ispitivanju proizvoda i/ili ostvarene prve probne prodaje u periodu ne dužem od 6 meseci']);
             $dev_phase_business->addOption(['value' => 8, 'text' => 'U prethodnih 6 meseci generisan prihod veći od 10 hiljada ili 15 hiljada švajcarskih franaka']);
-            $dev_phase_business->addOption(['value' => 9, 'text' => 'Rasprostranjena prodaja proizvoda / širenje tržista']);
+            $dev_phase_business->addOption(['value' => 9, 'text' => 'Rasprostranjena prodaja proizvoda/širenje tržista']);
         }
         $attributes->add($ag_ideja->addAttribute($dev_phase_business));
 

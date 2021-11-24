@@ -25,9 +25,9 @@ return [
      */
 
     'BB-IOT' => "IoT, povezani uređaji i pametni gradovi",
-    'BB-EnEff' => 'Energetska efikasnost, zelene, čiste tehnologije i biotehnologija',
+    'BB-EnEff' => 'Energetska efikasnost, zelene, čiste tehnologije',
     'BB-AI' => 'Veštačka inteligencija, baze podataka i analitika',
-    'BB-NewMat' => 'Novi materijali i 3 D štampa',
+    'BB-NewMat' => 'Novi materijali i 3D štampa',
     'BB-Civic' => 'Građevina, konstrukcija, arhitektura',
     'BB-TechSport' => 'Tehnologije u sportu, wellness & fitness',
     'BB-Finance' => 'Finansije, logistika i lanci snabdevanja, unapređenje poslovanja',
@@ -36,9 +36,9 @@ return [
     'BB-RoboAuto' => 'Robotika i automatizacija',
     'BB-Tourism' => 'Turizam, odmor i putovanja',
     'BB-Education' => 'Edukacija , obrazovanje i usavršavanje',
-    'BB-MediaGaming' => 'Mediji , komunikacije i društvene mreže/ Gaming i zabava',
-    'BB-MedTech' => 'Medicinske tehnologije i farmacija',
-    'BB-Agriculture' => 'Poljoprivreda i prehranrana',
+    'BB-MediaGaming' => 'Mediji, komunikacije i društvene mreže/Gaming i zabava',
+    'BB-MedTech' => 'Medicinske tehnologije, farmacija i biotehnologija',
+    'BB-Agriculture' => 'Poljoprivreda i prehrana',
     'BB-Other' => "Ostalo",
 
     /*

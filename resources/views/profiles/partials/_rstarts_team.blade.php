@@ -37,8 +37,7 @@
             <th class="w-25">
                 Drugi posao
                 <p class="font-11 font-weight-normal mt-2">
-                    (full-time, part-time) / <strong>obaveze / studije</strong> (osnovne studije/
-                    apsolvent/ master studije) <strong>i
+                    (full-time, part-time)/<strong>obaveze/studije</strong> (osnovne studije/apsolvent/master studije) <strong>i
                         navedite koliko ste angažovani na tome</strong>
                 </p>
             </th>
@@ -196,8 +195,8 @@
     <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         Da li ste do sada, kao tim, saradjivali na zajedničkim projektima/u poslovanju?
         <span class="font-12 text-dark font-weight-normal">
-            Navedite da li ste prethodno kao tim (ili deo članova tima) radili na razvoju
-            startap ideje ili ukoliko ste saradjivali u poslovanju ili zajednički radili u okviru iste organizacije.
+            (Navedite da li ste prethodno kao tim (ili deo članova tima) radili na razvoju
+            startap ideje ili ukoliko ste saradjivali u poslovanju ili zajednički radili u okviru iste organizacije.)
         </span>
     </label>
     <textarea class="form-control @error("rstarts_team_history") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>

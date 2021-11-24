@@ -5,12 +5,12 @@
         $attribute = $attributes->where('name', 'rstarts_statup_progress')->first();
     @endphp
     <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
-        <span class="attribute-label">Ukratko opišite napredak koji ste postigli do sada</span>
+        <span class="attribute-label">Ukratko opišite napredak koji ste postigli do sada.</span>
         <span class="font-12 text-dark font-weight-normal">
-            Opišite koliko dugo je vaš tim okupljen oko razvoja ideje. Takođe, ukratko opišite
+            (Opišite koliko dugo je vaš tim okupljen oko razvoja ideje. Takođe, ukratko opišite
             ključne ciljeve koje ste do sada postigli (npr. uključivanje novih članova sa
-            potrebnim ekspertizama, razvijen dokaz koncepta /prototip /MVP, dobijene povratne
-            informacije od eksperata, potencijalnih kupaca itd.)
+            potrebnim ekspertizama, razvijen dokaz koncepta/prototip/MVP, dobijene povratne
+            informacije od eksperata, potencijalnih kupaca itd.))
         </span>
     </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
@@ -102,7 +102,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_financing_proof_files')->first();
     @endphp
-    <label class="attribute-label col-form-label col-form-label-sm font-12 @if(isset($model)) mandatory-label @endif">
+    <label class="attribute-label col-form-label col-form-label-sm font-12">
         Fajlovi  <i class="dripicons-information font-18" title="Datoteke moraju biti u
         formatu (.png, .jpg, .jpeg, .gif, .bmp, .pdf, .docx, .xlsx) i njihova veličina ne sme premašivati 1MB"></i>
     </label>

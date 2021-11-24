@@ -2,7 +2,7 @@
     <h3 class="text-center">IZJAVE</h3>
     <p>
         Popunjavanjem ovog obrasca, svi članovi tima navedeni u ovom formularu takođe tvrde da se protiv
-        njih ne vodi krivični postupak, da članovi tima / zakonski zastupnici kompanije (ukoliko prijavu
+        njih ne vodi krivični postupak, da članovi tima/zakonski zastupnici kompanije (ukoliko prijavu
         podnosi pravno lice) nisu osuđivani niti  je protiv njih pokrenuta bilo kakva istraga u vezi sa
         bilo kojim krivičnim delom definisanim zakonom, da se ne vodi prekršajni postupak pred Poreskom
         upravom, kao i da se ne vodi postupak prinudne naplate pokrenut prvenstveno od strane Poreske

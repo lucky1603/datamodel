@@ -62,7 +62,7 @@
     $value = $attribute->getValue() ?? isset($model) ?  $model->getValue('contact_email') : old($attribute->name) ;
 @endphp
 <div class="form-group row">
-    <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label" >e-mail adresa</label>
+    <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label" >E-mail adresa</label>
     <div class="col-lg-10">
         <input type="email"
                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
