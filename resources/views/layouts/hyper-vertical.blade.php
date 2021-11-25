@@ -7,7 +7,7 @@
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="icon" href="{!! asset('images/custom/blue-logo-transparent.png') !!}"/>
 
     <!-- App css -->
     <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
