@@ -22,22 +22,28 @@
                     <h1 class="attribute-label">PRIJAVA</h1>
                 </div>
                 <div class="mt-4 font-14 attribute-label shadow p-4">
-                    <p>Zdravo, budući Raising Starteri!</p>
+                    <p>Zdravo budući Raising Starteri!</p>
                     <p>
-                        Pred vama je prijavni formular za program Raising Starts. Program realizuje Naučno-tehnološki park Beograd
-                        u partnerstvu sa Naučno-tehnološkim parkom Niš i Naučno-tehnološkim parkom Čačak uz podršku Vlade Švajcarske.
-                        Prijavni formular je isti za sve, potrebno je izabrati NTP prema regionu/području u kojem želite da se prijavite.
+                        Pred vama je prijavni formular za program Raising Starts. Program realizuje Naučno-tehnološki
+                        park Beograd u partnerstvu sa Naučno-tehnološkim parkom Niš i Naučno-tehnološkim parkom Čačak uz
+                        podršku Vlade Švajcarske. Prijavni formular je isti za sve, potrebno je izabrati NTP prema
+                        regionu/području u kojem želite da se prijavite i u kojem želite da razvijate svoju poslovnu ideju.
                     </p>
                     <p>
-                        Molimo vas da pažljivo pročitate pitanja, popunite prijavu i budete što precizniji u odgovorima kako bi
-                        prijava bila adekvatno ocenjena. Pre popunjavanja prijavnog obrasca obavezno pročitajte Javni poziv i
-                        Raising Starts VODIČ. (dokumenta možete preuzeti na sajtu <a href="https://ntpark.rs/raising-starts/" target="_blank" class="font-weight-bold">programa</a> )
-                    </p><p>
-                        Prijave su otvorene od …. do …. u ponoć
+                        Molimo vas da pažljivo pročitate pitanja, popunite prijavu, i budete što precizniji u odgovorima
+                        kako bi prijava bila adekvatno ocenjena. Nedovoljno popunjene prijave biće slabije ocenjene. Pre
+                        popunjavanja prijavnog obrasca obavezno pročitajte
+                        <a href="https://ntpark.rs/wp-content/uploads/2021/11/Raising-Starts-Javni-poziv-2021.pdf" target="_blank">Javni poziv</a>
+                        i <a href="https://ntpark.rs/wp-content/uploads/2021/11/Raising-Starts-Vodic-2021.pdf" target="_blank">Raising Starts Vodič</a>
+                        (za više informacija možete posetiti website programa).
                     </p>
                     <p>
-                        Srećno!
+                        <strong>Prijave se podnose elektronskim putem do 28.12.2021. u ponoć.</strong>
                     </p>
+                    <p>
+                        Ukoliko imate nekih pitanja slobodno nas kontaktirajte na: <a href="mailto://info@ntpark.rs" target="_blank">info@ntpark.rs</a>
+                    </p>
+                    <p>Srećno!</p>
 
                 </div>
 
