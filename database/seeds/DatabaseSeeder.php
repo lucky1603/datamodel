@@ -37,6 +37,55 @@ class DatabaseSeeder extends Seeder
             'position' => 'Menadžer Programa',
         ]);
 
+        User::create([
+            'name' => 'Jelena Petrović',
+            'email' => 'jelena.petrovic@ntpark.rs',
+            'password' => Hash::make('NtPark1234'),
+            'position' => 'Ovlašćeno lice',
+        ]);
+
+        User::create([
+            'name' => 'Jovana Vasić',
+            'email' => 'jovana.vasic@bitf.rs',
+            'password' => Hash::make('NtPark1234'),
+            'position' => 'Ovlašćeno lice',
+        ]);
+
+        User::create([
+            'name' => 'Bojan Milenković',
+            'email' => 'bojan.milenkovic@ntpark.rs',
+            'password' => Hash::make('NtPark1234'),
+            'position' => 'Ovlašćeno lice',
+        ]);
+
+        User::create([
+            'name' => 'IT',
+            'email' => 'it@bitf.rs',
+            'password' => Hash::make('NtPark1234'),
+            'position' => 'Ovlašćeno lice',
+        ]);
+
+        User::create([
+            'name' => 'Ivana Bezarević',
+            'email' => 'ivana.bezarevic@ntpark.rs',
+            'password' => Hash::make('NtPark1234'),
+            'position' => 'Ovlašćeno lice',
+        ]);
+
+        User::create([
+            'name' => 'Direktor',
+            'email' => 'manager@ntpark.rs',
+            'password' => Hash::make('NtPark1234'),
+            'position' => 'Ovlašćeno lice',
+        ]);
+
+        User::create([
+            'name' => 'Radiša Vičević',
+            'email' => 'radisa.vicevic@ntpark.rs',
+            'password' => Hash::make('NtPark1234'),
+            'position' => 'Ovlašćeno lice',
+        ]);
+
         User::all()->each(function($user) {
             $user->assignRole('administrator');
         });
