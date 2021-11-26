@@ -32,9 +32,7 @@
                     <p>
                         Molimo vas da pažljivo pročitate pitanja, popunite prijavu, i budete što precizniji u odgovorima
                         kako bi prijava bila adekvatno ocenjena. Nedovoljno popunjene prijave biće slabije ocenjene. Pre
-                        popunjavanja prijavnog obrasca obavezno pročitajte
-                        <a href="https://ntpark.rs/wp-content/uploads/2021/11/Raising-Starts-Javni-poziv-2021.pdf" target="_blank">Javni poziv</a>
-                        i <a href="https://ntpark.rs/wp-content/uploads/2021/11/Raising-Starts-Vodic-2021.pdf" target="_blank">Raising Starts Vodič</a>
+                        popunjavanja prijavnog obrasca obavezno pročitajte Javni poziv i Raising Starts vodič
                         (za više informacija možete posetiti website programa).
                     </p>
                     <p>
