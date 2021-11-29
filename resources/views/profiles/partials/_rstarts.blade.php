@@ -5,7 +5,9 @@
 @if(!isset($model))
 <div class="attribute-label font-14 m-1 p-4" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
     <p>U cilju boljeg razumevanja Prijavnog formulara, obe kategorije se u daljem tekstu nazivaju “startap”.</p>
-    <p>Obavezna polja su označena zvezdicom (<span class="text-danger">*</span>) i različitom pozadinom.</p>
+    <p>Obavezna polja za kreiranje profila su označena zvezdicom (<span class="text-danger">*</span>) i svetlo
+        plavom pozadinom. Ova polja su obavezna za kreiranje profila. Nakon kreiranog profila možete popuniti
+        preostali deo prijave i konačno je poslati kada je spremna.</p>
 </div>
 @endif
 <div class="form-group row mt-2">
