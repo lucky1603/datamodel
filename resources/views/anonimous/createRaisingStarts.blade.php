@@ -1,8 +1,6 @@
 @extends('layouts.backbone')
 
-@section('title')
-    Raising Starts - Prijava
-@endsection
+
 
 @section('body-content')
     <div class="h-100 w-100 ">
