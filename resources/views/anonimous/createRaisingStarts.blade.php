@@ -110,6 +110,8 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
+            let appSent = false;
+
             const appType = $('#app_type').val();
             if(appType != 2) {
                 $('#rstart_id_number_group').hide();
@@ -142,11 +144,9 @@
             $('#cancelSpinner').hide();
             $('#buttonSend').click(function() {
                 $('#okSpinner').show();
-
-
                 try {
-                    // $('#myRaisingStartsForm').submit();
                     document.getElementById('myRaisingStartsForm').submit();
+                    $(this).attr('disabled', true);
                 } catch (e) {
                     console.log(e.message);
                 }
