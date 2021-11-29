@@ -9,7 +9,7 @@
         <li class="side-nav-item" id="navProfile">
             <a href="{{route('profiles.show', ['profile' => $model->getId()])}}" class="side-nav-link">
                 <i class="uil-dashboard"></i>
-                <span>{{ mb_strtoupper( __('Profile')) }}</span>
+                <span>{{ mb_strtoupper( __('Application')) }}</span>
             </a>
         </li>
 
@@ -54,7 +54,7 @@
         <li class="side-nav-item">
             <a href="{{route('profiles.profile', ['profile' => $model->getId()])}}" class="side-nav-link">
                 <i class="uil-dashboard"></i>
-                <span>{{ mb_strtoupper( __('Profile')) }}</span>
+                <span>{{ mb_strtoupper( __('Application')) }}</span>
             </a>
         </li>
         @if($model->getValue('profile_status') == 4
