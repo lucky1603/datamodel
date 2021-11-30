@@ -108,14 +108,6 @@
                                 @endforeach
                                 </tbody>
                             </table>
-
-
-                        @elseif($attributeGroup->name == 'ibitf_expenses')
-
-                        @elseif($attributeGroup->name == 'ibitf_attachments')
-
-                        @elseif($attributeGroup->name == 'ibitf_generate_income')
-
                         @else
                             <table class="w-100 table table-sm table-bordered font-12">
                                 <tbody>
@@ -140,7 +132,7 @@
                                                 <div style="display: flex; flex-wrap: wrap; width: 100%">
                                                     @foreach($links as $link)
                                                         @php
-                                                            if(!str_contains('http://', $link))
+                                                            if(!str_contains('http://', $link) && !str_contains('https://', $link))
                                                                 $link = "http://".$link;
                                                         @endphp
                                                         <a href="{{ $link }}" target="_blank" class="mr-2">{{ $link }}</a>
