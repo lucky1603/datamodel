@@ -132,7 +132,7 @@
                                                 <div style="display: flex; flex-wrap: wrap; width: 100%">
                                                     @foreach($links as $link)
                                                         @php
-                                                            if(!str_contains('http://', $link) && !str_contains('https://', $link))
+                                                            if(!str_contains($link, 'http://') && !str_contains($link, 'https://'))
                                                                 $link = "http://".$link;
                                                         @endphp
                                                         <a href="{{ $link }}" target="_blank" class="mr-2">!{{ $link }}!</a>
