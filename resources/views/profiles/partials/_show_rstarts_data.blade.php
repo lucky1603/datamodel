@@ -131,17 +131,17 @@
                                                 @endphp
                                                 <div style="display: flex; flex-wrap: wrap; width: 100%">
                                                     @foreach($links as $link)
-                                                        @php
-                                                            if(!str_contains($link, 'http://') && !str_contains($link, 'https://'))
-                                                                $link = "http://".$link;
-                                                        @endphp
+{{--                                                        @php--}}
+{{--                                                            if(!str_contains($link, 'http://') && !str_contains($link, 'https://'))--}}
+{{--                                                                $link = "http://".$link;--}}
+{{--                                                        @endphp--}}
                                                         <a href="{{ $link }}" target="_blank" class="mr-2">{!! $link !!}</a>
                                                     @endforeach
                                                 </div>
                                             @elseif($attribute->type == 'varchar' && $attribute->extra == 'link')
                                                 @php
                                                     $link = $attribute->getValue();
-                                                    if($link != null && !str_contains($link, 'http://') && !str_contains($link, 'https' ))
+                                                    if($link != null && strlen($link) > 0 && !str_contains($link, 'http://') && !str_contains($link, 'https' ))
                                                         $link = "http://".$link;
                                                 @endphp
                                                 @if($link != null)
