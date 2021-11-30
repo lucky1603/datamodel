@@ -135,7 +135,7 @@
                                                             if(!str_contains('http://', $link) && !str_contains('https://', $link))
                                                                 $link = "http://".$link;
                                                         @endphp
-                                                        <a href="{{ $link }}" target="_blank" class="mr-2">{{ $link }}</a>
+                                                        <a href="{{ $link }}" target="_blank" class="mr-2">!{{ $link }}!</a>
                                                     @endforeach
                                                 </div>
                                             @elseif($attribute->type == 'varchar' && $attribute->extra == 'link')
