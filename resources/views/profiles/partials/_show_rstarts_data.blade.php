@@ -135,7 +135,7 @@
                                                             if(!str_contains($link, 'http://') && !str_contains($link, 'https://'))
                                                                 $link = "http://".$link;
                                                         @endphp
-                                                        <a href="{{ $link }}" target="_blank" class="mr-2">!{{ $link }}!</a>
+                                                        <a href="{{ $link }}" target="_blank" class="mr-2">{!! $link !!}</a>
                                                     @endforeach
                                                 </div>
                                             @elseif($attribute->type == 'varchar' && $attribute->extra == 'link')
@@ -145,7 +145,7 @@
                                                         $link = "http://".$link;
                                                 @endphp
                                                 @if($link != null)
-                                                    <a href="{{ $link }}" target="_blank">{{ $link }}</a>
+                                                    <a href="{{ $link }}" target="_blank">{!! $link !!}</a>
                                                 @endif
                                             @elseif($attribute->type == 'file' && $attribute->extra == 'multiple')
                                                 @php
