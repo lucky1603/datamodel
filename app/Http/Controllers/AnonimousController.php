@@ -319,5 +319,9 @@ class AnonimousController extends Controller
 
     }
 
+    public function construction() {
+        return view('anonimous.construction');
+    }
+
 
 }

@@ -641,6 +641,9 @@ class Program extends SituationsModel
         }
         $attributes->add($ntp);
 
+        $ag_general = self::getAttributeGroup('rstarts_general',__('General Data'), 1);
+        $ag_general->addAttribute($ntp);
+
         return collect([
             'attributeGroups' => $attributeGroups,
             'attributes' => $attributes
