@@ -313,19 +313,11 @@ class BusinessModel
     /**
      * Remove the attribute from entity and all its instances.
      * @param Attribute $attribute
-     * @throws Exception
      */
     public static function removeOverallAttribute(Attribute $attribute) {
 
         // Remove attributes from all instances of the object.
         static::find()->each(function($object) use ($attribute) {
-
-//            // Check for entity and delete attribute if contained.
-//            $entity = $object->instance->entity;
-//            if($entity->attributes->contains($attribute)) {
-//                $entity->attributes()->detach($attribute);
-//            }
-
             $object->removeAttribute($attribute);
         });
 
@@ -354,7 +346,10 @@ class BusinessModel
      */
     public static function addOverallAttribute(Attribute $attribute, $value=null) {
         static::find()->each(function($object) use($attribute, $value) {
-            $object->addAttribute($attribute);
+            $att = $object->getAttribute($attribute->name);
+            if($att == null) {
+                $object->addAttribute($attribute);
+            }
 
             if($value != null) {
                 $objAttribute = $object->getAttribute($attribute->name);

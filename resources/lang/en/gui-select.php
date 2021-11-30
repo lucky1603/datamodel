@@ -72,4 +72,16 @@ return [
     'FFG-Medium' => 'Medium',
     'FFG-Low' => 'Low',
 
+    /*
+     * Profile state parameters.
+     */
+
+    'PROFSTATE-Interested' => 'Pre-App',
+    'PROFSTATE-Application' => 'Application',
+    'PROFSTATE-Sent' => 'Sent',
+    'PROFSTATE-Selection' => 'Selection',
+    'PROFSTATE-Contract' => 'Contract',
+    'PROFSTATE-InProgram' => 'In Program',
+    'PROFSTATE-Rejected' => 'Rejected',
+
 ];

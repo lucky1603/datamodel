@@ -72,4 +72,17 @@ return [
     'FFG-Medium' => 'Srednji',
     'FFG-Low' => 'Nizak',
 
+
+    /*
+     * Profile state parameters.
+     */
+
+    'PROFSTATE-Interested' => 'Pre prijave',
+    'PROFSTATE-Application' => 'Prijava',
+    'PROFSTATE-Sent' => 'Poslao',
+    'PROFSTATE-Selection' => 'Selekcija',
+    'PROFSTATE-Contract' => 'Ugovor',
+    'PROFSTATE-InProgram' => 'U programu',
+    'PROFSTATE-Rejected' => 'Odbijen',
+
 ];

@@ -48,15 +48,17 @@ export default {
             switch(this.status) {
                 case 1:
                 case 2:
-                    return 'ribbon-two ribbon-two-primary';
-                case 3:
                     return 'ribbon-two ribbon-two-info';
-                case 4:
-                    return 'ribbon-two ribbon-two-success'
-                case 5:
+                case 3:
                     return 'ribbon-two ribbon-two-danger';
-                default:
+                case 4:
+                    return 'ribbon-two ribbon-two-warning'
+                case 5:
+                    return 'ribbon-two ribbon-two-primary';
+                case 6:
                     return 'ribbon-two ribbon-two-success';
+                default:
+                    return 'ribbon-two ribbon-two-dark';
             }
         },
 

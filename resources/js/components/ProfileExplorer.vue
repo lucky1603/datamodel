@@ -14,7 +14,7 @@
                     </b-input-group>
                 </b-col>
                 <b-col xl="2" lg="4" style="display: flex; justify-content: left">
-                    <b-form-select size="sm" class="m-2 w-100" v-model="form.profile_status" :options="statuses" @change="onSubmit"></b-form-select>
+                    <b-form-select size="sm" class="m-2 w-100" v-model="form.profile_state" :options="states" @change="onSubmit"></b-form-select>
                 </b-col>
                 <b-col xl="2" lg="3" offset-xl="5" class="d-flex flex-row flex-lg-row-reverse" >
                    <a href="#" role="button" class="text-secondary m-2 position-relative" style="top:5px" @click="buttonClicked"><i class="dripicons-document-new"></i> NOVI PROFIL</a>
@@ -41,8 +41,8 @@
                 :key="item.id"
                 type="2"
                 :id="item.id"
-                :status="item.status"
-                :statustext="item.statusText"></profile-item>
+                :status="item.state"
+                :statustext="item.stateText"></profile-item>
         </div>
 
         <b-modal id="addProfileModal" ref="addProfileModal" size="lg" header-bg-variant="dark" header-text-variant="light">
@@ -85,14 +85,10 @@ export default {
 
             await axios.post('/profiles/filter', formData)
             .then(response => {
-                console.log('data got');
                 for(const property in response.data) {
                     console.log(response.data[property]);
                     this.items.push(response.data[property]);
                 }
-
-                console.log(this.items);
-
             });
 
             console.log('trying to make pages');
@@ -168,18 +164,21 @@ export default {
             itemsPerPage : { typeof: Number, default: 12 },
             currentPage : 1,
             formContent : null,
-            statuses : [
-                { value: 0, text: "Po statusu"},
-                { value: 1, text: 'Mapiran'},
-                { value: 2, text: 'Zainteresovan'},
-                { value: 3, text: 'Prijava'},
-                { value: 4, text: 'U programu'}
+            states : [
+                { value: 0, text: "Po stanju"},
+                { value: 1, text: 'Zainteresovan'},
+                { value: 2, text: 'Prijava'},
+                { value: 3, text: 'Poslato'},
+                { value: 4, text: 'Selekcija'},
+                { value: 5, text: 'Ugovor'},
+                { value: 6, text: 'U programu'},
+                { value: 7, text: 'Odbijen'}
             ],
-            status: 0,
+            state: 0,
             loading: false,
             form: {
                 name: '',
-                profile_status: 0
+                profile_state: 0
             }
         }
     }

@@ -169,6 +169,9 @@ class ProfileController extends Controller
         // Attach default user to the instance.
         $profile->attachUser($user);
 
+        // Sync current profile state with its status.
+        $profile->updateState();
+
         if($profile->getAttribute('profile_status')->getValue() == 1) {
             $profile->addSituationByData(__('Mapped'), []);
         } else {
@@ -365,6 +368,7 @@ class ProfileController extends Controller
 
             // Update the profile status.
             $profile->setData(['profile_status' => 3]);
+            $profile->updateState();
 
         }
 
@@ -529,6 +533,7 @@ class ProfileController extends Controller
             ]);
 
         $program->setStatus($program->getStatus() + 1);
+        $profile->updateState();
 
         // Send confirmation mail.
         $email = $profile->getValue('contact_email');
@@ -736,6 +741,8 @@ class ProfileController extends Controller
                 'sender' => 'NTP'
             ]));
         }
+
+        $profile->updateState();
 
         return [
             'code' => 0,
@@ -1196,8 +1203,8 @@ class ProfileController extends Controller
         if($data['name'] == '')
             unset($data['name']);
 
-        if($data['profile_status'] == 0)
-            unset($data['profile_status']);
+        if($data['profile_state'] == 0)
+            unset($data['profile_state']);
 
         if(count($data) == 0)
             $data = null;
@@ -1207,16 +1214,16 @@ class ProfileController extends Controller
                 public $id;
                 public $name;
                 public $logo;
-                public $status;
-                public $statusText;
+                public $state;
+                public $stateText;
                 public $background;
                 public function __construct($profile)
                 {
                     $this->id = $profile->getId();
                     $this->name = $profile->getValue('name');
                     $this->logo = $profile->getValue('profile_logo');
-                    $this->status = $profile->getValue('profile_status');
-                    $this->statusText = $profile->getText('profile_status');
+                    $this->state = $profile->getValue('profile_state');
+                    $this->stateText = $profile->getText('profile_state');
                     $this->background = $profile->getValue('profile_background');
 //                    if($profile->getActiveProgram() != null)
 //                        $this->programType = $profile->getActiveProgram()->getValue('program_type');

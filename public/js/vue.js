@@ -2759,15 +2759,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.items = [];
                 _context.next = 7;
                 return axios.post('/profiles/filter', formData).then(function (response) {
-                  console.log('data got');
-
                   for (var _property in response.data) {
                     console.log(response.data[_property]);
 
                     _this.items.push(response.data[_property]);
                   }
-
-                  console.log(_this.items);
                 });
 
               case 7:
@@ -2984,27 +2980,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       currentPage: 1,
       formContent: null,
-      statuses: [{
+      states: [{
         value: 0,
-        text: "Po statusu"
+        text: "Po stanju"
       }, {
         value: 1,
-        text: 'Mapiran'
-      }, {
-        value: 2,
         text: 'Zainteresovan'
       }, {
-        value: 3,
+        value: 2,
         text: 'Prijava'
       }, {
+        value: 3,
+        text: 'Poslato'
+      }, {
         value: 4,
+        text: 'Selekcija'
+      }, {
+        value: 5,
+        text: 'Ugovor'
+      }, {
+        value: 6,
         text: 'U programu'
+      }, {
+        value: 7,
+        text: 'Odbijen'
       }],
-      status: 0,
+      state: 0,
       loading: false,
       form: {
         name: '',
-        profile_status: 0
+        profile_state: 0
       }
     };
   }
@@ -3293,19 +3298,22 @@ __webpack_require__.r(__webpack_exports__);
       switch (this.status) {
         case 1:
         case 2:
-          return 'ribbon-two ribbon-two-primary';
-
-        case 3:
           return 'ribbon-two ribbon-two-info';
 
-        case 4:
-          return 'ribbon-two ribbon-two-success';
-
-        case 5:
+        case 3:
           return 'ribbon-two ribbon-two-danger';
 
-        default:
+        case 4:
+          return 'ribbon-two ribbon-two-warning';
+
+        case 5:
+          return 'ribbon-two ribbon-two-primary';
+
+        case 6:
           return 'ribbon-two ribbon-two-success';
+
+        default:
+          return 'ribbon-two ribbon-two-dark';
       }
     }
   },
@@ -53381,14 +53389,14 @@ var render = function () {
                 [
                   _c("b-form-select", {
                     staticClass: "m-2 w-100",
-                    attrs: { size: "sm", options: _vm.statuses },
+                    attrs: { size: "sm", options: _vm.states },
                     on: { change: _vm.onSubmit },
                     model: {
-                      value: _vm.form.profile_status,
+                      value: _vm.form.profile_state,
                       callback: function ($$v) {
-                        _vm.$set(_vm.form, "profile_status", $$v)
+                        _vm.$set(_vm.form, "profile_state", $$v)
                       },
-                      expression: "form.profile_status",
+                      expression: "form.profile_state",
                     },
                   }),
                 ],
@@ -53496,8 +53504,8 @@ var render = function () {
                 title: item.name,
                 type: "2",
                 id: item.id,
-                status: item.status,
-                statustext: item.statusText,
+                status: item.state,
+                statustext: item.stateText,
               },
             })
           }),

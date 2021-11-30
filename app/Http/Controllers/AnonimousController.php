@@ -114,6 +114,7 @@ class AnonimousController extends Controller
             'profile_webpage' => $data['rstarts_webpage'],
             'short_ino_desc' => $data['rstarts_short_ino_desc'],
             'profile_status' => 2,
+            'profile_state' => 1,
             'profile_logo' => $data['rstarts_logo'],
             'profile_background' => [
                 'filelink' => '',
@@ -191,6 +192,7 @@ class AnonimousController extends Controller
 
         $profile->setValue('profile_status', 3);
         $program->setStatus(1);
+        $profile->updateState();
 
         // Send verification email to the user.
         $email = $profile->getAttribute('contact_email')->getValue();
@@ -243,6 +245,9 @@ class AnonimousController extends Controller
 
         // Attach default user to the instance.
         $profile->attachUser($user);
+
+        // Sync current profile state with its status.
+        $profile->updateState();
 
         if($profile->getAttribute('profile_status')->getValue() == 1) {
             $profile->addSituationByData(__('Mapped'), []);

@@ -38,4 +38,8 @@ class Utils
         ];
 
     }
+
+    public static function updateProfileStates() {
+
+    }
 }
