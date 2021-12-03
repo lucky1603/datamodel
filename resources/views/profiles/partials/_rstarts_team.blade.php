@@ -2,48 +2,49 @@
 
 <div class="text-center mt-2 mb-2">
     <h4 class="attribute-label @if(isset($model)) mandatory-label @endif">Članovi tima </h4>
-    <table class="table-bordered w-100">
-        <thead class="bg-dark text-light">
-        <tr>
-            <th class="w-25 p-1">Ime i prezime, zvanje
+    <div class="overflow-auto">
+        <table class="table-bordered w-100 no-gutters">
+            <thead class="bg-dark text-light">
+            <tr>
+                <th class="w-25 py-1">Ime i prezime, zvanje
 
-            </th>
-            <th class="w-25 p-1">
-                Obrazovanje, iskustvo
+                </th>
+                <th class="w-25 py-1">
+                    Obrazovanje, iskustvo
 
-                <p class="font-11 font-weight-normal mt-2">
-                    (navedite i ukoliko ste imali prethodno iskustvo u razvoju poslovanja/pokretanju startapa ili biznisa)
-                </p>
-                <p class="font-11 font-weight-normal">
-                    Napomena: navedeno iskustvo i obrazovanje je potrebno da bude reflektovano u priloženim CV-jevima
-                </p>
-                <p class="font-10 font-weight-normal">
-                    (max 1050 karaktera)
-                </p>
+                    <p class="font-11 font-weight-normal mt-2">
+                        (navedite i ukoliko ste imali prethodno iskustvo u razvoju poslovanja/pokretanju startapa ili biznisa)
+                    </p>
+                    <p class="font-11 font-weight-normal">
+                        Napomena: navedeno iskustvo i obrazovanje je potrebno da bude reflektovano u priloženim CV-jevima
+                    </p>
+                    <p class="font-10 font-weight-normal">
+                        (max 1050 karaktera)
+                    </p>
 
-            </th>
-            <th class="w-25 p-2">
-                Uloga u razvoju startapa, vreme posvećeno razvoju startapa
-                <ul class="font-11 font-weight-normal text-left mt-2">
-                    <li>Potpuno posvećen,</li>
-                    <li>u većoj meri prosvećen,</li>
-                    <li>delimično posvećen,</li>
-                    <li>u manjoj meri posvećen</li>
-                </ul>
-                <p class="m-4 font-weight-bold font-11">
-                    Jasno naznačiti koji članovi tima su kreatori ideje
-                </p>
-            </th>
-            <th class="w-25">
-                Drugi posao
-                <p class="font-11 font-weight-normal mt-2">
-                    (full-time, part-time)/<strong>obaveze/studije</strong> (osnovne studije/apsolvent/master studije) <strong>i
-                        navedite koliko ste angažovani na tome</strong>
-                </p>
-            </th>
-        </tr>
-        </thead>
-        <tbody id="membersBody">
+                </th>
+                <th class="w-25 py-1">
+                    Uloga u razvoju startapa, vreme posvećeno razvoju startapa
+                    <ul class="font-11 font-weight-normal text-left mt-2">
+                        <li>Potpuno posvećen,</li>
+                        <li>u većoj meri prosvećen,</li>
+                        <li>delimično posvećen,</li>
+                        <li>u manjoj meri posvećen</li>
+                    </ul>
+                    <p class="m-4 font-weight-bold font-11">
+                        Jasno naznačiti koji članovi tima su kreatori ideje
+                    </p>
+                </th>
+                <th class="w-25 py-1">
+                    Drugi posao
+                    <p class="font-11 font-weight-normal mt-2">
+                        (full-time, part-time)/<strong>obaveze/studije</strong> (osnovne studije/apsolvent/master studije) <strong>i
+                            navedite koliko ste angažovani na tome</strong>
+                    </p>
+                </th>
+            </tr>
+            </thead>
+            <tbody id="membersBody">
             @if(!isset($teamMembers) || $teamMembers == null || $teamMembers->count() == 0)
                 @if(old('memberName') != null)
                     @for($i = 0; $i < count(old('memberName')); $i++)
@@ -82,8 +83,10 @@
                     </tr>
                 @endforeach
             @endif
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+
     @error('memberName')<div class="alert alert-danger">{{ $message }}</div>@enderror
     <button id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj člana tima" >+</button>
 </div>

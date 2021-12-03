@@ -19,7 +19,7 @@ class RaisingStartsProgramSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i < 3; $i++) {
+        for($i = 0; $i < 30; $i++) {
             $program = $this->createProgram();
             echo $program->getProfile()->getValue('name')." created \n";
         }
@@ -209,6 +209,7 @@ class RaisingStartsProgramSeeder extends Seeder
 
         $profile->setValue('profile_status', 3);
         $program->setStatus(2);
+        $profile->updateState();
 
         // Send verification email to the user.
 //        $email = $profile->getAttribute('contact_email')->getValue();

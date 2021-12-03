@@ -5,7 +5,7 @@
 @endsection
 
 @section('body-content')
-    <div class="h-100 w-100 ">
+    <div class="h-100 w-100 px-1">
         <div class="row bg-dark" >
             <div class="col-lg-4 h-100">
                 <img src="/images/custom/ntplogo.png" class="ml-3 m-4" style="width: 90%"/>
@@ -15,7 +15,7 @@
                 <img src="/images/custom/rstartslogo.png" class="m-4" style="height: 150px"/>
             </div>
         </div>
-        <div class="row w-100" style="margin-left: 12px; margin-right: 12px">
+        <div class="row mx-1 no-gutters" >
             <div class="col-12 col-lg-8 offset-lg-2">
                 @error('post_too_big') <div class="alert alert-danger">{{ $message }}</div>@enderror
                 <div class="text-center mt-4 mb-4">
@@ -85,12 +85,12 @@
 {{--                    <div class="row pt-4 mt-3" style="height: 5%">--}}
                         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center">
 
-                            <button type="button" id="buttonSend" class="btn btn-sm btn-primary rounded-pill mr-2 mt-4" style="width: 250px" title="{{ __('gui.Application-SaveDataAndSendApp') }}">
+                            <button type="button" id="buttonSend" class="btn btn-sm btn-primary rounded-pill mx-1 mt-4" style="width: 250px" title="{{ __('gui.Application-SaveDataAndSendApp') }}">
                                 <span id="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 {{ __('Save Data and Create Profile') }}
                             </button>
 
-                            <button type="button" id="buttonCancel" class="btn btn-sm btn-outline-primary rounded-pill ml-2 mt-4" style="width: 250px" title="{{ __('gui.Application-ReturnToMain') }}">
+                            <button type="button" id="buttonCancel" class="btn btn-sm btn-outline-primary rounded-pill mx-1 mt-4" style="width: 250px" title="{{ __('gui.Application-ReturnToMain') }}">
                                 <span id="cancelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 {{ __('Return to Main Page') }}
                             </button>

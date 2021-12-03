@@ -174,11 +174,18 @@ export default {
                 { value: 6, text: 'U programu'},
                 { value: 7, text: 'Odbijen'}
             ],
+            ntps: [
+                { value: 0, text: "Po NTP"},
+                { value: 1, text: "NTP Beograd"},
+                { value: 2, text: "NTP Niš"},
+                { value: 3, text: "NTP Čačak"}
+            ],
             state: 0,
             loading: false,
             form: {
                 name: '',
-                profile_state: 0
+                profile_state: 0,
+                ntp: 0,
             }
         }
     }
