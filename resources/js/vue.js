@@ -45,6 +45,7 @@ Vue.component('profile-form', require('./components/ProfileForm').default);
 Vue.component('ntp-widget', require('./components/NtpWidget').default);
 Vue.component('ntp-piechart', require('./components/NtpPieChart').default);
 Vue.component('show-company-types', require('./components/ShowCompanyTypes').default);
+Vue.component('find-criteria', require('./components/FindCriteria').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

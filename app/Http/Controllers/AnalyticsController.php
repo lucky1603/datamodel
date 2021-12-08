@@ -60,17 +60,25 @@ class AnalyticsController extends Controller
     {
         $attr = Attribute::where('name', 'rstarts_howdiduhear')->first();
         $attrOptions = $attr->getOptions();
-        $result = [];
+
+        $items = [];
+        $total = 0;
+
         foreach($attrOptions as $key=>$value) {
             $count = Program::find(['rstarts_howdiduhear' => $key])->count();
             $name = $value;
-            $result[] = [
+            $items[] = [
                 'how' => $name,
                 'count' => $count
             ];
+
+            $total += $count;
         }
 
-        return $result;
+        return [
+            'items' => $items,
+            'total' => $total
+        ];
     }
 
 

@@ -45,13 +45,13 @@ export default {
             if(this.total == 0)
                 return 0;
 
-            return ((this.startupCount / this.total) * 100).toFixed(2) ;
+            return ((this.startupCount / this.total) * 100).toFixed(0) ;
         },
         companyPercentage() {
             if(this.total == 0)
                 return 0;
 
-            return ((this.companyCount / this.total) * 100).toFixed(2) ;
+            return ((this.companyCount / this.total) * 100).toFixed(0) ;
         }
     },
     async mounted() {

@@ -4,20 +4,21 @@
 
     <div class="row">
 
-        <div class="col-md-3">
+        <div class="col-lg-3">
             <div class="card shadow">
                 <ntp-widget id="ntpStructure" source="/analytics/ntp" :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"></ntp-widget>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3">
             <div class="card shadow">
                 <ntp-piechart id="ntpPie" source="/analytics/ntp" :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"></ntp-piechart>
             </div>
         </div>
-        <div class="col-md-3">
-
-                <show-company-types></show-company-types>
-
+        <div class="col-lg-3">
+            <show-company-types></show-company-types>
+        </div>
+        <div class="col-lg-3">
+            <find-criteria></find-criteria>
         </div>
 
     </div>
