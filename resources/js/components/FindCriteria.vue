@@ -5,7 +5,7 @@
             <div v-if="item.count > 0" v-for="item in items">
                 <h5 class="mb-1 mt-0 font-weight-normal">{{ item.how }}</h5>
                 <div class="progress-w-percent">
-                    <span class="progress-value font-weight-bold">{{ item.percentage}}%</span>
+                    <span class="progress-value font-weight-bold">{{ item.count}}</span>
                     <div class="progress progress-sm">
                         <div class="progress-bar" role="progressbar" :style="'width:' + item.percentage + '%;'" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>

@@ -53865,7 +53865,7 @@ var render = function () {
                   _c(
                     "span",
                     { staticClass: "progress-value font-weight-bold" },
-                    [_vm._v(_vm._s(item.percentage) + "%")]
+                    [_vm._v(_vm._s(item.count))]
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "progress progress-sm" }, [
