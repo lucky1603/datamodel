@@ -1,5 +1,9 @@
 @extends('layouts.hyper-profile-admin')
 
+@section('page-title')
+    {{ mb_strtoupper(__('Company Details')) }}
+@endsection
+
 @section('application-data')
     <div class="card shadow " style="height: 100%;overflow: auto">
         @if(in_array($model->getAttribute('profile_status')->getValue(), [1,2]))

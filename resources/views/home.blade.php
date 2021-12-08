@@ -1,5 +1,9 @@
 @extends('layouts.hyper-vertical-mainframe')
 
+@section('page-title')
+    {{__('DASHBOARD')}}
+@endsection()
+
 @section('content')
 
     <div class="row">

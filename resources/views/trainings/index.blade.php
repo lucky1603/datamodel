@@ -1,5 +1,9 @@
 @extends('layouts.hyper-vertical-mainframe')
 
+@section('page-title')
+    {{ mb_strtoupper(__('Events')) }}
+@endsection
+
 @section('content')
     <div class="page-title-box-sm" xmlns="http://www.w3.org/1999/html">
         <ul class="nav float-right page-title-right" >

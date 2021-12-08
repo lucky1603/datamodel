@@ -1,5 +1,9 @@
 @extends('layouts.hyper-vertical-mainframe')
 
+@section('page-title')
+    {{ mb_strtoupper(__('Mentors List')) }}
+@endsection
+
 @section('content')
     <div>
         <ul class="nav float-right page-title-right" >

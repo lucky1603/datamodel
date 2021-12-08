@@ -80,6 +80,7 @@
         <div class="content" >
             <!-- Topbar Start -->
             <div class="navbar-custom frame-padding">
+                <span class="h4" style="position: relative; top:3vh; left: 2vh">@yield('page-title')</span>
                 <ul class="list-unstyled topbar-right-menu float-right mb-0">
                     <li class="dropdown notification-list d-lg-none">
                         <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">

@@ -1,7 +1,10 @@
 @extends('layouts.hyper-vertical-mainframe')
 
+@section('page-title')
+    {{ mb_strtoupper(__('Users List')) }}
+@endsection
+
 @section('content')
-    <h2>{{ __('Users List') }}</h2>
     <h5 class="p-1 user-group-header" style="display: flex">
         <span class="float-left flex-grow-1">{{ __('Administrators') }}</span>
         <a href="{{ route('user.addadmin') }}" class="text-light edituser" role="button" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-text-account float-right flex-grow-0"></i></a>
