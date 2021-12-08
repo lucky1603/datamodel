@@ -24,6 +24,7 @@ Auth::routes();
 Route::get('analytics/ntp', 'AnalyticsController@ntp')->name('analytics.ntp');
 Route::get('analytics/startupTypes', 'AnalyticsController@startupTypes')->name('analytics.startupTypes');
 Route::get('analytics/howDidUHear', 'AnalyticsController@howDidUHear')->name('analytics.howDidUHear');
+Route::get('analytics/splitInterest', 'AnalyticsController@splitInterest')->name('analytics.splitInterest');
 
 Route::get('/edituser', 'Auth\EditUserController@index')->name('users');
 Route::get('/edituser/addadmin', 'Auth\EditUserController@addadmin')->name('user.addadmin');

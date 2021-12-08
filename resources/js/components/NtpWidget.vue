@@ -8,6 +8,7 @@ export default {
     props: {
         source: { typeof: String, default: ''},
         labels: [],
+        bgcolors: [],
         id: `myChart`
     },
     methods : {
@@ -42,16 +43,13 @@ export default {
                     datasets: [{
                         label: '# kandidata po NTP',
                         data: this.values,
-                        backgroundColor: [
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                        ],
+                        backgroundColor: this.backgroundColors,
                         borderColor: [
                             'rgb(255, 159, 64)',
                             'rgb(75, 192, 192)',
                             'rgb(54, 162, 235)',
-                        ]
+                        ],
+                        border: 1
                     }]
                 },
                 options: {
@@ -59,7 +57,7 @@ export default {
                     scales: {
                         xAxes: [{
                             ticks: {
-                                beginAtZero: true
+                                beginAtZero: true,
                             }
                         }]
                     }
@@ -73,6 +71,7 @@ export default {
             values: [],
             names: [],
             action: { typeof: String, default: ' '},
+            backgroundColors:[],
             chart: {}
         }
     },
@@ -81,6 +80,16 @@ export default {
         console.log(this.labels);
         if(this.labels != undefined && this.labels.length != 0) {
             this.names = this.labels;
+        }
+
+        this.backgroundColors = [
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+        ];
+
+        if(this.bgcolors != undefined && this.bgcolors.length > 0) {
+            this.backgroundColors = this.bgcolors;
         }
 
         await this.getData();

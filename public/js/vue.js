@@ -2775,7 +2775,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       "typeof": String,
       "default": ''
     },
-    labels: []
+    labels: [],
+    bgcolors: []
   },
   methods: {
     getData: function getData() {
@@ -2833,19 +2834,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     labels: _this2.names,
                     datasets: [{
                       data: _this2.values,
-                      backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0,255,0, 0.5)', 'rgba(0,0,255, 0.5)']
+                      backgroundColor: _this2.backgroundColors
                     }]
                   },
-                  options: {
-                    indexAxis: 'y',
-                    scales: {
-                      xAxes: [{
-                        ticks: {
-                          beginAtZero: true
-                        }
-                      }]
-                    }
-                  }
+                  options: {}
                 });
 
               case 2:
@@ -2865,7 +2857,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       action: {
         "typeof": String,
         "default": ' '
-      }
+      },
+      backgroundColors: ['rgba(255, 0, 0, 0.5)', 'rgba(0,255,0, 0.5)', 'rgba(0,0,255, 0.5)']
     };
   },
   mounted: function mounted() {
@@ -2882,14 +2875,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this3.names = _this3.labels;
               }
 
-              _context3.next = 4;
+              if (_this3.bgcolors != undefined && _this3.bgcolors.length > 0) {
+                _this3.backgroundColors = _this3.bgcolors;
+              }
+
+              _context3.next = 5;
               return _this3.getData();
 
-            case 4:
-              _context3.next = 6;
+            case 5:
+              _context3.next = 7;
               return _this3.createChart();
 
-            case 6:
+            case 7:
             case "end":
               return _context3.stop();
           }
@@ -2932,6 +2929,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       "default": ''
     },
     labels: [],
+    bgcolors: [],
     id: "myChart"
   },
   methods: {
@@ -2991,8 +2989,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     datasets: [{
                       label: '# kandidata po NTP',
                       data: _this2.values,
-                      backgroundColor: ['rgba(255, 159, 64, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)'],
-                      borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)']
+                      backgroundColor: _this2.backgroundColors,
+                      borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)'],
+                      border: 1
                     }]
                   },
                   options: {
@@ -3025,6 +3024,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         "typeof": String,
         "default": ' '
       },
+      backgroundColors: [],
       chart: {}
     };
   },
@@ -3042,14 +3042,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this3.names = _this3.labels;
               }
 
-              _context3.next = 4;
+              _this3.backgroundColors = ['rgba(255, 159, 64, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)'];
+
+              if (_this3.bgcolors != undefined && _this3.bgcolors.length > 0) {
+                _this3.backgroundColors = _this3.bgcolors;
+              }
+
+              _context3.next = 6;
               return _this3.getData();
 
-            case 4:
-              _context3.next = 6;
+            case 6:
+              _context3.next = 8;
               return _this3.createChart();
 
-            case 6:
+            case 8:
             case "end":
               return _context3.stop();
           }

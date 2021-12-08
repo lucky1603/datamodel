@@ -81,6 +81,11 @@ class AnalyticsController extends Controller
         ];
     }
 
+    public function splitInterest() {
+        $result = $this->howDidUHear();
+        return $result['items'];
+    }
+
 
 
 }

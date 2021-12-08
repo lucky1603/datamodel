@@ -9,6 +9,7 @@ export default {
         id:'PieChart',
         source: { typeof: String, default: ''},
         labels: [],
+        bgcolors:[],
     },
     methods: {
         async getData() {
@@ -40,22 +41,11 @@ export default {
                     labels: this.names,
                     datasets: [{
                         data: this.values,
-                        backgroundColor: [
-                            'rgba(255, 0, 0, 0.5)',
-                            'rgba(0,255,0, 0.5)',
-                            'rgba(0,0,255, 0.5)'
-                        ]
+                        backgroundColor: this.backgroundColors
                     }]
                 },
                 options: {
-                    indexAxis: 'y',
-                    scales: {
-                        xAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
+
                 }
             });
         }
@@ -66,12 +56,21 @@ export default {
             values: [],
             names: [],
             action: { typeof: String, default: ' '},
+            backgroundColors: [
+                'rgba(255, 0, 0, 0.5)',
+                'rgba(0,255,0, 0.5)',
+                'rgba(0,0,255, 0.5)'
+            ]
         }
     },
     async mounted() {
         console.log(this.labels);
         if(this.labels != undefined && this.labels.length != 0) {
             this.names = this.labels;
+        }
+
+        if(this.bgcolors != undefined && this.bgcolors.length > 0) {
+            this.backgroundColors = this.bgcolors;
         }
 
         await this.getData();
