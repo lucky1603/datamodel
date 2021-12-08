@@ -21,6 +21,10 @@ Route::get('/', 'HomeController@root');
 
 Auth::routes();
 
+Route::get('analytics/ntp', 'AnalyticsController@ntp')->name('analytics.ntp');
+Route::get('analytics/startupTypes', 'AnalyticsController@startupTypes')->name('analytics.startupTypes');
+Route::get('analytics/howDidUHear', 'AnalyticsController@howDidUHear')->name('analytics.howDidUHear');
+
 Route::get('/edituser', 'Auth\EditUserController@index')->name('users');
 Route::get('/edituser/addadmin', 'Auth\EditUserController@addadmin')->name('user.addadmin');
 Route::post('/edituser/adminadded', 'Auth\EditUserController@adminadded')->name('user.adminadded');

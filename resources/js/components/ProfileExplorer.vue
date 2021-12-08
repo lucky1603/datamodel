@@ -185,7 +185,6 @@ export default {
             form: {
                 name: '',
                 profile_state: 0,
-                ntp: 0,
             }
         }
     }

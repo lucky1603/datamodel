@@ -2,28 +2,24 @@
 
 @section('content')
 
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">{{ strtoupper( __('Profiles')) }}</div>
-                <div class="card-body"><a href="{{ route('profiles.index') }}"><img src="images/custom/clients.png" width="100%"/></a></div>
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="card shadow">
+                <ntp-widget id="ntpStructure" source="/analytics/ntp" :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"></ntp-widget>
             </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow">
+                <ntp-piechart id="ntpPie" source="/analytics/ntp" :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"></ntp-piechart>
+            </div>
+        </div>
+        <div class="col-md-3">
+
+                <show-company-types></show-company-types>
 
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">{{ __('Users')}}</div>
-                <div class="card-body"><a href="{{ route('users') }}"><img src="images/custom/contract.png" width="100%"/></a></div>
-            </div>
 
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">{{ __('Sessions') }}</div>
-                <div class="card-body"><a href="{{ route('trainings') }}"><img src="images/custom/events.png" width="100%"/></a></div>
-            </div>
-
-        </div>
     </div>
 {{--    <div class="text-center">--}}
 {{--        <button type="button" id="btnTestMail" class="btn btn-sm btn-primary rounded-pill">Test Email</button>--}}
@@ -32,6 +28,7 @@
 @endsection
 
 @section('scripts')
+
     <script type="text/javascript">
         $(document).ready(function() {
             if(!$('#link_home').hasClass('active')) {
@@ -51,6 +48,7 @@
                     console.log(data);
                 }) ;
             });
+
         });
     </script>
 @endsection

@@ -9,7 +9,10 @@ class Utils
     public static function getFilesFromRequest(Request $request, $filename): ?array
     {
         if (!$request->hasFile($filename)) {
-            return null;
+            return [
+                'filelink' => '',
+                'filename' => ''
+            ];
         }
 
         if(is_array($request->file($filename))) {

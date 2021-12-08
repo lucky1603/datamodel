@@ -189,6 +189,7 @@
 </div>
 <!-- END wrapper -->
 
+<script src="/js/vue.js"></script>
 
 <!-- bundle -->
 <script src="/assets/js/vendor.min.js"></script>
@@ -196,6 +197,7 @@
 
 <!-- third party js -->
 <script src="/assets/js/vendor/Chart.bundle.min.js"></script>
+<script src="/assets/js/vendor/apexcharts.min.js"></script>
 <!-- third party js ends -->
 
 <!-- demo app -->
@@ -222,7 +224,7 @@
 <script src="/assets/js/vendor/dataTables.select.min.js"></script>
 <script src="/assets/js/vendor/responsive.bootstrap4.min.js"></script>
 
-<script src="/js/vue.js"></script>
+
 
 {{--@yield('scripts')--}}
 

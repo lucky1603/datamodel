@@ -42,6 +42,9 @@ Vue.component('program-data', require('./components/ProgramData').default);
 Vue.component('profile-item', require('./components/ProfileItem').default);
 Vue.component('profile-explorer', require('./components/ProfileExplorer').default);
 Vue.component('profile-form', require('./components/ProfileForm').default);
+Vue.component('ntp-widget', require('./components/NtpWidget').default);
+Vue.component('ntp-piechart', require('./components/NtpPieChart').default);
+Vue.component('show-company-types', require('./components/ShowCompanyTypes').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

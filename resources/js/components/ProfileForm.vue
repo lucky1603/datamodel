@@ -36,7 +36,7 @@
                 </b-col>
                 <b-col lg="4" size="sm">
                     <b-form-group id="contact_phone_group" size="sm" label="Kontakt telefon" label-for="contact_phone">
-                        <b-form-input id="contact_phone" size="sm" v-model="form.contact_phone" placeholder="Kontakt telefon osobe za kontakt"></b-form-input>
+                        <b-form-input id="contact_phone" size="sm" v-model="form.contact_phone" placeholder="(xxx) xxx-xxx(x)" @input="enforcePhoneFormat"></b-form-input>
                     </b-form-group>
                 </b-col>
             </b-form-row>
@@ -114,6 +114,11 @@ export default {
         onReset() {
 
         },
+        enforcePhoneFormat() {
+            this.form.contact_phone = this.form.contact_phone.substring(0,10);
+            let x = this.form.contact_phone.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+            this.form.contact_phone = !x[2] ? (x[1] ? x[1] : ' ') : '(' + x[1] + ') ' + x[2] + (x[3] ? ' ' + x[3] : '');
+        },
         handleSubmit(formName) {
             if(formName == 'createProfile') {
                 let formData = new FormData();
@@ -121,8 +126,16 @@ export default {
                     formData.append(property, this.form[property])
                 }
 
-                formData.append('profile_logo', this.form.profile_logo);
-                formData.append('profile_background', this.form.profile_background);
+                if(this.form.profile_logo != null) {
+                    formData.append('profile_logo', this.form.profile_logo);
+                }
+
+                if(this.form.profile_background != null) {
+                    formData.append('profile_background', this.form.profile_background);
+                }
+
+                console.log('Form Data');
+                console.log(formData);
 
                 axios.post(this.action, formData)
                 .then(response => {
