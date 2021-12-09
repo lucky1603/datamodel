@@ -22,6 +22,7 @@ use App\Business\TeamMember;
 use App\Business\Training;
 use App\Http\Middleware\Authenticate;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateRaisingStartsRequest;
 use App\Mail\ApplicationSuccess;
 use App\Mail\DemoDayNotification;
@@ -30,6 +31,7 @@ use App\Mail\ProfileCreated;
 use App\Mail\ProfileRejected;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -95,7 +97,7 @@ class ProfileController extends Controller
         });
 
         $action = route('profiles.store');
-        return view('profiles.create', ['attributes' => $attributes, 'action' => $action]);
+        return view('profiles.create3', ['attributes' => $attributes, 'action' => $action]);
     }
 
     public function edit($profileId) {
@@ -126,7 +128,7 @@ class ProfileController extends Controller
 
     }
 
-    public function store(Request $request) {
+    public function store(StoreProfileRequest $request) {
         $data = $request->post();
 
         // If the client fills it set the status to 'interested'
@@ -181,6 +183,10 @@ class ProfileController extends Controller
         // TODO - Send email to the user.
         $email = $profile->getAttribute('contact_email')->getValue();
         Mail::to($email)->send(new ProfileCreated($profile));
+
+        if(Auth::user()->isAdmin()) {
+            return redirect(route('profiles.index'));
+        }
 
         // Go to confirmation page.
         $token = $user->getRememberToken();

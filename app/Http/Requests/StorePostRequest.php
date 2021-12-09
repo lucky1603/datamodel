@@ -3,9 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Attribute;
-use App\Business\Program;
 use App\Entity;
-use App\Http\Controllers\Utils;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePostRequest extends FormRequest

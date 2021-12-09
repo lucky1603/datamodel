@@ -3160,6 +3160,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     addprofiletitle: {
       "typeof": String,
       "default": 'DODAJ NOVI PROFIL'
+    },
+    createlink: {
+      "typeof": String,
+      "default": '/profiles/create'
     }
   },
   computed: {
@@ -54394,8 +54398,7 @@ var render = function () {
                     {
                       staticClass: "text-secondary m-2 position-relative",
                       staticStyle: { top: "5px" },
-                      attrs: { href: "#", role: "button" },
-                      on: { click: _vm.buttonClicked },
+                      attrs: { href: _vm.createlink, role: "button" },
                     },
                     [
                       _c("i", { staticClass: "dripicons-document-new" }),

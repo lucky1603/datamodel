@@ -17,7 +17,7 @@
                     <b-form-select size="sm" class="m-2 w-100" v-model="form.profile_state" :options="states" @change="onSubmit"></b-form-select>
                 </b-col>
                 <b-col xl="2" lg="3" offset-xl="5" class="d-flex flex-row flex-lg-row-reverse" >
-                   <a href="#" role="button" class="text-secondary m-2 position-relative" style="top:5px" @click="buttonClicked"><i class="dripicons-document-new"></i> NOVI PROFIL</a>
+                   <a :href="createlink" role="button" class="text-secondary m-2 position-relative" style="top:5px" ><i class="dripicons-document-new"></i> NOVI PROFIL</a>
                 </b-col>
             </b-row>
         </b-form>
@@ -64,7 +64,8 @@ export default {
     props: {
         itemsperpage: { typeof: Number, default: 12 },
         newitemaction: { typeof: String, default: '#'},
-        addprofiletitle: { typeof: String, default: 'DODAJ NOVI PROFIL'}
+        addprofiletitle: { typeof: String, default: 'DODAJ NOVI PROFIL'},
+        createlink: { typeof: String, default: '/profiles/create'}
     },
     computed : {
         logoSrc() {

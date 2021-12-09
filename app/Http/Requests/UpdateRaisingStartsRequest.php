@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Attribute;
-use App\Entity;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRaisingStartsRequest extends FormRequest

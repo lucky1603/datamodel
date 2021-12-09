@@ -1,7 +1,6 @@
 <form action="{{ $action }}" method="POST" enctype="multipart/form-data" id="myForm" class="mt-4">
     @csrf
 
-
     <div class="row">
         <div id="nameCol" class="col-lg-6">
             @if(isset($profile))
@@ -36,13 +35,13 @@
         @endphp
 
         <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
-        <span class="attribute-label mr-1">{!! $attribute->label !!}  </span>
+        <span class="attribute-label mr-1">{!! $attribute->label !!}</span>
         <input
             class="checkbox-aligned"
             type="checkbox"
             id="{{ $attribute->name }}"
             name="{{$attribute->name}}"
-            @if($attribute->getValue()  ?? old($attribute->name)) checked @endif style="padding-top: 10px"
+            @if(($attribute->getValue()  ?? old($attribute->name)) == 'on') checked @endif style="padding-top: 10px"
             onclick="
                 if(document.getElementById('{{ $attribute->name }}').checked)
                 {
@@ -87,8 +86,15 @@
                     $attribute = $attributes->where('name', 'contact_phone')->first();
                 @endphp
                 <label for="name" class="attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
-                <input type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() ?? old($attribute->name)}}"
-                       class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+                <input
+                    type="text"
+                    id="{{ $attribute->name }}"
+                    name="{{ $attribute->name }}"
+                    value="{{ $attribute->getValue() ?? old($attribute->name)}}"
+                    class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
+                    data-toggle="input-mask"
+                    data-mask-format="000 000-0000">
+                <span class="font-12 text-dark">Unesite broj telefona u formatu 0## ### - ###(#)</span>
                 @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
             </div>
         </div>
