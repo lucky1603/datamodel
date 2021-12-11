@@ -34,12 +34,15 @@ class MentorController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255',
             'phone' => 'required',
+            'specialities' => 'required',
+            'mentor-type' => 'in:1,2'
         ]);
 
         $data = $request->post();
+
 
         $file = $request->file('photo');
         if($file != null) {
@@ -86,6 +89,14 @@ class MentorController extends Controller
     }
 
     public function update(Request $request) {
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required',
+            'specialities' => 'required',
+            'mentor-type' => 'in:1,2'
+        ]);
+
         $data = $request->post();
 
         $photo = $request->file('photo');

@@ -283,6 +283,41 @@
                     fileReader.readAsDataURL($(el)[0].files[0]);
                 });
 
+                $('#buttonSubmit').click(function() {
+                    let formData = new FormData($('form#myMentorForm')[0]);
+                    formData.append('photo', $('#photo')[0].files[0]);
+                        $.ajax({
+                            url: '/mentors/create',
+                            type: 'POST',
+                            processData: false,
+                            contentType: false,
+                            data: formData,
+                            // headers: {
+                            //     'X-CSRF-Token' : token
+                            // },
+                            success: function (data) {
+                                // The file was uploaded successfully...
+                                console.log(data);
+                                $('.error-notification').hide();
+                                // $('#button_spinner_send').attr('hidden', true);
+                                // location.reload();
+                            },
+                            error: function (data) {
+                                // there was an error.
+                                let errorResponse = data.responseJSON;
+                                $('.error-notification').hide();
+                                for(let key in errorResponse.errors) {
+                                        let message = errorResponse.errors[key];
+                                        $('#' + key + 'Error').show().text(message);
+                                }
+
+                            }
+                        });
+
+
+
+                });
+
 
             });
        });

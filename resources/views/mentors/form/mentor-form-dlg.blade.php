@@ -15,8 +15,8 @@
                 id="{{ $attribute->name }}"
                 name="{{ $attribute->name }}"
                 @if($value != null) value="{{ $value }}" @endif
-                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" >
-            @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div> @enderror
+                class="form-control form-control-sm">
+            <span class="text-danger error-notification" id="{{ $attribute->name }}Error" style="display: none"></span>
         </div>
         <div class="form-group">
             @php
@@ -40,7 +40,7 @@
                 @if($value != null) value="{{ $value }}" @endif
                 class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
                 autocomplete="{{ $attribute->name }}">
-            @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div> @enderror
+            <span class="text-danger error-notification" id="{{ $attribute->name }}Error" style="display: none"></span>
         </div>
         <div class="form-group">
             @php
@@ -53,12 +53,11 @@
                 id="{{ $attribute->name }}"
                 name="{{ $attribute->name }}"
                 @if($value != null) value="{{ $value }}" @endif
-                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
+                class="form-control form-control-sm"
                 data-toggle="input-mask"
                 data-mask-format="000 000-0000">
             <span class="text-danger error-notification" id="{{ $attribute->name }}Error" style="display: none"></span>
             <span class="font-11">Uneti br. telefona u formatu 0## ###-###(#)</span>
-            @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div> @enderror
         </div>
 
         <div class="form-group">
@@ -83,7 +82,7 @@
                 @endif
                 <border style="border-radius: 10px; width: 50px; overflow: hidden; position:relative; top:-45px">
                     <input type="file" id="photo" name="photo" style="color: transparent;display:none">
-                    <button id="textBtn" type="button" class="btn btn-sm btn-primary rounded-pill w-50 justify-content-center" >Izaberi</button>
+                    <button id="textBtn" type="button" class="btn btn-sm btn-primary rounded-pill w-50 justify-content-center">Izaberi</button>
                 </border>
             </div>
             <div class="col-lg-8">
@@ -93,13 +92,12 @@
                         $value = $attribute->getValue() ?? null;
                     @endphp
                     <label for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
-                    <select id="{{$attribute->name}}[]" name="{{$attribute->name}}[]" class="form-control @error($attribute->name) is-invalid @enderror" multiple style="height: 120px" >
+                    <select id="{{$attribute->name}}[]" name="{{$attribute->name}}[]" class="form-control" multiple style="height: 120px" >
                         @foreach($attribute->getOptions() as $key => $val)
                             <option value="{{$key}}" @if($value != null && in_array($key, $value)) selected @endif>{{ $val }}</option>
                         @endforeach
                     </select>
-                    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div> @enderror
-
+                    <span class="text-danger error-notification" id="{{ $attribute->name }}Error" style="display: none"></span>
                 </div>
                 <div class="form-group mt-2">
                     @php
@@ -107,21 +105,21 @@
                         $value = $attribute->getValue() ?? null;
                     @endphp
                     <label for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
-                    <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control @error($attribute->name) is-invalid @enderror">
+                    <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control">
                         <option value="0" @if($value == null || $value == 0) selected @endif>Choose...</option>
                         @foreach($attribute->getOptions() as $key => $val)
                             <option value="{{$key}}" @if($value != null && $key == $value) selected @endif>{{$val}}</option>
                         @endforeach
                     </select>
-                    @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div> @enderror
+                    <span class="text-danger error-notification" id="{{ $attribute->name }}Error" style="display: none"></span>
                 </div>
             </div>
         </div>
         @if($showCommands)
-        <div class="text-center mt-3 mb-3">
-            <button type="submit" id="buttonSubmit" class="btn btn-sm btn-primary rounded-pill w-15">Prihvati</button>
-            <button type="button" id="buttonClose" class="btn btn-sm btn-outline-primary rounded-pill w-15" data-dismiss="modal">Zatvori</button>
-        </div>
+            <div class="text-center mt-3 mb-3">
+                <button type="submit" id="buttonSubmit" class="btn btn-sm btn-primary rounded-pill w-15">Prihvati</button>
+                <button type="button" id="buttonClose" class="btn btn-sm btn-outline-primary rounded-pill w-15" data-dismiss="modal">Zatvori</button>
+            </div>
         @endif
 
 

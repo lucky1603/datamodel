@@ -1,11 +1,9 @@
-{{--@extends('layouts.create')--}}
+@extends('layouts.hyper-vertical')
 
-{{--@section('title')--}}
-{{--    <h1 class="text-center attribute-label">{{__('Create New Mentor')}}</h1>--}}
-{{--@endsection--}}
+@section('page-title')
+    {{ mb_strtoupper(__('Add New Mentor')) }}
+@endsection
 
-
-@extends('layouts.app')
 @section('content')
     @include('mentors.form.mentor-form', ['action' => route('mentors.store'), 'showCommands' => true, 'showTitle' => true,  'title' => __('Add New Mentor')])
 @endsection
@@ -16,6 +14,10 @@
             alert('click')
             $('#photo').trigger('click');
         })
+
+        $('#buttonClose').click(function() {
+            location.href = '/mentors';
+        }) ;
 
         $('#photo').on('change', function (evt) {
             let el = evt.currentTarget;
@@ -28,6 +30,8 @@
             };
             fileReader.readAsDataURL($(el)[0].files[0]);
         });
+
+
 
     </script>
 @endsection

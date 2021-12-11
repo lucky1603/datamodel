@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <b-modal id="editMentorModal" ref="editMentorModal" size="lg" header-bg-variant="dark" header-text-variant="light">
+        <b-modal id="editMentorModal" ref="editMentorModal" size="lg" header-bg-variant="dark" header-text-variant="light" scrollable>
             <template #modal-title>{{ editmentortitle }}</template>
             <span v-html="formContent"></span>
             <template #modal-footer>
@@ -59,26 +59,59 @@ export default {
                     });
             }
         },
-        showModal() {
-            axios.get(`/mentors/edit/${this.mentorid}`)
-            .then(response => {
-                this.$refs['editMentorModal'].show();
+        async showModal() {
+            await axios.get(`/mentors/edit/${this.mentorid}`)
+            .then(async (response) =>  {
                 this.formContent = $(response.data).find('form#myMentorForm').first().parent().html();
+                await this.$refs['editMentorModal'].show();
+            });
+
+            $('#textBtn').click(function() {
+                $('#photo').trigger('click');
+            });
+
+            $('#photo').on('change', function (evt) {
+                let el = evt.currentTarget;
+                console.log(el);
+                console.log($(el)[0].files[0]);
+                var fileReader = new FileReader();
+                fileReader.onload = function () {
+                    var data = fileReader.result;  // data <-- in this var you have the file data in Base64 format
+                    $('#photoPreview').attr('src', data);
+                };
+                fileReader.readAsDataURL($(el)[0].files[0]);
             });
         },
         onOk() {
-            const form = document.getElementById('myMentorForm');
-            const data = new FormData(form);
-            axios.post(`/mentors/edit`, data)
-                .then(response => {
-                    console.log(response.data);
-                    this.$refs['editMentorModal'].hide();
-                    this.getData();
-                })
-                .catch(error => {
-                    console.log(error);
-                    this.$refs['editMentorModal'].hide();
-                });
+            const data = new FormData($('form#myMentorForm')[0]);
+            if($('#photo')[0].files.length > 0) {
+                data.append('photo', $('#photo')[0].files[0]);
+            }
+
+            let editForm = this;
+
+            $.ajax({
+                url: '/mentors/edit',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function(data) {
+                    console.log('success');
+                    console.log(data);
+                    $('.error-notification').hide();
+                    editForm.$refs['editMentorModal'].hide();
+                    editForm.getData();
+                },
+                error(data) {
+                    let errorData = data.responseJSON;
+                    $('.error-notification').hide();
+                    for(let key in errorData.errors) {
+                       let value = errorData.errors[key];
+                       $('#' + key + 'Error').show().text(value);
+                    }
+                }
+            })
         },
         onCancel() {
             this.$refs['editMentorModal'].hide();

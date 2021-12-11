@@ -65,6 +65,7 @@
                     // $('#dialogHost.modal .modal-dialog .modal-content .modal-header .modal-title').text(title);
                 });
             });
+
         });
     </script>
 @endsection

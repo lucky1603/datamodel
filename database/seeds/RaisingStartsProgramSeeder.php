@@ -19,7 +19,7 @@ class RaisingStartsProgramSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i < 30; $i++) {
+        for($i = 0; $i < 13; $i++) {
             $program = $this->createProgram();
             echo $program->getProfile()->getValue('name')." created \n";
         }

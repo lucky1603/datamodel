@@ -2477,6 +2477,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2550,27 +2558,92 @@ __webpack_require__.r(__webpack_exports__);
     showModal: function showModal() {
       var _this2 = this;
 
-      axios.get("/mentors/edit/".concat(this.mentorid)).then(function (response) {
-        _this2.$refs['editMentorModal'].show();
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.get("/mentors/edit/".concat(_this2.mentorid)).then( /*#__PURE__*/function () {
+                  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(response) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _this2.formContent = $(response.data).find('form#myMentorForm').first().parent().html();
+                            _context.next = 3;
+                            return _this2.$refs['editMentorModal'].show();
 
-        _this2.formContent = $(response.data).find('form#myMentorForm').first().parent().html();
-      });
+                          case 3:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+
+              case 2:
+                $('#textBtn').click(function () {
+                  $('#photo').trigger('click');
+                });
+                $('#photo').on('change', function (evt) {
+                  var el = evt.currentTarget;
+                  console.log(el);
+                  console.log($(el)[0].files[0]);
+                  var fileReader = new FileReader();
+
+                  fileReader.onload = function () {
+                    var data = fileReader.result; // data <-- in this var you have the file data in Base64 format
+
+                    $('#photoPreview').attr('src', data);
+                  };
+
+                  fileReader.readAsDataURL($(el)[0].files[0]);
+                });
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     },
     onOk: function onOk() {
-      var _this3 = this;
+      var data = new FormData($('form#myMentorForm')[0]);
 
-      var form = document.getElementById('myMentorForm');
-      var data = new FormData(form);
-      axios.post("/mentors/edit", data).then(function (response) {
-        console.log(response.data);
+      if ($('#photo')[0].files.length > 0) {
+        data.append('photo', $('#photo')[0].files[0]);
+      }
 
-        _this3.$refs['editMentorModal'].hide();
+      var editForm = this;
+      $.ajax({
+        url: '/mentors/edit',
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        data: data,
+        success: function success(data) {
+          console.log('success');
+          console.log(data);
+          $('.error-notification').hide();
+          editForm.$refs['editMentorModal'].hide();
+          editForm.getData();
+        },
+        error: function error(data) {
+          var errorData = data.responseJSON;
+          $('.error-notification').hide();
 
-        _this3.getData();
-      })["catch"](function (error) {
-        console.log(error);
-
-        _this3.$refs['editMentorModal'].hide();
+          for (var key in errorData.errors) {
+            var value = errorData.errors[key];
+            $('#' + key + 'Error').show().text(value);
+          }
+        }
       });
     },
     onCancel: function onCancel() {
@@ -3306,7 +3379,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this5.pages.push(pageItems);
                 } else {
-                  for (i = 0; i < _this5.items.length - 1; i += _this5.itemsPerPage) {
+                  for (i = 0; i < _this5.items.length; i += _this5.itemsPerPage) {
                     _pageItems = [];
 
                     for (j = i; j < Math.min(i + _this5.itemsPerPage, _this5.items.length); j++) {
@@ -54035,6 +54108,7 @@ var render = function () {
             size: "lg",
             "header-bg-variant": "dark",
             "header-text-variant": "light",
+            scrollable: "",
           },
           scopedSlots: _vm._u([
             {

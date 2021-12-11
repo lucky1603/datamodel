@@ -12,7 +12,7 @@
                     class="nav-link text-muted"
                     id="newmentor"
                     href="{{ route('mentors.create') }}"
-                    role="button" data-toggle="modal" data-target="#dialogHost">
+                    role="button">
                     <i class="dripicons-user font-20"></i><span class="ml-0 mt-2 font-weight-bold"> {{mb_strtoupper(__('New Mentor'))}}</span>
                 </a>
             </li>
@@ -131,6 +131,8 @@
             };
             fileReader.readAsDataURL($(el)[0].files[0]);
         });
+
+
 
     </script>
 @endsection

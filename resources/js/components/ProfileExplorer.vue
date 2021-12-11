@@ -127,7 +127,7 @@ export default {
 
                 this.pages.push(pageItems);
             } else {
-                for(let i = 0; i < this.items.length - 1; i += this.itemsPerPage) {
+                for(let i = 0; i < this.items.length; i += this.itemsPerPage) {
                     let pageItems = [];
                     for(let j = i; j < Math.min(i + this.itemsPerPage, this.items.length); j ++) {
                         pageItems.push(this.items[j]);
