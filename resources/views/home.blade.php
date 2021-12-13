@@ -14,7 +14,7 @@
                     id="ntpStructure"
                     source="/analytics/ntp"
                     :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"
-                    :bgcolors="['rgba(255,100,28,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-widget>
+                    :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-widget>
             </div>
         </div>
         <div class="col-lg-3">
@@ -23,7 +23,7 @@
                     id="ntpPie"
                     source="/analytics/ntp"
                     :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"
-                    :bgcolors="['rgba(255,100,28,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-piechart>
+                    :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-piechart>
             </div>
         </div>
         <div class="col-lg-3">
