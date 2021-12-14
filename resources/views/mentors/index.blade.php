@@ -58,18 +58,6 @@
         @endif
 
         <div class="col-lg-3">
-{{--            <div class="card shadow">--}}
-{{--                <div class="card-header p-0">--}}
-{{--                    <img src="@if($mentor->getAttribute('photo') != null && strlen($mentor->getValue('photo')['filelink']) > 0) {{ $mentor->getValue('photo')['filelink'] }} @else /images/custom/nophoto2.png @endif" class="w-100"/>--}}
-{{--                </div>--}}
-{{--                <div class="card-body text-center">--}}
-{{--                    <h4 class="text-center">{{ $mentor->getValue('name') }}</h4>--}}
-{{--                    <a class="text-center" href="mailto://{{$mentor->getValue('email')}}" target="_blank">{{ $mentor->getValue('email') }}</a>--}}
-{{--                    <p class="text-center">{{ $mentor->getValue('phone') }}</p>--}}
-{{--                </div>--}}
-
-{{--                --}}
-{{--            </div>--}}
             <div class="card shadow ribbon-box">
                 <div class="card-body p-0">
                     @php

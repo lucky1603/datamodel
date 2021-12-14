@@ -76,7 +76,7 @@
     <!-- Start Page Content here -->
     <!-- ============================================================== -->
 
-    <div class="content-page frame-padding border border-primary">
+    <div class="content-page frame-padding">
         <div class="content" >
             <!-- Topbar Start -->
             <div class="navbar-custom frame-padding">

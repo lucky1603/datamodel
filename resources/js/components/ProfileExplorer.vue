@@ -21,6 +21,7 @@
                 </b-col>
             </b-row>
         </b-form>
+        <hr/>
         <div id="navigator" class="d-flex justify-content-center align-items-center mt-2" style="height: 5%">
             <b-pagination
                 v-model="currentPage"

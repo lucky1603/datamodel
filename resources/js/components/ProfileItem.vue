@@ -8,17 +8,6 @@
             <hr/>
             <span class="h5 ml-2">{{ title }}</span>
 
-
-<!--            <div :class="imageContainerClass" style="display: flex; justify-content: center; align-items: center; overflow: hidden">-->
-<!--                <img v-if="logo != ''" :src="logo" class="h-75">-->
-<!--                <img v-else :src="defaultLogo" class="h-75">-->
-<!--            </div>-->
-
-<!--            <div class="h-50" style="display: flex; justify-content: center; align-items: center">-->
-<!--                <span class="h5 ml-2">{{ title }}</span>-->
-<!--            </div>-->
-
-
         </div>
     </div>
 </template>

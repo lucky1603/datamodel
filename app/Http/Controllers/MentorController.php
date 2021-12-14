@@ -22,7 +22,7 @@ class MentorController extends Controller
 
     public function index() {
         $mentors = Mentor::find();
-        return view('mentors.index', ['mentors' => $mentors]);
+        return view('mentors.index1', ['mentors' => $mentors]);
     }
 
     public function create() {
@@ -326,6 +326,45 @@ class MentorController extends Controller
         }
 
         return $arr;
+    }
+
+    public function filter(Request $request): array
+    {
+        $data = $request->post();
+
+
+        $filterData = [];
+        if(isset($data) && count($data) > 0) {
+            if($data['name'] != '') {
+                $filterData['name'] = $data['name'];
+            }
+
+            if($data['mentorType'] != 0) {
+                $filterData['mentor-type'] = $data['mentorType'];
+            }
+        }
+
+        if(count($filterData) > 0) {
+            $mentors = Mentor::find($filterData);
+        } else {
+            $mentors = Mentor::find();
+        }
+
+
+        $mentorList = [];
+        foreach ($mentors as $mentor) {
+            $data = $mentor->getData();
+            $mentorList[] = [
+                'id' => $data['id'],
+                'name' => $data['name'],
+                'photo' => $data['photo'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'mentorType' => $data['mentor-type']
+            ];
+        }
+
+        return $mentorList;
     }
 
 }
