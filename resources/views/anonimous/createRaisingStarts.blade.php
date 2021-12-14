@@ -82,20 +82,22 @@
                     </div>
                     @error('captcha') <div class="alert alert-danger text-center">{{ $message }}</div>@enderror
 
-{{--                    <div class="row pt-4 mt-3" style="height: 5%">--}}
-                        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center">
 
-                            <button type="button" id="buttonSend" class="btn btn-sm btn-primary rounded-pill mx-1 mt-4" style="width: 250px" title="{{ __('gui.Application-SaveDataAndSendApp') }}">
-                                <span id="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                {{ __('Save Data and Create Profile') }}
-                            </button>
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center">
+                        <button type="button" id="buttonSend" class="btn btn-sm btn-primary rounded-pill mx-1 mt-4" style="width: 250px" title="{{ __('gui.Application-SaveDataAndSendApp') }}">
+                            <span id="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            {{ __('Save Data and Create Profile') }}
+                        </button>
 
-                            <button type="button" id="buttonCancel" class="btn btn-sm btn-outline-primary rounded-pill mx-1 mt-4" style="width: 250px" title="{{ __('gui.Application-ReturnToMain') }}">
-                                <span id="cancelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                {{ __('Return to Main Page') }}
-                            </button>
-
-
+                        <button type="button" id="buttonCancel" class="btn btn-sm btn-outline-primary rounded-pill mx-1 mt-4" style="width: 250px" title="{{ __('gui.Application-ReturnToMain') }}">
+                            <span id="cancelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            {{ __('Return to Main Page') }}
+                        </button>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p>Ukoliko ste već potvrdili vašu e-mail adresu i kreirali nalog, prijaviti se sa vašim korisničkim imenom i lozinkom
+                           na adresi <a href="https://platforma.ntpark.rs/login" target="_blank">https://platforma.ntpark.rs/login</a> i nastavite
+                           popunjavanje prijave.</p>
                     </div>
                 </form>
             </div>
