@@ -106,6 +106,7 @@
     "Edit User Data" : "Promeni podatke korisnika",
     "Else" : "Ostalo",
     "Email" : "Email",
+    "E-Mail Address" : "E-Mail adresa",
     "Email address" : "Email adresa",
     "Employee Earning" : "Zarad zaposlenih",
     "Ending" : "Završava se",
@@ -238,6 +239,7 @@
     "Remark" : "Primedba",
     "Remember me" : "Zapamti me",
     "Reset Entries" : "Poništi unos",
+    "Reset Password" : "Resetuj lozinku",
     "Report" : "Izveštaj",
     "Resources" : "Resursi",
     "Responsible Person" : "Odgovorna osoba",
@@ -261,6 +263,7 @@
     "Selection Finished" : "Selekcija završena",
     "Selection Passed" : "Prošao selekciju",
     "Send Application" : "Podnesi prijavu",
+    "Send Password Reset Link" : "Pošalji link za reset lozinke",
     "Search" : "Pretraži",
     "Search..." : "Pretraga ...",
     "SEARCH FILTER:" : "PRETRAGA PO FILTERU:",
@@ -313,5 +316,12 @@
     "Workshop" : "Radionica",
     "Year" : "Godina",
     "year/years" : "godina/godine",
-    "YES" : "DA"
+    "YES" : "DA",
+    "Reset Password Notification" : "Obaveštenje o promeni lozinke",
+    "Hello!": "Poštovani,",
+    "You are receiving this email because we received a password reset request for your account." : "Primate ovu poruku iz razloga što smo primili od vas zahtev za reset vaše lozinke.",
+    "This password reset link will expire in :count minutes." : "Link za reset lozinke važi sledećih :count minuta.",
+    "If you did not request a password reset, no further action is required." : "Ako vi niste tražili izmenu lozinke, ne morate da preduzimate nikakvu akciju.",
+    "Regards" : "Srdačan pozdrav",
+    "Forgot Your Password?" : "Zaboravili ste lozinku?"
 }

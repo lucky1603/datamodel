@@ -1,6 +1,6 @@
 <template>
     <div class="card h-100 w-100">
-        <div class="card-header">
+        <div class="card-header" id="test">
             <span class="h4">KREIRAJ DOGAĐAJ - <span class="attribute-label">{{ getEventType}}</span></span>
         </div>
         <div class="card-body">
@@ -105,6 +105,7 @@
                         Agenda
                     </label>
                     <div ref="sinisa" id="sinisa"></div>
+
                     <textarea ref="trainingDescription" id="training_description" name="training_description" hidden></textarea>
                 </div>
 
@@ -236,8 +237,8 @@ export default {
     },
     mounted() {
         this.selectEventType(1);
-        this.initTextArea();
         this.getCandidates();
+        setTimeout(this.initTextArea, 2000);
     },
 }
 </script>

@@ -1,7 +1,7 @@
 @extends('layouts.hyper-vertical')
 
 @section('content')
-    <div class="card h-100 w-100 ">
+    <div class="card" style="postition:relative; top: 30px; padding-bottom: 30px">
         <div class="card-header bg-dark text-light">
             <h4 style="float: left">
                 @switch($training->getData()['training_type'])

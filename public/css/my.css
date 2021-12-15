@@ -187,6 +187,10 @@
     color: red;
 }
 
+.event-entry {
+    /*box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;*/
+}
+
 
 /*.row.zebra:first-of-type {*/
 /*    background-color: #1d643b;*/

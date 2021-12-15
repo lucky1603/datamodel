@@ -20,6 +20,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
+window.$ = require('jquery');
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

@@ -74,6 +74,11 @@
 
                     <div class="form-group mb-0 text-center">
                         <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login mr-1"></i>{{ __('Log in') }}</button>
+                        @if (Route::has('password.request'))
+                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                {{ __('Forgot Your Password?') }}
+                            </a>
+                        @endif
                     </div>
 {{--                    <!-- social-->--}}
 {{--                    <div class="text-center mt-4">--}}

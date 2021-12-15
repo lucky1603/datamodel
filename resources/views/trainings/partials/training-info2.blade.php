@@ -24,33 +24,33 @@
             <div class="col-lg-10 h-100">
                 <div class="form-group">
                     <label class="attribute-label font-italic">{{ $training->getAttribute('training_name')->label }}</label>
-                    <h4 class="mt-0 p-1 border border-secondary shadow ">{{ $training->getData()['training_name'] }}</h4>
+                    <h4 class="mt-0 p-2 event-entry border">{{ $training->getData()['training_name'] }}</h4>
                 </div>
                 <div class="row">
                     <div class="form-group mt-3 col-lg-5">
                         <label class="attribute-label font-italic">{{__('When and where')}}</label>
-                        <div class="p-1 border border-secondary shadow" style="display: flex; flex-wrap: wrap" >
-                                <div class="w-25" title="datum">
+                        <div class="p-1 border event-entry" style="display: flex; flex-wrap: wrap" >
+                                <div class="mr-3" title="datum">
                                     <i class="mdi mdi-calendar mr-1 font-16 attribute-label"></i>
                                     <span>{{ $training->getAttribute('training_start_date')->getText() }}</span>
                                 </div>
-                                <div class="w-25" title="Kad počinje">
+                                <div class="mr-3" title="Kad počinje">
                                     <i class="mdi mdi-clock-alert-outline mr-1 font-16 attribute-label"></i>
                                     <span>{{ $training->getAttribute('training_start_time')->getText() }}</span>
                                 </div>
-                                <div class="w-25" title="Koliko traje">
+                                <div class="mr-3" title="Koliko traje">
                                     <i class="mdi mdi-timer mr-1 font-16 attribute-label"></i>
                                     <span>{{ $training->getAttribute('training_duration')->getText() }}</span>
                                     <span>{{ $training->getAttribute('training_duration_unit')->getText() }}</span>
                                 </div>
-                                <div class="w-25" title="Lokacija">
+                                <div class="mr-3" title="Lokacija">
                                     <i class="dripicons-location mr-2 attribute-label font-16"></i><span>{{ $training->getAttribute('location')->getText() }}</span>
                                 </div>
                             </div>
                     </div>
                     <div class="form-group mt-3 col-lg-5 ">
                         <label class="attribute-label font-italic">{{ $training->getAttribute('training_host')->label }}</label>
-                        <p class="mt-0 p-1 border border-secondary shadow" >{{ $training->getData()['training_host'] }}</p>
+                        <p class="mt-0 p-1 border event-entry" >{{ $training->getData()['training_host'] }}</p>
                     </div>
 
                     <div class="form-group mt-3 col-lg-2">
@@ -91,7 +91,7 @@
 
                 <div class="form-group">
                     <label class="attribute-label font-italic">{{ $training->getAttribute('training_short_note')->label }}</label>
-                    <p class="p-1 h-75  border border-secondary shadow">{{ $training->getData()['training_short_note'] }}</p>
+                    <p class="p-1 h-75  border event-entry">{{ $training->getData()['training_short_note'] }}</p>
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@
                 <div class="form-group h-75">
                     <label class="attribute-label font-italic">{{ $training->getAttribute('training_description')->label }}</label>
                     <div id="trainingDescription" hidden>{{ $training->getAttribute('training_description')->getValue() }}</div>
-                    <div id="trainingDescriptionHtml" class="p-2 overflow-auto border border-secondary shadow" style="height: 95%"></div>
+                    <div id="trainingDescriptionHtml" class="p-2 overflow-auto border event-entry" style="height: 95%"></div>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
                 <div class="form-group">
                     @if($training->hasFiles())
                         <label class="attribute-label font-italic">{{ __('Attached Files') }}:</label>
-                        <div style="display: flex; flex-wrap: wrap; width: 100%; height: 100%" class="p-2 border border-secondary shadow">
+                        <div style="display: flex; flex-wrap: wrap; width: 100%; height: 100%" class="p-2 border event-entry">
                             @php
                                 $counter = 1;
                             @endphp

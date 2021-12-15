@@ -1,5 +1,24 @@
-<div class="card shadow-sm border-left border-success h-100 p-0" style="border-width: 5px!important;">
+<div class="card ribbon-box shadow-sm border-left border-success h-100 p-0" style="border-width: 5px!important;">
     <div class="card-body m-0">
+        @php
+            switch($training->getValue('event_status')) {
+                case 1:
+                    $ribbonClass = 'ribbon-two ribbon-two-warning';
+                    break;
+                case 2:
+                    $ribbonClass = 'ribbon-two ribbon-two-info';
+                    break;
+                case 3:
+                    $ribbonClass = 'ribbon-two ribbon-two-success';
+                    break;
+                default:
+                    $ribbonClass = 'ribbon-two ribbon-two-secondary';
+                    break;
+            }
+        @endphp
+        <div class="{{ $ribbonClass }}">
+            <span>{{ $training->getText('event_status') }}</span>
+        </div>
         <div class="row" style="height: 25%">
             <div class="col-9">
                 <h3>{{ $training->getData()['training_name'] }}</h3>
@@ -21,7 +40,7 @@
         </div>
         <hr class="m-0 mt-1">
         <div class="row" style="height: 65%">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <p class="mt-4 mb-0 font-12"><i class="dripicons-user mr-2 font-16 attribute-label" role="button" title="Domaćin"></i>{{ $training->getData()['training_host'] }} </p>
                 <p class="mt-0 mb-0 font-12"><i class="dripicons-location mr-2 font-16 attribute-label" role="button" title="Mesto održavanja"></i>{{ $training->getData()['location'] }}</p>
                 <p class="mt-0 mb-0 font-12"><i class="dripicons-clock mr-2 font-16 attribute-label" role="button" title="Datum i vreme početka"></i>
@@ -33,44 +52,27 @@
                     </p>
                 @endif
             </div>
-            <div class="col-lg-6 text-right" title="Status">
-                <p class="mt-4 mb-0 font-12">
-                    {{ $training->getText('event_status') }}
-                    <i class="@switch($training->getValue('event_status'))
-                    @case(1)
-                        dripicons-checklist
-                        @break
-                    @case(2)
-                        dripicons-hourglass
-                        @break
-                    @case(3)
-                        dripicons-checkmark
-                        @break
-                    @default
-                        dripicons-trash
-                        @break
-                    @endswitch
-                        font-16 attribute-label ml-2" role="button"></i>
-                </p>
-                @if(isset($attendance))
-                    <p class="mt-0 mb-0 font-12" title="Prisustvo">{{ $attendance->getText('attendance') }}
-                        <i class="@switch($attendance->getValue('attendance'))
-                                    @case(1)
-                                        dripicons-mail
-                                        @break
-                                    @case(2)
-                                        dripicons-preview
-                                        @break
-                                    @default
-                                        dripicons-tag-delete
-                                        @break
-                                  @endswitch ml-2 font-16 attribute-label" role="button"></i></p>
-                @endif
-            </div>
+
         </div>
         <hr class="m-0"/>
         <div class="row" style="height: 10%">
-            <div class="col-12">
+            <div class="col-6">
+                @if(isset($attendance))
+                    <p class="mt-1 mb-0 font-12" title="Prisustvo">{{ $attendance->getText('attendance') }}
+                        <i class="@switch($attendance->getValue('attendance'))
+                        @case(1)
+                            dripicons-mail
+                                @break
+                        @case(2)
+                            dripicons-preview
+                            @break
+                        @default
+                            dripicons-tag-delete
+                            @break
+                        @endswitch ml-2 font-16 attribute-label" role="button"></i></p>
+                @endif
+            </div>
+            <div class="col-6">
                 @yield('select-actions')
                 @if(Auth::user()->isAdmin())
                     <a href="{{ route('trainings.delete', $training->getId()) }}"

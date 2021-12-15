@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have emailed your password reset link!',
-    'throttled' => 'Please wait before retrying.',
+    'reset' => 'Vaša lozinka je promenjena!',
+    'sent' => 'Poslali smo Vam E-Mail-om link za reset lozinke!',
+    'throttled' => 'Molimo, sačekajte malo pre ponovnog pokušaja.',
     'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that email address.",
+    'user' => "Ne postoji korisnik sa tom email adresom.",
 
 ];
