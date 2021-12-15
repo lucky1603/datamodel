@@ -325,27 +325,27 @@ class ProfileController extends Controller
 
             // get the files
             $files = Utils::getFilesFromRequest($request, 'rstarts_logo');
-            if($files != null) {
+            if($files != null && !(count($files) == 2 && strlen($files['filelink']) == 0)) {
                 $data['rstarts_logo'] = $files;
             }
 
             $files = Utils::getFilesFromRequest($request, 'rstarts_files');
-            if($files != null) {
+            if($files != null && !(count($files) == 2 && strlen($files['filelink']) == 0)) {
                 $data['rstarts_files'] = $files;
             }
 
             $files = Utils::getFilesFromRequest($request, 'rstarts_financing_proof_files');
-            if($files != null) {
+            if($files != null && !(count($files) == 2 && strlen($files['filelink']) == 0)) {
                 $data['rstarts_financing_proof_files'] = $files;
             }
 
             $files = Utils::getFilesFromRequest($request, 'rstarts_dodatni_dokumenti');
-            if($files != null) {
+            if($files != null && !(count($files) == 2 && strlen($files['filelink']) == 0)) {
                 $data['rstarts_dodatni_dokumenti'] = $files;
             }
 
             $files = Utils::getFilesFromRequest($request, 'rstarts_founder_cvs');
-            if($files != null) {
+            if($files != null && !(count($files) == 2 && strlen($files['filelink']) == 0)) {
                 $data['rstarts_founder_cvs'] = $files;
             }
 
@@ -556,7 +556,8 @@ class ProfileController extends Controller
 
     }
 
-    private function checkRaisingStartsProgramData(RaisingStartsProgram $program) {
+    private function checkRaisingStartsProgramData(RaisingStartsProgram $program): array
+    {
         $data = $program->getData();
 
         if($data['rstarts_product_type'] == 0) {
@@ -656,24 +657,6 @@ class ProfileController extends Controller
                 }
             }
         }
-
-//        // Dropdowns.
-//        $dropdowns = [
-//
-//
-//
-//
-//        ];
-//
-//        foreach($dropdowns as $dropdown) {
-//            if($data[$dropdown] == 0) {
-//                $att = Attribute::where('name', $dropdown)->first();
-//                return [
-//                    'code' => 0,
-//                    'message' => "'".$att->label."' mora imati validnu vrednost!"
-//                ];
-//            }
-//        }
 
         return [
             'code' => 1,
