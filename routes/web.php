@@ -87,6 +87,7 @@ Route::get('/situations/{situation}', 'SituationsController@show')->name('situat
 Route::get('/trainings', 'TrainingsController@index')->name('trainings');
 Route::get('/trainings/create', 'TrainingsController@create')->name('trainings.create');
 Route::post('/trainings/create', 'TrainingsController@store')->name('trainings.store');
+Route::post('trainings/filter', 'TrainingsController@filter')->name('trainings.filter');
 Route::get('/trainings/forme', 'TrainingsController@forMe')->name('trainings.forme');
 Route::get('/trainings/mine', 'TrainingsController@mine')->name('trainings.mine');
 Route::post('/trainings/signup', 'TrainingsController@signup')->name('trainings.signup');

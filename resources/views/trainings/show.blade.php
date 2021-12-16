@@ -12,7 +12,7 @@
                     {{ mb_strtoupper(__('Training'))}}
                     @break
                     @case(3)
-                    {{ mb_strtoupper( __('Event'))}}
+                    {{ mb_strtoupper( __('Happening'))}}
                     @break
                     @default
                     {{ $training->getValue('training_type') }}

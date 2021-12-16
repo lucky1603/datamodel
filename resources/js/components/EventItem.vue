@@ -1,20 +1,25 @@
 <template>
-    <div class="card ribbon-box" :style="tileStyle">
-        <div class="card-body">
+    <div class="card ribbon-box m-2 shadow" role="button" :style="tileStyle">
+        <div class="card-body" @click="tileClicked">
             <div :class="ribbonClass">
-                {{ ribbonText}}
+                <span>{{ ribbonText}}</span>
             </div>
             <div class="row">
                 <div class="col-8">
-                    <h4>{{ title }}</h4>                    
+                    <h4 class="ml-2">{{ title }}</h4>
                 </div>
-                <div class="col-4">
+                <div class="col-4 text-center">
                     <img :src="tilePhoto" alt="Tile Photo" style="width: 50px">
+                    <div class="text-center">
+                        <span class="font-10">{{ eventTypeText }}</span>
+                    </div>
                 </div>
             </div>
+            <hr/>
             <div class="row">
                 <div class="col-12">
-                    
+                    <p class="text-center font-12 font-weight-bold" >{{ where }}</p>
+                    <p class="text-center font-11 attribute-label">{{ date }}</p>
                 </div>
             </div>
         </div>
@@ -27,8 +32,8 @@ export default {
     computed: {
         tileStyle() {
             return {
-                width: this.width,
-                height: this.height
+                width: this.width + 'px',
+                height: this.height + 'px',
             }
         },
         ribbonClass() {
@@ -64,19 +69,34 @@ export default {
                 default:
                     return '/images/custom/meeting.png';
             }
+        },
+        eventTypeText() {
+            switch (this.type) {
+                case 1:
+                    return "RADIONICA";
+                case 2:
+                    return "TRENING";
+                default:
+                    return "DEŠAVANJE";
+            }
         }
     },
     props: {
-        width: '250px',
-        height: '200px',
-        status: 1,
-        type: 1,
-        title: 'Title',
+        width: {typeof: Number, default: 250},
+        height: {typeof: Number, default: 200},
+        status: {typeof: Number, default: 1},
+        type: {typeof: Number, default: 1},
+        title: {typeof: String, default: 'Title'},
         description: 'Description',
-        time: '10:00 AM',
-        where: 'Where',
+        date: {typeof:String, default: '10:00 AM'},
+        where: {typeof: String, default: 'Where'},
         photo: '/images/custom/nophoto2.png',
         id: 0
+    },
+    methods: {
+        tileClicked() {
+            this.$emit('event-clicked', this.id)
+        }
     }
 }
 </script>

@@ -50,6 +50,8 @@ Vue.component('show-company-types', require('./components/ShowCompanyTypes').def
 Vue.component('find-criteria', require('./components/FindCriteria').default);
 Vue.component('mentor-item', require('./components/MentorItem').default);
 Vue.component('mentor-explorer', require('./components/MentorExplorer').default);
+Vue.component('event-item', require('./components/EventItem').default);
+Vue.component('event-explorer', require('./components/EventExplorer').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

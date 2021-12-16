@@ -214,4 +214,24 @@ class TrainingsController extends Controller
         ];
 
     }
+
+    public function filter(Request $request): array
+    {
+        $events = Training::find();
+        $resultData = [];
+        foreach ($events as $event) {
+            $data = $event->getData();
+            $resultData[] = [
+                "id" => $data['id'],
+                'name' => $data['training_name'],
+                'date' => date('d.m.Y', strtotime($data['training_start_date'])),
+                'type' => $data['training_type'],
+                'status' => $data['event_status'],
+                'location' => $data['location']
+            ];
+        }
+
+        return $resultData;
+    }
+
 }
