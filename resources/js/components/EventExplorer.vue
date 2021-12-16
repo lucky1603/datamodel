@@ -6,15 +6,15 @@
                     <span class="m-2 position-relative" style="top:12px" >FILTER</span>
                 </b-col>
                 <b-col xl="2" lg="4" style="display: flex; flex-direction: row; justify-content: left">
-<!--                    <b-input-group class="w-100 m-2 mt-3 mt-sm-3 mt-lg-2" size="sm">-->
-<!--                        <b-form-input v-model="form.name" type="search" id="searchName" placeholder="Po nazivu ..." @update="onSubmit"></b-form-input>-->
-<!--                        <template #append>-->
-<!--                            <b-input-group-text><b-icon-zoom-in></b-icon-zoom-in></b-input-group-text>-->
-<!--                        </template>-->
-<!--                    </b-input-group>-->
+                    <b-input-group class="w-100 m-2 mt-3 mt-sm-3 mt-lg-2" size="sm">
+                        <b-form-input v-model="form.name" type="search" id="searchName" placeholder="Po nazivu ..." @update="onSubmit"></b-form-input>
+                        <template #append>
+                            <b-input-group-text><b-icon-zoom-in></b-icon-zoom-in></b-input-group-text>
+                        </template>
+                    </b-input-group>
                 </b-col>
                 <b-col xl="2" lg="4" style="display: flex; justify-content: left">
-<!--                    <b-form-select size="sm" class="m-2 w-100" v-model="form.profile_state" :options="states" @change="onSubmit"></b-form-select>-->
+                    <b-form-select size="sm" class="m-2 w-100" v-model="form.eventType" :options="eventTypes" @change="onSubmit"></b-form-select>
                 </b-col>
                 <b-col xl="2" lg="3" offset-xl="5" class="d-flex flex-row flex-lg-row-reverse" >
                     <a :href="createlink" role="button" class="text-secondary m-2 position-relative"><i class="dripicons-document-new"></i> NOVI DOGAĐAJ</a>
@@ -45,7 +45,10 @@ export default {
     },
     methods: {
         async getData() {
-            let data = {};
+            let data = new FormData();
+            for(const property in this.form) {
+                data.append(property, this.form[property]);
+            }
             await axios.post('/trainings/filter', data)
             .then(response => {
                 this.items = response.data;
@@ -53,8 +56,12 @@ export default {
         },
         onEventClicked(eventId) {
             window.location.href = '/trainings/' + eventId;
-        }
+        },
+        async onSubmit() {
+            await this.getData();
+        },
     },
+
     async mounted() {
         await this.getData();
     },
@@ -64,6 +71,16 @@ export default {
             pages: [],
             visibleItems: [],
             currentPage: 1,
+            eventTypes: [
+                { value: 0, text: 'Po vrsti događaja'},
+                { value: 1, text: 'Radionica'},
+                { value: 2, text: 'Trening'},
+                { value: 3, text: 'Dešavanje'}
+            ],
+            form: {
+                name: '',
+                eventType: 0
+            }
         }
     }
 }

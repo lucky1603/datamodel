@@ -227,7 +227,22 @@ class TrainingsController extends Controller
 
     public function filter(Request $request): array
     {
-        $events = Training::find();
+        $data = $request->post();
+        $filterData = [];
+        if($data['name'] != NULL) {
+            $filterData['training_name'] = $data['name'];
+        }
+
+        if($data['eventType'] != 0) {
+            $filterData['training_type'] = $data['eventType'];
+        }
+
+        if(count($filterData) > 0) {
+            $events = Training::find($filterData);
+        } else {
+            $events = Training::find();
+        }
+
         $resultData = [];
         foreach ($events as $event) {
             $data = $event->getData();
