@@ -86,6 +86,16 @@ class TrainingsController extends Controller
      */
     public function store(Request $request) {
 
+        $request->validate([
+            'training_name' => 'required|max:255',
+            'training_start_date' => 'required',
+            'training_start_time' => 'required',
+            'training_duration' => 'required',
+            'location' => 'required',
+            'training_host' => 'required',
+            'candidate' => 'required'
+        ]);
+
         $data = $request->post();
 
         $counter = 1;

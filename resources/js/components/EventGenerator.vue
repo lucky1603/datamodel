@@ -51,24 +51,30 @@
                     </div>
                 </div>
                 <div class="form-group mt-3">
-                    <label for="training_name" class="attribute-label">Naziv događaja</label>
+                    <label for="training_name" class="attribute-label">Naziv događaja *</label>
                     <input type="text" id="training_name" name="training_name" class="form-control form-control-sm">
+                    <span class="text-danger error-notification" id="training_nameError" style="display: none"></span>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 form-group">
-                        <label for="training_start_date" class="attribute-label">Datum početka*</label>
+                        <label for="training_start_date" class="attribute-label">Datum početka *</label>
                         <input type="date" id="training_start_date" name="training_start_date" class="form-control form-control-sm">
+                        <span class="text-danger error-notification" id="training_start_dateError" style="display: none"></span>
                     </div>
                     <div class="col-lg-4 form-group">
-                        <label for="training_start_time" class="attribute-label">Počinje u*</label>
+                        <label for="training_start_time" class="attribute-label">Počinje u *</label>
                         <input type="time" class="form-control form-control-sm" id="training_start_time" name="training_start_time">
-
+                        <span class="text-danger error-notification" id="training_start_timeError" style="display: none"></span>
                     </div>
                     <div class="col-lg-4 form-group">
                         <div class="form-group">
-                            <label>Trajanje*</label>
+                            <label class="attribute-label">Trajanje *</label>
                             <div style="display: flex; width: 100%">
-                                <input type="text" id="training_duration" class="form-control form-control-sm" name="training_duration" style="flex-grow: 1; width: 50%">
+                                <div>
+                                    <input type="text" id="training_duration" class="form-control form-control-sm" name="training_duration" style="flex-grow: 1; width: 50%">
+                                    <span class="text-danger error-notification" id="training_durationError" style="display: none"></span>
+                                </div>
+
                                 <select id="training_duration_unit" name="training_duration_unit" class="ml-1 form-control form-control-sm" style="flex-grow: 1; width:50%" >
                                     <option value="1">min</option>
                                     <option value="2">h</option>
@@ -81,22 +87,24 @@
 
                 </div>
                 <div class="form-group">
-                    <label for="location" class="attribute-label">Lokacija*</label>
+                    <label for="location" class="attribute-label">Lokacija *</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text form-control-sm"><i class="dripicons-location"></i></span>
                         </div>
                         <input type="text" id="location" name="location" class="form-control form-control-sm" placeholder="Soba, zgrada, adresa itd.">
                     </div>
+                    <span class="text-danger error-notification" id="locationError" style="display: none"></span>
                 </div>
 
                 <div class="form-group">
-                    <label for="training_host" class="attribute-label">Domaćin događaja*</label>
+                    <label for="training_host" class="attribute-label">Domaćin događaja *</label>
                     <input type="text" id="training_host" name="training_host" class="form-control">
+                    <span class="text-danger error-notification" id="training_hostError" style="display: none"></span>
                 </div>
 
                 <div class="form-group">
-                    <label for="training_name" class="attribute-label">Kratka beleška</label>
+                    <label for="training_short_note" class="attribute-label">Kratka beleška</label>
                     <input type="text" id="training_short_note" name="training_short_note" class="form-control" placeholder="Kratka beleška o treningu ...">
                 </div>
 
@@ -125,12 +133,16 @@
                 </div>
 
                 <div class="row form-group">
-                    <label class="attribute-label">SPISAK KOMPANIJA</label>
+                    <label class="attribute-label">SPISAK KOMPANIJA *</label>
                     <b-form-select v-model="selected" :options="candidates" multiple :select-size="4"></b-form-select>
+                    <span class="text-danger error-notification" id="candidateError" style="display: none"></span>
                 </div>
 
                 <div class="text-center">
-                    <b-button type="submit" class="mt-3" variant="primary" size="sm">Ok</b-button>
+                    <b-button ref="sendButton" id="sendButton" type="submit" class="mt-3" variant="primary" size="sm">
+                        <span id="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Ok
+                    </b-button>
                 </div>
             </form>
 
@@ -171,17 +183,19 @@ export default {
         },
         initTextArea() {
             $('#sinisa').summernote({
-                height: 150,
-                callbacks: {
-                    onUpdate : function () {
-                        alert('updated!');
-                    }
+                height: 250,
+                colorButton: {
+                    foreColor: '#000000',
+                    backColor: 'transparent'
                 }
             });
         },
         submitForm(event) {
-            console.log('form submitted');
             event.preventDefault();
+            $('#okSpinner').show();
+            // $('#sendButton').attr('disabled', true);
+            let button = this.$refs.sendButton;
+            button.disabled = true;
 
             let description = $('#sinisa').summernote('code');
             $('#training_description').text(description);
@@ -203,11 +217,28 @@ export default {
                 });
             }
 
-            axios.post(`/trainings/create`, data)
-            .then(response => {
-                console.log(response.data);
-                document.location.href = `/trainings`;
-            });
+            $.ajax({
+                url: '/trainings/create',
+                method: 'POST',
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    console.log(data);
+                    location.href = '/trainings';
+                },
+                error: function(data) {
+                    let errorData = data.responseJSON;
+                    $('.error-notification').hide();
+                    for(let key in errorData.errors) {
+                        let value = errorData.errors[key];
+                        $('#' + key + 'Error').show().text(value);
+                    }
+
+                    $('#okSpinner').hide();
+                    button.disabled = false;
+                }
+            })
 
         },
         getCandidates() {
@@ -236,9 +267,10 @@ export default {
         }
     },
     mounted() {
+        $('#okSpinner').hide();
         this.selectEventType(1);
         this.getCandidates();
-        setTimeout(this.initTextArea, 2000);
+        setTimeout(this.initTextArea, 1000);
     },
 }
 </script>
