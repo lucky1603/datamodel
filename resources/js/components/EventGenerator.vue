@@ -141,8 +141,15 @@
                 <div class="text-center">
                     <b-button ref="sendButton" id="sendButton" type="submit" class="mt-3" variant="primary" size="sm">
                         <span id="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Ok
+                        Kreiraj
                     </b-button>
+                    <b-button
+                        ref="cancelButton"
+                        id="cancelButton"
+                        type="button"
+                        class="mt-3"
+                        variant="outline-primary"
+                        size="sm" @click="onCancel">Otkaži</b-button>
                 </div>
             </form>
 
@@ -255,6 +262,9 @@ export default {
                 this.candidates = candidates;
                 console.log(this.candidates);
             });
+        },
+        onCancel() {
+            history.go(-1);
         }
     },
     data() {

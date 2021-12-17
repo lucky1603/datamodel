@@ -21,9 +21,18 @@
                 </b-col>
             </b-row>
         </b-form>
+        <hr/>
+        <div id="navigator" class="d-flex justify-content-center align-items-center mt-2" style="height: 5%">
+            <b-pagination
+                v-model="currentPage"
+                :total-rows="items != null ? items.length : 0"
+                :per-page="this.itemsPerPage"
+                aria-controls="my-table" @input="pageChanged"
+            ></b-pagination>
+        </div>
         <div style="display: flex; flex-wrap: wrap">
             <event-item
-                v-for="item in items"
+                v-for="item in visibleItems"
                 :status="item.status"
                 :type="item.type"
                 :title="item.name"
@@ -41,7 +50,9 @@
 export default {
     name: "EventExplorer",
     props: {
-        createlink: {typeof: String, default: '/trainings/create'}
+        createlink: {typeof: String, default: '/trainings/create'},
+        itemsperpage: {typeof: Number, default: 9},
+        source: {typeof: String, default: '/trainings/filter'}
     },
     methods: {
         async getData() {
@@ -49,10 +60,46 @@ export default {
             for(const property in this.form) {
                 data.append(property, this.form[property]);
             }
-            await axios.post('/trainings/filter', data)
+            await axios.post(this.source, data)
             .then(response => {
                 this.items = response.data;
             });
+
+            await this.makePages();
+        },
+        async makePages() {
+            this.pages = [];
+            if(this.items.length < this.itemsPerPage) {
+                let pageItems = [];
+                this.items.forEach(item => {
+                    pageItems.push(item);
+                });
+
+                this.pages.push(pageItems);
+            } else {
+                for(let i = 0; i < this.items.length; i += this.itemsPerPage) {
+                    let pageItems = [];
+                    for(let j = i; j < Math.min(i + this.itemsPerPage, this.items.length); j ++) {
+                        pageItems.push(this.items[j]);
+                    }
+                    this.pages.push(pageItems);
+                }
+            }
+
+            console.log(this.pages);
+        },
+        async showCurrentPage() {
+            this.visibleItems = [];
+            this.visibleItems = this.pages[this.currentPage - 1];
+        },
+        pageChanged() {
+            console.log(`Page changed ${this.currentPage}`);
+            this.showCurrentPage();
+        },
+        async shouldRefresh() {
+            await this.getData();
+            await this.showCurrentPage();
+            // $('body').css('cursor', 'default');
         },
         onEventClicked(eventId) {
             window.location.href = '/trainings/' + eventId;
@@ -63,11 +110,15 @@ export default {
     },
 
     async mounted() {
+        this.itemsPerPage = this.itemsperpage;
         await this.getData();
+        await this.showCurrentPage();
+        Event.$on('refresh', this.shouldRefresh);
     },
     data() {
         return {
             items: [],
+            itemsPerPage: 9,
             pages: [],
             visibleItems: [],
             currentPage: 1,

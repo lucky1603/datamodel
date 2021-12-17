@@ -65,8 +65,6 @@ export default {
 
             await this.makePages();
 
-            console.log("pages");
-            console.log(this.pages);
         },
         async makePages() {
             this.pages = [];
@@ -98,10 +96,9 @@ export default {
             this.showCurrentPage();
         },
         async shouldRefresh() {
-            console.log('got refresh event');
             await this.getData();
             await this.showCurrentPage();
-            $('body').css('cursor', 'default');
+            // $('body').css('cursor', 'default');
         },
         async onSubmit() {
             console.log('emitted');
