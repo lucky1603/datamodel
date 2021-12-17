@@ -1,9 +1,9 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <h4 class="header-title">Kako ste nas našli?</h4>
+            <h4 class="header-title">{{ title }}</h4>
             <div v-if="item.count > 0" v-for="item in items">
-                <h5 class="mb-1 mt-0 font-weight-normal">{{ item.how }}</h5>
+                <h5 class="mb-1 mt-0 font-weight-normal">{{ item.text }}</h5>
                 <div class="progress-w-percent">
                     <span class="progress-value font-weight-bold">{{ item.count}}</span>
                     <div class="progress progress-sm">
@@ -18,9 +18,13 @@
 <script>
 export default {
     name: "FindCriteria",
+    props: {
+        title: { typeof: String, default: 'Title'},
+        source: { typeof: String, default: '/analytics/howDidUHear'}
+    },
     methods: {
         async getData() {
-            await axios.get('/analytics/howDidUHear')
+            await axios.get(this.source)
                 .then(response => {
                     this.items = response.data.items;
                     this.total = response.data.total;

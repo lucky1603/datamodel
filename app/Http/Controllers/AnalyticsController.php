@@ -68,7 +68,7 @@ class AnalyticsController extends Controller
             $count = Program::find(['rstarts_howdiduhear' => $key])->count();
             $name = $value;
             $items[] = [
-                'how' => $name,
+                'text' => $name,
                 'count' => $count
             ];
 
@@ -86,6 +86,30 @@ class AnalyticsController extends Controller
         return $result['items'];
     }
 
+    public function splitOptions($attributeName): array
+    {
+        $attr = Attribute::where('name', $attributeName)->first();
+        $attrOptions = $attr->getOptions();
+
+        $items = [];
+        $total = 0;
+
+        foreach($attrOptions as $key=>$value) {
+            $count = Program::find([$attributeName => $key])->count();
+            $name = $value;
+            $items[] = [
+                'text' => $name,
+                'count' => $count
+            ];
+
+            $total += $count;
+        }
+
+        return [
+            'items' => $items,
+            'total' => $total
+        ];
+    }
 
 
 }

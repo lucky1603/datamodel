@@ -16,6 +16,12 @@
                     :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"
                     :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-widget>
             </div>
+            <find-criteria title="{{ __('How innovative') }}" source="/analytics/splitOptions/rstarts_how_innovative"></find-criteria>
+            <find-criteria
+                title="Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine?"
+                source="/analytics/splitOptions/rstarts_intellectual_property">
+            </find-criteria>
+
         </div>
         <div class="col-lg-3">
             <div class="card shadow">
@@ -25,12 +31,19 @@
                     :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"
                     :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-piechart>
             </div>
+            <find-criteria title="Faza razvoja - Tehnološki razvoj" source="/analytics/splitOptions/rstarts_dev_phase_tech"></find-criteria>
+            <find-criteria
+                title="Kojoj oblasti pripada inovativni proizvod i/ili usluga koju razvijate?"
+                source="/analytics/splitOptions/rstarts_innovative_area">
+            </find-criteria>
         </div>
         <div class="col-lg-3">
             <show-company-types></show-company-types>
+            <find-criteria title="Faza razvoja - Poslovni razvoj" source="/analytics/splitOptions/rstarts_dev_phase_bussines"></find-criteria>
         </div>
         <div class="col-lg-3">
-            <find-criteria></find-criteria>
+            <find-criteria title="Kako ste nas našli?" source="/analytics/howDidUHear"></find-criteria>
+            <find-criteria title="Tip prozvoda ili usluge" source="/analytics/splitOptions/rstarts_product_type"></find-criteria>
         </div>
     </div>
 
