@@ -325,27 +325,27 @@ class ProfileController extends Controller
 
             // get the files
             $files = Utils::getFilesFromRequest($request, 'rstarts_logo');
-            if($files != null && !(count($files) == 2 && strlen($files['filelink']) == 0)) {
+            if($files != null && $files != [ 'filelink' => '', 'filename' => '']) {
                 $data['rstarts_logo'] = $files;
             }
 
             $files = Utils::getFilesFromRequest($request, 'rstarts_files');
-            if($files != null && !(count($files) == 2 && strlen($files['filelink']) == 0)) {
+            if($files != null && $files != [ 'filelink' => '', 'filename' => '']) {
                 $data['rstarts_files'] = $files;
             }
 
             $files = Utils::getFilesFromRequest($request, 'rstarts_financing_proof_files');
-            if($files != null && !(count($files) == 2 && strlen($files['filelink']) == 0)) {
+            if($files != null && $files != [ 'filelink' => '', 'filename' => '']) {
                 $data['rstarts_financing_proof_files'] = $files;
             }
 
             $files = Utils::getFilesFromRequest($request, 'rstarts_dodatni_dokumenti');
-            if($files != null && !(count($files) == 2 && strlen($files['filelink']) == 0)) {
+            if($files != null && $files != [ 'filelink' => '', 'filename' => '']) {
                 $data['rstarts_dodatni_dokumenti'] = $files;
             }
 
             $files = Utils::getFilesFromRequest($request, 'rstarts_founder_cvs');
-            if($files != null && !(count($files) == 2 && strlen($files['filelink']) == 0)) {
+            if($files != null && $files != [ 'filelink' => '', 'filename' => '']) {
                 $data['rstarts_founder_cvs'] = $files;
             }
 
