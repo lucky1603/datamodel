@@ -24,10 +24,21 @@
                 <div class="mt-4 font-14 attribute-label shadow p-4">
                     <p>Zdravo budući Raising Starteri!</p>
                     <p>
-                        Pred vama je prijavni formular za program Raising Starts. Program realizuje Naučno-tehnološki
-                        park Beograd u partnerstvu sa Naučno-tehnološkim parkom Niš i Naučno-tehnološkim parkom Čačak uz
-                        podršku Vlade Švajcarske. Prijavni formular je isti za sve, potrebno je izabrati NTP prema
-                        regionu/području u kojem želite da se prijavite i u kojem želite da razvijate svoju poslovnu ideju.
+                        Pred vama je prijavni formular za Raising Starts, prvi pre-seed program u Srbiji, koji startap
+                        timovima i kompanijama u najranijim fazama razvoja inovativnih proizvoda i usluga donosi
+                        sveobuhvatnu stručnu i finansijsku podršku. Program obuhvata intenzivne obuke za razvoj biznisa,
+                        rad 1 na 1 sa mentorima i do 15.000 CHF bespovratno (no equty) za pokrivanje troškova namenjenih
+                        izradi prototipa, razvoj biznis modela, istraživanju tržišta, testiranju prvih kupaca, zaštiti
+                        intelektualne svojine i ostalih troškova vezanih za razvoj novih proizvoda ili usluga. Više
+                        informacija o programu pogledajte na <a href="https://ntpark.rs/raising-starts" target="_blank">website-u</a> .
+                    </p>
+                    <p>
+                        Program realizuje Naučno-tehnološki park Beograd u partnerstvu sa Naučno-tehnološkim parkom Niš
+                        i Naučno-tehnološkim parkom Čačak, uz podršku Vlade Švajcarske.
+                    </p>
+                    <p>
+                        Prijavni formular je isti za sve, potrebno je izabrati NTP prema regionu/području u kojem želite
+                        da se prijavite i u kojem želite da razvijate svoju poslovnu ideju.
                     </p>
                     <p>
                         Molimo vas da pažljivo pročitate pitanja, popunite prijavu, i budete što precizniji u odgovorima
