@@ -97,7 +97,7 @@ class User extends Authenticatable
         return Client::find($instance->id);
     }
 
-    public function profile() {
+    public function profiles() {
         $profiles = $this->instances->filter(function($instance) {
             if($instance->entity->name == 'Profile')
                 return true;
@@ -106,8 +106,14 @@ class User extends Authenticatable
             return new Profile(['instance_id' => $instance->id]);
         });
 
-        // Aj sad privremeno ovako.
-        return $profiles->first();
+        return $profiles;
+    }
 
+    public function profile() {
+        $profiles = $this->profiles();
+        if($profiles == null)
+            return $profiles;
+
+        return $this->profiles()->first();
     }
 }
