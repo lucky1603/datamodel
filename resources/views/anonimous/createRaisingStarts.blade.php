@@ -45,8 +45,7 @@
                         kako bi prijava bila adekvatno ocenjena. Nedovoljno popunjene prijave biće slabije ocenjene. Pre
                         popunjavanja prijavnog obrasca obavezno pročitajte
                         <a href="https://ntpark.rs/wp-content/uploads/2021/11/Raising-Starts-2021-Javni-poziv.pdf" target="_blank">Javni poziv</a>
-                        i <a href="https://ntpark.rs/wp-content/uploads/2021/11/Raising-Starts-2021-Vodic.pdf" target="_blank">Raising Starts vodič</a>
-                        (za više informacija možete posetiti <a href="https://ntpark.rs/raising-starts" target="_blank">website programa</a> ).
+                        i <a href="https://ntpark.rs/wp-content/uploads/2021/11/Raising-Starts-2021-Vodic.pdf" target="_blank">Raising Starts vodič</a>.
                     </p>
                     <p>
                         <strong>Prijave se podnose elektronskim putem do 28.12.2021. u ponoć.</strong>
