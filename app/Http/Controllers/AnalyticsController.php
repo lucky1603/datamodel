@@ -81,6 +81,38 @@ class AnalyticsController extends Controller
         ];
     }
 
+    public function applicationStatuses($programType): array
+    {
+        $applied = 0;
+        $sent = 0;
+        $total = 0;
+
+        if($programType != 0) {
+            $programs = Program::find(['program_type' => $programType]);
+        } else {
+            $programs = Program::find();
+        }
+
+        foreach($programs as $program) {
+            $profile = $program->getProfile();
+            if($profile == null)
+                continue;
+            $total ++;
+            if($profile->getValue('profile_status') < 3)
+                continue;
+
+            $applied ++;
+            if($program->getStatus() > 1)
+                $sent ++;
+        }
+
+        return [
+            'applied' => $applied,
+            'sent' => $sent,
+            'total' => $total
+        ];
+    }
+
     public function splitInterest() {
         $result = $this->howDidUHear();
         return $result['items'];

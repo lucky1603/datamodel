@@ -7,7 +7,6 @@
 @section('content')
 
     <div class="row">
-
         <div class="col-lg-3">
             <div class="card shadow">
                 <ntp-widget
@@ -16,12 +15,6 @@
                     :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"
                     :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-widget>
             </div>
-            <find-criteria title="{{ __('How innovative') }}" source="/analytics/splitOptions/rstarts_how_innovative"></find-criteria>
-            <find-criteria
-                title="Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine?"
-                source="/analytics/splitOptions/rstarts_intellectual_property">
-            </find-criteria>
-
         </div>
         <div class="col-lg-3">
             <div class="card shadow">
@@ -31,6 +24,24 @@
                     :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"
                     :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-piechart>
             </div>
+
+        </div>
+        <div class="col-lg-3">
+            <show-company-types></show-company-types>
+        </div>
+        <div class="col-lg-3">
+            <application-statuses program_id="{{ \App\Business\Program::$RAISING_STARTS }}"></application-statuses>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <find-criteria title="{{ __('How innovative') }}" source="/analytics/splitOptions/rstarts_how_innovative"></find-criteria>
+            <find-criteria
+                title="Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine?"
+                source="/analytics/splitOptions/rstarts_intellectual_property">
+            </find-criteria>
+        </div>
+        <div class="col-lg-3">
             <find-criteria title="Faza razvoja - Tehnološki razvoj" source="/analytics/splitOptions/rstarts_dev_phase_tech"></find-criteria>
             <find-criteria
                 title="Kojoj oblasti pripada inovativni proizvod i/ili usluga koju razvijate?"
@@ -38,7 +49,6 @@
             </find-criteria>
         </div>
         <div class="col-lg-3">
-            <show-company-types></show-company-types>
             <find-criteria title="Faza razvoja - Poslovni razvoj" source="/analytics/splitOptions/rstarts_dev_phase_bussines"></find-criteria>
         </div>
         <div class="col-lg-3">

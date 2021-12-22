@@ -54,6 +54,7 @@ Vue.component('event-item', require('./components/EventItem').default);
 Vue.component('event-explorer', require('./components/EventExplorer').default);
 Vue.component('item-selector', require('./components/ItemSelector').default);
 Vue.component('companies-selector', require('./components/CompaniesSelector').default);
+Vue.component('application-statuses', require('./components/ShowCompanyApplicationStatuses').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
