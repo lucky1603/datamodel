@@ -129,13 +129,17 @@
 
 
                 <div class="text-center mt-4">
-                    <h4>DODAJTE UČESNIKE</h4>
+                    <h4 class="attribute-label">DODAJTE UČESNIKE</h4>
                 </div>
 
-                <div class="row form-group">
-                    <label class="attribute-label">SPISAK KOMPANIJA *</label>
-                    <b-form-select v-model="selected" :options="candidates" multiple :select-size="4"></b-form-select>
-                    <span class="text-danger error-notification" id="candidateError" style="display: none"></span>
+<!--                <div class="row form-group">-->
+<!--                    <label class="attribute-label">SPISAK KOMPANIJA *</label>-->
+<!--                    <b-form-select v-model="selected" :options="candidates" multiple :select-size="4"></b-form-select>-->
+<!--                    <span class="text-danger error-notification" id="candidateError" style="display: none"></span>-->
+<!--                </div>-->
+                <div class="form-group mt-4">
+                    <companies-selector v-model="selected"></companies-selector>
+                    <span class="text-danger error-notification text-center" id="candidateError" style="display: none"></span>
                 </div>
 
                 <div class="text-center">
@@ -273,7 +277,8 @@ export default {
             file1: [],
             candidates : [],
             selected : [],
-            description : null
+            description : null,
+            selectedCompanies: []
         }
     },
     mounted() {

@@ -4,7 +4,7 @@
             <img ref="photo" class="h-100" :src="imageSource">
         </div>
         <div class="card-body p-0 h-25" style="display: flex; align-items: center; justify-content: center; height: 20%">
-            <div v-if="this.label.show" :class="labelClass"><span>{{ label.text}}</span></div>
+            <div v-if="this.label != null" :class="labelClass"><span>{{ label.text}}</span></div>
             <span :class="titleClass" style="font-family: 'Roboto Light'">{{ title }}</span>
         </div>
     </div>
@@ -41,7 +41,7 @@ export default {
             }
         },
         cardClass() {
-            if(this.label.show) {
+            if(this.label != null && this.label.show) {
                 return 'card shadow ribbon-box';
             }
 
@@ -70,7 +70,7 @@ export default {
         padding: { typeof: Number, default: 0 },
         height: {typeof: Number, default: 140 },
         width: {typeof: Number, default: 100 },
-        label: {typeof: Object, default: { show: false, type: 1, text: 'Example'} }
+        label: null
     },
     methods: {
         tileClicked() {
