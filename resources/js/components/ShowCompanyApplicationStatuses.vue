@@ -3,7 +3,7 @@
         <div class="card tilebox-one">
             <div class="card-body">
                 <i class="uil uil-users-alt float-right"></i>
-                <h6 class="text-uppercase mt-0">Prijavljeno</h6>
+                <h6 class="text-uppercase mt-0">Započete prijave</h6>
                 <h2 class="my-2" id="active-users-count">{{ applied}}</h2>
                 <p class="mb-0 text-muted">
                     <span class="text-success mr-2">{{ appliedPercentage }}%</span>
@@ -14,7 +14,7 @@
         <div class="card tilebox-one shadow">
             <div class="card-body">
                 <i class="uil uil-window-restore float-right"></i>
-                <h6 class="text-uppercase mt-0">Poslato</h6>
+                <h6 class="text-uppercase mt-0">Poslato prijava</h6>
                 <h2 class="my-2" id="company">{{ sent}}</h2>
                 <p class="mb-0 text-muted">
                     <span class="text-danger mr-2">{{ sentPercentage }}%</span>
