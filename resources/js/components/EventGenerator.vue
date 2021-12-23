@@ -1,7 +1,8 @@
 <template>
     <div class="card h-100 w-100">
         <div class="card-header" id="test">
-            <span class="h4">KREIRAJ DOGAĐAJ - <span class="attribute-label">{{ getEventType}}</span></span>
+            <span v-if="event_id != 0" class="h4">KREIRAJ DOGAĐAJ - <span class="attribute-label">{{ getEventType}}</span></span>
+            <span v-else class="h4">UREDI DOGAĐAJ - <span class="attribute-label">{{ getEventType}}</span></span>
         </div>
         <div class="card-body">
             <form
@@ -11,7 +12,7 @@
                 enctype="multipart/form-data"
                 action="#" @submit="submitForm">
                 <input type="hidden" name="_token" :value="token">
-                <input type="hidden" name="training_type" ref="eventType" :value="event">
+                <input type="hidden" name="training_type" ref="eventType" :value="eventType">
                 <div class="row" style="height: 160px">
                     <div class="offset-2 col-8 h-100">
                         <div class="card h-100 shadow">
@@ -166,11 +167,12 @@ export default {
     name: "EventGenerator",
     props: {
         token: { typeof: String, default: ''},
-        formid: { typeof: String, default: 'createEventForm'}
+        formid: { typeof: String, default: 'createEventForm'},
+        event_id: {typeof: Number, default: 0}
     },
     computed: {
         getEventType() {
-            switch (this.event) {
+            switch (this.eventType) {
                 case 1:
                     return 'RADIONICA';
                 case 2:
@@ -182,15 +184,14 @@ export default {
     },
     methods: {
         tileClicked(id) {
-            console.log(`Tile ${id} clicked!`);
             this.selectEventType(id);
         },
         selectEventType(id) {
             if(id < 1 || id > 3)
                 id = 1;
-            this.event = id;
-            this.$refs['eventType'].value = this.event.toString();
-            Event.$emit('tile-selected', this.event);
+            this.eventType = id;
+            this.$refs['eventType'].value = this.eventType.toString();
+            Event.$emit('tile-selected', this.eventType);
         },
         initTextArea() {
             $('#sinisa').summernote({
@@ -273,12 +274,12 @@ export default {
     },
     data() {
         return {
-            event: { typeof: Number, default: 1},
+            eventType: { typeof: Number, default: 1},
             file1: [],
             candidates : [],
             selected : [],
             description : null,
-            selectedCompanies: []
+            selectedCompanies: [],
         }
     },
     mounted() {

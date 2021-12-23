@@ -52,6 +52,7 @@ Vue.component('mentor-item', require('./components/MentorItem').default);
 Vue.component('mentor-explorer', require('./components/MentorExplorer').default);
 Vue.component('event-item', require('./components/EventItem').default);
 Vue.component('event-explorer', require('./components/EventExplorer').default);
+Vue.component('event-modifier', require('./components/EventModifier').default);
 Vue.component('item-selector', require('./components/ItemSelector').default);
 Vue.component('companies-selector', require('./components/CompaniesSelector').default);
 Vue.component('application-statuses', require('./components/ShowCompanyApplicationStatuses').default);

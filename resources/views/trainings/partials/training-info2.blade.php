@@ -112,11 +112,13 @@
                         <div style="display: flex; flex-wrap: wrap; width: 100%; height: 100%" class="p-2 border event-entry">
                             @php
                                 $counter = 1;
+                                $files = $training->getValue('files');
                             @endphp
-                            @while($training->getAttribute('file_'.$counter) != null)
+
+                            @foreach($files as $file)
                                 <div style="display: flex; background-color: #efefef; height: 45px" class="border border rounded p-1 mt-1 mr-1">
                                     @php
-                                        $ext = pathinfo( $training->getValue('file_'.$counter)['filename'],PATHINFO_EXTENSION);
+                                        $ext = pathinfo( $file['filename'],PATHINFO_EXTENSION);
                                         $color = 'transparent';
                                         switch($ext) {
                                             case 'xlsx':
@@ -132,22 +134,18 @@
                                                 $color = 'gray';
                                                 break;
                                         }
-
                                     @endphp
+
                                     <div style="width: 45px; height:30px; align-items: center; display: flex; background-color: {{ $color }}"
                                          class="text-light float-left font-12 rounded text-center">
                                         <span class="m-auto file-ext">.{{ $ext }}</span>
                                     </div>
                                     <div style="display: flex; flex-direction: column; margin: 0 15px" class="flex-fill">
-                                        <span class="w-100 font-12 font-weight-normal file-name m-auto">{{ $training->getValue('file_'.$counter)['filename'] }}</span>
+                                        <span class="w-100 font-12 font-weight-normal file-name m-auto">{{ $file['filename'] }}</span>
                                     </div>
-                                    <a href="{{ $training->getValue('file_'.$counter)['filelink'] }}" target="_blank" title="{{__('Download')}}"><div style="display: flex; background-color: white; align-items: center; height: 100%" class="float-right border rounded pl-2 pr-2"><i class="m-auto dripicons-download font-18 text-muted text-center" ></i></div></a>
+                                    <a href="{{ $file['filelink'] }}" target="_blank" title="{{__('Download')}}"><div style="display: flex; background-color: white; align-items: center; height: 100%" class="float-right border rounded pl-2 pr-2"><i class="m-auto dripicons-download font-18 text-muted text-center" ></i></div></a>
                                 </div>
-                                @php
-                                    $counter ++;
-                                @endphp
-
-                            @endwhile
+                            @endforeach
 
                         </div>
                     @endif

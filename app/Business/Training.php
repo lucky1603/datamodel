@@ -76,6 +76,8 @@ class Training extends BusinessModel
 
         $attributes->add($training_status);
 
+        $attributes->add(self::selectOrCreateAttribute(['files', 'Priložene datoteke', 'file', 'multiple', 13]));
+
         return $attributes;
 
     }
@@ -105,24 +107,24 @@ class Training extends BusinessModel
      *
      * @param array $data
      */
-    public function setData($data) {
-        parent::setData($data);
-
-        // Addd files.
-        $counter = 1;
-        while(isset($data['file_'.$counter])) {
-            $attribute = $this->getAttribute('file_'.$counter);
-            if($attribute == null)
-            {
-                $attachedFile = BusinessModel::selectOrCreateAttribute(['file_'.$counter, 'Priložena datoteka '.$counter, 'file', 200 + $counter]);
-                $this->addAttribute($attachedFile);
-                $attribute = $this->getAttribute('file_'.$counter);
-            }
-
-            $attribute->setValue($data['file_'.$counter++]);
-        }
-
-    }
+//    public function setData($data) {
+//        parent::setData($data);
+//
+//        // Addd files.
+//        $counter = 1;
+//        while(isset($data['file_'.$counter])) {
+//            $attribute = $this->getAttribute('file_'.$counter);
+//            if($attribute == null)
+//            {
+//                $attachedFile = BusinessModel::selectOrCreateAttribute(['file_'.$counter, 'Priložena datoteka '.$counter, 'file', 200 + $counter]);
+//                $this->addAttribute($attachedFile);
+//                $attribute = $this->getAttribute('file_'.$counter);
+//            }
+//
+//            $attribute->setValue($data['file_'.$counter++]);
+//        }
+//
+//    }
 
     /**
      * Returns the answer if the traning has the files attached.
@@ -130,10 +132,10 @@ class Training extends BusinessModel
      */
     public function hasFiles(): bool
     {
-        if($this->getAttribute('file_1') == null)
-            return false;
-
-        return true;
+        $files = $this->getValue('files');
+        if($files != null && $files[0] != ['filelink' => '', 'filename' => ''])
+            return true;
+        return false;
     }
 
     /**
@@ -172,7 +174,7 @@ class Training extends BusinessModel
      * @param $attendance
      */
     public function removeAttendance($attendance) {
-        $this->instance->instances()->detach($attendance);
+        $this->instance->instances()->detach($attendance->getId());
         $this->instance->refresh();
     }
 

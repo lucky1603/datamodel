@@ -4,7 +4,6 @@
     <div class="container">
         <event-generator token="{{ $token }}"></event-generator>
     </div>
-
 @endsection
 
 

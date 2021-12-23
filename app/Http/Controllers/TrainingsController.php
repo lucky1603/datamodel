@@ -8,6 +8,7 @@ use App\Business\Attendance;
 use App\Business\Client;
 use App\Business\ClientAtTraining;
 use App\Business\Program;
+use App\Business\ProgramFactory;
 use App\Business\Training;
 use App\Business\TrainingForClient;
 use Illuminate\Auth\Access\Response;
@@ -47,7 +48,69 @@ class TrainingsController extends Controller
         return view('trainings.mine', ['trainings' => $trainings, 'model' => $profile]);
     }
 
+    public function edit($id) {
+        $token = csrf_token();
+        return view('trainings.edit', ['event_id' => $id, 'token' => $token]);
+
+    }
+
     public function update(Request $request, $id) {
+        $request->validate([
+            'training_name' => 'required|max:255',
+            'training_start_date' => 'required',
+            'training_start_time' => 'required',
+            'training_duration' => 'required',
+            'location' => 'required',
+            'training_host' => 'required',
+            'candidate' => 'required'
+        ]);
+
+        $data = $request->post();
+        $data['files'] = Utils::getFilesFromRequest($request, 'files');
+
+        $training = Training::find($id);
+
+        $training->setData($data);
+
+        // Add attendances.
+        $attendanceIds = collect($data['candidate']);
+
+        // Remove non desired attendance entries.
+        $training->getAttendances()->filter(function($attendance) use($attendanceIds) {
+            $program = $attendance->getProgram();
+            return !$attendanceIds->contains($program->getId());
+        })->each(function($attendance) use($training) {
+            $program = $attendance->getProgram();
+            $program->removeAttendance($attendance);
+            $training->removeAttendance($attendance);
+            $attendance->delete();
+        });
+
+        // Add the new ones.
+
+        // Get the existing valid ids;
+        $validIds = $training->getAttendances()->map(function($attendance) {
+            return $attendance->getProgram()->getId();
+        });
+
+        $attendanceIds->filter(function($programId) use($validIds) {
+            return !$validIds->contains($programId);
+        })->each(function($programId) use($training) {
+            $program = Program::find($programId);
+            $attendance = new Attendance([
+                'attendance' => 1,
+                'has_client_feedback' => false,
+                'client_feedback' => null
+            ]);
+
+            $program->addAttendance($attendance);
+            $training->addAttendance($attendance);
+        });
+
+        return redirect(route('trainings.show', ['training' => $id]));
+    }
+
+    public function updateAttendances(Request $request, $id) {
         $data = $request->post();
 
         $training = Training::find($id);
@@ -97,19 +160,7 @@ class TrainingsController extends Controller
         ]);
 
         $data = $request->post();
-
-        $counter = 1;
-        if($request->hasFile("attachment")) {
-            foreach($request->file("attachment") as $file) {
-                $originalFileName = $file->getClientOriginalName();
-                $path = $file->store('documents');
-                $path = asset($path);
-                $data['file_'.$counter++] = [
-                    'filename' => $originalFileName,
-                    'filelink' => $path,
-                ];
-            }
-        }
+        $data['files'] = Utils::getFilesFromRequest($request, 'attachment');
 
         $training = new Training();
         $training->setData($data);
@@ -257,6 +308,19 @@ class TrainingsController extends Controller
         }
 
         return $resultData;
+    }
+
+    public function fetch($trainingId): array
+    {
+        $training = Training::find($trainingId);
+        $data = $training->getData();
+        $data['training_start_time'] = $training->getText('training_start_time');
+        return [
+            'attributes' => $data,
+            'attendances' => $training->getAttendances()->map(function($attendance) {
+                return $attendance->getProgram()->getId();
+            })
+        ];
     }
 
 }

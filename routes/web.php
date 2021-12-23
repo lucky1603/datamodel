@@ -87,16 +87,19 @@ Route::post('/files/create', 'FileController@show')->name('files.show');
 Route::get('/situations/{situation}', 'SituationsController@show')->name('situations.show');
 
 Route::get('/trainings', 'TrainingsController@index')->name('trainings');
+Route::get('trainings/edit/{training}', 'TrainingsController@edit')->name('trainings.edit');
+Route::post('trainings/update/{training}', 'TrainingsController@update')->name('trainings.update');
 Route::get('/trainings/create', 'TrainingsController@create')->name('trainings.create');
 Route::post('/trainings/create', 'TrainingsController@store')->name('trainings.store');
 Route::post('trainings/filter', 'TrainingsController@filter')->name('trainings.filter');
 Route::get('/trainings/forme', 'TrainingsController@forMe')->name('trainings.forme');
 Route::get('/trainings/mine', 'TrainingsController@mine')->name('trainings.mine');
 Route::post('/trainings/signup', 'TrainingsController@signup')->name('trainings.signup');
-Route::post('trainings/update/{training}', 'TrainingsController@update')->name('trainings.update');
 Route::get('/trainings/showmine/{training}', 'TrainingsController@showMine')->name('trainings.showmine');
 Route::get('/trainings/delete/{training}', 'TrainingsController@delete')->name('trainings.delete');
+Route::get('trainings/fetch/{trainingId}', 'TrainingsController@fetch')->name('trainings.fetch');
 Route::get('/trainings/{training}', 'TrainingsController@show')->name('trainings.show');
+Route::post('trainings/{training}', 'TrainingsController@updateAttendances')->name('trainings.updateAttendances');
 
 Route::get('mentors', 'MentorController@index')->name('mentors.index');
 Route::get('mentors/create', 'MentorController@create')->name('mentors.create');
