@@ -122,7 +122,7 @@
                     <label class="attribute-label">Priložite datoteke</label>
                     <b-form-file
                         v-model="file1"
-                        :state="Boolean(file1)"
+                        :state="null"
                         placeholder="Izaberite datoteke ili ih prevucite ovde..."
                         drop-placeholder="Prevucite datoteke ovde..." multiple
                     ></b-form-file>
