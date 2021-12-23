@@ -112,9 +112,9 @@ export default {
     mounted() {
         setTimeout(() => {
             this.originalItems = this.originalitems;
-            if(this.selectedItems != null && this.selectedItems.length > 0) {
+            if(this.value != null && this.value.length > 0) {
                 this.originalItems.forEach(item => {
-                    if(this.selectedItems.includes(item.value)) {
+                    if(this.value.includes(item.value)) {
                         item.selected = true;
                     } else {
                         item.selected = false;
@@ -128,7 +128,6 @@ export default {
         return {
             originalItems: [],
             originalsSelected: [],
-            selectedItems: this.value,
             selectedSelected: [],
             filteredItems: [],
             originalFilter: {typeof: String, default: ''},

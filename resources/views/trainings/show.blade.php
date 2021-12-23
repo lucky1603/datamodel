@@ -3,6 +3,7 @@
 @section('content')
     <div class="card" style="postition:relative; top: 30px; padding-bottom: 30px">
         <div class="card-header bg-dark text-light">
+
             <h4 style="float: left">
                 @switch($training->getData()['training_type'])
                     @case(1)
@@ -43,9 +44,13 @@
                                 @break
                         @endswitch
                 @endif
+                <button>ok</button>
+            @else
+                <a href="{{ route('trainings.edit', ['training' => $training->getId()]) }}" class="btn btn-sm btn-primary float-right">Uredi</a>
             @endif
         </div>
-        <form id="myTrainingForm" method="POST" enctype="multipart/form-data" action="{{ route('trainings.update', ['training' => $training->getId()]) }}">
+
+        <form id="myTrainingForm" method="POST" enctype="multipart/form-data" action="{{ route('trainings.updateAttendances', ['training' => $training->getId()]) }}">
             @csrf
             <div class="card-body overflow-auto">
                 @include('trainings.partials.training-info2')

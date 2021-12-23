@@ -1,5 +1,5 @@
 <template>
-    <item-selector v-model="selectedItems" ref="selector" :originalitems="originalItems" @input="selectionChanged"></item-selector>
+    <item-selector v-model="value" ref="selector" :originalitems="originalItems" @input="selectionChanged"></item-selector>
 </template>
 
 <script>
@@ -24,16 +24,17 @@ export default {
 
         },
         selectionChanged() {
-            this.$emit('input', this.selectedItems);
+            this.$emit('input', this.value);
         }
     },
     async mounted() {
+        console.log(`Selected companies are ...`);
+        console.log(this.selectedItems);
         await this.getData();
     },
     data() {
         return {
             originalItems: [],
-            selectedItems: this.value,
         }
     }
 }

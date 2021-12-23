@@ -111,7 +111,7 @@ class Program extends SituationsModel
      * @param $attendance
      */
     public function removeAttendance($attendance) {
-        $this->instance->instances()->detach($attendance->id);
+        $this->instance->instances()->detach($attendance->getId());
         $this->instance->refresh();
     }
 
