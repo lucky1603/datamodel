@@ -30,7 +30,7 @@ class UpdateRaisingStartsRequest extends FormRequest
             'rstarts_solve_problem' => 'max:400',
             'rstarts_targetted_market' => 'max:400',
             'rstarts_problem_solve' => 'max:400',
-            'rstarts_which_product' => 'max:400',
+            'rstarts_which_product' => 'max:700',
             'rstarts_customer_problem_solve' => 'max:400',
             'rstarts_benefits' => 'max:400',
             'rstarts_clarification_innovative' => 'max:400',
