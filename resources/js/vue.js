@@ -56,6 +56,7 @@ Vue.component('event-modifier', require('./components/EventModifier').default);
 Vue.component('item-selector', require('./components/ItemSelector').default);
 Vue.component('companies-selector', require('./components/CompaniesSelector').default);
 Vue.component('application-statuses', require('./components/ShowCompanyApplicationStatuses').default);
+Vue.component('bulk-mail', require('./components/BulkEmail').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

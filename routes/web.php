@@ -56,6 +56,9 @@ Route::get('testmail/{email}', 'AnonimousController@testMail');
 Route::get('construction', 'AnonimousController@construction');
 
 Route::get('profiles', 'ProfileController@index')->name('profiles.index');
+Route::get('profiles/bulkMail', 'ProfileController@prepareMail')->name('profiles.prepareMail');
+Route::post('profiles/bulkMail', 'ProfileController@sendMail')->name('profiles.sendMail');
+Route::get('profiles/mailClients', 'ProfileController@getMailClients')->name('profiles.mailClients');
 Route::get('profiles/list', 'ProfileController@list')->name('profiles.list');
 Route::post('profiles/filter', 'ProfileController@filter')->name('profiles.filter');
 Route::get('profiles/create', 'ProfileController@create')->name('profiles.create');

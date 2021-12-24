@@ -13,10 +13,13 @@
                         </template>
                     </b-input-group>
                 </b-col>
-                <b-col xl="2" lg="4" style="display: flex; justify-content: left">
+                <b-col xl="2" lg="3" style="display: flex; justify-content: left">
                     <b-form-select size="sm" class="m-2 w-100" v-model="form.profile_state" :options="states" @change="onSubmit"></b-form-select>
                 </b-col>
-                <b-col xl="2" lg="3" offset-xl="5" class="d-flex flex-row flex-lg-row-reverse" >
+                <b-col xl="3" lg="2" offset-xl="2" class="d-flex flex-row flex-lg-row-reverse" >
+                    <a :href="notify_link" role="button" class="text-secondary m-2 position-relative" style="top:5px" ><i class="dripicons-message"></i> POŠALJI PODSETNIK</a>
+                </b-col>
+                <b-col xl="2" lg="2" class="d-flex flex-row flex-lg-row-reverse" >
                    <a :href="createlink" role="button" class="text-secondary m-2 position-relative" style="top:5px" ><i class="dripicons-document-new"></i> NOVI PROFIL</a>
                 </b-col>
             </b-row>
@@ -66,7 +69,8 @@ export default {
         itemsperpage: { typeof: Number, default: 12 },
         newitemaction: { typeof: String, default: '#'},
         addprofiletitle: { typeof: String, default: 'DODAJ NOVI PROFIL'},
-        createlink: { typeof: String, default: '/profiles/create'}
+        createlink: { typeof: String, default: '/profiles/create'},
+        notify_link: { typeof: String, default: '/profiles/bulkMail'}
     },
     computed : {
         logoSrc() {

@@ -9,9 +9,9 @@
 
 @section('sidemenu')
     <li class="side-nav-item">
-        <a href="{{ route('trainings') }}" class="side-nav-link">
+        <a href="{{ route('trainings.show', ['training' => $event_id]) }}" class="side-nav-link">
             <i class="uil-laptop-cloud"></i>
-            <span>{{ strtoupper(__('Back to Sessions')) }}</span>
+            <span>{{ mb_strtoupper(__('Back to Event')) }}</span>
         </a>
     </li>
 @endsection

@@ -5,9 +5,7 @@
 @endsection
 
 @section('content')
-    <profile-explorer class="h-auto" >
-
-    </profile-explorer>
+    <profile-explorer class="h-auto"></profile-explorer>
 @endsection
 
 

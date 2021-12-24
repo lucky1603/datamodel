@@ -66,7 +66,11 @@ class TrainingsController extends Controller
         ]);
 
         $data = $request->post();
-        $data['files'] = Utils::getFilesFromRequest($request, 'files');
+        $files = Utils::getFilesFromRequest($request, 'files');
+        if($files != null && $files != [ 'filelink' => '', 'filename' => '']) {
+            $data['files'] = $files;
+        }
+
 
         $training = Training::find($id);
 
@@ -227,7 +231,6 @@ class TrainingsController extends Controller
         if($user->isAdmin()) {
             return view('trainings.show', ['training' => $training, 'backroute' => $backroute]);
         } else {
-
             $profile = $user->profile();
             return view('trainings.show', ['training' => $training, 'profile' => $profile, 'backroute' => $backroute]);
         }

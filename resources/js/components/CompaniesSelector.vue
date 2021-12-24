@@ -11,7 +11,7 @@ export default {
     },
     methods: {
         async getData() {
-            await axios.get('/profiles/trainingCandidates')
+            await axios.get(this.source)
             .then(response => {
                 console.log(response.data);
                 this.originalItems.length = 0;
@@ -28,8 +28,8 @@ export default {
         }
     },
     async mounted() {
-        console.log(`Selected companies are ...`);
-        console.log(this.selectedItems);
+        console.log('source is');
+        console.log(this.source);
         await this.getData();
     },
     data() {

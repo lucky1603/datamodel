@@ -91,7 +91,7 @@
                     $($(msgbox).find('.modal-body')).html('<p>' + data.message + '</p>');
                     var button = $($(msgbox).find('#messageButtonOk')).first();
                     $(button).click(function() {
-                        window.location.href = data.goto;
+                        window.location.href = '/trainings';
                     });
                     $(msgbox).modal();
                 });
@@ -103,7 +103,7 @@
 
 @section('sidemenu')
     <li class="side-nav-item">
-        <a href="{{ Illuminate\Support\Facades\URL::previous() }}" class="side-nav-link">
+        <a href="{{ route('trainings') }}" class="side-nav-link">
             <i class="uil-laptop-cloud"></i>
             <span>{{ mb_strtoupper(__('Back to Events')) }}</span>
         </a>

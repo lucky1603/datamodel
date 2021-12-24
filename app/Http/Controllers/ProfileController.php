@@ -25,6 +25,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateRaisingStartsRequest;
 use App\Mail\ApplicationSuccess;
+use App\Mail\CustomMessage;
 use App\Mail\DemoDayNotification;
 use App\Mail\MeetingNotification;
 use App\Mail\ProfileCreated;
@@ -431,20 +432,31 @@ class ProfileController extends Controller
      * @return array|false|string
      */
     public function check($profileId) {
+
+        // Check for the date.
+        $end = strtotime('2021-12-29 00:00');
+        $now = strtotime(now());
+        if($now > $end) {
+            return json_encode([
+                'code' => 0,
+                'message' => 'Rok za prijavljivanje je prošao!',
+            ]);
+        }
+
         $profile = new Profile(['instance_id' => $profileId]);
         if($profile->instance == null) {
-            return [
+            return json_encode([
                 'code' => 0,
                 'message' => `No profile with id = {$profileId}`
-            ];
+            ]);
         }
 
         $program = $profile->getActiveProgram();
         if($program == null) {
-            return [
+            return json_encode([
                 'code' => 0,
                 'message' => `No active program yet.`
-            ];
+            ]);
         }
 
         $mandatory_parameters = collect([]);
@@ -1222,6 +1234,54 @@ class ProfileController extends Controller
             };
         });
 
+    }
+
+    public function prepareMail() {
+        $token = csrf_token();
+        $content = "<p>Poštovani/a ,</p>
+                    <p>Uskoro ističe rok za slanje prijava na program.</p>
+                    <p>Podsećamo Vas, da Vašu prijavu možete poslati najkasnije do 28.12. u 24:00h. Sve prijave poslate posle tog roka neće biti uzete u razmatranje.</p>
+                    <p>Srdačan pozdrav,</p>
+                    <p>Vaš NTP</p>";
+
+        return view('profiles.preparemail', ['content' => $content, 'token' => $token]);
+
+    }
+
+    public function sendMail(Request $request) {
+        $data = $request->post();
+        var_dump($data);
+
+        $profileIds = $data['recipients'];
+        $content = $data['content'];
+
+        var_dump($content);
+
+        $emails = Profile::find()->filter(function($profile) use($profileIds) {
+            return in_array($profile->getId(), $profileIds);
+        })->map(function($profile) {
+            return $profile->getValue('contact_email');
+        });
+
+        Mail::to($emails)->send(new CustomMessage($content));
+        return redirect(route('profiles.index'));
+    }
+
+    public function getMailClients(): array
+    {
+        $clients = [];
+        $profiles = Profile::find()->filter(function($profile) {
+            return ( $profile->getValue('profile_status') == 3 && $profile->getActiveProgram()->getStatus() == 1);
+        });
+        foreach($profiles as $profile) {
+            $clients[] = [
+                'id' => $profile->getId(),
+                'profile' => $profile->getValue('name'),
+                'selected' => false
+            ];
+        }
+
+        return $clients;
     }
 
     /**

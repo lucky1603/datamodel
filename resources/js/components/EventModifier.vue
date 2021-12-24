@@ -132,14 +132,14 @@
                 </div>
 
                 <div class="form-group mt-4">
-                    <companies-selector v-model="form.candidate"></companies-selector>
+                    <companies-selector v-model="form.candidate" source="/profiles/trainingCandidates"></companies-selector>
                     <span class="text-danger error-notification text-center" id="candidateError" style="display: none"></span>
                 </div>
 
                 <div class="text-center">
                     <b-button ref="sendButton" id="sendButton" type="submit" class="mt-3" variant="primary" size="sm">
                         <span id="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Kreiraj
+                        Sačuvaj
                     </b-button>
                     <b-button
                         ref="cancelButton"
@@ -205,7 +205,8 @@ export default {
             button.disabled = true;
 
             let description = $('#sinisa').summernote('code');
-            $('#training_description').text(description);
+            // $('#training_description').text(description);
+            this.form.training_description = description;
 
             let data = new FormData();
             for(let property in this.form) {
@@ -225,6 +226,8 @@ export default {
             }
 
             data.append('_token', this.token);
+            data.append('training_description', this.form.training_description);
+
             let event_id = this.event_id;
 
             $.ajax({
