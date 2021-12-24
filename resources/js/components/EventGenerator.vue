@@ -139,7 +139,7 @@
 <!--                    <span class="text-danger error-notification" id="candidateError" style="display: none"></span>-->
 <!--                </div>-->
                 <div class="form-group mt-4">
-                    <companies-selector v-model="selected"></companies-selector>
+                    <companies-selector v-model="selected" source="/profiles/trainingCandidates"></companies-selector>
                     <span class="text-danger error-notification text-center" id="candidateError" style="display: none"></span>
                 </div>
 
