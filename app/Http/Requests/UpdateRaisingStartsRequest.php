@@ -45,6 +45,8 @@ class UpdateRaisingStartsRequest extends FormRequest
             'rstarts_financing_proof_links' => 'max:1000',
             'rstarts_linkclip' => 'max: 400',
             'rstarts_other_sources' => 'max:1000',
+            'rstarts_expectations' => 'max:1000',
+            'rstarts_howmuchmoney' => 'max:1000',
             'six_months_income' => 'numeric',
             'memberName' => 'max:1000',
             'memberEducation' => 'max:1050',
