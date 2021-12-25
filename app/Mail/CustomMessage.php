@@ -12,6 +12,7 @@ class CustomMessage extends Mailable
     use Queueable, SerializesModels;
 
     public $message;
+    public $subject = "Podsetnik";
 
     /**
      * Create a new message instance.

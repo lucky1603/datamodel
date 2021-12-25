@@ -1239,7 +1239,7 @@ class ProfileController extends Controller
     public function prepareMail() {
         $token = csrf_token();
         $content = "<p>Poštovani/a ,</p>
-                    <p>Uskoro ističe rok za slanje prijava na program.</p>
+                    <p>Uskoro ističe rok za slanje prijava na program 'Raising Starts'.</p>
                     <p>Podsećamo Vas, da Vašu prijavu možete poslati najkasnije do 28.12. u 24:00h. Sve prijave poslate posle tog roka neće biti uzete u razmatranje.</p>
                     <p>Srdačan pozdrav,</p>
                     <p>Vaš NTP</p>";
