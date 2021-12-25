@@ -1271,7 +1271,7 @@ class ProfileController extends Controller
     {
         $clients = [];
         $profiles = Profile::find()->filter(function($profile) {
-            return ( $profile->getValue('profile_status') == 3 && $profile->getActiveProgram()->getStatus() == 1);
+            return ( $profile->getValue('profile_state') == 2 /* && $profile->getActiveProgram()->getStatus() == 1 */);
         });
         foreach($profiles as $profile) {
             $clients[] = [
