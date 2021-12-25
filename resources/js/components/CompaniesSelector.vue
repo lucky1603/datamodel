@@ -13,7 +13,6 @@ export default {
         async getData() {
             await axios.get(this.source)
             .then(response => {
-                console.log(response.data);
                 this.originalItems.length = 0;
                 let programs = response.data;
                 programs.forEach(program => {
@@ -28,8 +27,6 @@ export default {
         }
     },
     async mounted() {
-        console.log('source is');
-        console.log(this.source);
         await this.getData();
     },
     data() {
