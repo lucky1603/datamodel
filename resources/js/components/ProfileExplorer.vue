@@ -2,7 +2,7 @@
     <div class="h-100 w-100">
         <b-form id="filterForm" inline class="w-100 bg-light">
             <b-row id="toolbar" class="row w-100">
-                <b-col xl="1" lg="1" class="pt-1">
+                <b-col xl="1" lg="2" class="pt-1">
                     <span class="m-2 position-relative" style="top:12px" >FILTER</span>
                 </b-col>
                 <b-col xl="2" lg="4" style="display: flex; flex-direction: row; justify-content: left">
@@ -16,12 +16,15 @@
                 <b-col xl="2" lg="3" style="display: flex; justify-content: left">
                     <b-form-select size="sm" class="m-2 w-100" v-model="form.profile_state" :options="states" @change="onSubmit"></b-form-select>
                 </b-col>
-                <b-col xl="3" lg="2" offset-xl="2" class="d-flex flex-row flex-lg-row-reverse" >
-                    <a :href="notify_link" role="button" class="text-secondary m-2 position-relative" style="top:5px" ><i class="dripicons-message"></i> POŠALJI PODSETNIK</a>
+                <b-col xl="2" offset-xl="5" lg="2" class="d-flex flex-row flex-lg-row-reverse">
+                    <a href="/profiles/exportProfiles" role="button" style="top:5px" class="text-secondary m-2 position-relative"><i class="dripicons-export"></i> EXPORT</a>
                 </b-col>
-                <b-col xl="2" lg="2" class="d-flex flex-row flex-lg-row-reverse" >
-                   <a :href="createlink" role="button" class="text-secondary m-2 position-relative" style="top:5px" ><i class="dripicons-document-new"></i> NOVI PROFIL</a>
-                </b-col>
+<!--                <b-col xl="2" lg="2" class="d-flex flex-row flex-lg-row-reverse" >-->
+<!--                    <a :href="notify_link" role="button" class="text-secondary m-2 position-relative" style="top:5px" ><i class="dripicons-message"></i> PODSETNIK</a>-->
+<!--                </b-col>-->
+<!--                <b-col xl="2" lg="2" class="d-flex flex-row flex-lg-row-reverse" >-->
+<!--                   <a :href="createlink" role="button" class="text-secondary m-2 position-relative" style="top:5px" ><i class="dripicons-document-new"></i> NOVI PROFIL</a>-->
+<!--                </b-col>-->
             </b-row>
         </b-form>
         <hr/>
