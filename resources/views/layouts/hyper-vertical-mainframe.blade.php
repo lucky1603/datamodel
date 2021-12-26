@@ -18,7 +18,7 @@
         <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
             <li><a href="{{ route('profiles.index') }}">{{ mb_strtoupper(__('Lista'))  }}</a></li>
             <li><a href="{{ route('profiles.create') }}">{{ mb_strtoupper(__('Kreiraj novu'))  }}</a></li>
-            <li><a href="{{ route('profiles.prepareMail') }}">{{ mb_strtoupper('Send Reminder') }}</a></li>
+            <li><a href="{{ route('profiles.prepareMail') }}">{{ mb_strtoupper('Pošalji podsetnik') }}</a></li>
         </ul>
     </li>
 
