@@ -20,6 +20,7 @@ use App\Business\Selection;
 use App\Business\Situation;
 use App\Business\TeamMember;
 use App\Business\Training;
+use App\Exports\ProfileExport;
 use App\Http\Middleware\Authenticate;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\StoreProfileRequest;
@@ -37,6 +38,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProfileController extends Controller
 {
@@ -1282,6 +1284,11 @@ class ProfileController extends Controller
         }
 
         return $clients;
+    }
+
+    public function exportProfiles(): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        return Excel::download(new ProfileExport, 'profile.xlsx');
     }
 
     /**

@@ -10,11 +10,23 @@
     </li>
 
     <li class="side-nav-item">
-        <a href="{{ route('profiles.index') }}" class="side-nav-link">
-            <i class="uil-bill"></i>
-            <span>{{ strtoupper(__('Profiles')) }}</span>
+        <a href="javascript:void(0);" class="side-nav-link" aria-expanded="false">
+            <i class="uil-user-exclamation"></i>
+            <span>{{ mb_strtoupper( __('Profiles') ) }}</span>
+            <span class="menu-arrow"></span>
         </a>
+        <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
+            <li><a href="{{ route('profiles.index') }}">{{ mb_strtoupper(__('Lista'))  }}</a></li>
+            <li><a href="{{ route('profiles.create') }}">{{ mb_strtoupper(__('Kreiraj novu'))  }}</a></li>
+        </ul>
     </li>
+
+{{--    <li class="side-nav-item">--}}
+{{--        <a href="{{ route('profiles.index') }}" class="side-nav-link">--}}
+{{--            <i class="uil-bill"></i>--}}
+{{--            <span>{{ strtoupper(__('Profiles')) }}</span>--}}
+{{--        </a>--}}
+{{--    </li>--}}
 
     <li class="side-nav-item">
         <a href="{{ route('mentors.index') }}" class="side-nav-link">
