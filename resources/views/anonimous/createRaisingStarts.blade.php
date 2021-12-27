@@ -46,6 +46,8 @@
                         popunjavanja prijavnog obrasca obavezno pročitajte
                         <a href="https://ntpark.rs/wp-content/uploads/2021/11/Raising-Starts-2021-Javni-poziv.pdf" target="_blank">Javni poziv</a>
                         i <a href="https://ntpark.rs/wp-content/uploads/2021/11/Raising-Starts-2021-Vodic.pdf" target="_blank">Raising Starts vodič</a>.
+                        <span style="color: #e94d0c">Važno! U Prilogu 1 Vodiča (strana 17) pogledajte detaljno uputstvo kojim se definiše faza razvoja
+                            startapa u kontekstu ovog Programa.</span>
                     </p>
                     <p>
                         <strong>Prijave se podnose elektronskim putem do 28.12.2021. u ponoć.</strong>
