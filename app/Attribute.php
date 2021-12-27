@@ -91,7 +91,20 @@ class Attribute extends Model
         } else if ($this->type === 'bool') {
             return $value === false ? strtoupper(__('NO')): strtoupper(__('YES')) ;
         } else if ($this->type === 'file') {
-            return isset($value['filename']) ? $value['filename'] : '';
+            if($value == null)
+                return '';
+
+            if($this->extra == 'multiple') {
+                $retval = '';
+                for($i = 0; $i < count($value); $i++) {
+                   if($i > 0) $retval .= ";";
+                   $retval .= $value[$i]['filename'];
+                }
+
+                return $retval;
+            } else {
+                return $value['filename'];
+            }
         } else if ($this->type === 'double') {
             $fmt = numfmt_create(App::getLocale(), \NumberFormatter::DECIMAL);
             return $fmt->format($value, \NumberFormatter::TYPE_DOUBLE);
@@ -103,7 +116,7 @@ class Attribute extends Model
             return $datetime->format('h:i');
         } else
         {
-            return (isset($value) && strlen($value) > 0) ? strval($value) : '-';
+            return $value;
         }
     }
 

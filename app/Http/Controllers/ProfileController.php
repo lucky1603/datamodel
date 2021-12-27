@@ -21,6 +21,7 @@ use App\Business\Situation;
 use App\Business\TeamMember;
 use App\Business\Training;
 use App\Exports\ProfileExport;
+use App\Exports\RaisingStartsProgramExport;
 use App\Http\Middleware\Authenticate;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\StoreProfileRequest;
@@ -1289,6 +1290,11 @@ class ProfileController extends Controller
     public function exportProfiles(): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         return Excel::download(new ProfileExport, 'profile.xlsx');
+    }
+
+    public function exportRaisingStarts(): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        return Excel::download(new RaisingStartsProgramExport, 'program.xlsx');
     }
 
     /**

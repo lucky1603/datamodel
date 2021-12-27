@@ -17,7 +17,7 @@
                     <b-form-select size="sm" class="m-2 w-100" v-model="form.profile_state" :options="states" @change="onSubmit"></b-form-select>
                 </b-col>
                 <b-col xl="2" offset-xl="5" lg="2" class="d-flex flex-row flex-lg-row-reverse">
-                    <a href="/profiles/exportProfiles" role="button" style="top:5px" class="text-secondary m-2 position-relative"><i class="dripicons-export"></i> EXPORT</a>
+                    <a href="/profiles/exportRaisingStarts" role="button" style="top:5px" class="text-secondary m-2 position-relative"><i class="dripicons-export"></i> EXPORT</a>
                 </b-col>
 <!--                <b-col xl="2" lg="2" class="d-flex flex-row flex-lg-row-reverse" >-->
 <!--                    <a :href="notify_link" role="button" class="text-secondary m-2 position-relative" style="top:5px" ><i class="dripicons-message"></i> PODSETNIK</a>-->
