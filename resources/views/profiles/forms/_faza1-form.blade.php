@@ -77,6 +77,10 @@
                                     @endforeach
                                 @endif
                             </div>
+                        @else
+                            <div class="text-center mb-4">
+                                <h5>Klijent još nije poslao datoteke.</h5>
+                            </div>
                         @endif
                     </div>
                 </div>

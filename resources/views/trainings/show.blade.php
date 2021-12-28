@@ -44,7 +44,6 @@
                                 @break
                         @endswitch
                 @endif
-                <button>ok</button>
             @else
                 <a href="{{ route('trainings.edit', ['training' => $training->getId()]) }}" class="btn btn-sm btn-primary float-right">Uredi</a>
             @endif
