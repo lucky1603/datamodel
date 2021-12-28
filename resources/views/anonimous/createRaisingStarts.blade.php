@@ -50,7 +50,7 @@
                             startapa u kontekstu ovog Programa.</span>
                     </p>
                     <p>
-                        <strong>Prijave se podnose elektronskim putem do 28.12.2021. u ponoć.</strong>
+                        <strong>Prijave se podnose elektronskim putem do 30.12.2021. u 12:00h u podne.</strong>
                     </p>
                     <p>
                         Ukoliko imate nekih pitanja slobodno nas kontaktirajte na: <a href="mailto://info@ntpark.rs" target="_blank">info@ntpark.rs</a>
