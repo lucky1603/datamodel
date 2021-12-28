@@ -437,7 +437,7 @@ class ProfileController extends Controller
     public function check($profileId) {
 
         // Check for the date.
-        $end = strtotime('2021-12-29 00:00');
+        $end = strtotime('2021-12-30 12:00');
         $now = strtotime(now());
         if($now > $end) {
             return json_encode([
