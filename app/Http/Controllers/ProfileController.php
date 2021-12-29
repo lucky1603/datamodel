@@ -553,7 +553,7 @@ class ProfileController extends Controller
                 'program_name' => $program->getAttribute('program_name')->getValue()
             ]);
 
-        $program->setStatus($program->getStatus() + 1);
+        $program->setStatus(2);
         $profile->updateState();
 
         // Send confirmation mail.
