@@ -1147,30 +1147,21 @@ class ProfileController extends Controller
 
     public function getTrainingCandidates() {
         $programs = Program::find();
-        $candidates = $programs->filter(function($program) {
+        $candidates = [];
+        $filteredPrograms = $programs->filter(function($program) {
             $profile = $program->getProfile();
-            if(($program->getValue('program_type') == Program::$RAISING_STARTS && in_array($profile->getValue('profile_status'), [3,4]) ) ||
-                $profile->getValue('profile_status') == 4) {
-                return true;
-            }
-
-            return false;
-        })->map(function($program) {
-            return new class ($program) {
-                public $id;
-                public $programType;
-                public $programName;
-                public $profile;
-
-                public function __construct($program)
-                {
-                    $this->id = $program->getId();
-                    $this->programType = $program->getValue('program_type');
-                    $this->programName = $program->getValue('program_name');
-                    $this->profile = $program->getProfile()->getValue('name');
-                }
-            };
+            return  $program->getValue('program_type') == Program::$RAISING_STARTS &&
+                    ( ($profile->getValue('profile_status') == 3 && $program->getStatus() >= 3) || $profile->getValue('profile_status') > 4 );
         });
+
+        foreach($filteredPrograms as $program) {
+            $candidates[] = [
+                'id' => $program->getId(),
+                'programType' => $program->getValue('program_type'),
+                'programName' => $program->getvalue('program_name'),
+                'profile' => $program->getProfile()->getValue('name')
+            ];
+        }
 
         return $candidates;
     }

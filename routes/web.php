@@ -54,6 +54,7 @@ Route::post('/createRaisingStarts', 'AnonimousController@storeRaisingStarts')->n
 Route::get('refreshcaptcha', 'AnonimousController@refreshCaptcha');
 Route::get('testmail/{email}', 'AnonimousController@testMail');
 Route::get('construction', 'AnonimousController@construction');
+Route::get('expired', 'AnonimousController@accountExpired')->name('expired');
 
 Route::get('profiles', 'ProfileController@index')->name('profiles.index');
 Route::get('profiles/exportProfiles', 'ProfileController@exportProfiles')->name('profiles.exportProfiles');

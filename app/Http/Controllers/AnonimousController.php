@@ -295,6 +295,10 @@ class AnonimousController extends Controller
         return view('anonimous.notify-user');
     }
 
+    public function accountExpired() {
+        return view('anonimous.account-expired');
+    }
+
     public function formSent() {
         return view('anonimous.confsent');
     }

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Business\Client;
 use App\Business\Mentor;
 use App\Business\Profile;
+use App\Business\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -39,6 +41,17 @@ class HomeController extends Controller
             }
             else if(isset($instance) && $instance->entity->name === 'Profile') {
                 $profile = Profile::find($instance->id);
+                $program = $profile->getActiveProgram();
+                if($program != null && $program->getValue('program_type') == Program::$RAISING_STARTS) {
+                    $deadline = strtotime('2021-12-30 12:00');
+                    $now = strtotime(now());
+                    if($now > $deadline && $program->getStatus() == 1) {
+                        Auth::logout();
+                        return redirect(route('expired'));
+                    }
+                }
+
+
                 return redirect(route('profiles.profile', $profile->getId()));
             }
             else if(isset($instance) && $instance->entity->name === 'Mentor') {
@@ -51,6 +64,7 @@ class HomeController extends Controller
         }
 
         return view('home');
+//        return view('dashboard');
     }
 
 

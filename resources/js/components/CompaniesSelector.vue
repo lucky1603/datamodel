@@ -13,7 +13,10 @@ export default {
         async getData() {
             await axios.get(this.source)
             .then(response => {
+                console.log('Training candidates');
+                console.log(response.data);
                 this.originalItems.length = 0;
+
                 let programs = response.data;
                 programs.forEach(program => {
                     this.originalItems.push({value: program.id, text: program.profile, selected: false });
