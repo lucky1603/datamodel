@@ -1297,6 +1297,56 @@ class ProfileController extends Controller
         return Excel::download(new RaisingStartsProgramExport, 'program.xlsx');
     }
 
+    public function programAttendances(Request $request, $profileId) {
+        $profile = Profile::find($profileId);
+        if($profile == null) {
+            return json_encode([
+                'code' => 0,
+                'message' => 'Nema profila sa id = ' . $profileId
+            ]);
+        }
+
+        $program = $profile->getActiveProgram();
+        if($program == null) {
+            return json_encode([
+                'code' => 0,
+                'message' => 'Izabrani profil nema aktivni program!'
+            ]);
+        }
+
+        $attendances = $program->getAttendances();
+
+        $data = $request->post();
+
+        if($data['name'] != NULL) {
+            $attendances = $attendances->where('training_name', $data['name']);
+        }
+
+        if($data['eventType'] != 0) {
+            $attendances = $attendances->where('training_type', $data['eventType']);
+        }
+
+        if(isset($data['eventStatus']) && $data['eventStatus'] != 0) {
+            $attendances = $attendances->where('event_status', $data['eventStatus']);
+        }
+
+        $resultData = [];
+        foreach($attendances as $attendance) {
+            $trainingData = $attendance->getTraining()->getData();
+            $resultData[] = [
+                'id' => $trainingData['id'],
+                'name' => $trainingData['training_name'],
+                'date' => date('d.m.Y', strtotime($trainingData['training_start_date'])),
+                'type' => $trainingData['training_type'],
+                'status' => $trainingData['event_status'],
+                'location' => $trainingData['location']
+            ];
+        }
+
+        return $resultData;
+
+    }
+
     /**
      * Gets the file from the request and pack it to the recognizable form.
      * @param Request $request

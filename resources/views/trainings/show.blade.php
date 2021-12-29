@@ -102,7 +102,7 @@
 
 @section('sidemenu')
     <li class="side-nav-item">
-        <a href="{{ route('trainings') }}" class="side-nav-link">
+        <a href="{{ $backroute }}" class="side-nav-link">
             <i class="uil-laptop-cloud"></i>
             <span>{{ mb_strtoupper(__('Back to Events')) }}</span>
         </a>

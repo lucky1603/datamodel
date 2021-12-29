@@ -228,11 +228,12 @@ class TrainingsController extends Controller
         $training = Training::find($id);
         $user = Auth::user();
         $backroute = Route::currentRouteName();
+        var_dump($backroute);
         if($user->isAdmin()) {
-            return view('trainings.show', ['training' => $training, 'backroute' => $backroute]);
+            return view('trainings.show', ['training' => $training, 'backroute' => route('trainings')]);
         } else {
             $profile = $user->profile();
-            return view('trainings.show', ['training' => $training, 'profile' => $profile, 'backroute' => $backroute]);
+            return view('trainings.show', ['training' => $training, 'profile' => $profile, 'backroute' => route('profiles.trainings', ['profile' => $profile->getId()])]);
         }
 
     }
@@ -289,6 +290,10 @@ class TrainingsController extends Controller
 
         if($data['eventType'] != 0) {
             $filterData['training_type'] = $data['eventType'];
+        }
+
+        if(isset($data['eventStatus']) && $data['eventStatus'] != 0) {
+            $filterData['event_status'] = $data['eventStatus'];
         }
 
         if(count($filterData) > 0) {

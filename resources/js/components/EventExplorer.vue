@@ -16,7 +16,7 @@
                 <b-col xl="2" lg="4" style="display: flex; justify-content: left">
                     <b-form-select size="sm" class="m-2 w-100" v-model="form.eventType" :options="eventTypes" @change="onSubmit"></b-form-select>
                 </b-col>
-                <b-col xl="2" lg="3" offset-xl="5" class="d-flex flex-row flex-lg-row-reverse" >
+                <b-col v-if="can_create" xl="2" lg="3" offset-xl="5" class="d-flex flex-row flex-lg-row-reverse" >
                     <a :href="createlink" role="button" class="text-secondary m-2 position-relative"><i class="dripicons-document-new"></i> NOVI DOGAĐAJ</a>
                 </b-col>
             </b-row>
@@ -50,6 +50,7 @@
 export default {
     name: "EventExplorer",
     props: {
+        can_create: true,
         createlink: {typeof: String, default: '/trainings/create'},
         itemsperpage: {typeof: Number, default: 9},
         source: {typeof: String, default: '/trainings/filter'}

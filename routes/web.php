@@ -65,6 +65,7 @@ Route::get('profiles/list', 'ProfileController@list')->name('profiles.list');
 Route::post('profiles/filter', 'ProfileController@filter')->name('profiles.filter');
 Route::get('profiles/create', 'ProfileController@create')->name('profiles.create');
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
+Route::post('profiles/programAttendances/{profile}', 'ProfileController@programAttendances')->name('profiles.programAttendances');
 Route::get('profiles/edit/{profile}', 'ProfileController@edit')->name('profiles.edit');
 Route::post('profiles/edit', 'ProfileController@update')->name('profiles.update');
 Route::get('profiles/trainingCandidates', 'ProfileController@getTrainingCandidates')->name('profiles.trainingcandidates');
