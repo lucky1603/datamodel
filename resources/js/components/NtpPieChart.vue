@@ -6,7 +6,7 @@
 export default {
     name: "NtpPieChart",
     props: {
-        id:'PieChart',
+        id: {typeof:String, default: 'PieChart'},
         source: { typeof: String, default: ''},
         labels: [],
         bgcolors:[],

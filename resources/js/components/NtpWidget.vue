@@ -9,7 +9,7 @@ export default {
         source: { typeof: String, default: ''},
         labels: [],
         bgcolors: [],
-        id: `myChart`
+        id: { typeof: String, default: `myChart` }
     },
     methods : {
         async getData() {
