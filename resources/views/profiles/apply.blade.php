@@ -66,7 +66,9 @@
                         </p>
                         <h3>VALIDNOST PODATAKA</h3>
                         <p class="text-dark">
-                            Popunite prazna polja označena zvezdicom pre pokušaja podnošenja prijave.
+                            Popunite prazna polja označena zvezdicom pre pokušaja podnošenja prijave. Na pojedinim poljima
+                            je naglašena maksimalna dozvoljena veličina polja, izražena u broju karaktera. Za polja gde
+                            nije naglašen ovaj podatak, može se smatrati da je broj dozvoljenih karaktera 1000.
                         </p>
                         <h3>ČUVANJE PODATAKA</h3>
                         <p class="text-dark">
