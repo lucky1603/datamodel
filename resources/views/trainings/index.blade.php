@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <event-explorer></event-explorer>
+    <event-explorer :can_create="true"></event-explorer>
 @endsection
 
 
