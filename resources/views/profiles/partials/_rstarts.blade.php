@@ -1,5 +1,8 @@
 @if(isset($model) && count($errors))
     <div class="alert alert-danger">Promene nisu sačuvane zbog validacionih grešaka. Prekontrolišite formu. Polja sa porgrešnim unosima su označena crvenom bojom.</div>
+    @foreach($errors->all() as $error)
+        {{ $error }}
+    @endforeach
 @endif
 
 @if(!isset($model))
