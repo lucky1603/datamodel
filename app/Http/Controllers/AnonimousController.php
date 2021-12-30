@@ -88,8 +88,9 @@ class AnonimousController extends Controller
     }
 
     public function createRaisingStarts() {
-        $attributeData = RaisingStartsProgram::getAttributesDefinition();
-        return view('anonimous.createRaisingStarts', ['attributes' => $attributeData['attributes']]);
+//        $attributeData = RaisingStartsProgram::getAttributesDefinition();
+//        return view('anonimous.createRaisingStarts', ['attributes' => $attributeData['attributes']]);
+        return view('anonimous.application-closed');
     }
 
     public function storeRaisingStarts(StorePostRequest $request) {
