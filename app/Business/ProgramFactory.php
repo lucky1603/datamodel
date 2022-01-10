@@ -4,7 +4,7 @@ namespace App\Business;
 
 class ProgramFactory
 {
-    public static function resolve($instanceId) {
+    public static function resolve($instanceId, $initWorkflow = false) {
         $model = new BusinessModel(['instance_id' => $instanceId]);
         if($model->instance == NULL)
             return null;
@@ -14,7 +14,7 @@ class ProgramFactory
             case Program::$INKUBACIJA_BITF:
                 return new IncubationProgram(['instance_id' => $instanceId]);
             case Program::$RAISING_STARTS:
-                return new RaisingStartsProgram(['instance_id' => $instanceId]);
+                return new RaisingStartsProgram(['instance_id' => $instanceId, 'init_workflow' => $initWorkflow]);
             default:
                 return null;
         }

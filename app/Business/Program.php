@@ -51,8 +51,11 @@ class Program extends SituationsModel
             $this->setAttributes($data);
         }
 
-        $this->initWorkflow();
-        $this->workflow = $this->getWorkflow();
+        if(isset($data['init_workflow']) && $data['init_workflow'] == true) {
+            $this->initWorkflow();
+            $this->workflow = $this->getWorkflow();
+        }
+
         $this->setStatus($this->getValue('program_status') ?? 1);
 
     }
@@ -659,11 +662,14 @@ class Program extends SituationsModel
 
     public function getStatus(): int
     {
-        return $this->workflow->getCurrentIndex();
+        return $this->getValue('program_status');
+//        return $this->workflow->getCurrentIndex();
     }
 
     public function setStatus(int $status) {
-        $this->workflow->setCurrentIndex($status);
+        if(isset($this->workflow)) {
+            $this->workflow->setCurrentIndex($status);
+        }
         $this->setValue('program_status', $status);
     }
 

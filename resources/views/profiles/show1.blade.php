@@ -24,7 +24,7 @@
                 </div>
             @else
                 @php
-                    $program = $model->getActiveProgram();
+                    $program = $model->getActiveProgram(true);
                     $workflow = $program->workflow;
 
                 @endphp

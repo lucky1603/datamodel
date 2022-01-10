@@ -337,13 +337,13 @@ class Profile extends SituationsModel
         return collect($programs);
     }
 
-    public function getActiveProgram() {
+    public function getActiveProgram($initWorkflow = false) {
         if($this->instance->instances->count() == 0)
             return null;
 
         foreach($this->instance->instances as $instance) {
             if($instance->entity->name === 'Program') {
-                return ProgramFactory::resolve($instance->id);
+                return ProgramFactory::resolve($instance->id, $initWorkflow);
             }
         }
         return null;
