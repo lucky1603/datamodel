@@ -144,10 +144,15 @@ class Instance extends Model
      * Returns the array of attribute key-value pairs.
      * @return array
      */
-    public function getAttributeValues(): array
+    public function getAttributeValues($data = null): array
     {
         $attributeValues = [];
-        foreach ($this->attributes()->get() as $attribute) {
+        if(isset($data)) {
+            $attributes = $this->attributes()->whereIn('name', $data)->get();
+        } else {
+            $attributes = $this->attributes()->get();
+        }
+        foreach ($attributes as $attribute) {
             $value = $attribute->getValue();
             $attributeValues[$attribute->name] = $value;
         }

@@ -33,6 +33,7 @@ use App\Mail\MeetingNotification;
 use App\Mail\ProfileCreated;
 use App\Mail\ProfileRejected;
 use App\User;
+use App\Value;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -1201,6 +1202,14 @@ class ProfileController extends Controller
         if($data['profile_state'] == 0)
             unset($data['profile_state']);
 
+        if($data['is_company'] == -1) {
+            unset($data['is_company']);
+        }
+
+        if($data['ntp'] == 0) {
+            unset($data['ntp']);
+        }
+
         if(count($data) == 0)
             $data = null;
 
@@ -1212,6 +1221,9 @@ class ProfileController extends Controller
                 public $state;
                 public $stateText;
                 public $background;
+                public $isCompany;
+                public $ntp;
+
                 public function __construct($profile)
                 {
                     $this->id = $profile->getId();
@@ -1220,10 +1232,8 @@ class ProfileController extends Controller
                     $this->state = $profile->getValue('profile_state');
                     $this->stateText = $profile->getText('profile_state');
                     $this->background = $profile->getValue('profile_background');
-//                    if($profile->getActiveProgram() != null)
-//                        $this->programType = $profile->getActiveProgram()->getValue('program_type');
-//                    else
-//                        $this->programType = 0;
+                    $this->isCompany = $profile->getValue('is_company');
+                    $this->ntp = $profile->getValue('ntp');
                 }
             };
         });

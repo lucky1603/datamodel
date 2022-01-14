@@ -159,6 +159,14 @@ class Profile extends SituationsModel
         }
         $attributes[] = $state;
 
+        $ntp = self::selectOrCreateAttribute(['ntp', 'NTP koji daje podršku', 'select', NULL, 4]);
+        if(count($ntp->getOptions()) == 0) {
+            $ntp->addOption(['value' => 1, 'text' => 'Naučno-tehnološki park Beograd']);
+            $ntp->addOption(['value' => 2, 'text' => 'Naučno-tehnološki park Niš']);
+            $ntp->addOption(['value' => 3, 'text' => 'Naučno-tehnološki park Čačak']);
+        }
+        $attributes->add($ntp);
+
         return $attributes;
     }
 
@@ -347,6 +355,18 @@ class Profile extends SituationsModel
             }
         }
         return null;
+    }
+
+    public function getActiveProgramInstanceId() {
+        if($this->instance->instances->count() == 0)
+            return null;
+
+        foreach($this->instance->instances as $instance) {
+            if($instance->entity->name === 'Program') {
+                return $instance->id;
+            }
+        }
+        return 0;
     }
 
     public function addProgram($program) {

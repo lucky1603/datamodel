@@ -2,10 +2,10 @@
     <div class="h-100 w-100">
         <b-form id="filterForm" inline class="w-100 bg-light">
             <b-row id="toolbar" class="row w-100">
-                <b-col xl="1" lg="2" class="pt-1">
+                <b-col xl="1" lg="1" class="pt-1">
                     <span class="m-2 position-relative" style="top:12px" >FILTER</span>
                 </b-col>
-                <b-col xl="2" lg="4" style="display: flex; flex-direction: row; justify-content: left">
+                <b-col xl="2" lg="3" style="display: flex; flex-direction: row; justify-content: left">
                     <b-input-group class="w-100 m-2 mt-3 mt-sm-3 mt-lg-2" size="sm">
                         <b-form-input v-model="form.name" type="search" id="searchName" placeholder="Po nazivu ..." @update="onSubmit"></b-form-input>
                         <template #append>
@@ -13,18 +13,20 @@
                         </template>
                     </b-input-group>
                 </b-col>
-                <b-col xl="2" lg="3" style="display: flex; justify-content: left">
+                <b-col xl="2" lg="2" style="display: flex; justify-content: left">
                     <b-form-select size="sm" class="m-2 w-100" v-model="form.profile_state" :options="states" @change="onSubmit"></b-form-select>
                 </b-col>
-                <b-col xl="2" offset-xl="5" lg="2" class="d-flex flex-row flex-lg-row-reverse">
-                    <a href="/profiles/exportRaisingStarts" role="button" style="top:5px" class="text-secondary m-2 position-relative"><i class="dripicons-export"></i> EXPORT</a>
+                <b-col xl="2" lg="2" style="display: flex; justify-content: left">
+                    <b-form-select size="sm" class="m-2 w-100" v-model="form.is_company" :options="types" @change="onSubmit"></b-form-select>
                 </b-col>
-<!--                <b-col xl="2" lg="2" class="d-flex flex-row flex-lg-row-reverse" >-->
-<!--                    <a :href="notify_link" role="button" class="text-secondary m-2 position-relative" style="top:5px" ><i class="dripicons-message"></i> PODSETNIK</a>-->
-<!--                </b-col>-->
-<!--                <b-col xl="2" lg="2" class="d-flex flex-row flex-lg-row-reverse" >-->
-<!--                   <a :href="createlink" role="button" class="text-secondary m-2 position-relative" style="top:5px" ><i class="dripicons-document-new"></i> NOVI PROFIL</a>-->
-<!--                </b-col>-->
+                <b-col xl="2" lg="2" style="display: flex; justify-content: left">
+                    <b-form-select size="sm" class="m-2 w-100" v-model="form.ntp" :options="ntps" @change="onSubmit"></b-form-select>
+                </b-col>
+
+                <b-col xl="3" lg="2" class="d-flex flex-row flex-lg-row-reverse">
+                    <a href="/profiles/exportRaisingStarts" role="button" style="top:5px" class="text-secondary m-2 position-relative float-right"><i class="dripicons-export"></i> EXPORT</a>
+                </b-col>
+
             </b-row>
         </b-form>
         <hr/>
@@ -189,11 +191,18 @@ export default {
                 { value: 2, text: "NTP Niš"},
                 { value: 3, text: "NTP Čačak"}
             ],
+            types: [
+                { value: -1, text: 'Po tipu'},
+                { value: 0, text: 'Startap'},
+                { value: 1, text: 'Kompanija'}
+            ],
             state: 0,
             loading: false,
             form: {
                 name: '',
                 profile_state: 0,
+                is_company: -1,
+                ntp: 0
             }
         }
     }
