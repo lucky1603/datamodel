@@ -75,7 +75,12 @@ export default {
         newitemaction: { typeof: String, default: '#'},
         addprofiletitle: { typeof: String, default: 'DODAJ NOVI PROFIL'},
         createlink: { typeof: String, default: '/profiles/create'},
-        notify_link: { typeof: String, default: '/profiles/bulkMail'}
+        notify_link: { typeof: String, default: '/profiles/bulkMail'},
+        f_name: { typeof: String, default: ''},
+        f_profile_state: { typeof: Number, default: 0},
+        f_ntp: {typeof: Number, default: 0},
+        f_is_company: { typeof: Number, default: -1},
+        f_page: { typeof:Number, default: 1}
     },
     computed : {
         logoSrc() {
@@ -122,6 +127,13 @@ export default {
         },
         pageChanged() {
             console.log(`Page changed ${this.currentPage}`);
+            let data = new FormData();
+            data.append('page', this.currentPage);
+            axios.post('/profiles/setSessionVars', data)
+            .then(response => {
+                console.log(response.data);
+            });
+
             this.showCurrentPage();
         },
         searchIconClick() {
@@ -162,8 +174,14 @@ export default {
         }
     },
     async mounted() {
+        this.form.name = this.f_name;
+        this.form.profile_state = this.f_profile_state;
+        this.form.ntp = this.f_ntp;
+        this.form.is_company = this.f_is_company;
+
         this.itemsPerPage = this.itemsperpage;
         await this.getData();
+        this.currentPage = this.f_page;
         await this.showCurrentPage();
         Event.$on('refresh', this.shouldRefresh);
     },

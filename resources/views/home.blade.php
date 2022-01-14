@@ -6,6 +6,12 @@
 
 @section('content')
 
+    @php
+        foreach (['name', 'profile_state', 'is_company', 'ntp', 'page'] as $key) {
+            \Illuminate\Support\Facades\Session::forget($key);
+        }
+    @endphp
+
     <div class="row">
         <div class="col-lg-3">
             <div class="card shadow">

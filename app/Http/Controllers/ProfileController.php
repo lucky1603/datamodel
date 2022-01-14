@@ -39,6 +39,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -1196,18 +1197,32 @@ class ProfileController extends Controller
         $data = $request->post();
 
         $filter = [];
-        if($data['name'] == '')
+        if($data['name'] == '') {
             unset($data['name']);
+            Session::forget('name');
+        }
+        else
+            Session::put('name', $data['name']);
 
-        if($data['profile_state'] == 0)
+        if($data['profile_state'] == 0) {
             unset($data['profile_state']);
+            Session::forget('profile_state');
+        }
+        else
+            Session::put('profile_state', $data['profile_state']);
 
         if($data['is_company'] == -1) {
             unset($data['is_company']);
+            Session::forget('is_company');
+        } else {
+            Session::put('is_company', $data['is_company']);
         }
 
         if($data['ntp'] == 0) {
             unset($data['ntp']);
+            Session::forget('ntp');
+        } else {
+            Session::put('ntp', $data['ntp']);
         }
 
         if(count($data) == 0)
@@ -1346,6 +1361,16 @@ class ProfileController extends Controller
 
         return $resultData;
 
+    }
+
+    public function setSessionVars(Request $request) {
+        $data = $request->post();
+        foreach($data as $key=>$value) {
+            Session::put($key, $value);
+        }
+
+        var_dump($data);
+        return "Session variables successfully changed!";
     }
 
     /**

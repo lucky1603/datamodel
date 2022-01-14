@@ -57,6 +57,7 @@ Route::get('construction', 'AnonimousController@construction');
 Route::get('expired', 'AnonimousController@accountExpired')->name('expired');
 
 Route::get('profiles', 'ProfileController@index')->name('profiles.index');
+Route::post('profiles/setSessionVars', 'ProfileController@setSessionVars')->name('profiles.setSessionVars');
 Route::get('profiles/exportProfiles', 'ProfileController@exportProfiles')->name('profiles.exportProfiles');
 Route::get('profiles/exportRaisingStarts', 'ProfileController@exportRaisingStarts')->name('profiles.exportRaisingStarts');
 Route::get('profiles/bulkMail', 'ProfileController@prepareMail')->name('profiles.prepareMail');

@@ -165,7 +165,7 @@ class Profile extends SituationsModel
             $ntp->addOption(['value' => 2, 'text' => 'Naučno-tehnološki park Niš']);
             $ntp->addOption(['value' => 3, 'text' => 'Naučno-tehnološki park Čačak']);
         }
-        $attributes->add($ntp);
+        $attributes[] = $ntp;
 
         return $attributes;
     }

@@ -5,6 +5,12 @@
 @endsection
 
 @section('content')
+    @php
+        foreach (['name', 'profile_state', 'is_company', 'ntp', 'page'] as $key) {
+            \Illuminate\Support\Facades\Session::forget($key);
+        }
+    @endphp
+
     <div class="container">
         <bulk-mail content="{{ $content }}" token="{{ $token }}" items_source="/profiles/mailClients"></bulk-mail>
     </div>
