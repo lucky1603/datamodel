@@ -41,7 +41,7 @@
                         @endif
 
                         <li class="nav-item">
-                            <a href="{{ $phase->getDisplayId() }}" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 @if($i == $status) active @endif">
+                            <a href="{{ $phase->getDisplayId() }}" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 @if($i == 1 /* $status */) active @endif">
                                 <i class="mdi mdi-face-agent d-md-none d-block"></i>
                                 <span class="d-none d-md-block">{{ $phase->getDisplayName() }}</span>
                             </a>
@@ -65,7 +65,7 @@
                             @continue
                         @endif
 
-                        <div class="tab-pane @if($i == $status) show active @endif h-100 overflow-auto"  id="{{ ltrim($phase->getDisplayId(), '#') }}">
+                        <div class="tab-pane @if($i == 1 /* $status */) show active @endif h-100 overflow-auto"  id="{{ ltrim($phase->getDisplayId(), '#') }}">
                             @include($phase->getDisplayForm(), $attributesData)
                         </div>
                     @endfor
