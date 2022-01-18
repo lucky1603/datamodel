@@ -438,16 +438,6 @@ class ProfileController extends Controller
      */
     public function check($profileId) {
 
-        // Check for the date.
-        $end = strtotime('2021-12-30 12:00');
-        $now = strtotime(now());
-        if($now > $end) {
-            return json_encode([
-                'code' => 0,
-                'message' => 'Rok za prijavljivanje je prošao!',
-            ]);
-        }
-
         $profile = new Profile(['instance_id' => $profileId]);
         if($profile->instance == null) {
             return json_encode([
@@ -466,8 +456,8 @@ class ProfileController extends Controller
 
         $mandatory_parameters = collect([]);
         $data = $program->getData();
-
         $programType = $program->getAttribute('program_type')->getValue();
+
         if($programType == 5 /* Inkubacija BITF */) {
             $group_parameters = AttributeGroup::get('ibitf_general')->attributes->map(function($attribute, $key) {
                 return $attribute->name;
@@ -543,6 +533,16 @@ class ProfileController extends Controller
             }
 
         } else if($programType == Program::$RAISING_STARTS) {
+            // Check for the date.
+            $end = strtotime('2021-12-30 12:00');
+            $now = strtotime(now());
+            if($now > $end) {
+                return json_encode([
+                    'code' => 0,
+                    'message' => 'Rok za prijavljivanje je prošao!',
+                ]);
+            }
+
             $assertion = $this->checkRaisingStartsProgramData($program);
             if($assertion['code'] == 0) {
                 return json_encode($assertion);
@@ -705,7 +705,7 @@ class ProfileController extends Controller
             ];
         }
 
-        $program = $profile->getActiveProgram();
+        $program = $profile->getActiveProgram(true);
 
         if($data['passed'] == 'on') {
             if($program->workflow->isLastStep())
