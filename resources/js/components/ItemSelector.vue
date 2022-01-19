@@ -109,24 +109,9 @@ export default {
         }
 
     },
-    mounted() {
-        setTimeout(() => {
-            this.originalItems = this.originalitems;
-            if(this.value != null && this.value.length > 0) {
-                this.originalItems.forEach(item => {
-                    if(this.value.includes(item.value)) {
-                        item.selected = true;
-                    } else {
-                        item.selected = false;
-                    }
-                })
-            }
-        }, 2000);
-
-    },
     data() {
         return {
-            originalItems: [],
+            originalItems: this.originalitems,
             originalsSelected: [],
             selectedSelected: [],
             filteredItems: [],

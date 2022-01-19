@@ -19,7 +19,12 @@ export default {
 
                 let programs = response.data;
                 programs.forEach(program => {
-                    this.originalItems.push({value: program.id, text: program.profile, selected: false });
+                    let item = {value: program.id, text: program.profile, selected: false};
+                    if(this.value.includes(item.value)) {
+                        item.selected = true;
+                    }
+
+                    this.originalItems.push(item);
                 });
 
             });
@@ -30,6 +35,8 @@ export default {
         }
     },
     async mounted() {
+        console.log("input values");
+        console.log(this.value);
         await this.getData();
     },
     data() {

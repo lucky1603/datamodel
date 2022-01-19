@@ -21,6 +21,16 @@ class RaisingStartsProgram extends Program
         return $groups;
     }
 
+    public function isEventCandidate(): bool
+    {
+        $profile = $this->getProfile();
+        if($this->getStatus() >= 3) {
+            return true;
+        }
+
+        return false;
+    }
+
     protected function initWorkflow($instanceId = null)
     {
         if($this->getWorkflow() == null)

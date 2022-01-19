@@ -673,8 +673,21 @@ class Program extends SituationsModel
         $this->setValue('program_status', $status);
     }
 
+    /**
+     * Determines if the program is at the state when the company can participate in events.
+     * Abstract function - each type of program has its own implementation.
+     * @return bool
+     */
+    public function isEventCandidate() : bool { return false; }
+
+    /**
+     * Initializes program workflow.
+     */
     protected function initWorkflow() {}
 
+    /**
+     * Updates the program data.
+     */
     protected function updateProgramData() {}
 
     public function test() {

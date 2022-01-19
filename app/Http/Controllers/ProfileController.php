@@ -1147,13 +1147,12 @@ class ProfileController extends Controller
         return $arr;
     }
 
-    public function getTrainingCandidates() {
+    public function getTrainingCandidates(): array
+    {
         $programs = Program::find();
         $candidates = [];
         $filteredPrograms = $programs->filter(function($program) {
-            $profile = $program->getProfile();
-            return  $program->getValue('program_type') == Program::$RAISING_STARTS &&
-                    ( ($profile->getValue('profile_status') == 3 && $program->getStatus() >= 3) || $profile->getValue('profile_status') > 4 );
+            return $program->isEventCandidate();
         });
 
         foreach($filteredPrograms as $program) {
