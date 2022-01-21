@@ -653,7 +653,8 @@ class Program extends SituationsModel
         ]);
     }
 
-    public static function getRastuceAttributes() {
+    public static function getRastuceAttributes(): Collection
+    {
         $attributes = collect([]);
 
         return $attributes;
