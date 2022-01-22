@@ -5,6 +5,7 @@ namespace App;
 use App\Business\ProgramFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Report extends Model
 {
@@ -13,6 +14,31 @@ class Report extends Model
     public function instance(): BelongsTo
     {
         return $this->belongsTo(Instance::class);
+    }
+
+    public function attachments(): BelongsToMany
+    {
+        return $this->belongsToMany(Attachment::class);
+    }
+
+    public function addAttachment(Attachment $attachment)
+    {
+
+        $this->attachments()->attach($attachment);
+        $this->refresh();
+    }
+
+    public function removeAttachment(Attachment $attachment) {
+        $attachment->delete();
+        $this->refresh();
+    }
+
+    public function removeAllAttachments() {
+        foreach($this->attachments as $attachment) {
+            $attachment->delete();
+        }
+
+        $this->refresh();
     }
 
     public function getProgram() {
