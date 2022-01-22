@@ -7,6 +7,7 @@ use App\AttributeGroup;
 use App\Entity;
 use App\Instance;
 use App\Mail\DemoDayNotification;
+use App\Report;
 use \Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -660,7 +661,6 @@ class Program extends SituationsModel
         return $attributes;
     }
 
-
     public function getStatus(): int
     {
         return $this->getValue('program_status');
@@ -673,6 +673,34 @@ class Program extends SituationsModel
         }
         $this->setValue('program_status', $status);
     }
+
+    ///
+    /// Reports part
+    ///
+
+    public function getReports() {
+        return $this->instance->reports;
+    }
+
+    public function addReport(Report $report) {
+        $this->instance->reports()->save($report);
+        $this->instance->refresh();
+    }
+
+    public function removeReport(Report $report) {
+        $report->delete();
+        $this->instance->refresh();
+    }
+
+    public function removeAllReports() {
+        foreach($this->instance->reports as $report) {
+            $report->delete();
+        }
+
+        $this->instance->refresh();
+
+    }
+
 
     /**
      * Determines if the program is at the state when the company can participate in events.
