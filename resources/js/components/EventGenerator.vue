@@ -1,7 +1,7 @@
 <template>
     <div class="card h-100 w-100">
         <div class="card-header" id="test">
-            <span v-if="event_id != 0" class="h4">KREIRAJ DOGAĐAJ - <span class="attribute-label">{{ getEventType}}</span></span>
+            <span v-if="event_id == 0" class="h4">KREIRAJ DOGAĐAJ - <span class="attribute-label">{{ getEventType}}</span></span>
             <span v-else class="h4">UREDI DOGAĐAJ - <span class="attribute-label">{{ getEventType}}</span></span>
         </div>
         <div class="card-body">

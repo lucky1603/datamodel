@@ -62,7 +62,7 @@ class TrainingsController extends Controller
             'training_duration' => 'required',
             'location' => 'required',
             'training_host' => 'required',
-            'candidate' => 'required'
+//            'candidate' => 'required'
         ]);
 
         $data = $request->post();
@@ -77,7 +77,11 @@ class TrainingsController extends Controller
         $training->setData($data);
 
         // Add attendances.
-        $attendanceIds = collect($data['candidate']);
+        if(isset($data['candidate'])) {
+            $attendanceIds = collect($data['candidate']);
+        } else {
+            $attendanceIds = collect([]);
+        }
 
         // Remove non desired attendance entries.
         $training->getAttendances()->filter(function($attendance) use($attendanceIds) {
@@ -160,7 +164,7 @@ class TrainingsController extends Controller
             'training_duration' => 'required',
             'location' => 'required',
             'training_host' => 'required',
-            'candidate' => 'required'
+//            'candidate' => 'required'
         ]);
 
         $data = $request->post();
@@ -170,25 +174,27 @@ class TrainingsController extends Controller
         $training->setData($data);
 
         // Add attendances.
-        $attendanceIds = $data['candidate'];
+        if(isset($data['candidate'])) {
+            $attendanceIds = $data['candidate'];
 
-        $filteredPrograms = Program::find()->filter(function($program) use ($attendanceIds) {
-            if(in_array($program->getId(), $attendanceIds))
-                return true;
-            return false;
-        });
+            $filteredPrograms = Program::find()->filter(function($program) use ($attendanceIds) {
+                if(in_array($program->getId(), $attendanceIds))
+                    return true;
+                return false;
+            });
 
-        foreach ($filteredPrograms as $filteredProgram) {
-            if(in_array($filteredProgram->getId(), $attendanceIds)) {
-                $attendance = new Attendance();
-                $attendance->setData([
-                    'attendance' => 1,
-                    'has_client_feedback' => false,
-                    'client_feedback' => null
-                ]);
+            foreach ($filteredPrograms as $filteredProgram) {
+                if(in_array($filteredProgram->getId(), $attendanceIds)) {
+                    $attendance = new Attendance();
+                    $attendance->setData([
+                        'attendance' => 1,
+                        'has_client_feedback' => false,
+                        'client_feedback' => null
+                    ]);
 
-                $filteredProgram->addAttendance($attendance);
-                $training->addAttendance($attendance);
+                    $filteredProgram->addAttendance($attendance);
+                    $training->addAttendance($attendance);
+                }
             }
         }
 

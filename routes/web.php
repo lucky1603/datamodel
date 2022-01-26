@@ -142,4 +142,9 @@ Route::get('sessions/create/{program}/{mentor}', 'SessionController@create')->na
 Route::get('user/getsessionvalue/{key}', "UserController@getSessionValue")->name('getsessionvalue');
 Route::post('user/setsessionvalues', 'UserController@setSessionValues')->name('setsessionvalues');
 
+Route::get('reports/{report}', 'ReportController@edit')->name('reports.edit');
+Route::get('reports/list/{program}', "ReportController@list")->name('reports.list');
+Route::get('reports/getData/{report}', "ReportController@getData")->name('reports.getData');
+
+
 
