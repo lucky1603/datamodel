@@ -78,8 +78,9 @@
                           <span class="attribute-label">Odobren izveštaj</span>
                       </b-form-checkbox>
                   </div>
-
               </div>
+              <b-button type="submit" variant="primary">Submit</b-button>
+              <b-button type="reset" variant="danger">Reset</b-button>
 
           </form>
       </div>

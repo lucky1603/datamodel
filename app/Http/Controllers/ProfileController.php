@@ -233,9 +233,11 @@ class ProfileController extends Controller
      */
     public function profile(Request $request, $id) {
         $profile = Profile::find($id);
-        $this_profile = auth()->user()->profile();
-        if($this_profile->getId() != $profile->getId()) {
-            abort(401);
+        if(!auth()->user()->isAdmin()) {
+            $this_profile = auth()->user()->profile();
+            if($this_profile->getId() != $profile->getId()) {
+                abort(401);
+            }
         }
 
         $program = $profile->getActiveProgram();
@@ -533,14 +535,16 @@ class ProfileController extends Controller
             }
 
         } else if($programType == Program::$RAISING_STARTS) {
-            // Check for the date.
-            $end = strtotime('2021-12-30 12:00');
-            $now = strtotime(now());
-            if($now > $end) {
-                return json_encode([
-                    'code' => 0,
-                    'message' => 'Rok za prijavljivanje je prošao!',
-                ]);
+            if(!auth()->user()->isAdmin()) {
+                // Check for the date.
+                $end = strtotime('2021-12-30 12:00');
+                $now = strtotime(now());
+                if($now > $end) {
+                    return json_encode([
+                        'code' => 0,
+                        'message' => 'Rok za prijavljivanje je prošao!',
+                    ]);
+                }
             }
 
             $assertion = $this->checkRaisingStartsProgramData($program);
