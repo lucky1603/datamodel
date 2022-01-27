@@ -56,7 +56,8 @@ export default {
         createlink: {typeof: String, default: '/trainings/create'},
         itemsperpage: {typeof: Number, default: 9},
         source: {typeof: String, default: '/trainings/filter'},
-        is_client: { typeof: Boolean, default: false }
+        is_client: { typeof: Boolean, default: false },
+        profile_id: { typeof: Number, default: 0 }
     },
     methods: {
         async getData() {
@@ -107,7 +108,12 @@ export default {
             // $('body').css('cursor', 'default');
         },
         onEventClicked(eventId) {
-            window.location.href = '/trainings/' + eventId;
+            if(this.profile_id != 0) {
+                window.location.href = `/profiles/profile/showTraining/${this.profile_id}/${eventId}`;
+            } else {
+                window.location.href = '/trainings/' + eventId;
+            }
+
         },
         async onSubmit() {
             await this.getData();

@@ -1316,6 +1316,13 @@ class ProfileController extends Controller
         return Excel::download(new RaisingStartsProgramExport, 'program.xlsx');
     }
 
+    public function showTraining($profileId, $trainingId) {
+        $training = Training::find($trainingId);
+        $profile = Profile::find($profileId);
+
+        return view('trainings.show', ['training' => $training, 'profile' => $profile, 'backroute' => route('profiles.trainings', ['profile' => $profile->getId()])]);
+    }
+
     public function programAttendances(Request $request, $profileId) {
         $profile = Profile::find($profileId);
         if($profile == null) {

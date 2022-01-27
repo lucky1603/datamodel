@@ -80,6 +80,7 @@ Route::get('profiles/trainings/{profile}', "ProfileController@trainings")->name(
 Route::get('profiles/sessions/{profile}', "ProfileController@sessions")->name('profiles.sessions');
 Route::get('profiles/verify/{token}', 'ProfileController@verify')->name('profiles.verify');
 Route::get('profiles/profile/{profile}', 'ProfileController@profile')->name('profiles.profile');
+Route::get('profiles/profile/showTraining/{profile}/{training}', 'ProfileController@showTraining')->name('profiles.showProfileTraining');
 Route::get('profiles/check/{profile}', 'ProfileController@check')->name('profiles.check');
 Route::post('profiles/evalPreselection', 'ProfileController@evalPreselection')->name('profiles.evalpreselection');
 Route::post('profiles/evalSelection', 'ProfileController@evalSelection')->name('profiles.evalselection');
