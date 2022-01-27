@@ -19,7 +19,7 @@
                                 <tile-item
                                     :id="1"
                                     role="button"
-                                    photo="/images/custom/workshop1.png"
+                                    photo="/images/custom/radionice.png"
                                     title="RADIONICA"
                                     :padding="2"
                                     :width="120"
@@ -30,8 +30,8 @@
                                 <tile-item
                                     :id="2"
                                     role="button"
-                                    photo="/images/custom/training.png"
-                                    title="TRENING"
+                                    photo="/images/custom/sesije.png"
+                                    title="SESIJA"
                                     :padding="2"
                                     :width="120"
                                     @tile-clicked="tileClicked"></tile-item>
@@ -41,8 +41,8 @@
                                 <tile-item
                                     :id="3"
                                     role="button"
-                                    photo="/images/custom/meeting.png"
-                                    title="DEŠAVANJE"
+                                    photo="/images/custom/meetup.png"
+                                    title="MEETUP"
                                     :padding="2"
                                     :width="120"
                                     @tile-clicked="tileClicked"></tile-item>
@@ -169,9 +169,9 @@ export default {
                 case 1:
                     return 'RADIONICA';
                 case 2:
-                    return 'TRENING';
+                    return 'SESIJA';
                 default:
-                    return 'DEŠAVANJE';
+                    return 'MEETUP';
             }
         }
     },

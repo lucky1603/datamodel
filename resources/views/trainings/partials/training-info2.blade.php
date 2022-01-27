@@ -4,17 +4,17 @@
             <div class="col-lg-2" style="height: 95%">
                 @switch($training->getData()['training_type'])
                     @case(1)
-                    <img src="/images/custom/workshop1.png" class="shadow-sm p-2 pb-5 w-100"/>
+                    <img src="/images/custom/radionice.png" class="shadow-sm p-2 pb-5 w-100"/>
                     <p class="text-center attribute-label font-weight-bold" style="position: relative; top: -45px">
                         {{ __('Workshop') }}</p>
                     @break
                     @case(2)
-                    <img src="/images/custom/training.png" class="shadow-sm p-2 pb-5 m-2 w-100"/>
+                    <img src="/images/custom/sesije.png" class="shadow-sm p-2 pb-5 m-2 w-100"/>
                     <p class="text-center attribute-label font-weight-bold" style="margin-top: -45px">
                         {{ __('Training') }}</p>
                     @break
                     @case(3)
-                    <img src="/images/custom/meeting.png" class="shadow-sm p-2 pb-5 m-2 w-100"/>
+                    <img src="/images/custom/meetup.png" class="shadow-sm p-2 pb-5 m-2 w-100"/>
                     <p class="text-center attribute-label font-weight-bold" style="margin-top: -45px">
                         {{ __('Event') }}</p>
                     @break

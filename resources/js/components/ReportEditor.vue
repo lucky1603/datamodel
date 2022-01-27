@@ -24,7 +24,7 @@
                   <label class="attribute-label">Datum slanja</label>
                   <b-form-input type="date" v-model="form.contract_check"></b-form-input>
               </div>
-              <div class="form-group mb-4">
+              <div class="form-group">
                   <label class="attribute-label">Priložite datoteke</label>
                   <b-form-file
                       v-model="file1"
@@ -33,7 +33,10 @@
                       drop-placeholder="Prevucite datoteke ovde..." multiple
                   ></b-form-file>
               </div>
-              <div class="form-group row">
+              <div v-if="form.links.length > 0" style="display: flex; flex-wrap: wrap">
+                  <a v-for="link in form.links" :href="link.filelink" target="_blank" class="mr-2">{{ link.filename }}</a>
+              </div>
+              <div class="form-group row mt-4">
                   <div class="col-lg-3">
                       <b-form-checkbox
                           id="chkTechFulfilled"
@@ -105,6 +108,15 @@ export default {
                 this.form.title = report.report_name;
                 this.form.description = report.report_description;
                 this.form.contract_check = report.contract_check;
+                if(report.attachments.length > 0) {
+                    for(let i = 0; i < report.attachments.length; i++) {
+                        this.form.links.push({
+                            filename: report.attachments[i].filename,
+                            filelink: report.attachments[i].filelink
+                        });
+                    }
+
+                }
 
             })
         }

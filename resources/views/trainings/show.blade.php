@@ -10,10 +10,10 @@
                     {{ mb_strtoupper(__('Workshop'))}}
                     @break
                     @case(2)
-                    {{ mb_strtoupper(__('Training'))}}
+                    {{ mb_strtoupper(__('Session'))}}
                     @break
                     @case(3)
-                    {{ mb_strtoupper( __('Happening'))}}
+                    {{ mb_strtoupper( __('Meetup'))}}
                     @break
                     @default
                     {{ $training->getValue('training_type') }}

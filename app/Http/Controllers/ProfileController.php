@@ -1358,7 +1358,8 @@ class ProfileController extends Controller
                 'date' => date('d.m.Y', strtotime($trainingData['training_start_date'])),
                 'type' => $trainingData['training_type'],
                 'status' => $trainingData['event_status'],
-                'location' => $trainingData['location']
+                'location' => $trainingData['location'],
+                'attendance' => $attendance->getValue('attendance')
             ];
         }
 

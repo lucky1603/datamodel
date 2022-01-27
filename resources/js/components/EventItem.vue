@@ -16,7 +16,16 @@
                 </div>
             </div>
             <hr/>
-            <div class="row">
+            <div v-if="is_client" class="row">
+                <div class="col-10">
+                    <p class="text-center font-12 font-weight-bold" >{{ where }}</p>
+                    <p class="text-center font-11 attribute-label">{{ date }}</p>
+                </div>
+                <div class="col-2" style="display: flex; align-items: center; justify-content: center">
+                    <img :src="attendanceIcon" :title="attendanceText" style="width: 16px; height: 16px">
+                </div>
+            </div>
+            <div v-else class="row">
                 <div class="col-12">
                     <p class="text-center font-12 font-weight-bold" >{{ where }}</p>
                     <p class="text-center font-11 attribute-label">{{ date }}</p>
@@ -63,11 +72,11 @@ export default {
         tilePhoto() {
             switch (this.type) {
                 case 1:
-                    return "/images/custom/workshop1.png";
+                    return "/images/custom/radionice.png";
                 case 2:
-                    return '/images/custom/training.png';
+                    return '/images/custom/sesije.png';
                 default:
-                    return '/images/custom/meeting.png';
+                    return '/images/custom/meetup.png';
             }
         },
         eventTypeText() {
@@ -75,11 +84,33 @@ export default {
                 case 1:
                     return "RADIONICA";
                 case 2:
-                    return "TRENING";
+                    return "SESIJA";
                 default:
-                    return "DEŠAVANJE";
+                    return "MEETUP";
+            }
+        },
+        attendanceIcon() {
+            switch(this.attendance) {
+                case 1:
+                    return '/images/custom/obavesten.png';
+                case 2:
+                    return '/images/custom/pristustvovaoje.png';
+                default:
+                    return '/images/custom/nijeprisustvovao.png';
+
+            }
+        },
+        attendanceText() {
+            switch(this.attendance) {
+                case 1:
+                    return 'Obavešten';
+                case 2:
+                    return 'Prisustvovao je';
+                default:
+                    return 'Nije prisustvovao';
             }
         }
+
     },
     props: {
         width: {typeof: Number, default: 250},
@@ -91,12 +122,15 @@ export default {
         date: {typeof:String, default: '10:00 AM'},
         where: {typeof: String, default: 'Where'},
         photo: '/images/custom/nophoto2.png',
-        id: 0
+        id: 0,
+        is_client: { typeof: Boolean, default: false },
+        attendance: { typeof: Number, default: 1 }
     },
     methods: {
         tileClicked() {
             this.$emit('event-clicked', this.id)
-        }
+        },
+
     }
 }
 </script>

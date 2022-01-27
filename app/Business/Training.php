@@ -57,8 +57,8 @@ class Training extends BusinessModel
         $training_type = self::selectOrCreateAttribute(['training_type', 'Tip događaja', 'select', NULL, 9]);
         if(count($training_type->getOptions()) == 0) {
             $training_type->addOption(['value' => 1, 'text' => __('Workshop')]);
-            $training_type->addOption(['value' => 2, 'text' => __('Training')]);
-            $training_type->addOption(['value' => 3, 'text' => __('Event')]);
+            $training_type->addOption(['value' => 2, 'text' => __('Session')]);
+            $training_type->addOption(['value' => 3, 'text' => __('Meetup')]);
 
         }
 

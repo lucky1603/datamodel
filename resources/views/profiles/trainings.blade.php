@@ -4,7 +4,7 @@
     @php
         $profileId = $model->getId();
     @endphp
-    <event-explorer source="{{ route('profiles.programAttendances', ['profile' => $profileId]) }}" :can_create="false"></event-explorer>
+    <event-explorer source="{{ route('profiles.programAttendances', ['profile' => $profileId]) }}" :can_create="false" :is_client="true"></event-explorer>
 @endsection
 @section ('scripts')
 

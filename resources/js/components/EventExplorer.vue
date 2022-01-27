@@ -39,6 +39,8 @@
                 :date="item.date"
                 :id="item.id"
                 :key="item.id"
+                :is_client="is_client"
+                :attendance="item.attendance"
                 width="300"
                 :where="item.location" @event-clicked="onEventClicked"></event-item>
         </div>
@@ -53,7 +55,8 @@ export default {
         can_create: true,
         createlink: {typeof: String, default: '/trainings/create'},
         itemsperpage: {typeof: Number, default: 9},
-        source: {typeof: String, default: '/trainings/filter'}
+        source: {typeof: String, default: '/trainings/filter'},
+        is_client: { typeof: Boolean, default: false }
     },
     methods: {
         async getData() {
@@ -63,6 +66,7 @@ export default {
             }
             await axios.post(this.source, data)
             .then(response => {
+                console.log(response.data);
                 this.items = response.data;
             });
 
