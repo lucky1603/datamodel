@@ -42,7 +42,11 @@
                 :is_client="is_client"
                 :attendance="item.attendance"
                 width="300"
-                :where="item.location" @event-clicked="onEventClicked"></event-item>
+                :where="item.location"
+                :time="item.time"
+                :duration="item.duration"
+                :description="item.description"
+                :duration-unit="item.durationUnit" @event-clicked="onEventClicked"></event-item>
         </div>
     </div>
 

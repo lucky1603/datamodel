@@ -91,6 +91,12 @@
                 </a>
             </li>
         @endif
+        <li class="side-nav-item">
+            <a href="{{route('reports.programReports', ['program' => $model->getActiveProgram()->getId()])}}" class="side-nav-link">
+                <i class="uil-dashboard"></i>
+                <span>{{ mb_strtoupper( __('Reports')) }}</span>
+            </a>
+        </li>
 
     @endif
 @endsection

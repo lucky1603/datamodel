@@ -4,6 +4,9 @@
             <div :class="ribbonClass">
                 <span>{{ ribbonText}}</span>
             </div>
+            <div v-if="is_client" style="height: 25px; display: flex; justify-content: right; align-items: start">
+                <img :src="attendanceIcon" :title="attendanceText" style="width: 16px; height: 16px">
+            </div>
             <div class="row">
                 <div class="col-8">
                     <h4 class="ml-2">{{ title }}</h4>
@@ -15,20 +18,18 @@
                     </div>
                 </div>
             </div>
-            <hr/>
-            <div v-if="is_client" class="row">
-                <div class="col-10">
-                    <p class="text-center font-12 font-weight-bold" >{{ where }}</p>
-                    <p class="text-center font-11 attribute-label">{{ date }}</p>
-                </div>
-                <div class="col-2" style="display: flex; align-items: center; justify-content: center">
-                    <img :src="attendanceIcon" :title="attendanceText" style="width: 16px; height: 16px">
-                </div>
+            <div>
+                <span class="font-10 font-italic text-dark">{{ description }}</span>
             </div>
-            <div v-else class="row">
-                <div class="col-12">
-                    <p class="text-center font-12 font-weight-bold" >{{ where }}</p>
-                    <p class="text-center font-11 attribute-label">{{ date }}</p>
+            <hr style="margin-bottom: 2px"/>
+            <div class="row p-0">
+                <div class="col-12 p-0">
+                    <p class="text-center font-12 font-weight-bold bg-light text-dark m-0 border border-secondary p-1" >{{ where }}</p>
+                    <b-row class="m-0 border-bottom border-secondary" >
+                        <b-col class="bg-dark text-light d-flex justify-content-center"><span class="font-10">{{ date}}</span></b-col>
+                        <b-col class="bg-light text-dark d-flex justify-content-center"><span class="font-10">{{ time }} h</span></b-col>
+                        <b-col class="bg-dark text-light d-flex justify-content-center"><span class="font-10">{{ duration}} {{ duration_unit}}</span></b-col>
+                    </b-row>
                 </div>
             </div>
         </div>
@@ -124,7 +125,10 @@ export default {
         photo: '/images/custom/nophoto2.png',
         id: 0,
         is_client: { typeof: Boolean, default: false },
-        attendance: { typeof: Number, default: 1 }
+        attendance: { typeof: Number, default: 1 },
+        time: { typeof: String, default: '10:00 AM' },
+        duration: { typeof: Number, default: 0},
+        duration_unit: { typeof: Number, default: 'm'}
     },
     methods: {
         tileClicked() {

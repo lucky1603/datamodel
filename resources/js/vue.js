@@ -58,6 +58,8 @@ Vue.component('companies-selector', require('./components/CompaniesSelector').de
 Vue.component('application-statuses', require('./components/ShowCompanyApplicationStatuses').default);
 Vue.component('bulk-mail', require('./components/BulkEmail').default);
 Vue.component('report-editor', require('./components/ReportEditor').default);
+Vue.component('report-explorer', require('./components/ReportExplorer').default);
+Vue.component('report-item', require('./components/ReportItem').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

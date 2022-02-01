@@ -234,7 +234,6 @@ class TrainingsController extends Controller
         $training = Training::find($id);
         $user = Auth::user();
         $backroute = Route::currentRouteName();
-        var_dump($backroute);
         if($user->isAdmin()) {
             return view('trainings.show', ['training' => $training, 'backroute' => route('trainings')]);
         } else {
@@ -314,10 +313,14 @@ class TrainingsController extends Controller
             $resultData[] = [
                 "id" => $data['id'],
                 'name' => $data['training_name'],
-                'date' => date('d.m.Y', strtotime($data['training_start_date'])),
+                'date' => $event->getText('training_start_date'),
                 'type' => $data['training_type'],
                 'status' => $data['event_status'],
-                'location' => $data['location']
+                'location' => $data['location'],
+                'description' => $data['training_short_note'],
+                'time' => $event->getText('training_start_time'),
+                'duration' => $data['training_duration'],
+                'durationUnit' => $event->getText('training_duration_unit'),
             ];
         }
 

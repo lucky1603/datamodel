@@ -83,7 +83,7 @@
                   </div>
               </div>
               <b-button type="submit" variant="primary">Submit</b-button>
-              <b-button type="reset" variant="danger">Reset</b-button>
+              <b-button type="button" variant="danger" @click="cancelClicked">Cancel</b-button>
 
           </form>
       </div>
@@ -95,6 +95,7 @@ export default {
     name: "ReportEditor",
     props: {
         report_id: { typeof: Number, default: 0 },
+        program_id: { typeof: Number, default: 0 },
         form_id: { typeof: String, default: 'editReportForm' },
         token: { typeof: String, default: '' }
     },
@@ -119,6 +120,9 @@ export default {
                 }
 
             })
+        },
+        cancelClicked() {
+            window.location.href=`/reports/programReports/${this.program_id}`;
         }
     },
     async mounted() {
