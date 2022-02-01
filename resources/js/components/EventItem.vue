@@ -115,7 +115,7 @@ export default {
     },
     props: {
         width: {typeof: Number, default: 250},
-        height: {typeof: Number, default: 200},
+        height: {typeof: Number, default: 225},
         status: {typeof: Number, default: 1},
         type: {typeof: Number, default: 1},
         title: {typeof: String, default: 'Title'},
