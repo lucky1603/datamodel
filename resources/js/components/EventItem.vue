@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div style="height: 50px; overflow: hidden" >
                 <span class="font-10 font-italic text-dark">{{ description }}</span>
             </div>
             <hr style="margin-bottom: 2px"/>
