@@ -46,6 +46,7 @@
                 :time="item.time"
                 :duration="item.duration"
                 :description="item.description"
+                :height="item_height"
                 :duration-unit="item.durationUnit" @event-clicked="onEventClicked"></event-item>
         </div>
     </div>
@@ -61,7 +62,8 @@ export default {
         itemsperpage: {typeof: Number, default: 9},
         source: {typeof: String, default: '/trainings/filter'},
         is_client: { typeof: Boolean, default: false },
-        profile_id: { typeof: Number, default: 0 }
+        profile_id: { typeof: Number, default: 0 },
+        item_height: { typeof: Number, default: 225 }
     },
     methods: {
         async getData() {
