@@ -113,7 +113,7 @@ class Attribute extends Model
             return $datetime->format('d.m.Y.');
         } else if($this->type === 'timestamp') {
             $datetime = new \DateTime($value);
-            return $datetime->format('h:i');
+            return $datetime->format('G:i');
         } else
         {
             return $value;

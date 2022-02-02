@@ -65,7 +65,7 @@ class Training extends BusinessModel
         $attributes->add($training_type);
 
         $attributes->add(self::selectOrCreateAttribute(['location', 'Mesto održavanja', 'varchar', NULL, 10]));
-        $attributes->add(self::selectOrCreateAttribute(['training_host', 'Moderator', 'varchar', NULL, 11]));
+        $attributes->add(self::selectOrCreateAttribute(['training_host', 'Organizator', 'varchar', NULL, 11]));
         $training_status = self::selectOrCreateAttribute(['event_status', __('Event Status'), 'select', NULL, 12]);
         if(count($training_status->getOptions()) == 0) {
             $training_status->addOption(['value' => 1, 'text' => __('Scheduled')]);

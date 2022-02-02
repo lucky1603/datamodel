@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-lg-4 form-group">
                         <label for="training_start_time" class="attribute-label">Počinje u *</label>
-                        <b-form-input type="datetime" v-model="form.training_start_time"></b-form-input>
+                        <b-form-input type="time" v-model="form.training_start_time"></b-form-input>
                         <span class="text-danger error-notification" id="training_start_timeError" style="display: none"></span>
                     </div>
                     <div class="col-lg-4 form-group">
@@ -95,7 +95,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="training_host" class="attribute-label">Domaćin događaja *</label>
+                    <label for="training_host" class="attribute-label">Organizator *</label>
                     <b-form-input v-model="form.training_host"></b-form-input>
                     <span class="text-danger error-notification" id="training_hostError" style="display: none"></span>
                 </div>

@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="training_host" class="attribute-label">Domaćin događaja *</label>
+                    <label for="training_host" class="attribute-label">Organizator *</label>
                     <input type="text" id="training_host" name="training_host" class="form-control">
                     <span class="text-danger error-notification" id="training_hostError" style="display: none"></span>
                 </div>
