@@ -157,8 +157,8 @@
                                 $formattedDate = $faza->getText('due_date');
                             @endphp
                             <div class="card-body text-dark">
-                                <p>Vaša prijava je prihvaćena.</p>
                                 @if($date != null)
+                                    <p>Vaša prijava je prihvaćena.</p>
                                     @if($filesSent != true)
                                         <p>Do {{ $formattedDate }} je neophodno da upload-ujete sledece fajlove:</p>
                                         <ul>
@@ -196,7 +196,22 @@
                                         <p>Uskoro ćete biti obavešteni o odluci komisije.</p>
                                     @endif
                                 @else
-                                    <p>Uskoro cete dobiti instrukcije o datotekama koje je potrebno da posaljete, kao i vremenski rok do kojeg je neophodno da to ucinite.</p>
+                                    <div class="jumbotron bg-light text-dark">
+                                        <h1 class="display-4">Sjajne vesti!</h1>
+                                        <p class="lead">Obaveštavamo vas da je vaša prijava ispunila kriterijume za
+                                            učešće u Programu i da je uspešno prošla evaluaciju za Fazu 1! </p>
+                                        <p>
+                                        <hr class="my-4" style="height: 1px; background-color: #313a46; border: none"/>
+                                        <p>
+                                            NTP će vam se javiti sa svim detaljnim informacijama uskoro, a ukoliko želite
+                                            možete nam pisati na:
+                                            <a href="mailto://info@ntpark.rs" target="_blank">info@ntpark.rs</a>
+                                        </p>
+                                        <p>Dobrodošli u NTP zajednicu!</p>
+                                    </div>
+
+
+
                                 @endif
                             </div>
                         </div>
