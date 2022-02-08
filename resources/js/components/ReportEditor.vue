@@ -10,33 +10,37 @@
               :ref="form_id"
               method="POST"
               enctype="multipart/form-data"
-              action="#">
+              action="#" @submit.prevent="onSubmit">
               <input type="hidden" name="_token" :value="token">
               <div class="form-group">
                   <label class="attribute-label">Naziv izveštaja</label>
-                  <b-form-input v-model="form.title" placeholder="Unesite naziv izveštaja ..."></b-form-input>
+                  <b-form-input v-model="form.title" placeholder="Unesite naziv izveštaja ..." :disabled="this.report_id != 0"></b-form-input>
               </div>
               <div class="form-group">
                   <label class="attribute-label">Opis iveštaja</label>
-                  <b-form-textarea v-model="form.description" placeholder="Opis izveštaja ..." rows="3" max-rows="6"></b-form-textarea>
+                  <b-form-textarea v-model="form.description" placeholder="Opis izveštaja ..." rows="3" max-rows="6" :disabled="this.report_id != 0"></b-form-textarea>
               </div>
               <div class="form-group">
                   <label class="attribute-label">Datum slanja</label>
-                  <b-form-input type="date" v-model="form.contract_check"></b-form-input>
+                  <b-form-input type="date" v-model="form.contract_check" :disabled="this.report_id != 0"></b-form-input>
               </div>
-              <div class="form-group">
+              <div v-if="this.form.links.length == 0" class="form-group">
                   <label class="attribute-label">Priložite datoteke</label>
                   <b-form-file
-                      v-model="file1"
+                      ref="fileInput"
+                      v-model="form.files"
                       :state="null"
                       placeholder="Izaberite datoteke ili ih prevucite ovde..."
                       drop-placeholder="Prevucite datoteke ovde..." multiple
                   ></b-form-file>
               </div>
+              <div v-else>
+                  <label class="attribute-label">Priložene datoteke</label>
+              </div>
               <div v-if="form.links.length > 0" style="display: flex; flex-wrap: wrap">
                   <a v-for="link in form.links" :href="link.filelink" target="_blank" class="mr-2">{{ link.filename }}</a>
               </div>
-              <div class="form-group row mt-4">
+              <div v-if="report_id != 0 && user_role != 'profile'" class="form-group row mt-4">
                   <div class="col-lg-3">
                       <b-form-checkbox
                           id="chkTechFulfilled"
@@ -82,9 +86,10 @@
                       </b-form-checkbox>
                   </div>
               </div>
-              <b-button type="submit" variant="primary">Submit</b-button>
-              <b-button type="button" variant="danger" @click="cancelClicked">Cancel</b-button>
-
+              <div class="d-flex align-items-center justify-content-center mt-4">
+                  <b-button type="submit" variant="primary" class="mr-2">Pošalji</b-button>
+                  <b-button type="button" variant="danger" class="mr-2" @click="cancelClicked">Zatvori</b-button>
+              </div>
           </form>
       </div>
   </div>
@@ -97,7 +102,17 @@ export default {
         report_id: { typeof: Number, default: 0 },
         program_id: { typeof: Number, default: 0 },
         form_id: { typeof: String, default: 'editReportForm' },
-        token: { typeof: String, default: '' }
+        token: { typeof: String, default: '' },
+        user_role: { typeof: String, default: 'profile'}
+    },
+    computed: {
+        action() {
+            if(this.report_id != 0) {
+                return '/reports/'+this.report_id;
+            } else {
+                return '/reports/create/'+this.program_id;
+            }
+        }
     },
     methods: {
         async getData() {
@@ -118,15 +133,44 @@ export default {
                     }
 
                 }
+                this.form.tech_fulfilled = report.tech_fulfilled ? 'on' : 'off';
+                this.form.business_fulfilled = report.business_fulfilled ? 'on': 'off';
+                this.form.narative_approved = report.narative_approved ? 'on': 'off';
+                this.form.report_approved = report.report_approved ? 'on': 'off';
 
             })
         },
         cancelClicked() {
             window.location.href=`/reports/programReports/${this.program_id}`;
+        },
+        onSubmit() {
+            let data = new FormData();
+            for(let property in this.form) {
+                if(property == 'files' && this.form.files.length > 0) {
+                    if(this.$refs.fileInput.files.length > 0) {
+                        for(let i = 0; i < this.$refs.fileInput.files.length; i++) {
+                            data.append('files[]', this.$refs.fileInput.files[i]);
+                        }
+                    }
+                } else {
+                    data.append(property, this.form[property]);
+                }
+            }
+
+            data.append('_token', this.token);
+
+            axios.post(this.action, data)
+            .then(response => {
+                console.log(response.data);
+                window.location.href='/reports/programReports/' + this.program_id;
+            });
         }
     },
     async mounted() {
-        await this.getData();
+        if(this.report_id != 0) {
+            await this.getData();
+        }
+
     },
     data() {
         return {
@@ -134,8 +178,8 @@ export default {
             contract_check: '2022-03-26',
             form: {
                 files: [],
-                title: { typeof: String, default: 'PRVI IZVEŠTAJ'},
-                description: { typeof: String, default: 'Ovo je prvi izvestaj koji se salje posle 2 meseca.'},
+                title: '',
+                description: '',
                 tech_fulfilled: 'off',
                 business_fulfilled: 'off',
                 narative_approved: 'off',

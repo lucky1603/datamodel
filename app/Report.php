@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Report extends Model
 {
+    public static int $SCHEDULED = 0;
+    public static int $WARNING = 1;
+    public static int $SENT = 2;
+    public static int $LATE = 3;
+
     protected $guarded = [];
 
     public function instance(): BelongsTo

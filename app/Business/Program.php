@@ -701,6 +701,8 @@ class Program extends SituationsModel
 
     }
 
+    public function initReports() {}
+
 
     /**
      * Determines if the program is at the state when the company can participate in events.

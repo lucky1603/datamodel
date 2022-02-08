@@ -8,6 +8,8 @@
             :upper_cell="report.reportName"
             :lower_cell="report.reportDue"
             :status="report.status" class="m-2 shadow"></report-item>
+
+        <button id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-4" title="Dodaj izveštaj" @click="addNew">+</button>
     </div>
 </template>
 
@@ -24,6 +26,9 @@ export default {
                 console.log(response.data);
                 this.reports = response.data;
             });
+        },
+        addNew() {
+            window.location.href='/reports/create/' + this.program_id;
         }
     },
     data() {

@@ -3,6 +3,7 @@
 namespace App\Business;
 
 use App\AttributeGroup;
+use App\Report;
 use Illuminate\Support\Collection;
 
 class RaisingStartsProgram extends Program
@@ -29,6 +30,43 @@ class RaisingStartsProgram extends Program
         }
 
         return false;
+    }
+
+    public function initReports()
+    {
+        $profile = $this->getProfile();
+
+        $lastPhase = $this->getWorkflow()->getPhases()->last();
+        if(!($lastPhase instanceof Contract)) {
+            return;
+        }
+
+        $contract_date = $lastPhase->getValue('signed_at');
+
+        // Add two reports with 3 months difference.
+        $report = Report::create([
+            'company_name' =>  $profile->getValue('name'),
+            'program_name' => $this->getValue('program_name'),
+            'report_name' => 'Prvi izveštaj',
+            'report_description' => 'Prvi periodični izveštaj',
+            'contract_start' => $contract_date,
+            'contract_check' => date('Y-m-d', strtotime('+ 3 months', strtotime($contract_date))),
+        ]);
+
+        $this->addReport($report);
+
+        // Add two reports with 3 months difference.
+        $report = Report::create([
+            'company_name' =>  $profile->getValue('name'),
+            'program_name' => $this->getValue('program_name'),
+            'report_name' => 'Drugi izveštaj',
+            'report_description' => 'Drugi periodični izveštaj',
+            'contract_start' => $contract_date,
+            'contract_check' => date('Y-m-d', strtotime('+ 6 months', strtotime($contract_date))),
+        ]);
+
+        $this->addReport($report);
+
     }
 
     protected function initWorkflow($instanceId = null)

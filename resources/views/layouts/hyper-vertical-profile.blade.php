@@ -37,7 +37,7 @@
             </li>
 
             <li class="side-nav-item" id="navReports">
-                <a href="{{ route('profiles.reports', ['profile' => $model->getId()]) }}" class="side-nav-link">
+                <a href="{{route('reports.programReports', ['program' => $model->getActiveProgram()->getId()])}}" class="side-nav-link">
                     <i class="uil-bill"></i>
                     <span>{{ mb_strtoupper(__('Reports')) }}</span>
                 </a>
@@ -62,7 +62,7 @@
             $model->getActiveProgram() instanceof \App\Business\RaisingStartsProgram &&
             $model->getActiveProgram()->getStatus() >= 3))
             <li class="side-nav-item" id="navProfile">
-                <a href="{{route('profiles.trainings', ['profile' => $model->getId()])}}" class="side-nav-link">
+                <a href="{{route('reports.programReports', ['program' => $model->getActiveProgram()->getId()])}}" class="side-nav-link">
                     <i class="uil-bill"></i>
                     <span>{{ mb_strtoupper(__('Events')) }}</span>
                 </a>
@@ -76,12 +76,6 @@
                 <a href="{{route('profiles.sessions', ['profile' => $model->getId()])}}" class="side-nav-link">
                     <i class="uil-dashboard"></i>
                     <span>{{ mb_strtoupper( __('Mentoring Sessions')) }}</span>
-                </a>
-            </li>
-            <li class="side-nav-item" id="navReports">
-                <a href="#" class="side-nav-link">
-                    <i class="uil-dashboard"></i>
-                    <span>{{ mb_strtoupper( __('Reports')) }}</span>
                 </a>
             </li>
             <li class="side-nav-item" id="navOtherProfiles">

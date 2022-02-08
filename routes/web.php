@@ -144,6 +144,9 @@ Route::get('user/getsessionvalue/{key}', "UserController@getSessionValue")->name
 Route::post('user/setsessionvalues', 'UserController@setSessionValues')->name('setsessionvalues');
 
 Route::get('reports/{report}', 'ReportController@edit')->name('reports.edit');
+Route::post('reports/{report}', 'ReportController@update')->name('reports.update');
+Route::get('reports/create/{program}', 'ReportController@create')->name('reports.create');
+Route::post('reports/create/{report}', 'ReportController@store')->name('reports.store');
 Route::get('reports/list/{program}', "ReportController@list")->name('reports.list');
 Route::get('reports/getData/{report}', "ReportController@getData")->name('reports.getData');
 Route::get('reports/programReports/{program}', 'ReportController@programReports')->name('reports.programReports');

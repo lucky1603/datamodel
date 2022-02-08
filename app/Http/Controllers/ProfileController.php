@@ -723,6 +723,10 @@ class ProfileController extends Controller
                     'description' => 'Klijent je počeo da koristi program',
                     'sender' => 'NTP'
                 ]));
+
+                // Dodaj izveštaje
+                $program->initReports();
+
             } else {
                 $programStatus = $program->getStatus();
                 $phase = $program->workflow->getCurrentPhase();
