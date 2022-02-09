@@ -737,6 +737,10 @@ class ProfileController extends Controller
                         $profile->addSituation($phase->getExitSituation());
                 }
 
+                if($phase->requiresExitEmail()) {
+                    Mail::to($profile->getValue('contact_email'))->send($phase->getExitEmailTemplate());
+                }
+
                 $program->setStatus($programStatus + 1);
                 $phase = $program->workflow->getCurrentPhase();
                 if($phase->requiresEntrySituation()) {
@@ -744,16 +748,29 @@ class ProfileController extends Controller
                     if($situation != null)
                         $profile->addSituation($phase->getEntrySituation());
                 }
+                if($phase->requiresEntryEmail()) {
+                    Mail::to($profile->getValue('contact_email'))->send($phase->getEntryEmailTemplate());
+                }
             }
         } else {
             $profile->setValue('profile_status', 5);
             $phase = $program->workflow->getCurrentPhase();
             $phase->setData($data);
-            $profile->addSituation(new Situation([
-                'name' => 'ODBIJEN',
-                'description' => 'Klijent je odbijen u fazi - "'.$phase->getDisplayName().'".',
-                'sender' => 'NTP'
-            ]));
+
+
+            if($phase->requiresExitSituation()) {
+                $profile->addSituation($phase->getExitSituation());
+            } else {
+                $profile->addSituation(new Situation([
+                    'name' => 'ODBIJEN',
+                    'description' => 'Klijent je odbijen u fazi - "'.$phase->getDisplayName().'".',
+                    'sender' => 'NTP'
+                ]));
+            }
+
+            if($phase->requiresExitEmail()) {
+                Mail::to($profile->getValue('contact_email'))->send($phase->getExitEmailTemplate());
+            }
         }
 
         $profile->updateState();

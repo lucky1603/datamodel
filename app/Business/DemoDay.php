@@ -94,46 +94,6 @@ class DemoDay extends PhaseImpl
         $this->status = $value;
     }
 
-    public function requiresEntryEmail()
-    {
-        return false;
-    }
-
-    public function getEntryEmailTemplate()
-    {
-        return null;
-    }
-
-    public function requiresEntrySituation(): bool
-    {
-        return false;
-    }
-
-    public function getEntrySituation() : ?Situation
-    {
-        return null;
-    }
-
-    public function requiresExitSituation(): bool
-    {
-        return false;
-    }
-
-    public function getExitSituation() : ?Situation
-    {
-        return null;
-    }
-
-    public function requiresExitEmail(): bool
-    {
-        return false;
-    }
-
-    public function getExitEmailTemplate() : ?Mailable
-    {
-        return null;
-    }
-
     public function isVisibleInHistory(): bool
     {
         return false;

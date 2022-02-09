@@ -13,9 +13,9 @@ interface Phase
     public function getAttributesData();
     public function getStatusValue();
     public function setStatusValue($value);
-    public function requiresEntryEmail();
+    public function requiresEntryEmail():bool;
     public function getEntryEmailTemplate();
-    public function requiresExitEmail();
+    public function requiresExitEmail():bool;
     public function getExitEmailTemplate();
     public function requiresEntrySituation();
     public function getEntrySituation();

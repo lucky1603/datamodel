@@ -58,43 +58,5 @@ class ProgramApplication extends PhaseImpl
         return $attributes;
     }
 
-    public function requiresEntryEmail()
-    {
-        // TODO: Implement requiresEntryEmail() method.
-    }
 
-    public function getEntryEmailTemplate()
-    {
-        // TODO: Implement getEntryEmailTemplate() method.
-    }
-
-    public function requiresExitEmail()
-    {
-        // TODO: Implement requiresExitEmail() method.
-    }
-
-    public function getExitEmailTemplate()
-    {
-        // TODO: Implement getExitEmailTemplate() method.
-    }
-
-    public function requiresEntrySituation()
-    {
-        // TODO: Implement requiresEntrySituation() method.
-    }
-
-    public function getEntrySituation()
-    {
-        // TODO: Implement getEntrySituation() method.
-    }
-
-    public function requiresExitSituation()
-    {
-        // TODO: Implement requiresExitSituation() method.
-    }
-
-    public function getExitSituation()
-    {
-        // TODO: Implement getExitSituation() method.
-    }
 }

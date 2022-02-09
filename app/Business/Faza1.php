@@ -83,46 +83,6 @@ class Faza1 extends PhaseImpl
         return $attributes;
     }
 
-    public function requiresEntryEmail()
-    {
-        return false;
-    }
-
-    public function getEntryEmailTemplate()
-    {
-        return null;
-    }
-
-    public function requiresEntrySituation(): bool
-    {
-        return false;
-    }
-
-    public function getEntrySituation() : ?Situation
-    {
-        return null;
-    }
-
-    public function requiresExitSituation(): bool
-    {
-        return false;
-    }
-
-    public function getExitSituation() : ?Situation
-    {
-        return null;
-    }
-
-    public function requiresExitEmail(): bool
-    {
-        return false;
-    }
-
-    public function getExitEmailTemplate() : ?Mailable
-    {
-        return null;
-    }
-
     public function isValid(): bool
     {
         return ($this->getValue('due_date') != null && $this->getValue('files_sent') == true);

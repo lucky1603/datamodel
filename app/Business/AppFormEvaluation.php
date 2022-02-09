@@ -3,6 +3,7 @@
 namespace App\Business;
 
 use App\Entity;
+use App\Mail\CustomMessage;
 use Illuminate\Support\Collection;
 
 class AppFormEvaluation extends PhaseImpl
@@ -56,44 +57,65 @@ class AppFormEvaluation extends PhaseImpl
         $this->status = $value;
     }
 
-    public function requiresEntryEmail()
+    public function requiresExitEmail(): bool
     {
-        // TODO: Implement requiresEntryEmail() method.
+        return true;
     }
 
-    public function getEntryEmailTemplate()
-    {
-        // TODO: Implement getEntryEmailTemplate() method.
-    }
-
-    public function requiresExitEmail()
-    {
-        // TODO: Implement requiresExitEmail() method.
-    }
-
-    public function getExitEmailTemplate()
+    public function getExitEmailTemplate(): CustomMessage
     {
         // TODO: Implement getExitEmailTemplate() method.
+        $program = $this->getWorkflow()->getProgram();
+
+        $poruka = "<p>Poštovani,</p>";
+        if($this->getValue('passed' ) == true) {
+            $poruka .= "<p>Zadovoljstvo nam je da Vam saopštimo da je Vaša prijava na program ";
+            $poruka .= "<strong>".$program->getValue('program_name')."</strong>";
+            $poruka .= " je prihvaćena.<br />";
+            $poruka .= "Redovnim prijavljivanjem na vaš <a href='https://platforma.ntpark.rs' target='_blank'>nalog</a> molimo vas da proveravate dalji status vaše prijave,";
+            $poruka .= "gde ćete dobiti i dalja uputstva kako i šta dalje</p>";
+        } else {
+            $poruka .= "<p>Nažalost, Vaša prijava na program".$program->getValue('program_name')." nije prihvaćena. Obrazloženje možete pogledati u sledećem pasusu,";
+            $poruka .= "gde je navedena napomena komisije. U vezi bilo kakvih nejasnoća, možete nas kontaktirati na <a href='mailto://info@ntpark.rs' target='_blank'> info@ntpark.rs</a>.";
+        }
+
+        // If note exists.
+        if($this->getValue('note') != '') {
+            $poruka .= "<p><strong>OBRAZLOŽENJE</strong></p>";
+            $poruka .= "<p>".$this->getValue('note')."</p>";
+        }
+
+        $poruka .= "<p>NTP tim</p>";
+
+        return new CustomMessage($poruka);
     }
 
-    public function requiresEntrySituation()
+    public function requiresExitSituation(): bool
     {
-        // TODO: Implement requiresEntrySituation() method.
+        return true;
     }
 
-    public function getEntrySituation()
+    public function getExitSituation(): ?Situation
     {
-        // TODO: Implement getEntrySituation() method.
-    }
+        if($this->getValue('passed') == 'true') {
+            return new Situation([
+                'name' => 'Prijava prihvaćena',
+                'description' => 'Komisija je, na osnovu podataka u prijavi, prihvatila prijavu na program',
+                'sender' => 'NTP'
+            ]);
+        }
 
-    public function requiresExitSituation()
-    {
-        // TODO: Implement requiresExitSituation() method.
-    }
+        $exitSituation = new Situation([
+            'name' => 'Prijava odbijena',
+            'description' => 'Komisija je, na osnovu podataka iz prijavi, procenila da nema dovoljno elemenata za učestvovanje u programu',
+            'sender' => 'NTP'
+        ]);
 
-    public function getExitSituation()
-    {
-        // TODO: Implement getExitSituation() method.
+        $exitSituation->addAttribute(self::selectOrCreateAttribute(['note', NULL, NULL, NULL, 0]));
+        $exitSituation->setValue('note', $this->getValue('note'));
+
+        return $exitSituation;
+
     }
 
     protected function setAttributes($data = null)

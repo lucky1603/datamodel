@@ -112,43 +112,4 @@ class Selection extends PhaseImpl
         $this->status = $value;
     }
 
-    public function requiresEntryEmail()
-    {
-        return false;
-    }
-
-    public function getEntryEmailTemplate()
-    {
-        return null;
-    }
-
-    public function requiresEntrySituation()
-    {
-        // TODO: Implement requiresEntrySituation() method.
-    }
-
-    public function getEntrySituation()
-    {
-        // TODO: Implement getEntrySituation() method.
-    }
-
-    public function requiresExitSituation()
-    {
-        // TODO: Implement requiresExitSituation() method.
-    }
-
-    public function getExitSituation()
-    {
-        // TODO: Implement getExitSituation() method.
-    }
-
-    public function requiresExitEmail()
-    {
-        // TODO: Implement requiresExitEmail() method.
-    }
-
-    public function getExitEmailTemplate()
-    {
-        // TODO: Implement getExitEmailTemplate() method.
-    }
 }

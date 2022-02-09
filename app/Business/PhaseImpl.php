@@ -2,6 +2,8 @@
 
 namespace App\Business;
 
+use Illuminate\Mail\Mailable;
+
 class PhaseImpl extends BusinessModel implements Phase
 {
 
@@ -35,44 +37,52 @@ class PhaseImpl extends BusinessModel implements Phase
         // TODO: Implement setStatusValue() method.
     }
 
-    public function requiresEntryEmail()
+    public function requiresEntryEmail(): bool
     {
         // TODO: Implement requiresEntryEmail() method.
+        return false;
     }
 
-    public function getEntryEmailTemplate()
+    public function getEntryEmailTemplate(): ?Mailable
     {
         // TODO: Implement getEntryEmailTemplate() method.
+        return null;
     }
 
-    public function requiresExitEmail()
+    public function requiresExitEmail(): bool
     {
         // TODO: Implement requiresExitEmail() method.
+        return false;
     }
 
-    public function getExitEmailTemplate()
+    public function getExitEmailTemplate(): ?Mailable
     {
         // TODO: Implement getExitEmailTemplate() method.
+        return null;
     }
 
-    public function requiresEntrySituation()
+    public function requiresEntrySituation(): bool
     {
         // TODO: Implement requiresEntrySituation() method.
+        return false;
     }
 
-    public function getEntrySituation()
+    public function getEntrySituation() : ?Situation
     {
         // TODO: Implement getEntrySituation() method.
+        return null;
     }
 
-    public function requiresExitSituation()
+    public function requiresExitSituation(): bool
     {
         // TODO: Implement requiresExitSituation() method.
+        return false;
     }
 
-    public function getExitSituation()
+    public function getExitSituation() : ?Situation
     {
         // TODO: Implement getExitSituation() method.
+        return null;
     }
 
     public function getWorkflow() {
