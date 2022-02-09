@@ -9,7 +9,7 @@
             :lower_cell="report.reportDue"
             :status="report.status" class="m-2 shadow"></report-item>
 
-        <button id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-4" title="Dodaj izveštaj" @click="addNew">+</button>
+        <button v-if="user_role === 'profile'"  id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-4" title="Dodaj izveštaj" @click="addNew">+</button>
     </div>
 </template>
 
@@ -17,7 +17,8 @@
 export default {
     name: "ReportExplorer",
     props: {
-        program_id: { typeof: Number, default: 0 }
+        program_id: { typeof: Number, default: 0 },
+        user_role: { typeof: String, default: 'profile'}
     },
     methods: {
         async getData() {

@@ -79,8 +79,9 @@ class ReportController extends Controller
     public function programReports($programId) {
         $program = ProgramFactory::resolve($programId);
         $profile = $program->getProfile();
+        $role = auth()->user()->roles()->first()->name;
 
-        return view('reports.forTraining', ['model' => $profile, 'program' => $program]);
+        return view('reports.forTraining', ['model' => $profile, 'program' => $program, 'user_role' => $role]);
     }
 
     public function update(Request $request, $id) {

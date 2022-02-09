@@ -31,7 +31,7 @@
                       v-model="form.files"
                       :state="null"
                       placeholder="Izaberite datoteke ili ih prevucite ovde..."
-                      drop-placeholder="Prevucite datoteke ovde..." multiple
+                      drop-placeholder="Prevucite datoteke ovde..." multiple :disabled="user_role != 'profile'"
                   ></b-form-file>
               </div>
               <div v-else>
@@ -47,7 +47,7 @@
                           v-model="form.tech_fulfilled"
                           name="chkTechFulfilled"
                           value="on"
-                          unchecked-value="off"
+                          unchecked-value="off" :disabled="form.links.length == 0"
                       >
                           <span class="attribute-label">Ispunjeni tehnički uslovi</span>
                       </b-form-checkbox>
@@ -58,7 +58,7 @@
                           v-model="form.business_fulfilled"
                           name="chkBusinessFulfilled"
                           value="on"
-                          unchecked-value="off"
+                          unchecked-value="off" :disabled="form.links.length == 0"
                       >
                           <span class="attribute-label">Ispunjeni poslovni uslovi</span>
                       </b-form-checkbox>
@@ -69,7 +69,7 @@
                           v-model="form.narative_approved"
                           name="chkNarativeApproved"
                           value="on"
-                          unchecked-value="off"
+                          unchecked-value="off" :disabled="form.links.length == 0"
                       >
                           <span class="attribute-label">Odobren narativ</span>
                       </b-form-checkbox>
@@ -80,7 +80,7 @@
                           v-model="form.report_approved"
                           name="chkReportApproved"
                           value="on"
-                          unchecked-value="off"
+                          unchecked-value="off" :disabled="form.links.length == 0"
                       >
                           <span class="attribute-label">Odobren izveštaj</span>
                       </b-form-checkbox>
@@ -112,6 +112,9 @@ export default {
             } else {
                 return '/reports/create/'+this.program_id;
             }
+        },
+        canSend() {
+            return true;
         }
     },
     methods: {

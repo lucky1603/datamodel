@@ -62,7 +62,7 @@
             $model->getActiveProgram() instanceof \App\Business\RaisingStartsProgram &&
             $model->getActiveProgram()->getStatus() >= 3))
             <li class="side-nav-item" id="navProfile">
-                <a href="{{route('reports.programReports', ['program' => $model->getActiveProgram()->getId()])}}" class="side-nav-link">
+                <a href="{{route('profiles.trainings', ['profile' => $model->getId()])}}" class="side-nav-link">
                     <i class="uil-bill"></i>
                     <span>{{ mb_strtoupper(__('Events')) }}</span>
                 </a>
