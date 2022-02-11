@@ -4,6 +4,10 @@
     {{ mb_strtoupper(__('Company List')) }}
 @endsection
 
+@section('page-header')
+    <span class="h4" style="position: relative; top:3vh; left: 2vh">{{ mb_strtoupper(__('Company List')) }}</span>
+@endsection
+
 @section('content')
     @php
         if(\Illuminate\Support\Facades\Session::has('profile_state'))

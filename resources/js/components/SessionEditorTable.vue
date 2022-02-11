@@ -11,8 +11,8 @@
                     :title="session.title"
                     :id="session.id"
                     :key="session.id"
-                    :label="{ show: session.isFinished, type: 2, text: 'Završena'}"
-                    class="mr-2"
+                    :label="{ show: session.isFinished, type: 3, text: 'Završena'}"
+                    class="mr-2" photo="/images/custom/sesije.png"
                     @tile-clicked="tileClicked"></tile-item>
 
             </div>

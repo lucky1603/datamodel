@@ -1,5 +1,9 @@
 @extends('layouts.hyper-vertical')
 
+@section('page-header')
+    <span class="h4" style="position: relative; top:3vh; left: 2vh">{{ mb_strtoupper(__('Mentor Profile')) }} - <span class="attribute-label">{{ $mentor->getValue('name') }}</span></span>
+@endsection
+
 @section('content')
     <div class="container h-100">
         <div class="row h-100">

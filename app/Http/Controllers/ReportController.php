@@ -42,6 +42,7 @@ class ReportController extends Controller
         unset($data['business_fulfilled']);
         unset($data['narative_approved']);
         unset($data['report_approved']);
+        unset($data['files']);
 
         $report = Report::create($data);
         $program->addReport($report);
@@ -146,6 +147,14 @@ class ReportController extends Controller
         }
 
         return $programReportsData;
+    }
+
+    public function performCheck() {
+//        Report::all()->each(function($report) {
+//            $now = now();
+//            $contract_check = $report->contract_check;
+//            $diff =
+//        });
     }
 
 

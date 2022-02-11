@@ -1,4 +1,7 @@
 <div class="container h-100">
+    @php
+        $status = $model->getValue('profile_status');
+    @endphp
     <form id="myFormContract" method="POST" enctype='multipart/form-data' action="" class="h-100 pl-3 pr-3">
         <div class="row" >
             <div class="col-12 h-100 ">
@@ -21,7 +24,7 @@
                     <div class="col-sm-3">
                         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}"
                                name="{{ $attribute->name }}"
-                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif>
+                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif disabled="{{ $status == 4 }}">
                     </div>
 
                     @php
@@ -32,7 +35,7 @@
                     <div class="col-sm-3">
                         <input type="date" class="form-control form-control-sm" id="{{ $attribute->name }}"
                                name="{{ $attribute->name }}"
-                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif>
+                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif disabled="{{ $status == 4 }}">
                     </div>
                 </div>
 
@@ -44,7 +47,7 @@
                     <div class="col-sm-3">
                         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}"
                                name="{{ $attribute->name }}"
-                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif>
+                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif disabled="{{ $status == 4 }}">
                     </div>
                     @php
                         $attribute = $attributes->where('name', 'currency')->first();
@@ -52,8 +55,8 @@
                     @endphp
                     <label for="{{ $attribute->name }}" class="col-sm-3 attribute-label col-form-label col-form-label-sm">{!! $attribute->label !!}</label>
                     <div class="col-sm-3">
-                        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control">
-                            <option value="0" @if( $attribute->getValue() == 0) selected @endif>Choose...</option>
+                        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control" disabled="{{ $status == 4 }}">
+                            <option value="0" @if( $attribute->getValue() == 0) selected @endif >Choose...</option>
                             @foreach($attribute->getOptions() as $key => $value)
                                 <option value="{{$key}}" @if($key == $attribute->getValue()) selected @endif>{{$value}}</option>
                             @endforeach
@@ -70,7 +73,7 @@
                     <label for="{{ $attribute->name }}" class="col-sm-3 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
                     <div class="col-sm-3">
                         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}"
-                               name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                               name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" disabled="{{ $status == 4 }}">
                     </div>
 
                     <!-- Jedinica trajanja -->
@@ -80,7 +83,7 @@
                     @endphp
                     <label for="{{ $attribute->name }}" class="col-sm-3 attribute-label col-form-label col-form-label-sm">{!! $attribute->label !!}</label>
                     <div class="col-sm-3">
-                        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control">
+                        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control" disabled="{{ $status == 4 }}">
                             <option value="0" @if( $attribute->getValue() == 0) selected @endif>Choose...</option>
                             @foreach($attribute->getOptions() as $key => $value)
                                 <option value="{{$key}}" @if($key == $attribute->getValue()) selected @endif>{{$value}}</option>
@@ -99,14 +102,14 @@
                                 <td><a href="{{ $attribute->getValue()['filelink'] }}">{{ $attribute->getValue()['filename'] }}</a></td>
                             </tr>
                             <tr>
-                                <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
+                                <input type="file" class="form-control @if($status == 4) d-none @endif" id="{{ $attribute->name }}" name="{{ $attribute->name }}" >
                             </tr>
                         </table>
                     @else
-                        <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
+                        <input type="file" class="form-control @if($status == 4) d-none @endif" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
                     @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group @if($status == 4) d-none @endif">
                     @php
                         $attribute = $attributes->where('name', 'passed')->first();
                         $value = $attribute->getValue() ?? false;
@@ -126,7 +129,7 @@
         </div>
 
 
-        <div class="row text-center" >
+        <div class="row text-center @if($status == 4) d-none @endif" >
             <div class="col-lg-6 offset-lg-4 row">
                 <div class="col-lg-4">
                     <button type="button" id="btnNotifyClientContract" class="btn btn-sm btn-warning" style="width: 120px" @if( $status != $validStatus) disabled @endif>{{__('gui.notify')}}</button>

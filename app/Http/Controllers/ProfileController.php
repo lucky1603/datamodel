@@ -103,7 +103,7 @@ class ProfileController extends Controller
         });
 
         $action = route('profiles.store');
-        return view('profiles.create3', ['attributes' => $attributes, 'action' => $action]);
+        return view('profiles.create', ['attributes' => $attributes, 'action' => $action]);
     }
 
     public function edit($profileId) {
@@ -263,7 +263,7 @@ class ProfileController extends Controller
                 ]);
         }
 
-        return view('profiles.profile', ['model' => $profile]);
+        return view('profiles.profile1', ['model' => $profile]);
     }
 
     /**

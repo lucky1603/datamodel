@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('page-header')
+    <span class="h4" style="position: relative; top:3vh; left: 2vh">{{ mb_strtoupper(__('Users')) }}</span>
+@endsection
+
 @section('content')
     @php
         foreach (['name', 'profile_state', 'is_company', 'ntp'] as $key) {

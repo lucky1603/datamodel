@@ -231,7 +231,8 @@ class MentorController extends Controller
     }
 
     public function ownSessions($mentorId) {
-        return view('mentors.ownsessions', ['mentorId' => $mentorId]);
+        $mentor = Mentor::find($mentorId);
+        return view('mentors.ownsessions', ['mentor' => $mentor]);
     }
 
     /**

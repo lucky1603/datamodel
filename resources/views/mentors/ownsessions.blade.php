@@ -1,5 +1,15 @@
 @extends('layouts.hyper-vertical')
 
+@php
+    $mentorId = $mentor->getId();
+@endphp
+
+@section('page-header')
+    <span class="h4" style="position: relative; top:3vh; left: 2vh">{{ mb_strtoupper(__('Mentoring Sessions')) }} -
+        <span class="attribute-label">{{ $mentor->getValue('name') }}</span>
+    </span>
+@endsection
+
 @section('content')
     <mentor-sessions
         :mentorid="{{ $mentorId }}"
@@ -16,7 +26,7 @@
     <li class="side-nav-item mm-active" id="navSessions">
         <a href="{{ route('mentors.ownsessions', ['mentor' => $mentorId]) }}" class="side-nav-link">
             <i class="uil-user"></i>
-            <span>{{ mb_strtoupper( __('Mentor Sessions')) }}</span>
+            <span>{{ mb_strtoupper( __('Mentoring Sessions')) }}</span>
         </a>
     </li>
     @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
@@ -29,19 +39,5 @@
     @endif
 @endsection
 
-@section ('scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            // $('.side-nav-item').each(function(index) {
-            //     if($(this).attr('id') == 'navSessions' && !$(this).hasClass('mm_active')) {
-            //         $(this).addClass('mm_active');
-            //     } else if($(this).hasClass('mm_active')) {
-            //         $(this).removeClass('mm_active');
-            //     }
-            // });
-
-        });
-    </script>
-@endsection
 
 

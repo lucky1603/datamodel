@@ -30,9 +30,11 @@ class Faza1Controller extends Controller
         $profileId = $data['profile'];
         $files = Utils::getFilesFromRequest($request, 'requested_files');
 
-        $faza1 = new Faza1(['instance_id' => $data['id']]);
-        $faza1->setValue('requested_files', $files);
-        $faza1->setValue('files_sent', true);
+        if($files != ['filelink' => '', 'filename' => '']) {
+            $faza1 = new Faza1(['instance_id' => $data['id']]);
+            $faza1->setValue('requested_files', $files);
+            $faza1->setValue('files_sent', true);
+        }
 
         return [
             'profile' => $profileId,

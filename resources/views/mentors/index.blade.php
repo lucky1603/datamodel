@@ -1,7 +1,11 @@
 @extends('layouts.hyper-vertical-mainframe')
 
-@section('page-title')
-    {{ mb_strtoupper(__('Mentors List')) }}
+{{--@section('page-title')--}}
+{{--    {{ mb_strtoupper(__('Mentors List')) }}--}}
+{{--@endsection--}}
+
+@section('page-header')
+    <span class="h4" style="position: relative; top:3vh; left: 2vh">{{ mb_strtoupper(__('Mentors List')) }}</span>
 @endsection
 
 @section('content')

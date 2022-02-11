@@ -183,7 +183,7 @@
             $attribute = $attributes->where('name', 'short_ino_desc')->first();
         @endphp
         <label for="name" class="attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
-        <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3"></textarea>
+        <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getText() }}</textarea>
         @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
     </div>
 

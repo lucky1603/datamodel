@@ -1,7 +1,11 @@
 @extends('layouts.hyper-vertical')
 
-@section('page-title')
-    {{ mb_strtoupper(__('Send Reminder')) }}
+{{--@section('page-title')--}}
+{{--    {{ mb_strtoupper(__('Send Reminder')) }}--}}
+{{--@endsection--}}
+
+@section('page-header')
+    <span class="h4" style="position: relative; top:3vh; left: 2vh">{{ mb_strtoupper(__('Send Reminder')) }}</span>
 @endsection
 
 @section('content')
