@@ -1,5 +1,9 @@
 @extends('layouts.hyper-vertical')
 
+@section('page-header')
+    <span class="h4" style="position: relative; top:3vh; left: 2vh">{{ mb_strtoupper(__('Change Training')) }}</span>
+@endsection
+
 @section('content')
     <div class="container">
         <event-modifier token="{{ $token }}" event_id="{{ $event_id }}"></event-modifier>

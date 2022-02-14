@@ -1,5 +1,9 @@
 @extends('layouts.hyper-vertical')
 
+@section('page-header')
+    <span class="h4" style="position: relative; top:3vh; left: 2vh">{{ mb_strtoupper(__('Training Details')) }}</span>
+@endsection
+
 @section('content')
     <div class="card" style="postition:relative; top: 30px; padding-bottom: 30px">
         <div class="card-header bg-dark text-light">
