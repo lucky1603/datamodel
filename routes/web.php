@@ -132,6 +132,7 @@ Route::post('/faza1/update', 'Faza1Controller@update')->name('faza1.update');
 Route::post('/demoday/update', 'DemoDayController@update')->name('demoday.update');
 Route::post('/preselection/update/{preselection}', 'PreselectionController@update')->name('preselection.update');
 Route::post('/selection/update/{selection}', 'SelectionController@update')->name('selection.update');
+Route::post('contracts/deleteDocument', 'ContractsController@deleteContractDocument')->name('contracts.deleteDocument');
 Route::post('/contracts/update/{contract}', 'ContractsController@update')->name('contract.update');
 Route::post('/appeval/update/{appeval}', 'AppFormEvaluationController@update')->name('appeval.update');
 

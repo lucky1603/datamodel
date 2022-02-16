@@ -297,25 +297,18 @@
             });
 
             $('#btnSaveContract').click(function(evt) {
-                var id = $('#contractId').val();
-                var formData = new FormData($('form#myFormContract')[0]);
+                const id = $('#contractId').val();
+                let formData = new FormData($('form#myFormContract')[0]);
 
-                $.ajax({
-                    type: "POST",
-                    url: '/contracts/update/' + id,
-                    async: true,
-                    data: formData,
-                    contentType: false, //this is required please see answers above
-                    processData: false, //this is required please see answers above
-                    cache: false, //not sure but works for me without this
-                    error   : function (error) {
-                        console.log(error);
-                    },
-                    success : function (data) {
-                        console.log(data);
-                        location.reload();
-                    }
-                });
+
+                axios.post('/contracts/update/' + id, formData)
+                .then(response => {
+                    console.log(response.data);
+                    // $('form#myFormContract').load(location.href + ' #myFormContract');
+                    location.reload();
+                }).catch(error => {
+                    console.log(error);
+                })
 
             });
 
@@ -477,6 +470,27 @@
                         console.log(data);
                     }
                 });
+
+            });
+
+            $('#iconDeleteContract').click(function() {
+                const cid = $('#contractId').val();
+                const token = $('form#myFormContract input[name="_token"]').val();
+                if(confirm('Upravo ćete obrisati priloženi dokument. Da li ste sigurni?')) {
+                    let data = new FormData();
+                    data.append('contractId', cid);
+                    data.append('_token', token);
+
+                    axios.post('/contracts/deleteDocument', data)
+                        .then(response => {
+                            console.log(response.data);
+                            location.reload();
+                            // $('form#myFormContract').load(location.href + ' #myFormContract');
+
+                        }).catch(error => {
+                            console.log(error);
+                        });
+                }
 
             });
 

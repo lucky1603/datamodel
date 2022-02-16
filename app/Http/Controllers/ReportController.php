@@ -70,11 +70,50 @@ class ReportController extends Controller
     }
 
     public function getData($reportId) {
-        $report = Report::find($reportId)->load('attachments');
-        $date = date('Y-m-d', strtotime($report->contract_check));
-        $report->contract_check = $date;
+        $r = Report::find($reportId)->load('file_groups');
 
-        return $report;
+
+            $reportData = [
+                'id' => $r->id,
+                'company_name' => $r->company_name,
+                'report_name' => $r->report_name,
+                'program_name' => $r->program_name,
+                'contract_check' => $r->contract_check,
+                'report_description' => $r->report_description,
+                'tech_fulfilled' => $r->tech_fulfilled,
+                'business_fulfilled' => $r->business_fulfilled,
+                'financial_approved' => $r->financial_approved,
+                'narative_approved' => $r->narative_approved,
+                'report_approved' => $r->report_approved,
+            ];
+
+
+            $reportData['file_groups'] = [];
+            foreach($r->file_groups as $file_group) {
+                $files = [];
+                foreach($file_group->files as $file) {
+                    $files[] = [
+                        'filename' => $file->filename,
+                        'filelink' => $file->filelink
+                    ];
+                }
+
+                $reportData['file_groups'][] = [
+                    'id' => $file_group->id,
+                    'name' => $file_group->name,
+                    'files' => $files
+                ];
+
+            }
+
+
+
+
+        $date = date('Y-m-d', strtotime($reportData['contract_check']));
+        $reportData['contract_check'] = $date;
+
+
+        return $reportData;
     }
 
     public function programReports($programId) {

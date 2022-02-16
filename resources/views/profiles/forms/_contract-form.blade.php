@@ -1,6 +1,6 @@
 <div class="container h-100">
     @php
-        $status = $model->getValue('profile_status');
+        $profile_status = $model->getValue('profile_status');
     @endphp
     <form id="myFormContract" method="POST" enctype='multipart/form-data' action="" class="h-100 pl-3 pr-3">
         <div class="row" >
@@ -24,7 +24,7 @@
                     <div class="col-sm-3">
                         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}"
                                name="{{ $attribute->name }}"
-                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif disabled="{{ $status == 4 }}">
+                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif @if($profile_status == 4) disabled @endif>
                     </div>
 
                     @php
@@ -35,7 +35,7 @@
                     <div class="col-sm-3">
                         <input type="date" class="form-control form-control-sm" id="{{ $attribute->name }}"
                                name="{{ $attribute->name }}"
-                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif disabled="{{ $status == 4 }}">
+                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif @if($profile_status == 4) disabled @endif>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                     <div class="col-sm-3">
                         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}"
                                name="{{ $attribute->name }}"
-                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif disabled="{{ $status == 4 }}">
+                               @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif @if($profile_status == 4) disabled @endif>
                     </div>
                     @php
                         $attribute = $attributes->where('name', 'currency')->first();
@@ -55,7 +55,7 @@
                     @endphp
                     <label for="{{ $attribute->name }}" class="col-sm-3 attribute-label col-form-label col-form-label-sm">{!! $attribute->label !!}</label>
                     <div class="col-sm-3">
-                        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control" disabled="{{ $status == 4 }}">
+                        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control" @if($profile_status == 4) disabled @endif>
                             <option value="0" @if( $attribute->getValue() == 0) selected @endif >Choose...</option>
                             @foreach($attribute->getOptions() as $key => $value)
                                 <option value="{{$key}}" @if($key == $attribute->getValue()) selected @endif>{{$value}}</option>
@@ -73,7 +73,7 @@
                     <label for="{{ $attribute->name }}" class="col-sm-3 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
                     <div class="col-sm-3">
                         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}"
-                               name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" disabled="{{ $status == 4 }}">
+                               name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if($profile_status == 4) disabled @endif>
                     </div>
 
                     <!-- Jedinica trajanja -->
@@ -83,7 +83,7 @@
                     @endphp
                     <label for="{{ $attribute->name }}" class="col-sm-3 attribute-label col-form-label col-form-label-sm">{!! $attribute->label !!}</label>
                     <div class="col-sm-3">
-                        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control" disabled="{{ $status == 4 }}">
+                        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control" @if($profile_status == 4) disabled @endif>
                             <option value="0" @if( $attribute->getValue() == 0) selected @endif>Choose...</option>
                             @foreach($attribute->getOptions() as $key => $value)
                                 <option value="{{$key}}" @if($key == $attribute->getValue()) selected @endif>{{$value}}</option>
@@ -91,25 +91,30 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group">
                     @php
                         $attribute = $attributes->where('name', 'contract_document')->first();
                     @endphp
-                    <label for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
+
                     @if($attribute->getValue() != null)
-                        <table class="table table-responsive">
-                            <tr>
-                                <td><a href="{{ $attribute->getValue()['filelink'] }}">{{ $attribute->getValue()['filename'] }}</a></td>
-                            </tr>
-                            <tr>
-                                <input type="file" class="form-control @if($status == 4) d-none @endif" id="{{ $attribute->name }}" name="{{ $attribute->name }}" >
-                            </tr>
-                        </table>
-                    @else
-                        <input type="file" class="form-control @if($status == 4) d-none @endif" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
+                        <div class="row">
+                            <label class="col-sm-3 attribute-label mt-2" for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
+                            <div class="col-sm-9 mt-0 pt-0">
+                                <a
+                                    @if($profile_status < 4) style="position: relative; top: -2px"
+                                    @else style="position: relative; top: 10px" @endif
+                                    href="{{ $attribute->getValue()['filelink'] }}">{{ $attribute->getValue()['filename'] }}</a>
+                                <i id="iconDeleteContract" class="mdi mdi-delete font-24 attribute-label ml-2 @if($profile_status == 4) d-none @endif " role="button" title="Obriši dokument"></i>
+                            </div>
+                        </div>
                     @endif
+                    @if($attribute->getValue() == null)
+                        <label class="col-form-label col-form-label-sm attribute-label mt-2">Priloži dokument ugovora</label>
+                        <input type="file" class="form-control @if($profile_status == 4) d-none @endif" id="{{ $attribute->name }}" name="{{ $attribute->name }}" >
+                    @endif
+
                 </div>
-                <div class="form-group @if($status == 4) d-none @endif">
+                <div class="form-group @if($profile_status == 4) d-none @endif">
                     @php
                         $attribute = $attributes->where('name', 'passed')->first();
                         $value = $attribute->getValue() ?? false;
@@ -129,21 +134,12 @@
         </div>
 
 
-        <div class="row text-center @if($status == 4) d-none @endif" >
-            <div class="col-lg-6 offset-lg-4 row">
-                <div class="col-lg-4">
-                    <button type="button" id="btnNotifyClientContract" class="btn btn-sm btn-warning" style="width: 120px" @if( $status != $validStatus) disabled @endif>{{__('gui.notify')}}</button>
-                </div>
-                <div class="col-lg-4">
-                    <button type="button" id="btnSaveContract" class="btn btn-sm btn-primary ml-1" @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
-                </div>
-                <div class="col-lg-4">
-                    <button type="button" id="btnCS" class="btn btn-sm btn-success btnNext" @if($status != $validStatus) disabled @endif>
-                        <span id="button_spinner_contract_ok" class="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true" hidden></span>
-                        <span id="button_text">Na program</span>
-                    </button>
-                </div>
-            </div>
+        <div class=" @if($profile_status == 4) d-none @else d-flex align-items-center justify-content-center @endif" >
+                <button type="button" id="btnSaveContract" class="btn btn-sm btn-primary ml-1" @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
+                <button type="button" id="btnCS" class="btn btn-sm btn-success btnNext ml-2" @if($status != $validStatus) disabled @endif>
+                    <span id="button_spinner_contract_ok" class="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true" hidden></span>
+                    <span id="button_text">Na program</span>
+                </button>
         </div>
     </form>
 

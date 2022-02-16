@@ -5,7 +5,7 @@ namespace App;
 use App\Business\ProgramFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use \Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Report extends Model
 {
@@ -21,26 +21,25 @@ class Report extends Model
         return $this->belongsTo(Instance::class);
     }
 
-    public function attachments(): BelongsToMany
+    public function file_groups(): HasMany
     {
-        return $this->belongsToMany(Attachment::class);
+        return $this->hasMany(FileGroup::class);
     }
 
-    public function addAttachment(Attachment $attachment)
+    public function addFileGroup(FileGroup $fileGroup)
     {
-
-        $this->attachments()->attach($attachment);
+        $this->file_groups()->save($fileGroup);
         $this->refresh();
     }
 
-    public function removeAttachment(Attachment $attachment) {
-        $attachment->delete();
+    public function removeFileGroup(FileGroup $fileGroup) {
+        $fileGroup->delete();
         $this->refresh();
     }
 
-    public function removeAllAttachments() {
-        foreach($this->attachments as $attachment) {
-            $attachment->delete();
+    public function removeAllFileGroups() {
+        foreach($this->file_groups as $file_group) {
+            $file_group->delete();
         }
 
         $this->refresh();

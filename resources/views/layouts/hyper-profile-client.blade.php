@@ -26,7 +26,7 @@
             <div class="tab-pane show active h-100 overflow-auto"  id="application">
                 @yield('application-data')
             </div>
-            <div class="tab-pane h-100 overflow-auto" id="current_status">
+            <div class="tab-pane " id="current_status">
                 @yield('status')
             </div>
         </div>

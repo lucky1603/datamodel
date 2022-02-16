@@ -49,5 +49,29 @@ class ContractsController extends Controller
         ];
     }
 
+    public function deleteContractDocument(Request $request): array
+    {
+        $contractId = $request->post('contractId');
+        var_dump('REceived contract id je '.$contractId);
+        $contract = Contract::find($contractId);
+        $contractFile = $contract->getValue('contract_document');
+        if($contractFile != null) {
+            $contractFilePath = $contractFile['filelink'];
+            // TODO: Delete the physical file.
+            $contract->setValue('contract_document', null);
+
+            return [
+                'code' => 0,
+                'message' => 'Contract document successfully deleted!',
+            ];
+        }
+
+        return [
+            'code' => 1,
+            'message' => 'No file to delete!',
+        ];
+
+    }
+
 
 }

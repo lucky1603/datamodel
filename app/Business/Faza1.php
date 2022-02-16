@@ -41,7 +41,7 @@ class Faza1 extends PhaseImpl
             'attributes' => $this->getAttributes(),
             'id' => $this->getId(),
             'validStatus' => $this->getStatusValue(),
-            'profile' => $this->getWorkflow()->getProgram()->getProfile()->getId(),
+            'profileId' => $this->getWorkflow()->getProgram()->getProfile()->getId(),
             'phase' => $this
         ];
     }
@@ -86,5 +86,27 @@ class Faza1 extends PhaseImpl
     public function isValid(): bool
     {
         return ($this->getValue('due_date') != null && $this->getValue('files_sent') == true);
+    }
+
+    public function requiresExitSituation(): bool
+    {
+        return true;
+    }
+
+    public function getExitSituation(): ?Situation
+    {
+        if($this->getValue('passed') == 'true') {
+            return new Situation([
+                'name' => 'Faza 1 uspešno završena',
+                'description' => 'Kandidat je uspešno ispunio sve uslove iz faze 1.',
+                'sender' => 'NTP'
+            ]);
+        }
+
+        return new Situation([
+            'name' => 'Odbijen u Fazi 1',
+            'description' => 'Kandidat je odbijen u Fazi 1',
+            'sender' => 'NTP'
+        ]);
     }
 }

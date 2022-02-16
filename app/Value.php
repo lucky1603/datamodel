@@ -52,22 +52,27 @@ class Value extends Model
 
         if($attribute->type === 'file') {
             $files = $query->get(['value', 'link']);
-            if($attribute->extra != 'multiple') {
-                $file = $files->first();
-                $value = [];
-                $value['filename'] = $file->value ?? '';
-                $value['filelink'] = $file->link ?? '';
-                return $value;
-            } else {
-                $values = [];
-                foreach($files as $file) {
+            if($files->count() > 0) {
+                if($attribute->extra != 'multiple') {
+                    $file = $files->first();
                     $value = [];
-                    $value['filename'] = $file->value;
-                    $value['filelink'] = $file->link;
-                    $values[] = $value;
+                    $value['filename'] = $file->value ?? '';
+                    $value['filelink'] = $file->link ?? '';
+                    return $value;
+                } else {
+                    $values = [];
+                    foreach($files as $file) {
+                        $value = [];
+                        $value['filename'] = $file->value;
+                        $value['filelink'] = $file->link;
+                        $values[] = $value;
+                    }
+                    return $values;
                 }
-                return $values;
+            } else {
+                return null;
             }
+
         }
 
         if($attribute->type === 'select' || $attribute->type === 'varchar') {
@@ -164,6 +169,15 @@ class Value extends Model
                             'value' => $filename,
                             'link' => $filelink,
                         ]);
+                } else {
+                    $query = DB::table('file_values')->where([
+                        'attribute_id' => $attribute->id,
+                        'instance_id' => $instance_id
+                    ]);
+
+                    $query->delete();
+
+
                 }
 
             default:

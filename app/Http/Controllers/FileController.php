@@ -17,4 +17,7 @@ class FileController extends Controller
         $path = asset($path);
         return view('files.show', ['filename' => $realName, 'filelink' => $path]);
     }
+
+
+
 }

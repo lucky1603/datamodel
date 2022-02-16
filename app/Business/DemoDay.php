@@ -98,4 +98,26 @@ class DemoDay extends PhaseImpl
     {
         return false;
     }
+
+    public function requiresExitSituation(): bool
+    {
+        return true;
+    }
+
+    public function getExitSituation(): ?Situation
+    {
+        if($this->getValue('passed') == 'true') {
+            return new Situation([
+                'name' => 'Demo Day uspešno završen',
+                'description' => 'Kandidat je uspešno ispunio sve uslove iz faze - demo day.',
+                'sender' => 'NTP'
+            ]);
+        }
+
+        return new Situation([
+            'name' => 'Odbijen u fazi - Demo Day',
+            'description' => 'Kandidat je odbijen u fazi - Demo Day.',
+            'sender' => 'NTP'
+        ]);
+    }
 }

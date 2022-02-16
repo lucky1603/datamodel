@@ -59,7 +59,7 @@ class AppFormEvaluation extends PhaseImpl
 
     public function requiresExitEmail(): bool
     {
-        return true;
+        return false;
     }
 
     public function getExitEmailTemplate(): CustomMessage
