@@ -4,6 +4,10 @@
     @yield('profile-content')
 @endsection
 
+@php
+    $profile_status = $model->getValue('profile_status');
+@endphp
+
 @section('sidemenu')
     @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
         <li class="side-nav-item" id="navProfile">
@@ -13,8 +17,8 @@
             </a>
         </li>
 
-        @if($model->getValue('profile_status') == 4 ||
-            ($model->getValue('profile_status') == 3 &&
+        @if($profile_status == 4 ||
+            ($profile_status == 3 &&
             $model->getActiveProgram() instanceof \App\Business\RaisingStartsProgram &&
             $model->getActiveProgram()->getStatus() > 2))
             <li class="side-nav-item" id="navEvents">
@@ -24,8 +28,8 @@
                 </a>
             </li>
         @endif
-        @if($model->getValue('profile_status') == 4 ||
-            ($model->getValue('profile_status') == 3 &&
+        @if($profile_status == 4 ||
+            ($profile_status == 3 &&
             $model->getActiveProgram() instanceof \App\Business\RaisingStartsProgram &&
             $model->getActiveProgram()->getStatus()) > 3)
 
@@ -57,10 +61,8 @@
                 <span>{{ mb_strtoupper( __('Application')) }}</span>
             </a>
         </li>
-        @if($model->getValue('profile_status') == 4
-            || ($model->getValue('profile_status') == 3 &&
-            $model->getActiveProgram() instanceof \App\Business\RaisingStartsProgram &&
-            $model->getActiveProgram()->getStatus() >= 3))
+        @if($profile_status == 4 ||
+            ($profile_status == 3 && $model->getActiveProgram() instanceof \App\Business\RaisingStartsProgram && $model->getActiveProgram()->getStatus() >= 3))
             <li class="side-nav-item" id="navProfile">
                 <a href="{{route('profiles.trainings', ['profile' => $model->getId()])}}" class="side-nav-link">
                     <i class="uil-bill"></i>
@@ -68,8 +70,8 @@
                 </a>
             </li>
         @endif
-        @if($model->getValue('profile_status') == 4 ||
-            ($model->getValue('profile_status') == 3 &&
+        @if($profile_status == 4 ||
+            ($profile_status == 3 &&
              $model->getActiveProgram() instanceof \App\Business\RaisingStartsProgram &&
              $model->getActiveProgram()->getStatus() == 5))
             <li class="side-nav-item" id="navEvents">
@@ -85,12 +87,14 @@
                 </a>
             </li>
         @endif
+        @if($profile_status == 4)
         <li class="side-nav-item">
             <a href="{{route('reports.programReports', ['program' => $model->getActiveProgram()->getId()])}}" class="side-nav-link">
                 <i class="uil-dashboard"></i>
                 <span>{{ mb_strtoupper( __('Reports')) }}</span>
             </a>
         </li>
+    @endif
 
     @endif
 @endsection

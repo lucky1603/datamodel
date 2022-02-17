@@ -4,6 +4,7 @@
         <div class="row" >
             <div class="col-12 h-100">
                 <h3 class="text-center">{{ $model->getDisplayName() }}</h3>
+                <hr>
             </div>
         </div>
         <div class="row overflow-auto" >
