@@ -118,7 +118,7 @@
                                         </td>
                                         <td class="w-75 @if($attribute->type == 'text') text-left @else text-center @endif">
                                             @if($attribute->name == 'rstarts_logo')
-                                                @if($attribute->getValue()['filelink'] != '')
+                                                @if($attribute->getValue() != null && $attribute->getValue()['filelink'] != '')
                                                     <img src="{{ $attribute->getValue()['filelink'] }}" style="height: 100px">
                                                 @else
                                                     <img src="/images/custom/nophoto2.png" style="height: 100px">
