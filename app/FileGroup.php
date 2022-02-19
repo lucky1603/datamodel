@@ -19,4 +19,14 @@ class FileGroup extends Model
     {
         return $this->belongsToMany(File::class);
     }
+
+    public function addFile(File $file) {
+        $this->files()->save($file);
+        $this->refresh();
+    }
+
+    public function removeFile(File $file) {
+        $file->delete();
+        $this->refresh();
+    }
 }

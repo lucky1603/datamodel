@@ -16,30 +16,23 @@
                   <label class="attribute-label">Naziv izveštaja</label>
                   <b-form-input v-model="form.title" placeholder="Unesite naziv izveštaja ..." :disabled="this.report_id != 0"></b-form-input>
               </div>
-              <div class="form-group">
-                  <label class="attribute-label">Opis iveštaja</label>
-                  <b-form-textarea v-model="form.description" placeholder="Opis izveštaja ..." rows="3" max-rows="6" :disabled="this.report_id != 0"></b-form-textarea>
-              </div>
-              <div class="form-group">
-                  <label class="attribute-label">Datum slanja</label>
+              <div class="form-group mb-2">
+                  <label class="attribute-label">Datum očekivanog slanja</label>
                   <b-form-input type="date" v-model="form.contract_check" :disabled="this.report_id != 0"></b-form-input>
               </div>
-              <div v-if="this.form.links.length == 0" class="form-group">
-                  <label class="attribute-label">Priložite datoteke</label>
-                  <b-form-file
-                      ref="fileInput"
-                      v-model="form.files"
-                      :state="null"
-                      placeholder="Izaberite datoteke ili ih prevucite ovde..."
-                      drop-placeholder="Prevucite datoteke ovde..." multiple :disabled="user_role != 'profile'"
-                  ></b-form-file>
+
+              <div style="margin-left: 10vw; margin-right: 10vw; padding-top: 5vh">
+                  <file-group-viewer
+                      v-for="(fileGroup, index) in this.form.fileGroups"
+                      :file_group="fileGroup"
+                      :index="index + 1" :key="index" class="m-2 shadow" >
+                  </file-group-viewer>
               </div>
-              <div v-else>
-                  <label class="attribute-label">Priložene datoteke</label>
+
+              <div v-if="user_role === 'profile'" class="d-flex align-items-center justify-content-center">
+                  <button   id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-4" title="Dodaj izveštaj" @click="showModal">+</button>
               </div>
-              <div v-if="form.links.length > 0" style="display: flex; flex-wrap: wrap">
-                  <a v-for="link in form.links" :href="link.filelink" target="_blank" class="mr-2">{{ link.filename }}</a>
-              </div>
+
               <div v-if="report_id != 0 && user_role != 'profile'" class="form-group row mt-4">
                   <div class="col-lg-3">
                       <b-form-checkbox
@@ -87,9 +80,18 @@
                   </div>
               </div>
               <div class="d-flex align-items-center justify-content-center mt-4">
-                  <b-button type="submit" variant="primary" class="mr-2">Pošalji</b-button>
-                  <b-button type="button" variant="danger" class="mr-2" @click="cancelClicked">Zatvori</b-button>
+                  <b-button v-if="user_role != 'profile'" type="submit" variant="primary" class="mr-2">Pošalji</b-button>
+                  <b-button type="button" variant="danger" @click="cancelClicked">Zatvori</b-button>
               </div>
+
+              <b-modal id="addReportModal" ref="addReportModal" header-bg-variant="dark" header-text-variant="light" :modal-footer="no">
+                  <template #modal-title>Dodaj izvestaj</template>
+                  <file-group-editor ref="fed" :show_buttons="false" :token="token" :report_id="report_id"></file-group-editor>
+                  <template #modal-footer>
+                      <b-button type="button" variant="primary" @click="onOk">Prihvati</b-button>
+                      <b-button type="button" variant="danger" @click="onCancel">Odustani</b-button>
+                  </template>
+              </b-modal>
           </form>
       </div>
   </div>
@@ -125,13 +127,15 @@ export default {
 
                 let report = response.data;
                 this.form.title = report.report_name;
-                this.form.description = report.report_description;
                 this.form.contract_check = report.contract_check;
-                if(report.attachments.length > 0) {
-                    for(let i = 0; i < report.attachments.length; i++) {
-                        this.form.links.push({
-                            filename: report.attachments[i].filename,
-                            filelink: report.attachments[i].filelink
+                if(report.file_groups.length > 0) {
+                    for(let i = 0; i < report.file_groups.length; i++) {
+                        const fg = report.file_groups[i];
+                        this.form.fileGroups.push({
+                            id: fg.id,
+                            name: fg.name,
+                            note: fg.note,
+                            files: fg.files
                         });
                     }
 
@@ -167,6 +171,17 @@ export default {
                 console.log(response.data);
                 window.location.href='/reports/programReports/' + this.program_id;
             });
+        },
+        async showModal() {
+            this.$refs['addReportModal'].show();
+        },
+        async onOk() {
+            await this.$refs.fed.onSubmit();
+            this.$refs['addReportModal'].hide();
+            location.reload();
+        },
+        onCancel() {
+            this.$refs['addReportModal'].hide();
         }
     },
     async mounted() {
@@ -180,14 +195,12 @@ export default {
             contract_start: '26.01.2022.',
             contract_check: '2022-03-26',
             form: {
-                files: [],
                 title: '',
-                description: '',
                 tech_fulfilled: 'off',
                 business_fulfilled: 'off',
                 narative_approved: 'off',
                 report_approved: 'off',
-                links: []
+                fileGroups: []
             }
         }
     }

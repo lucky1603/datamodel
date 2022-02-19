@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Attachment;
 use App\Business\Program;
 use App\Business\ProgramFactory;
+use App\File;
+use App\FileGroup;
 use App\Report;
 use Hamcrest\Util;
 use Illuminate\Http\Request;
@@ -72,42 +74,38 @@ class ReportController extends Controller
     public function getData($reportId) {
         $r = Report::find($reportId)->load('file_groups');
 
+        $reportData = [
+            'id' => $r->id,
+            'company_name' => $r->company_name,
+            'report_name' => $r->report_name,
+            'program_name' => $r->program_name,
+            'contract_check' => $r->contract_check,
+            'report_description' => $r->report_description,
+            'tech_fulfilled' => $r->tech_fulfilled,
+            'business_fulfilled' => $r->business_fulfilled,
+            'financial_approved' => $r->financial_approved,
+            'narative_approved' => $r->narative_approved,
+            'report_approved' => $r->report_approved,
+        ];
 
-            $reportData = [
-                'id' => $r->id,
-                'company_name' => $r->company_name,
-                'report_name' => $r->report_name,
-                'program_name' => $r->program_name,
-                'contract_check' => $r->contract_check,
-                'report_description' => $r->report_description,
-                'tech_fulfilled' => $r->tech_fulfilled,
-                'business_fulfilled' => $r->business_fulfilled,
-                'financial_approved' => $r->financial_approved,
-                'narative_approved' => $r->narative_approved,
-                'report_approved' => $r->report_approved,
-            ];
-
-
-            $reportData['file_groups'] = [];
-            foreach($r->file_groups as $file_group) {
-                $files = [];
-                foreach($file_group->files as $file) {
-                    $files[] = [
-                        'filename' => $file->filename,
-                        'filelink' => $file->filelink
-                    ];
-                }
-
-                $reportData['file_groups'][] = [
-                    'id' => $file_group->id,
-                    'name' => $file_group->name,
-                    'files' => $files
+        $reportData['file_groups'] = [];
+        foreach($r->file_groups as $file_group) {
+            $files = [];
+            foreach($file_group->files as $file) {
+                $files[] = [
+                    'filename' => $file->filename,
+                    'filelink' => $file->filelink
                 ];
-
             }
 
+            $reportData['file_groups'][] = [
+                'id' => $file_group->id,
+                'name' => $file_group->name,
+                'note' => $file_group->note,
+                'files' => $files
+            ];
 
-
+        }
 
         $date = date('Y-m-d', strtotime($reportData['contract_check']));
         $reportData['contract_check'] = $date;
@@ -157,6 +155,54 @@ class ReportController extends Controller
 
         $report->save();
 
+    }
+
+    public function addFileGroup($reportId) {
+        $token = csrf_token();
+        return view('reports.add-file-group', ['token' => $token, 'reportId' => $reportId, 'title' => 'Ovo je izvestaj']);
+    }
+
+    public function fileGroupAdded(Request $request) {
+        $data = $request->post();
+
+        $report = Report::find($data['report_id'])->load('file_groups');
+        $files = Utils::getFilesFromRequest($request, 'files');
+        if($files != ['filename' => '', 'filelink' => '']) {
+
+            foreach($files as $file){
+                $data['files'][] = [
+                    'filename' => $file['filename'],
+                    'filelink' => $file['filelink']
+                ];
+            }
+
+            $reportCount = $report->file_groups->count();
+            if($reportCount == 0) {
+                $fileGroup = FileGroup::create([
+                    'name' => 'IZVEŠTAJ',
+                    'note' => $data['note'],
+                ]);
+            } else {
+                $fileGroup = FileGroup::create([
+                    'name' => 'DODATNI IZVEŠTAJ '.$reportCount,
+                    'note' => $data['note'],
+                ]);
+            }
+
+            foreach($files as $file) {
+                $fileGroup->addFile(File::create([
+                    'filename' => $file['filename'],
+                    'filelink' => $file['filelink']
+                ]));
+            }
+
+            $report->addFileGroup($fileGroup);
+        }
+
+        return [
+            'code' => 0,
+            'message' => 'File group successfully added!'
+        ];
     }
 
     ///

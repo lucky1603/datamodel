@@ -60,6 +60,9 @@ Vue.component('bulk-mail', require('./components/BulkEmail').default);
 Vue.component('report-editor', require('./components/ReportEditor').default);
 Vue.component('report-explorer', require('./components/ReportExplorer').default);
 Vue.component('report-item', require('./components/ReportItem').default);
+Vue.component('file-group-editor', require('./components/FileGroupEditor').default);
+Vue.component('file-item', require('./components/FileItem').default);
+Vue.component('file-group-viewer', require('./components/FileGroupViewer').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -144,8 +144,10 @@ Route::get('sessions/create/{program}/{mentor}', 'SessionController@create')->na
 Route::get('user/getsessionvalue/{key}', "UserController@getSessionValue")->name('getsessionvalue');
 Route::post('user/setsessionvalues', 'UserController@setSessionValues')->name('setsessionvalues');
 
+Route::post('reports/addFileGroup', 'ReportController@fileGroupAdded')->name('reports.fileGroupAdded');
 Route::get('reports/{report}', 'ReportController@edit')->name('reports.edit');
 Route::post('reports/{report}', 'ReportController@update')->name('reports.update');
+Route::get('reports/addFileGroup/{report}', 'ReportController@addFileGroup')->name('reports.addFileGroup');
 Route::get('reports/create/{program}', 'ReportController@create')->name('reports.create');
 Route::post('reports/create/{report}', 'ReportController@store')->name('reports.store');
 Route::get('reports/list/{program}', "ReportController@list")->name('reports.list');

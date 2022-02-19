@@ -1,7 +1,7 @@
 @extends('layouts.hyper-vertical')
 
 @section('content')
-    <report-editor report_id="{{ $report }}" program_id="{{ $program }}" user_role="{{ $role }}"></report-editor>
+    <report-editor report_id="{{ $report }}" program_id="{{ $program }}" user_role="{{ $role }}" token="{{ $token }}"></report-editor>
 @endsection
 
 @section('sidemenu')
