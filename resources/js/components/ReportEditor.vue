@@ -33,14 +33,14 @@
                   <button   id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-4" title="Dodaj izveštaj" @click="showModal">+</button>
               </div>
 
-              <div v-if="report_id != 0 && user_role != 'profile'" class="form-group row mt-4">
+              <div v-if="report_id != 0 && user_role != 'profile'" class="form-group row" style="margin-top: 50px">
                   <div class="col-lg-3">
                       <b-form-checkbox
                           id="chkTechFulfilled"
                           v-model="form.tech_fulfilled"
                           name="chkTechFulfilled"
                           value="on"
-                          unchecked-value="off" :disabled="form.links.length == 0"
+                          unchecked-value="off" :disabled="form.fileGroups.length == 0"
                       >
                           <span class="attribute-label">Ispunjeni tehnički uslovi</span>
                       </b-form-checkbox>
@@ -51,7 +51,7 @@
                           v-model="form.business_fulfilled"
                           name="chkBusinessFulfilled"
                           value="on"
-                          unchecked-value="off" :disabled="form.links.length == 0"
+                          unchecked-value="off" :disabled="form.fileGroups.length == 0"
                       >
                           <span class="attribute-label">Ispunjeni poslovni uslovi</span>
                       </b-form-checkbox>
@@ -62,7 +62,7 @@
                           v-model="form.narative_approved"
                           name="chkNarativeApproved"
                           value="on"
-                          unchecked-value="off" :disabled="form.links.length == 0"
+                          unchecked-value="off" :disabled="form.fileGroups.length == 0"
                       >
                           <span class="attribute-label">Odobren narativ</span>
                       </b-form-checkbox>
@@ -73,7 +73,7 @@
                           v-model="form.report_approved"
                           name="chkReportApproved"
                           value="on"
-                          unchecked-value="off" :disabled="form.links.length == 0"
+                          unchecked-value="off" :disabled="form.fileGroups.length == 0"
                       >
                           <span class="attribute-label">Odobren izveštaj</span>
                       </b-form-checkbox>

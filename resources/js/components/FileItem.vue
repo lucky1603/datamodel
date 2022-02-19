@@ -9,7 +9,7 @@
 <!--    </div>-->
 
     <div class="d-flex justify-content-start m-1" style="height: 25px" role="button" @click="followLink">
-        <img src="/images/custom/icons/Word-icon.png" style="height: 24px; width: 24px">
+        <img :src="fileIcon" style="height: 24px; width: 24px">
         <span class="ml-1 mt-1 font-11 attribute-label">{{ filename }}</span>
     </div>
 </template>
@@ -24,9 +24,9 @@ export default {
     },
     methods: {
         parseName() {
-            let parts = this.filename.split('.');
-            this.name = parts[0];
-            this.extension = parts[1];
+            this.extension = this.filename.split('.').pop();
+            // this.name = parts[0];
+            // this.extension = parts[1];
         },
         followLink() {
 
@@ -34,14 +34,41 @@ export default {
             window.open(this.filelink, '_blank');
         }
     },
+    computed: {
+        fileIcon() {
+            switch (this.extension.toLowerCase()) {
+                case 'docx':
+                case 'doc':
+                    return '/images/custom/word.png';
+                case 'xlsx':
+                case "xls":
+                    return '/images/custom/excel.png';
+                case 'pdf':
+                    return '/images/custom/pdf.png';
+                case "jpg":
+                case "jpeg":
+                    return '/images/custom/jpg.png';
+                case "csv":
+                    return '/images/custom/csv.png';
+                case "bmp":
+                    return '/images/custom/bmp.png';
+                case "gif":
+                    return '/images/custom/gif.png';
+                case "png":
+                    return '/images/custom/png.png';
+                case "tiff":
+                    return '/images/custom/tiff.png';
+                default:
+                    return '/images/custom/editicon1.png';
+            }
+        }
+    },
     mounted() {
         this.parseName();
     },
     data() {
         return {
-            name: '',
             extension: '',
-            type: ''
         }
     }
 }

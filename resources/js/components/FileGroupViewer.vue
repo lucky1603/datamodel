@@ -4,9 +4,9 @@
             <span class="font-14 font-weight-light">{{ fileGroup.name }}</span>
         </div>
         <div class="card-body">
-            <p v-if="fileGroup.note != null" class="m-1">{{ fileGroup.note}}</p>
+            <p v-if="fileGroup.note != null" >{{ fileGroup.note}}</p>
             <hr v-if="fileGroup.note != null">
-            <div class="d-flex flex-wrap pb-1">
+            <div class="d-flex flex-wrap">
                 <file-item
                     v-for="(file, index) in fileGroup.files"
                     :key="index"
