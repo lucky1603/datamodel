@@ -8,9 +8,9 @@
 <!--        </div>-->
 <!--    </div>-->
 
-    <div class="d-flex justify-content-start m-1" style="height: 25px" role="button" @click="followLink">
+    <div class="d-inline-flex justify-content-start align-items-center m-1" style="height: 25px" role="button" @click="followLink">
         <img :src="fileIcon" style="height: 24px; width: 24px">
-        <span class="ml-1 mt-1 font-11 attribute-label">{{ filename }}</span>
+        <span :class="textClass">{{ filename }}</span>
     </div>
 </template>
 
@@ -20,17 +20,14 @@ export default {
     props: {
         filename: { typeof: String, default: ''},
         filelink: { typeof: String, default: ''},
+        fontsize: { typeof: Number, default: 10 }
 
     },
     methods: {
         parseName() {
             this.extension = this.filename.split('.').pop();
-            // this.name = parts[0];
-            // this.extension = parts[1];
         },
         followLink() {
-
-            // location.href = this.filelink;
             window.open(this.filelink, '_blank');
         }
     },
@@ -61,7 +58,16 @@ export default {
                 default:
                     return '/images/custom/editicon1.png';
             }
-        }
+        },
+        textClass() {
+            const font = 'font-' + this.fontsize;
+            if(this.fontsize > 12) {
+                return 'ml-1 attribute-label ' + font;
+            }
+
+            return 'ml-1 mt-1 attribute-label ' + font;
+        },
+
     },
     mounted() {
         this.parseName();

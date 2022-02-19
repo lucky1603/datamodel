@@ -104,10 +104,7 @@
                         <div class="row">
                             <label class="col-sm-3 attribute-label mt-2" for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
                             <div class="col-sm-9 mt-0 pt-0">
-                                <a
-                                    @if($profile_status < 4) style="position: relative; top: -2px"
-                                    @else style="position: relative; top: 10px" @endif
-                                    href="{{ $attribute->getValue()['filelink'] }}">{{ $attribute->getValue()['filename'] }}</a>
+                                <file-item filename="{{ $attribute->getValue()['filename'] }}" filelink="{{ $attribute->getValue()['filelink'] }}" :fontsize="14"></file-item>
                                 <i id="iconDeleteContract" class="mdi mdi-delete font-24 attribute-label ml-2 @if($profile_status == 4) d-none @endif " role="button" title="Obriši dokument"></i>
                             </div>
                         </div>

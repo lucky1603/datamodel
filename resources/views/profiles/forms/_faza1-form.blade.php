@@ -71,16 +71,18 @@
                                 $filesSent = $attributes->where('name', 'files_sent')->first();
                             @endphp
                             @if($filesSent->getValue())
-                                <div class="mt-1 bg-light">
+                                <div class="mt-1">
                                     @php
                                         $requested_files = $attributes->where('name','requested_files')->first();
                                         $files = $requested_files->getValue();
                                     @endphp
                                     @if($requested_files->extra != 'multiple')
-                                        <a href="{{ $files['filelink'] }}" target="_blank">{{$files['filename']}}</a>
+{{--                                        <a href="{{ $files['filelink'] }}" target="_blank">{{$files['filename']}}</a>--}}
+                                        <file-item filename="{{ $file['filename'] }}" filelink="{{ $file['filelink'] }}" :fontsize="14"></file-item>
                                     @else
                                         @foreach($files as $file)
-                                            <a href="{{ $file['filelink'] }}" target="_blank" class="mr-2">{{ $file['filename'] }}</a>
+{{--                                            <a href="{{ $file['filelink'] }}" target="_blank" class="mr-2">{{ $file['filename'] }}</a>--}}
+                                            <file-item filename="{{ $file['filename'] }}" filelink="{{ $file['filelink'] }}" :fontsize="14"></file-item>
                                         @endforeach
                                     @endif
                                 </div>
@@ -114,8 +116,8 @@
         </div>
 
         <div class="row text-center @if($profile_status < 4) d-flex align-items-center justify-content-center @else d-none @endif" >
-            <button type="button" id="btnSaveFaza1" class="btn btn-sm btn-primary h-50 w-15 ml-1"  @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
-            <button type="button" id="btnFaza1Passed" class="btn btn-sm btn-success h-50 w-15 ml-1"  @if($status != $validStatus || !$phase->isValid()) disabled @endif>
+            <button type="button" id="btnSaveFaza1" class="btn btn-sm btn-primary ml-1"  @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
+            <button type="button" id="btnFaza1Passed" class="btn btn-sm btn-success ml-1"  @if($status != $validStatus || !$phase->isValid()) disabled @endif>
                 <span id="button_spinner_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.accept')}}</span>
             </button>
