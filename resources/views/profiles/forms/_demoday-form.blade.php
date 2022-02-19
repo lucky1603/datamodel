@@ -36,11 +36,11 @@
         </div>
 
         <div class="row text-center " style="display: flex; flex-direction: row; justify-content: center; align-items: center">
-            <button type="button" id="btnSaveDemoDay" class="btn btn-sm btn-primary h-50 w-15 ml-1"  @if($status != $validStatus) disabled @endif>
+            <button type="button" id="btnSaveDemoDay" class="btn btn-sm btn-primary ml-1"  @if($status != $validStatus) disabled @endif>
                 <span id="save-demo-day-spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="eval-demo-day">{{__('gui.save')}}</span>
             </button>
-            <button type="button" id="btnDemoDayPassed" class="btn btn-sm btn-success h-50 w-15 ml-1"  @if($status != $validStatus) disabled @endif>
+            <button type="button" id="btnDemoDayPassed" class="btn btn-sm btn-success ml-1"  @if($status != $validStatus) disabled @endif>
                 <span id="button_spinner_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.accept')}}</span>
             </button>
