@@ -33,7 +33,7 @@
                   <button   id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-4" title="Dodaj izveštaj" @click="showModal">+</button>
               </div>
 
-              <div v-if="report_id != 0 && user_role != 'profile'" class="form-group d-flex align-items-center justify-content-center mt-4" >
+              <div v-if="report_id != 0 && user_role != 'profile'" class="form-group d-flex flex-wrap align-items-center justify-content-center mt-4" >
 
                       <b-form-checkbox
                           id="chkTechFulfilled"
