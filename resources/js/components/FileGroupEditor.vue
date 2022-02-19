@@ -56,7 +56,6 @@ export default {
     },
     methods: {
         async onSubmit() {
-            alert('about to submit the form');
             let formData = new FormData();
             formData.append('_token', this.token);
             formData.append('report_id', this.report_id);
