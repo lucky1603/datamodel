@@ -1,9 +1,9 @@
 <template>
-    <div class="row border border-secondary" style="min-height: 100px">
-        <div class="col-2 d-flex align-items-center justify-content-center bg-dark text-light">
+    <div class="card shadow" style="min-height: 100px">
+        <div class="card-header bg-dark text-light">
             <span class="font-14 font-weight-light">{{ fileGroup.name }}</span>
         </div>
-        <div class="col-10">
+        <div class="card-body">
             <p v-if="fileGroup.note != null" class="m-1">{{ fileGroup.note}}</p>
             <hr v-if="fileGroup.note != null">
             <div class="d-flex flex-wrap pb-1">
