@@ -33,51 +33,50 @@
                   <button   id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-4" title="Dodaj izveštaj" @click="showModal">+</button>
               </div>
 
-              <div v-if="report_id != 0 && user_role != 'profile'" class="form-group row" style="margin-top: 50px">
-                  <div class="col-lg-3">
+              <div v-if="report_id != 0 && user_role != 'profile'" class="form-group d-flex align-items-center justify-content-center mt-4" >
+
                       <b-form-checkbox
                           id="chkTechFulfilled"
                           v-model="form.tech_fulfilled"
                           name="chkTechFulfilled"
                           value="on"
-                          unchecked-value="off" :disabled="form.fileGroups.length == 0"
+                          unchecked-value="off" :disabled="form.fileGroups.length == 0" class="mx-4 my-2"
                       >
                           <span class="attribute-label">Ispunjeni tehnički uslovi</span>
                       </b-form-checkbox>
-                  </div>
-                  <div class="col-lg-3">
+
+
                       <b-form-checkbox
                           id="chkBusinessFulfilled"
                           v-model="form.business_fulfilled"
                           name="chkBusinessFulfilled"
                           value="on"
-                          unchecked-value="off" :disabled="form.fileGroups.length == 0"
+                          unchecked-value="off" :disabled="form.fileGroups.length == 0" class="mx-4 my-2"
                       >
                           <span class="attribute-label">Ispunjeni poslovni uslovi</span>
                       </b-form-checkbox>
-                  </div>
-                  <div class="col-lg-2">
+
+
                       <b-form-checkbox
                           id="chkNarativeApproved"
                           v-model="form.narative_approved"
                           name="chkNarativeApproved"
                           value="on"
-                          unchecked-value="off" :disabled="form.fileGroups.length == 0"
+                          unchecked-value="off" :disabled="form.fileGroups.length == 0" class="mx-4 my-2"
                       >
                           <span class="attribute-label">Odobren narativ</span>
                       </b-form-checkbox>
-                  </div>
-                  <div class="col-lg-2">
+
                       <b-form-checkbox
                           id="chkReportApproved"
                           v-model="form.report_approved"
                           name="chkReportApproved"
                           value="on"
-                          unchecked-value="off" :disabled="form.fileGroups.length == 0"
+                          unchecked-value="off" :disabled="form.fileGroups.length == 0" class="mx-4 my-2"
                       >
                           <span class="attribute-label">Odobren izveštaj</span>
                       </b-form-checkbox>
-                  </div>
+
               </div>
               <div class="d-flex align-items-center justify-content-center mt-4">
                   <b-button v-if="user_role != 'profile'" type="submit" variant="primary" class="mr-2">Pošalji</b-button>
@@ -153,12 +152,8 @@ export default {
         onSubmit() {
             let data = new FormData();
             for(let property in this.form) {
-                if(property == 'files' && this.form.files.length > 0) {
-                    if(this.$refs.fileInput.files.length > 0) {
-                        for(let i = 0; i < this.$refs.fileInput.files.length; i++) {
-                            data.append('files[]', this.$refs.fileInput.files[i]);
-                        }
-                    }
+                if(property == 'fileGroups' ) {
+                    continue;
                 } else {
                     data.append(property, this.form[property]);
                 }

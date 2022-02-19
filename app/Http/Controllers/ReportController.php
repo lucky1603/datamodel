@@ -146,7 +146,6 @@ class ReportController extends Controller
 
         // Update other properties
         $report->report_name = $data['title'];
-        $report->report_description = $data['description'];
         $report->contract_check = $data['contract_check'];
         $report->tech_fulfilled = $data['tech_fulfilled'] == 'on';
         $report->business_fulfilled = $data['business_fulfilled'] == 'on';
