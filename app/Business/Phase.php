@@ -23,4 +23,5 @@ interface Phase
     public function getExitSituation();
     public function isVisibleInHistory();
     public function isValid();
+    public function validateData(Array $data);
 }

@@ -449,21 +449,8 @@
                     success: function(data) {
                         $('#button_spinner_contract_ok').attr('hidden', true);
                         console.log(data);
-                        location.reload();
-                        // var result = JSON.parse(data);
-                        //
-                        // console.log(result);
-                        // if(result.code != 0) {
-                        //     console.log(result.message);
-                        //     $.toast(result.message);
-                        // } else {
-                        //     $.toast({
-                        //         text: result.message,
-                        //         afterHidden: function() {
-                        //             location.reload();
-                        //         }
-                        //     });
-                        // }
+                        if(data.code === 0) location.reload();
+                        else alert(data.message);
                     },
                     error: function(data) {
                         $('#button_spinner_contract_ok').attr('hidden', true);

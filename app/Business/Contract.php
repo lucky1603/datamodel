@@ -3,6 +3,7 @@
 
 namespace App\Business;
 
+use App\Attribute;
 use App\Entity;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Collection;
@@ -165,11 +166,19 @@ class Contract extends PhaseImpl
 
     public function getExitSituation(): Situation
     {
-        $situation = new Situation([
-            'name' => 'Potpisan ugovor',
-            'description' => 'Klijent je potpisao ugovor u prostorijama NTP.',
-            'sender' => 'NTP'
-        ]);
+        if($this->getValue('passed') == true) {
+            $situation = new Situation([
+                'name' => 'Potpisan ugovor',
+                'description' => 'Klijent je potpisao ugovor u prostorijama NTP.',
+                'sender' => 'NTP'
+            ]);
+        } else {
+            $situation = new Situation([
+                'name' => 'Ugovor nije potpisan',
+                'description' => 'Iako je prethodno bilo predviđeno, klijent nije potpisao ugovor sa NTP.',
+                'sender' => 'NTP'
+            ]);
+        }
 
         return $situation;
     }
@@ -182,5 +191,58 @@ class Contract extends PhaseImpl
     public function getExitEmailTemplate() : ?Mailable
     {
         return null;
+    }
+
+    public function validateData(Array $data): array
+    {
+        $code = 0;
+        $message = 'Podaci su validni';
+
+        if($data['contract_number'] == null) {
+            return [
+                'code' => 1,
+                'message' => 'Polje za broj ugovora ne može biti prazno!'
+            ];
+        } else {
+            if(Attribute::checkValue(Entity::where('name', 'Contract')->first(), 'contract_number', $data['contract_number'])) {
+                return [
+                    'code' => 1,
+                    'message' => 'Ugovor sa ovim brojem već postoji u bazi!'
+                ];
+            }
+        }
+
+        if($data['amount'] == null) {
+            return [
+                'code' => 1,
+                'message' => 'Polje za iznos ne može biti prazno!'
+            ];
+        }
+
+        if($data['currency'] == 0) {
+            return [
+                'code' => 1,
+                'message' => 'Morate izabrati valutu!'
+            ];
+        }
+
+        if($data['duration'] == null) {
+            return [
+                'code' => 1,
+                'message' => 'Polje za trajanje ne može biti prazno!'
+            ];
+        }
+
+        if($data['duration_unit'] == 0) {
+            return [
+                'code' => 1,
+                'message' => 'Morate izabrati jedinicu trajanja!'
+            ];
+        }
+
+        return [
+            'code' => 0,
+            'message' => "Podaci validni!"
+        ];
     }
 }

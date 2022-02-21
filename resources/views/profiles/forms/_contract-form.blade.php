@@ -134,12 +134,11 @@
             </div>
         </div>
 
-
         <div class=" @if($profile_status == 4) d-none @else d-flex align-items-center justify-content-center @endif" >
-                <button type="button" id="btnSaveContract" class="btn btn-sm btn-primary ml-1" @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
-                <button type="button" id="btnCS" class="btn btn-sm btn-success btnNext ml-2" @if($status != $validStatus || !$can_sign) disabled @endif>
+                <button type="button" id="btnSaveContract" class="btn btn-sm btn-primary ml-1" >{{__('gui.save')}}</button>
+                <button type="button" id="btnCS" class="btn btn-sm btn-success btnNext ml-2" @if(!$can_sign) disabled @endif>
                     <span id="button_spinner_contract_ok" class="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true" hidden></span>
-                    <span id="button_text">Na program</span>
+                    <span id="button_text">Dalje</span>
                 </button>
         </div>
     </form>

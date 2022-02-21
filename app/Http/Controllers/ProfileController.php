@@ -711,6 +711,11 @@ class ProfileController extends Controller
 
         $program = $profile->getActiveProgram(true);
 
+        $validation = $program->workflow->getCurrentPhase()->validateData($data);
+        if($validation['code'] != 0) {
+            return $validation;
+        }
+
         if($data['passed'] == 'on') {
             if($program->workflow->isLastStep())
             {

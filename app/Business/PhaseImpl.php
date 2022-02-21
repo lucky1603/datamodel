@@ -107,4 +107,12 @@ class PhaseImpl extends BusinessModel implements Phase
     {
         return true;
     }
+
+    public function validateData(Array $data): array
+    {
+        return [
+            'code' => 0,
+            'message' => 'Podaci validni'
+        ];
+    }
 }
