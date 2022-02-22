@@ -1,7 +1,7 @@
 <template>
-  <div class="row border border-secondary" style="width: 400px; height: 120px;" role="button" @click="onClick">
+  <div class="row border border-secondary" style="width: 400px; height: 80px;" role="button" @click="onClick">
       <div class="col-2 d-flex flex-column justify-content-center align-items-center">
-          <span class="display-3">{{ order_number }}</span>
+          <span class="display-4">{{ order_number }}</span>
       </div>
       <div class="col-8 d-flex flex-column align-items-center justify-content-center bg-dark text-light">
           <div class="d-flex justify-content-center">
@@ -13,7 +13,7 @@
       </div>
       <div class="col-2 d-flex flex-column align-items-center justify-content-center">
           <span class="font-10">STATUS</span>
-          <img :src="iconSource" style="width: 48px; height: 48px" :title="iconText">
+          <img :src="iconSource"  :title="iconText">
       </div>
   </div>
 </template>
@@ -32,13 +32,13 @@ export default {
         iconSource() {
             switch(this.status) {
                 case 0:
-                    return '/images/custom/scheduled.png';
+                    return '/images/custom/izvestaj-zakazan.png';
                 case 1:
-                    return '/images/custom/upozorenje.png';
+                    return '/images/custom/izvestaj-upozorenje.png';
                 case 2:
-                    return '/images/custom/poslao.png';
+                    return '/images/custom/izvestaj-poslato.png';
                 default:
-                    return '/images/custom/zakasnio.png';
+                    return '/images/custom/izvestaj-kasnjenje.png';
             }
         },
         iconText() {

@@ -13,17 +13,8 @@
                         </program-data>
                     </div>
                     <div class="card shadow mt-2" style="height: 25%">
-                        <div class="card-header"><span class="h4 attribute-label">PROGRAMI</span></div>
+                        <div class="card-header"><span class="h4 attribute-label">KOMPANIJE</span></div>
                         <div class="card-body overflow-auto" style="height: 95%; display:flex; flex-wrap: wrap">
-<!--                            <tile-item v-for="(program, index) in programs"-->
-<!--                                       :title="program.name"-->
-<!--                                       :id="program.id"-->
-<!--                                       :key="program.id"-->
-<!--                                       :photo="program.photo"-->
-<!--                                       class="mr-2"-->
-<!--                                       @tile-clicked="selectProgram(program.id)">-->
-
-<!--                            </tile-item>-->
                             <round-item v-for="(program, index) in programs"
                                         :title="program.name"
                                         :id="program.id"

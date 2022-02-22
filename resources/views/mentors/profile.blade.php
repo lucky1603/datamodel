@@ -17,9 +17,9 @@
                 <div class="row mt-2" style="height: 45%">
                     <div class="col-lg-12 h-100 w-100">
                         <program-list
-                            title="{{mb_strtoupper( __("Programs I am involved at")) }}" :mentorid="{{ $mentor->getId() }}"
+                            title="{{mb_strtoupper( __("Companies I am Working With")) }}" :mentorid="{{ $mentor->getId() }}"
                             addRoute="{{ route('mentors.addprogram', ['mentor' => $mentor->getId()]) }}"
-                            addProgramTitle="{{ __('Connect Program') }}" >
+                            addProgramTitle="{{ __('Connect Company') }}" role="{{ $role }}">
                         </program-list>
                     </div>
                 </div>

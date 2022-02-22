@@ -3,11 +3,11 @@
         <div class="card h-100 w-100">
             <div class="card-header text-dark">
                 <span class="mb-0 mt-0 h5 attribute-label">{{ title }}</span>
-                <b-button class="float-right" variant="primary" :title="addprogramtitle" @click="showModal"><i class="uil-document"></i></b-button>
-                <b-button class="float-right mr-1" variant="primary-outline" :title="deleteprogramtitle"><i class="mdi mdi-delete"></i></b-button>
+                <b-button v-if="role === 'administrator'" class="float-right" variant="primary" :title="addprogramtitle" @click="showModal"><i class="uil-document"></i></b-button>
+                <b-button v-if="role === 'administrator'" class="float-right mr-1" variant="primary-outline" :title="deleteprogramtitle"><i class="mdi mdi-delete"></i></b-button>
             </div>
             <div class="card-body font-12" style="height: 95%">
-                <p v-if="this.programs.length == 0">There are currently no programs attached</p>
+                <p v-if="this.programs.length == 0">There are currently no companies attached</p>
                 <b-table
                     ref="ProgramsTable"
                     v-if="programs.length > 0"
@@ -39,12 +39,13 @@
 export default {
     name: "ProgramList",
     props : {
-        mentorid : {typeof: Number, default: 0},
-        addroute: {typeof: String, default: ''},
+        mentorid : { typeof: Number, default: 0 },
+        addroute: { typeof: String, default: '' },
         addprogramtitle: {typeof: String, default: 'Poveži'},
         deleteprogramtitle: {typeof: String, default: 'Obriši'},
-        title : {typeof: String, default: ''},
-        token : null
+        title : { typeof: String, default: '' },
+        token : null,
+        role: { typeof: String, default: '' }
     },
     methods: {
         async getPrograms() {

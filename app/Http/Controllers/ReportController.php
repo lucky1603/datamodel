@@ -196,6 +196,8 @@ class ReportController extends Controller
             }
 
             $report->addFileGroup($fileGroup);
+            $report->setAttribute('status', Report::$SENT);
+            $report->save();
         }
 
         return [

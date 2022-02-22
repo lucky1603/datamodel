@@ -14,6 +14,7 @@ class Report extends Model
     public static int $SENT = 2;
     public static int $LATE = 3;
 
+
     protected $guarded = [];
 
     public function instance(): BelongsTo

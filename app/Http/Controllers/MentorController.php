@@ -121,7 +121,8 @@ class MentorController extends Controller
 
     public function profile($mentorId) {
         $mentor = Mentor::find($mentorId);
-        return view('mentors.profile', ['mentor' => $mentor]);
+        $role = auth()->user()->roles()->first()->name;
+        return view('mentors.profile', ['mentor' => $mentor, 'role' => $role]);
     }
 
     public function addProgram($mentorId) {
