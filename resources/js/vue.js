@@ -63,6 +63,7 @@ Vue.component('report-item', require('./components/ReportItem').default);
 Vue.component('file-group-editor', require('./components/FileGroupEditor').default);
 Vue.component('file-item', require('./components/FileItem').default);
 Vue.component('file-group-viewer', require('./components/FileGroupViewer').default);
+Vue.component('session-item', require('./components/SessionItem').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

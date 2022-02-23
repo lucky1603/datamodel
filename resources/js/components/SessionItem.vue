@@ -1,10 +1,10 @@
 <template>
-    <div class="card shadow ribbon-box m-2" :style="cardStyle" @click="tileClicked">
-        <div :class="myClass" style="height: 80%; display: flex; align-items: center; justify-content: center; overflow: hidden">
-            <img ref="photo" class="h-100" :src="imageSource">
+    <div class="card shadow m-2" :style="cardStyle" @click="tileClicked">
+        <div style="height: 80%; display: flex; align-items: start; justify-content: center; overflow: hidden; ">
+            <img ref="photo" class="w-100" :src="imageSource">
+            <img ref="status" :src="finishedIconSource" style="position: absolute; right: 4px; top: 4px"/>
         </div>
         <div class="card-body p-0 h-25" style="display: flex; align-items: center; justify-content: center; height: 20%">
-            <div v-if="this.label != null && this.label.show == true" :class="labelClass"><span>{{ label.text}}</span></div>
             <span :class="titleClass" style="font-family: 'Roboto Light'">{{ title }}</span>
         </div>
     </div>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-    name: "TileItem",
+    name: "SessionItem",
     computed: {
         imageSource() {
             if(this.photo == '')
@@ -38,30 +38,15 @@ export default {
                 height: this.height + 'px',
                 width: this.width + 'px',
                 overflow: 'hidden',
-                margin: "5px"
+                // margin: "5px"
             }
         },
-        cardClass() {
-            if(this.label != null && this.label.show) {
-                return 'card shadow ribbon-box';
-            }
-
-            return 'card shadow';
-        },
-        labelClass() {
-            switch(this.label.type) {
-                case 1:
-                    return 'ribbon-two ribbon-two-danger';
-                case 2:
-                    return 'ribbon-two ribbon-two-primary';
-                case 3:
-                    return 'ribbon-two ribbon-two-success';
-                case 4:
-                    return 'ribbon-two ribbon-two-warning';
-                default:
-                    return 'ribbon-two ribbon-two-info';
-            }
+        finishedIconSource() {
+            if(this.finished)
+                return '/images/custom/zavrsena-sesija.png';
+            return '/images/custom/zakazana-sesija.png';
         }
+
     },
     props: {
         id: { typeof: Number, default: 0 },
@@ -71,7 +56,8 @@ export default {
         padding: { typeof: Number, default: 0 },
         height: {typeof: Number, default: 140 },
         width: {typeof: Number, default: 100 },
-        label: null
+        label: null,
+        finished: { typeof: Boolean, default: false }
     },
     methods: {
         tileClicked() {
@@ -100,3 +86,5 @@ export default {
 <style scoped>
 
 </style>
+
+
