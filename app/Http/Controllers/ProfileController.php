@@ -702,7 +702,7 @@ class ProfileController extends Controller
 
         $profileId = $data['profile'];
         $profile = Profile::find($profileId);
-        if($profile == null) {
+        if($profile === null) {
             return [
                 'code' => 2,
                 'message' => __('Profile doesn\'t exist'),
@@ -711,12 +711,12 @@ class ProfileController extends Controller
 
         $program = $profile->getActiveProgram(true);
 
-        $validation = $program->workflow->getCurrentPhase()->validateData($data);
-        if($validation['code'] != 0) {
-            return $validation;
-        }
-
         if($data['passed'] == 'on') {
+            $validation = $program->workflow->getCurrentPhase()->validateData($data);
+            if($validation['code'] != 0) {
+                return $validation;
+            }
+
             if($program->workflow->isLastStep())
             {
                 // Set data.
@@ -782,7 +782,7 @@ class ProfileController extends Controller
 
         return [
             'code' => 0,
-            'message' => __('Profile doesn\'t exist'),
+            'message' => __('Eval successfull!'),
         ];
     }
 

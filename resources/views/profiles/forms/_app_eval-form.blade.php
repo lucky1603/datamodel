@@ -27,26 +27,6 @@
                             value="{{ $value }}">
                     </div>
 
-                    @php
-                        $attribute = $attributes->where('name', 'passed')->first();
-                        $value = $attribute->getValue() ?? 0;
-                    @endphp
-                    <input type="hidden" id="{{ $attribute->name }}Hidden" name="{{$attribute->name}}" value="off">
-
-
-                    <div class="col-lg-3" style="display: flex">
-                        <label class="col-form-label col-form-label-sm attribute-label mr-1">{{ $attribute->label }}</label>
-                        <input type="checkbox" id="applicationPassed" name="{{$attribute->name}}"
-                               @if($value) checked @endif data-switch="primary" onclick="
-                            if(document.getElementsById('applicationPassed').checked) {
-                            document.getElementById('{{$attribute->name}}Hidden').disabled = true;
-                            } else {
-                            document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
-                            }
-                            ">
-                        <label for="applicationPassed" data-on-label="Da" data-off-label="Ne" style="top:3px"></label>
-
-                    </div>
                 </div>
                 <div class="form-group">
                     @php
@@ -66,6 +46,10 @@
             <button type="button" id="btnEvalDecision" class="btn btn-sm btn-success ml-1 btnNext"  @if($status != $validStatus) disabled @endif>
                 <span id="button_spinner_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.accept')}}</span>
+            </button>
+            <button type="button" id="btnRejectDecision" class="btn btn-sm btn-danger ml-1 btnNext"  @if($status != $validStatus) disabled @endif>
+                <span id="button_spinner_reject" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_text">{{__('gui.reject')}}</span>
             </button>
         </div>
     </form>

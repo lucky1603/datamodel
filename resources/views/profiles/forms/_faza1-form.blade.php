@@ -28,30 +28,6 @@
                                    name="{{ $attribute->name }}" @if($profile_status == 4) disabled @endif
                                    @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif>
                         </div>
-                        @php
-                            $attribute = $attributes->where('name', 'passed')->first();
-                            $value = $attribute->getValue() ?? false;
-                        @endphp
-                        <input type="hidden" id="{{ $attribute->name }}Hidden" name="{{ $attribute->name }}" value="off">
-                        @if($phase->getValue('files_sent') == true && $profile_status < 4)
-                            <div class="col-lg-3" style="display: flex">
-                                <label class="col-form-label col-form-label-sm mr-2 attribute-label">{{ $attribute->label }}</label>
-                                <input
-                                    type="checkbox"
-                                    id="faza1Passed"
-                                    name="{{ $attribute->name }}" style="top:9px; position: relative"
-                                    @if($value) checked @endif
-                                    data-switch="primary"
-                                    onclick="
-                                    if(document.getElementById('faza1Passed').checked) {
-                                    document.getElementById('{{ $attribute->name }}Hidden').disabled = true;
-                                    } else {
-                                    document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
-                                    }
-                                    ">
-                                <label for="faza1Passed" data-on-label="Da" data-off-label="Ne" style="top:3px"></label>
-                            </div>
-                        @endif
 
                     </div>
                     <div class="form-group row">
@@ -120,6 +96,10 @@
             <button type="button" id="btnFaza1Passed" class="btn btn-sm btn-success ml-1"  @if($status != $validStatus || !$phase->isValid()) disabled @endif>
                 <span id="button_spinner_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.accept')}}</span>
+            </button>
+            <button type="button" id="btnFaza1Rejected" class="btn btn-sm btn-danger ml-1 btnNext"  @if($status != $validStatus) disabled @endif>
+                <span id="button_spinner_reject" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_text">{{__('gui.reject')}}</span>
             </button>
         </div>
     </form>

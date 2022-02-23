@@ -76,6 +76,7 @@ class Contract extends PhaseImpl
             $currency->addOption(['value' => 1, 'text' => 'RSD']);
             $currency->addOption(['value' => 2, 'text' => 'EUR']);
             $currency->addOption(['value' => 3, 'text' => 'USD']);
+            $currency->addOption(['value' => 4, 'text' => 'CHF']);
         }
         $attributes->add($currency);
 

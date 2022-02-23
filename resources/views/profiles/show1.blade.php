@@ -165,52 +165,61 @@
 
             $('#btnEvalDecision').click(function() {
                 $('#button_spinner_ok').attr('hidden', false);
-                let some = $($('form#myAppEvalForm')[0]).serialize();
-                const token = $('form#myAppEvalForm input[name="_token"]').val();
+                let formData = new FormData($('form#myAppEvalForm')[0]);
+                formData.append('passed', 'on');
 
-                $.ajax({
-                    url: '/profiles/evalPhase',
-                    data: some,
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-Token' : token
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#button_spinner_ok').attr('hidden', true);
-                        location.reload();
-                    },
-                    error: function(data) {
-                        console.log(data);
-                        $('#button_spinner_ok').attr('hidden', true);
-                    }
+                axios.post('/profiles/evalPhase', formData)
+                .then(response => {
+                    console.log(data);
+                    $('#button_spinner_ok').attr('hidden', true);
+                    location.reload();
+                }).catch(error => {
+                    console.log(error);
+                    $('#button_spinner_ok').attr('hidden', true);
+                });
 
+            });
+
+            $('#btnRejectDecision').click(function() {
+                $('#button_spinner_reject').attr('hidden', false);
+                let formData = new FormData($('form#myAppEvalForm')[0]);
+                formData.append('passed', 'off');
+                axios.post('/profiles/evalPhase', formData)
+                .then(response => {
+                    console.log(response.data);
+                    $('#button_spinner_reject').attr('hidden', true);
+                    location.reload();
                 });
             });
 
             $('#btnFaza1Passed').click(function() {
                 $('#button_spinner_ok').attr('hidden', false);
                 let formData = new FormData($('form#myFaza1Form')[0]);
-                const token = $('form#myFaza1Form input[name="_token"]').val();
-                $.ajax({
-                    url: '/profiles/evalPhase',
-                    data: formData,
-                    method: 'POST',
-                    processData: false,
-                    contentType: false,
-                    headers: {
-                        'X-CSRF-Token' : token,
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#button_spinner_ok').attr('hidden', true);
-                        location.reload();
-                    },
-                    error: function(data) {
-                        console.log(data);
-                        $('#button_spinner_ok').attr('hidden', true);
-                    }
+                formData.append('passed', 'on');
+                // const token = $('form#myFaza1Form input[name="_token"]').val();
+                // formData.append('_token', token);
+
+                axios.post('/profiles/evalPhase', formData)
+                .then(response => {
+                    console.log(response.data);
+                    $('#button_spinner_ok').attr('hidden', true);
+                    location.reload();
                 });
+            });
+
+            $('#btnFaza1Rejected').click(function() {
+                $('#button_spinner_reject').attr('hidden', false);
+                let formData = new FormData($('form#myFaza1Form')[0]);
+                formData.append('passed', 'off');
+                // const token = $('form#myFaza1Form input[name="_token"]').val();
+                // formData.append('_token', token);
+
+                axios.post('/profiles/evalPhase', formData)
+                    .then(response => {
+                        console.log(response.data);
+                        $('#button_spinner_reject').attr('hidden', true);
+                        location.reload();
+                    });
             });
 
             $('#btnSendMail').on('click', function(evt) {
@@ -348,30 +357,29 @@
             });
 
             $('#btnDemoDayPassed').click(function() {
-                $('#button_spinner_ok').attr('hidden', false);
+                $('#button_spinner_demoday_ok').attr('hidden', false);
                 let formData = new FormData($('form#myDemoDayForm')[0]);
-                const token = $('form#myDemoDayForm input[name="_token"]').val();
-
-                $.ajax({
-                    url: '/profiles/evalPhase',
-                    data: formData,
-                    method: 'POST',
-                    processData: false,
-                    contentType: false,
-                    headers: {
-                        'X-CSRF-Token' : token
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#button_spinner_ok').attr('hidden', true);
-                        location.reload();
-                    },
-                    error: function(data) {
-                        console.log(data);
-                        $('#button_spinner_ok').attr('hidden', true);
-                        location.reload();
-                    }
+                formData.append('passed' ,'on');
+                // const token = $('form#myDemoDayForm input[name="_token"]').val();
+                axios.post('/profiles/evalPhase', formData)
+                .then(response => {
+                    console.log(response.data);
+                    $('#button_spinner_demoday_ok').attr('hidden', true);
+                    location.reload();
                 });
+            });
+
+            $('#btnDemoDayRejected').click(function() {
+                $('#button_spinner_demoday_reject').attr('hidden', false);
+                let formData = new FormData($('form#myDemoDayForm')[0]);
+                formData.append('passed' ,'off');
+                // const token = $('form#myDemoDayForm input[name="_token"]').val();
+                axios.post('/profiles/evalPhase', formData)
+                    .then(response => {
+                        console.log(response.data);
+                        $('#button_spinner_demoday_reject').attr('hidden', true);
+                        location.reload();
+                    });
             });
 
             $('#btnPreselectionPassed').click(function(evt) {
@@ -435,28 +443,31 @@
             $('#btnCS').click(function(evt) {
                 $('#button_spinner_contract_ok').attr('hidden', false);
                 let formData = new FormData($('form#myFormContract')[0]);
-                var token = $('form#myFormContract input[name="_token"]').val();
+                // var token = $('form#myFormContract input[name="_token"]').val();
 
-                $.ajax({
-                    url : '/profiles/evalPhase',
-                    data: formData,
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-Token' : token
-                    },
-                    processData: false,
-                    contentType: false,
-                    success: function(data) {
-                        $('#button_spinner_contract_ok').attr('hidden', true);
-                        console.log(data);
-                        if(data.code === 0) location.reload();
-                        else alert(data.message);
-                    },
-                    error: function(data) {
-                        $('#button_spinner_contract_ok').attr('hidden', true);
-                        console.log(data);
-                    }
+                formData.append('passed', 'on');
+                axios.post('/profiles/evalPhase', formData)
+                .then(response => {
+                    $('#button_spinner_contract_ok').attr('hidden', true);
+                    console.log(response.data);
+                    if(response.data.code === 0) location.reload();
+                    else alert(response.data.message);
                 });
+
+            });
+
+            $('#btnCSReject').click(function(evt) {
+                $('#button_spinner_contract_reject').attr('hidden', false);
+                let formData = new FormData($('form#myFormContract')[0]);
+                // var token = $('form#myFormContract input[name="_token"]').val();
+
+                formData.append('passed', 'off');
+                axios.post('/profiles/evalPhase', formData)
+                    .then(response => {
+                        $('#button_spinner_contract_reject').attr('hidden', true);
+                        console.log(response.data);
+                        location.reload();
+                    });
 
             });
 

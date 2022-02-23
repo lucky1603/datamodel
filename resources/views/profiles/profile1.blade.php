@@ -283,18 +283,16 @@
                     </div>
                 </div>
             @elseif($status == 5)
-                <div class="card" style="position: absolute; top: 0px; bottom:0px; left: 0px; right: 0px;">
-                    <div class="card-header bg-dark text-light text-center">{{ mb_strtoupper(__('Application Rejected')) }}</div>
+                <div class="card h-100 w-100 m-0">
                     <div class="card-body">
+                        <h3 class="font-weight-light">{{ mb_strtoupper(__('Application Rejected')) }}</h3>
+                        <hr>
                         <p>
                             Vaša je prijava na program
                             <span class="attribute-label font-weight-bold">{{ strtoupper($model->getActiveProgram()->getAttribute('program_name')->getValue()) }}</span>
                             je nažalost odbijena.
                         </p>
-
-                        <div class="text-center">
-                            <button type="button" class="btn btn-sm btn-primary rounded-pill">Ok</button>
-                        </div>
+                        <p>Za sva eventualna pitanja možete nas kontaktirati na <a href="mailto://info@ntpark.rs" target="_blank">info@ntpark.rs</a>.</p>
                     </div>
                 </div>
             @else

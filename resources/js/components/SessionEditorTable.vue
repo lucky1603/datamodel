@@ -6,23 +6,23 @@
                 <b-button class="float-right" variant="primary" @click="newSession"><i class="dripicons-user-group"></i></b-button>
             </div>
             <div class="card-body overflow-auto" style="display: flex; flex-wrap: wrap">
-<!--                <tile-item-->
-<!--                    v-for="(session, index) in sessions"-->
-<!--                    :title="session.title"-->
-<!--                    :id="session.id"-->
-<!--                    :key="session.id"-->
-<!--                    :label="{ show: session.isFinished, type: 3, text: 'Završena'}"-->
-<!--                    class="mr-2" photo="/images/custom/sesije.png"-->
-<!--                    @tile-clicked="tileClicked"></tile-item>-->
-
-                <session-item
+                <tile-item
                     v-for="(session, index) in sessions"
                     :title="session.title"
                     :id="session.id"
                     :key="session.id"
-                    :finished="session.isFinished"
+                    :label="{ show: session.isFinished, type: 3, text: 'Završena'}"
                     class="mr-2" photo="/images/custom/sesije.png"
-                    @tile-clicked="tileClicked"></session-item>
+                    @tile-clicked="tileClicked"></tile-item>
+
+<!--                <session-item-->
+<!--                    v-for="(session, index) in sessions"-->
+<!--                    :title="session.title"-->
+<!--                    :id="session.id"-->
+<!--                    :key="session.id"-->
+<!--                    :finished="session.isFinished"-->
+<!--                    class="mr-2" photo="/images/custom/sesije.png"-->
+<!--                    @tile-clicked="tileClicked"></session-item>-->
 
             </div>
         </div>
