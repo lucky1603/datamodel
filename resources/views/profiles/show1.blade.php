@@ -222,6 +222,20 @@
                     });
             });
 
+            $('#btnFaza1Rollback').click(function() {
+                $('#button_spinner_rollback').attr('hidden', false);
+                // setTimeout(() => {
+                //     $('#button_spinner_rollback').attr('hidden', true);
+                // }, 2000);
+                let formData = new FormData($('form#myFaza1Form')[0]);
+                axios.post('/faza1/rollback', formData)
+                .then(response => {
+                    console.log(response.data);
+                    $('#button_spinner_rollback').attr('hidden', true);
+                    location.reload();
+                });
+            });
+
             $('#btnSendMail').on('click', function(evt) {
                 var profileId = <?php echo $model->getId();?>;
 

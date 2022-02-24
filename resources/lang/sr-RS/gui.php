@@ -62,6 +62,7 @@ return [
     'accept' => 'Prihvati',
     'reject' => 'Odbij',
     'sign' => 'Potpiši',
+    'rollback' => 'Prethodno',
 
     /*
      * Validation Errors

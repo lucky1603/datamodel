@@ -15,10 +15,19 @@ class CreateFileGroupsTable extends Migration
     {
         Schema::create('file_groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('report_id')->nullable(true);
             $table->string('name')->nullable(true);
             $table->text('note')->nullable(true);
             $table->timestamps();
+        });
+
+        Schema::create('file_group_report', function (Blueprint $table) {
+            $table->foreignId('file_group_id');
+            $table->foreignId('report_id');
+
+            $table->foreign('file_group_id')
+                ->on('file_groups')
+                ->references('id')
+                ->onDelete('cascade');
 
             $table->foreign('report_id')
                 ->on('reports')
@@ -50,6 +59,12 @@ class CreateFileGroupsTable extends Migration
      */
     public function down()
     {
+        Schema::table('file_group_report', function(Blueprint $table) {
+            $table->dropForeign('file_group_report_file_group_id_foreign');
+            $table->dropForeign('file_group_report_report_id_foreign');
+            $table->drop();
+        });
+
         Schema::table('file_file_group', function(Blueprint $table) {
             $table->dropForeign('file_file_group_file_group_id_foreign');
             $table->dropForeign('file_file_group_file_id_foreign');

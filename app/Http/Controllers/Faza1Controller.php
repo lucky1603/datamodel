@@ -42,4 +42,20 @@ class Faza1Controller extends Controller
         ];
     }
 
+    public function rollback(Request $request) {
+        $phaseId = $request->post('id');
+        var_dump($request->post());
+        $faza1 = Faza1::find($phaseId);
+//        $program = $faza1->getWorkflow()->getProgram();
+//        $profile = $program->getProfile();
+//        $profileStatus = $profile->getValue('profile_status');
+//        $profileState = $profile->getValue('profile_state');
+//        $programStatus = $program->getStatus();
+        $filesSent = $faza1->getValue('files_sent');
+        if($filesSent) {
+            $faza1->setValue("requested_files", null);
+            $faza1->setValue('files_sent', false);
+        }
+    }
+
 }

@@ -12,9 +12,9 @@ class Faza1 extends PhaseImpl
 
     public function getEntity()
     {
-        $entity = Entity::where('name', 'Phase1')->first();
+        $entity = Entity::where('name', 'Faza1')->first();
         if($entity == null) {
-            $entity = Entity::create(['name' => 'Phase1', 'description' => __('Phase 1')]);
+            $entity = Entity::create(['name' => 'Faza1', 'description' => __('Faza 1')]);
         }
 
         return $entity;

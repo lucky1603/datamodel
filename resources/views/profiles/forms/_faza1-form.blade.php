@@ -101,6 +101,10 @@
                 <span id="button_spinner_reject" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.reject')}}</span>
             </button>
+            <button type="button" id="btnFaza1Rollback" class="btn btn-sm btn-outline-primary ml-1 btnNext">
+                <span id="button_spinner_rollback" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_text">{{__('gui.rollback')}}</span>
+            </button>
         </div>
     </form>
 </div>

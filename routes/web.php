@@ -129,6 +129,7 @@ Route::get('mentors/profile/{mentor}', 'MentorController@profile')->name('mentor
 Route::post('/demoday/sendfiles', 'DemoDayController@sendfiles')->name('demoday.sendfiles');
 Route::post('/faza1/sendfiles', 'Faza1Controller@sendfiles')->name('faza1.sendfiles');
 Route::post('/faza1/update', 'Faza1Controller@update')->name('faza1.update');
+Route::post('/faza1/rollback', 'Faza1Controller@rollback')->name('faza1.rollback');
 Route::post('/demoday/update', 'DemoDayController@update')->name('demoday.update');
 Route::post('/preselection/update/{preselection}', 'PreselectionController@update')->name('preselection.update');
 Route::post('/selection/update/{selection}', 'SelectionController@update')->name('selection.update');
