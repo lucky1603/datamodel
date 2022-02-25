@@ -18,7 +18,7 @@
         </div>
 
         <div class="form-group">
-            <label for="password">{{ __('Password') }}</label>
+            <label for="password">{{ __('Password') }} ({{ __('8 characters minimum') }})</label>
             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
             @error('password')
