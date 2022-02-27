@@ -4,6 +4,7 @@ namespace App\Business;
 
 use App\Entity;
 use App\Instance;
+use App\MentorReport;
 use Illuminate\Support\Collection;
 
 class Mentor extends SituationsModel
@@ -58,9 +59,23 @@ class Mentor extends SituationsModel
      * Detaches the program from the mentor.
      * @param $program
      */
-    public function removeProgram($program) {
+    public function removeProgram(Program $program) {
+
+        // First remove the program sessions
+        $this->removeSessionsForProgram($program);
+
+        // Detach program and refresh.
         $this->instance->instances()->detach($program->instance->id);
         $this->instance->refresh();
+    }
+
+    /**
+     * Removes all programs from a mentor.
+     */
+    public function removeAllPrograms() {
+        $this->getPrograms()->each(function($program) {
+            $this->removeProgram($program);
+        });
     }
 
     /**
@@ -105,6 +120,18 @@ class Mentor extends SituationsModel
     }
 
     /**
+     * Remove all sessions for one program.
+     * @param Program $program
+     */
+    public function removeSessionsForProgram(Program $program) {
+        // Check if this program belongs to this mentor.
+        $sessions = $this->getSessionsForProgram($program);
+        foreach ($sessions as $session) {
+            $this->removeSession($session);
+        }
+    }
+
+    /**
      * Deletes the mentor.
      */
     public function delete()
@@ -138,9 +165,7 @@ class Mentor extends SituationsModel
      */
     public function getSessionsForProgram(Program $program) {
         return $this->getSessions()->filter(function($session) use($program) {
-            if($session->getProgram()->getId() == $program->getId())
-                return true;
-            return false;
+            return $session->getProgram()->getId() == $program->getId();
         });
     }
 
@@ -194,6 +219,18 @@ class Mentor extends SituationsModel
         $attributes->add(self::selectOrCreateAttribute(['remark', __('Remark'), 'text', NULL, 8]));
 
         return $attributes;
+
+    }
+
+    /**
+     * Get mentor reports for this program and mentor.
+     * @param Program $program
+     * @return mixed
+     */
+    public function getReportsForProgram(Program $program) {
+        return MentorReport::all()->filter(function($report) use ($program) {
+            return $report->program_id == $program->getId();
+        });
 
     }
 

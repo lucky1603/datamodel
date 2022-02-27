@@ -118,13 +118,19 @@ Route::get('mentors/ownsessions/{mentor}', 'MentorController@ownSessions')->name
 Route::get('mentors/edit/{mentor}', 'MentorController@edit')->name('mentors.edit');
 Route::post('mentors/edit', 'MentorController@update')->name('mentors.update');
 Route::get('mentors/showdata/{mentor}', 'MentorController@showData')->name('mentors.showdata');
-Route::get('mentors/delete/{mentor}/{program}', "MentorController@deleteProgram")->name('mentors.delete');
+Route::get('mentors/deleteAllPrograms/{mentor}', 'MentorController@deleteAllPrograms')->name('mentors.deleteAllPrograms');
+Route::get('mentors/deleteProgram/{mentor}/{program}', "MentorController@deleteProgram")->name('mentors.delete');
 Route::get('mentors/forprogram/{program}', 'MentorController@forProgram')->name('mentors.forprogram');
 Route::get('mentors/programs/{mentor}', 'MentorController@programs')->name('mentors.programs');
 Route::get('mentors/sessions/{program}/{mentor}', 'MentorController@sessions')->name('mentors.sessions');
+Route::get('mentors/reportsForProgram/{mentor}/{program}', 'MentorController@reportsForProgram')->name('mentors.reportsForProgram');
 Route::get('mentors/addprogram/{mentor}', 'MentorController@addProgram')->name('mentors.addprogram');
 Route::post('mentors/addprogram', 'MentorController@storeProgram')->name('mentors.storeprogram');
 Route::get('mentors/profile/{mentor}', 'MentorController@profile')->name('mentors.profile');
+
+Route::post('mentor-reports/addFileGroup', 'MentorReportController@fileGroupAdded')->name('mentorreports.fileGroupAdded');
+Route::get('mentor-reports/get/{report}', "MentorReportController@get")->name('mentorreports.get');
+Route::get('mentor-reports/edit/{report}', 'MentorReportController@edit')->name('mentorreports.edit');
 
 Route::post('/demoday/sendfiles', 'DemoDayController@sendfiles')->name('demoday.sendfiles');
 Route::post('/faza1/sendfiles', 'Faza1Controller@sendfiles')->name('faza1.sendfiles');

@@ -1,10 +1,12 @@
 <template>
     <div class="h-100">
         <div class="card h-100 w-100">
-            <div class="card-header text-dark">
-                <span class="mb-0 mt-0 h5 attribute-label">{{ title }}</span>
+            <div class="card-header card-header-light-background">
+                <div class="d-inline-flex align-items-center">
+                    <span class="h4 attribute-label">{{ title }}</span>
+                </div>
                 <b-button v-if="role === 'administrator'" class="float-right" variant="primary" :title="addprogramtitle" @click="showModal"><i class="uil-document"></i></b-button>
-                <b-button v-if="role === 'administrator'" class="float-right mr-1" variant="primary-outline" :title="deleteprogramtitle"><i class="mdi mdi-delete"></i></b-button>
+                <b-button v-if="role === 'administrator'" class="float-right mr-1" variant="primary-outline" :title="deleteprogramtitle" @click="deleteProgram"><i class="mdi mdi-delete"></i></b-button>
             </div>
             <div class="card-body font-12" style="height: 95%">
                 <p v-if="this.programs.length == 0">There are currently no companies attached</p>
@@ -87,7 +89,7 @@ export default {
         async onOk() {
             const form = $('form#myFormAddMentorProgram').first();
             const token = $(form).find('input[name="_token"]').val();
-            console.log(token);
+            // console.log(token);
             const data = form.serialize();
             await $.ajax({
                 url: '/mentors/addprogram',
@@ -97,15 +99,20 @@ export default {
                     'X-CSRF-Token' : token
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                 }
             });
 
             this.$refs['addProgramModal'].hide();
             await this.getPrograms();
         },
-        deleteProgram(programId) {
-
+        deleteProgram() {
+            console.log(this.program);
+            axios.get('/mentors/deleteProgram/'+ this.mentorid + '/' + this.program.id)
+            .then(response => {
+                console.log(response.data);
+                location.reload();
+            })
         },
         onCancel() {
             this.$refs['addProgramModal'].hide();

@@ -1,5 +1,5 @@
 <template>
-    <div class="h-100 w-100 mt-0 pt-2 pb-2">
+    <div class="mt-0 pt-2 pb-2">
         <div class="card h-50 w-100 shadow">
             <div class="card-header text-dark">
                 <span  class="mb-0 mt-0 attribute-label">

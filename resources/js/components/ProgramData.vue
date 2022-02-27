@@ -1,11 +1,13 @@
 <template>
     <div class="h-100 w-100">
-        <div class="card shadow h-100">
-            <div class="card-header">
-                <span class="h4 attribute-label">{{ program.name.value }} - {{ program.programName }}</span>
+        <div class="card shadow-sm h-100">
+            <div class="card-header align-items-center card-header-light-background">
+                <div class="d-inline-flex align-items-center">
+                    <span class="h4 attribute-label">{{ program.name.value }} - {{ program.programName }}</span>
+                </div>
                 <b-button v-if="program != null && usertype === 'administrator'" variant="primary" class="float-right" title="Promeni podatke" @click="showModal"><i class="dripicons-user"></i></b-button>
             </div>
-            <div class="card-body pt-0 pb-0">
+            <div class="card-body pb-0">
                 <div v-if="program != null" class="h-100">
                     <div class="row h-100">
                         <div class="col-lg-4 h-100">

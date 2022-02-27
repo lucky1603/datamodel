@@ -1,20 +1,26 @@
 <template>
     <div class="card w-100" style="height: 100%">
         <div v-if="programs.length > 0" class="card-header bg-dark text-light">
-            {{ title.toUpperCase()}}
+            <div class="d-flex align-items-center">
+                {{ title.toUpperCase()}}
+            </div>
         </div>
         <div v-if="programs.length > 0" class="card-body">
             <div class="row h-100">
                 <div class="col-lg-5 h-100">
-                    <div style="height: 70%">
+                    <div style="height: 48vh">
                         <program-data
                             :programid="this.programId"
                             :usertype="usertype">
                         </program-data>
                     </div>
-                    <div class="card shadow mt-2" style="height: 25%">
-                        <div class="card-header"><span class="h4 attribute-label">KOMPANIJE</span></div>
-                        <div class="card-body overflow-auto" style="height: 95%; display:flex; flex-wrap: wrap">
+                    <div class="card shadow-sm mt-2" style="height: 26vh">
+                        <div class="card-header card-header-light-background">
+                            <div class="d-inline-flex align-items-center">
+                                <span class="h4 attribute-label">KOMPANIJE</span>
+                            </div>
+                        </div>
+                        <div class="card-body overflow-auto" style="display:flex; flex-wrap: wrap">
                             <round-item v-for="(program, index) in programs"
                                         :title="program.name"
                                         :id="program.id"
@@ -25,8 +31,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-7 h-100">
-                    <session-editor-table :mentorid="this.mentorid" :programid="this.programId"></session-editor-table>
+                <div class="col-lg-7">
+                    <session-editor-table :mentorid="this.mentorid" :programid="this.programId" style="height: 40vh; margin-bottom: 2vh"></session-editor-table>
+                    <mentor-reports-explorer :mentorId="this.mentorid" style="height: 35vh"></mentor-reports-explorer>
                 </div>
             </div>
         </div>

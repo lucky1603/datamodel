@@ -15,8 +15,11 @@ class CreateMentorReportsTable extends Migration
     {
         Schema::create('mentor_reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mentor_id');
-            $table->foreignId('program_id');
+            $table->foreignId('mentor_id')->nullable(true);
+            $table->foreignId('program_id')->nullable(true);
+            $table->string('name')->nullable(true);
+            $table->timestamp('due_date');
+            $table->unsignedSmallInteger('status')->default(0);
             $table->timestamps();
 
             $table->foreign('mentor_id')

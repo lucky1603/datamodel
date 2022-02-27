@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
+use \Illuminate\Database\Eloquent\Relations\HasMany;
+use \Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Instance extends Model
 {
@@ -11,7 +13,7 @@ class Instance extends Model
 
     /**
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function attribute_groups() {
         return $this->belongsToMany(AttributeGroup::class);
@@ -39,7 +41,7 @@ class Instance extends Model
 
     /**
      * Returns the collection of belonging attributes.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function attributes() {
         return $this->belongsToMany(Attribute::class)->withPivot('id');
@@ -126,16 +128,23 @@ class Instance extends Model
 
     /**
      * Return all users of this instance.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
-    public function reports(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function reports(): HasMany
     {
         return $this->hasMany(Report::class);
+    }
+
+    public function mentor_reports(): HasMany
+    {
+        if($this->entity->name === 'Mentor')
+            return $this->hasMany(MentorReport::class, 'mentor_id');
+        return $this->hasMany(MentorReport::class, 'program_id');
     }
 
     /**

@@ -1,8 +1,11 @@
 <template>
-    <div class="h-100 w-100">
-        <div class="card w-100 h-100 shadow" role="button">
-            <div class="card-header">
-                <span class="h4 attribute-label">SESIJE</span>
+    <div>
+        <div class="card shadow-sm h-100" role="button">
+            <div class="card-header card-header-light-background">
+                <div class="d-inline-flex align-items-center">
+                    <span class="h4 attribute-label">SESIJE</span>
+                </div>
+
                 <b-button class="float-right" variant="primary" @click="newSession"><i class="dripicons-user-group"></i></b-button>
             </div>
             <div class="card-body overflow-auto" style="display: flex; flex-wrap: wrap">

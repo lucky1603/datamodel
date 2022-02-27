@@ -41,7 +41,7 @@ export default {
     name: "FileGroupEditor",
     props: {
         title: { typeof: String, default: 'Izveštaj'},
-        action: { typeof: String, default: ''},
+        action: { typeof: String, default: '/reports/addFileGroup'},
         token: {typeof: String, default: ''},
         report_id: {typeof: Number, default: 0},
         show_buttons: {typeof: Boolean, default: true}
@@ -65,7 +65,7 @@ export default {
                     formData.append('files[]', this.$refs.fileInput.files[i]);
                 }
             }
-            await axios.post('/reports/addFileGroup', formData)
+            await axios.post(this.action, formData)
             .then(response => {
                 console.log(response.data);
             })

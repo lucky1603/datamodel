@@ -1,8 +1,10 @@
 <template>
     <div class="h-100">
         <div class="card shadow h-100">
-            <div class="card-header">
-                <span class="h4 attribute-label">{{ aboutme.toUpperCase() }}</span>
+            <div class="card-header card-header-light-background">
+                <div class="d-inline-flex align-items-center">
+                    <span class="h4 attribute-label">{{ aboutme.toUpperCase() }}</span>
+                </div>
                 <b-button v-if="mentor != null && usertype === 'administrator'" variant="primary" class="float-right" title="Promeni podatke" @click="showModal"><i class="dripicons-user"></i></b-button>
             </div>
             <div class="card-body pt-0 pb-0 h-100 ">

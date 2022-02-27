@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Business\Mentor;
 use App\Business\Program;
+use App\Business\ProgramFactory;
 use App\Business\Session;
 use App\Mail\MentorCreated;
 use App\Mail\ProfileCreated;
+use App\MentorReport;
 use App\User;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -149,8 +152,27 @@ class MentorController extends Controller
         if(is_array($data['program'])) {
             $programIds = $data['program'];
             foreach ($programIds as $programId) {
-                $program = Program::find($programId);
+                $program = ProgramFactory::resolve($programId);
                 $mentor->addProgram($program);
+
+                // Add reports
+                foreach ($program->instance->reports as $report) {
+                    $due_date = $report->contract_check;
+                    $name = $report->report_name;
+
+                    $mentorReport = MentorReport::create([
+                        'name' => $name,
+                        'due_date' => $due_date
+                    ]);
+
+//                    $mentorReport->attachProgram($program);
+//                    $mentorReport->save();
+//                    $mentorReport->attachMentor($mentor);
+//                    $mentorReport->save();
+
+                    $program->instance->mentor_reports()->save($mentorReport);
+                    $mentor->instance->mentor_reports()->save($mentorReport);
+                }
             }
         } else {
             $program = Program::find($data['program']);
@@ -158,13 +180,19 @@ class MentorController extends Controller
 
         }
 
-
         return redirect(route('mentors.profile', ['mentor' => $mentor->getId()]));
     }
 
     public function deleteProgram($mentorId, $programId) {
         $mentor = Mentor::find($mentorId);
         $mentor->removeProgram(Program::find($programId));
+
+        return redirect(route('mentors.profile', ['mentor' => $mentor->getId()]));
+    }
+
+    public function deleteAllPrograms($mentorId) {
+        $mentor = Mentor::find($mentorId);
+        $mentor->removeAllPrograms();
 
         return redirect(route('mentors.profile', ['mentor' => $mentor->getId()]));
     }
@@ -334,7 +362,6 @@ class MentorController extends Controller
     {
         $data = $request->post();
 
-
         $filterData = [];
         if(isset($data) && count($data) > 0) {
             if($data['name'] != '') {
@@ -367,6 +394,24 @@ class MentorController extends Controller
         }
 
         return $mentorList;
+    }
+
+    public function reportsForProgram($mentorId, $programId): array
+    {
+        $program = ProgramFactory::resolve($programId);
+        $mentor = Mentor::find($mentorId);
+        $reports = $mentor->getReportsForProgram($program);
+        $reportData = [];
+        foreach($reports as $report) {
+            $report->load('file_groups');
+            $reportData[] = [
+                'name' => $report->name,
+                'dueDate' => date_format(date_create($report->due_date), 'd.m.Y.'),
+                'id' => $report->id
+            ];
+        }
+
+        return $reportData;
     }
 
 }

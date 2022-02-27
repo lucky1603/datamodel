@@ -83,7 +83,7 @@
                   <b-button type="button" variant="danger" @click="cancelClicked">Zatvori</b-button>
               </div>
 
-              <b-modal id="addReportModal" ref="addReportModal" header-bg-variant="dark" header-text-variant="light" :modal-footer="no">
+              <b-modal id="addReportModal" ref="addReportModal" header-bg-variant="dark" header-text-variant="light" >
                   <template #modal-title>Dodaj izvestaj</template>
                   <file-group-editor ref="fed" :show_buttons="false" :token="token" :report_id="report_id"></file-group-editor>
                   <template #modal-footer>
