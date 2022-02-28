@@ -1,12 +1,13 @@
 <template>
-    <div class="card shadow ribbon-box m-2" role="button" @click="cardClicked" style="width: 200px; height: 200px">
-        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+    <div class="card shadow ribbon-box m-2" role="button" @click="cardClicked" style="width: 100px; height: 140px">
+        <div class="card-body d-flex flex-column align-items-center justify-content-center p-0">
             <div :class="ribbonClass"><span>{{ statustext}}</span></div>
-
-            <img v-if="logo != ''" :src="logo" style="height: 75px">
-            <img v-else :src="defaultLogo" style="height: 75px">
+            <div class="w-100 overflow-hidden d-flex align-items-center justify-content-center" style="height: 110px">
+                <img v-if="logo != ''" :src="logo" class="h-100">
+                <img v-else :src="defaultLogo" class="h-100">
+            </div>
             <hr/>
-            <span class="h5 ml-2">{{ title }}</span>
+            <span class="h5 ml-2 font-11 font-weight-bold">{{ title }}</span>
 
         </div>
     </div>
