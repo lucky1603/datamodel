@@ -20,7 +20,8 @@
                             <tbody class="font-12 text-dark">
                             <tr v-for="(value, name) in mentor" v-if="!['photo', 'remark'].includes(name)">
                                 <td style="width: 20%" class="text-dark"><strong>{{ value.label }}</strong></td>
-                                <td>{{ value.value }}</td>
+                                <td v-if="value.label === 'Email'"><a  :href="'mailto://' + value.value" target="_blank">{{ value.value }}</a></td>
+                                <td v-else>{{ value.value }}</td>
                             </tr>
                             </tbody>
                         </table>

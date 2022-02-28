@@ -9,7 +9,9 @@
                 <b-button v-if="role === 'administrator'" class="float-right mr-1" variant="primary-outline" :title="deleteprogramtitle" @click="deleteProgram"><i class="mdi mdi-delete"></i></b-button>
             </div>
             <div class="card-body font-12" style="height: 95%">
-                <p v-if="this.programs.length == 0">There are currently no companies attached</p>
+                <div v-if="this.programs.length == 0" class="d-flex align-items-center justify-content-center w-100 h-100">
+                    <span class="h4 text-secondary">TRENUTNO NEMA DODELJENIH KOMPANIJA</span>
+                </div>
                 <b-table
                     ref="ProgramsTable"
                     v-if="programs.length > 0"
