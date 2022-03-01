@@ -124,12 +124,13 @@ class TrainingsController extends Controller
         $training = Training::find($id);
         $training->setValue('event_status', $data['event_status']);
         $attendances = $training->getAttendances();
-        for($i = 0; $i < $attendances->count(); $i++) {
+
+        $itt_count = min($attendances->count(), count($data['attids']));
+
+        for($i = 0; $i < $itt_count; $i++) {
             $id = $data['attids'][$i];
             $attendance = $attendances->filter(function($att) use($id) {
-                if($att->getId() == $id)
-                    return true;
-                return false;
+                return $att->getId() == $id;
             })->first();
             $attendance->setValue('attendance', $data['attendances'][$i]);
         }
