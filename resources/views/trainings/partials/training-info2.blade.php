@@ -44,7 +44,8 @@
                                     <span>{{ $training->getAttribute('training_duration_unit')->getText() }}</span>
                                 </div>
                                 <div class="mr-3" title="Lokacija">
-                                    <i class="dripicons-location mr-2 attribute-label font-16"></i><span>{{ $training->getAttribute('location')->getText() }}</span>
+                                    <i class="dripicons-location mr-2 attribute-label font-16"></i>
+                                    <span>{{ $training->getAttribute('location')->getText() }}</span>
                                 </div>
                             </div>
                     </div>

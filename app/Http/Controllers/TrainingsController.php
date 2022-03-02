@@ -120,6 +120,7 @@ class TrainingsController extends Controller
 
     public function updateAttendances(Request $request, $id) {
         $data = $request->post();
+        var_dump($data);
 
         $training = Training::find($id);
         $training->setValue('event_status', $data['event_status']);
@@ -236,10 +237,10 @@ class TrainingsController extends Controller
         $user = Auth::user();
         $backroute = Route::currentRouteName();
         if($user->isAdmin()) {
-            return view('trainings.show', ['training' => $training, 'backroute' => route('trainings')]);
+            return view('trainings.show1', ['training' => $training, 'backroute' => route('trainings')]);
         } else {
             $profile = $user->profile();
-            return view('trainings.show', ['training' => $training, 'profile' => $profile, 'backroute' => route('profiles.trainings', ['profile' => $profile->getId()])]);
+            return view('trainings.show1', ['training' => $training, 'profile' => $profile, 'backroute' => route('profiles.trainings', ['profile' => $profile->getId()])]);
         }
 
     }
@@ -339,6 +340,36 @@ class TrainingsController extends Controller
                 return $attendance->getProgram()->getId();
             })
         ];
+    }
+
+    public function get($trainingId): array
+    {
+        $training = Training::find($trainingId);
+
+        $data = $training->getData();
+        $data['training_start_time'] = $training->getText('training_start_time');
+        $data['training_start_date'] = $training->getText('training_start_date');
+        $data['training_duration_unit'] = $training->getText('training_duration_unit');
+        $attendanceData = [];
+        $attendances = $training->getAttendances();
+        foreach($attendances as $attendance) {
+            $attendanceData[] = [
+                'id' => $attendance->getId(),
+                'company' => $attendance->getProgram()->getProfile()->getValue('name'),
+                'status' => $attendance->getValue('attendance')
+            ];
+        }
+
+        return [
+            'attributes' => $data,
+            'attendances' => $attendanceData
+        ];
+    }
+
+    public function getAttendance($trainingId, $programId) {
+        $training = Training::find($trainingId);
+        $attendance = $training->getAttendanceForProgram($programId);
+        return $attendance->getData();
     }
 
 }

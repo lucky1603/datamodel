@@ -67,6 +67,7 @@ Vue.component('session-item', require('./components/SessionItem').default);
 Vue.component('mentor-reports-explorer', require('./components/MentorReportsExplorer').default);
 Vue.component('mentor-report-item', require('./components/MentorReportItem').default);
 Vue.component('mentor-report-editor', require('./components/MentorReportEditor').default);
+Vue.component('event-form', require('./components/EventForm').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

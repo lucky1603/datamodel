@@ -1345,8 +1345,17 @@ class ProfileController extends Controller
     public function showTraining($profileId, $trainingId) {
         $training = Training::find($trainingId);
         $profile = Profile::find($profileId);
+        $program = $profile->getActiveProgram();
+        $role = Auth::user()->roles->first()->name;
 
-        return view('trainings.show', ['training' => $training, 'profile' => $profile, 'backroute' => route('profiles.trainings', ['profile' => $profile->getId()])]);
+        return view('trainings.show1',
+            [
+                'training' => $training,
+                'profile' => $profile,
+                'programId' => $program->getId(),
+                'backroute' => route('profiles.trainings', ['profile' => $profile->getId()]),
+                'role' => $role
+            ]);
     }
 
     public function programAttendances(Request $request, $profileId) {
