@@ -63,7 +63,7 @@
                         <p class="border p-1 mt-0">{{ training.training_short_note}}</p>
                     </div>
 
-                    <div v-if="training != null && training.files.length > 0" class="d-flex flex-wrap justify-content-start align-items-center">
+                    <div v-if="training != null && training.files.length > 0 && training.files[0].filelink != ''" class="d-flex flex-wrap justify-content-start align-items-center">
                         <span class="attribute-label font-italic mr-2 font-weight-bold">Priloženi fajlovi:</span>
                         <file-item
                             v-for="(file, index) in training.files"
