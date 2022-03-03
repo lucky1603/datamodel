@@ -98,13 +98,13 @@
                          :per-page="10"
                          :current-page="currentPage" :hover="true">
                     <template #cell(status)="data">
-                        <b-form-select :value="data.value" @input="(value) => form.attendances[data.index].status = value" :options="attendanceOptions"></b-form-select>
+                        <b-form-select v-model="data.item.status" :options="attendanceOptions"></b-form-select>
                     </template>
-<!--                    <template #cell(company)="data">-->
-<!--                        <div class="d-flex">-->
-<!--                            <img :src="getCompanyPhoto(data.index)" width="24px" class="mr-2"> {{ form.attendances[data.index].company }}-->
-<!--                        </div>-->
-<!--                    </template>-->
+                    <template #cell(company)="data">
+                        <div class="d-flex">
+                            <img :src="data.item.company.photo.filelink" width="24px" class="mr-2"> {{ data.item.company.name }}
+                        </div>
+                    </template>
                 </b-table>
                 <b-pagination
                     v-model="currentPage"

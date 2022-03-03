@@ -354,10 +354,20 @@ class TrainingsController extends Controller
         $attendances = $training->getAttendances();
         foreach($attendances as $attendance) {
             $profile = $attendance->getProgram()->getProfile();
+            $profileLogo = $profile->getValue('profile_logo');
+            if($profileLogo == null || $profileLogo == ['filelink' => '', 'filename' => '']) {
+                $profileLogo = [
+                    'filelink' => asset('images/custom/nophoto2.png'),
+                    'filename' => 'nophoto2.png'
+                ];
+            }
+
             $attendanceData[] = [
                 'id' => $attendance->getId(),
-                'company' => $profile->getValue('name'),
-                'photo' => $profile->getValue('profile_logo'),
+                'company' => [
+                    'name' => $profile->getValue('name'),
+                    'photo' => $profileLogo
+                ],
                 'status' => $attendance->getValue('attendance')
             ];
         }
