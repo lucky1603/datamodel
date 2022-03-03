@@ -4,7 +4,10 @@
             <span class="float-left h4">{{ eventTypeDescription }} - </span>
             <span :class="eventStatusClass">{{ eventStatusText }}</span>
             <b-button v-if="program_id === 0" variant="success" class="float-right" @click="onEdit"><i class="mdi mdi-pencil"></i></b-button>
-            <span v-else :class="attendanceStatusClass">{{ attendanceStatusText }}</span>
+            <div v-else class="d-inline float-right">
+                <span :class="attendanceStatusClass">{{ attendanceStatusText }}</span>
+                <span v-if="company != ''" class="h4 float-right mr-1">{{ company }} - </span>
+            </div>
         </div>
         <div class="card-body">
             <div class="row">
@@ -122,7 +125,7 @@ export default {
         event_id: { typeof: Number, default: 0 },
         backroute: { typeof: String, default: '/trainings' },
         role: { typeof: String, default: 'administrator'},
-        program_id: { typeof: Number, default: 0 }
+        program_id: { typeof: Number, default: 0 },
     },
     computed: {
         attendanceStatusText() {
@@ -237,7 +240,8 @@ export default {
                 await axios.get(`/trainings/attendance/${this.event_id}/${this.program_id}`)
                     .then(response => {
                         console.log(response.data);
-                        this.userAttendance = response.data;
+                        this.userAttendance = response.data.attendance;
+                        this.company = response.data.company;
                     });
             }
 
@@ -301,7 +305,8 @@ export default {
                 }
             ],
             currentPage: 0,
-            userAttendance: null
+            userAttendance: null,
+            company: ''
         }
     }
 }

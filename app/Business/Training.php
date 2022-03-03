@@ -184,19 +184,25 @@ class Training extends BusinessModel
      */
     public function getAttendances() {
         return $this->instance->instances->filter(function($instance) {
-            if($instance->entity->name == 'Attendance')
-                return true;
-            return false;
+            return $instance->entity->name == 'Attendance';
         })->map(function($instance) {
             return new Attendance(['instance_id' => $instance->id]);
         });
     }
 
-    public function getAttendanceForProgram($programId) {
+    public function getAttendanceForProgram($programId): array
+    {
         $program = ProgramFactory::resolve($programId);
-        return $this->getAttendances()->filter(function($attendance) use($program) {
+        $attendance = $this->getAttendances()->filter(function($attendance) use($program) {
             return $attendance->getProgram()->getId() == $program->getId();
         })->first();
+
+        $company = $program->getProfile()->getValue('name');
+
+        return [
+            'attendance' => $attendance->getData(),
+            'company' => $company
+        ];
     }
 
 

@@ -368,8 +368,7 @@ class TrainingsController extends Controller
 
     public function getAttendance($trainingId, $programId) {
         $training = Training::find($trainingId);
-        $attendance = $training->getAttendanceForProgram($programId);
-        return $attendance->getData();
+        return $training->getAttendanceForProgram($programId);
     }
 
 }
