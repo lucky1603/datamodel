@@ -353,9 +353,11 @@ class TrainingsController extends Controller
         $attendanceData = [];
         $attendances = $training->getAttendances();
         foreach($attendances as $attendance) {
+            $profile = $attendance->getProgram()->getProfile();
             $attendanceData[] = [
                 'id' => $attendance->getId(),
-                'company' => $attendance->getProgram()->getProfile()->getValue('name'),
+                'company' => $profile->getValue('name'),
+                'photo' => $profile->getValue('profile_logo'),
                 'status' => $attendance->getValue('attendance')
             ];
         }

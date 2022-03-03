@@ -100,6 +100,11 @@
                     <template #cell(status)="data">
                         <b-form-select :value="data.value" @input="(value) => form.attendances[data.index].status = value" :options="attendanceOptions"></b-form-select>
                     </template>
+                    <template #cell(company)="data">
+                        <div class="d-flex">
+                            <img :src="getCompanyPhoto(data.index)" width="24px" class="mr-2"> {{ form.attendances[data.index].company }}
+                        </div>
+                    </template>
                 </b-table>
                 <b-pagination
                     v-model="currentPage"
@@ -245,6 +250,12 @@ export default {
                     });
             }
 
+        },
+        getCompanyPhoto(index) {
+            const photo = this.form.attendances[index].photo;
+            if(photo != null && photo.filelink != '')
+                return photo.filelink;
+            return '/images/custom/nophoto2.png';
         },
         async onOk() {
             let formData = new FormData();
