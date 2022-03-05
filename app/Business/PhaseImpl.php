@@ -115,4 +115,9 @@ class PhaseImpl extends BusinessModel implements Phase
             'message' => 'Podaci validni'
         ];
     }
+
+    public function getClientDisplayForm()
+    {
+        return null;
+    }
 }

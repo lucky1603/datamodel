@@ -31,9 +31,14 @@ class AppFormEvaluation extends PhaseImpl
         return '#applicationEval';
     }
 
-    public function getDisplayForm()
+    public function getDisplayForm(): string
     {
         return 'profiles.forms._app_eval-form';
+    }
+
+    public function getClientDisplayForm(): string
+    {
+        return 'profiles.forms._app_eval_client-form';
     }
 
     public function getAttributesData(): array

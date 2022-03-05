@@ -31,7 +31,7 @@ class TrainingsController extends Controller
      * @return Application|Factory|View
      */
     public function index() {
-        $trainings = Training::all();
+        $trainings = Training::sortByDate();
 
         return view('trainings.index', ['trainings' => $trainings]);
     }
@@ -304,9 +304,9 @@ class TrainingsController extends Controller
         }
 
         if(count($filterData) > 0) {
-            $events = Training::find($filterData);
+            $events = Training::sortByDate($filterData);
         } else {
-            $events = Training::find();
+            $events = Training::sortByDate();
         }
 
         $resultData = [];

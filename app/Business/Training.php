@@ -205,5 +205,20 @@ class Training extends BusinessModel
         ];
     }
 
+    /**
+     * Returns training objects sorted by date.
+     */
+    public static function sortByDate($crit = null) {
+        return Training::find($crit)->map(function($training) {
+            $data['date'] = strtotime($training->getValue('training_start_date'));
+            $data['id'] = $training->getId();
+        return $data;
+        })
+        ->sortBy('date')
+        ->map(function($data) {
+            return Training::find($data['id']);
+        });
+    }
+
 
 }

@@ -10,6 +10,7 @@ interface Phase
     public function getDisplayName();
     public function getDisplayId();
     public function getDisplayForm();
+    public function getClientDisplayForm();
     public function getAttributesData();
     public function getStatusValue();
     public function setStatusValue($value);

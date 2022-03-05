@@ -44,13 +44,6 @@ class DemoDay extends PhaseImpl
     public static function getAttributesDefinition(): Collection
     {
         $attributes = collect([]);
-
-//        $attributes->add(self::selectOrCreateAttribute(['demoday_date', __('Demo Day Date'), 'datetime', NULL, 1]));
-//        $attributes->add(self::selectOrCreateAttribute(['demoday_note', __('Demo Day Note'), 'text', NULL, 2]));
-//        $attributes->add(self::selectOrCreateAttribute(['demoday_files', __('Demo Day Files'), 'file', 'multiple', 3]));
-//        $attributes->add(self::selectOrCreateAttribute(['demoday_client_notified', __('Demo Day Client Notified'), 'bool', NULL, 4]));
-//        $attributes->add(self::selectOrCreateAttribute(['demoday_files_sent', __('Demo Day Requested Files Sent'), 'bool', NULL, 5]));
-
         $attributes->add(self::selectOrCreateAttribute(['passed', __('Passed'), 'bool', NULL, 1]));
 
         return $attributes;
@@ -70,6 +63,11 @@ class DemoDay extends PhaseImpl
     public function getDisplayForm(): string
     {
         return 'profiles.forms._demoday-form';
+    }
+
+    public function getClientDisplayForm(): string
+    {
+        return 'profiles.forms._demoday_client-form';
     }
 
     public function getAttributesData(): array

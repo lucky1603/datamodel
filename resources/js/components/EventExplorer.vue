@@ -122,7 +122,9 @@ export default {
 
         },
         async onSubmit() {
+            console.log('submitted');
             await this.getData();
+            this.showCurrentPage();
         },
     },
 
@@ -142,8 +144,8 @@ export default {
             eventTypes: [
                 { value: 0, text: 'Po vrsti događaja'},
                 { value: 1, text: 'Radionica'},
-                { value: 2, text: 'Trening'},
-                { value: 3, text: 'Dešavanje'}
+                { value: 2, text: 'Sesija'},
+                { value: 3, text: 'Meetup'}
             ],
             form: {
                 name: '',

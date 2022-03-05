@@ -35,6 +35,11 @@ class Faza1 extends PhaseImpl
         return 'profiles.forms._faza1-form';
     }
 
+    public function getClientDisplayForm(): string
+    {
+        return 'profiles.forms._faza1_client-form';
+    }
+
     public function getAttributesData(): array
     {
         return [

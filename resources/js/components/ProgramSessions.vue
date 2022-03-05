@@ -10,7 +10,11 @@
                         <mentor-data :mentorid="mentorId" aboutme="PODACI O MENTORU" :usertype="usertype"></mentor-data>
                     </div>
                     <div class="card shadow mt-2" style="height: 43%">
-                        <div class="card-header"><span class="h4 attribute-label">MENTORI</span></div>
+                        <div class="card-header card-header-light-background">
+                            <div class="d-inline-flex align-items-center">
+                                <span class="h4 attribute-label">MENTORI</span>
+                            </div>
+                        </div>
                         <div class="card-body overflow-auto" style="height: 95%; display:flex; flex-wrap: wrap">
                             <tile-item v-for="(mentor, index) in mentors"
                                        :title="mentor.name"
@@ -25,7 +29,7 @@
                     </div>
                 </div>
                 <div class="col-lg-7 h-100">
-                    <session-editor-table :mentorid="this.mentorId" :programid="this.programid"></session-editor-table>
+                    <session-editor-table :mentorid="this.mentorId" :programid="this.programid" style="height: 73vh"></session-editor-table>
                 </div>
             </div>
         </div>

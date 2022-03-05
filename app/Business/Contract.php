@@ -114,6 +114,11 @@ class Contract extends PhaseImpl
         return 'profiles.forms._contract-form';
     }
 
+    public function getClientDisplayForm()
+    {
+        return 'profiles.forms._contract_client-form';
+    }
+
     public function getAttributesData(): array
     {
         return [
