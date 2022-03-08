@@ -55,6 +55,8 @@ class IncubationProgram extends Program
         $this->setData($data);
     }
 
+
+
     public static function getAttributesDefinition() : Collection
     {
         $attributeData = parent::getAttributesDefinition();

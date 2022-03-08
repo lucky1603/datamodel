@@ -619,16 +619,6 @@ class Program extends SituationsModel
         return $programName;
     }
 
-    public static function needsContract($programType) {
-        // TODO: Define it for all program types.
-        return true;
-    }
-
-    public static function needsPreselection($programType) {
-        // TODO: Define it for all program types.
-        return true;
-    }
-
     public static function getAttributesDefinition(): Collection
     {
         $attributes = collect([]);
@@ -648,10 +638,126 @@ class Program extends SituationsModel
         $ag_general = self::getAttributeGroup('rstarts_general',__('General Data'), 1);
         $ag_general->addAttribute($ntp);
 
+        ////////
+        ///
+        /// DODAVANJE ATRIBUTA ZA STATISTIKU
+        ///
+        ////////
+
+        // Dodaj ili kreiraj grupu atributa za statistiku.
+        $ag_statistics = self::getAttributeGroup('program_statistics', __('Program Statistics'), 5);
+
+        // Dodavanje iznosa prihoda.
+        $attPrihodi = self::selectOrCreateAttribute(['iznos_prihoda', __('Income Amount'), 'double', NULL, 201]);
+        $attributes->add($attPrihodi);
+        $ag_statistics->addAttribute($attPrihodi);
+
+        // Dodavanje iznoasa izvoza.
+        $attIzvoz = self::selectOrCreateAttribute(['iznos_izvoza', __('Export Amount'), 'double', NULL, 202]);
+        $attributes->add($attIzvoz);
+        $ag_statistics->addAttribute($attIzvoz);
+
+        // Broj zaposlenih.
+        $attEmployeesNumber = self::selectOrCreateAttribute(['broj_zaposlenih', __('Number of Employees'), 'integer', NULL, 203]);
+        $attributes->add($attEmployeesNumber);
+        $ag_statistics->addAttribute($attEmployeesNumber);
+
+        // Broj angazovanih.
+        $attEngagedNumber = self::selectOrCreateAttribute(['broj_angazovanih', __('Number of Engaged People'), 'integer', NULL, 204]);
+        $attributes->add($attEngagedNumber);
+        $ag_statistics->addAttribute($attEngagedNumber);
+
+        // Iznos placenih poreza.
+        $attPayedTaxes = self::selectOrCreateAttribute(['iznos_placenih_poreza', __('Amount of Payed Taxes'), 'double', NULL, 205]);
+        $attributes->add($attPayedTaxes);
+        $ag_statistics->addAttribute($attPayedTaxes);
+
+        // Ulaganje u istrazivanje i razvoj.
+        $attDevelopmentInvestment = self::selectOrCreateAttribute(['iznos_ulaganja_istrazivanje_razvoj', __('Amount of Investment in Research and Development'), 'double', NULL, 205]);
+        $attributes->add($attDevelopmentInvestment);
+        $ag_statistics->addAttribute($attDevelopmentInvestment);
+
+        // Broj malih patenata.
+        $attSmallPatents = self::selectOrCreateAttribute(['broj_malih_patenata', __('Small Patents Number'), 'integer', NULL, 206]);
+        $attributes->add($attSmallPatents);
+        $ag_statistics->addAttribute($attSmallPatents);
+
+        // Broj patenata.
+        $attPatents = self::selectOrCreateAttribute(['broj_patenata', __('Patents Number'), 'integer', NULL, 207]);
+        $attributes->add($attPatents);
+        $ag_statistics->addAttribute($attPatents);
+
+        // Broj autorskih dela.
+        $attAutorsWorks = self::selectOrCreateAttribute(['broj_autorskih_dela', __("Author's Works Number"), 'integer', NULL, 208]);
+        $attributes->add($attAutorsWorks);
+        $ag_statistics->addAttribute($attAutorsWorks);
+
+        // Broj inovacija.
+        $attInnovationCount = self::selectOrCreateAttribute(['broj_inovacija', __("Innovation Count"), 'integer', NULL, 209]);
+        $attributes->add($attInnovationCount);
+        $ag_statistics->addAttribute($attInnovationCount);
+
+        // Zemlje izvoza.
+        $attLands = self::selectOrCreateAttribute(['countries', __('Countries'), 'select', 'multiselect', 210]);
+        if(count($attLands->getOptions()) == 0) {
+            $countries = DB::table('countries')->select()->get();
+            $countries->each(function($country) use($attLands) {
+               $attLands->addOption(['value' => $country->code, 'text' => $country->country]);
+            });
+        }
+        $attributes->add($attLands);
+        $ag_statistics->addAttribute($attLands);
+
         return collect([
             'attributeGroups' => $attributeGroups,
             'attributes' => $attributes
         ]);
+    }
+
+    /**
+     * Privremena funkcija za dodavanje atributa, neophodnih za statistiku, svim programima.
+     */
+    public static function addStatisticAttributes() {
+        $attribute = self::selectOrCreateAttribute(['iznos_prihoda', __('Income Amount'), 'double', NULL, 201]);
+        Program::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['iznos_izvoza', __('Export Amount'), 'double', NULL, 202]);
+        Program::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_zaposlenih', __('Number of Employees'), 'integer', NULL, 203]);
+        Program::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_angazovanih', __('Number of Engaged People'), 'integer', NULL, 204]);
+        Program::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['iznos_placenih_poreza', __('Amount of Payed Taxes'), 'double', NULL, 205]);
+        Program::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['iznos_ulaganja_istrazivanje_razvoj', __('Amount of Investment in Research and Development'), 'double', NULL, 205]);
+        Program::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_malih_patenata', __('Small Patents Number'), 'integer', NULL, 206]);
+        Program::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_patenata', __('Patents Number'), 'integer', NULL, 207]);
+        Program::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_autorskih_dela', __("Author's Works Number"), 'integer', NULL, 208]);
+        Program::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_inovacija', __("Innovation Count"), 'integer', NULL, 209]);
+        Program::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['countries', __('Countries'), 'select', 'multiselect', 210]);
+        if(count($attribute->getOptions()) == 0) {
+            $countries = DB::table('countries')->select()->get();
+            foreach($countries as $country) {
+                $attribute->addOption(['value' => $country->id, 'text' => $country->country]);
+            }
+        }
+
+        Program::addOverallAttribute($attribute);
+
     }
 
     public static function getRastuceAttributes(): Collection
@@ -661,7 +767,7 @@ class Program extends SituationsModel
         return $attributes;
     }
 
-    public function getStatus(): int
+    public function getStatus()
     {
         return $this->getValue('program_status');
 //        return $this->workflow->getCurrentIndex();
@@ -720,9 +826,5 @@ class Program extends SituationsModel
      * Updates the program data.
      */
     protected function updateProgramData() {}
-
-    public function test() {
-        $this->initWorkflow();
-    }
 
 }
