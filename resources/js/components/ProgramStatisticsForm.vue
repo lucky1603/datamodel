@@ -10,33 +10,73 @@
             <hr/>
             <b-form class="w-100 mt-4">
                 <div class="d-flex flex-wrap">
-                    <div class="d-flex align-items-center mr-3">
-                        <span class="mr-2 attribute-label font-weight-bold">Prihodi</span>
-                        <b-input-group append="RSD" size="sm" style="width: 200px"  class="shadow-sm">
-                            <b-form-input v-model="form.iznosPrihoda" size="sm" type="text" ></b-form-input>
+                    <b-form-group
+                        label="Prihodi"
+                        description="Iznos prihoda za proteklu godinu" class="attribute-label font-weight-bold mr-3">
+                        <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                            <b-form-input v-model="form.iznosPrihoda" size="sm" type="text"></b-form-input>
                         </b-input-group>
-                    </div>
+                    </b-form-group>
 
-                    <div class="d-flex align-items-center mr-3">
-                        <span class="mr-2 attribute-label font-weight-bold">Izvoz</span>
-                        <b-input-group append="RSD" style="width: 200px" class="shadow-sm" size="sm">
+                    <b-form-group
+                        label="Izvoz"
+                        description="Ukupna suma izvoza za proteklu godinu" class="attribute-label font-weight-bold mr-3">
+                        <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
                             <b-form-input v-model="form.iznosIzvoza" size="sm" type="text"></b-form-input>
                         </b-input-group>
-                    </div>
-                    <div class="d-flex align-items-center mr-3">
-                        <span class="mr-2 attribute-label font-weight-bold">Broj zaposlenih</span>
+                    </b-form-group>
+
+                    <b-form-group
+                        label="Porezi"
+                        description="Iznos plaćenih poreza za proteklu godinu" class="attribute-label font-weight-bold mr-3">
+                        <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                            <b-form-input v-model="form.iznosPlacenihPoreza" size="sm" type="text"></b-form-input>
+                        </b-input-group>
+                    </b-form-group>
+
+                    <b-form-group
+                        label="Ulaganja"
+                        description="Ulaganje u istraživanje i razvoj (iznos)" class="attribute-label font-weight-bold mr-3">
+                        <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                            <b-form-input v-model="form.iznosUlaganja" size="sm" type="text"></b-form-input>
+                        </b-input-group>
+                    </b-form-group>
+
+                    <b-form-group
+                        label="Zaposleni"
+                        description="Broj svih zaposlenih" class="attribute-label font-weight-bold mr-3" style="width: 100px">
                         <b-form-input v-model="form.brojZaposlenih" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
-                    </div>
-                    <div class="d-flex align-items-center mr-3">
-                        <span class="mr-2 attribute-label font-weight-bold">Broj angažovanih</span>
+                    </b-form-group>
+
+                    <b-form-group
+                        label="Angažovani"
+                        description="Broj svih angažovanih ljudi na projektu" class="attribute-label font-weight-bold mr-3" style="width: 100px">
                         <b-form-input v-model="form.brojAngazovanih" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
-                    </div>
-                    <div class="d-flex align-items-center mr-3">
-                        <span class="mr-2 attribute-label font-weight-bold">Plaćeni </span>
-                        <b-input-group append="RSD" style="width: 200px" class="shadow-sm" size="sm">
-                            <b-form-input v-model="form.iznosIzvoza" size="sm" type="text"></b-form-input>
+                    </b-form-group>
+                </div>
+                <h4 class="w-100 h4 mb-4 attribute-label">Broj zaštićenih patenata</h4>
+                <div class="d-flex flex-wrap align-items-center justify-content-center">
+                    <b-form-group
+                        label="Mali patenti"
+                        description="Broj zaštićenih malih patenata" class="attribute-label font-weight-bold mr-3">
+                        <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                            <b-form-input v-model="form.brMalihPatenata" size="sm" type="text"></b-form-input>
                         </b-input-group>
-                    </div>
+                    </b-form-group>
+                    <b-form-group
+                        label="Patenti"
+                        description="Broj zaštićenih patenata" class="attribute-label font-weight-bold mr-3">
+                        <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                            <b-form-input v-model="form.brPatenata" size="sm" type="text"></b-form-input>
+                        </b-input-group>
+                    </b-form-group>
+                    <b-form-group
+                        label="Autorska dela"
+                        description="Broj zaštićenih autorskih dela" class="attribute-label font-weight-bold mr-3">
+                        <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                            <b-form-input v-model="form.brAutorskihDela" size="sm" type="text"></b-form-input>
+                        </b-input-group>
+                    </b-form-group>
                 </div>
                 <div class="d-flex align-items-center justify-content-center mt-4">
                     <b-button type="button" size="sm" variant="primary" class="m-1">Prihvati</b-button>
