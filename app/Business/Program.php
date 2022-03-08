@@ -730,6 +730,9 @@ class Program extends SituationsModel
         $attribute = self::selectOrCreateAttribute(['broj_angazovanih', __('Number of Engaged People'), 'integer', NULL, 204]);
         Program::addOverallAttribute($attribute, 0);
 
+        $attribute = self::selectOrCreateAttribute(['broj_angazovanih_zena', __('Number of Engaged Women'), 'integer', NULL, 211]);
+        Program::addOverallAttribute($attribute, 0);
+
         $attribute = self::selectOrCreateAttribute(['iznos_placenih_poreza', __('Amount of Payed Taxes'), 'double', NULL, 205]);
         Program::addOverallAttribute($attribute, 0);
 

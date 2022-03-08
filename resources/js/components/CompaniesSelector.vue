@@ -1,5 +1,11 @@
 <template>
-    <item-selector v-model="value" ref="selector" :originalitems="originalItems" @input="selectionChanged"></item-selector>
+    <item-selector
+        v-model="value"
+        ref="selector"
+        :originalitems="originalItems"
+        left_title="SVE KOMPANIJE"
+        right_title="IZABRANE KOMPANIJE"
+        @input="selectionChanged"></item-selector>
 </template>
 
 <script>
@@ -34,10 +40,10 @@ export default {
             this.$emit('input', this.value);
         }
     },
-    async mounted() {
+    mounted() {
         console.log("input values");
         console.log(this.value);
-        await this.getData();
+        this.getData();
     },
     data() {
         return {

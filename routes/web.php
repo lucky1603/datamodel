@@ -25,6 +25,7 @@ Route::get('analytics/ntp', 'AnalyticsController@ntp')->name('analytics.ntp');
 Route::get('analytics/startupTypes', 'AnalyticsController@startupTypes')->name('analytics.startupTypes');
 Route::get('analytics/howDidUHear', 'AnalyticsController@howDidUHear')->name('analytics.howDidUHear');
 Route::get('analytics/splitInterest', 'AnalyticsController@splitInterest')->name('analytics.splitInterest');
+Route::get('analytics/countries', 'AnalyticsController@getCountries')->name('analytics.countries');
 Route::get('analytics/splitOptions/{attributeName}', 'AnalyticsController@splitOptions')->name('analytics.splitOptions');
 Route::get('analytics/applicationStatuses/{programType}', 'AnalyticsController@applicationStatuses')->name('analytics.applicationStatuses');
 
@@ -55,6 +56,9 @@ Route::get('refreshcaptcha', 'AnonimousController@refreshCaptcha');
 Route::get('testmail/{email}', 'AnonimousController@testMail');
 Route::get('construction', 'AnonimousController@construction');
 Route::get('expired', 'AnonimousController@accountExpired')->name('expired');
+
+Route::get('programs/statistics/{program}', 'ProgramController@getStatistics')->name('program.getStatistics');
+Route::post('programs/statistics', 'ProgramController@updateStatistics')->name('program.updateStatistics');
 
 Route::get('profiles', 'ProfileController@index')->name('profiles.index');
 Route::post('profiles/setSessionVars', 'ProfileController@setSessionVars')->name('profiles.setSessionVars');

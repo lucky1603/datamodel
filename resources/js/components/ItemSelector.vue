@@ -1,6 +1,7 @@
 <template>
     <div class="row">
         <div class="col-lg-5 form-group">
+            <p class="attribute-label font-weight-bold text-center">{{ left_title }}</p>
             <b-input-group class="w-100 mb-1" size="sm">
                 <b-form-input v-model="searchOriginal" type="search" id="searchOriginal" placeholder="Po nazivu ..." @update="onSearchOriginalsUpdate"></b-form-input>
                 <template #append>
@@ -16,6 +17,7 @@
             <b-button variant="primary" class="w-75 mb-1" size="sm" @click="removeAll">Ukloni sve</b-button>
         </div>
         <div class="col-lg-5 form-group">
+            <p class="attribute-label font-weight-bold text-center">{{ right_title }}</p>
             <b-input-group class="w-100 mb-1" size="sm">
                 <b-form-input v-model="searchSelected" type="search" id="searchSelected" placeholder="Po nazivu ..." @update="onSearchOriginalsUpdate"></b-form-input>
                 <template #append>
@@ -33,12 +35,14 @@ export default {
     props: {
         originalitems: [],
         value:[],
+        left_title: { typeof: String, default:'SVI'},
+        right_title: { typeof: String, default: 'IZABRANI'}
     },
     computed: {
         getSelectedItems() {
             if(this.originalItems != null && this.searchSelected.length > 0) {
                 return this.originalItems.filter(item => {
-                    return (item.text.includes(this.searchSelected) && item.selected);
+                    return (item.text != null && item.text.includes(this.searchSelected) && item.selected);
                 });
             }
 
@@ -49,7 +53,7 @@ export default {
         getOriginalItems() {
             if(this.originalItems != null && this.searchOriginal.length > 0) {
                 return this.originalItems.filter(item => {
-                    return (item.text.includes(this.searchOriginal) && !item.selected);
+                    return (item.text != null && item.text.includes(this.searchOriginal) && !item.selected);
                 });
             }
 

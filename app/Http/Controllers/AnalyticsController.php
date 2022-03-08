@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Attribute;
 use App\Business\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AnalyticsController extends Controller
 {
@@ -143,5 +144,13 @@ class AnalyticsController extends Controller
         ];
     }
 
+    public function getCountries() {
+        return DB::table('countries')->select()->get()->map(function($country) {
+            return [
+                'id' => $country->id,
+                'name' => $country->country,
+            ];
+        });
+    }
 
 }
