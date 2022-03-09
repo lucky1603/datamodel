@@ -170,7 +170,7 @@
 
                 axios.post('/profiles/evalPhase', formData)
                 .then(response => {
-                    console.log(data);
+                    console.log(response.data);
                     $('#button_spinner_ok').attr('hidden', true);
                     location.reload();
                 }).catch(error => {

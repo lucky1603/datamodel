@@ -6,7 +6,7 @@
                 label="Prihodi"
                 description="Iznos prihoda za proteklu godinu" class="attribute-label font-weight-bold mr-3">
                 <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
-                    <b-form-input v-model="form.iznos_prihoda" size="sm" type="text"></b-form-input>
+                    <b-form-input v-model="form.iznos_prihoda" size="sm" type="number" min="0.0"  step="0.01" ></b-form-input>
                 </b-input-group>
             </b-form-group>
 
@@ -14,7 +14,7 @@
                 label="Izvoz"
                 description="Ukupna suma izvoza za proteklu godinu" class="attribute-label font-weight-bold mr-3">
                 <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
-                    <b-form-input v-model="form.iznos_izvoza" size="sm" type="text"></b-form-input>
+                    <b-form-input v-model="form.iznos_izvoza" size="sm" type="number" min="0.0"  step="0.01"></b-form-input>
                 </b-input-group>
             </b-form-group>
 
@@ -22,7 +22,7 @@
                 label="Porezi"
                 description="Iznos plaćenih poreza za proteklu godinu" class="attribute-label font-weight-bold mr-3">
                 <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
-                    <b-form-input v-model="form.iznos_placenih_poreza" size="sm" type="text"></b-form-input>
+                    <b-form-input v-model="form.iznos_placenih_poreza" size="sm" type="number" min="0.0" step="0.01"></b-form-input>
                 </b-input-group>
             </b-form-group>
 
@@ -30,7 +30,7 @@
                 label="Ulaganja"
                 description="Ulaganje u istraživanje i razvoj (iznos)" class="attribute-label font-weight-bold mr-3">
                 <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
-                    <b-form-input v-model="form.iznos_ulaganja_istrazivanje_razvoj" size="sm" type="text"></b-form-input>
+                    <b-form-input v-model="form.iznos_ulaganja_istrazivanje_razvoj" size="sm" type="number" min="0.0" step="0.01"></b-form-input>
                 </b-input-group>
             </b-form-group>
 
@@ -96,22 +96,22 @@
         <div v-else class="p-2">
             <h4 class="attribute-label text-center">STATISTIKA</h4>
             <div class="d-flex flex-column align-items-center justify-content-center">
-                <table class="table table-sm table-bordered font-11">
+                <table class="table table-sm table-bordered font-11 shadow-sm">
                     <tr>
                         <td colspan="2">Iznos prihoda za proteklu godinu</td>
-                        <td class="font-weight-bold text-right attribute-label">{{ form.iznos_prihoda }} RSD</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ formatter.format(form.iznos_prihoda) }}</td>
                     </tr>
                     <tr>
                         <td colspan="2">Ukupna suma izvoza za proteklu godinu</td>
-                        <td class="font-weight-bold text-right attribute-label">{{ form.iznos_izvoza }} RSD</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ formatter.format(form.iznos_izvoza)  }}</td>
                     </tr>
                     <tr>
                         <td colspan="2">Iznos plaćenih poreza za proteklu godinu</td>
-                        <td class="font-weight-bold text-right attribute-label">{{ form.iznos_placenih_poreza }} RSD</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ formatter.format(form.iznos_placenih_poreza) }}</td>
                     </tr>
                     <tr>
                         <td colspan="2">Ulaganje u istraživanje i razvoj (iznos)</td>
-                        <td class="font-weight-bold text-right attribute-label">{{ form.iznos_ulaganja_istrazivanje_razvoj }} RSD</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ formatter.format(form.iznos_ulaganja_istrazivanje_razvoj) }}</td>
                     </tr>
                     <tr>
                         <td colspan="2">Broj svih zaposlenih</td>
@@ -130,8 +130,10 @@
                         <td class="font-weight-bold text-right attribute-label">{{ form.broj_inovacija }}</td>
                     </tr>
                     <tr>
-                        <td rowspan="3" class="align-items-center">
-                            BROJ ZAŠTIĆENIH PATENATA
+                        <td rowspan="3" style="position: relative">
+                            <div class="d-flex align-items-center" style="height: 100px">
+                                BROJ ZAŠTIĆENIH PATENATA
+                            </div>
                         </td>
                         <td>Broj malih patenata</td>
                         <td class="text-right attribute-label font-weight-bold">{{ form.broj_malih_patenata }}</td>
@@ -178,6 +180,9 @@ export default {
         }
     },
     methods: {
+        numberFormatter(value) {
+            return this.formatter.format(value);
+        },
         async getData() {
             await axios.get('/programs/statistics/' + this.program_id)
             .then(response => {
@@ -246,6 +251,12 @@ export default {
         }
     },
     async mounted() {
+        this.formatter = new Intl.NumberFormat('sr-RS',
+            {
+                style: 'currency',
+                currency: 'RSD'
+            });
+
         await this.getData();
         await this.getCountries();
     },
@@ -268,7 +279,8 @@ export default {
                 broj_autorskih_dela: 0,
                 broj_inovacija: 0,
                 countries: [],
-            }
+            },
+            formatter: null
         }
     }
 }
