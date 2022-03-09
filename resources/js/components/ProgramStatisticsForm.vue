@@ -144,6 +144,10 @@
                         <td>Broj autorskih dela</td>
                         <td class="text-right attribute-label font-weight-bold">{{ form.broj_autorskih_dela }}</td>
                     </tr>
+                    <tr>
+                        <td colspan="2">Zemlje u koje ste izvozili</td>
+                        <td class="text-right attribute-label font-weight-bold">{{ this.selectedCountryNames }}</td>
+                    </tr>
 
                 </table>
                 <b-button type="button" size="sm" variant="primary" @click="openForm" class="mt-2">Promeni</b-button>
@@ -158,6 +162,21 @@ export default {
     props: {
         program_id: { typeof: Number, default: 0 }
     },
+    computed: {
+        selectedCountryNames() {
+            let countryNames = '';
+            if(this.countryNames.length > 0) {
+                this.countryNames.forEach(name => {
+                    if(countryNames.length > 0) {
+                        countryNames += ', ';
+                    }
+                    countryNames += name;
+                });
+            }
+
+            return countryNames;
+        }
+    },
     methods: {
         async getData() {
             await axios.get('/programs/statistics/' + this.program_id)
@@ -170,7 +189,11 @@ export default {
         async getCountries() {
             let formData = new FormData();
             this.form.countries.forEach(id => {
-
+                formData.append('ids[]', id);
+            });
+            await axios.post('/analytics/countryNames', formData)
+            .then(response => {
+                this.countryNames = response.data;
             });
         },
         openForm() {
@@ -219,10 +242,12 @@ export default {
 
             this.editMode = false;
             await this.getData();
+            await this.getCountries();
         }
     },
     async mounted() {
         await this.getData();
+        await this.getCountries();
     },
     data() {
         return {
