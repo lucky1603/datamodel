@@ -1,5 +1,5 @@
-<div>
-    <div class="card row w-100 h-100 m-0 shadow">
+<div class="shadow p-0">
+    <div class="card row w-100 h-100 m-0">
         <div class="card-header bg-primary text-light">
             <span class="h4 text-center">UGOVOR</span>
         </div>
@@ -18,12 +18,8 @@
         <div class="card-header bg-primary text-white">
             <span class="h4 text-center">STATISTIKA</span>
         </div>
-        <div class="card-body">
-            <p>Molimo vas da odvojite malo vremena i da, dok čekate termin za potpis ugovora,
-                popunite polja u formularu ispod. Ovi podaci nam znače za pregled statistike.
-            </p>
-            <hr/>
-            <program-statistics-form :program_id="{{ $program->getId() }}" class="m-0 mt-2"></program-statistics-form>
+        <div class="card-body p-0">
+            <program-statistics-form :program_id="{{ $program->getId() }}" class="m-0"></program-statistics-form>
         </div>
     </div>
 </div>

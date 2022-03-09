@@ -26,6 +26,7 @@ Route::get('analytics/startupTypes', 'AnalyticsController@startupTypes')->name('
 Route::get('analytics/howDidUHear', 'AnalyticsController@howDidUHear')->name('analytics.howDidUHear');
 Route::get('analytics/splitInterest', 'AnalyticsController@splitInterest')->name('analytics.splitInterest');
 Route::get('analytics/countries', 'AnalyticsController@getCountries')->name('analytics.countries');
+Route::post('analytics/countryNames', 'AnalyticsController@getCountryNames')->name('analytics.countryNames');
 Route::get('analytics/splitOptions/{attributeName}', 'AnalyticsController@splitOptions')->name('analytics.splitOptions');
 Route::get('analytics/applicationStatuses/{programType}', 'AnalyticsController@applicationStatuses')->name('analytics.applicationStatuses');
 

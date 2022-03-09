@@ -22,7 +22,7 @@
 
 @section('status')
     <div class="card overflow-auto p-0" >
-        <div class="card-body p-0 h-100 mb-auto">
+        <div class="card-body p-0 mb-auto">
             @php
                 $status = $model->getValue('profile_status');
                 $program = $model->getActiveProgram();

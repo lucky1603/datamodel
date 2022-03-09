@@ -23,16 +23,20 @@ class ProgramController extends Controller
             'broj_autorskih_dela' => $program->getValue('broj_autorskih_dela'),
             'broj_inovacija' => $program->getValue('broj_inovacija'),
             'countries' => $program->getValue('countries'),
+            'statistic_sent' => $program->getValue('statistic_sent')
         ];
     }
 
     public function updateStatistics(Request $request) {
         $data = $request->post();
+        unset($data['statistic_sent']);
 
         $program = Program::find($data['id']);
         foreach($data as $key=>$value) {
             $program->setValue($key, $value);
         }
+
+        $program->setValue('statistic_sent', 'on');
 
     }
 }

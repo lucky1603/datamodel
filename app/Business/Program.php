@@ -708,6 +708,10 @@ class Program extends SituationsModel
         $attributes->add($attLands);
         $ag_statistics->addAttribute($attLands);
 
+        $attributeSent = self::selectOrCreateAttribute(['statistic_sent', __('Statistic Sent'), 'bool', NULL, 212]);
+        $attributes->add($attributeSent);
+        $ag_statistics->addAttribute($attributeSent);
+
         return collect([
             'attributeGroups' => $attributeGroups,
             'attributes' => $attributes
@@ -760,6 +764,9 @@ class Program extends SituationsModel
         }
 
         Program::addOverallAttribute($attribute);
+
+        $attribute = self::selectOrCreateAttribute(['statistic_sent', __('Statistic Sent'), 'bool', NULL, 212]);
+        Program::addOverallAttribute($attribute, false);
 
     }
 

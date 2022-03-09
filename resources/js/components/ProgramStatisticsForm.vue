@@ -1,5 +1,5 @@
 <template>
-    <b-form class="w-100 mt-4">
+    <b-form v-if="editMode" class="w-100 mt-4">
         <h4 class="w-100 attribute-label text-center">OSNOVNA STATISTIKA</h4>
         <div class="d-flex flex-wrap justify-content-center border border-light shadow-sm p-2">
             <b-form-group
@@ -78,12 +78,78 @@
         </div>
         <h4 class="w-100 h4 attribute-label text-center mt-4">SPISAK ZEMALJA U KOJE IZVOZITE</h4>
 
-        <countries-selector v-model="form.countries" class="mt-2 mb-4 border border-light shadow-sm p-2"></countries-selector>
+        <countries-selector v-model="form.countries" class="m-2 border border-light shadow-sm p-2"></countries-selector>
         <hr/>
         <div class="d-flex align-items-center justify-content-center mt-4">
             <b-button type="button" size="sm" variant="primary" class="m-1" @click="onSubmit">Prihvati izmene</b-button>
+            <b-button type="button" size="sm" variant="outline-primary" class="m-1" @click="closeForm">Zatvori formu</b-button>
         </div>
     </b-form>
+    <div v-else>
+        <div v-if="!statistic_sent" class="p-2 m-0">
+            <p class="text-center attribute-label font-weight-bold">MOLBA</p>
+            <p class="font-11 text-center">Molimo Vas da, dok čekate datum sastanka, u međuvremenu popunite podatke koji su nam neophodni za statistiku.</p>
+            <div class="d-flex align-items-center justify-content-center">
+                <b-button size="sm" type="button" variant="primary" @click="openForm">Dodaj statistiku</b-button>
+            </div>
+        </div>
+        <div v-else class="p-2">
+            <h4 class="attribute-label text-center">STATISTIKA</h4>
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                <table class="table table-sm table-bordered font-11">
+                    <tr>
+                        <td colspan="2">Iznos prihoda za proteklu godinu</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ form.iznos_prihoda }} RSD</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Ukupna suma izvoza za proteklu godinu</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ form.iznos_izvoza }} RSD</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Iznos plaćenih poreza za proteklu godinu</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ form.iznos_placenih_poreza }} RSD</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Ulaganje u istraživanje i razvoj (iznos)</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ form.iznos_ulaganja_istrazivanje_razvoj }} RSD</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Broj svih zaposlenih</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ form.broj_zaposlenih }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Broj svih angažovanih ljudi na projektu</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ form.broj_angazovanih }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Od toga žene</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ form.broj_angazovanih_zena }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Broj inovacija koje razvijate</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ form.broj_inovacija }}</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3" class="align-items-center">
+                            BROJ ZAŠTIĆENIH PATENATA
+                        </td>
+                        <td>Broj malih patenata</td>
+                        <td class="text-right attribute-label font-weight-bold">{{ form.broj_malih_patenata }}</td>
+                    </tr>
+                    <tr>
+                        <td>Broj patenata</td>
+                        <td class="text-right attribute-label font-weight-bold">{{ form.broj_patenata }}</td>
+                    </tr>
+                    <tr>
+                        <td>Broj autorskih dela</td>
+                        <td class="text-right attribute-label font-weight-bold">{{ form.broj_autorskih_dela }}</td>
+                    </tr>
+
+                </table>
+                <b-button type="button" size="sm" variant="primary" @click="openForm" class="mt-2">Promeni</b-button>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -97,9 +163,23 @@ export default {
             await axios.get('/programs/statistics/' + this.program_id)
             .then(response => {
                 this.form = response.data;
+                this.form.id = this.program_id;
+                this.statistic_sent = response.data.statistic_sent;
             });
         },
-        onSubmit() {
+        async getCountries() {
+            let formData = new FormData();
+            this.form.countries.forEach(id => {
+
+            });
+        },
+        openForm() {
+            this.editMode = true;
+        },
+        closeForm() {
+            this.editMode = false;
+        },
+        async onSubmit() {
             let formData = new FormData();
 
             // for(const property in this.form) {
@@ -113,26 +193,42 @@ export default {
 
             for(const[key, value] of Object.entries(this.form)) {
                 if(key != 'countries') {
-                    formData.append(key, value.toString());
-                } else {
+                    if(key === 'statistic_sent') {
+                        let strValue = '';
+                        if(value)
+                            strValue = 'on';
+                        else
+                            strValue = 'off';
+
+                        formData.append(key, strValue);
+                    } else {
+                        formData.append(key, value.toString());
+                    }
+
+                }  else {
                     this.form.countries.forEach(country => {
                         formData.append('countries[]', country);
                     });
                 }
             }
 
-            axios.post('/programs/statistics', formData)
+            await axios.post('/programs/statistics', formData)
             .then(response => {
                 console.log(response.data);
             });
+
+            this.editMode = false;
+            await this.getData();
         }
     },
     async mounted() {
         await this.getData();
-        this.form.id = this.program_id;
     },
     data() {
         return {
+            editMode: false,
+            countryNames: [],
+            statistic_sent: false,
             form: {
                 id: 0,
                 iznos_prihoda: 0.0,
@@ -146,7 +242,7 @@ export default {
                 broj_patenata: 0.0,
                 broj_autorskih_dela: 0,
                 broj_inovacija: 0,
-                countries: []
+                countries: [],
             }
         }
     }
