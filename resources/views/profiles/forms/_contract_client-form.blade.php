@@ -14,5 +14,16 @@
             </p>
         </div>
     </div>
-    <program-statistics-form :program_id="{{ $program->getId() }}" class="m-0 mt-2"></program-statistics-form>
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <span class="h4 text-center">STATISTIKA</span>
+        </div>
+        <div class="card-body">
+            <p>Molimo vas da odvojite malo vremena i da, dok čekate termin za potpis ugovora,
+                popunite polja u formularu ispod. Ovi podaci nam znače za pregled statistike.
+            </p>
+            <hr/>
+            <program-statistics-form :program_id="{{ $program->getId() }}" class="m-0 mt-2"></program-statistics-form>
+        </div>
+    </div>
 </div>

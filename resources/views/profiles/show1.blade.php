@@ -56,7 +56,7 @@
                     @endfor
                 </ul>
 
-                <div class="tab-content overflow-auto " style="height: 90%!important;">
+                <div class="tab-content overflow-auto h-100">
                     @for($i = 1; $i <= $status; $i++)
                         @php
                             $phase = $workflow->getPhase($i);
@@ -72,7 +72,7 @@
                             @continue
                         @endif
 
-                        <div class="tab-pane @if($i == 1 /* $status */) show active @endif h-100 overflow-auto"  id="{{ ltrim($phase->getDisplayId(), '#') }}">
+                        <div class="tab-pane @if($i == 1 /* $status */) show active @endif h-100 overflow-auto "  id="{{ ltrim($phase->getDisplayId(), '#') }}">
                             @include($phase->getDisplayForm(), $attributesData)
                         </div>
                     @endfor

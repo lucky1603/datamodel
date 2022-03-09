@@ -1,102 +1,90 @@
 <template>
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-            <span class="h4 text-center">STATISTIKA</span>
+    <b-form class="w-100 mt-4">
+        <h4 class="w-100 attribute-label text-center">OSNOVNA STATISTIKA</h4>
+        <div class="d-flex flex-wrap justify-content-center border border-light shadow-sm p-2">
+            <b-form-group
+                label="Prihodi"
+                description="Iznos prihoda za proteklu godinu" class="attribute-label font-weight-bold mr-3">
+                <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                    <b-form-input v-model="form.iznos_prihoda" size="sm" type="text"></b-form-input>
+                </b-input-group>
+            </b-form-group>
+
+            <b-form-group
+                label="Izvoz"
+                description="Ukupna suma izvoza za proteklu godinu" class="attribute-label font-weight-bold mr-3">
+                <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                    <b-form-input v-model="form.iznos_izvoza" size="sm" type="text"></b-form-input>
+                </b-input-group>
+            </b-form-group>
+
+            <b-form-group
+                label="Porezi"
+                description="Iznos plaćenih poreza za proteklu godinu" class="attribute-label font-weight-bold mr-3">
+                <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                    <b-form-input v-model="form.iznos_placenih_poreza" size="sm" type="text"></b-form-input>
+                </b-input-group>
+            </b-form-group>
+
+            <b-form-group
+                label="Ulaganja"
+                description="Ulaganje u istraživanje i razvoj (iznos)" class="attribute-label font-weight-bold mr-3">
+                <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                    <b-form-input v-model="form.iznos_ulaganja_istrazivanje_razvoj" size="sm" type="text"></b-form-input>
+                </b-input-group>
+            </b-form-group>
+
+            <b-form-group
+                label="Zaposleni"
+                description="Broj svih zaposlenih" class="attribute-label font-weight-bold mr-3" style="width: 100px">
+                <b-form-input v-model="form.broj_zaposlenih" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
+            </b-form-group>
+
+            <b-form-group
+                label="Angažovani"
+                description="Broj svih angažovanih ljudi na projektu" class="attribute-label font-weight-bold mr-3" style="width: 100px">
+                <b-form-input v-model="form.broj_angazovanih" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
+            </b-form-group>
+
+            <b-form-group
+                label="Žene"
+                description="Broj angažovanih žena projektu" class="attribute-label font-weight-bold mr-3" style="width: 100px">
+                <b-form-input v-model="form.broj_angazovanih_zena" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
+            </b-form-group>
+            <b-form-group
+                label="Inovacije"
+                description="Broj inovacija koje razvijate" class="attribute-label font-weight-bold mr-3" style="width: 100px">
+                <b-form-input v-model="form.broj_inovacija" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
+            </b-form-group>
         </div>
-        <div class="card-body">
-            <p>Molimo vas da odvojite malo vremena i da, dok čekate termin za potpis ugovora,
-                popunite polja u formularu ispod. Ovi podaci nam znače za pregled statistike.
-            </p>
-            <hr/>
-            <b-form class="w-100 mt-4">
-                <h4 class="w-100 attribute-label text-center">OSNOVNA STATISTIKA</h4>
+        <h4 class="w-100 attribute-label text-center mt-4">BROJ ZAŠTIĆENIH PATENATA</h4>
 
-                <div class="d-flex flex-wrap justify-content-center bg-light shadow-sm p-2">
-                    <b-form-group
-                        label="Prihodi"
-                        description="Iznos prihoda za proteklu godinu" class="attribute-label font-weight-bold mr-3">
-                        <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
-                            <b-form-input v-model="form.iznos_prihoda" size="sm" type="text"></b-form-input>
-                        </b-input-group>
-                    </b-form-group>
-
-                    <b-form-group
-                        label="Izvoz"
-                        description="Ukupna suma izvoza za proteklu godinu" class="attribute-label font-weight-bold mr-3">
-                        <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
-                            <b-form-input v-model="form.iznos_izvoza" size="sm" type="text"></b-form-input>
-                        </b-input-group>
-                    </b-form-group>
-
-                    <b-form-group
-                        label="Porezi"
-                        description="Iznos plaćenih poreza za proteklu godinu" class="attribute-label font-weight-bold mr-3">
-                        <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
-                            <b-form-input v-model="form.iznos_placenih_poreza" size="sm" type="text"></b-form-input>
-                        </b-input-group>
-                    </b-form-group>
-
-                    <b-form-group
-                        label="Ulaganja"
-                        description="Ulaganje u istraživanje i razvoj (iznos)" class="attribute-label font-weight-bold mr-3">
-                        <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
-                            <b-form-input v-model="form.iznos_ulaganja_istrazivanje_razvoj" size="sm" type="text"></b-form-input>
-                        </b-input-group>
-                    </b-form-group>
-
-                    <b-form-group
-                        label="Zaposleni"
-                        description="Broj svih zaposlenih" class="attribute-label font-weight-bold mr-3" style="width: 100px">
-                        <b-form-input v-model="form.broj_zaposlenih" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
-                    </b-form-group>
-
-                    <b-form-group
-                        label="Angažovani"
-                        description="Broj svih angažovanih ljudi na projektu" class="attribute-label font-weight-bold mr-3" style="width: 100px">
-                        <b-form-input v-model="form.broj_angazovanih" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
-                    </b-form-group>
-
-                    <b-form-group
-                        label="Žene"
-                        description="Broj angažovanih žena projektu" class="attribute-label font-weight-bold mr-3" style="width: 100px">
-                        <b-form-input v-model="form.broj_angazovanih_zena" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
-                    </b-form-group>
-                    <b-form-group
-                        label="Inovacije"
-                        description="Broj inovacija koje razvijate" class="attribute-label font-weight-bold mr-3" style="width: 100px">
-                        <b-form-input v-model="form.broj_inovacija" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
-                    </b-form-group>
-                </div>
-                <h4 class="w-100 attribute-label text-center mt-4">BROJ ZAŠTIĆENIH PATENATA</h4>
-
-                <div class="d-flex flex-wrap justify-content-center bg-light shadow-sm p-2">
-                    <b-form-group
-                        label="Mali patenti"
-                        description="Broj zaštićenih malih patenata" class="attribute-label font-weight-bold mr-3" style="width: 100px">
-                        <b-form-input v-model="form.broj_malih_patenata" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
-                    </b-form-group>
-                    <b-form-group
-                        label="Patenti"
-                        description="Broj zaštićenih patenata" class="attribute-label font-weight-bold mr-3" style="width: 100px">
-                        <b-form-input v-model="form.broj_patenata" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
-                    </b-form-group>
-                    <b-form-group
-                        label="Autorska dela"
-                        description="Broj zaštićenih autorskih dela" class="attribute-label font-weight-bold mr-3" style="width: 100px">
-                        <b-form-input v-model="form.broj_autorskih_dela" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
-                    </b-form-group>
-                </div>
-                <h4 class="w-100 h4 attribute-label text-center mt-4">SPISAK ZEMALJA U KOJE IZVOZITE</h4>
-
-                <countries-selector v-model="form.countries" class="mt-2 mb-4 bg-light shadow-sm p-2"></countries-selector>
-                <hr/>
-                <div class="d-flex align-items-center justify-content-center mt-4">
-                    <b-button type="button" size="sm" variant="primary" class="m-1" @click="onSubmit">Prihvati</b-button>
-                    <b-button type="button" size="sm" variant="outline-primary" class="m-1">Resetuj</b-button>
-                </div>
-            </b-form>
+        <div class="d-flex flex-wrap justify-content-center border border-light shadow-sm p-2">
+            <b-form-group
+                label="Mali patenti"
+                description="Broj zaštićenih malih patenata" class="attribute-label font-weight-bold mr-3" style="width: 100px">
+                <b-form-input v-model="form.broj_malih_patenata" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
+            </b-form-group>
+            <b-form-group
+                label="Patenti"
+                description="Broj zaštićenih patenata" class="attribute-label font-weight-bold mr-3" style="width: 100px">
+                <b-form-input v-model="form.broj_patenata" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
+            </b-form-group>
+            <b-form-group
+                label="Autorska dela"
+                description="Broj zaštićenih autorskih dela" class="attribute-label font-weight-bold mr-3" style="width: 100px">
+                <b-form-input v-model="form.broj_autorskih_dela" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
+            </b-form-group>
         </div>
-    </div>
+        <h4 class="w-100 h4 attribute-label text-center mt-4">SPISAK ZEMALJA U KOJE IZVOZITE</h4>
+
+        <countries-selector v-model="form.countries" class="mt-2 mb-4 border border-light shadow-sm p-2"></countries-selector>
+        <hr/>
+        <div class="d-flex align-items-center justify-content-center mt-4">
+            <b-button type="button" size="sm" variant="primary" class="m-1" @click="onSubmit">Prihvati</b-button>
+            <b-button type="button" size="sm" variant="outline-primary" class="m-1">Resetuj</b-button>
+        </div>
+    </b-form>
 </template>
 
 <script>
