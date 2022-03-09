@@ -81,8 +81,7 @@
         <countries-selector v-model="form.countries" class="mt-2 mb-4 border border-light shadow-sm p-2"></countries-selector>
         <hr/>
         <div class="d-flex align-items-center justify-content-center mt-4">
-            <b-button type="button" size="sm" variant="primary" class="m-1" @click="onSubmit">Prihvati</b-button>
-            <b-button type="button" size="sm" variant="outline-primary" class="m-1">Resetuj</b-button>
+            <b-button type="button" size="sm" variant="primary" class="m-1" @click="onSubmit">Prihvati izmene</b-button>
         </div>
     </b-form>
 </template>
