@@ -70,6 +70,7 @@ Vue.component('mentor-report-editor', require('./components/MentorReportEditor')
 Vue.component('event-form', require('./components/EventForm').default);
 Vue.component('program-statistics-form', require('./components/ProgramStatisticsForm').default);
 Vue.component('countries-selector', require('./components/CountriesSelector').default);
+Vue.component('profile-explorer-table-view', require('./components/ProfileExplorerTableView').default)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

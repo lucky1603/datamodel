@@ -5,6 +5,7 @@ namespace App\Business;
 
 
 use App\Attribute;
+use App\AttributeGroup;
 use App\Entity;
 use App\Instance;
 use Illuminate\Support\Facades\DB;
@@ -167,7 +168,83 @@ class Profile extends SituationsModel
         }
         $attributes[] = $ntp;
 
+        $membership_type = self::selectOrCreateAttribute(['membership_type', __('Tip članstva'), 'select', NULL, 19]);
+        if(count($membership_type->getOptions()) == 0) {
+            $membership_type->addOption(['value' => 0, 'text' => 'Nije član']);
+            $membership_type->addOption(['value' => 1, 'text' => 'Punopravni član']);
+            $membership_type->addOption(['value' => 2, 'text' => 'Virtuelni član']);
+            $membership_type->addOption(['value' => 3, 'text' => 'Alumni']);
+        }
+        $attributes[] = $membership_type;
+
+        $ntp = self::selectOrCreateAttribute(['ntp', 'NTP koji daje podršku', 'select', NULL, 20]);
+        if(count($ntp->getOptions()) == 0) {
+            $ntp->addOption(['value' => 1, 'text' => 'Naučno-tehnološki park Beograd']);
+            $ntp->addOption(['value' => 2, 'text' => 'Naučno-tehnološki park Niš']);
+            $ntp->addOption(['value' => 3, 'text' => 'Naučno-tehnološki park Čačak']);
+        }
+        $attributes[] = $ntp;
+
+        $program_name = self::selectOrCreateAttribute(['program_name', __('Program Name'), 'varchar', NULL, 21]);
+        $attributes[] = $program_name;
+
+        $ag_cache = AttributeGroup::where('name', 'profile_cache')->first();
+        if($ag_cache == null) {
+            $ag_cache = AttributeGroup::create([
+                'name' => 'profile_cache',
+                'label' => 'Profile Cached Attributes',
+                10
+            ]);
+        }
+
+        $ag_cache->addAttribute($ntp);
+        $ag_cache->addAttribute($program_name);
+
         return $attributes;
+    }
+
+    public static function addAdditionalAttributes() {
+        $membership_type = self::selectOrCreateAttribute(['membership_type', __('Tip članstva'), 'select', NULL, 19]);
+        if(count($membership_type->getOptions()) == 0) {
+            $membership_type->addOption(['value' => 0, 'text' => 'Nije član']);
+            $membership_type->addOption(['value' => 1, 'text' => 'Punopravni član']);
+            $membership_type->addOption(['value' => 2, 'text' => 'Virtuelni član']);
+            $membership_type->addOption(['value' => 3, 'text' => 'Alumni']);
+        }
+        Profile::addOverallAttribute($membership_type, 1);
+
+        $ntp = self::selectOrCreateAttribute(['ntp', 'NTP koji daje podršku', 'select', NULL, 20]);
+        if(count($ntp->getOptions()) == 0) {
+            $ntp->addOption(['value' => 1, 'text' => 'Naučno-tehnološki park Beograd']);
+            $ntp->addOption(['value' => 2, 'text' => 'Naučno-tehnološki park Niš']);
+            $ntp->addOption(['value' => 3, 'text' => 'Naučno-tehnološki park Čačak']);
+        }
+
+        // Add cache attributes.
+        Profile::addOverallAttribute($ntp, 1);
+        $program_name = self::selectOrCreateAttribute(['program_name', __('Program Name'), 'varchar', NULL, 21]);
+        Profile::addOverallAttribute($program_name, '');
+        Profile::find()->each(function($profile) {
+            $program = $profile->getActiveProgram();
+            $profile->setValue('ntp', $program->getValue('ntp'));
+            $profile->setValue('program_name', $program->getValue('program_name'));
+        });
+
+        $cache_attributes = self::selectOrCreateAttribute(['attributes_cached', __('Attributes Cached'), 'bool', NULL, 22]);
+        Profile::addOverallAttribute($cache_attributes, false);
+
+        $ag_cache = AttributeGroup::where('name', 'profile_cache')->first();
+        if($ag_cache == null) {
+            $ag_cache = AttributeGroup::create([
+                'name' => 'profile_cache',
+                'label' => 'Profile Cached Attributes',
+                'sort_order' => 10
+            ]);
+        }
+
+        $ag_cache->addAttribute($ntp);
+        $ag_cache->addAttribute($program_name);
+        $ag_cache->addAttribute($cache_attributes);
     }
 
     /////

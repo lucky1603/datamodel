@@ -1065,6 +1065,7 @@ class ProfileController extends Controller
             'business_branch',
             'profile_logo',
             'profile_background',
+            'membership_type'
         ];
 
         foreach($order as $key) {
@@ -1222,6 +1223,18 @@ class ProfileController extends Controller
         });
     }
 
+    public function filterTable() {
+        Profile::find()->map(function($profile) {
+            return [
+                'id' => $profile->instance->id,
+                'name' => $profile->getValue('name'),
+                'photo' => $profile->getValue('profile_logo'),
+                'membership_type' => $profile->getText('membership_type'),
+            ];
+
+        });
+    }
+
     public function filter(Request $request) {
         $data = $request->post();
 
@@ -1267,17 +1280,38 @@ class ProfileController extends Controller
                 public $background;
                 public $isCompany;
                 public $ntp;
+                public $program;
 
                 public function __construct($profile)
                 {
                     $this->id = $profile->getId();
                     $this->name = $profile->getValue('name');
                     $this->logo = $profile->getValue('profile_logo');
-                    $this->state = $profile->getValue('profile_state');
-                    $this->stateText = $profile->getText('profile_state');
-                    $this->background = $profile->getValue('profile_background');
+                    $attribute_state = $profile->getAttribute('profile_state');
+                    $this->state = $attribute_state->getValue();
+                    $this->stateText = $attribute_state->getText();
                     $this->isCompany = $profile->getValue('is_company');
-                    $this->ntp = $profile->getValue('ntp');
+                    if($profile->getValue('attributes_cached') == false) {
+                        $program = $profile->getActiveProgram();
+
+                        $attribute = $program->getAttribute('ntp');
+                        $text = $attribute->getText();
+                        $value = $attribute->getValue();
+                        $profile->setValue('ntp', $value);
+                        $this->ntp = $text;
+
+                        $attribute = $program->getAttribute('program_name');
+                        $text = $attribute->getText();
+                        $value = $attribute->getValue();
+                        $profile->setValue('program_name', $value);
+                        $this->program = $text;
+
+                        $profile->setValue('attributes_cached', true);
+                    } else {
+                        $this->ntp = $profile->getText('ntp');
+                        $this->program = $profile->getText('program_name');
+                    }
+
                 }
             };
         });

@@ -40,13 +40,23 @@
 
 
     @endphp
-    <profile-explorer
+{{--    <profile-explorer--}}
+{{--        class="h-auto"--}}
+{{--        f_profile_state="{{ $profile_state }}"--}}
+{{--        f_name="{{ $name }}"--}}
+{{--        f_ntp="{{ $ntp }}"--}}
+{{--        f_is_company="{{ $is_company }}" f_page="{{ $page }}" :itemsperpage="36">--}}
+{{--    </profile-explorer>--}}
+
+    <profile-explorer-table-view
+        :page_size="20"
         class="h-auto"
         f_profile_state="{{ $profile_state }}"
         f_name="{{ $name }}"
         f_ntp="{{ $ntp }}"
-        f_is_company="{{ $is_company }}" f_page="{{ $page }}" :itemsperpage="36">
-    </profile-explorer>
+        f_is_company="{{ $is_company }}"
+        f_page="{{ $page }}"
+    ></profile-explorer-table-view>
 @endsection
 
 
