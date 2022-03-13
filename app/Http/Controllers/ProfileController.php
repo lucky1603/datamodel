@@ -1281,6 +1281,7 @@ class ProfileController extends Controller
                 public $isCompany;
                 public $ntp;
                 public $program;
+                public $membership_type;
 
                 public function __construct($profile)
                 {
@@ -1291,6 +1292,7 @@ class ProfileController extends Controller
                     $this->state = $attribute_state->getValue();
                     $this->stateText = $attribute_state->getText();
                     $this->isCompany = $profile->getValue('is_company');
+                    $this->membership_type = $profile->getText('membership_type');
                     if($profile->getValue('attributes_cached') == false) {
                         $program = $profile->getActiveProgram();
 

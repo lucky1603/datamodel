@@ -171,6 +171,10 @@ export default {
                     label: 'Kompanija'
                 },
                 {
+                    key: 'membership_type',
+                    label: 'Tip članstva'
+                },
+                {
                     key: 'program',
                     label: 'Program'
                 },
