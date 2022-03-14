@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProfileCache extends Model
 {
-    //
+    protected $guarded = [];
 }

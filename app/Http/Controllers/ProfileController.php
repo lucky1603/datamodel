@@ -36,6 +36,7 @@ use App\User;
 use App\Value;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -1232,6 +1233,80 @@ class ProfileController extends Controller
                 'membership_type' => $profile->getText('membership_type'),
             ];
 
+        });
+    }
+
+    public function filterCache(Request $request) {
+        $data = $request->post();
+
+        $filter = [];
+        if($data['name'] == '') {
+            unset($data['name']);
+            Session::forget('name');
+        }
+        else {
+            Session::put('name', $data['name']);
+            $name = $data['name'];
+            unset($data['name']);
+        }
+
+
+        if($data['profile_state'] == 0) {
+            unset($data['profile_state']);
+            Session::forget('profile_state');
+        }
+        else
+            Session::put('profile_state', $data['profile_state']);
+
+        if($data['is_company'] == -1) {
+            unset($data['is_company']);
+            Session::forget('is_company');
+        } else {
+            Session::put('is_company', $data['is_company']);
+        }
+
+        if($data['ntp'] == 0) {
+            unset($data['ntp']);
+            Session::forget('ntp');
+        } else {
+            Session::put('ntp', $data['ntp']);
+        }
+
+        if(count($data) == 0)
+            $data = [];
+
+        $query = count($data) ? DB::table('profile_caches')->where($data) : DB::table('profile_caches');
+        if(isset($name)) {
+            $query = $query->where('name', 'like', $name.'%');
+        }
+
+        return $query->select()
+            ->get()
+            ->map(function($profile) {
+            return new class($profile) {
+                public $id;
+                public $name;
+                public $logo;
+                public $state;
+                public $stateText;
+                public $isCompany;
+                public $ntp;
+                public $program;
+                public $membership_type;
+
+                public function __construct($profile)
+                {
+                    $this->id = $profile->profile_id;
+                    $this->name = $profile->name;
+                    $this->logo = $profile->logo;
+                    $this->state = $profile->profile_state;
+                    $this->stateText = $profile->profile_state_text;
+                    $this->isCompany = $profile->is_company_text;
+                    $this->ntp = $profile->ntp_text;
+                    $this->program = $profile->program_name;
+                    $this->membership_type = $profile->membership_type_text;
+                }
+            };
         });
     }
 

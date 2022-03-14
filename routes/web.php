@@ -70,6 +70,7 @@ Route::post('profiles/bulkMail', 'ProfileController@sendMail')->name('profiles.s
 Route::get('profiles/mailClients', 'ProfileController@getMailClients')->name('profiles.mailClients');
 Route::get('profiles/list', 'ProfileController@list')->name('profiles.list');
 Route::post('profiles/filter', 'ProfileController@filter')->name('profiles.filter');
+Route::post('profiles/filterCache', 'ProfileController@filterCache')->name('profiles.filterCache');
 Route::get('profiles/create', 'ProfileController@create')->name('profiles.create');
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
 Route::post('profiles/programAttendances/{profile}', 'ProfileController@programAttendances')->name('profiles.programAttendances');

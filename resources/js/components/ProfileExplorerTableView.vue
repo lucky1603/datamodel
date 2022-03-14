@@ -83,7 +83,7 @@ export default {
             for(const property in this.form) {
                 formData.append(property, this.form[property]);
             }
-            await axios.post('/profiles/filter', formData)
+            await axios.post('/profiles/filterCache', formData)
             .then(response => {
                 console.log(response.data);
                 this.profiles = [];
@@ -106,7 +106,7 @@ export default {
                 return '/images/custom/nophoto2.png';
             }
 
-            return logo.filelink;
+            return logo;
         },
         getStatusClass(value) {
             let retVal = 'text-center font-weight-bold w-100';

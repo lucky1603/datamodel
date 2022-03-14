@@ -15,6 +15,20 @@ class CreateProfileCachesTable extends Migration
     {
         Schema::create('profile_caches', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('logo');
+            $table->unsignedInteger('membership_type');
+            $table->string('membership_type_text');
+            $table->unsignedInteger('ntp');
+            $table->string('ntp_text');
+            $table->unsignedInteger('profile_state');
+            $table->string('profile_state_text');
+            $table->boolean('is_company');
+            $table->string('is_company_text');
+            $table->string('program_name');
+            $table->string('contact_person_name');
+            $table->string('contact_person_email');
+            $table->unsignedBigInteger('profile_id')->unique();
             $table->timestamps();
         });
     }

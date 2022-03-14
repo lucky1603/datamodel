@@ -8,6 +8,7 @@ use App\Attribute;
 use App\AttributeGroup;
 use App\Entity;
 use App\Instance;
+use App\ProfileCache;
 use Illuminate\Support\Facades\DB;
 
 class Profile extends SituationsModel
@@ -201,6 +202,38 @@ class Profile extends SituationsModel
         $ag_cache->addAttribute($program_name);
 
         return $attributes;
+    }
+
+    public static function makeCache() {
+        DB::table('profile_caches')->delete();
+
+        Profile::find()->each(function($profile) {
+            $is_company = $profile->getValue('is_company');
+            $program = $profile->getActiveProgram();
+            $logo = $profile->getValue('profile_logo');
+            if($logo == null || $logo == ['filename' => '', 'filelink' => '']) {
+                $logo = asset('images/custom/nophoto2.png', false);
+            } else {
+                $logo = $logo['filelink'];
+            }
+
+            DB::table('profile_caches')->insert([
+                'profile_id' => $profile->getId(),
+                'name' => $profile->getValue('name'),
+                'logo' => $logo,
+                'membership_type' => $profile->getValue('membership_type'),
+                'membership_type_text' => $profile->getText('membership_type'),
+                'ntp' => $profile->getValue('ntp'),
+                'ntp_text' => $profile->getText('ntp'),
+                'profile_state' => $profile->getValue('profile_state'),
+                'profile_state_text' => $profile->getText('profile_state'),
+                'is_company' => $is_company,
+                'is_company_text' => $is_company == true ? "Kompanija" : "Startap",
+                'program_name' => $program->getValue('program_name'),
+                'contact_person_name' => $profile->getValue('contact_person'),
+                'contact_person_email' => $profile->getValue('contact_email')
+            ]) ;
+        });
     }
 
     public static function addAdditionalAttributes() {
@@ -479,22 +512,30 @@ class Profile extends SituationsModel
     public function updateState() {
         $profileStatus = $this->getValue('profile_status');
         $programStatus = $this->getActiveProgram() != null ? $this->getActiveProgram()->getStatus() : 0;
+        $profileCache = ProfileCache::where('profile_id', $this->getId())->first();
+        $attribute = $this->getAttribute('profile_state');
 
         if(in_array($profileStatus, [1,2])) {
-            $this->setValue('profile_state', 1);
+            $value = 1;
         } else if($profileStatus == 3 && $programStatus == 1) {
-            $this->setValue('profile_state', 2);
+            $value = 2;
         } else if($profileStatus == 3 && $programStatus == 2) {
-            $this->setValue('profile_state', 3);
+            $value = 3;
         } else if($profileStatus == 3 && in_array($programStatus, [3,4])) {
-            $this->setValue('profile_state', 4);
+            $value = 4;
         } else if($profileStatus == 3 && $programStatus == 5) {
-            $this->setValue('profile_state', 5);
+            $value = 5;
         } else if($profileStatus == 4 ) {
-            $this->setValue('profile_state', 6);
+            $value = 6;
         } else {
-            $this->setValue('profile_state', 7);
+            $value = 7;
         }
+
+        $this->setValue('profile_state', $value);
+        $profileCache->profile_state = $value;
+        $profileCache->profile_state_text = $attribute->getText();
+        $profileCache->save();
+
     }
 
     public static function setStateAttribute() {
