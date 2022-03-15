@@ -81,7 +81,7 @@
                 </a>
             </li>
             <li class="side-nav-item" id="navOtherProfiles">
-                <a href="#" class="side-nav-link">
+                <a href="{{ route('profiles.otherCompanies', ['profile' => $model->getId()]) }}" class="side-nav-link">
                     <i class="uil-dashboard"></i>
                     <span>{{ mb_strtoupper( __('Other Profiles')) }}</span>
                 </a>

@@ -32,6 +32,7 @@ use App\Mail\DemoDayNotification;
 use App\Mail\MeetingNotification;
 use App\Mail\ProfileCreated;
 use App\Mail\ProfileRejected;
+use App\ProfileCache;
 use App\User;
 use App\Value;
 use Illuminate\Http\Request;
@@ -62,10 +63,15 @@ class ProfileController extends Controller
     public function index() {
         $this->authorize('manage_client_profiles');
         $profiles = Profile::find();
-
-        return view('profiles.index1', ['profiles' => $profiles]);
+        $role = Auth::user()->roles()->first()->name;
+        return view('profiles.index1', ['profiles' => $profiles, 'role' => $role]);
     }
 
+    public function otherCompanies($profileId) {
+        $profile = Profile::find($profileId);
+        $role = Auth::user()->roles()->first()->name;
+        return view('profiles.other-profiles', ['model' => $profile, 'role' => $role]);
+    }
 
     /**
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -207,11 +213,13 @@ class ProfileController extends Controller
     }
 
     public function trainings($id) {
+        $this->authorize('read_client_profile', [$id]);
         $profile = Profile::find($id);
         return view('profiles.trainings', ['model' => $profile]);
     }
 
     public function sessions($id) {
+        $this->authorize('read_client_profile', [$id]);
         $profile = Profile::find($id);
         return view('profiles.sessions', ['model' => $profile]);
     }
@@ -233,6 +241,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function profile(Request $request, $id) {
+        $this->authorize('read_client_profile', [$id]);
         $profile = Profile::find($id);
         if(!auth()->user()->isAdmin()) {
             $this_profile = auth()->user()->profile();
@@ -1236,6 +1245,32 @@ class ProfileController extends Controller
         });
     }
 
+    public function filterOtherCompanies($profileId) {
+//        $this->authorize('read_client_profile', $profileId);
+        return ProfileCache::all()
+            ->where('profile_id','!=', $profileId)
+            ->map(function($profile) {
+            return new class($profile) {
+                public $id;
+                public $name;
+                public $logo;
+                public $website;
+                public $contact_email;
+
+                public function __construct($profile)
+                {
+                    $this->id = $profile->profile_id;
+                    $this->name = $profile->name;
+                    $this->logo = $profile->logo;
+                    $this->website = $profile->website;
+                    $this->contact_email = $profile->contact_person_email;
+                }
+            };
+        });
+
+
+    }
+
     public function filterCache(Request $request) {
         $data = $request->post();
 
@@ -1528,6 +1563,10 @@ class ProfileController extends Controller
 
         var_dump($data);
         return "Session variables successfully changed!";
+    }
+
+    public function otherProfiles($profileId) {
+
     }
 
     /**

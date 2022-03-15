@@ -115,6 +115,8 @@ class ReportController extends Controller
     }
 
     public function programReports($programId) {
+        $this->authorize('read_program', [$programId]);
+
         $program = ProgramFactory::resolve($programId);
         $profile = $program->getProfile();
         $role = auth()->user()->roles()->first()->name;

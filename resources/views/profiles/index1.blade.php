@@ -55,7 +55,7 @@
         f_name="{{ $name }}"
         f_ntp="{{ $ntp }}"
         f_is_company="{{ $is_company }}"
-        f_page="{{ $page }}"
+        f_page="{{ $page }}" role="{{ $role }}"
     ></profile-explorer-table-view>
 @endsection
 

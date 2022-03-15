@@ -95,6 +95,8 @@ Route::post('profiles/evalDemoDay', 'ProfileController@evalDemoDay')->name('prof
 Route::post('profiles/evalPhase', 'ProfileController@evalPhase')->name('profiles.evalPhase');
 Route::post('profiles/notifyContract', 'ProfileController@notifyContract')->name('profiles.notifycontract');
 Route::post('profiles/saveApplicationData', 'ProfileController@saveApplicationData')->name('profiles.saveapplicationdata');
+Route::get('profiles/otherCompanies/{profile}', 'ProfileController@otherCompanies')->name('profiles.otherCompanies');
+Route::post('profiles/otherCompanies/{profile}', 'ProfileController@filterOtherCompanies')->name('profiles.filterOtherCompanies');
 Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->name('profiles.apply');
 
 Route::get('/files/create', 'FileController@create')->name('files.create');

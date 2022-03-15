@@ -231,7 +231,8 @@ class Profile extends SituationsModel
                 'is_company_text' => $is_company == true ? "Kompanija" : "Startap",
                 'program_name' => $program->getValue('program_name'),
                 'contact_person_name' => $profile->getValue('contact_person'),
-                'contact_person_email' => $profile->getValue('contact_email')
+                'contact_person_email' => $profile->getValue('contact_email'),
+                'website' => $profile->getValue('profile_webpage')
             ]) ;
         });
     }

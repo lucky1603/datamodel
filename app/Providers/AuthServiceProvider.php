@@ -27,16 +27,26 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::before(function($user, $ability, $parameter) {
-            if(!Auth::user()->isAdmin() && $ability === 'read_user_profile' && count($parameter) > 0) {
+            if(!Auth::user()->isAdmin() && $ability === 'read_client_profile' && count($parameter) > 0) {
                 $id = $parameter[0];
-                $client = Auth::user()->client();
+                $profile = Auth::user()->profile();
 
-                if ($client != null && $client->getId() == $id)
+                if ($profile != null && $profile->getId() == $id)
                 {
                     return true;
                 }
-            } else {
 
+            }
+
+            else if(!Auth::user()->isAdmin() && $ability === 'read_program' && count($parameter) > 0) {
+                $id = $parameter[0];
+                $profile = Auth::user()->profile();
+                $program = $profile->getActiveProgram();
+                if($program != null && $program->getId() == $id) {
+                    return true;
+                }
+            }
+            else {
                 return $user->abilities()->contains($ability);
             }
         });

@@ -28,6 +28,7 @@ class CreateProfileCachesTable extends Migration
             $table->string('program_name');
             $table->string('contact_person_name');
             $table->string('contact_person_email');
+            $table->string('website')->nullable(true);
             $table->unsignedBigInteger('profile_id')->unique();
             $table->timestamps();
         });

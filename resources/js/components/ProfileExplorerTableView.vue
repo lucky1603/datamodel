@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-form id="filterForm" inline class="w-100 bg-light">
+        <b-form v-if="show_header" id="filterForm" inline class="w-100 bg-light">
             <b-row id="toolbar" class="row w-100">
                 <b-col xl="1" lg="1" class="pt-1">
                     <span class="m-2 position-relative" style="top:12px" >FILTER</span>
@@ -32,14 +32,14 @@
         <b-table
             id="profileTable"
             :items="profiles"
-            :fields="fields"
+            :fields="tableFields"
             head-variant="dark"
             small
             bordered
             class="shadow-sm"
             :per-page="page_size"
             :current-page="currentPage"
-            hover :busy.sync="isBusy" @row-clicked="rowClicked" @context-changed="pageChanged">
+            hover :busy.sync="isBusy" @row-dblclicked="rowClicked" @context-changed="pageChanged">
             <template #cell(company)="data">
                 <img :src="getLogo(data.item.logo)" width="24px" class="mr-2"> {{ data.item.name }}
             </template>
@@ -51,6 +51,12 @@
             </template>
             <template #cell(program)="data">
                 <span class="text-dark font-weight-bold">{{ data.value }}</span>
+            </template>
+            <template #cell(website)="data">
+                <a :href="data.value" target="_blank">{{ data.value }}</a>
+            </template>
+            <template #cell(contact_email)="data">
+                <a :href="'mailto://' + data.value" target="_blank">{{ data.value }}</a>
             </template>
         </b-table>
         <b-pagination
@@ -71,10 +77,61 @@ export default {
         f_profile_state: { typeof: Number, default: 0},
         f_ntp: {typeof: Number, default: 0},
         f_is_company: { typeof: Number, default: -1},
-        f_page: { typeof:Number, default: 1}
+        f_page: { typeof:Number, default: 1},
+        show_header: { typeof: Boolean, default: true },
+        source: { typeof: String, default: '/profiles/filterCache'},
+        role: { typeof: String, default: 'profile' }
     },
     computed: {
-
+        tableFields() {
+            if(this.role == 'profile') {
+                return [
+                    {
+                        key: 'company',
+                        label: 'Kompanija'
+                    },
+                    {
+                        key: 'website',
+                        label: 'Web stranica',
+                        tdClass: 'font-11'
+                    },
+                    {
+                        key: 'contact_email',
+                        label: 'Kontakt',
+                        tdClass: 'font-11'
+                    },
+                ]
+            } else {
+                return [
+                    {
+                        key: 'company',
+                        label: 'Kompanija'
+                    },
+                    {
+                        key: 'membership_type',
+                        label: 'Tip članstva'
+                    },
+                    {
+                        key: 'program',
+                        label: 'Program'
+                    },
+                    {
+                        key: 'stateText',
+                        label: 'Status',
+                        tdClass: 'text-center',
+                        thClass: 'text-center'
+                    },
+                    {
+                        key: 'tip',
+                        label: 'Tip društva'
+                    },
+                    {
+                        key: 'ntp',
+                        label: 'ntp'
+                    }
+                ]
+            }
+        }
     },
     methods: {
         async getData() {
@@ -83,7 +140,7 @@ export default {
             for(const property in this.form) {
                 formData.append(property, this.form[property]);
             }
-            await axios.post('/profiles/filterCache', formData)
+            await axios.post(this.source, formData)
             .then(response => {
                 console.log(response.data);
                 this.profiles = [];
@@ -132,6 +189,7 @@ export default {
         },
         rowClicked(item, index, event) {
             // alert('Item ' + item.id + ' clicked!');
+            $('body').css('cursor', 'progress');
             Event.$emit('profile-clicked', item.id);
         },
         pageChanged(ctx) {
