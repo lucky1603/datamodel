@@ -99,13 +99,13 @@ export default {
                     {
                         key: 'website',
                         label: 'Web stranica',
-                        tdClass: 'font-11',
+                        tdClass: 'font-14',
                         sortable: false,
                     },
                     {
                         key: 'contact_email',
                         label: 'Kontakt',
-                        tdClass: 'font-11',
+                        tdClass: 'font-14',
                         sortable: false
                     },
                 ]
