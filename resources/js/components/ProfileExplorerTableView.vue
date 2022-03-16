@@ -39,13 +39,18 @@
             class="shadow-sm"
             :per-page="page_size"
             :current-page="currentPage"
-            hover :busy.sync="isBusy" @row-dblclicked="rowClicked" @context-changed="pageChanged">
-            <template #cell(company)="data">
-                <img :src="getLogo(data.item.logo)" width="24px" class="mr-2"> {{ data.item.name }}
+            hover
+            :busy.sync="isBusy"
+            :sort-by.sync="sortBy"
+            :sort-desc.sync="sortDesc"
+            @row-dblclicked="rowClicked"
+            @context-changed="pageChanged">
+            <template #cell(name)="data">
+                <img :src="getLogo(data.item.logo)" width="24px" class="mr-2"> {{ data.value }}
             </template>
-            <template #cell(tip)="data">
-                {{ getCompanyType(data.item.isCompany)}}
-            </template>
+<!--            <template #cell(tip)="data">-->
+<!--                {{ getCompanyType(data.item.isCompany)}}-->
+<!--            </template>-->
             <template #cell(stateText)="data">
                 <span :class="getStatusClass(data.item.state)">{{ data.value }}</span>
             </template>
@@ -87,47 +92,56 @@ export default {
             if(this.role == 'profile') {
                 return [
                     {
-                        key: 'company',
-                        label: 'Kompanija'
+                        key: 'name',
+                        label: 'Kompanija',
+                        sortable: true
                     },
                     {
                         key: 'website',
                         label: 'Web stranica',
-                        tdClass: 'font-11'
+                        tdClass: 'font-11',
+                        sortable: false,
                     },
                     {
                         key: 'contact_email',
                         label: 'Kontakt',
-                        tdClass: 'font-11'
+                        tdClass: 'font-11',
+                        sortable: false
                     },
                 ]
             } else {
                 return [
                     {
-                        key: 'company',
-                        label: 'Kompanija'
+                        key: 'name',
+                        label: 'Kompanija',
+                        sortable: true
                     },
                     {
                         key: 'membership_type',
-                        label: 'Tip članstva'
+                        label: 'Tip članstva',
+                        sortable: true,
                     },
                     {
                         key: 'program',
-                        label: 'Program'
+                        label: 'Program',
+                        sortable: false,
                     },
                     {
                         key: 'stateText',
                         label: 'Status',
                         tdClass: 'text-center',
-                        thClass: 'text-center'
+                        thClass: 'text-center',
+                        sortable: true,
                     },
                     {
-                        key: 'tip',
-                        label: 'Tip društva'
+                        key: 'isCompany',
+                        label: 'Tip društva',
+                        sortable: true
                     },
                     {
                         key: 'ntp',
-                        label: 'ntp'
+                        label: 'ntp',
+                        sortable: true
                     }
                 ]
             }
@@ -214,6 +228,8 @@ export default {
     },
     data() {
         return {
+            sortBy: 'name',
+            sortDesc: false,
             profiles: [],
             currentPage: 0,
             isBusy: false,
