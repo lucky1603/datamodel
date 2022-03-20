@@ -45,7 +45,7 @@
 {{--        f_profile_state="{{ $profile_state }}"--}}
 {{--        f_name="{{ $name }}"--}}
 {{--        f_ntp="{{ $ntp }}"--}}
-{{--        f_is_company="{{ $is_company }}" f_page="{{ $page }}" :itemsperpage="36">--}}
+{{--        f_is_company="{{ $is_company }}" f_page="{{ $page }}" :itemsperpage="36" token="{{ $token }}">--}}
 {{--    </profile-explorer>--}}
 
     <profile-explorer-table-view

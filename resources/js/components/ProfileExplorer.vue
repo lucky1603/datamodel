@@ -23,8 +23,9 @@
                     <b-form-select size="sm" class="m-2 w-100" v-model="form.ntp" :options="ntps" @change="onSubmit"></b-form-select>
                 </b-col>
 
-                <b-col xl="3" lg="2" class="d-flex flex-row flex-lg-row-reverse">
+                <b-col xl="3" lg="2" class="d-flex flex-lg-row-reverse">
                     <a href="/profiles/exportRaisingStarts" role="button" style="top:5px" class="text-secondary m-2 position-relative float-right"><i class="dripicons-export"></i> EXPORT</a>
+                    <b-button type="button" variant="outline-primary" size="sm" @click="showModal" class="m-2">Dodaj</b-button>
                 </b-col>
 
             </b-row>
@@ -56,11 +57,10 @@
 
         <b-modal id="addProfileModal" ref="addProfileModal" size="lg" header-bg-variant="dark" header-text-variant="light">
             <template #modal-title >{{ addprofiletitle }}</template>
-<!--            <span v-html="formContent"></span>-->
-            <profile-form ref="myProfileForm" action="/profiles/create"></profile-form>
+            <profile-form ref="myProfileForm" action="/profiles/create" :token="token" ></profile-form>
             <template #modal-footer>
-                <b-button type="button" variant="primary" @click="onOk">Prihvati</b-button>
-                <b-button type="button" variant="light" @click="onCancel">Zatvori</b-button>
+                <b-button type="button" variant="primary" @click.prevent="onOk" >Prihvati</b-button>
+                <b-button type="button" variant="light" @click="onCancel" >Zatvori</b-button>
             </template>
         </b-modal>
     </div>
@@ -80,7 +80,8 @@ export default {
         f_profile_state: { typeof: Number, default: 0},
         f_ntp: {typeof: Number, default: 0},
         f_is_company: { typeof: Number, default: -1},
-        f_page: { typeof:Number, default: 1}
+        f_page: { typeof:Number, default: 1},
+        token: { typeof: String, default: ''}
     },
     computed : {
         logoSrc() {
@@ -164,13 +165,23 @@ export default {
             this.visibleItems = [];
             this.visibleItems = this.pages[this.currentPage - 1];
         },
-        async onOk() {
+        onOk() {
             $('body').css('cursor', 'progress');
-            await Event.$emit('submit', 'createProfile');
-            this.$refs['addProfileModal'].hide();
+
+            this.$refs['myProfileForm'].onSubmit()
+            .then(response => {
+                this.$refs['addProfileModal'].hide();
+            })
+            .catch(errors => {
+                console.log(errors);
+            });
+
         },
         onCancel() {
             this.$refs['addProfileModal'].hide();
+        },
+        showModal() {
+            this.$refs['addProfileModal'].show();
         }
     },
     async mounted() {

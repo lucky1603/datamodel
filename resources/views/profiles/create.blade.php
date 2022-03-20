@@ -15,9 +15,11 @@
         }
     @endphp
 
-    <div class="container">
-        @include('profiles.partials._profile_create_form')
-    </div>
+{{--    <div class="container">--}}
+{{--        @include('profiles.partials._profile_create_form')--}}
+{{--    </div>--}}
+
+    <profile-form :token="{{ $token }}" :show_buttons="true" class="m-4"></profile-form>
 @endsection
 
 @section('sidemenu')

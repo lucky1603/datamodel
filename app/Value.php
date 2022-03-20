@@ -156,6 +156,7 @@ class Value extends Model
 
                     return count($value);
                 } else if($value != null) {
+                    var_dump($value);
                     $filename = $value['filename'];
                     $filelink = $value['filelink'];
 

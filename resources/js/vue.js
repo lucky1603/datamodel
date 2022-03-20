@@ -71,6 +71,7 @@ Vue.component('event-form', require('./components/EventForm').default);
 Vue.component('program-statistics-form', require('./components/ProgramStatisticsForm').default);
 Vue.component('countries-selector', require('./components/CountriesSelector').default);
 Vue.component('profile-explorer-table-view', require('./components/ProfileExplorerTableView').default)
+Vue.component('profile-data', require('./components/ProfileData').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

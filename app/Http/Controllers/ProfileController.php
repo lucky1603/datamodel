@@ -64,7 +64,8 @@ class ProfileController extends Controller
         $this->authorize('manage_client_profiles');
         $profiles = Profile::find();
         $role = Auth::user()->roles()->first()->name;
-        return view('profiles.index1', ['profiles' => $profiles, 'role' => $role]);
+        $token = csrf_token();
+        return view('profiles.index1', ['profiles' => $profiles, 'role' => $role, 'token' => $token]);
     }
 
     public function otherCompanies($profileId) {
@@ -110,7 +111,8 @@ class ProfileController extends Controller
         });
 
         $action = route('profiles.store');
-        return view('profiles.create', ['attributes' => $attributes, 'action' => $action]);
+        $token = csrf_token();
+        return view('profiles.create', ['attributes' => $attributes, 'action' => $action, 'token' => $token]);
     }
 
     public function edit($profileId) {
@@ -119,25 +121,32 @@ class ProfileController extends Controller
         $profile = Profile::find($profileId);
         $attributes = $profile->getAttributes();
         $action = route('profiles.update');
+        $token = csrf_token();
 
-        return view('profiles.edit', ['profile' => $profile, 'attributes' => $attributes, 'action' => $action]);
+        return view('profiles.edit', ['profile' => $profile, 'attributes' => $attributes, 'action' => $action, 'token' => $token]);
     }
 
-    public function update(Request $request) {
+    public function update(StoreProfileRequest $request) {
         $data = $request->post();
 
         $profile_photo = Utils::getFilesFromRequest($request, 'profile_logo');
-        if($profile_photo != null) {
+        if($profile_photo != null && $profile_photo != ['filelink' => '', 'filename' => '']) {
             $data['profile_logo'] = $profile_photo;
         }
 
         $profile_background = Utils::getFilesFromRequest($request, 'profile_background');
-        if($profile_background != null) {
+        if($profile_background != null && $profile_background != ['filelink' => '', 'filename' => '']) {
             $data['profile_background'] = $profile_background;
         }
 
         $profile = Profile::find($data['profileid']);
         $profile->setData($data);
+
+        // Update cache
+        $pcache = ProfileCache::where('profile_id', $data['profileid'])->first();
+        $pcache->name = $data['name'];
+        $pcache->logo = $profile->getValue('profile_logo')['filelink'];
+        $pcache->save();
 
     }
 
@@ -1048,6 +1057,30 @@ class ProfileController extends Controller
             'message' => 'Success',
             'unhandled' => $unhandled
         ]);
+    }
+
+    public function getProfileData($profileId) {
+        $profile = Profile::find($profileId);
+        return $profile->getData();
+    }
+
+    public function getProfileTexts($profileId) {
+        $profile = Profile::find($profileId);
+        $attributes = $profile->getAttributes();
+        $programData = [];
+        foreach($attributes as $attribute) {
+            if($attribute->name == 'profile_logo' || $attribute->name == 'profile_background') {
+                $programData[$attribute->name] = $attribute->getValue()['filelink'];
+            } else {
+                $programData[$attribute->name] = $attribute->getText();
+            }
+
+        }
+        $program = $profile->getActiveProgram();
+        $programData['program_type'] = $program->getValue('program_type');
+        $programData['program_name'] = $program->getValue('program_name');
+        $programData['programid'] = $program->getId();
+        return $programData;
     }
 
     /**

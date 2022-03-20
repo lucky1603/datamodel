@@ -193,13 +193,15 @@ export default {
         },
         async getCountries() {
             let formData = new FormData();
-            this.form.countries.forEach(id => {
-                formData.append('ids[]', id);
-            });
-            await axios.post('/analytics/countryNames', formData)
-            .then(response => {
-                this.countryNames = response.data;
-            });
+            if(Array.isArray(this.form.countries)) {
+                this.form.countries.forEach(id => {
+                    formData.append('ids[]', id);
+                });
+                await axios.post('/analytics/countryNames', formData)
+                    .then(response => {
+                        this.countryNames = response.data;
+                    });
+            }
         },
         openForm() {
             this.editMode = true;
@@ -234,9 +236,12 @@ export default {
                     }
 
                 }  else {
-                    this.form.countries.forEach(country => {
-                        formData.append('countries[]', country);
-                    });
+                    if(Array.isArray(this.form.countries)) {
+                        this.form.countries.forEach(country => {
+                            formData.append('countries[]', country);
+                        });
+                    }
+
                 }
             }
 

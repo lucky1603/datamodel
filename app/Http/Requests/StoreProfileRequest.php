@@ -49,10 +49,13 @@ class StoreProfileRequest extends FormRequest
             $data = $this->post();
 
             if(Entity::where('name', 'Profile')->first() != null) {
-                // Check for unique id number.
-                if(Attribute::checkValue(Entity::where('name', 'Profile')->first(), 'id_number', $data['id_number']))
-                {
-                    $validator->errors()->add('id_number', 'Startap sa ovim maticnim brojem već postoji u bazi!');
+                // In the case that the change of id_number is being requested
+                // check if the id_number is unique in the database.
+                if($data['is_company'] == 'on' && isset($data['id_number'])) {
+                    if(Attribute::checkValue(Entity::where('name', 'Profile')->first(), 'id_number', $data['id_number']))
+                    {
+                        $validator->errors()->add('id_number', 'Startap sa ovim maticnim brojem već postoji u bazi!');
+                    }
                 }
             }
 

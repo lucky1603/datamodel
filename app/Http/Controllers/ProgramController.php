@@ -24,6 +24,7 @@ class ProgramController extends Controller
             'broj_inovacija' => $program->getValue('broj_inovacija'),
             'countries' => $program->getValue('countries'),
             'statistic_sent' => $program->getValue('statistic_sent')
+
         ];
     }
 
