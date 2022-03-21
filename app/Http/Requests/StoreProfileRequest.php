@@ -23,7 +23,7 @@ class StoreProfileRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $validationRules = [
             'name' => 'required|max:255',
@@ -32,9 +32,10 @@ class StoreProfileRequest extends FormRequest
             'contact_phone' => 'required|regex:/0\d{2}\s(\d{3,4})-(\d{3,4})/',
             'address' => 'required|max:255',
             'profile_webpage' => 'max:255|regex:/https*:\/\/[a-zA-Z0-9]+/',
-            'university' => 'in:1,2,3,4,5,6,7,8',
+//            'university' => 'in:1,2,3,4,5,6,7,8',
             'business_branch' => 'in:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16',
-            'short_ino_desc' => 'required|max:400'
+            'short_ino_desc' => 'required'
+//            'short_ino_desc' => 'required|max:400'
         ];
 
         if($this['is_company'] == 'on') {

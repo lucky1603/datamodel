@@ -1061,7 +1061,10 @@ class ProfileController extends Controller
 
     public function getProfileData($profileId) {
         $profile = Profile::find($profileId);
-        return $profile->getData();
+        $data = $profile->getData();
+        unset($data['reason_contact']);
+        unset($data['note']);
+        return $data;
     }
 
     public function getProfileTexts($profileId) {

@@ -83,7 +83,7 @@ class Value extends Model
             if(count($value) === 1) {
                 $value = $value[0];
             } elseif(count($value) == 0) {
-                $value = __("Not Selected");
+                $value = /* __("Not Selected") */ null;
             }
 
             return $value;
@@ -177,8 +177,6 @@ class Value extends Model
                     ]);
 
                     $query->delete();
-
-
                 }
 
             default:
@@ -189,6 +187,13 @@ class Value extends Model
         }
 
         if(!is_array($value)) {
+            if($attribute->type == 'select'  && ( $value == null ||  $value == 'null' )) {
+                return DB::table($tablename)->where([
+                    'attribute_id' => $attribute->id,
+                    'instance_id' => $instance_id
+                ])->delete();
+            }
+
             return DB::table($tablename)->updateOrInsert(
                 [
                     'attribute_id' => $attribute->id,
@@ -215,7 +220,6 @@ class Value extends Model
                 }
             } catch (QueryException $ex) {
                 echo $ex->getMessage().'<br />';
-                var_dump($attribute->id);
             }
 
         }

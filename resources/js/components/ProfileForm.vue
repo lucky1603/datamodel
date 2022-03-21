@@ -99,17 +99,17 @@
                     rows="3"></b-form-textarea>
                 <span v-if="errors.short_ino_desc" class="text-danger">{{ errors.short_ino_desc}}</span>
             </b-form-group>
-            <b-form-group id="reason_contact_group" label="Razlog kontaktiranja" label-for="reason_contact">
-                <b-form-select v-model="form.reason_contact" :options="contactReasons" size="sm"></b-form-select>
-                <span v-if="errors.reason_contact" class="text-danger">{{ errors.reason_contact}}</span>
-            </b-form-group>
-            <b-form-group id="note_group" label="Napomena/Primedba" label-for="note">
-                <b-form-textarea
-                    id="note"
-                    v-model="form.note"
-                    placeholder="Unesite primedbu ako je imate..."
-                    rows="3"></b-form-textarea>
-            </b-form-group>
+<!--            <b-form-group id="reason_contact_group" label="Razlog kontaktiranja" label-for="reason_contact">-->
+<!--                <b-form-select v-model="form.reason_contact" :options="contactReasons" size="sm"></b-form-select>-->
+<!--                <span v-if="errors.reason_contact" class="text-danger">{{ errors.reason_contact}}</span>-->
+<!--            </b-form-group>-->
+<!--            <b-form-group id="note_group" label="Napomena/Primedba" label-for="note">-->
+<!--                <b-form-textarea-->
+<!--                    id="note"-->
+<!--                    v-model="form.note"-->
+<!--                    placeholder="Unesite primedbu ako je imate..."-->
+<!--                    rows="3"></b-form-textarea>-->
+<!--            </b-form-group>-->
             <div v-if="show_buttons" class="d-flex align-items-center justify-content-center">
                 <b-button size="sm" variant="primary" type="submit" class="mx-1" >Prihvati</b-button>
                 <b-button size="sm" variant="outline-primary" type="button" class="mx-1">Odustani</b-button>
@@ -145,6 +145,7 @@ export default {
                         this.form.profile_background_file = profileData[property];
                     }
                     else {
+
                         this.form[property] = profileData[property];
                     }
                 }
@@ -277,7 +278,7 @@ export default {
         return {
             show: true,
             universities: [
-                { value: 0, text: 'Izaberite ...' },
+                { value: null, text: 'Izaberite ...' },
                 { value: 1 ,text: 'Arhitektura' },
                 { value: 2, text: 'Ekonomija' },
                 { value: 3, text: 'Elektrotehnika' },
@@ -287,7 +288,7 @@ export default {
                 { value: 7, text: 'Šumarstvo' }
             ],
             activities: [
-                { value: 0, text: 'Izaberite ...'},
+                { value: null, text: 'Izaberite ...'},
                 { value: 1, text: 'Energetska efikasnost, zelene, čiste tehnologije i ekologija'},
                 { value: 2, text: 'Veštačka inteligencija, baze podataka i analitika'},
                 { value: 3, text: 'Novi materijali i 3 D štampa'},
@@ -320,10 +321,10 @@ export default {
                 profile_background: null,
                 profile_background_file: null,
                 short_ino_desc: '',
-                reason_contact: 0,
-                university: 0,
-                business_branch: 0,
-                note: '',
+                // reason_contact: 0,
+                university: null,
+                business_branch: null,
+                // note: '',
                 profile_webpage: ''
             },
             errors: {}
