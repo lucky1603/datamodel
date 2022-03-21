@@ -19,7 +19,7 @@
 {{--        @include('profiles.partials._profile_create_form')--}}
 {{--    </div>--}}
 
-    <profile-form :token="{{ $token }}" :show_buttons="true" class="m-4"></profile-form>
+    <profile-form :token="{{ $token }}" :show_buttons="true" style="margin: 50px 200px 50px 200px"></profile-form>
 @endsection
 
 @section('sidemenu')

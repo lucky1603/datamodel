@@ -112,7 +112,7 @@
 <!--            </b-form-group>-->
             <div v-if="show_buttons" class="d-flex align-items-center justify-content-center">
                 <b-button size="sm" variant="primary" type="submit" class="mx-1" >Prihvati</b-button>
-                <b-button size="sm" variant="outline-primary" type="button" class="mx-1">Odustani</b-button>
+                <b-button size="sm" variant="outline-primary" type="button" class="mx-1" @click="onCancel">Odustani</b-button>
             </div>
 
         </b-form>
@@ -126,30 +126,33 @@ export default {
         action: '/profiles/create',
         show_buttons: { typeof: Boolean, default: false },
         profile_id: { typeof: Number, default: 0 },
-        token: {typeof: String, default: ''}
+        token: {typeof: String, default: ''},
+        back_location: { typeof: String, default: '/profiles'}
     },
     methods: {
         async getData() {
-            await axios.get(`/profiles/profileData/${this.profile_id}`)
-            .then(response => {
-                console.log(response.data);
-                let profileData = response.data;
-                for(let property in profileData) {
-                    if(property == 'id') {
-                        this.form.profileid = profileData[property];
-                    }
-                    else if(property == 'profile_logo') {
-                        this.form.profile_logo_file = profileData[property];
-                    }
-                    else if(property == 'profile_background') {
-                        this.form.profile_background_file = profileData[property];
-                    }
-                    else {
+            if(this.profile_id != 0) {
+                await axios.get(`/profiles/profileData/${this.profile_id}`)
+                    .then(response => {
+                        let profileData = response.data;
+                        for(let property in profileData) {
+                            if(property == 'id') {
+                                this.form.profileid = profileData[property];
+                            }
+                            else if(property == 'profile_logo') {
+                                this.form.profile_logo_file = profileData[property];
+                            }
+                            else if(property == 'profile_background') {
+                                this.form.profile_background_file = profileData[property];
+                            }
+                            else {
 
-                        this.form[property] = profileData[property];
-                    }
-                }
-            });
+                                this.form[property] = profileData[property];
+                            }
+                        }
+                    });
+            }
+
         },
         onFileSelect(file) {
             console.log(file);
@@ -262,7 +265,9 @@ export default {
             }
 
         },
-
+        onCancel() {
+            window.location.href = this.back_location;
+        },
         enforcePhoneFormat() {
             let phone = this.form.contact_phone.substring(0,12);
             let x = this.form.contact_phone.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
