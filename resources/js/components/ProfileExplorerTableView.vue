@@ -43,7 +43,7 @@
             :busy.sync="isBusy"
             :sort-by.sync="sortBy"
             :sort-desc.sync="sortDesc"
-            @row-dblclicked="rowClicked"
+            @row-clicked="rowClicked"
             @context-changed="pageChanged">
             <template #cell(name)="data">
                 <img :src="getLogo(data.item.logo)" width="24px" class="mr-2"> {{ data.value }}

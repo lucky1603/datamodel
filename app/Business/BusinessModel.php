@@ -314,7 +314,7 @@ class BusinessModel
      * Remove the attribute from entity and all its instances.
      * @param Attribute $attribute
      */
-    public static function removeOverallAttribute(Attribute $attribute) {
+    public static function removeOverallAttribute(Attribute $attribute, bool $remove=false) {
 
         // Remove attributes from all instances of the object.
         static::find()->each(function($object) use ($attribute) {
@@ -322,7 +322,19 @@ class BusinessModel
         });
 
         // Delete attribute.
-        $attribute->delete();
+        if($remove) {
+
+            // If 'select' type attribute, delete the options first.
+            if($attribute->type == 'select') {
+                $options = $attribute->attribute_options;
+                foreach ($options as $option) {
+                    $option->delete();
+                }
+            }
+
+            $attribute->delete();
+        }
+
     }
 
     /**

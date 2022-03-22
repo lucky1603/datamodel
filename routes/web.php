@@ -75,6 +75,8 @@ Route::get('profiles/create', 'ProfileController@create')->name('profiles.create
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
 Route::post('profiles/programAttendances/{profile}', 'ProfileController@programAttendances')->name('profiles.programAttendances');
 Route::get('profiles/edit/{profile}', 'ProfileController@edit')->name('profiles.edit');
+Route::get('profiles/statistics/{profile}', 'ProfileController@getStatistics')->name('profiles.getStatistics');
+Route::post('profiles/statistics', 'ProfileController@updateStatistics')->name('profiles.updateStatistics');
 Route::post('profiles/edit', 'ProfileController@update')->name('profiles.update');
 Route::get('profiles/trainingCandidates', 'ProfileController@getTrainingCandidates')->name('profiles.trainingcandidates');
 Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');

@@ -770,6 +770,29 @@ class Program extends SituationsModel
 
     }
 
+    public static function removeStatisticalAttributes() {
+        $attNames = [
+            'iznos_prihoda',
+            'iznos_izvoza',
+            'broj_zaposlenih',
+            'broj_angazovanih',
+            'broj_angazovanih_zena',
+            'iznos_placenih_poreza',
+            'iznos_ulaganja_istrazivanje_razvoj',
+            'broj_malih_patenata',
+            'broj_patenata',
+            'broj_autorskih_dela',
+            'broj_inovacija',
+            'countries',
+            'statistic_sent'
+        ];
+
+        foreach ($attNames as $attName) {
+            $attribute = Attribute::where('name', $attName)->first();
+            Program::removeOverallAttribute($attribute);
+        }
+    }
+
     public static function getRastuceAttributes(): Collection
     {
         $attributes = collect([]);

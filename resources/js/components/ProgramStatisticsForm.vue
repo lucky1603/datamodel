@@ -27,6 +27,12 @@
             </b-form-group>
 
             <b-form-group
+                label="Faza razvoja"
+                description="U kojoj se fazi razvoja nalazite" class="attribute-label font-weight-bold mr-3" >
+                <b-form-select v-model="form.faza_razvoja" :options="faze_razvoja" size="sm" style="width: 150px"></b-form-select>
+            </b-form-group>
+
+            <b-form-group
                 label="Ulaganja"
                 description="Ulaganje u istraživanje i razvoj (iznos)" class="attribute-label font-weight-bold mr-3">
                 <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
@@ -56,6 +62,7 @@
                 description="Broj inovacija koje razvijate" class="attribute-label font-weight-bold mr-3" style="width: 100px">
                 <b-form-input v-model="form.broj_inovacija" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
             </b-form-group>
+
         </div>
         <h4 class="w-100 attribute-label text-center mt-4">BROJ ZAŠTIĆENIH PATENATA</h4>
 
@@ -126,6 +133,10 @@
                         <td class="font-weight-bold text-right attribute-label">{{ form.broj_angazovanih_zena }}</td>
                     </tr>
                     <tr>
+                        <td colspan="2">Faza razvoja</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ fazaRazvojaTekst }}</td>
+                    </tr>
+                    <tr>
                         <td colspan="2">Broj inovacija koje razvijate</td>
                         <td class="font-weight-bold text-right attribute-label">{{ form.broj_inovacija }}</td>
                     </tr>
@@ -162,7 +173,7 @@
 export default {
     name: "ProgramStatisticsForm",
     props: {
-        program_id: { typeof: Number, default: 0 }
+        profile_id: { typeof: Number, default: 0 }
     },
     computed: {
         selectedCountryNames() {
@@ -177,6 +188,9 @@ export default {
             }
 
             return countryNames;
+        },
+        fazaRazvojaTekst() {
+            return this.faze_razvoja[this.form.faza_razvoja].text;
         }
     },
     methods: {
@@ -184,10 +198,13 @@ export default {
             return this.formatter.format(value);
         },
         async getData() {
-            await axios.get('/programs/statistics/' + this.program_id)
+            await axios.get('/profiles/statistics/' + this.profile_id)
             .then(response => {
                 this.form = response.data;
-                this.form.id = this.program_id;
+                this.form.id = this.profile_id;
+                if(this.countries == null) {
+                    this.countries = [];
+                }
                 this.statistic_sent = response.data.statistic_sent;
             });
         },
@@ -245,7 +262,7 @@ export default {
                 }
             }
 
-            await axios.post('/programs/statistics', formData)
+            await axios.post('/profiles/statistics', formData)
             .then(response => {
                 console.log(response.data);
             });
@@ -272,6 +289,7 @@ export default {
             statistic_sent: false,
             form: {
                 id: 0,
+                faza_razvoja: 0,
                 iznos_prihoda: 0.0,
                 iznos_izvoza: 0.0,
                 broj_zaposlenih: 0,
@@ -285,6 +303,15 @@ export default {
                 broj_inovacija: 0,
                 countries: [],
             },
+            faze_razvoja: [
+                { value: 0, text: "Izaberite ..."},
+                { value: 1, text: 'Ideja'},
+                { value: 2, text: 'Pre-product (PoC), pre-revenue'},
+                { value: 3, text: 'Alpha/Prototype 1'},
+                { value: 4, text: 'Beta/Prototype 2'},
+                { value: 5, text: 'MVP'},
+                { value: 6, text: 'Revenue'}
+            ],
             formatter: null
         }
     }

@@ -201,7 +201,131 @@ class Profile extends SituationsModel
         $ag_cache->addAttribute($ntp);
         $ag_cache->addAttribute($program_name);
 
+        /////
+        /// Statistics
+        ///
+
+        // Dodaj ili kreiraj grupu atributa za statistiku.
+        $ag_statistics = self::getAttributeGroup('program_statistics', __('Program Statistics'), 5);
+
+        // Dodavanje iznosa prihoda.
+        $attPrihodi = self::selectOrCreateAttribute(['iznos_prihoda', __('Income Amount'), 'double', NULL, 201]);
+        $attributes[] = $attPrihodi;
+        $ag_statistics->addAttribute($attPrihodi);
+
+        // Dodavanje iznoasa izvoza.
+        $attIzvoz = self::selectOrCreateAttribute(['iznos_izvoza', __('Export Amount'), 'double', NULL, 202]);
+        $attributes[] = $attIzvoz;
+        $ag_statistics->addAttribute($attIzvoz);
+
+        // Broj zaposlenih.
+        $attEmployeesNumber = self::selectOrCreateAttribute(['broj_zaposlenih', __('Number of Employees'), 'integer', NULL, 203]);
+        $attributes[] = $attEmployeesNumber;
+        $ag_statistics->addAttribute($attEmployeesNumber);
+
+        // Broj angazovanih.
+        $attEngagedNumber = self::selectOrCreateAttribute(['broj_angazovanih', __('Number of Engaged People'), 'integer', NULL, 204]);
+        $attributes[] = $attEngagedNumber;
+        $ag_statistics->addAttribute($attEngagedNumber);
+
+        // Iznos placenih poreza.
+        $attPayedTaxes = self::selectOrCreateAttribute(['iznos_placenih_poreza', __('Amount of Payed Taxes'), 'double', NULL, 205]);
+        $attributes[] = $attPayedTaxes;
+        $ag_statistics->addAttribute($attPayedTaxes);
+
+        // Ulaganje u istrazivanje i razvoj.
+        $attDevelopmentInvestment = self::selectOrCreateAttribute(['iznos_ulaganja_istrazivanje_razvoj', __('Amount of Investment in Research and Development'), 'double', NULL, 205]);
+        $attributes[] = $attDevelopmentInvestment;
+        $ag_statistics->addAttribute($attDevelopmentInvestment);
+
+        // Broj malih patenata.
+        $attSmallPatents = self::selectOrCreateAttribute(['broj_malih_patenata', __('Small Patents Number'), 'integer', NULL, 206]);
+        $attributes[] = $attSmallPatents;
+        $ag_statistics->addAttribute($attSmallPatents);
+
+        // Broj patenata.
+        $attPatents = self::selectOrCreateAttribute(['broj_patenata', __('Patents Number'), 'integer', NULL, 207]);
+        $attributes[] = $attPatents;
+        $ag_statistics->addAttribute($attPatents);
+
+        // Broj autorskih dela.
+        $attAutorsWorks = self::selectOrCreateAttribute(['broj_autorskih_dela', __("Author's Works Number"), 'integer', NULL, 208]);
+        $attributes[] = $attAutorsWorks;
+        $ag_statistics->addAttribute($attAutorsWorks);
+
+        // Broj inovacija.
+        $attInnovationCount = self::selectOrCreateAttribute(['broj_inovacija', __("Innovation Count"), 'integer', NULL, 209]);
+        $attributes[] = $attInnovationCount;
+        $ag_statistics->addAttribute($attInnovationCount);
+
+        // Zemlje izvoza.
+        $attLands = self::selectOrCreateAttribute(['countries', __('Countries'), 'select', 'multiselect', 210]);
+        if(count($attLands->getOptions()) == 0) {
+            $countries = DB::table('countries')->select()->get();
+            $countries->each(function($country) use($attLands) {
+                $attLands->addOption(['value' => $country->code, 'text' => $country->country]);
+            });
+        }
+        $attributes[] = $attLands;
+        $ag_statistics->addAttribute($attLands);
+
+        $attributeSent = self::selectOrCreateAttribute(['statistic_sent', __('Statistic Sent'), 'bool', NULL, 212]);
+        $attributes[] = $attributeSent;
+        $ag_statistics->addAttribute($attributeSent);
+
         return $attributes;
+    }
+
+    /**
+     * Privremena funkcija za dodavanje atributa, neophodnih za statistiku, svim programima.
+     */
+    public static function addStatisticAttributes() {
+        $attribute = self::selectOrCreateAttribute(['iznos_prihoda', __('Income Amount'), 'double', NULL, 201]);
+        Profile::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['iznos_izvoza', __('Export Amount'), 'double', NULL, 202]);
+        Profile::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_zaposlenih', __('Number of Employees'), 'integer', NULL, 203]);
+        Profile::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_angazovanih', __('Number of Engaged People'), 'integer', NULL, 204]);
+        Profile::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_angazovanih_zena', __('Number of Engaged Women'), 'integer', NULL, 211]);
+        Profile::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['iznos_placenih_poreza', __('Amount of Payed Taxes'), 'double', NULL, 205]);
+        Profile::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['iznos_ulaganja_istrazivanje_razvoj', __('Amount of Investment in Research and Development'), 'double', NULL, 205]);
+        Profile::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_malih_patenata', __('Small Patents Number'), 'integer', NULL, 206]);
+        Profile::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_patenata', __('Patents Number'), 'integer', NULL, 207]);
+        Profile::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_autorskih_dela', __("Author's Works Number"), 'integer', NULL, 208]);
+        Profile::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['broj_inovacija', __("Innovation Count"), 'integer', NULL, 209]);
+        Profile::addOverallAttribute($attribute, 0);
+
+        $attribute = self::selectOrCreateAttribute(['countries', __('Countries'), 'select', 'multiselect', 210]);
+        if(count($attribute->getOptions()) == 0) {
+            $countries = DB::table('countries')->select()->get();
+            foreach($countries as $country) {
+                $attribute->addOption(['value' => $country->id, 'text' => $country->country]);
+            }
+        }
+
+        Profile::addOverallAttribute($attribute);
+
+        $attribute = self::selectOrCreateAttribute(['statistic_sent', __('Statistic Sent'), 'bool', NULL, 212]);
+        Profile::addOverallAttribute($attribute, false);
+
     }
 
     public static function makeCache() {
@@ -241,9 +365,10 @@ class Profile extends SituationsModel
         $membership_type = self::selectOrCreateAttribute(['membership_type', __('Tip članstva'), 'select', NULL, 19]);
         if(count($membership_type->getOptions()) == 0) {
             $membership_type->addOption(['value' => 0, 'text' => 'Nije član']);
-            $membership_type->addOption(['value' => 1, 'text' => 'Punopravni član']);
-            $membership_type->addOption(['value' => 2, 'text' => 'Virtuelni član']);
+            $membership_type->addOption(['value' => 1, 'text' => 'Virtuelni član']);
+            $membership_type->addOption(['value' => 2, 'text' => 'Punopravni član']);
             $membership_type->addOption(['value' => 3, 'text' => 'Alumni']);
+            $membership_type->addOption(['value' => 4, 'text' => 'Co-Working']);
         }
         Profile::addOverallAttribute($membership_type, 1);
 
@@ -256,6 +381,22 @@ class Profile extends SituationsModel
 
         // Add cache attributes.
         Profile::addOverallAttribute($ntp, 1);
+
+        $faza_razvoja = self::selectOrCreateAttribute(['faza_razvoja', 'Faza razvoja', 'select', NULL, 23]);
+        if(count($faza_razvoja->getOptions() == 0)) {
+            $faza_razvoja->addOption(['value' => 0, 'text' => 'Nije podešeno']);
+            $faza_razvoja->addOption(['value' => 1, 'text' => 'Ideja']);
+            $faza_razvoja->addOption(['value' => 2, 'text' => 'Pre-product (PoC), pre-revenue']);
+            $faza_razvoja->addOption(['value' => 3, 'text' => 'Alpha/Prototype 1']);
+            $faza_razvoja->addOption(['value' => 4, 'text' => 'Beta/Prototype 2']);
+            $faza_razvoja->addOption(['value' => 5, 'text' => 'MVP']);
+            $faza_razvoja->addOption(['value' => 6, 'text' => 'Revenue']);
+        }
+
+        // Dodaj atribut - faza razvoja.
+        Profile::addOverallAttribute($faza_razvoja, 0);
+
+
         $program_name = self::selectOrCreateAttribute(['program_name', __('Program Name'), 'varchar', NULL, 21]);
         Profile::addOverallAttribute($program_name, '');
         Profile::find()->each(function($profile) {
@@ -543,7 +684,7 @@ class Profile extends SituationsModel
 
         $attribute = Attribute::where('name', 'profile_state')->first();
         if($attribute != null) {
-            self::removeOverallAttribute($attribute);
+            self::removeOverallAttribute($attribute, true);
         }
 
         $state = self::selectOrCreateAttribute(['profile_state', __('Profile State'), 'select', NULL, 18]);

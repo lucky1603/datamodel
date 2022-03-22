@@ -133,7 +133,7 @@
             </div>
         </form>
         <hr/>
-        <program-statistics-form :program_id="{{ $program->getId() }}" class="m-0 mt-2"></program-statistics-form>
+        <program-statistics-form :profile_id="{{ $model->getId() }}" class="m-0 mt-2"></program-statistics-form>
     </div>
 
 

@@ -1059,6 +1059,44 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * Returns the statistical values of the program.
+     * @param $profileId
+     * @return array
+     */
+    public function getStatistics($profileId): array
+    {
+        $profile = Profile::find($profileId);
+        return [
+            'iznos_prihoda' => $profile->getValue('iznos_prihoda'),
+            'iznos_izvoza' => $profile->getValue('iznos_izvoza'),
+            'broj_zaposlenih' => $profile->getValue('broj_zaposlenih'),
+            'broj_angazovanih' => $profile->getValue('broj_angazovanih'),
+            'broj_angazovanih_zena' => $profile->getValue('broj_angazovanih_zena'),
+            'iznos_placenih_poreza' => $profile->getValue('iznos_placenih_poreza'),
+            'iznos_ulaganja_istrazivanje_razvoj' => $profile->getValue('iznos_ulaganja_istrazivanje_razvoj'),
+            'broj_malih_patenata' => $profile->getValue('broj_malih_patenata'),
+            'broj_patenata' => $profile->getValue('broj_patenata'),
+            'broj_autorskih_dela' => $profile->getValue('broj_autorskih_dela'),
+            'broj_inovacija' => $profile->getValue('broj_inovacija'),
+            'countries' => $profile->getValue('countries'),
+            'statistic_sent' => $profile->getValue('statistic_sent'),
+            'faza_razvoja' => $profile->getValue('faza_razvoja')
+        ];
+    }
+
+    public function updateStatistics(Request $request) {
+        $data = $request->post();
+        unset($data['statistic_sent']);
+
+        $profile = Profile::find($data['id']);
+        foreach($data as $key=>$value) {
+            $profile->setValue($key, $value);
+        }
+
+        $profile->setValue('statistic_sent', 'on');
+    }
+
     public function getProfileData($profileId) {
         $profile = Profile::find($profileId);
         $data = $profile->getData();
