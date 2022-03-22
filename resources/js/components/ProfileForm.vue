@@ -99,6 +99,11 @@
                     rows="3"></b-form-textarea>
                 <span v-if="errors.short_ino_desc" class="text-danger">{{ errors.short_ino_desc}}</span>
             </b-form-group>
+            <b-form-group id="membership_type_group" label="Tip članstva" label-for="membership_type">
+                <b-form-select v-model="form.membership_type" :options="membershipTypes" size="sm"></b-form-select>
+                <span v-if="errors.membership_type" class="text-danger">{{ errors.membership_type}}</span>
+            </b-form-group>
+
 <!--            <b-form-group id="reason_contact_group" label="Razlog kontaktiranja" label-for="reason_contact">-->
 <!--                <b-form-select v-model="form.reason_contact" :options="contactReasons" size="sm"></b-form-select>-->
 <!--                <span v-if="errors.reason_contact" class="text-danger">{{ errors.reason_contact}}</span>-->
@@ -135,6 +140,7 @@ export default {
                 await axios.get(`/profiles/profileData/${this.profile_id}`)
                     .then(response => {
                         let profileData = response.data;
+                        this.form = {};
                         for(let property in profileData) {
                             if(property == 'id') {
                                 this.form.profileid = profileData[property];
@@ -312,6 +318,13 @@ export default {
                 { value: 2, text: 'Razlog 2'},
                 { value: 3, text: 'Razlog 3'},
             ],
+            membershipTypes: [
+                { value: 0, text: 'Nije član'},
+                { value: 1, text: 'Virtuelni član'},
+                { value: 2, text: 'Punopravni član'},
+                { value: 3, text: 'Alumni'},
+                { value: 4, text: 'Co-Working'}
+            ],
             form : {
                 profileid: 0,
                 name: '',
@@ -330,7 +343,8 @@ export default {
                 university: null,
                 business_branch: null,
                 // note: '',
-                profile_webpage: ''
+                profile_webpage: '',
+                membership_type: 0
             },
             errors: {}
 

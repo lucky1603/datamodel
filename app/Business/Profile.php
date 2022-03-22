@@ -383,7 +383,7 @@ class Profile extends SituationsModel
         Profile::addOverallAttribute($ntp, 1);
 
         $faza_razvoja = self::selectOrCreateAttribute(['faza_razvoja', 'Faza razvoja', 'select', NULL, 23]);
-        if(count($faza_razvoja->getOptions() == 0)) {
+        if(count($faza_razvoja->getOptions()) == 0) {
             $faza_razvoja->addOption(['value' => 0, 'text' => 'Nije podešeno']);
             $faza_razvoja->addOption(['value' => 1, 'text' => 'Ideja']);
             $faza_razvoja->addOption(['value' => 2, 'text' => 'Pre-product (PoC), pre-revenue']);

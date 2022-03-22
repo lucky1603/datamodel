@@ -1081,13 +1081,15 @@ class ProfileController extends Controller
             'broj_inovacija' => $profile->getValue('broj_inovacija'),
             'countries' => $profile->getValue('countries'),
             'statistic_sent' => $profile->getValue('statistic_sent'),
-            'faza_razvoja' => $profile->getValue('faza_razvoja')
+            'faza_razvoja' => $profile->getValue('faza_razvoja'),
+            'membership_type' => $profile->getValue('membership_type')
         ];
     }
 
     public function updateStatistics(Request $request) {
         $data = $request->post();
         unset($data['statistic_sent']);
+        var_dump($data);
 
         $profile = Profile::find($data['id']);
         foreach($data as $key=>$value) {
@@ -1100,9 +1102,31 @@ class ProfileController extends Controller
     public function getProfileData($profileId) {
         $profile = Profile::find($profileId);
         $data = $profile->getData();
-        unset($data['reason_contact']);
-        unset($data['note']);
-        return $data;
+
+        $order = [
+            'id',
+            'name',
+            'is_company',
+            'id_number',
+            'contact_person',
+            'contact_email',
+            'contact_phone',
+            'address',
+            'university',
+            'short_ino_desc',
+            'business_branch',
+            'profile_logo',
+            'profile_background',
+            'membership_type',
+            'profile_webpage'
+        ];
+
+        $profileData = [];
+        foreach($order as $key) {
+            $profileData[$key] = $data[$key];
+        }
+
+        return $profileData;
     }
 
     public function getProfileTexts($profileId) {
@@ -1149,7 +1173,7 @@ class ProfileController extends Controller
             'business_branch',
             'profile_logo',
             'profile_background',
-            'membership_type'
+            'membership_type',
         ];
 
         foreach($order as $key) {
