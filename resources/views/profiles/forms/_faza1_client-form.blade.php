@@ -14,20 +14,10 @@
             @if($filesSent != true)
                 <p>Da biste prošli evaluaciju i pitchovali na Demo Day-u neophodno je da do {{ $formattedDate }} upload-ujete sledeće file-ove u software-u:</p>
                 <ul>
-                    <li>1. Fajl 1</li>
-                    <li>2. Roadmap i KPI</li>
-                    <li>3. Budžet</li>
+                    <li>1. Plan razvoja poslovne ideje</li>
+                    <li>2. Budžet</li>
                 </ul>
-                <p>Kao i sve tražene domaće (do dana kada je obeleženo da budu dodati) upload-ujete u Vaš Google Drive folder koji će NTP tim kreirati za vas.</p>
-                <p>Takođe, neophodno je da prisustvujete sledećim događajima:</p>
-                <ul>
-                    <li>1. Uvod u Lean 1.0</li>
-                    <li>2. Uvod u Lean 2.0</li>
-                    <li>3. Preduzetništvo i finansije</li>
-                    <li>4. Team as a key player</li>
-                    <li>5. Dodatne 1 na 1 sesije navedene u agendi</li>
-                </ul>
-                <p>Kao i eventualnim dodatnim događajima koje navede tim NTP Beograd.</p>
+
                 <form
                     id="myFilesForm"
                     method="POST"
@@ -46,7 +36,7 @@
                 </form>
             @else
                 <p>Datoteke su uspešno poslate.</p>
-                <p>NTP tim će Vas dalje obavestiti o rezultatima evaluacije.</p>
+                <p>NTP tim će Vas dalje obavestiti o rasporedu za Demoday.</p>
             @endif
         @else
             <div class="jumbotron bg-white">
