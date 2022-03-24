@@ -29,6 +29,18 @@ class CreateProfileCachesTable extends Migration
             $table->string('contact_person_name');
             $table->string('contact_person_email');
             $table->string('website')->nullable(true);
+            $table->double('iznos_prihoda')->default(0.0);
+            $table->double('iznos_izvoza')->default(0.0);
+            $table->unsignedInteger('broj_zaposlenih')->default(0);
+            $table->unsignedInteger('broj_angazovanih')->default(0);
+            $table->unsignedInteger('broj_angazovanih_zena')->default(0);
+            $table->double('iznos_placenih_poreza')->default(0.0);
+            $table->double('iznos_ulaganja_istrazivanje_razvoj')->default(0.0);
+            $table->unsignedInteger('broj_malih_patenata')->default(0);
+            $table->unsignedInteger('broj_patenata')->default(0);
+            $table->unsignedInteger('broj_autorskih_dela')->default(0);
+            $table->unsignedInteger('broj_inovacija')->default(0);
+            $table->unsignedInteger('countries')->default(0);
             $table->unsignedBigInteger('profile_id')->unique();
             $table->timestamps();
         });

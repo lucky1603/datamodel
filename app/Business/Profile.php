@@ -328,10 +328,10 @@ class Profile extends SituationsModel
 
     }
 
-    public static function makeCache() {
+    public static function makeCache($addStatisticAttributes = false) {
         DB::table('profile_caches')->delete();
 
-        Profile::find()->each(function($profile) {
+        Profile::find()->each(function($profile) use($addStatisticAttributes) {
             $is_company = $profile->getValue('is_company');
             $program = $profile->getActiveProgram();
             $logo = $profile->getValue('profile_logo');
@@ -341,11 +341,11 @@ class Profile extends SituationsModel
                 $logo = $logo['filelink'];
             }
 
-            DB::table('profile_caches')->insert([
+            $data = [
                 'profile_id' => $profile->getId(),
                 'name' => $profile->getValue('name'),
                 'logo' => $logo,
-                'membership_type' => $profile->getValue('membership_type'),
+                'membership_type' => $profile->getValue('membership_type') ?? 0,
                 'membership_type_text' => $profile->getText('membership_type'),
                 'ntp' => $profile->getValue('ntp'),
                 'ntp_text' => $profile->getText('ntp'),
@@ -357,7 +357,24 @@ class Profile extends SituationsModel
                 'contact_person_name' => $profile->getValue('contact_person'),
                 'contact_person_email' => $profile->getValue('contact_email'),
                 'website' => $profile->getValue('profile_webpage')
-            ]) ;
+            ];
+
+            if($addStatisticAttributes) {
+                $data['iznos_prihoda'] = $profile->getValue('iznos_prihoda') ?? 0;
+                $data['iznos_izvoza'] = $profile->getValue('iznos_izvoza') ?? 0;
+                $data['broj_zaposlenih'] = $profile->getValue('broj_zaposlenih') ?? 0;
+                $data['broj_angazovanih'] = $profile->getValue('broj_angazovanih') ?? 0;
+                $data['broj_angazovanih_zena'] = $profile->getValue('broj_angazovanih_zena') ?? 0;
+                $data['iznos_placenih_poreza'] = $profile->getValue('iznos_placenih_poreza') ?? 0.0;
+                $data['iznos_ulaganja_istrazivanje_razvoj'] = $profile->getValue('iznos_ulaganja_istrazivanje_razvoj') ?? 0.0;
+                $data['broj_malih_patenata'] = $profile->getValue('broj_malih_patenata') ?? 0;
+                $data['broj_patenata'] = $profile->getValue('broj_patenata') ?? 0;
+                $data['broj_autorskih_dela'] = $profile->getValue('broj_autorskih_dela') ?? 0;
+                $data['broj_inovacija'] = $profile->getValue('broj_inovacija') ?? 0;
+                $data['countries'] = $profile->getValue('countries') ?? 0;
+            }
+
+            DB::table('profile_caches')->insert($data);
         });
     }
 
@@ -674,9 +691,12 @@ class Profile extends SituationsModel
         }
 
         $this->setValue('profile_state', $value);
-        $profileCache->profile_state = $value;
-        $profileCache->profile_state_text = $attribute->getText();
-        $profileCache->save();
+        if($profileCache != null) {
+            $profileCache->profile_state = $value;
+            $profileCache->profile_state_text = $attribute->getText();
+            $profileCache->save();
+        }
+
 
     }
 

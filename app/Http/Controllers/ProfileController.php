@@ -212,6 +212,12 @@ class ProfileController extends Controller
 
         // Go to confirmation page.
         $token = $user->getRememberToken();
+
+        // Add profile cache
+
+
+
+
         return redirect(route('user.notify', ['token' => $token]));
 
     }
