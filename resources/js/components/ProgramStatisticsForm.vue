@@ -206,6 +206,7 @@ export default {
                     this.countries = [];
                 }
                 this.statistic_sent = response.data.statistic_sent;
+
             });
         },
         async getCountries() {

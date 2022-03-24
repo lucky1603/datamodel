@@ -146,6 +146,23 @@ class ProfileController extends Controller
         $pcache = ProfileCache::where('profile_id', $data['profileid'])->first();
         $pcache->name = $data['name'];
         $pcache->logo = $profile->getValue('profile_logo')['filelink'];
+        $pcache->membership_type = $profile->getValue('membership_type');
+        $pcache->membership_type_text = $profile->getValue('membership_type_text');
+        $pcache->ntp = $profile->getValue('ntp');
+        $pcache->ntp_text = $profile->getText('ntp');
+        $pcache->profile_state = $profile->getValue('profile_state');
+        $pcache->profile_state_text = $profile->getText('profile_state');
+        $pcache->is_company = $profile->getValue('is_company');
+        $pcache->is_company_text = $pcache->is_company ? 'Kompanija' : 'Startap';
+        $program = $profile->getActiveProgram();
+        if($program != null) {
+            $pcache->program = $program->getValue('program_name');
+        } else {
+            $pcache->program = 'Nema aktivnog programa';
+        }
+        $pcache->contact_person_name = $profile->getValue('contact_person');
+        $pcache->contact_person_email = $profile->getValue('contact_email');
+        $pcache->website = $profile->getValue('profile_webpage');
         $pcache->save();
 
     }
@@ -206,17 +223,40 @@ class ProfileController extends Controller
         $email = $profile->getAttribute('contact_email')->getValue();
         Mail::to($email)->send(new ProfileCreated($profile));
 
+        // Add profile cache
+        $is_company = $profile->getValue('is_company');
+        $program = $profile->getActiveProgram();
+        $programName = $program != null ? $program->getValue('program_name') : '';
+        $logo = $profile->getValue('profile_logo');
+        if($logo == null || $logo == ['filename' => '', 'filelink' => '']) {
+            $logo = asset('images/custom/nophoto2.png', false);
+        } else {
+            $logo = $logo['filelink'];
+        }
+        ProfileCache::create([
+            'profile_id' => $profile->getId(),
+            'name' => $profile->getValue('name'),
+            'logo' => $logo,
+            'membership_type' => $profile->getValue('membership_type') ?? 0,
+            'membership_type_text' => $profile->getText('membership_type'),
+            'ntp' => $profile->getValue('ntp') ?? 0,
+            'ntp_text' => $profile->getText('ntp'),
+            'profile_state' => $profile->getValue('profile_state') ?? 0,
+            'profile_state_text' => $profile->getText('profile_state'),
+            'is_company' => $is_company,
+            'is_company_text' => $is_company == true ? "Kompanija" : "Startap",
+            'program_name' => $program->getValue('program_name'),
+            'contact_person_name' => $profile->getValue('contact_person'),
+            'contact_person_email' => $profile->getValue('contact_email'),
+            'website' => $profile->getValue('profile_webpage')
+        ]);
+
         if(Auth::user()->isAdmin()) {
             return redirect(route('profiles.index'));
         }
 
         // Go to confirmation page.
         $token = $user->getRememberToken();
-
-        // Add profile cache
-
-
-
 
         return redirect(route('user.notify', ['token' => $token]));
 
@@ -1073,6 +1113,11 @@ class ProfileController extends Controller
     public function getStatistics($profileId): array
     {
         $profile = Profile::find($profileId);
+        $countries = $profile->getValue('countries') ?? [];
+        if(!is_array($countries)) {
+            $countries = [$countries];
+        }
+
         return [
             'iznos_prihoda' => $profile->getValue('iznos_prihoda'),
             'iznos_izvoza' => $profile->getValue('iznos_izvoza'),
@@ -1085,7 +1130,7 @@ class ProfileController extends Controller
             'broj_patenata' => $profile->getValue('broj_patenata'),
             'broj_autorskih_dela' => $profile->getValue('broj_autorskih_dela'),
             'broj_inovacija' => $profile->getValue('broj_inovacija'),
-            'countries' => $profile->getValue('countries'),
+            'countries' => $countries,
             'statistic_sent' => $profile->getValue('statistic_sent'),
             'faza_razvoja' => $profile->getValue('faza_razvoja'),
             'membership_type' => $profile->getValue('membership_type')
@@ -1095,7 +1140,6 @@ class ProfileController extends Controller
     public function updateStatistics(Request $request) {
         $data = $request->post();
         unset($data['statistic_sent']);
-        var_dump($data);
 
         $profile = Profile::find($data['id']);
         foreach($data as $key=>$value) {
@@ -1103,6 +1147,22 @@ class ProfileController extends Controller
         }
 
         $profile->setValue('statistic_sent', 'on');
+
+        // Update cache
+        $pcache = ProfileCache::where('profile_id', $profile->getId())->first();
+        $pcache->iznos_prihoda = $profile->getValue('iznos_prihoda') ?? 0;
+        $pcache->iznos_izvoza = $profile->getValue('iznos_izvoza') ?? 0;
+        $pcache->broj_zaposlenih = $profile->getValue('broj_zaposlenih') ?? 0;
+        $pcache->broj_angazovanih = $profile->getValue('broj_angazovanih') ?? 0;
+        $pcache->broj_angazovanih_zena = $profile->getValue('broj_angazovanih_zena') ?? 0;
+        $pcache->iznos_placenih_poreza = $profile->getValue('iznos_placenih_poreza') ?? 0.0;
+        $pcache->iznos_ulaganja_istrazivanje_razvoj = $profile->getValue('iznos_ulaganja_istrazivanje_razvoj') ?? 0.0;
+        $pcache->broj_malih_patenata = $profile->getValue('broj_malih_patenata') ?? 0;
+        $pcache->broj_patenata = $profile->getValue('broj_patenata') ?? 0;
+        $pcache->broj_autorskih_dela = $profile->getValue('broj_autorskih_dela') ?? 0;
+        $pcache->broj_inovacija = $profile->getValue('broj_inovacija') ?? 0;
+        $pcache->faza_razvoja = $profile->getValue('faza_razvoja') ?? 0;
+        $pcache->save();
     }
 
     public function getProfileData($profileId) {

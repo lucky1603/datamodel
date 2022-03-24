@@ -187,7 +187,7 @@ class Value extends Model
         }
 
         if(!is_array($value)) {
-            if($attribute->type == 'select'  && ( $value === null ||  $value === 'null' )) {
+            if($attribute->type === 'select'  && ( $value === null ||  $value === 'null' )){
                 return DB::table($tablename)->where([
                     'attribute_id' => $attribute->id,
                     'instance_id' => $instance_id
@@ -197,7 +197,7 @@ class Value extends Model
             return DB::table($tablename)->updateOrInsert(
                 [
                     'attribute_id' => $attribute->id,
-                    'instance_id' => $instance_id
+                    'instance_id' => $instance_id,
                 ],
                 [
                     'value' => $value
@@ -211,7 +211,6 @@ class Value extends Model
             $query->delete();
 
             try {
-                echo $attribute->id.'<br />';
                 foreach ($value as $item) {
                     DB::table($tablename)->insert([
                         'attribute_id' => $attribute->id,

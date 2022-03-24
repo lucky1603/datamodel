@@ -40,7 +40,8 @@ class CreateProfileCachesTable extends Migration
             $table->unsignedInteger('broj_patenata')->default(0);
             $table->unsignedInteger('broj_autorskih_dela')->default(0);
             $table->unsignedInteger('broj_inovacija')->default(0);
-            $table->unsignedInteger('countries')->default(0);
+            $table->unsignedInteger('faza_razvoja')->default(0);
+            $table->string('faza_razvoja_tekst');
             $table->unsignedBigInteger('profile_id')->unique();
             $table->timestamps();
         });

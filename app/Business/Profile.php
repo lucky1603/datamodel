@@ -163,6 +163,7 @@ class Profile extends SituationsModel
 
         $ntp = self::selectOrCreateAttribute(['ntp', 'NTP koji daje podršku', 'select', NULL, 4]);
         if(count($ntp->getOptions()) == 0) {
+            $ntp->addOption(['value' => 0, 'text' => 'Nije dodeljen']);
             $ntp->addOption(['value' => 1, 'text' => 'Naučno-tehnološki park Beograd']);
             $ntp->addOption(['value' => 2, 'text' => 'Naučno-tehnološki park Niš']);
             $ntp->addOption(['value' => 3, 'text' => 'Naučno-tehnološki park Čačak']);
@@ -178,16 +179,22 @@ class Profile extends SituationsModel
         }
         $attributes[] = $membership_type;
 
-        $ntp = self::selectOrCreateAttribute(['ntp', 'NTP koji daje podršku', 'select', NULL, 20]);
-        if(count($ntp->getOptions()) == 0) {
-            $ntp->addOption(['value' => 1, 'text' => 'Naučno-tehnološki park Beograd']);
-            $ntp->addOption(['value' => 2, 'text' => 'Naučno-tehnološki park Niš']);
-            $ntp->addOption(['value' => 3, 'text' => 'Naučno-tehnološki park Čačak']);
-        }
-        $attributes[] = $ntp;
-
         $program_name = self::selectOrCreateAttribute(['program_name', __('Program Name'), 'varchar', NULL, 21]);
         $attributes[] = $program_name;
+
+        $faza_razvoja = self::selectOrCreateAttribute(['faza_razvoja', 'Faza razvoja', 'select', NULL, 23]);
+        if(count($faza_razvoja->getOptions()) == 0) {
+            $faza_razvoja->addOption(['value' => 0, 'text' => 'Nije podešeno']);
+            $faza_razvoja->addOption(['value' => 1, 'text' => 'Ideja']);
+            $faza_razvoja->addOption(['value' => 2, 'text' => 'Pre-product (PoC), pre-revenue']);
+            $faza_razvoja->addOption(['value' => 3, 'text' => 'Alpha/Prototype 1']);
+            $faza_razvoja->addOption(['value' => 4, 'text' => 'Beta/Prototype 2']);
+            $faza_razvoja->addOption(['value' => 5, 'text' => 'MVP']);
+            $faza_razvoja->addOption(['value' => 6, 'text' => 'Revenue']);
+        }
+
+        // Dodaj atribut - faza razvoja.
+        $attributes[] = $faza_razvoja;
 
         $ag_cache = AttributeGroup::where('name', 'profile_cache')->first();
         if($ag_cache == null) {
@@ -332,7 +339,7 @@ class Profile extends SituationsModel
         DB::table('profile_caches')->delete();
 
         Profile::find()->each(function($profile) use($addStatisticAttributes) {
-            $is_company = $profile->getValue('is_company');
+            $is_company = $profile->getValue('is_company') ?? false;
             $program = $profile->getActiveProgram();
             $logo = $profile->getValue('profile_logo');
             if($logo == null || $logo == ['filename' => '', 'filelink' => '']) {
@@ -343,20 +350,22 @@ class Profile extends SituationsModel
 
             $data = [
                 'profile_id' => $profile->getId(),
-                'name' => $profile->getValue('name'),
+                'name' => $profile->getValue('name') ?? '',
                 'logo' => $logo,
                 'membership_type' => $profile->getValue('membership_type') ?? 0,
-                'membership_type_text' => $profile->getText('membership_type'),
-                'ntp' => $profile->getValue('ntp'),
-                'ntp_text' => $profile->getText('ntp'),
-                'profile_state' => $profile->getValue('profile_state'),
-                'profile_state_text' => $profile->getText('profile_state'),
+                'membership_type_text' => $profile->getText('membership_type') ?? '',
+                'ntp' => $profile->getValue('ntp') ?? 0,
+                'ntp_text' => $profile->getText('ntp') ?? '',
+                'profile_state' => $profile->getValue('profile_state') ?? 0,
+                'profile_state_text' => $profile->getText('profile_state') ?? '',
                 'is_company' => $is_company,
                 'is_company_text' => $is_company == true ? "Kompanija" : "Startap",
-                'program_name' => $program->getValue('program_name'),
-                'contact_person_name' => $profile->getValue('contact_person'),
-                'contact_person_email' => $profile->getValue('contact_email'),
-                'website' => $profile->getValue('profile_webpage')
+                'program_name' => $program != null ?  $program->getValue('program_name') : '',
+                'contact_person_name' => $profile->getValue('contact_person') ?? '',
+                'contact_person_email' => $profile->getValue('contact_email') ?? '',
+                'website' => $profile->getValue('profile_webpage') ?? '',
+                'faza_razvoja' => $profile->getValue('faza_razvoja') ?? 0,
+                'faza_razvoja_tekst' => $profile->getText('faza_razvoja') ?? ''
             ];
 
             if($addStatisticAttributes) {
@@ -371,7 +380,6 @@ class Profile extends SituationsModel
                 $data['broj_patenata'] = $profile->getValue('broj_patenata') ?? 0;
                 $data['broj_autorskih_dela'] = $profile->getValue('broj_autorskih_dela') ?? 0;
                 $data['broj_inovacija'] = $profile->getValue('broj_inovacija') ?? 0;
-                $data['countries'] = $profile->getValue('countries') ?? 0;
             }
 
             DB::table('profile_caches')->insert($data);
@@ -412,7 +420,6 @@ class Profile extends SituationsModel
 
         // Dodaj atribut - faza razvoja.
         Profile::addOverallAttribute($faza_razvoja, 0);
-
 
         $program_name = self::selectOrCreateAttribute(['program_name', __('Program Name'), 'varchar', NULL, 21]);
         Profile::addOverallAttribute($program_name, '');
