@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        <div class="row text-center @if($profile_status < 4) d-flex align-items-center justify-content-center @else d-none @endif" >
+        <div class="row text-center @if($status <= $validStatus) d-flex align-items-center justify-content-center @else d-none @endif" >
             <button type="button" id="btnSaveFaza1" class="btn btn-sm btn-primary ml-1"  @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
             <button type="button" id="btnFaza1Passed" class="btn btn-sm btn-success ml-1"  @if($status != $validStatus || !$phase->isValid()) disabled @endif>
                 <span id="button_spinner_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
