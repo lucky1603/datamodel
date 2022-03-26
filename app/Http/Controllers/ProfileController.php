@@ -147,18 +147,18 @@ class ProfileController extends Controller
         $pcache->name = $data['name'];
         $pcache->logo = $profile->getValue('profile_logo')['filelink'];
         $pcache->membership_type = $profile->getValue('membership_type');
-        $pcache->membership_type_text = $profile->getValue('membership_type_text');
+        $pcache->membership_type_text = $profile->getValue('membership_type_text') ?? '';
         $pcache->ntp = $profile->getValue('ntp');
         $pcache->ntp_text = $profile->getText('ntp');
         $pcache->profile_state = $profile->getValue('profile_state');
-        $pcache->profile_state_text = $profile->getText('profile_state');
+        $pcache->profile_state_text = $profile->getText('profile_state') ?? '';
         $pcache->is_company = $profile->getValue('is_company');
         $pcache->is_company_text = $pcache->is_company ? 'Kompanija' : 'Startap';
         $program = $profile->getActiveProgram();
         if($program != null) {
-            $pcache->program = $program->getValue('program_name');
+            $pcache->program_name = $program->getValue('program_name');
         } else {
-            $pcache->program = 'Nema aktivnog programa';
+            $pcache->program_name = 'Nema aktivnog programa';
         }
         $pcache->contact_person_name = $profile->getValue('contact_person');
         $pcache->contact_person_email = $profile->getValue('contact_email');
@@ -1162,6 +1162,7 @@ class ProfileController extends Controller
         $pcache->broj_autorskih_dela = $profile->getValue('broj_autorskih_dela') ?? 0;
         $pcache->broj_inovacija = $profile->getValue('broj_inovacija') ?? 0;
         $pcache->faza_razvoja = $profile->getValue('faza_razvoja') ?? 0;
+        $pcache->faza_razvoja_tekst = $profile->getText('faza_razvoja') ?? '';
         $pcache->save();
     }
 

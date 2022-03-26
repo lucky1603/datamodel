@@ -261,7 +261,8 @@ class MentorController extends Controller
 
     public function ownSessions($mentorId) {
         $mentor = Mentor::find($mentorId);
-        return view('mentors.ownsessions', ['mentor' => $mentor]);
+        $token = csrf_token();
+        return view('mentors.ownsessions', ['mentor' => $mentor, 'token' => $token]);
     }
 
     /**

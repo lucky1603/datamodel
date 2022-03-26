@@ -11,7 +11,7 @@
                     <div style="height: 48vh">
                         <program-data
                             :programid="this.programId"
-                            :usertype="usertype">
+                            :usertype="usertype" :token="token">
                         </program-data>
                     </div>
                     <div class="card shadow-sm mt-2" style="height: 26vh">
@@ -53,7 +53,8 @@ export default {
     props: {
         mentorid: { typeof: Number, default: 0 },
         title : { typeof: String, default: 'Sesije'},
-        usertype: { typeof: String, default: 'administrator'}
+        usertype: { typeof: String, default: 'administrator'},
+        token: { typeof: String, default: ''}
     },
     methods: {
         async getPrograms() {

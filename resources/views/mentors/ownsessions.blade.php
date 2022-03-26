@@ -13,7 +13,7 @@
 @section('content')
     <mentor-sessions
         :mentorid="{{ $mentorId }}"
-        usertype="{{ \Illuminate\Support\Facades\Auth::user()->roles->first()->name }}"></mentor-sessions>
+        usertype="{{ \Illuminate\Support\Facades\Auth::user()->roles->first()->name }}" token="{{ $token }}"></mentor-sessions>
 @endsection
 
 @section('sidemenu')

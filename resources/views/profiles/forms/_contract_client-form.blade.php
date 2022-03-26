@@ -19,7 +19,7 @@
             <span class="h4 text-center">STATISTIKA</span>
         </div>
         <div class="card-body p-0">
-            <program-statistics-form :program_id="{{ $program->getId() }}" class="m-0"></program-statistics-form>
+            <program-statistics-form :profile_id="{{ $program->getProfile()->getId() }}" class="m-0"></program-statistics-form>
         </div>
     </div>
 </div>

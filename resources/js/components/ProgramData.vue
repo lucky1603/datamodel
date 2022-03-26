@@ -32,7 +32,8 @@
         </div>
         <b-modal id="editProfileModal" ref="editProfileModal" size="lg" header-bg-variant="dark" header-text-variant="light">
             <template #modal-title>{{ title }}</template>
-            <span v-html="formContent"></span>
+<!--            <span v-html="formContent"></span>-->
+            <profile-form :profile_id="this.program.profileId" ref="myProfileForm" action="/profiles/edit" :token="token"></profile-form>
             <template #modal-footer>
                 <b-button variant="primary" @click="onOk">Prihvati</b-button>
                 <b-button variant="light" @click="onCancel">Odustani</b-button>
@@ -49,7 +50,8 @@ export default {
         programname: '',
         aboutme: { typeof: String, default: 'About Me'},
         title: { typeof: String, default: 'Edit Program Data'},
-        usertype: { typeof: String, default: 'administrator'}
+        usertype: { typeof: String, default: 'administrator'},
+        token: { typeof: String, default: ''}
     },
     methods : {
         getData() {
@@ -73,17 +75,16 @@ export default {
                 });
         },
         onOk() {
-            const form = document.getElementById('myForm');
-            const data = new FormData(form);
-            axios.post(`/profiles/edit`, data)
+            document.body.style.cursor  = 'wait'
+            this.$refs.myProfileForm.onSubmit()
                 .then(response => {
-                    console.log(response.data);
-                    this.$refs['editProfileModal'].hide();
                     this.getData();
+                    this.$refs.editProfileModal.hide();
+                    document.body.style.cursor  = 'default';
                 })
-                .catch(error => {
-                    console.log(error);
-                    this.$refs['editProfileModal'].hide();
+                .catch(errors => {
+                    console.log(errors);
+                    document.body.style.cursor  = 'default';
                 });
         },
         onCancel() {
