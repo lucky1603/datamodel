@@ -2,11 +2,23 @@
 
 @section('sidemenu')
     @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+{{--    <li class="side-nav-item">--}}
+{{--        <a href="{{route('home')}}" class="side-nav-link">--}}
+{{--            <i class="uil-dashboard"></i>--}}
+{{--            <span>{{ strtoupper( __('DASHBOARD')) }}</span>--}}
+{{--        </a>--}}
+{{--    </li>--}}
+
     <li class="side-nav-item">
-        <a href="{{route('home')}}" class="side-nav-link">
+        <a href="javascript:void(0);" class="side-nav-link" aria-expanded="false">
             <i class="uil-dashboard"></i>
-            <span>{{ strtoupper( __('DASHBOARD')) }}</span>
+            <span>{{ mb_strtoupper( __('Statistics') ) }}</span>
+            <span class="menu-arrow"></span>
         </a>
+        <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
+            <li><a href="{{ route('home') }}">{{ mb_strtoupper(__('Prijave')) }}</a></li>
+            <li><a href="{{ route('profiles.programStatisticsDashboard') }}">{{ mb_strtoupper(__('Kompanije')) }}</a></li>
+        </ul>
     </li>
 
     <li class="side-nav-item">

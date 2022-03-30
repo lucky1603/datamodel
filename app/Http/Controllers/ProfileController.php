@@ -1137,6 +1137,10 @@ class ProfileController extends Controller
         ];
     }
 
+    public function programStatisticsDashboard() {
+        return view('profile-statistics');
+    }
+
     public function updateStatistics(Request $request) {
         $data = $request->post();
         unset($data['statistic_sent']);

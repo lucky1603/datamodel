@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import Chart from "chart.js/auto";
 export default {
     name: "NtpWidget",
     props: {
@@ -37,7 +38,7 @@ export default {
         async createChart() {
             const ctx = document.getElementById(this.id);
             this.chart = new Chart(ctx, {
-                type: 'horizontalBar',
+                type: 'bar',
                 data: {
                     labels: this.names,
                     datasets: [{

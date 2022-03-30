@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Attribute;
 use App\Business\Program;
+use App\ProfileCache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -80,6 +81,10 @@ class AnalyticsController extends Controller
             'items' => $items,
             'total' => $total
         ];
+    }
+
+    public function splitBusinessBranch() {
+
     }
 
     public function applicationStatuses($programType): array
@@ -162,6 +167,55 @@ class AnalyticsController extends Controller
         }
 
         return $countryNames;
+    }
+
+    public function getProfileStatisticsSummary(): array
+    {
+        $resultData = [
+            'virtuelni' => 0,
+            'punopravni' => 0,
+            'prihod' => 0.0,
+            'zaposleni' => 0,
+            'angazovani' => 0,
+            'po_tehnologiji' => [],
+            'po_stepenu_razvoja' => [],
+            'count' => 0
+        ];
+
+        $options = Attribute::where('name', 'business_branch')->first()->getOptions();
+        foreach($options as $key=>$value) {
+            $resultData['po_tehnologiji'][$key] = [
+                'text' => $value,
+                'count' => 0
+            ];
+        }
+
+        $options = Attribute::where('name', 'faza_razvoja')->first()->getOptions();
+        foreach($options as $key=>$value) {
+            $resultData['po_stepenu_razvoja'][$key] = [
+                'text' => $value,
+                'count' => 0
+            ];
+        }
+
+        $pcaches = ProfileCache::all();
+        foreach($pcaches as $pcache) {
+            if($pcache->memberhip_type == 1)
+                $resultData['punopravni'] ++;
+            else if($pcache->memberhip_type == 2) {
+                $resultData['virtuelni'] ++;
+            }
+
+            $resultData['prihod'] += $pcache->iznos_prihoda;
+            $resultData['zaposleni'] += $pcache->broj_zaposlenih;
+            $resultData['angazovani'] += $pcache->broj_angazovanih;
+
+            $resultData['po_stepenu_razvoja'][$pcache->faza_razvoja]['count']++;
+            $resultData['po_tehnologiji'][$pcache->faza_razvoja]['count']++;
+            $resultData['count']++;
+        }
+
+        return $resultData;
     }
 
 

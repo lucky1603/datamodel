@@ -105,6 +105,7 @@ class Profile extends SituationsModel
 
         $business_branch = self::selectOrCreateAttribute(['business_branch', 'Osnovna aktivnost', 'select', NULL, 11]);
         if(count($business_branch->getOptions()) == 0) {
+            $business_branch->addOption(['value' => 0, 'text' => 'Nije podešeno']);
             $business_branch->addOption(['value' => 1, 'text' => __('gui-select.BB-IOT')]);
             $business_branch->addOption(['value' => 2, 'text' => __('gui-select.BB-EnEff')]);
             $business_branch->addOption(['value' => 3, 'text' => __('gui-select.BB-AI')]);
@@ -365,7 +366,9 @@ class Profile extends SituationsModel
                 'contact_person_email' => $profile->getValue('contact_email') ?? '',
                 'website' => $profile->getValue('profile_webpage') ?? '',
                 'faza_razvoja' => $profile->getValue('faza_razvoja') ?? 0,
-                'faza_razvoja_tekst' => $profile->getText('faza_razvoja') ?? ''
+                'faza_razvoja_tekst' => $profile->getText('faza_razvoja') ?? '',
+                'business_branch' => $profile->getValue('business_branch') ?? 0,
+                'business_branch_text' => $profile->getText('business_branch') ?? ''
             ];
 
             if($addStatisticAttributes) {

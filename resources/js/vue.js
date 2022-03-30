@@ -22,6 +22,8 @@ Vue.use(IconsPlugin);
 
 window.$ = require('jquery');
 
+// import ApexCharts from "apexcharts";
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -72,6 +74,7 @@ Vue.component('program-statistics-form', require('./components/ProgramStatistics
 Vue.component('countries-selector', require('./components/CountriesSelector').default);
 Vue.component('profile-explorer-table-view', require('./components/ProfileExplorerTableView').default)
 Vue.component('profile-data', require('./components/ProfileData').default);
+Vue.component('profile-statistics', require('./components/ProfileStatistics').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

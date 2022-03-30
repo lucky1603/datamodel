@@ -197,12 +197,11 @@
 <script src="/assets/js/app.min.js"></script>
 
 <!-- third party js -->
-<script src="/assets/js/vendor/Chart.bundle.min.js"></script>
-<script src="/assets/js/vendor/apexcharts.min.js"></script>
+{{--<script src="/assets/js/vendor/Chart.bundle.min.js"></script>--}}
 <!-- third party js ends -->
 
 <!-- demo app -->
-<script src="/assets/js/pages/demo.dashboard-projects.js"></script>
+{{--<script src="/assets/js/pages/demo.dashboard-projects.js"></script>--}}
 <!-- end demo js-->
 
 <!-- plugin js -->
@@ -224,7 +223,6 @@
 <script src="/assets/js/vendor/dataTables.responsive.min.js"></script>
 <script src="/assets/js/vendor/dataTables.select.min.js"></script>
 <script src="/assets/js/vendor/responsive.bootstrap4.min.js"></script>
-
 
 
 {{--@yield('scripts')--}}

@@ -22,6 +22,7 @@ Route::get('/', 'HomeController@root');
 Auth::routes();
 
 Route::get('analytics/ntp', 'AnalyticsController@ntp')->name('analytics.ntp');
+Route::get('analytics/getProfileStatisticsSummary', 'AnalyticsController@getProfileStatisticsSummary')->name('analytics.getProfileStatisticsSummary');
 Route::get('analytics/startupTypes', 'AnalyticsController@startupTypes')->name('analytics.startupTypes');
 Route::get('analytics/howDidUHear', 'AnalyticsController@howDidUHear')->name('analytics.howDidUHear');
 Route::get('analytics/splitInterest', 'AnalyticsController@splitInterest')->name('analytics.splitInterest');
@@ -64,6 +65,7 @@ Route::post('programs/statistics', 'ProgramController@updateStatistics')->name('
 Route::get('profiles', 'ProfileController@index')->name('profiles.index');
 Route::post('profiles/setSessionVars', 'ProfileController@setSessionVars')->name('profiles.setSessionVars');
 Route::get('profiles/exportProfiles', 'ProfileController@exportProfiles')->name('profiles.exportProfiles');
+Route::get('profiles/programStatisticsDashboard', 'ProfileController@programStatisticsDashboard')->name('profiles.programStatisticsDashboard');
 Route::get('profiles/exportRaisingStarts', 'ProfileController@exportRaisingStarts')->name('profiles.exportRaisingStarts');
 Route::get('profiles/bulkMail', 'ProfileController@prepareMail')->name('profiles.prepareMail');
 Route::post('profiles/bulkMail', 'ProfileController@sendMail')->name('profiles.sendMail');

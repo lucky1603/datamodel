@@ -21,7 +21,12 @@ export default {
     name: "FindCriteria",
     props: {
         title: { typeof: String, default: 'Title'},
-        source: { typeof: String, default: '/analytics/howDidUHear'}
+        source: { typeof: String, default: '/analytics/howDidUHear'},
+        input_items: { typeof: Array, default: []},
+        item_count: { typeof: Number, default: 0 }
+    },
+    computed: {
+
     },
     methods: {
         async getData() {
@@ -47,11 +52,30 @@ export default {
 
     },
     async mounted() {
-        await this.getData();
+        if( this.source != '') {
+            await this.getData();
+        } else {
+            setTimeout(() => {
+                this.total = this.item_count;
+                for(let i = 0; i < this.input_items.length; i++) {
+                    this.items.push(this.input_items[i]);
+                    this.items[i].percentage = ((this.items[i].count / this.total) * 100).toFixed(0);
+                }
+
+                console.log(this.items);
+            }, 1000);
+
+        }
+
+
+
+
+
+
     },
     data() {
         return {
-            items:[],
+            items: [],
             total: 0
         }
     }
