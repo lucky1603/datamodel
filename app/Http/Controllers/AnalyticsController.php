@@ -175,8 +175,12 @@ class AnalyticsController extends Controller
             'virtuelni' => 0,
             'punopravni' => 0,
             'prihod' => 0.0,
+            'porez' => 0.0,
+            'investicije' => 0.0,
+            'izvoz' => 0.0,
             'zaposleni' => 0,
             'angazovani' => 0,
+            'zene' => 0,
             'po_tehnologiji' => [],
             'po_stepenu_razvoja' => [],
             'count' => 0
@@ -207,8 +211,12 @@ class AnalyticsController extends Controller
             }
 
             $resultData['prihod'] += $pcache->iznos_prihoda;
+            $resultData['izvoz'] += $pcache->iznos_izvoza;
+            $resultData['investicije'] += $pcache->iznos_ulaganja_istrazivanje_razvoj;
+            $resultData['porez'] += $pcache->iznos_placenih_poreza;
             $resultData['zaposleni'] += $pcache->broj_zaposlenih;
             $resultData['angazovani'] += $pcache->broj_angazovanih;
+            $resultData['zene'] += $pcache->broj_angazovanih_zena;
 
             $resultData['po_stepenu_razvoja'][$pcache->faza_razvoja]['count']++;
             $resultData['po_tehnologiji'][$pcache->faza_razvoja]['count']++;

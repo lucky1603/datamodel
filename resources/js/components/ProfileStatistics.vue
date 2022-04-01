@@ -1,50 +1,149 @@
 <template>
 <div>
-    <div class="d-flex align-items-center justify-content-center">
-        <div class="card p-1 m-2 shadow-sm" style="width: 150px; height: 100px">
-            <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
-                <h6 class="text-center text-success w-100 border-bottom border-light pb-1">Virtuelni</h6>
-                <h1 class="text-center w-100">{{ analysis.virtuelni}}</h1>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header text-center"><h4>ČLANSTVO</h4></div>
+                <div class="card-body row">
+                    <div class="col-lg-4">
+                        <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
+                            <div class="card-header bg-primary p-0">
+                                <h6 class="text-center text-light">Evidentirani</h6>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
+                                <h1 class="text-center w-100">{{ analysis.count}}</h1>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
+                            <div class="card-header bg-primary text-light p-0">
+                                <h6 class="text-center text-light">Virtuelni</h6>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
+                                <h1 class="text-center w-100">{{ analysis.virtuelni}}</h1>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
+                            <div class="card-header bg-primary text-light p-0">
+                                <h6 class="text-center text-light">Punopravni</h6>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
+                                <h1 class="text-center w-100">{{ analysis.punopravni}}</h1>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
         </div>
-        <div class="card p-1 m-2 shadow-sm" style="width: 150px; height: 100px">
-            <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
-                <h6 class="text-center text-success w-100 border-bottom border-light pb-1">Punopravni</h6>
-                <h2 class="text-center w-100">{{ analysis.punopravni}}</h2>
+        <div class="col-lg-4">
+            <div class="card shadow-sm" >
+                <div class="card-header text-center"><h4>FINANSIJE</h4></div>
+                <div class="card-body" style="padding: 5px 10px 5px 10px">
+                    <div class="row">
+                        <div class="col-lg-6">
+                                <div class="d-flex flex-column justify-content-center align-items-start shadow-sm mb-1 p-0">
+                                    <h6 class="text-center text-success w-100 bg-primary text-light py-1 mt-0">Prihodi</h6>
+                                    <p class="text-center w-100 font-12 font-weight-bold" style="font-family: 'Roboto Light'">{{ getCurrencyValue(analysis.prihod)}}</p>
+                                </div>
+                        </div>
+                        <div class="col-lg-6">
+                                <div class="d-flex flex-column justify-content-center align-items-start shadow-sm mb-1 p-0">
+                                    <h6 class="text-center text-light w-100 bg-primary py-1 mt-0">Izvoz</h6>
+                                    <p class="text-center w-100 font-12 font-weight-bold" style="font-family: 'Roboto Light'">{{ getCurrencyValue(analysis.izvoz)}}</p>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                                <div class="d-flex flex-column justify-content-center align-items-start shadow-sm mb-1 p-0">
+                                    <h6 class="text-center text-light w-100 bg-primary py-1 mt-0">Plaćeni porezi</h6>
+                                    <p class="text-center w-100 font-12 font-weight-bold" style="font-family: 'Roboto Light'">{{ getCurrencyValue(analysis.porez)}}</p>
+                                </div>
+                        </div>
+                        <div class="col-lg-6">
+                                <div class="d-flex flex-column justify-content-center align-items-start shadow-sm mb-1 p-0">
+                                    <h6 class="text-center text-light w-100 bg-primary py-1 mt-0">Investicije</h6>
+                                    <p class="text-center w-100 font-12 font-weight-bold" style="font-family: 'Roboto Light'">{{ getCurrencyValue(analysis.investicije)}}</p>
+                                </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card p-1 m-2 shadow-sm" style="width: 250px; height: 100px">
-            <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
-                <h6 class="text-center text-primary w-100 border-bottom border-light pb-1">Prihodi</h6>
-                <h3 class="text-center w-100">{{ getCurrencyValue(analysis.prihod)}}</h3>
-            </div>
-        </div>
-        <div class="card p-1 m-2 shadow-sm" style="width: 150px; height: 100px">
-            <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
-                <h6 class="text-center text-info w-100 border-bottom border-light pb-1">Zaposleni</h6>
-                <h2 class="text-center w-100">{{ analysis.zaposleni }}</h2>
-            </div>
-        </div>
-        <div class="card p-1 m-2 shadow-sm" style="width: 150px; height: 100px">
-            <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
-                <h6 class="text-center text-info w-100 border-bottom border-light pb-1">Angažovani</h6>
-                <h2 class="text-center w-100">{{ analysis.angazovani }}</h2>
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header text-center"><h4>LJUDSKI RESURSI</h4></div>
+                <div class="card-body row">
+                    <div class="col-lg-4">
+                        <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
+                            <div class="card-header bg-primary text-light p-0">
+                                <h6 class="text-center text-light">ZAPOSLENI</h6>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
+                                <h1 class="text-center w-100">{{ analysis.zaposleni}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
+                            <div class="card-header bg-primary text-light p-0">
+                                <h6 class="text-center text-light">ANGAŽOVANI</h6>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
+                                <h1 class="text-center w-100">{{ analysis.angazovani}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
+                            <div class="card-header bg-primary text-light p-0">
+                                <h6 class="text-center text-light">OD TOGA ŽENE</h6>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
+                                <h1 class="text-center w-100">{{ analysis.zene}}</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-center">
-        <div class="shadow-sm d-flex flex-column justify-content-center align-items-start bg-white w-25 m-1" >
-            <h5 class="text-center w-100 border-bottom border-light text-primary pb-1">PO TEHNOLOGIJAMA</h5>
-            <canvas id="chartBB"></canvas>
-        </div>
-        <div class="shadow-sm d-flex flex-column justify-content-center bg-white w-25 m-1">
-            <h5 class="text-center w-100 border-bottom border-light text-primary pb-1">PO FAZAMA RAZVOJA</h5>
-            <canvas id="chartDP"></canvas>
-            <div></div>
 
+    <div class="row">
+        <div class="col-lg-3" >
+            <div class="card shadow-sm">
+                <div class="card-header mt-1">
+                    <h4 class="header-title mt-1">PO TEHNOLOGIJAMA</h4>
+                </div>
+                <div class="card-body">
+                    <canvas id="chartBB"></canvas>
+                </div>
+            </div>
         </div>
-        <find-criteria title="Po fazama razvoja" :input_items="items1" :item_count="analysis.count" source="" class="m-1"></find-criteria>
-        <find-criteria title="Po tehnologiji" :input_items="items2" :item_count="analysis.count" source="" class="m-1"></find-criteria>
+        <div class="col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-header mt-1">
+                    <h4 class="header-title mt-1">PO FAZAMA RAZVOJA</h4>
+                </div>
+                <div class="card-body">
+                    <canvas id="chartDP"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <find-criteria title="Po fazama razvoja" :input_items="items1" :item_count="analysis.count" source="" class="m-1"></find-criteria>
+        </div>
+        <div class="col-lg-3">
+            <find-criteria title="Po tehnologijama" :input_items="items2" :item_count="analysis.count" source="" class="m-1"></find-criteria>
+        </div>
     </div>
 
 
@@ -146,6 +245,7 @@ export default {
             labels2: [],
             values2: [],
             backgroundColors: [
+                'rgba(200,200,200,0.7)',
                 'rgba(255, 0, 0, 0.7)',
                 'rgba(0,255,0, 0.7)',
                 'rgba(0,0,255, 0.7)',

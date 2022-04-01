@@ -1,8 +1,9 @@
 <template>
-    <div class="card">
+    <div class="card shadow-sm">
+        <div class="card-header mt-1">
+            <h4 class="header-title mt-1">{{ title }}</h4>
+        </div>
         <div class="card-body">
-            <h4 class="header-title mb-2">{{ title }}</h4>
-            <hr/>
             <div v-if="item.count > 0" v-for="item in items">
                 <h5 class="mb-1 mt-0 font-weight-normal">{{ item.text }}</h5>
                 <div class="progress-w-percent">
