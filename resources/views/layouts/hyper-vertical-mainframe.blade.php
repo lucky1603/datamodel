@@ -16,8 +16,8 @@
             <span class="menu-arrow"></span>
         </a>
         <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
-            <li><a href="{{ route('home') }}">{{ mb_strtoupper(__('Prijave')) }}</a></li>
-            <li><a href="{{ route('profiles.programStatisticsDashboard') }}">{{ mb_strtoupper(__('Kompanije')) }}</a></li>
+            <li><a href="{{ route('home') }}">{{ mb_strtoupper(__('Za prijave')) }}</a></li>
+            <li><a href="{{ route('profiles.programStatisticsDashboard') }}">{{ mb_strtoupper(__('Za kompanije')) }}</a></li>
         </ul>
     </li>
 

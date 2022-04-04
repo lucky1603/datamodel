@@ -219,7 +219,7 @@ class AnalyticsController extends Controller
             $resultData['zene'] += $pcache->broj_angazovanih_zena;
 
             $resultData['po_stepenu_razvoja'][$pcache->faza_razvoja]['count']++;
-            $resultData['po_tehnologiji'][$pcache->faza_razvoja]['count']++;
+            $resultData['po_tehnologiji'][$pcache->business_branch]['count']++;
             $resultData['count']++;
         }
 
