@@ -42,14 +42,14 @@ class HomeController extends Controller
             else if(isset($instance) && $instance->entity->name === 'Profile') {
                 $profile = Profile::find($instance->id);
                 $program = $profile->getActiveProgram();
-                if($program != null && $program->getValue('program_type') == Program::$RAISING_STARTS) {
-                    $deadline = strtotime('2021-12-30 12:00');
-                    $now = strtotime(now());
-                    if($now > $deadline && $program->getStatus() == 1) {
-                        Auth::logout();
-                        return redirect(route('expired'));
-                    }
-                }
+//                if($program != null && $program->getValue('program_type') == Program::$RAISING_STARTS) {
+//                    $deadline = strtotime('2021-12-30 12:00');
+//                    $now = strtotime(now());
+//                    if($now > $deadline && $program->getStatus() == 1) {
+//                        Auth::logout();
+//                        return redirect(route('expired'));
+//                    }
+//                }
 
 
                 return redirect(route('profiles.profile', $profile->getId()));
