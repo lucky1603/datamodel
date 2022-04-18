@@ -197,7 +197,7 @@
 <script src="/assets/js/app.min.js"></script>
 
 <!-- third party js -->
-{{--<script src="/assets/js/vendor/Chart.bundle.min.js"></script>--}}
+<script src="/assets/js/vendor/apexcharts.min.js"></script>
 <!-- third party js ends -->
 
 <!-- demo app -->

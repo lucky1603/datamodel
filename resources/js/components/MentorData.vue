@@ -136,7 +136,7 @@ export default {
     mounted() {
         this.mentorId = this.mentorid;
         this.getData();
-        Event.$on('mentor-selected', this.mentorSelected)
+        Dispecer.$on('mentor-selected', this.mentorSelected)
 
     },
 

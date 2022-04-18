@@ -63,7 +63,7 @@ export default {
         }
     },
     mounted() {
-        Event.$on('tile-selected', this.imgSelected );
+        Dispecer.$on('tile-selected', this.imgSelected );
     }
 }
 </script>

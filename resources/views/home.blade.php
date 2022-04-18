@@ -18,30 +18,35 @@
 
     <div class="row">
         <div class="col-lg-3">
-            <div class="card shadow">
-                <ntp-widget
-                    id="ntpStructure"
-                    source="/analytics/ntp"
-                    :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"
-                    :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-widget>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="card shadow">
-                <ntp-piechart
-                    id="ntpPie"
-                    source="/analytics/ntp"
-                    :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"
-                    :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-piechart>
-            </div>
-
-        </div>
-        <div class="col-lg-3">
             <show-company-types></show-company-types>
         </div>
         <div class="col-lg-3">
             <application-statuses program_id="{{ \App\Business\Program::$RAISING_STARTS }}"></application-statuses>
         </div>
+        <div class="col-lg-6">
+            <div id="mesto-kompanija" class="apex-charts shadow-sm bg-white" data-colors="#727cf5,#0acf97,#fa5c7c,#ffbc00"></div>
+        </div>
+
+{{--        <div class="col-lg-3">--}}
+{{--            <div class="card shadow">--}}
+{{--                <ntp-widget--}}
+{{--                    id="ntpStructure"--}}
+{{--                    source="/analytics/ntp"--}}
+{{--                    :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"--}}
+{{--                    :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-widget>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="col-lg-3">--}}
+{{--            <div class="card shadow">--}}
+{{--                <ntp-piechart--}}
+{{--                    id="ntpPie"--}}
+{{--                    source="/analytics/ntp"--}}
+{{--                    :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"--}}
+{{--                    :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-piechart>--}}
+{{--            </div>--}}
+
+{{--        </div>--}}
+
     </div>
     <div class="row">
         <div class="col-lg-3">
@@ -89,6 +94,54 @@
                 $.get('testmail/sinisa.ristic@prosmart.rs', function(data) {
                     console.log(data);
                 }) ;
+            });
+
+            // Get Chart data series
+            let series = [];
+            axios.get('/analytics/ntp')
+            .then(response => {
+                series = response.data;
+                console.log(response.data);
+
+                let values = [];
+                let labels = [];
+
+                series.forEach(s => {
+                    console.log(s);
+                    values.push(s.count);
+                    labels.push(s.ntp)
+                });
+
+                console.log(values);
+                console.log(labels);
+
+                const t = $('#mesto-kompanija').data('colors');
+                const e = t.split(",")
+                const config = {
+                    chart: {
+                        height: 300,
+                        type: "donut"
+                    },
+                    legend: { show: 1 },
+                    stroke: { colors: ["transparent"] },
+                    series: values,
+                    labels: labels,
+                    colors: e,
+                    responsive: [
+                        {
+                            breakpoint: 480,
+                            options: { chart: { width: 200 }, legend: { position: "bottom" } },
+                        },
+                    ],
+                }
+
+                console.log('zovem chart');
+                new ApexCharts(document.querySelector("#mesto-kompanija"), config).render();
+                console.log('pozvao chart');
+
+            })
+            .catch(error => {
+                console.log(error);
             });
 
         });

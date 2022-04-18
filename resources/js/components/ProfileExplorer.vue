@@ -194,7 +194,7 @@ export default {
         await this.getData();
         this.currentPage = this.f_page;
         await this.showCurrentPage();
-        Event.$on('refresh', this.shouldRefresh);
+        Dispecer.$on('refresh', this.shouldRefresh);
     },
     data() {
         return {

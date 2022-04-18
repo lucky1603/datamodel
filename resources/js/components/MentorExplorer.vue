@@ -129,7 +129,7 @@ export default {
         this.itemsPerPage = this.itemsperpage;
         await this.getData();
         await this.showCurrentPage();
-        Event.$on('refresh', this.shouldRefresh);
+        Dispecer.$on('refresh', this.shouldRefresh);
     }
 }
 </script>

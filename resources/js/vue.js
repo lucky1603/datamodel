@@ -12,7 +12,7 @@ import {BootstrapVue, IconsPlugin} from "bootstrap-vue";
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 window.Vue = require('vue').default;
-window.Event = new Vue();
+window.Dispecer = new Vue();
 
 window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -90,7 +90,7 @@ const app = new Vue({
         }
     },
     mounted() {
-        Event.$on('profile-clicked', this.profileClick);
+        Dispecer.$on('profile-clicked', this.profileClick);
     }
 });
 

@@ -76,7 +76,7 @@ export default {
         },
         selected(rows) {
             this.program = rows[0];
-            Event.$emit('program-selected', this.program);
+            Dispecer.$emit('program-selected', this.program);
         },
         async showModal() {
             let content = null;

@@ -65,7 +65,7 @@ export default {
     },
     methods: {
         cardClicked() {
-            Event.$emit('profile-clicked', this.id);
+            Dispecer.$emit('profile-clicked', this.id);
         }
     },
     data() {

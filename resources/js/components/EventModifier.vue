@@ -184,7 +184,7 @@ export default {
                 id = 1;
             this.eventType = id;
             this.$refs['eventType'].value = this.eventType.toString();
-            Event.$emit('tile-selected', this.eventType);
+            Dispecer.$emit('tile-selected', this.eventType);
         },
         initTextArea() {
             $('#sinisa').summernote({

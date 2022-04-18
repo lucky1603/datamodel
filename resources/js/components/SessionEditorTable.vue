@@ -172,8 +172,8 @@ export default {
         if(this.mentorId != 0 && this.programId != 0)
             this.getSessions();
 
-        Event.$on('mentor-selected', this.mentorSelected);
-        Event.$on('program-selected', this.programSelected);
+        Dispecer.$on('mentor-selected', this.mentorSelected);
+        Dispecer.$on('program-selected', this.programSelected);
     }
 
 }

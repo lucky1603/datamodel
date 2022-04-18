@@ -34,7 +34,7 @@ export default {
         }
     },
     mounted() {
-        Event.$on('program-selected', this.selectProgram);
+        Dispecer.$on('program-selected', this.selectProgram);
     },
     data() {
         return {

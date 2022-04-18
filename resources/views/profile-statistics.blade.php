@@ -9,3 +9,4 @@
 @section('content')
     <profile-statistics></profile-statistics>
 @endsection
+

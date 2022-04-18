@@ -8,6 +8,12 @@
 <div id="dashboard">
     <div class="row">
         <div class="col-lg-3">
+            <show-company-types></show-company-types>
+        </div>
+        <div class="col-lg-3">
+            <application-statuses program_id="{{ \App\Business\Program::$RAISING_STARTS }}"></application-statuses>
+        </div>
+        <div class="col-lg-3">
             <div class="card shadow">
                 <ntp-widget
                     id="ntpStructure"
@@ -24,13 +30,6 @@
                     :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"
                     :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-piechart>
             </div>
-
-        </div>
-        <div class="col-lg-3">
-            <show-company-types></show-company-types>
-        </div>
-        <div class="col-lg-3">
-            <application-statuses program_id="{{ \App\Business\Program::$RAISING_STARTS }}"></application-statuses>
         </div>
     </div>
     <div class="row">

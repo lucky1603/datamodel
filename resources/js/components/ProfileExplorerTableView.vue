@@ -204,7 +204,7 @@ export default {
         rowClicked(item, index, event) {
             // alert('Item ' + item.id + ' clicked!');
             $('body').css('cursor', 'progress');
-            Event.$emit('profile-clicked', item.id);
+            Dispecer.$emit('profile-clicked', item.id);
         },
         pageChanged(ctx) {
             console.log(`Page changed ${this.currentPage}`);

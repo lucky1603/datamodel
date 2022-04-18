@@ -103,7 +103,7 @@ export default {
     mounted() {
         this.programId = this.programid;
         this.getData();
-        Event.$on('program-selected', this.programSelected);
+        Dispecer.$on('program-selected', this.programSelected);
     }
 }
 </script>

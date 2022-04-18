@@ -59,9 +59,9 @@ export default {
             });
         },
         selectMentor(mentorid) {
-            Event.$emit('mentor-selected', mentorid);
+            Dispecer.$emit('mentor-selected', mentorid);
             this.mentorId = mentorid;
-            Event.$emit('tile-selected', mentorid);
+            Dispecer.$emit('tile-selected', mentorid);
         }
     },
     data() {

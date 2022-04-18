@@ -66,9 +66,9 @@ export default {
                 });
         },
         selectProgram(programid) {
-            Event.$emit('program-selected', programid);
+            Dispecer.$emit('program-selected', programid);
             this.programId = programid;
-            Event.$emit('tile-selected', programid);
+            Dispecer.$emit('tile-selected', programid);
         }
     },
     data() {

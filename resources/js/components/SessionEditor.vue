@@ -77,7 +77,7 @@ export default {
         selected(rows) {
             this.session = rows[0];
             console.log(`Selected ${this.session.id}`);
-            Event.$emit('session-selected', this.session);
+            Dispecer.$emit('session-selected', this.session);
         },
         async viewSession() {
             let content = null;
@@ -129,7 +129,7 @@ export default {
     },
     mounted() {
         console.log(`Mentor ID is ${this.mentorid}`);
-        Event.$on('program-selected', this.programSelected);
+        Dispecer.$on('program-selected', this.programSelected);
     }
 }
 </script>
