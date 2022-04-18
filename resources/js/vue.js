@@ -10,6 +10,9 @@ import {BootstrapVue, IconsPlugin} from "bootstrap-vue";
 /* Ovo zakomentarisati da bi se koristila tema  */
 // import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VueApexCharts from "vue-apexcharts";
+
+Vue.use(VueApexCharts);
 
 window.Vue = require('vue').default;
 window.Dispecer = new Vue();
@@ -32,6 +35,7 @@ window.$ = require('jquery');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
+Vue.component('apexchart', VueApexCharts);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('session-editor', require('./components/SessionEditor').default);
 Vue.component('program-list', require('./components/ProgramList').default);

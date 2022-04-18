@@ -118,32 +118,28 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-3" >
+        <div class="col-lg-6" >
             <div class="card shadow-sm">
                 <div class="card-header mt-1">
                     <h4 class="header-title mt-1">PO TEHNOLOGIJAMA</h4>
                 </div>
                 <div class="card-body">
-                    <canvas id="chartBB"></canvas>
+                    <apexchart width="100%" type="donut" :options="chart1Options" :series="values1"></apexchart>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-6">
             <div class="card shadow-sm">
                 <div class="card-header mt-1">
                     <h4 class="header-title mt-1">PO FAZAMA RAZVOJA</h4>
                 </div>
                 <div class="card-body">
-                    <canvas id="chartDP"></canvas>
+<!--                    <canvas id="chartDP"></canvas>-->
+                    <apexchart width="100%" type="donut" :options="chart2Options" :series="values2"></apexchart>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
-            <find-criteria title="Po fazama razvoja" :input_items="items1" :item_count="analysis.count" source="" class="m-1"></find-criteria>
-        </div>
-        <div class="col-lg-3">
-            <find-criteria title="Po tehnologijama" :input_items="items2" :item_count="analysis.count" source="" class="m-1"></find-criteria>
-        </div>
+
     </div>
 
 
@@ -167,23 +163,22 @@ export default {
                 this.values2.length = 0;
                 console.log(this.analysis);
 
+                this.chart1Options.labels.length = 0;
                 this.analysis.po_stepenu_razvoja.forEach(option => {
                     if(option.count > 0) {
-                        this.labels1.push(option.text);
+                        this.chart1Options.labels.push(option.text);
                         this.values1.push(option.count);
-
-                        this.items1.push(option);
                     }
 
                 });
 
+                this.chart2Options.labels.length = 0;
+
                 for(let key in this.analysis.po_tehnologiji) {
                     let option = this.analysis.po_tehnologiji[key];
                     if(option.count > 0) {
-                        this.labels2.push(option.text);
+                        this.chart2Options.labels.push(option.text);
                         this.values2.push(option.count);
-
-                        this.items2.push(option);
                     }
 
                 }
@@ -242,8 +237,8 @@ export default {
             analysis : {},
             labels1: [],
             values1: [],
-            labels2: [],
-            values2: [],
+            labels2: ["prvi", "drugi", "treci", "cetvrti"],
+            values2: [55, 33, 22, 11],
             backgroundColors: [
                 'rgba(200,200,200,0.7)',
                 'rgba(255, 0, 0, 0.7)',
@@ -255,20 +250,12 @@ export default {
             ],
             chart1: null,
             chart2: null,
-            barchartOptions: {
-                chart: {
-                    id: 'vuechart-example'
-                },
-                xaxis: {
-                    categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-                }
+            chart2Options: {
+                labels: []
             },
-            barchartSeries: [{
-                name: 'series-1',
-                data: [30, 40, 45, 50, 49, 60, 70, 91]
-            }],
-            items1 : [],
-            items2 : []
+            chart1Options: {
+                labels: []
+            },
         }
     }
 }

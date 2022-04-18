@@ -21,17 +21,21 @@ class AnalyticsController extends Controller
      */
     public function ntp(): array
     {
-        $ntpAttr = Attribute::where('name', 'ntp')->first();
-        $ntpAttrOptions = $ntpAttr->getOptions();
-        $result = [];
-        foreach($ntpAttrOptions as $key=>$value) {
-            $count = Program::find(['ntp' => $key])->count();
-            $name = $value;
-            $result[] = [
-                'ntp' => $name,
-                'count' => $count
-            ];
-        }
+//        $ntpAttr = Attribute::where('name', 'ntp')->first();
+//        $ntpAttrOptions = $ntpAttr->getOptions();
+//
+//        foreach($ntpAttrOptions as $key=>$value) {
+//            $count = Program::find(['ntp' => $key])->count();
+//            $name = $value;
+//            $result[] = [
+//                'ntp' => $name,
+//                'count' => $count
+//            ];
+//        }
+
+        return DB::table('profile_caches')
+            ->selectRaw("ntp_text as ntp, COUNT(ntp) as count")
+            ->groupBy(["ntp", "ntp_text"])->get()->toArray();
 
         return $result;
     }
