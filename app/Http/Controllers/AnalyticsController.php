@@ -21,18 +21,6 @@ class AnalyticsController extends Controller
      */
     public function ntp(): array
     {
-//        $ntpAttr = Attribute::where('name', 'ntp')->first();
-//        $ntpAttrOptions = $ntpAttr->getOptions();
-//
-//        foreach($ntpAttrOptions as $key=>$value) {
-//            $count = Program::find(['ntp' => $key])->count();
-//            $name = $value;
-//            $result[] = [
-//                'ntp' => $name,
-//                'count' => $count
-//            ];
-//        }
-
         return DB::table('profile_caches')
             ->selectRaw("ntp_text as ntp, COUNT(ntp) as count")
             ->groupBy(["ntp", "ntp_text"])->get()->toArray();
@@ -47,13 +35,17 @@ class AnalyticsController extends Controller
     public function startupTypes(): array
     {
 
-        $startupCount = Program::find(['app_type' => 1])->count();
-        $companyCount = Program::find(['app_type' => 2])->count();
+        $appliedGroups = DB::table("profile_caches")
+            ->selectRaw("is_company as id, is_company_text as type, COUNT(is_company) as count")
+            ->groupBy(["is_company", "is_company_text"])->get();
+
+        $startapi = $appliedGroups[0]->count;
+        $kompanije = $appliedGroups[1]->count;
 
         return [
-            'startupCount' => $startupCount,
-            'companyCount' => $companyCount,
-            'total' => ($startupCount + $companyCount)
+            'startupCount' => $startapi,
+            'companyCount' => $kompanije,
+            'total' => ($startapi + $kompanije)
         ];
 
     }
@@ -93,34 +85,24 @@ class AnalyticsController extends Controller
 
     public function applicationStatuses($programType): array
     {
+        $profileStates = DB::table('profile_caches')
+            ->selectRaw('profile_state as id, profile_state_text as name, COUNT(profile_state) as count')
+            ->groupBy(['profile_state', 'profile_state_text'])->get();
+
         $applied = 0;
         $sent = 0;
-        $total = 0;
-
-        if($programType != 0) {
-            $programs = Program::find(['program_type' => $programType]);
-        } else {
-            $programs = Program::find();
-        }
-
-        foreach($programs as $program) {
-            $profile = $program->getProfile();
-            if($profile == null)
-                continue;
-            $total ++;
-            if($profile->getValue('profile_status') < 3)
-                continue;
-
-            $applied ++;
-            if($program->getStatus() > 1)
-                $sent ++;
+        foreach($profileStates as $profileState) {
+            $applied += $profileState->count;
+            if($profileState->id > 2) {
+                $sent += $profileState->count;
+            }
         }
 
         return [
             'applied' => $applied,
             'sent' => $sent,
-            'total' => $total
         ];
+
     }
 
     public function splitInterest() {
