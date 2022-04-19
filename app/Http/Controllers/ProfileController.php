@@ -600,17 +600,17 @@ class ProfileController extends Controller
             }
 
         } else if($programType == Program::$RAISING_STARTS) {
-//            if(!auth()->user()->isAdmin()) {
-//                // Check for the date.
-//                $end = strtotime('2021-12-30 12:00');
-//                $now = strtotime(now());
-//                if($now > $end) {
-//                    return json_encode([
-//                        'code' => 0,
-//                        'message' => 'Rok za prijavljivanje je prošao!',
-//                    ]);
-//                }
-//            }
+            if(!auth()->user()->isAdmin()) {
+                // Check for the date.
+                $end = strtotime('2021-12-30 12:00');
+                $now = strtotime(now());
+                if($now > $end) {
+                    return json_encode([
+                        'code' => 0,
+                        'message' => 'Rok za prijavljivanje je prošao!',
+                    ]);
+                }
+            }
 
             $assertion = $this->checkRaisingStartsProgramData($program);
             if($assertion['code'] == 0) {
