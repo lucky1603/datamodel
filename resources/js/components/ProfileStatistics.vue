@@ -1,23 +1,25 @@
 <template>
 <div>
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-xl-4">
             <div class="card shadow-sm">
                 <div class="card-header text-center"><h4>ČLANSTVO</h4></div>
                 <div class="card-body row">
                     <div class="col-lg-4">
-                        <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
-                            <div class="card-header bg-primary p-0">
-                                <h6 class="text-center text-light">Evidentirani</h6>
-                            </div>
-                            <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
-                                <h1 class="text-center w-100">{{ analysis.count}}</h1>
+                        <div class="d-flex justify-content-center align-items-center h-100 w-100">
+                            <div class="card m-2 shadow-sm text-center" style="height: 100px; width: 120px">
+                                <div class="card-header bg-primary p-0">
+                                    <h6 class="text-center text-light">Evidentirani</h6>
+                                </div>
+                                <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
+                                    <h1 class="text-center w-100">{{ analysis.count}}</h1>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-lg-4">
-                        <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
+                        <div class="d-flex justify-content-center align-items-center h-100 w-100">
+                            <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
                             <div class="card-header bg-primary text-light p-0">
                                 <h6 class="text-center text-light">Virtuelni</h6>
                             </div>
@@ -25,10 +27,11 @@
                                 <h1 class="text-center w-100">{{ analysis.virtuelni}}</h1>
                             </div>
                         </div>
-
+                        </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
+                        <div class="d-flex justify-content-center align-items-center h-100 w-100">
+                            <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
                             <div class="card-header bg-primary text-light p-0">
                                 <h6 class="text-center text-light">Punopravni</h6>
                             </div>
@@ -36,13 +39,13 @@
                                 <h1 class="text-center w-100">{{ analysis.punopravni}}</h1>
                             </div>
                         </div>
-
+                        </div>
                     </div>
 
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-xl-4">
             <div class="card shadow-sm" >
                 <div class="card-header text-center"><h4>FINANSIJE</h4></div>
                 <div class="card-body" style="padding: 5px 10px 5px 10px">
@@ -77,12 +80,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-xl-4">
             <div class="card shadow-sm">
                 <div class="card-header text-center"><h4>LJUDSKI RESURSI</h4></div>
                 <div class="card-body row">
                     <div class="col-lg-4">
-                        <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
+                        <div class="d-flex justify-content-center align-items-center h-100 w-100">
+                            <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
                             <div class="card-header bg-primary text-light p-0">
                                 <h6 class="text-center text-light">ZAPOSLENI</h6>
                             </div>
@@ -90,9 +94,11 @@
                                 <h1 class="text-center w-100">{{ analysis.zaposleni}}</h1>
                             </div>
                         </div>
+                        </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
+                        <div class="d-flex justify-content-center align-items-center h-100 w-100">
+                            <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
                             <div class="card-header bg-primary text-light p-0">
                                 <h6 class="text-center text-light">ANGAŽOVANI</h6>
                             </div>
@@ -100,15 +106,18 @@
                                 <h1 class="text-center w-100">{{ analysis.angazovani}}</h1>
                             </div>
                         </div>
+                        </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
+                        <div class="d-flex justify-content-center align-items-center h-100 w-100">
+                            <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
                             <div class="card-header bg-primary text-light p-0">
                                 <h6 class="text-center text-light">OD TOGA ŽENE</h6>
                             </div>
                             <div class="card-body d-flex flex-column justify-content-center align-items-start px-0">
                                 <h1 class="text-center w-100">{{ analysis.zene}}</h1>
                             </div>
+                        </div>
                         </div>
                     </div>
 
