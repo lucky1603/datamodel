@@ -50,25 +50,25 @@
     </div>
     <div class="row">
         <div class="col-lg-3">
-            <find-criteria title="{{ __('How innovative') }}" source="/analytics/splitOptions/rstarts_how_innovative"></find-criteria>
+            <find-criteria title="{{ __('How innovative') }}" source="/analytics/splitOptions/how_innovative"></find-criteria>
             <find-criteria
                 title="Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine?"
-                source="/analytics/splitOptions/rstarts_intellectual_property">
+                source="/analytics/splitOptions/intellectual_property">
             </find-criteria>
         </div>
         <div class="col-lg-3">
-            <find-criteria title="Faza razvoja - Tehnološki razvoj" source="/analytics/splitOptions/rstarts_dev_phase_tech"></find-criteria>
+            <find-criteria title="Faza razvoja - Tehnološki razvoj" source="/analytics/splitOptions/dev_phase_tech"></find-criteria>
             <find-criteria
                 title="Kojoj oblasti pripada inovativni proizvod i/ili usluga koju razvijate?"
-                source="/analytics/splitOptions/rstarts_innovative_area">
+                source="/analytics/splitOptions/how_innovative">
             </find-criteria>
         </div>
         <div class="col-lg-3">
-            <find-criteria title="Faza razvoja - Poslovni razvoj" source="/analytics/splitOptions/rstarts_dev_phase_bussines"></find-criteria>
+            <find-criteria title="Faza razvoja - Poslovni razvoj" source="/analytics/splitOptions/dev_phase_business"></find-criteria>
         </div>
         <div class="col-lg-3">
-            <find-criteria title="Kako ste nas našli?" source="/analytics/howDidUHear"></find-criteria>
-            <find-criteria title="Tip prozvoda ili usluge" source="/analytics/splitOptions/rstarts_product_type"></find-criteria>
+            <find-criteria title="Kako ste nas našli?" source="/analytics/splitOptions/howdiduhear"></find-criteria>
+            <find-criteria title="Tip prozvoda ili usluge" source="/analytics/splitOptions/product_type"></find-criteria>
         </div>
     </div>
 

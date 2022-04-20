@@ -5,6 +5,7 @@ namespace App\Business;
 use App\AttributeGroup;
 use App\Report;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class RaisingStartsProgram extends Program
 {
@@ -286,6 +287,42 @@ class RaisingStartsProgram extends Program
                 'attributes' => $attributes,
                 'attributeGroups' => $attributeGroups
             ]);
+
+    }
+
+    public static function makeCache() {
+        DB::table("raising_starts_caches")->delete();
+        RaisingStartsProgram::find()->each(function($program) {
+            $profileId = $program->getProfile()->getId();
+            $howInnovative = $program->getValue("rstarts_how_innovative") ?? 0;
+            $howInnovativeText = $program->getText("rstarts_how_innovative") ?? __("Not Selected");
+            $devPhaseTech = $program->getValue('rstarts_dev_phase_tech') ?? 0;
+            $devPhaseTechText = $program->getText('rstarts_dev_phase_tech') ?? __("Not Selected");
+            $devPhaseBusiness = $program->getValue('rstarts_dev_phase_business') ?? 0;
+            $devPhaseBusinessText = $program->getText('rstarts_dev_phase_business') ?? __("Not Selected");
+            $howDidUHear = $program->getValue('rstarts_howdiduhear') ?? 0;
+            $howDidUHearText = $program->getText('rstarts_howdiduhear') ?? __("Not Selected");
+            $intellectualProperty = $program->getValue('rstarts_intellectual_property') ?? 0;
+            $intellectualPropertyText = $program->getText('rstarts_intellectual_property') ?? __("Not Selected");
+            $productType = $program->getValue("rstarts_product_type") ?? 0;
+            $productTypeText = $program->getText("rstarts_product_type") ?? __("Not Selected");
+
+            DB::table('raising_starts_caches')->insert([
+                'profile_id' => $profileId,
+                'how_innovative' => $howInnovative,
+                'how_innovative_text' => $howInnovativeText,
+                'dev_phase_tech' => $devPhaseTech,
+                'dev_phase_tech_text' => $devPhaseTechText,
+                'dev_phase_business' => $devPhaseBusiness,
+                'dev_phase_business_text' => $devPhaseBusinessText,
+                'howdiduhear' => $howDidUHear,
+                'howdiduhear_text' => $howDidUHearText,
+                'intellectual_property' => $intellectualProperty,
+                'intellectual_property_text' => $intellectualPropertyText,
+                'product_type' => $productType,
+                'product_type_text' => $productTypeText
+            ]);
+        });
 
     }
 }

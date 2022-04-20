@@ -116,22 +116,39 @@ class AnalyticsController extends Controller
 
     public function splitOptions($attributeName): array
     {
-        $attr = Attribute::where('name', $attributeName)->first();
-        $attrOptions = $attr->getOptions();
+        $selectString = $attributeName.'_text as text, COUNT('. $attributeName.") as count";
+
+        $rows = DB::table('raising_starts_caches')
+            ->selectRaw($selectString)
+            ->groupBy([$attributeName, $attributeName.'_text'])
+            ->get();
 
         $items = [];
         $total = 0;
-
-        foreach($attrOptions as $key=>$value) {
-            $count = Program::find([$attributeName => $key])->count();
-            $name = $value;
+        foreach($rows as $row) {
             $items[] = [
-                'text' => $name,
-                'count' => $count
+                'text' => $row->text,
+                'count' => $row->count,
             ];
-
-            $total += $count;
+            $total += $row->count;
         }
+
+//        $attr = Attribute::where('name', $attributeName)->first();
+//        $attrOptions = $attr->getOptions();
+//
+//        $items = [];
+//        $total = 0;
+//
+//        foreach($attrOptions as $key=>$value) {
+//            $count = Program::find([$attributeName => $key])->count();
+//            $name = $value;
+//            $items[] = [
+//                'text' => $name,
+//                'count' => $count
+//            ];
+//
+//            $total += $count;
+//        }
 
         return [
             'items' => $items,
