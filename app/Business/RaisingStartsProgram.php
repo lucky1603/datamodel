@@ -298,8 +298,8 @@ class RaisingStartsProgram extends Program
             $howInnovativeText = $program->getText("rstarts_how_innovative") ?? __("Not Selected");
             $devPhaseTech = $program->getValue('rstarts_dev_phase_tech') ?? 0;
             $devPhaseTechText = $program->getText('rstarts_dev_phase_tech') ?? __("Not Selected");
-            $devPhaseBusiness = $program->getValue('rstarts_dev_phase_business') ?? 0;
-            $devPhaseBusinessText = $program->getText('rstarts_dev_phase_business') ?? __("Not Selected");
+            $devPhaseBusiness = $program->getValue('rstarts_dev_phase_bussines') ?? 0;
+            $devPhaseBusinessText = $program->getText('rstarts_dev_phase_bussines') ?? __("Not Selected");
             $howDidUHear = $program->getValue('rstarts_howdiduhear') ?? 0;
             $howDidUHearText = $program->getText('rstarts_howdiduhear') ?? __("Not Selected");
             $intellectualProperty = $program->getValue('rstarts_intellectual_property') ?? 0;
