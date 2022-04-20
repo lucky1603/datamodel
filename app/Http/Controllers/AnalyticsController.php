@@ -91,8 +91,11 @@ class AnalyticsController extends Controller
 
         $applied = 0;
         $sent = 0;
+        $total = 0;
         foreach($profileStates as $profileState) {
-            $applied += $profileState->count;
+            $total += $profileState->count;
+            if($profileState->id <= 2)
+                $applied += $profileState->count;
             if($profileState->id > 2) {
                 $sent += $profileState->count;
             }
@@ -101,6 +104,7 @@ class AnalyticsController extends Controller
         return [
             'applied' => $applied,
             'sent' => $sent,
+            'total' => $total
         ];
 
     }
