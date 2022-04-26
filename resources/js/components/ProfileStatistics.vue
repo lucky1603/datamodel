@@ -2,7 +2,7 @@
 <div>
     <div class="row">
         <div class="col-xl-4">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm" style="height: 240px">
                 <div class="card-header text-center"><h4>ČLANSTVO</h4></div>
                 <div class="card-body row">
                     <div class="col-lg-4">
@@ -46,9 +46,9 @@
             </div>
         </div>
         <div class="col-xl-4">
-            <div class="card shadow-sm" >
+            <div class="card shadow-sm" style="height: 240px">
                 <div class="card-header text-center"><h4>FINANSIJE</h4></div>
-                <div class="card-body" style="padding: 5px 10px 5px 10px">
+                <div class="card-body" style="padding: 16px 24px">
                     <div class="row">
                         <div class="col-lg-6">
                                 <div class="d-flex flex-column justify-content-center align-items-start shadow-sm mb-1 p-0">
@@ -81,7 +81,7 @@
             </div>
         </div>
         <div class="col-xl-4">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm" style="height: 240px">
                 <div class="card-header text-center"><h4>LJUDSKI RESURSI</h4></div>
                 <div class="card-body row">
                     <div class="col-lg-4">
@@ -132,8 +132,8 @@
                 <div class="card-header mt-1">
                     <h4 class="header-title mt-1">PO TEHNOLOGIJAMA</h4>
                 </div>
-                <div class="card-body">
-                    <apexchart width="100%" type="donut" :options="chart1Options" :series="values1"></apexchart>
+                <div class="card-body" style="height: 400px">
+                    <apexchart type="donut" :options="chart1Options" :series="values1" height="350px"></apexchart>
                 </div>
             </div>
         </div>
@@ -142,9 +142,9 @@
                 <div class="card-header mt-1">
                     <h4 class="header-title mt-1">PO FAZAMA RAZVOJA</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="height: 400px">
 <!--                    <canvas id="chartDP"></canvas>-->
-                    <apexchart width="100%" type="donut" :options="chart2Options" :series="values2"></apexchart>
+                    <apexchart type="donut" :options="chart2Options" :series="values2" height="350px"></apexchart>
                 </div>
             </div>
         </div>
@@ -260,9 +260,15 @@ export default {
             chart1: null,
             chart2: null,
             chart2Options: {
+                chart: {
+                    height: 'auto',
+                },
                 labels: []
             },
             chart1Options: {
+                chart: {
+                    height: 'auto',
+                },
                 labels: []
             },
         }
