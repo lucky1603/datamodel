@@ -2,9 +2,9 @@
 <div>
     <div class="row">
         <div class="col-xl-4">
-            <div class="card shadow-sm" style="height: 240px">
+            <div class="card shadow-sm" >
                 <div class="card-header text-center"><h4>ČLANSTVO</h4></div>
-                <div class="card-body row">
+                <div class="card-body row" style="padding: 30px 24px">
                     <div class="col-lg-4">
                         <div class="d-flex justify-content-center align-items-center h-100 w-100">
                             <div class="card m-2 shadow-sm text-center" style="height: 100px; width: 120px">
@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="col-xl-4">
-            <div class="card shadow-sm" style="height: 240px">
+            <div class="card shadow-sm" >
                 <div class="card-header text-center"><h4>FINANSIJE</h4></div>
                 <div class="card-body" style="padding: 16px 24px">
                     <div class="row">
@@ -81,9 +81,9 @@
             </div>
         </div>
         <div class="col-xl-4">
-            <div class="card shadow-sm" style="height: 240px">
+            <div class="card shadow-sm" >
                 <div class="card-header text-center"><h4>LJUDSKI RESURSI</h4></div>
-                <div class="card-body row">
+                <div class="card-body row" style="padding: 30px 24px">
                     <div class="col-lg-4">
                         <div class="d-flex justify-content-center align-items-center h-100 w-100">
                             <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
