@@ -95,8 +95,7 @@ class ProfileController extends Controller
         }
 
         $profile = new Profile(['instance_id' => $id]);
-//        $situations = $profile->getSituations();
-        return view('profiles.show1', ['model' => $profile, /* 'situations' => $situations */]);
+        return view('profiles.show', ['model' => $profile, /* 'situations' => $situations */]);
     }
 
     public function create() {
@@ -144,26 +143,53 @@ class ProfileController extends Controller
 
         // Update cache
         $pcache = ProfileCache::where('profile_id', $data['profileid'])->first();
-        $pcache->name = $data['name'];
-        $pcache->logo = $profile->getValue('profile_logo')['filelink'];
-        $pcache->membership_type = $profile->getValue('membership_type');
-        $pcache->membership_type_text = $profile->getValue('membership_type_text') ?? '';
-        $pcache->ntp = $profile->getValue('ntp');
-        $pcache->ntp_text = $profile->getText('ntp');
-        $pcache->profile_state = $profile->getValue('profile_state');
-        $pcache->profile_state_text = $profile->getText('profile_state') ?? '';
-        $pcache->is_company = $profile->getValue('is_company');
-        $pcache->is_company_text = $pcache->is_company ? 'Kompanija' : 'Startap';
-        $program = $profile->getActiveProgram();
-        if($program != null) {
-            $pcache->program_name = $program->getValue('program_name');
+        if($pcache != null) {
+            $pcache->name = $data['name'];
+            $pcache->logo = $profile->getValue('profile_logo')['filelink'];
+            $pcache->membership_type = $profile->getValue('membership_type');
+            $pcache->membership_type_text = $profile->getValue('membership_type_text') ?? '';
+            $pcache->ntp = $profile->getValue('ntp');
+            $pcache->ntp_text = $profile->getText('ntp');
+            $pcache->profile_state = $profile->getValue('profile_state');
+            $pcache->profile_state_text = $profile->getText('profile_state') ?? '';
+            $pcache->is_company = $profile->getValue('is_company');
+            $pcache->is_company_text = $pcache->is_company ? 'Kompanija' : 'Startap';
+            $program = $profile->getActiveProgram();
+            if($program != null) {
+                $pcache->program_name = $program->getValue('program_name');
+            } else {
+                $pcache->program_name = 'Nema aktivnog programa';
+            }
+            $pcache->contact_person_name = $profile->getValue('contact_person');
+            $pcache->contact_person_email = $profile->getValue('contact_email');
+            $pcache->website = $profile->getValue('profile_webpage');
+            $pcache->save();
         } else {
-            $pcache->program_name = 'Nema aktivnog programa';
+            $program = $profile->getActiveProgram();
+            if($program != null) {
+                $program_name = $program->getValue('program_name');
+            } else {
+                $program_name = 'Nema aktivnog programa';
+            }
+            ProfileCache::create([
+                'profile_id' => $profile->getId(),
+                'name' => $data['name'],
+                'logo' => $profile->getValue('profile_logo')['filelink'],
+                'membership_type' => $profile->getValue['membership_type'],
+                'membership_type_text' => $profile->getText['membership_type'],
+                'ntp' => $profile->getValue('ntp'),
+                'ntp_text' => $profile->getText('ntp'),
+                'profile_state' => $profile->getValue('profile_state'),
+                'profile_state_text' => $profile->getText('profile_state'),
+                'is_company' => $profile->getValue('is_company'),
+                'is_company_text' => $profile->getValue('is_company') ? 'Kompanija' : 'Startap',
+                'program_name' => $program_name,
+                'contact_person_name' => $profile->getValue('contact_person'),
+                'contact_person_email' => $profile->getValue('contact_email'),
+                'website' => $profile->getValue('profile_webpage')
+            ]);
         }
-        $pcache->contact_person_name = $profile->getValue('contact_person');
-        $pcache->contact_person_email = $profile->getValue('contact_email');
-        $pcache->website = $profile->getValue('profile_webpage');
-        $pcache->save();
+
 
     }
 
@@ -328,7 +354,7 @@ class ProfileController extends Controller
                 ]);
         }
 
-        return view('profiles.profile1', ['model' => $profile]);
+        return view('profiles.profile', ['model' => $profile]);
     }
 
     /**

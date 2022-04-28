@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 28, 2022 at 09:50 AM
+-- Generation Time: Apr 28, 2022 at 02:28 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.16
 
@@ -61,7 +61,8 @@ INSERT INTO `abilities` (`id`, `name`, `label`, `created_at`, `updated_at`) VALU
 (18, 'write_user_data', 'Upis/promena korisničkih podataka', '2021-11-26 12:56:44', '2021-11-26 12:56:44'),
 (19, 'read_session_data', 'Pregled podataka o mentorskoj sesiji', '2021-11-26 12:56:44', '2021-11-26 12:56:44'),
 (20, 'write_session_data', 'Azuriranje podataka o mentorskoj sesiji', '2021-11-26 12:56:44', '2021-11-26 12:56:44'),
-(21, 'manage_mentor_session', 'Manipulisanje mentorskim sesijama', '2021-11-26 12:56:44', '2021-11-26 12:56:44');
+(21, 'manage_mentor_session', 'Manipulisanje mentorskim sesijama', '2021-11-26 12:56:44', '2021-11-26 12:56:44'),
+(22, 'read_program', 'Čitanje podataka programa', '2022-04-28 12:10:04', '2022-04-28 12:10:04');
 
 -- --------------------------------------------------------
 
@@ -103,6 +104,7 @@ INSERT INTO `ability_role` (`role_id`, `ability_id`, `created_at`, `updated_at`)
 (1, 19, '2021-11-26 12:56:45', '2021-11-26 12:56:45'),
 (1, 20, '2021-11-26 12:56:45', '2021-11-26 12:56:45'),
 (1, 21, '2021-11-26 12:56:45', '2021-11-26 12:56:45'),
+(1, 22, '2022-04-28 12:17:28', '2022-04-28 12:17:28'),
 (2, 1, '2021-11-26 12:56:45', '2021-11-26 12:56:45'),
 (2, 2, '2021-11-26 12:56:45', '2021-11-26 12:56:45'),
 (2, 4, '2021-11-26 12:56:45', '2021-11-26 12:56:45'),
@@ -117,6 +119,7 @@ INSERT INTO `ability_role` (`role_id`, `ability_id`, `created_at`, `updated_at`)
 (3, 6, '2021-11-26 12:56:46', '2021-11-26 12:56:46'),
 (3, 9, '2021-11-26 12:56:46', '2021-11-26 12:56:46'),
 (3, 12, '2021-11-26 12:56:46', '2021-11-26 12:56:46'),
+(3, 22, '2022-04-28 12:19:33', '2022-04-28 12:19:33'),
 (4, 1, '2021-11-26 12:56:46', '2021-11-26 12:56:46'),
 (4, 4, '2021-11-26 12:56:46', '2021-11-26 12:56:46'),
 (4, 9, '2021-11-26 12:56:46', '2021-11-26 12:56:46'),
@@ -46439,7 +46442,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `photo`, `position`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Sinisa Ristic', 'sinisa.ristic@gmail.com', NULL, '$2y$10$6m9C6phfYeJFGM5eAGUmt./PUwvr/aJBHd7qCVuOYb11xN2wHgk8q', NULL, 'Super Administrator', '2vxOhW6DYBYXhUbyUrs2TIZocdq0oQsbMPc2CbzrEp3vSl8LFEl0SuM7NUxk', '2021-11-26 12:56:46', '2021-12-20 23:42:14'),
+(1, 'Sinisa Ristic', 'sinisa.ristic@gmail.com', NULL, '$2y$10$6m9C6phfYeJFGM5eAGUmt./PUwvr/aJBHd7qCVuOYb11xN2wHgk8q', NULL, 'Super Administrator', 'l7ff2LnDXBd8Ea4xJfbDkqnrec1H6vwFlYHP0ckbYbd5VdikOOjcmJLkIznH', '2021-11-26 12:56:46', '2021-12-20 23:42:14'),
 (2, 'Nevena Jankovic', 'nevena.jankovic@ntpark.rs', NULL, '$2y$10$6kJTY1nWCeDI6qdhyvsTvebBwN3gO4CCiX7PCT20Vx3ocrZTym6ei', NULL, 'Menadžer Programa', 'KJFkStnaTWd8rWWpHmCyRH5A4rXRzsGd10oanljFqXlLYcOJqHCqoCCdErax', '2021-11-26 12:56:46', '2021-11-26 12:56:46'),
 (3, 'Marijana BITF', 'marijana@bitf.rs', NULL, '$2y$10$.DcR3ePeSwsiXq1KR4FXweNW.iOypev37CyHy.BxUAwF5t.k4HwFq', NULL, 'Menadžer Programa', NULL, '2021-11-26 12:56:47', '2021-11-26 12:56:47'),
 (4, 'Jelena Petrović', 'jelena.petrovic@ntpark.rs', NULL, '$2y$10$dKrno5rOqfhcyFl.n0qLTe9l5ebsYqOQzY3R8DRCQQqY3G9tdBHUO', NULL, 'Ovlašćeno lice', NULL, '2021-11-26 12:56:47', '2021-11-26 12:56:47'),
@@ -53712,7 +53715,7 @@ ALTER TABLE `varchar_values`
 -- AUTO_INCREMENT for table `abilities`
 --
 ALTER TABLE `abilities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `attributes`

@@ -1,278 +1,83 @@
 @extends('layouts.hyper-profile-admin')
 
+{{--@section('page-title')--}}
+{{--    {{ mb_strtoupper(__('Company Details')) }}--}}
+{{--@endsection--}}
+
+@section('page-header')
+    <div class="w-50 d-inline-block" style="height: 7vh">
+        <div><span class="h4" style="position: relative; top:2vh; left: 1vh">{{ $model->getValue('name') }}</span></div>
+        <div><span class="text-primary font-12" style="position: relative; top: 2vh; left: 1vh">{{ mb_strtoupper($model->getText('profile_state')) }}</span></div>
+    </div>
+@endsection
+
 @section('application-data')
     <div class="card shadow " style="height: 100%;overflow: auto">
-
         @if(in_array($model->getAttribute('profile_status')->getValue(), [1,2]))
             <div class="row h-100" style="display: flex; flex-direction: column; justify-content: center">
                 <img class="ml-auto mr-auto" src="/images/custom/waitingicon.png" width="200px"/>
                 <h4 class="text-center">{{ __('Waiting for the client to choose the program') }}</h4>
             </div>
 
-        @elseif($model->getAttribute('profile_status')->getValue() == 3)
-            <div class="row h-100" style="display: flex; flex-direction: column; justify-content: center">
-                <img class="ml-auto mr-auto" src="/images/custom/waitingicon.png" width="200px"/>
-                <h4 class="text-center">{{ __('Waiting for the client to complete the form') }}</h4>
-            </div>
-        @elseif($model->getAttribute('profile_status')->getValue() == 4)
-            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
-                @if($model->getActiveProgram()->getPreselection() != null)
-                <li class="nav-item">
-                    <a href="#preselection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper(__('Preselection')) }}</span>
-                    </a>
-                </li>
-                @endif
-                <li class="nav-item">
-                    <a href="#appform" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper( __('Application Form')) }}</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="tab-content overflow-auto " style="height: 90%!important;">
-                @if($model->getActiveProgram()->getPreselection() != null)
-                <div class="tab-pane show active h-100 overflow-auto"  id="preselection">
-                    @include('profiles.forms._preselection-form',
-                                [
-                                    'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),
-                                    'id' => $model->getActiveProgram()->getPreselection()->getId(),
-                                    'status' => $model->getAttribute('profile_status')->getValue()
-                                ])
-                </div>
-                @endif
-                <div class="tab-pane overflow-auto h-100"  id="appform">
-                    @include('profiles.partials._show_profile_data')
-                </div>
-            </div>
-        @elseif($model->getValue('profile_status') == 5)
-            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
-                <li class="nav-item">
-                    <a href="#demoday" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper(__('Demo Day')) }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#preselection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper(__('Preselection')) }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#appform" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper( __('Application Form')) }}</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="tab-content overflow-auto" style="height: 90%!important;">
-                <div class="tab-pane show active h-100 overflow-auto" id="demoday">
-                    @include('profiles.forms._demoday-form', [
-                        'attributes' => $model->getActiveProgram()->getDemoDay()->getAttributes(),
-                        'id' => $model->getActiveProgram()->getDemoDay()->getId(),
-                        'status' => $model->getAttribute('profile_status')->getValue(),
-                        'notified' => $model->getActiveProgram()->getDemoDay()->getValue('demoday_client_notified')
-                    ])
-                </div>
-                <div class="tab-pane h-100 overflow-auto"  id="preselection">
-                    @include('profiles.forms._preselection-form',
-                                [
-                                    'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),
-                                    'id' => $model->getActiveProgram()->getPreselection()->getId(),
-                                    'status' => $model->getAttribute('profile_status')->getValue()
-                                ])
-                </div>
-                <div class="tab-pane overflow-auto h-100"  id="appform">
-                    @include('profiles.partials._show_profile_data')
-                </div>
-            </div>
-
-        @elseif($model->getAttribute('profile_status')->getValue() == 6)
-            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
-                <li class="nav-item">
-                    <a href="#selection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper(__('Selection')) }}</span>
-                    </a>
-                </li>
-                @if($model->getActiveProgram()->getValue('program_type') == \App\Business\Program::$RAISING_STARTS)
-                    <li class="nav-item">
-                        <a href="#demoday" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
-                            <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                            <span class="d-none d-md-block">{{ strtoupper(__('Demo Day')) }}</span>
-                        </a>
-                    </li>
-                @endif
-                <li class="nav-item">
-                    <a href="#preselection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper(__('Preselection')) }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#appform" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper( __('Application Form')) }}</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="tab-content overflow-auto" style="height: 90%!important;">
-                <div class="tab-pane show active h-100 overflow-auto" id="selection">
-                    @include('profiles.forms._selection-form', [
-                        'attributes' => $model->getActiveProgram()->getSelection()->getAttributes(),
-                        'id' => $model->getActiveProgram()->getSelection()->getId(),
-                        'status' => $model->getAttribute('profile_status')->getValue()
-                    ])
-                </div>
-                @if($model->getActiveProgram()->getValue('program_type') == \App\Business\Program::$RAISING_STARTS)
-                    <div class="tab-pane h-100 overflow-auto" id="demoday">
-                        @include('profiles.forms._demoday-form', [
-                            'attributes' => $model->getActiveProgram()->getDemoDay()->getAttributes(),
-                            'id' => $model->getActiveProgram()->getDemoDay()->getId(),
-                            'status' => $model->getAttribute('profile_status')->getValue(),
-                            'notified' => $model->getActiveProgram()->getDemoDay()->getValue('demoday_client_notified')
-                        ])
-                    </div>
-                @endif
-                <div class="tab-pane h-100 overflow-auto"  id="preselection">
-                    @include('profiles.forms._preselection-form',
-                                [
-                                    'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),
-                                    'id' => $model->getActiveProgram()->getPreselection()->getId(),
-                                    'status' => $model->getAttribute('profile_status')->getValue()
-                                ])
-                </div>
-                <div class="tab-pane overflow-auto h-100"  id="appform">
-                    @include('profiles.partials._show_profile_data')
-                </div>
-            </div>
-        @elseif(in_array($model->getValue('profile_status'), [7,8]))
-            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
-                <li class="nav-item">
-                    <a href="#contract" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper(__('Contract')) }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#selection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper(__('Selection')) }}</span>
-                    </a>
-                </li>
-                @if($model->getActiveProgram()->getValue('program_type') == \App\Business\Program::$RAISING_STARTS)
-                    <li class="nav-item">
-                        <a href="#demoday" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
-                            <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                            <span class="d-none d-md-block">{{ strtoupper(__('Demo Day')) }}</span>
-                        </a>
-                    </li>
-                @endif
-                <li class="nav-item">
-                    <a href="#preselection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper(__('Preselection')) }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#appform" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper( __('Application Form')) }}</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="tab-content overflow-auto" style="height: 90%!important;">
-                <div class="tab-pane h-100 overflow-auto show active" id="contract">
-                    @include('profiles.forms._contract-form', [
-                        'attributes' => $model->getActiveProgram()->getContract()->getAttributes(),
-                        'id' => $model->getActiveProgram()->getContract()->getId(),
-                        'status' => $model->getAttribute('profile_status')->getValue()
-                    ])
-                </div>
-                <div class="tab-pane h-100 overflow-auto" id="selection">
-                    @include('profiles.forms._selection-form', [
-                        'attributes' => $model->getActiveProgram()->getSelection()->getAttributes(),
-                        'id' => $model->getActiveProgram()->getSelection()->getId(),
-                        'status' => $model->getAttribute('profile_status')->getValue()
-                    ])
-                </div>
-                @if($model->getActiveProgram()->getValue('program_type') == \App\Business\Program::$RAISING_STARTS)
-                    <div class="tab-pane h-100 overflow-auto" id="demoday">
-                        @include('profiles.forms._demoday-form', [
-                            'attributes' => $model->getActiveProgram()->getDemoDay()->getAttributes(),
-                            'id' => $model->getActiveProgram()->getDemoDay()->getId(),
-                            'status' => $model->getAttribute('profile_status')->getValue(),
-                            'notified' => $model->getActiveProgram()->getDemoDay()->getValue('demoday_client_notified')
-                        ])
-                    </div>
-                @endif
-                <div class="tab-pane h-100 overflow-auto"  id="preselection">
-                    @include('profiles.forms._preselection-form',
-                                [
-                                    'attributes' => $model->getActiveProgram()->getPreselection()->getAttributes(),
-                                    'id' => $model->getActiveProgram()->getPreselection()->getId(),
-                                    'status' => $model->getAttribute('profile_status')->getValue()
-                                ])
-                </div>
-                <div class="tab-pane overflow-auto h-100"  id="appform">
-                    @include('profiles.partials._show_profile_data')
-                </div>
-            </div>
-        @elseif($model->getAttribute('profile_status')->getValue() == 9)
+        @elseif( in_array($model->getAttribute('profile_status')->getValue(), [3,4,5]))
             @php
-                $selection = $model->getActiveProgram()->getSelection();
-                $preselection = $model->getActiveProgram()->getPreselection();
+                $status = $model->getActiveProgram()->getStatus();
             @endphp
-            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
-                @if($selection != null)
-                    <li class="nav-item">
-                        <a href="#selection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
-                            <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                            <span class="d-none d-md-block">{{ strtoupper(__('Selection')) }}</span>
-                        </a>
-                    </li>
-                @endif
-                @if($preselection != null)
-                    <li class="nav-item">
-                        <a href="#preselection" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 @if($selection == null) active @endif">
-                            <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                            <span class="d-none d-md-block">{{ strtoupper(__('Preselection')) }}</span>
-                        </a>
-                    </li>
-                @endif
-                <li class="nav-item">
-                    <a href="#appform" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0 @if($selection == null && $preselection == null) active @endif">
-                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ strtoupper( __('Application Form')) }}</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="tab-content overflow-auto" style="height: 90%!important;">
-                @if($selection != null)
-                    <div class="tab-pane show active" id="selection">
-                        @include('profiles.forms._selection-form', [
-                            'attributes' => $model->getActiveProgram()->getSelection()->getAttributes(),
-                            'id' => $model->getActiveProgram()->getSelection()->getId(),
-                            'status' => $model->getAttribute('profile_status')->getValue()
-                        ])
-                    </div>
-                @endif
-                @if($preselection != null)
-                    <div class="tab-pane @if($selection == null) show active @endif"  id="preselection">
-                        @include('profiles.forms._preselection-form',
-                                    [
-                                        'attributes' => $preselection->getAttributes(),
-                                        'id' => $preselection->getId(),
-                                        'status' => $model->getAttribute('profile_status')->getValue()
-                                    ])
-                    </div>
-                @endif
-                <div class="tab-pane overflow-auto h-100 pl-3 pr-3"  id="appform">
-                    @include('profiles.partials._show_profile_data')
+
+            @if($status == -1)
+                <div class="row h-100" style="display: flex; flex-direction: column; justify-content: center">
+                    <img class="ml-auto mr-auto" src="/images/custom/waitingicon.png" width="200px"/>
+                    <h4 class="text-center">{{ __('Waiting for the client to complete the form') }}</h4>
                 </div>
-            </div>
+            @else
+                @php
+                    $program = $model->getActiveProgram(true);
+                    $workflow = $program->workflow;
+
+                @endphp
+
+                <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                    @for($i = 1; $i <= $status; $i++)
+
+                        @php
+                            $phase = $workflow->getPhase($i);
+                        @endphp
+
+                        @if($i < $status && !$phase->isVisibleInHistory())
+                            @continue
+                        @endif
+
+                        <li class="nav-item">
+                            <a href="{{ $phase->getDisplayId() }}" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 @if($i == 1 /* $status */) active @endif">
+                                <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                                <span class="d-none d-md-block">{{ $phase->getDisplayName() }}</span>
+                            </a>
+                        </li>
+                    @endfor
+                </ul>
+
+                <div class="tab-content overflow-auto h-100">
+                    @for($i = 1; $i <= $status; $i++)
+                        @php
+                            $phase = $workflow->getPhase($i);
+                            $attributesData = $phase->getAttributesData();
+                            $attributesData['status'] = $status;
+                            if($model->getValue('profile_status') > 3)
+                                $attributesData['validStatus'] = 0;
+                            else
+                                $attributesData['validStatus'] = $i;
+                        @endphp
+
+                        @if($i < $status && !$phase->isVisibleInHistory())
+                            @continue
+                        @endif
+
+                        <div class="tab-pane @if($i == 1 /* $status */) show active @endif h-100 overflow-auto "  id="{{ ltrim($phase->getDisplayId(), '#') }}">
+                            @include($phase->getDisplayForm(), $attributesData)
+                        </div>
+                    @endfor
+                </div>
+            @endif
         @endif
     </div>
 @endsection
@@ -285,35 +90,35 @@
         <div class="card-body" style="height: 90%; overflow: auto">
             <div class="timeline-alt pb-0" >
                 @foreach($model->getSituations()->sortDesc() as $situation)
-                <div class="timeline-item">
-                    @if($loop->first)
-                        <i class="mdi mdi-circle bg-primary-lighten text-primary timeline-icon"></i>
-                    @else
-                        <i class="mdi mdi-circle bg-info-lighten text-info timeline-icon"></i>
-                    @endif
-                    <div class="timeline-item-info pb-3">
-                        <h5 class="mt-0 mb-1">{{ $situation->getData()['name'] }}</h5>
-                        <p class="font-12 attribute-label font-weight-bold">{{ $situation->getAttribute('occurred_at')->getText() }}</p>
-                        <p class="text-muted mt-2 mb-0 pb-3">
-                            {{ $situation->getData()['description'] }}
-                        </p>
-                        @foreach($situation->getDisplayAttributes() as $attribute)
-                            @if($attribute->name == 'description')
-                                @continue
-                            @endif
-                            <p class="font-11 mt-0 @if($loop->last) mb-2 @else mb-0 @endif">
-                                <span class="attribute-label font-weight-semibold">{!! $attribute->label !!}:</span>
-                                @if($attribute->type == 'text')<br/>@endif
-                                @if($attribute->type != 'file')
-                                    <span class="@if($attribute->type != 'text') ml-2 @endif text-muted">{!! $attribute->getText() !!}</span>
-                                @else
-                                    <a href="{{ $attribute->getValue()['filelink'] }}" class="btn-link ml-2 font-weight-semibold">{!! $attribute->getValue()['filename'] !!} </a>
-                                @endif
+                    <div class="timeline-item">
+                        @if($loop->first)
+                            <i class="mdi mdi-circle bg-primary-lighten text-primary timeline-icon"></i>
+                        @else
+                            <i class="mdi mdi-circle bg-info-lighten text-info timeline-icon"></i>
+                        @endif
+                        <div class="timeline-item-info pb-3">
+                            <h5 class="mt-0 mb-1">{{ $situation->getData()['name'] }}</h5>
+                            <p class="font-12 attribute-label font-weight-bold">{{ $situation->getAttribute('occurred_at')->getText() }}</p>
+                            <p class="text-muted mt-2 mb-0 pb-3">
+                                {{ $situation->getData()['description'] }}
                             </p>
-                        @endforeach
+                            @foreach($situation->getDisplayAttributes() as $attribute)
+                                @if($attribute->name == 'description')
+                                    @continue
+                                @endif
+                                <p class="font-11 mt-0 @if($loop->last) mb-2 @else mb-0 @endif">
+                                    <span class="attribute-label font-weight-semibold">{!! $attribute->label !!}:</span>
+                                    @if($attribute->type == 'text')<br/>@endif
+                                    @if($attribute->type != 'file')
+                                        <span class="@if($attribute->type != 'text') ml-2 @endif text-muted">{!! $attribute->getText() !!}</span>
+                                    @else
+                                        <a href="{{ $attribute->getValue()['filelink'] }}" class="btn-link ml-2 font-weight-semibold">{!! $attribute->getValue()['filename'] !!} </a>
+                                    @endif
+                                </p>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
             </div>
         </div>
     </div>
@@ -333,6 +138,103 @@
                 }
             });
 
+            $('#btnNext').click(function() {
+                const id = <?php echo $model->getId() ?>;
+                $('#button_spinner_ok').attr('hidden', false);
+                let some = $($('form#myForm')[0]).serialize();
+
+                const token = $('form#myForm input[name="_token"]').val();
+
+                $.ajax({
+                    url: '/profiles/evalPhase',
+                    data: some,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-Token' : token
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        location.reload();
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+
+                });
+            });
+
+            $('#btnEvalDecision').click(function() {
+                $('#button_spinner_ok').attr('hidden', false);
+                let formData = new FormData($('form#myAppEvalForm')[0]);
+                formData.append('passed', 'on');
+
+                axios.post('/profiles/evalPhase', formData)
+                .then(response => {
+                    console.log(response.data);
+                    $('#button_spinner_ok').attr('hidden', true);
+                    location.reload();
+                }).catch(error => {
+                    console.log(error);
+                    $('#button_spinner_ok').attr('hidden', true);
+                });
+
+            });
+
+            $('#btnRejectDecision').click(function() {
+                $('#button_spinner_reject').attr('hidden', false);
+                let formData = new FormData($('form#myAppEvalForm')[0]);
+                formData.append('passed', 'off');
+                axios.post('/profiles/evalPhase', formData)
+                .then(response => {
+                    console.log(response.data);
+                    $('#button_spinner_reject').attr('hidden', true);
+                    location.reload();
+                });
+            });
+
+            $('#btnFaza1Passed').click(function() {
+                $('#button_spinner_ok').attr('hidden', false);
+                let formData = new FormData($('form#myFaza1Form')[0]);
+                formData.append('passed', 'on');
+                // const token = $('form#myFaza1Form input[name="_token"]').val();
+                // formData.append('_token', token);
+
+                axios.post('/profiles/evalPhase', formData)
+                .then(response => {
+                    console.log(response.data);
+                    $('#button_spinner_ok').attr('hidden', true);
+                    location.reload();
+                });
+            });
+
+            $('#btnFaza1Rejected').click(function() {
+                $('#button_spinner_reject').attr('hidden', false);
+                let formData = new FormData($('form#myFaza1Form')[0]);
+                formData.append('passed', 'off');
+                // const token = $('form#myFaza1Form input[name="_token"]').val();
+                // formData.append('_token', token);
+
+                axios.post('/profiles/evalPhase', formData)
+                    .then(response => {
+                        console.log(response.data);
+                        $('#button_spinner_reject').attr('hidden', true);
+                        location.reload();
+                    });
+            });
+
+            $('#btnFaza1Rollback').click(function() {
+                $('#button_spinner_rollback').attr('hidden', false);
+                // setTimeout(() => {
+                //     $('#button_spinner_rollback').attr('hidden', true);
+                // }, 2000);
+                let formData = new FormData($('form#myFaza1Form')[0]);
+                axios.post('/faza1/rollback', formData)
+                .then(response => {
+                    console.log(response.data);
+                    $('#button_spinner_rollback').attr('hidden', true);
+                    location.reload();
+                });
+            });
 
             $('#btnSendMail').on('click', function(evt) {
                 var profileId = <?php echo $model->getId();?>;
@@ -341,6 +243,15 @@
                     alert('Mail je poslat!');
                 });
 
+            });
+
+            $('#btnSaveDecision').click(function() {
+                let id = $('#id').val();
+                let data = $('form#myAppEvalForm').serialize();
+                $.post('/appeval/update/' + id, data, function(data, status, xhr) {
+                    console.log(data);
+                    location.reload();
+                });
             });
 
             $('#btnSavePreselection').on('click', function(evt) {
@@ -359,41 +270,68 @@
                 });
             });
 
-            $('#btnSaveDemoDay').click(function(evt) {
-                const id = $('#id');
-                let notified = $('#demoday_client_notified').val();
+            $('#btnSaveFaza1').click(function() {
+                let formData = new FormData($('form#myFaza1Form')[0]);
+                const token = $('form#myFaza1Form input[name="_token"]').val();
 
-                if(notified === 'false')
-                    $('#demoday_client_notified').val('true');
-
-                let data = $('form#myDemoDayForm').serialize();
-
-                $.post('/demoday/update/' + id, data, function(data, status, xhr) {
-                    console.log(data);
-                    location.reload();
+                $.ajax({
+                    url: `/faza1/update`,
+                    data: formData,
+                    method: 'POST',
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-Token': token
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        location.reload();
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
                 });
             });
 
-            $('#btnSaveContract').click(function(evt) {
-                var id = $('#contractId').val();
-                var formData = new FormData($('form#myFormContract')[0]);
-
+            $('#btnSaveDemoDay').click(function(evt) {
+                $('#save-demo-day-spinner').attr('hidden', false);
+                let formData = new FormData($('form#myDemoDayForm')[0]);
+                const token = $('form#myDemoDayForm input[name="_token"]').val();
                 $.ajax({
-                    type: "POST",
-                    url: '/contracts/update/' + id,
-                    async: true,
+                    url: '/demoday/update',
                     data: formData,
-                    contentType: false, //this is required please see answers above
-                    processData: false, //this is required please see answers above
-                    cache: false, //not sure but works for me without this
-                    error   : function (error) {
-                        console.log(error);
+                    method: 'POST',
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-Token': token,
                     },
-                    success : function (data) {
+                    success: function(data) {
                         console.log(data);
-                        location.reload();
+                        $('#save-demo-day-spinner').attr('hidden', true);
+
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        $('#save-demo-day-spinner').attr('hidden', true);
                     }
                 });
+
+            });
+
+            $('#btnSaveContract').click(function(evt) {
+                const id = $('#contractId').val();
+                let formData = new FormData($('form#myFormContract')[0]);
+
+
+                axios.post('/contracts/update/' + id, formData)
+                .then(response => {
+                    console.log(response.data);
+                    // $('form#myFormContract').load(location.href + ' #myFormContract');
+                    location.reload();
+                }).catch(error => {
+                    console.log(error);
+                })
 
             });
 
@@ -433,32 +371,29 @@
             });
 
             $('#btnDemoDayPassed').click(function() {
-                $('#button_spinner_ok').attr('hidden', false);
-                const id = <?php echo $model->getId() ?>;
-                const obj = {
-                    profile: id,
-                    passed: true,
-                };
-                const token = $('form#myDemoDayForm input[name="_token"]').val();
-
-                $.ajax({
-                    url: '/profiles/evalDemoDay',
-                    data: obj,
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-Token' : token
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#button_spinner_ok').attr('hidden', true);
-                        location.reload();
-                    },
-                    error: function(data) {
-                        console.log(data);
-                        $('#button_spinner_ok').attr('hidden', true);
-                        location.reload();
-                    }
+                $('#button_spinner_demoday_ok').attr('hidden', false);
+                let formData = new FormData($('form#myDemoDayForm')[0]);
+                formData.append('passed' ,'on');
+                // const token = $('form#myDemoDayForm input[name="_token"]').val();
+                axios.post('/profiles/evalPhase', formData)
+                .then(response => {
+                    console.log(response.data);
+                    $('#button_spinner_demoday_ok').attr('hidden', true);
+                    location.reload();
                 });
+            });
+
+            $('#btnDemoDayRejected').click(function() {
+                $('#button_spinner_demoday_reject').attr('hidden', false);
+                let formData = new FormData($('form#myDemoDayForm')[0]);
+                formData.append('passed' ,'off');
+                // const token = $('form#myDemoDayForm input[name="_token"]').val();
+                axios.post('/profiles/evalPhase', formData)
+                    .then(response => {
+                        console.log(response.data);
+                        $('#button_spinner_demoday_reject').attr('hidden', true);
+                        location.reload();
+                    });
             });
 
             $('#btnPreselectionPassed').click(function(evt) {
@@ -473,7 +408,7 @@
 
 
                 $.ajax({
-                    url : '/profiles/evalPreselection',
+                    url : '/profiles/evalPhase',
                     data: obj,
                     method: 'POST',
                     headers: {
@@ -494,21 +429,18 @@
 
             $('#btnSelectionPassed').click(function(evt) {
                 $('#button_spinner_sel_ok').attr('hidden', false);
-                var id = <?php echo $model->getId() ?>;
-                var obj = {
-                    profile : id,
-                    passed : true,
-                };
-
-                var token = $('form#myFormSelection input[name="_token"]').val();
+                let formData = new FormData($('form#myFormSelection')[0]);
+                const token = $('form#myFormSelection input[name="_token"]').val();
 
                 $.ajax({
-                    url : '/profiles/evalSelection',
-                    data: obj,
+                    url : '/profiles/evalPhase',
+                    data: formData,
                     method: 'POST',
                     headers: {
                         'X-CSRF-Token' : token
                     },
+                    processData: false,
+                    contentType: false,
                     success: function(data) {
                         $('#button_spinner_sel_ok').attr('hidden', true);
                         console.log(data);
@@ -522,46 +454,55 @@
 
             });
 
-            $('#btnContractSigned').click(function(evt) {
+            $('#btnCS').click(function(evt) {
                 $('#button_spinner_contract_ok').attr('hidden', false);
-                var id = <?php echo $model->getId() ?>;
-                var obj = {
-                    profile : id,
-                    passed : true,
-                };
+                let formData = new FormData($('form#myFormContract')[0]);
+                // var token = $('form#myFormContract input[name="_token"]').val();
 
-                var token = $('form#myFormContract input[name="_token"]').val();
-
-                $.ajax({
-                    url : '/profiles/evalContract',
-                    data: obj,
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-Token' : token
-                    },
-                    success: function(data) {
-                        $('#button_spinner_contract_ok').attr('hidden', true);
-                        console.log(data);
-                        var result = JSON.parse(data);
-
-                        console.log(result);
-                        if(result.code != 0) {
-                            console.log(result.message);
-                            $.toast(result.message);
-                        } else {
-                            $.toast({
-                                text: result.message,
-                                afterHidden: function() {
-                                    location.reload();
-                                }
-                            });
-                        }
-                    },
-                    error: function(data) {
-                        $('#button_spinner_contract_ok').attr('hidden', true);
-                        console.log(data);
-                    }
+                formData.append('passed', 'on');
+                axios.post('/profiles/evalPhase', formData)
+                .then(response => {
+                    $('#button_spinner_contract_ok').attr('hidden', true);
+                    console.log(response.data);
+                    if(response.data.code === 0) location.reload();
+                    else alert(response.data.message);
                 });
+
+            });
+
+            $('#btnCSReject').click(function(evt) {
+                $('#button_spinner_contract_reject').attr('hidden', false);
+                let formData = new FormData($('form#myFormContract')[0]);
+                // var token = $('form#myFormContract input[name="_token"]').val();
+
+                formData.append('passed', 'off');
+                axios.post('/profiles/evalPhase', formData)
+                    .then(response => {
+                        $('#button_spinner_contract_reject').attr('hidden', true);
+                        console.log(response.data);
+                        location.reload();
+                    });
+
+            });
+
+            $('#iconDeleteContract').click(function() {
+                const cid = $('#contractId').val();
+                const token = $('form#myFormContract input[name="_token"]').val();
+                if(confirm('Upravo ćete obrisati priloženi dokument. Da li ste sigurni?')) {
+                    let data = new FormData();
+                    data.append('contractId', cid);
+                    data.append('_token', token);
+
+                    axios.post('/contracts/deleteDocument', data)
+                        .then(response => {
+                            console.log(response.data);
+                            location.reload();
+                            // $('form#myFormContract').load(location.href + ' #myFormContract');
+
+                        }).catch(error => {
+                            console.log(error);
+                        });
+                }
 
             });
 
@@ -576,7 +517,7 @@
                 var token = $('form#myForm input[name="_token"]').val();
 
                 $.ajax({
-                    url : '/profiles/evalPreselection',
+                    url : '/profiles/evalPhase',
                     data: obj,
                     method: 'POST',
                     headers: {
@@ -605,7 +546,7 @@
                 var token = $('form#myFormSelection input[name="_token"]').val();
 
                 $.ajax({
-                    url : '/profiles/evalSelection',
+                    url : '/profiles/evalPhase',
                     data: obj,
                     method: 'POST',
                     headers: {
