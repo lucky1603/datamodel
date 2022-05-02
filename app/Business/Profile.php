@@ -702,6 +702,7 @@ class Profile extends SituationsModel
                 $value = 7;
             }
         } else if($this->getActiveProgram()->getValue('program_type') == Program::$INKUBACIJA_BITF) {
+            // Staviti drugacije??
             if(in_array($profileStatus, [1,2])) {
                 $value = 1;
             } else if($profileStatus == 3 && $programStatus == 1) {
