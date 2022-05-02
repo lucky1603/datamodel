@@ -92,6 +92,11 @@ class Selection extends PhaseImpl
         return 'profiles.forms._selection-form';
     }
 
+    public function getClientDisplayForm(): string
+    {
+        return 'profiles.forms._selection_client-form';
+    }
+
     public function getAttributesData(): array
     {
         return [

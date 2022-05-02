@@ -26,7 +26,7 @@ class IncubationProgram extends Program
         return $groups;
     }
 
-    protected function initWorkflow()
+    public function initWorkflow()
     {
         if($this->getWorkflow() == null)
             $this->setWorkflow(new IncubationWorkflow());

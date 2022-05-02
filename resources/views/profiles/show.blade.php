@@ -32,7 +32,7 @@
             @else
                 @php
                     $program = $model->getActiveProgram(true);
-                    $workflow = $program->workflow;
+                    $workflow = $program->getWorkflow();
 
                 @endphp
 

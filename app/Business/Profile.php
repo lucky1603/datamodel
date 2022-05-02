@@ -159,6 +159,7 @@ class Profile extends SituationsModel
             $state->addOption(['value' => 6, 'text' => __('gui-select.PROFSTATE-Contract')]);
             $state->addOption(['value' => 7, 'text' => __('gui-select.PROFSTATE-InProgram')]);
             $state->addOption(['value' => 8, 'text' => __('gui-select.PROFSTATE-Rejected')]);
+
         }
         $attributes[] = $state;
 
@@ -684,21 +685,41 @@ class Profile extends SituationsModel
         $profileCache = ProfileCache::where('profile_id', $this->getId())->first();
         $attribute = $this->getAttribute('profile_state');
 
-        if(in_array($profileStatus, [1,2])) {
-            $value = 1;
-        } else if($profileStatus == 3 && $programStatus == 1) {
-            $value = 2;
-        } else if($profileStatus == 3 && $programStatus == 2) {
-            $value = 3;
-        } else if($profileStatus == 3 && in_array($programStatus, [3,4])) {
-            $value = 4;
-        } else if($profileStatus == 3 && $programStatus == 5) {
-            $value = 5;
-        } else if($profileStatus == 4 ) {
-            $value = 6;
-        } else {
-            $value = 7;
+        if($this->getActiveProgram( )->getValue('program_type') == Program::$RAISING_STARTS) {
+            if(in_array($profileStatus, [1,2])) {
+                $value = 1;
+            } else if($profileStatus == 3 && $programStatus == 1) {
+                $value = 2;
+            } else if($profileStatus == 3 && $programStatus == 2) {
+                $value = 3;
+            } else if($profileStatus == 3 && in_array($programStatus, [3,4])) {
+                $value = 4;
+            } else if($profileStatus == 3 && $programStatus == 5) {
+                $value = 5;
+            } else if($profileStatus == 4 ) {
+                $value = 6;
+            } else {
+                $value = 7;
+            }
+        } else if($this->getActiveProgram()->getValue('program_type') == Program::$INKUBACIJA_BITF) {
+            if(in_array($profileStatus, [1,2])) {
+                $value = 1;
+            } else if($profileStatus == 3 && $programStatus == 1) {
+                $value = 2;
+            } else if($profileStatus == 3 && $programStatus == 2) {
+                $value = 3;
+            } else if($profileStatus == 3 && in_array($programStatus, [3,4])) {
+                $value = 4;
+            } else if($profileStatus == 3 && $programStatus == 5) {
+                $value = 5;
+            } else if($profileStatus == 4 ) {
+                $value = 6;
+            } else {
+                $value = 7;
+            }
         }
+
+
 
         $this->setValue('profile_state', $value);
         if($profileCache != null) {

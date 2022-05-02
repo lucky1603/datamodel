@@ -6,7 +6,10 @@
             <h2 class="text-center">Prijava na <span class="attribute-label">{{ $programName }}</span></h2>
         </div>
         <div class="card-body">
-            <form id="myForm" style="height: 100%" method="post" enctype="multipart/form-data" action="{{ route('profiles.saveapplicationdata') }}" >
+            @php
+                $route = ($programType == \App\Business\Program::$RAISING_STARTS) ? route('profiles.saveapplicationdata') : route('profiles.saveIBITFApplicationData');
+            @endphp
+            <form id="myForm" style="height: 100%" method="post" enctype="multipart/form-data" action="{{ $route }}" >
                 @csrf
                 <input type="hidden" id="programType" name="programType" value="{{ $programType }}">
                 <input type="hidden" id="profile_id" name="profile_id" value="{{ $model->getId() }}">

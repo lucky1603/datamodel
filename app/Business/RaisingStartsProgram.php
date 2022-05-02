@@ -70,7 +70,7 @@ class RaisingStartsProgram extends Program
 
     }
 
-    protected function initWorkflow($instanceId = null)
+    public function initWorkflow($instanceId = null)
     {
         if($this->getWorkflow() == null)
             $this->setWorkflow(new RaisingStartsWorkflow());

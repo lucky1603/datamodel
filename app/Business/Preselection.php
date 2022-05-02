@@ -71,6 +71,11 @@ class Preselection extends PhaseImpl
         return 'profiles.forms._preselection-form';
     }
 
+    public function getClientDisplayForm(): string
+    {
+        return 'profiles.forms._preselection_client-form';
+    }
+
     public function getAttributesData(): array
     {
         return [

@@ -16,7 +16,9 @@
         {{ mb_strtoupper( __("Application Data"))}}
     </div>
     <div class="card-body overflow-auto p-0" style="height: 80%">
-        @include('profiles.partials._show_profile_data')
+        @if($model->getActiveProgram() != null)
+            @include('profiles.partials._show_profile_data')
+        @endif
     </div>
 @endsection
 

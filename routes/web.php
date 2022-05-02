@@ -86,8 +86,7 @@ Route::get('profiles/profileTexts/{profile}', 'ProfileController@getProfileTexts
 Route::get('profiles/profileData/{profile}', 'ProfileController@getProfileData')->name('profiles.profileData');
 Route::get('profiles/programdata/{program}', 'ProfileController@getProgramData')->name('profiles.programdata');
 Route::get('profiles/getProgramsForMentor/{mentor}', 'ProfileController@getProgramsForMentor')->name('profiles.programsformentor');
-Route::get('profiles/testMail/{profile}', 'ProfileController@testMail')->name('profiles.testmail');
-Route::get('profiles/reports/{profile}', "ProfileController@reports")->name('profiles.reports');
+//Route::get('profiles/reports/{profile}', "ProfileController@reports")->name('profiles.reports');
 Route::get('profiles/trainings/{profile}', "ProfileController@trainings")->name('profiles.trainings');
 Route::get('profiles/sessions/{profile}', "ProfileController@sessions")->name('profiles.sessions');
 Route::get('profiles/verify/{token}', 'ProfileController@verify')->name('profiles.verify');
@@ -101,6 +100,7 @@ Route::post('profiles/evalDemoDay', 'ProfileController@evalDemoDay')->name('prof
 Route::post('profiles/evalPhase', 'ProfileController@evalPhase')->name('profiles.evalPhase');
 Route::post('profiles/notifyContract', 'ProfileController@notifyContract')->name('profiles.notifycontract');
 Route::post('profiles/saveApplicationData', 'ProfileController@saveApplicationData')->name('profiles.saveapplicationdata');
+Route::post('profiles/saveIBITFApplicationData', 'ProfileController@saveIBITFApplicationData')->name('profiles.saveIBITFApplicationData');
 Route::get('profiles/otherCompanies/{profile}', 'ProfileController@otherCompanies')->name('profiles.otherCompanies');
 Route::post('profiles/otherCompanies/{profile}', 'ProfileController@filterOtherCompanies')->name('profiles.filterOtherCompanies');
 Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->name('profiles.apply');

@@ -105,17 +105,11 @@
                 <span v-if="errors.membership_type" class="text-danger">{{ errors.membership_type}}</span>
             </b-form-group>
 
-<!--            <b-form-group id="reason_contact_group" label="Razlog kontaktiranja" label-for="reason_contact">-->
-<!--                <b-form-select v-model="form.reason_contact" :options="contactReasons" size="sm"></b-form-select>-->
-<!--                <span v-if="errors.reason_contact" class="text-danger">{{ errors.reason_contact}}</span>-->
-<!--            </b-form-group>-->
-<!--            <b-form-group id="note_group" label="Napomena/Primedba" label-for="note">-->
-<!--                <b-form-textarea-->
-<!--                    id="note"-->
-<!--                    v-model="form.note"-->
-<!--                    placeholder="Unesite primedbu ako je imate..."-->
-<!--                    rows="3"></b-form-textarea>-->
-<!--            </b-form-group>-->
+            <b-form-group id="ntp_group" label="NTP" label-for="ntp">
+                <b-form-select v-model="form.ntp" :options="ntps" size="sm"></b-form-select>
+                <span v-if="errors.ntp" class="text-danger">{{ errors.ntp}}</span>
+            </b-form-group>
+
             <div v-if="show_buttons" class="d-flex align-items-center justify-content-center">
                 <b-button size="sm" variant="primary" type="submit" class="mx-1" >Prihvati</b-button>
                 <b-button size="sm" variant="outline-primary" type="button" class="mx-1" @click="onCancel">Odustani</b-button>
@@ -129,7 +123,7 @@
 export default {
     name: "ProfileForm",
     props: {
-        action: '/profiles/create',
+        action: { typeof: String, default: '/profiles/create' },
         show_buttons: { typeof: Boolean, default: false },
         profile_id: { typeof: Number, default: 0 },
         token: {typeof: String, default: ''},
@@ -167,6 +161,8 @@ export default {
         },
         onSubmit() {
             let formData = new FormData();
+            formData.append('_token', this.token);
+
             for(const property in this.form) {
                 if(property == 'profile_logo' || property == 'profile_background' )
                     continue;
@@ -190,11 +186,13 @@ export default {
 
             if(this.profile_id != 0) {
                 return new Promise((resolve, reject) => {
-                    axios.post(this.action, formData, {
-                        'x-csrf-token': $('[name=_token]').val()
-                    })
+                    axios.post(this.action, formData)
                         .then(response => {
                             console.log(response.data);
+                            if(this.show_buttons) {
+                                console.log('location refreshed');
+                                window.location.href = '/profiles';
+                            }
                             resolve(response);
                         })
                         .catch((error) => {
@@ -211,12 +209,13 @@ export default {
                 // With promise
                 ////////////////////
                 return new Promise((resolve, reject) => {
-                    axios.post(this.action, formData,
-                        {
-                            'x-csrf-token' : $('[name=_token]').val()
-                        })
+                    axios.post(this.action, formData)
                         .then(response => {
                             console.log(response.data);
+                            if(this.show_buttons) {
+                                console.log('location refreshed');
+                                window.location.href = '/profiles';
+                            }
                             resolve(response);
                         }).catch(error => {
                             console.log(error.response.data.message);
@@ -228,47 +227,6 @@ export default {
                         });
                 });
 
-                //////////
-                // With return value
-                /////////
-                // let retValue = false;
-                // await axios.post('/profiles/create', formData)
-                //     .then(response => {
-                //         console.log(response.data);
-                //         this.errors = {};
-                //         retValue = true;
-                //     }).catch(error => {
-                //         this.errors = {};
-                //         for(let err in error.response.data.errors) {
-                //             this.errors[err] = error.response.data.errors[err][0];
-                //         }
-                //         retValue = false;
-                //     });
-                // return retValue;
-
-                // $.ajax({
-                //     url: '/profiles/create',
-                //     method: 'POST',
-                //     data: formData,
-                //     processData: false,
-                //     contentType: false,
-                //     success: function(data) {
-                //         console.log(data);
-                //
-                //     },
-                //     error: function(data) {
-                //         let errorData = data.responseJSON;
-                //         console.log(errorData);
-                //         // $('.error-notification').hide();
-                //         // for(let key in errorData.errors) {
-                //         //     let value = errorData.errors[key];
-                //         //     $('#' + key + 'Error').show().text(value);
-                //         // }
-                //
-                //         // $('#okSpinner').hide();
-                //         // button.disabled = false;
-                //     }
-                // })
             }
 
         },
@@ -289,6 +247,12 @@ export default {
     data() {
         return {
             show: true,
+            ntps: [
+                { value: 0, text: 'Nije dodeljen ...'},
+                { value: 1, text: 'Naučno-tehnološki park Beograd' },
+                { value: 2, text: 'Naučno-tehnološki park Niš' },
+                { value: 3, text: 'Naučno-tehnološki park Čačak' }
+            ],
             universities: [
                 { value: null, text: 'Izaberite ...' },
                 { value: 1 ,text: 'Arhitektura' },
@@ -345,7 +309,8 @@ export default {
                 business_branch: null,
                 // note: '',
                 profile_webpage: '',
-                membership_type: 0
+                membership_type: 0,
+                ntp: 0
             },
             errors: {}
 

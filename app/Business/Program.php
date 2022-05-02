@@ -779,7 +779,7 @@ class Program extends SituationsModel
     /**
      * Initializes program workflow.
      */
-    protected function initWorkflow() {}
+    public function initWorkflow() {}
 
     /**
      * Updates the program data.

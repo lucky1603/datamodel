@@ -19,7 +19,7 @@
 {{--        @include('profiles.partials._profile_create_form')--}}
 {{--    </div>--}}
 
-    <profile-form :token="{{ $token }}" :show_buttons="true" style="margin: 50px 200px 50px 200px"></profile-form>
+    <profile-form token="{{ $token }}" :show_buttons="true" style="margin: 50px 200px 50px 200px" ></profile-form>
 @endsection
 
 @section('sidemenu')
@@ -40,6 +40,7 @@
 
 @section('scripts')
     <script type="text/javascript">
+
         $(document).ready(function() {
             $('#cancel').click(function() {
                 history.go(-1);
@@ -62,6 +63,7 @@
                     $('#nameCol').removeClass('col-lg-6').addClass('col-lg-12');
                 }
             });
+
         });
     </script>
 

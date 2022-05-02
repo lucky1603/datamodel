@@ -65,7 +65,7 @@ class ProfileController extends Controller
         $profiles = Profile::find();
         $role = Auth::user()->roles()->first()->name;
         $token = csrf_token();
-        return view('profiles.index1', ['profiles' => $profiles, 'role' => $role, 'token' => $token]);
+        return view('profiles.index', ['profiles' => $profiles, 'role' => $role, 'token' => $token]);
     }
 
     public function otherCompanies($profileId) {
@@ -147,9 +147,9 @@ class ProfileController extends Controller
             $pcache->name = $data['name'];
             $pcache->logo = $profile->getValue('profile_logo')['filelink'];
             $pcache->membership_type = $profile->getValue('membership_type');
-            $pcache->membership_type_text = $profile->getValue('membership_type_text') ?? '';
-            $pcache->ntp = $profile->getValue('ntp');
-            $pcache->ntp_text = $profile->getText('ntp');
+            $pcache->membership_type_text = $profile->getText('membership_type') ?? '';
+            $pcache->ntp = $profile->getValue('ntp') ?? 0;
+            $pcache->ntp_text = $profile->getText('ntp') ?? 'Nije podesen';
             $pcache->profile_state = $profile->getValue('profile_state');
             $pcache->profile_state_text = $profile->getText('profile_state') ?? '';
             $pcache->is_company = $profile->getValue('is_company');
@@ -163,6 +163,11 @@ class ProfileController extends Controller
             $pcache->contact_person_name = $profile->getValue('contact_person');
             $pcache->contact_person_email = $profile->getValue('contact_email');
             $pcache->website = $profile->getValue('profile_webpage');
+            $pcache->faza_razvoja = $profile->getValue('faza_razvoja') ?? 0;
+            $pcache->faza_razvoja_tekst = $profile->getText('faza_razvoja') ?? 'Nije podešena';
+            $pcache->business_branch = $profile->getValue('business_branch') ?? 0;
+            $pcache->business_branch_text = $profile->getText('business_branch') ?? 'Nije podeseno';
+            $pcache->program_name = $profile->getActiveProgram() != null ? $profile->getActiveProgram()->getValue('program_name') : 'Nema';
             $pcache->save();
         } else {
             $program = $profile->getActiveProgram();
@@ -186,7 +191,12 @@ class ProfileController extends Controller
                 'program_name' => $program_name,
                 'contact_person_name' => $profile->getValue('contact_person'),
                 'contact_person_email' => $profile->getValue('contact_email'),
-                'website' => $profile->getValue('profile_webpage')
+                'faza_razvoja' => $profile->getValue('faza_razvoja') ?? 0,
+                'faza_razvoja_tekst' => $profile->getText('faza_razvoja') ?? '',
+                'business_branch' => $profile->getValue('business_branch') ?? 0,
+                'business_branch_text' => $profile->getText('business_branch') ?? '',
+                'website' => $profile->getValue('profile_webpage'),
+                'program_name' => $profile->getActiveProgram() != null ? $profile->getActiveProgram()->getValue('program_name') : 'Nema'
             ]);
         }
 
@@ -271,10 +281,15 @@ class ProfileController extends Controller
             'profile_state_text' => $profile->getText('profile_state'),
             'is_company' => $is_company,
             'is_company_text' => $is_company == true ? "Kompanija" : "Startap",
-            'program_name' => $program->getValue('program_name'),
+            'program_name' => $profile->getValue('program_name'),
             'contact_person_name' => $profile->getValue('contact_person'),
             'contact_person_email' => $profile->getValue('contact_email'),
-            'website' => $profile->getValue('profile_webpage')
+            'faza_razvoja' => $profile->getValue('faza_razvoja') ?? 0,
+            'faza_razvoja_tekst' => $profile->getText('faza_razvoja') ?? '',
+            'business_branch' => $profile->getValue('business_branch') ?? 0,
+            'business_branch_text' => $profile->getText('business_branch') ?? '',
+            'website' => $profile->getValue('profile_webpage'),
+            'program_name' => $profile->getActiveProgram() != null ? $profile->getActiveProgram()->getValue('program_name') : 'Nema'
         ]);
 
         if(Auth::user()->isAdmin()) {
@@ -288,10 +303,10 @@ class ProfileController extends Controller
 
     }
 
-    public function reports($id) {
-        $profile = Profile::find($id);
-        return view('profiles.reports', ['model' => $profile]);
-    }
+//    public function reports($id) {
+//        $profile = Profile::find($id);
+//        return view('profiles.reports', ['model' => $profile]);
+//    }
 
     public function trainings($id) {
         $this->authorize('read_client_profile', [$id]);
@@ -303,16 +318,6 @@ class ProfileController extends Controller
         $this->authorize('read_client_profile', [$id]);
         $profile = Profile::find($id);
         return view('profiles.sessions', ['model' => $profile]);
-    }
-
-    public function testMail($profileId) {
-        $profile = new Profile(['instance_id' => $profileId]);
-        $email = $profile->getAttribute('contact_email')->getValue();
-        Mail::to('sinisa.ristic@gmail.com')->send(new ProfileCreated($profile));
-        return [
-            'code' => 0,
-            'message' => 'Mail sent!'
-        ];
     }
 
     /**
@@ -402,6 +407,47 @@ class ProfileController extends Controller
             ]);
     }
 
+    public function saveIBITFApplicationData(Request $request) {
+        $data = $request->post();
+
+        $fileData = $this->addFileToData($request, 'resenje_fajl');
+        if($fileData != null) {
+            $data['resenje_fajl'] = $fileData;
+        }
+
+        $fileData = $this->addFileToData($request, 'founders_cv');
+        if($fileData != null) {
+            $data['founders_cv'] = $fileData;
+        }
+
+        if(isset($data['instance_id'])) {
+            // If the program exist, update its properties.
+            $program = ProgramFactory::resolve($data['instance_id']);
+            $program->setData($data);
+
+        } else {
+            // Create program.
+            $data['init_workflow'] = true;
+            $program = ProgramFactory::create(Program::$INKUBACIJA_BITF, $data);
+
+            // Add it to the profile.
+            $profile = Profile::find($data['profile_id']);
+            $profile->addProgram($program);
+
+            // Generate situation.
+            $profile->addSituationByData(__('Applying') , [
+                'program_type' => Program::$INKUBACIJA_BITF,
+                'program_name' => $program->getAttribute('program_name')->getValue()
+            ]);
+
+            // Update the profile status.
+            $profile->setData(['profile_status' => 3]);
+            $profile->updateState();
+        }
+
+        return redirect(route('home'));
+    }
+
     /**
      * Creates the new program, based on the data entered.
      * @param Request $request
@@ -459,6 +505,7 @@ class ProfileController extends Controller
         } else {
             // Create program.
             $programType = $data['programType'];
+            $data['init_workflow'] = true;
             $program = ProgramFactory::create($programType, $data);
 
             // Add it to the profile.
@@ -803,15 +850,15 @@ class ProfileController extends Controller
         $program = $profile->getActiveProgram(true);
 
         if($data['passed'] == 'on') {
-            $validation = $program->workflow->getCurrentPhase()->validateData($data);
+            $validation = $program->getWorkflow()->getCurrentPhase()->validateData($data);
             if($validation['code'] != 0) {
                 return $validation;
             }
 
-            if($program->workflow->isLastStep())
+            if($program->getWorkflow()->isLastStep())
             {
                 // Set data.
-                $program->workflow->getCurrentPhase()->setData($data);
+                $program->getWorkflow()->getCurrentPhase()->setData($data);
 
                 $profile->setValue('profile_status', 4);
                 $profile->addSituation(new Situation([
@@ -825,7 +872,7 @@ class ProfileController extends Controller
 
             } else {
                 $programStatus = $program->getStatus();
-                $phase = $program->workflow->getCurrentPhase();
+                $phase = $program->getWorkflow()->getCurrentPhase();
                 $phase->setData($data);
                 if($phase->requiresExitSituation()) {
                     $situation = $phase->getExitSituation();
@@ -838,7 +885,7 @@ class ProfileController extends Controller
                 }
 
                 $program->setStatus($programStatus + 1);
-                $phase = $program->workflow->getCurrentPhase();
+                $phase = $program->getWorkflow()->getCurrentPhase();
                 if($phase->requiresEntrySituation()) {
                     $situation = $phase->getEntrySituation();
                     if($situation != null)
@@ -850,7 +897,7 @@ class ProfileController extends Controller
             }
         } else {
             $profile->setValue('profile_status', 5);
-            $phase = $program->workflow->getCurrentPhase();
+            $phase = $program->getWorkflow()->getCurrentPhase();
             $phase->setData($data);
 
 
@@ -1215,7 +1262,8 @@ class ProfileController extends Controller
             'profile_logo',
             'profile_background',
             'membership_type',
-            'profile_webpage'
+            'profile_webpage',
+            'ntp'
         ];
 
         $profileData = [];
@@ -1239,9 +1287,12 @@ class ProfileController extends Controller
 
         }
         $program = $profile->getActiveProgram();
-        $programData['program_type'] = $program->getValue('program_type');
-        $programData['program_name'] = $program->getValue('program_name');
-        $programData['programid'] = $program->getId();
+        if($program != null) {
+            $programData['program_type'] = $program->getValue('program_type');
+            $programData['program_name'] = $program->getValue('program_name');
+            $programData['programid'] = $program->getId();
+        }
+
         return $programData;
     }
 
