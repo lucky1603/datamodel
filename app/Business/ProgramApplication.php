@@ -36,7 +36,9 @@ class ProgramApplication extends PhaseImpl
 
     public function getAttributesData(): array
     {
-        return [];
+        return [
+            'program' => $this->getWorkflow()->getProgram()
+        ];
     }
 
     public function getStatusValue(): int

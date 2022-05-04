@@ -148,8 +148,8 @@ class Profile extends SituationsModel
 
             $status->addOption(['value' => 1, 'text' => __('gui-select.PS-New')]);
             $status->addOption(['value' => 2, 'text' => __('gui-select.PS-Active')]);
-            $status->addOption(['value' => 2, 'text' => __('gui-select.PS-Inactive')]);
-            $status->addOption(['value' => 3, 'text' => __('gui-select.PS-Suspended')]);
+            $status->addOption(['value' => 3, 'text' => __('gui-select.PS-Inactive')]);
+            $status->addOption(['value' => 4, 'text' => __('gui-select.PS-Suspended')]);
 
 
         }

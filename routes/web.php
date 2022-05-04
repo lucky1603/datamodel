@@ -106,6 +106,9 @@ Route::post('profiles/otherCompanies/{profile}', 'ProfileController@filterOtherC
 Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->name('profiles.apply');
 
 Route::get('programs', 'ProgramController@index')->name('programs.index');
+Route::get('programs/{program}', 'ProgramController@show')->name('programs.show');
+Route::post('programs', 'ProgramController@filterCache')->name('programs.filterCache');
+
 
 Route::get('/files/create', 'FileController@create')->name('files.create');
 Route::post('/files/create', 'FileController@show')->name('files.show');

@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-    OVde dolazi lista programa
+    <program-explorer-table-view></program-explorer-table-view>
 @endsection

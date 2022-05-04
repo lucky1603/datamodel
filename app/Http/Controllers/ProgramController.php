@@ -4,14 +4,49 @@ namespace App\Http\Controllers;
 
 use App\Attribute;
 use App\Business\Program;
+use App\Business\ProgramFactory;
 use App\ProfileCache;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProgramController extends Controller
 {
 
     public function index() {
         return view('programs.index');
+    }
+
+    public function show($programId) {
+        $program = ProgramFactory::resolve($programId,true);
+        return view('programs.show', ['program' => $program]);
+    }
+
+    public function filterCache(Request $request) {
+        $data = $request->post();
+        $query = DB::table('program_caches');
+        return $query->select()->get()->map(function($row) {
+            return new class($row) {
+                public $id;
+                public $type;
+                public $typeText;
+                public $company;
+                public $status;
+                public $statusText;
+                public $logo;
+                public function __construct($row)
+                {
+                    $this->id = $row->program_id;
+                    $this->type = $row->program_type;
+                    $this->typeText = $row->program_type_text;
+                    $this->company = $row->profile_name;
+                    $this->logo = $row->profile_logo;
+                    $this->status = $row->program_status;
+                    $this->statusText= $row->program_status_text;
+                }
+
+            } ;
+        });
+
     }
 
 

@@ -19,8 +19,8 @@
                         @endphp
                         @if($attributeGroup->name == 'rstarts_tim')
                             @php
-                                $teamMembers = $model->getActiveProgram()->getTeamMembers();
-                                $founders = $model->getActiveProgram()->getFounders();
+                                $teamMembers = $program->getTeamMembers();
+                                $founders = $program->getFounders();
                             @endphp
                             @if($teamMembers->count() > 0)
                                 <h5 class="text-center">Članovi tima</h5>

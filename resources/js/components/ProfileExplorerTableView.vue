@@ -270,13 +270,10 @@ export default {
             ],
             states : [
                 { value: 0, text: "Po stanju"},
-                { value: 1, text: 'Zainteresovan'},
-                { value: 2, text: 'Prijava'},
-                { value: 3, text: 'Poslato'},
-                { value: 4, text: 'Selekcija'},
-                { value: 5, text: 'Ugovor'},
-                { value: 6, text: 'U programu'},
-                { value: 7, text: 'Odbijen'}
+                { value: 1, text: 'Nova'},
+                { value: 2, text: 'Aktivna'},
+                { value: 3, text: 'Alumni'},
+                { value: 4, text: 'Suspendovana/odbijena'},
             ],
             ntps: [
                 { value: 0, text: "Po NTP"},
