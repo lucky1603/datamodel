@@ -63,6 +63,10 @@ return [
     'PS-Contract' => 'Ugovor',
     'PS-InProgram' => 'U programu',
     'PS-Rejected' => 'Odbijen',
+    'PS-Active' => 'Aktivna',
+    'PS-New' => 'Nova',
+    'PS-Inactive' => 'Alumni',
+    'PS-Suspended' => 'Suspendovana',
 
     /*
      * Fulfillment Grade

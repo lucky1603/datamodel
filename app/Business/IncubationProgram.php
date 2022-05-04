@@ -55,7 +55,26 @@ class IncubationProgram extends Program
         $this->setData($data);
     }
 
-
+    /**
+     * Returns the textual representation of the program status.
+     * @param $status
+     * @return string
+     */
+    protected function getTextForStatus($status): string
+    {
+        switch ($status) {
+            case 1:
+                return "Prijava";
+            case 2:
+                return "Predselekcija";
+            case 3:
+                return "Selekcija";
+            case 4:
+                return "Ugovor";
+            default:
+                return parent::getTextForStatus($status);
+        }
+    }
 
     public static function getAttributesDefinition() : Collection
     {

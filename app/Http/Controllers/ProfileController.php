@@ -877,7 +877,7 @@ class ProfileController extends Controller
                 if($phase->requiresExitSituation()) {
                     $situation = $phase->getExitSituation();
                     if($situation != null)
-                        $profile->addSituation($phase->getExitSituation());
+                        $profile->addSituation($situation);
                 }
 
                 if($phase->requiresExitEmail()) {
@@ -889,7 +889,7 @@ class ProfileController extends Controller
                 if($phase->requiresEntrySituation()) {
                     $situation = $phase->getEntrySituation();
                     if($situation != null)
-                        $profile->addSituation($phase->getEntrySituation());
+                        $profile->addSituation($situation);
                 }
                 if($phase->requiresEntryEmail()) {
                     Mail::to($profile->getValue('contact_email'))->send($phase->getEntryEmailTemplate());

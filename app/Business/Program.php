@@ -21,6 +21,13 @@ class Program extends SituationsModel
     public static int $INKUBACIJA_BITF = 5;
     public static int $RASTUCE_KOMPANIJE = 6;
 
+    public static int $PROGRAM_UNDEFINED = 0;
+    public static int $PROGRAM_ACTIVE = -1;
+    public static int $PROGRAM_APP_DENIED = -2;
+    public static int $PROGRAM_SUSPENDED = -3;
+    public static int $PROGRAM_FINISHED = -4;
+
+
     public Workflow $workflow;
 
     /**
@@ -729,7 +736,6 @@ class Program extends SituationsModel
     public function getStatus()
     {
         return $this->getValue('program_status');
-//        return $this->workflow->getCurrentIndex();
     }
 
     public function setStatus(int $status) {
@@ -766,6 +772,16 @@ class Program extends SituationsModel
 
     }
 
+    /**
+     * Returns the textual representation of the status text.
+     * @return string
+     */
+    public function getStatusText(): string
+    {
+        return $this->getTextForStatus($this->getStatus());
+    }
+
+
     public function initReports() {}
 
 
@@ -785,5 +801,53 @@ class Program extends SituationsModel
      * Updates the program data.
      */
     protected function updateProgramData() {}
+
+    /**
+     * Returns the textual value for the given status value.
+     * @param $status
+     * @return string
+     */
+    protected function getTextForStatus($status): string
+    {
+        switch($status) {
+            case 0:
+                return "Nedefinisan";
+            case -1:
+                return "U PROGRAMU";
+            case -2:
+                return "Odbijena prijava";
+            case -3:
+                return "Prekid programa";
+            default:
+                return "Kraj programa";
+        }
+    }
+
+    public static function makeCache() {
+        DB::table('program_caches')->delete();
+
+        Program::find()->each(function($program) {
+            $profile = $program->getProfile();
+            if($profile == null)
+                return true;
+
+            $logo = $profile->getValue('profile_logo');
+            if($logo == null || $logo == ['filename' => '', 'filelink' => '']) {
+                $logo = asset('images/custom/nophoto2.png', false);
+            } else {
+                $logo = $logo['filelink'];
+            }
+
+            DB::table('program_caches')->insert([
+                'program_id' => $program->getId(),
+                'program_type' => $program->getValue('program_type'),
+                'program_type_text' => $program->getText('program_name'),
+                'profile_name' => $profile->getValue('name'),
+                'profile_logo' => $logo,
+                'program_status' => $program->getStatus(),
+                'program_status_text' => $program->getStatusText(),
+            ]);
+        });
+    }
 
 }

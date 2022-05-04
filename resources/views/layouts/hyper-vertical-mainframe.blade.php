@@ -2,12 +2,6 @@
 
 @section('sidemenu')
     @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
-{{--    <li class="side-nav-item">--}}
-{{--        <a href="{{route('home')}}" class="side-nav-link">--}}
-{{--            <i class="uil-dashboard"></i>--}}
-{{--            <span>{{ strtoupper( __('DASHBOARD')) }}</span>--}}
-{{--        </a>--}}
-{{--    </li>--}}
 
     <li class="side-nav-item">
         <a href="javascript:void(0);" class="side-nav-link" aria-expanded="false">
@@ -34,12 +28,12 @@
         </ul>
     </li>
 
-{{--    <li class="side-nav-item">--}}
-{{--        <a href="{{ route('profiles.index') }}" class="side-nav-link">--}}
-{{--            <i class="uil-bill"></i>--}}
-{{--            <span>{{ strtoupper(__('Profiles')) }}</span>--}}
-{{--        </a>--}}
-{{--    </li>--}}
+    <li class="side-nav-item">
+        <a href="{{ route('programs.index') }}" class="side-nav-link">
+            <i class="uil-laptop-cloud"></i>
+            <span>{{ mb_strtoupper(__('Programs')) }}</span>
+        </a>
+    </li>
 
     <li class="side-nav-item">
         <a href="{{ route('mentors.index') }}" class="side-nav-link">

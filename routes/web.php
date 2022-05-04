@@ -105,6 +105,8 @@ Route::get('profiles/otherCompanies/{profile}', 'ProfileController@otherCompanie
 Route::post('profiles/otherCompanies/{profile}', 'ProfileController@filterOtherCompanies')->name('profiles.filterOtherCompanies');
 Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->name('profiles.apply');
 
+Route::get('programs', 'ProgramController@index')->name('programs.index');
+
 Route::get('/files/create', 'FileController@create')->name('files.create');
 Route::post('/files/create', 'FileController@show')->name('files.show');
 Route::get('/situations/{situation}', 'SituationsController@show')->name('situations.show');

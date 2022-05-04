@@ -137,12 +137,21 @@ class Profile extends SituationsModel
 
         $status = self::selectOrCreateAttribute(['profile_status', __('Profile Status'), 'select', NULL, 14]);
         if(count($status->getOptions()) == 0) {
-            $status->addOption(['value' => 0, 'text' => __('gui-select.PS-Uninitialized')]);
-            $status->addOption(['value' => 1, 'text' => __('gui-select.PS-Mapped')]);
-            $status->addOption(['value' => 2, 'text' => __('gui-select.PS-Interest')]);
-            $status->addOption(['value' => 3, 'text' => __('gui-select.PS-Application')]);
-            $status->addOption(['value' => 4, 'text' => __('gui-select.PS-InProgram')]);
-            $status->addOption(['value' => 5, 'text' => __('gui-select.PS-Rejected')]);
+//            $status->addOption(['value' => 0, 'text' => __('gui-select.PS-Uninitialized')]);
+//            $status->addOption(['value' => 1, 'text' => __('gui-select.PS-Mapped')]);
+//            $status->addOption(['value' => 2, 'text' => __('gui-select.PS-Interest')]);
+//            $status->addOption(['value' => 3, 'text' => __('gui-select.PS-Application')]);
+//            $status->addOption(['value' => 4, 'text' => __('gui-select.PS-InProgram')]);
+//            $status->addOption(['value' => 5, 'text' => __('gui-select.PS-Rejected')]);
+
+
+
+            $status->addOption(['value' => 1, 'text' => __('gui-select.PS-New')]);
+            $status->addOption(['value' => 2, 'text' => __('gui-select.PS-Active')]);
+            $status->addOption(['value' => 2, 'text' => __('gui-select.PS-Inactive')]);
+            $status->addOption(['value' => 3, 'text' => __('gui-select.PS-Suspended')]);
+
+
         }
         $attributes[] = $status;
 
@@ -358,8 +367,8 @@ class Profile extends SituationsModel
                 'membership_type_text' => $profile->getText('membership_type') ?? '',
                 'ntp' => $profile->getValue('ntp') ?? 0,
                 'ntp_text' => $profile->getText('ntp') ?? '',
-                'profile_state' => $profile->getValue('profile_state') ?? 0,
-                'profile_state_text' => $profile->getText('profile_state') ?? '',
+                'profile_state' => $profile->getValue('profile_status') ?? 0,
+                'profile_state_text' => $profile->getText('profile_status') ?? '',
                 'is_company' => $is_company,
                 'is_company_text' => $is_company == true ? "Kompanija" : "Startap",
                 'program_name' => $program != null ?  $program->getValue('program_name') : '',
