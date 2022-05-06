@@ -108,6 +108,7 @@ Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->nam
 Route::get('programs', 'ProgramController@index')->name('programs.index');
 Route::get('programs/{program}', 'ProgramController@show')->name('programs.show');
 Route::post('programs', 'ProgramController@filterCache')->name('programs.filterCache');
+Route::post('programs/evalPhase', 'ProgramController@evalPhase')->name('programs.evalPhase');
 
 
 Route::get('/files/create', 'FileController@create')->name('files.create');

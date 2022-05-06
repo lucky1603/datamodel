@@ -125,8 +125,7 @@ class Contract extends PhaseImpl
             'attributes' => $this->getAttributes(),
             'id' => $this->getId(),
             'validStatus' => $this->getStatusValue(),
-            'profile' => $this->getWorkflow()->getProgram()->getProfile()->getId(),
-            'model' => $this->getWorkflow()->getProgram()->getProfile(),
+            'program' => $this->getWorkflow()->getProgram(),
             'contract' => $this
         ];
     }

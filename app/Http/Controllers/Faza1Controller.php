@@ -27,7 +27,7 @@ class Faza1Controller extends Controller
     public function sendfiles(Request $request): array
     {
         $data = $request->post();
-        $profileId = $data['profile'];
+        $programId = $data['programId'];
         $files = Utils::getFilesFromRequest($request, 'requested_files');
 
         if($files != ['filelink' => '', 'filename' => '']) {
@@ -37,20 +37,14 @@ class Faza1Controller extends Controller
         }
 
         return [
-            'profile' => $profileId,
+            'programId' => $programId,
             'files' => $files
         ];
     }
 
     public function rollback(Request $request) {
         $phaseId = $request->post('id');
-        var_dump($request->post());
         $faza1 = Faza1::find($phaseId);
-//        $program = $faza1->getWorkflow()->getProgram();
-//        $profile = $program->getProfile();
-//        $profileStatus = $profile->getValue('profile_status');
-//        $profileState = $profile->getValue('profile_state');
-//        $programStatus = $program->getStatus();
         $filesSent = $faza1->getValue('files_sent');
         if($filesSent) {
             $faza1->setValue("requested_files", null);

@@ -10,7 +10,7 @@
         <div class="row overflow-auto" >
             <div class="col-12 pt-3">
                 <input type="hidden" id="id" name="id" value="{{ $id }}">
-                <input type="hidden" id="profile" name="profile" value="{{ $profile }}">
+                <input type="hidden" id="programId" name="programId" value="{{ $program->getId() }}">
 
                 <div class="form-group row">
                     @php

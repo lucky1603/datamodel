@@ -30,6 +30,7 @@ class IncubationProgram extends Program
     {
         if($this->getWorkflow() == null)
             $this->setWorkflow(new IncubationWorkflow());
+        $this->workflow->setCurrentIndex($this->getStatus()-1);
     }
 
     protected function updateProgramData()

@@ -623,11 +623,11 @@ class Profile extends SituationsModel
 
     }
 
-    public function getPrograms() {
+    public function getPrograms($initWorkflow=false) {
         $programs = [];
         foreach($this->instance->instances as $instance) {
             if($instance->entity->name === 'Program') {
-                $programs[] = ProgramFactory::resolve($instance->id);
+                $programs[] = ProgramFactory::resolve($instance->id, $initWorkflow);
             }
         }
 

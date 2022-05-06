@@ -28,7 +28,7 @@ class Program extends SituationsModel
     public static int $PROGRAM_FINISHED = -4;
 
 
-    public Workflow $workflow;
+    public ?Workflow $workflow = null;
 
     /**
      * Constructor with arguments
@@ -61,22 +61,28 @@ class Program extends SituationsModel
 
         if(isset($data['init_workflow']) && $data['init_workflow'] == true) {
             $this->initWorkflow();
-            $this->workflow = $this->getWorkflow();
         }
 
         $this->setStatus($this->getValue('program_status') ?? 1);
 
     }
 
+    /**
+     * Ova funkcija i dohvata i inicijalizuje workflow.
+     * @return Workflow|null
+     */
     public function getWorkflow(): ?Workflow
     {
-        return $this->instance->instances->filter(function($instance) {
-            if($instance->entity->name == 'Workflow')
-                return true;
-            return false;
+        if($this->workflow != null)
+            return $this->workflow;
+
+        $this->workflow = $this->instance->instances->filter(function($instance) {
+            return $instance->entity->name === 'Workflow';
         })->map(function($instance) {
             return WorkflowFactory::resolve($instance->id);
         })->first();
+
+        return $this->workflow;
     }
 
     public function removeWorkflows() {
@@ -84,10 +90,13 @@ class Program extends SituationsModel
             if($instance->entity->name == 'Workflow')
                 $instance->delete();
         });
+
+        $this->workflow = null;
     }
 
     public function setWorkflow(Workflow $workflow) {
         $this->removeWorkflows();
+        $this->workflow = $workflow;
         $this->instance->instances()->attach($workflow->getId());
         $this->instance->refresh();
     }
@@ -739,8 +748,8 @@ class Program extends SituationsModel
     }
 
     public function setStatus(int $status) {
-        if(isset($this->workflow)) {
-            $this->workflow->setCurrentIndex($status);
+        if($status > 0 && isset($this->workflow)) {
+            $this->workflow->setCurrentIndex($status - 1);
         }
         $this->setValue('program_status', $status);
     }

@@ -42,8 +42,10 @@ export default {
             });
         },
         rowClicked(item, index, event) {
-            console.log('clicked on ' + item.id);
-            window.location.href = '/programs/' + item.id;
+            // console.log('clicked on ' + item.id);
+            $('body').css('cursor', 'progress');
+            Dispecer.$emit('program-clicked', item.id);
+            // window.location.href = '/programs/' + item.id;
         },
 
         getLogo(logo) {

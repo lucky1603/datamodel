@@ -24,7 +24,6 @@ class ContractsController extends Controller
     public function update(Request $request, $contractId): array
     {
         $data = $request->post();
-        var_dump($data);
 
         $contract_file = $request->file('contract_document');
         $data['contract_file'] = $contract_file;
@@ -52,7 +51,6 @@ class ContractsController extends Controller
     public function deleteContractDocument(Request $request): array
     {
         $contractId = $request->post('contractId');
-        var_dump('REceived contract id je '.$contractId);
         $contract = Contract::find($contractId);
         $contractFile = $contract->getValue('contract_document');
         if($contractFile != null) {

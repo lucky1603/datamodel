@@ -48,7 +48,7 @@ class AppFormEvaluation extends PhaseImpl
             'id' => $this->getId(),
             'validStatus' => $this->getStatusValue(),
             'model' => $this,
-            'profile' => $this->getWorkflow()->getProgram()->getProfile()->getId()
+            'program' => $this->getWorkflow()->getProgram()
         ];
     }
 

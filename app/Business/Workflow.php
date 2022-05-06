@@ -99,7 +99,7 @@ class Workflow extends BusinessModel
 
     public function isLastStep(): bool
     {
-        if($this->phases->count() == $this->getCurrentIndex())
+        if($this->phases->count() == $this->getCurrentIndex() + 1)
             return true;
         return false;
     }

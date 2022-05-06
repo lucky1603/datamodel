@@ -92,10 +92,14 @@ const app = new Vue({
     methods: {
         profileClick(id) {
             window.location = '/profiles/' + id;
+        },
+        programClick(id) {
+            window.location = '/programs/' + id;
         }
     },
     mounted() {
         Dispecer.$on('profile-clicked', this.profileClick);
+        Dispecer.$on('program-clicked', this.programClick);
     }
 });
 

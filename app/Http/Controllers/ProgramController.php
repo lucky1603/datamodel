@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Attribute;
+use App\Business\Profile;
 use App\Business\Program;
 use App\Business\ProgramFactory;
+use App\Business\Situation;
 use App\ProfileCache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ProgramController extends Controller
 {
@@ -19,6 +22,111 @@ class ProgramController extends Controller
     public function show($programId) {
         $program = ProgramFactory::resolve($programId,true);
         return view('programs.show', ['program' => $program]);
+    }
+
+    public function evalPhase(Request $request) {
+        $data = $request->post();
+
+        if(!isset($data['programId'])) {
+            return [
+                'code' => 1,
+                'message' => __('Wrong parameters')
+            ];
+        }
+
+        $programId = $data['programId'];
+        $program = ProgramFactory::resolve($programId, true);
+        if($program === null) {
+            return [
+                'code' => 2,
+                'message' => __('Profile doesn\'t exist'),
+            ];
+        }
+
+        $profile = $program->getProfile();
+
+        if($data['passed'] == 'on') {
+            $validation = $program->getWorkflow()->getCurrentPhase()->validateData($data);
+            if($validation['code'] != 0) {
+                return $validation;
+            }
+
+            if($program->getWorkflow()->isLastStep())
+            {
+                // Set data.
+                $program->getWorkflow()->getCurrentPhase()->setData($data);
+
+                $program->setStatus(Program::$PROGRAM_ACTIVE);
+
+                $situation = new Situation([
+                    'name' => 'U PROGRAMU',
+                    'description' => 'Klijent je počeo da koristi program',
+                    'sender' => 'NTP'
+                ]);
+
+                $profile->addSituation($situation);
+                $program->addSituation($situation);
+
+                // Dodaj izveštaje
+                $program->initReports();
+
+            } else {
+                $programStatus = $program->getStatus();
+                $phase = $program->getWorkflow()->getCurrentPhase();
+                $phase->setData($data);
+                if($phase->requiresExitSituation()) {
+                    $situation = $phase->getExitSituation();
+                    if($situation != null) {
+                        $profile->addSituation($situation);
+                        $program->addSituation($situation);
+                    }
+                }
+
+                if($phase->requiresExitEmail()) {
+                    Mail::to($profile->getValue('contact_email'))->send($phase->getExitEmailTemplate());
+                }
+
+                $program->setStatus($programStatus + 1);
+                $phase = $program->getWorkflow()->getCurrentPhase();
+                if($phase->requiresEntrySituation()) {
+                    $situation = $phase->getEntrySituation();
+                    if($situation != null) {
+                        $profile->addSituation($situation);
+                        $program->addSituation($situation);
+                    }
+
+                }
+                if($phase->requiresEntryEmail()) {
+                    Mail::to($profile->getValue('contact_email'))->send($phase->getEntryEmailTemplate());
+                }
+            }
+        } else {
+            $program->setStatus(Program::$PROGRAM_SUSPENDED);
+            $phase = $program->getWorkflow()->getCurrentPhase();
+            $phase->setData($data);
+
+            if($phase->requiresExitSituation()) {
+                $profile->addSituation($phase->getExitSituation());
+                $program->addSituation($phase->getExitSituation());
+            } else {
+                $situation = new Situation([
+                    'name' => 'ODBIJEN',
+                    'description' => 'Klijent je odbijen u fazi - "'.$phase->getDisplayName().'".',
+                    'sender' => 'NTP'
+                ]);
+                $profile->addSituation($situation);
+                $program->addSituation($situation);
+            }
+
+            if($phase->requiresExitEmail()) {
+                Mail::to($profile->getValue('contact_email'))->send($phase->getExitEmailTemplate());
+            }
+        }
+
+        return [
+            'code' => 0,
+            'message' => __('Eval successfull!'),
+        ];
     }
 
     public function filterCache(Request $request) {

@@ -78,7 +78,7 @@ class DemoDay extends PhaseImpl
             'validStatus' => $this->getStatusValue(),
             'notified' => $this->getValue('demoday_client_notified'),
             'model' => $this,
-            'profile' => $this->getWorkflow()->getProgram()->getProfile()->getId()
+            'program' => $this->getWorkflow()->getProgram()
         ];
     }
 

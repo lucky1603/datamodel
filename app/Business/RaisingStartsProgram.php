@@ -74,6 +74,7 @@ class RaisingStartsProgram extends Program
     {
         if($this->getWorkflow() == null)
             $this->setWorkflow(new RaisingStartsWorkflow());
+        $this->workflow->setCurrentIndex($this->getStatus()-1);
     }
 
     protected function updateProgramData()

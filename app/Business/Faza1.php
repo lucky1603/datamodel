@@ -46,7 +46,7 @@ class Faza1 extends PhaseImpl
             'attributes' => $this->getAttributes(),
             'id' => $this->getId(),
             'validStatus' => $this->getStatusValue(),
-            'profileId' => $this->getWorkflow()->getProgram()->getProfile()->getId(),
+            'program' => $this->getWorkflow()->getProgram(),
             'phase' => $this
         ];
     }

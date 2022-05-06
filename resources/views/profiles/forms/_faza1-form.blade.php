@@ -1,7 +1,6 @@
 <div class="container h-100">
     @php
-        $profile = \App\Business\Profile::find($profileId);
-        $profile_status = $profile->getValue('profile_status');
+        $status = $program->getStatus();
     @endphp
     <form id="myFaza1Form" method="POST" enctype='multipart/form-data' action="" class="pl-2 pr-2 h-100" >
         <div class="row">
@@ -15,7 +14,7 @@
             <div class="col-12 pt-3">
                 @csrf
                 <input type="hidden" id="id" name="id" value="{{ $id }}">
-                <input type="hidden" id="profile" name="profile" value="{{ $profileId }}">
+                <input type="hidden" id="program" name="profile" value="{{ $program->getId() }}">
                 @if($phase->getValue('due_date') != NULL)
                     <div class="form-group row">
                         @php
@@ -25,7 +24,7 @@
                         <label for="{{ $attribute->name }}" class="col-lg-3 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
                         <div class="col-lg-4">
                             <input type="date" class="form-control form-control-sm" id="{{ $attribute->name }}"
-                                   name="{{ $attribute->name }}" @if($profile_status == 4) disabled @endif
+                                   name="{{ $attribute->name }}" @if($status == -1) disabled @endif
                                    @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif>
                         </div>
 
@@ -37,7 +36,7 @@
                         @endphp
                         <div class="col-lg-12">
                             <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
-                            <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($profile_status == 4) disabled @endif>{{ $value }}</textarea>
+                            <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($status == -1) disabled @endif>{{ $value }}</textarea>
                         </div>
                     </div>
                     <div class="row mb-4">
@@ -91,7 +90,7 @@
             </div>
         </div>
 
-        <div class="row text-center @if($status <= $validStatus) d-flex align-items-center justify-content-center @else d-none @endif" >
+        <div class="row text-center @if($status <= $validStatus && $status != -1) d-flex align-items-center justify-content-center @else d-none @endif" >
             <button type="button" id="btnSaveFaza1" class="btn btn-sm btn-primary ml-1"  @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
             <button type="button" id="btnFaza1Passed" class="btn btn-sm btn-success ml-1"  @if($status != $validStatus || !$phase->isValid()) disabled @endif>
                 <span id="button_spinner_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
