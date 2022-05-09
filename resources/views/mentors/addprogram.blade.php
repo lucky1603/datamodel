@@ -12,6 +12,9 @@
             <label for="program[]">Programi</label>
             <select id="program" name="program[]" class="form-control" multiple>
                 @foreach($programs as $program)
+                    @if($program->getProfile() == null)
+                        @continue
+                    @endif
                     <option value="{{ $program->getId() }}">
                         <span class="attribute-label font-weight-bold">{{ $program->getProfile()->getValue('name') }}</span> - {{ $program->getValue('program_name') }}</option>
                 @endforeach

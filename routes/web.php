@@ -108,6 +108,7 @@ Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->nam
 Route::get('programs', 'ProgramController@index')->name('programs.index');
 Route::get('programs/create', 'ProgramController@create')->name('programs.create');
 Route::get('programs/{program}', 'ProgramController@show')->name('programs.show');
+Route::get('programs/sessions/{program}', 'ProgramController@sessions')->name('programs.sessions');
 Route::get('programs/check/{program}', 'ProgramController@check')->name('programs.check');
 Route::get('programs/profile/{program}', 'ProgramController@profile')->name('programs.profile');
 Route::get('programs/apply/{program}/{profile}', 'ProgramController@apply')->name('programs.apply');

@@ -1,4 +1,4 @@
-@extends('layouts.hyper-vertical-profile')
+@extends('layouts.hyper-vertical-program')
 
 {{--@section('page-title')--}}
 {{--    {{ $model->getValue('name') }}--}}

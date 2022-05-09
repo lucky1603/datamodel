@@ -604,6 +604,13 @@ class ProgramController extends Controller
 
     }
 
+    public function sessions($programId) {
+//        $this->authorize('read_client_profile', [$id]);
+        $program = ProgramFactory::resolve($programId);
+        $profile = $program->getProfile();
+        return view('programs.sessions', ['profile' => $profile, 'program' => $program]);
+    }
+
     public function trainings($programId) {
         $program = ProgramFactory::resolve($programId);
         return view('programs.trainings', ['program' => $program]);

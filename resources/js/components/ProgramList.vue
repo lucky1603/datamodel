@@ -86,6 +86,9 @@ export default {
                     this.$refs['addProgramModal'].show();
                     this.formContent = content;
                     console.log(content);
+                })
+                .catch(error => {
+                    console.log(error);
                 });
         },
         async onOk() {
