@@ -653,7 +653,7 @@ class Profile extends SituationsModel
      * @param $programType
      * @return bool
      */
-    public function hasProgram($programType): bool
+    public function hasProgram($programType)
     {
         $activePrograms = $this->getPrograms()->filter(function($program) use ($programType) {
             $status = $program->getStatus();
@@ -661,8 +661,8 @@ class Profile extends SituationsModel
         });
 
         if($activePrograms->count() > 0)
-            return true;
-        return false;
+            return $activePrograms->first()->getId();
+        return 0;
     }
 
     public function getActiveProgramInstanceId(): ?int

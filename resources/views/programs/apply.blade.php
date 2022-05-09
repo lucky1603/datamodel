@@ -9,7 +9,7 @@
 
 @section('sidemenu')
     <li class="side-nav-item">
-        <a href="{{route('programs.create')}}" class="side-nav-link">
+        <a href="{{ \Illuminate\Support\Facades\URL::previous() }}" class="side-nav-link">
             <i class="uil-dashboard"></i>
             <span>{{ mb_strtoupper( __('Nazad')) }}</span>
         </a>
@@ -28,6 +28,7 @@
             <form id="myForm" style="height: 100%" method="post" enctype="multipart/form-data" action="{{ $route }}" >
                 @csrf
                 <input type="hidden" id="programType" name="programType" value="{{ $programType }}">
+                <input type="hidden" id="profile_id" name="profile_id" value="{{ $model->getId() }}">
                 @if(isset($program))
                     <input type="hidden" id="programId" name="programId" value="{{ $program->getId() }}">
                 @endif

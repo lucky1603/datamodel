@@ -481,7 +481,57 @@ class ProgramController extends Controller
     }
 
     public function saveIBITFApplicationData(Request $request) {
+        $data = $request->post();
 
+        $fileData = $this->addFileToData($request, 'resenje_fajl');
+        if($fileData != null) {
+            $data['resenje_fajl'] = $fileData;
+        }
+
+        $fileData = $this->addFileToData($request, 'founders_cv');
+        if($fileData != null) {
+            $data['founders_cv'] = $fileData;
+        }
+
+        if(isset($data['instance_id'])) {
+            // If the program exist, update its properties.
+            $program = ProgramFactory::resolve($data['instance_id']);
+            $program->setData($data);
+
+        } else {
+            // Create program.
+            $data['init_workflow'] = true;
+            $program = ProgramFactory::create(Program::$INKUBACIJA_BITF, $data);
+
+            // Add it to the profile.
+            $profile = Profile::find($data['profile_id']);
+            $profile->addProgram($program);
+
+            // Generate situation.
+            $situation = $profile->addSituationByData(__('Applying') , [
+                'program_type' => Program::$INKUBACIJA_BITF,
+                'program_name' => $program->getAttribute('program_name')->getValue()
+            ]);
+
+            $program->addSituation($situation);
+
+            // Update the profile status.
+            $profile->setData(['profile_status' => 2]);
+
+            // Update cache
+            DB::table('program_caches')
+                ->insert([
+                    'program_id' => $program->getId(),
+                    'program_type' => $program->getValue('program_type'),
+                    'program_type_text' => "INCUBATION BITF",
+                    'profile_name' => $profile->getValue('name'),
+                    'profile_logo' => $profile->getValue('profile_logo')['filelink'],
+                    'program_status' => $program->getStatus(),
+                    'program_status_text' => $program->getStatusText()
+                ]);
+        }
+
+        return redirect(route('programs.profile', ['program' => $program->getId()]));
     }
 
     public function saveApplicationData(UpdateRaisingStartsRequest $request) {
@@ -555,6 +605,19 @@ class ProgramController extends Controller
 
             // Update the profile status.
             $profile->setValue('profile_status', 2);
+
+            // Update cache
+            DB::table('program_caches')
+                ->insert([
+                    'program_id' => $program->getId(),
+                    'program_type' => $program->getValue('program_type'),
+                    'program_type_text' => "RAISING STARTS",
+                    'profile_name' => $profile->getValue('name'),
+                    'profile_logo' => $profile->getValue('profile_logo')['filelink'],
+                    'program_status' => $program->getStatus(),
+                    'program_status_text' => $program->getStatusText()
+                ]);
+
         }
 
         if(isset($data['rstarts_logo'])) {
@@ -705,6 +768,22 @@ class ProgramController extends Controller
 
         $program->setValue('statistic_sent', 'on');
 
+    }
+
+    private function addFileToData(Request $request, $filename): ?array
+    {
+        $file = $request->file($filename);
+        if($file != null) {
+            $originalFileName = $file->getClientOriginalName();
+            $path = $file->store('documents');
+            $path = asset($path);
+            return [
+                'filename' => $originalFileName,
+                'filelink' => $path
+            ];
+        }
+
+        return null;
     }
 
 
