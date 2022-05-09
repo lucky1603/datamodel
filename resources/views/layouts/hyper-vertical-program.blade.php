@@ -36,7 +36,7 @@
         @endif
 
         @if($program instanceof \App\Business\RaisingStartsProgram &&
-            ($program->getStatus()) > 3 || $program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE))
+            ($program->getStatus() > 3 || $program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE))
 
         <li class="side-nav-item" id="navSessions">
             <a href="{{route('profiles.sessions', ['profile' => $profile->getId()])}}" class="side-nav-link">

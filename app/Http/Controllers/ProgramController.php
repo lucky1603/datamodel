@@ -132,7 +132,6 @@ class ProgramController extends Controller
             {
                 // Set data.
                 $program->getWorkflow()->getCurrentPhase()->setData($data);
-
                 $program->setStatus(Program::$PROGRAM_ACTIVE);
 
                 $situation = new Situation([
@@ -164,15 +163,6 @@ class ProgramController extends Controller
                 }
 
                 $program->setStatus($programStatus + 1);
-
-                // Update cache.
-                DB::table('program_caches')
-                    ->where('program_id', $program->getId())
-                    ->update([
-                        'program_status' => $program->getStatus(),
-                        'program_status_text' => $program->getStatusText()
-                    ]);
-
                 $phase = $program->getWorkflow()->getCurrentPhase();
                 if($phase->requiresEntrySituation()) {
                     $situation = $phase->getEntrySituation();
@@ -208,6 +198,14 @@ class ProgramController extends Controller
                 Mail::to($profile->getValue('contact_email'))->send($phase->getExitEmailTemplate());
             }
         }
+
+        // Update cache.
+        DB::table('program_caches')
+            ->where('program_id', $program->getId())
+            ->update([
+                'program_status' => $program->getStatus(),
+                'program_status_text' => $program->getStatusText()
+            ]);
 
         return [
             'code' => 0,
