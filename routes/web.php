@@ -106,9 +106,18 @@ Route::post('profiles/otherCompanies/{profile}', 'ProfileController@filterOtherC
 Route::get('profiles/apply/{program}/{profile}', 'ProfileController@apply')->name('profiles.apply');
 
 Route::get('programs', 'ProgramController@index')->name('programs.index');
+Route::get('programs/create', 'ProgramController@create')->name('programs.create');
 Route::get('programs/{program}', 'ProgramController@show')->name('programs.show');
+Route::get('programs/check/{program}', 'ProgramController@check')->name('programs.check');
+Route::get('programs/profile/{program}', 'ProgramController@profile')->name('programs.profile');
+Route::get('programs/apply/{program}/{profile}', 'ProgramController@apply')->name('programs.apply');
+Route::get('programs/trainings/{program}', 'ProgramController@trainings')->name('programs.trainings');
+Route::post('programs/attendances/{program}', 'ProgramController@attendances')->name('programs.attendances');
+Route::get('programs/training/{program}/{training}', 'ProgramController@training')->name('programs.training');
 Route::post('programs', 'ProgramController@filterCache')->name('programs.filterCache');
 Route::post('programs/evalPhase', 'ProgramController@evalPhase')->name('programs.evalPhase');
+Route::post('programs/saveApplicationData', 'ProgramController@saveApplicationData')->name('programs.saveapplicationdata');
+Route::post('programs/saveIBITFApplicationData', 'ProgramController@saveIBITFApplicationData')->name('programs.saveIBITFApplicationData');
 
 
 Route::get('/files/create', 'FileController@create')->name('files.create');

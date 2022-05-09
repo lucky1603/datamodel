@@ -463,7 +463,7 @@ class Profile extends SituationsModel
     /// Situations part
     ///
 
-    public function addSituationByData($situationType, $params)
+    public function addSituationByData($situationType, $params): ?Situation
     {
         $data = [];
         $situation = null;
@@ -621,6 +621,8 @@ class Profile extends SituationsModel
             $this->addSituation($situation);
         }
 
+        return $situation;
+
     }
 
     public function getPrograms($initWorkflow=false) {
@@ -646,7 +648,25 @@ class Profile extends SituationsModel
         return null;
     }
 
-    public function getActiveProgramInstanceId() {
+    /**
+     * Checks if the profile already has an active program of this type.
+     * @param $programType
+     * @return bool
+     */
+    public function hasProgram($programType): bool
+    {
+        $activePrograms = $this->getPrograms()->filter(function($program) use ($programType) {
+            $status = $program->getStatus();
+            return $program->getValue('program_type') == $programType && ($status == -1 || $status > 0);
+        });
+
+        if($activePrograms->count() > 0)
+            return true;
+        return false;
+    }
+
+    public function getActiveProgramInstanceId(): ?int
+    {
         if($this->instance->instances->count() == 0)
             return null;
 

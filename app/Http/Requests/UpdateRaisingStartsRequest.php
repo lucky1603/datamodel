@@ -38,7 +38,7 @@ class UpdateRaisingStartsRequest extends FormRequest
             'rstarts_innovative_area' => 'max:1000',
             'rstarts_business_plan' => 'max:1000',
             'rstarts_statup_progress' => 'max:1000',
-            'rstarts_mentor_program_history' => 'max:1050',
+            'rstarts_mentor_program_history' => 'max:1600',
             'rstarts_logo' => 'mimes:jpg,jpeg,bmp,png,gif',
             'rstarts_founder_links' => 'max:1000',
             'rstarts_links' => 'max:1000',
@@ -50,8 +50,8 @@ class UpdateRaisingStartsRequest extends FormRequest
             'rstarts_financing_sources' => 'max:1000',
             'six_months_income' => 'numeric',
             'memberName' => 'max:1000',
-            'memberEducation' => 'max:1050',
-            'memberRolw' => 'max:1000',
+            'memberEducation' => 'max:1600',
+            'memberRole' => 'max:1000',
             'memberOtherJob' => 'max:400',
             'founderName.*' => 'max: 100',
             'founderPart.*' => 'numeric'
@@ -67,8 +67,8 @@ class UpdateRaisingStartsRequest extends FormRequest
 
             if(count($data['memberEducation']) > 0) {
                 foreach($data['memberEducation'] as $education) {
-                    if(strlen($education) > 1050) {
-                        $validator->errors()->add('memberEducation', 'Ovaj unos ne sme imati više od 1050 karaktera!');
+                    if(strlen($education) > 2500) {
+                        $validator->errors()->add('memberEducation', 'Ovaj unos ne sme imati više od 2500 karaktera!');
                         break;
                     }
                 }

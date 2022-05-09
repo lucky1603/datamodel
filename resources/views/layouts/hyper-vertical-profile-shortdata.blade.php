@@ -1,4 +1,4 @@
-@extends('layouts.hyper-verical-program')
+@extends('layouts.hyper-vertical-program')
 
 @section('content')
 

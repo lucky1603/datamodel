@@ -25,7 +25,7 @@
                     action="#">
                     @csrf
                     <input type="hidden" id="id" name="id" value="{{ $faza->getId() }}">
-                    <input type="hidden" id="profile" name="profile" value="{{ $model->getId() }}">
+                    <input type="hidden" id="programId" name="programId" value="{{ $program->getId() }}">
                     <div class="form-group">
                         <label for="requested_files" class="col-form-label col-form-label-sm attribute-label">Datoteke za slanje</label>
                         <input type="file" multiple id="requested_files" name="requested_files[]" class="form-control form-control-file">

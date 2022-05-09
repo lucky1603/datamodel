@@ -14,7 +14,7 @@
             <div class="col-12 pt-3">
                 @csrf
                 <input type="hidden" id="id" name="id" value="{{ $id }}">
-                <input type="hidden" id="program" name="profile" value="{{ $program->getId() }}">
+                <input type="hidden" id="programId" name="programId" value="{{ $program->getId() }}">
                 @if($phase->getValue('due_date') != NULL)
                     <div class="form-group row">
                         @php

@@ -2,11 +2,11 @@
 
 @section('profile-content')
     @php
-        $status = $model->getValue('profile_status');
+        $status = $program->getStatus();
     @endphp
-    @if(in_array($status, [1,2]))
+    @if($status == 1)
         @yield('status')
-    @elseif($status >= 3)
+    @else
         <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
             <li class="nav-item">
                 <a href="#application" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
@@ -30,8 +30,9 @@
                 @yield('status')
             </div>
         </div>
+    @endif
 {{--    @else--}}
 {{--        @yield('application-data')--}}
-    @endif
+
 
 @endsection

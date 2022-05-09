@@ -62,7 +62,7 @@ export default {
         itemsperpage: {typeof: Number, default: 9},
         source: {typeof: String, default: '/trainings/filter'},
         is_client: { typeof: Boolean, default: false },
-        profile_id: { typeof: Number, default: 0 },
+        program_id: { typeof: Number, default: 0 },
         item_height: { typeof: Number, default: 225 }
     },
     methods: {
@@ -114,8 +114,8 @@ export default {
             // $('body').css('cursor', 'default');
         },
         onEventClicked(eventId) {
-            if(this.profile_id != 0) {
-                window.location.href = `/profiles/profile/showTraining/${this.profile_id}/${eventId}`;
+            if(this.program_id != 0) {
+                window.location.href = `/programs/training/${this.program_id}/${eventId}`;
             } else {
                 window.location.href = '/trainings/' + eventId;
             }

@@ -35,24 +35,18 @@ class HomeController extends Controller
 
         if(auth()->user()->isAdmin() === false) {
             $instance = auth()->user()->instances->first();
-            if(isset($instance) && $instance->entity->name === 'Client') {
-                $client = Client::find($instance->id);
-                return redirect(route('clients.profile', $client->getId()));
-            }
-            else if(isset($instance) && $instance->entity->name === 'Profile') {
+            if(isset($instance) && $instance->entity->name === 'Profile') {
                 $profile = Profile::find($instance->id);
-                $program = $profile->getActiveProgram();
-                if($program != null && $program->getValue('program_type') == Program::$RAISING_STARTS) {
-                    $deadline = strtotime('2021-12-30 12:00');
-                    $now = strtotime(now());
-                    if($now > $deadline && $program->getStatus() == 1) {
-                        Auth::logout();
-                        return redirect(route('expired'));
-                    }
-                }
+//                if($program != null && $program->getValue('program_type') == Program::$RAISING_STARTS) {
+//                    $deadline = strtotime('2021-12-30 12:00');
+//                    $now = strtotime(now());
+//                    if($now > $deadline && $program->getStatus() == 1) {
+//                        Auth::logout();
+//                        return redirect(route('expired'));
+//                    }
+//                }
 
-
-                return redirect(route('profiles.profile', $profile->getId()));
+                return redirect(route('profiles.show', ['profile' => $profile->getId()]));
             }
             else if(isset($instance) && $instance->entity->name === 'Mentor') {
                 $mentor = Mentor::find($instance->id);

@@ -52,10 +52,22 @@
                             @continue
                         @endif
                         <tr>
-                            <td><textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror">{{ old('memberName.'.$i) }}</textarea></td>
-                            <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror">{{ old('memberEducation.'.$i) }}</textarea></td>
-                            <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror">{{ old( 'memberRole.'.$i) }}</textarea></td>
-                            <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror">{{ old('memberOtherJob.'.$i) }}</textarea></td>
+                            <td>
+                                <textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror">{{ old('memberName.'.$i) }}</textarea>
+                                @error('memberName.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            </td>
+                            <td>
+                                <textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror">{{ old('memberEducation.'.$i) }}</textarea>
+                                @error('memberEducation.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            </td>
+                            <td>
+                                <textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror">{{ old( 'memberRole.'.$i) }}</textarea>
+                                @error('memberRole.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            </td>
+                            <td>
+                                <textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror">{{ old('memberOtherJob.'.$i) }}</textarea>
+                                @error('memberOtherJob.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            </td>
                         </tr>
                     @endfor
                 @else
@@ -76,10 +88,22 @@
             @else
                 @foreach($teamMembers as $teamMember)
                     <tr>
-                        <td><textarea name="memberName[]" rows="4" class="w-100" required>{{ $teamMember->getValue('team_member_name') }}</textarea></td>
-                        <td><textarea name="memberEducation[]" rows="4" class="w-100">{{ $teamMember->getValue('team_education') }}</textarea> </td>
-                        <td><textarea name="memberRole[]" rows="4" class="w-100">{{ $teamMember->getValue('team_role') }}</textarea></td>
-                        <td><textarea name="memberOtherJob[]" rows="4" class="w-100">{{ $teamMember->getValue('team_other_job') }}</textarea></td>
+                        <td>
+                            <textarea name="memberName[]" rows="4" class="w-100" required>{{ $teamMember->getValue('team_member_name') }}</textarea>
+                            @error('memberName')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        </td>
+                        <td>
+                            <textarea name="memberEducation[]" rows="4" class="w-100">{{ $teamMember->getValue('team_education') }}</textarea>
+                            @error('memberEducation')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        </td>
+                        <td>
+                            <textarea name="memberRole[]" rows="4" class="w-100">{{ $teamMember->getValue('team_role') }}</textarea>
+                            @error('memberRole')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        </td>
+                        <td>
+                            <textarea name="memberOtherJob[]" rows="4" class="w-100">{{ $teamMember->getValue('team_other_job') }}</textarea>
+                            @error('memberOtherJob')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        </td>
                     </tr>
                 @endforeach
             @endif
@@ -87,7 +111,10 @@
         </table>
     </div>
 
-    @error('memberName')<div class="alert alert-danger">{{ $message }}</div>@enderror
+
+
+
+
     <button id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj člana tima" >+</button>
 </div>
 

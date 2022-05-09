@@ -9,6 +9,7 @@ return [
      * The following language lines are used in GUI components.
      */
 
+    'Apply-Yourself' => "Apply",
     'Clients' => 'Clients',
     'Contracts' => 'Contracts',
     'Home' => 'Home',
