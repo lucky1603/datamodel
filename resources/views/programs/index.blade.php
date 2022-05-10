@@ -5,5 +5,34 @@
 @endsection
 
 @section('content')
-    <program-explorer-table-view></program-explorer-table-view>
+    @php
+        if(\Illuminate\Support\Facades\Session::has('program_type'))
+            $program_type = \Illuminate\Support\Facades\Session::get('program_type');
+        else
+            $program_type = 0;
+
+        if(\Illuminate\Support\Facades\Session::has('program_name'))
+            $name = \Illuminate\Support\Facades\Session::get('program_name');
+        else
+            $name = '';
+
+        if(\Illuminate\Support\Facades\Session::has('program_status')) {
+            $program_status = \Illuminate\Support\Facades\Session::get('program_status');
+        } else {
+            $program_status = 0;
+        }
+
+        if(\Illuminate\Support\Facades\Session::has('page')) {
+            $page = \Illuminate\Support\Facades\Session::get('page');
+        } else {
+            $page = 1;
+        }
+    @endphp
+    <program-explorer-table-view
+        page_size="15"
+        f_name="{{ $name }}"
+        :f_program_type="{{ $program_type }}"
+        :f_program_status="{{ $program_status }}" :f_page="{{ $page }}">
+    </program-explorer-table-view>
 @endsection
+

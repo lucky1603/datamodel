@@ -115,7 +115,7 @@ Route::get('programs/apply/{program}/{profile}', 'ProgramController@apply')->nam
 Route::get('programs/trainings/{program}', 'ProgramController@trainings')->name('programs.trainings');
 Route::post('programs/attendances/{program}', 'ProgramController@attendances')->name('programs.attendances');
 Route::get('programs/training/{program}/{training}', 'ProgramController@training')->name('programs.training');
-Route::post('programs', 'ProgramController@filterCache')->name('programs.filterCache');
+Route::post('programs/filterCache', 'ProgramController@filterCache')->name('programs.filterCache');
 Route::post('programs/evalPhase', 'ProgramController@evalPhase')->name('programs.evalPhase');
 Route::post('programs/saveApplicationData', 'ProgramController@saveApplicationData')->name('programs.saveapplicationdata');
 Route::post('programs/saveIBITFApplicationData', 'ProgramController@saveIBITFApplicationData')->name('programs.saveIBITFApplicationData');

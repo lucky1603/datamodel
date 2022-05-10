@@ -31,7 +31,7 @@
     <div class="left-side-menu">
 
         <!-- LOGO -->
-        <a href="https://ntpark.rs" class="logo text-center logo-light">
+        <a href="{{ route('home') }}" class="logo text-center logo-light">
             <span class="logo-lg left-top-logo">
                 <img src="/images/custom/white-logo-transparent.png" alt="">
             </span>
@@ -41,7 +41,7 @@
         </a>
 
         <!-- LOGO -->
-        <a href="index.html" class="logo text-center logo-dark">
+        <a href="{{ route('home') }}" class="logo text-center logo-dark">
             <span class="logo-lg">
                 <img src="/assets/images/logo-dark.png" alt="" height="16">
             </span>

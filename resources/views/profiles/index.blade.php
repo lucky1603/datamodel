@@ -15,8 +15,8 @@
         else
             $profile_state = 0;
 
-        if(\Illuminate\Support\Facades\Session::has('name'))
-            $name = \Illuminate\Support\Facades\Session::get('name');
+        if(\Illuminate\Support\Facades\Session::has('profile_name'))
+            $name = \Illuminate\Support\Facades\Session::get('profile_name');
         else
             $name = '';
 
@@ -40,13 +40,6 @@
 
 
     @endphp
-{{--    <profile-explorer--}}
-{{--        class="h-auto"--}}
-{{--        f_profile_state="{{ $profile_state }}"--}}
-{{--        f_name="{{ $name }}"--}}
-{{--        f_ntp="{{ $ntp }}"--}}
-{{--        f_is_company="{{ $is_company }}" f_page="{{ $page }}" :itemsperpage="36" token="{{ $token }}">--}}
-{{--    </profile-explorer>--}}
 
     <profile-explorer-table-view
         :page_size="20"

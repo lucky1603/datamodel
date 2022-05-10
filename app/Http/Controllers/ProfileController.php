@@ -1169,10 +1169,10 @@ class ProfileController extends Controller
         $filter = [];
         if($data['name'] == '') {
             unset($data['name']);
-            Session::forget('name');
+            Session::forget('profile_name');
         }
         else {
-            Session::put('name', $data['name']);
+            Session::put('profile_name', $data['name']);
             $name = $data['name'];
             unset($data['name']);
         }

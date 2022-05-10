@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class ProgramController extends Controller
 {
@@ -454,30 +455,64 @@ class ProgramController extends Controller
 
     public function filterCache(Request $request) {
         $data = $request->post();
-        $query = DB::table('program_caches');
-        return $query->select()->get()->map(function($row) {
-            return new class($row) {
-                public $id;
-                public $type;
-                public $typeText;
-                public $company;
-                public $status;
-                public $statusText;
-                public $logo;
-                public function __construct($row)
-                {
-                    $this->id = $row->program_id;
-                    $this->type = $row->program_type;
-                    $this->typeText = $row->program_type_text;
-                    $this->company = $row->profile_name;
-                    $this->logo = $row->profile_logo;
-                    $this->status = $row->program_status;
-                    $this->statusText= $row->program_status_text;
-                }
 
-            } ;
-        });
+        $filter = [];
+        if($data['name'] == '') {
+            unset($data['name']);
+            Session::forget('program_name');
+        }
+        else {
+            Session::put('program_name', $data['name']);
+            $name = $data['name'];
+            unset($data['name']);
+        }
 
+        if($data['program_type'] == 0) {
+            unset($data['program_type']);
+            Session::forget('program_type');
+        }
+        else
+            Session::put('program_type', $data['program_type']);
+
+        if($data['program_status'] == 0) {
+            unset($data['program_status']);
+            Session::forget('program_status');
+        } else {
+            Session::put('program_status', $data['program_status']);
+        }
+
+        if(count($data) == 0)
+            $data = [];
+
+        $query = count($data) ? DB::table('program_caches')->where($data) : DB::table('program_caches');
+        if(isset($name)) {
+            $query = $query->where('profile_name', 'like', $name.'%');
+        }
+
+        return $query->select()
+            ->get()
+            ->map(function($program) {
+                return new class($program) {
+                    public $id;
+                    public $type;
+                    public $typeText;
+                    public $company;
+                    public $logo;
+                    public $status;
+                    public $statusText;
+
+                    public function __construct($program)
+                    {
+                        $this->id = $program->program_id;
+                        $this->type = $program->program_type;
+                        $this->typeText = $program->program_type_text;
+                        $this->company = $program->profile_name;
+                        $this->logo = $program->profile_logo;
+                        $this->status = $program->program_status;
+                        $this->statusText = $program->program_status_text;
+                    }
+                };
+            });
     }
 
     public function saveIBITFApplicationData(Request $request) {
@@ -730,8 +765,6 @@ class ProgramController extends Controller
                 'role' => $role
             ]);
     }
-
-
 
     /////
     /// STATISTICS ///

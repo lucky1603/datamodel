@@ -48,9 +48,6 @@
             <template #cell(name)="data">
                 <img :src="getLogo(data.item.logo)" width="24px" class="mr-2"> {{ data.value }}
             </template>
-<!--            <template #cell(tip)="data">-->
-<!--                {{ getCompanyType(data.item.isCompany)}}-->
-<!--            </template>-->
             <template #cell(stateText)="data">
                 <span :class="getStatusClass(data.item.state)">{{ data.value }}</span>
             </template>
@@ -154,6 +151,7 @@ export default {
             for(const property in this.form) {
                 formData.append(property, this.form[property]);
             }
+
             await axios.post(this.source, formData)
             .then(response => {
                 console.log(response.data);

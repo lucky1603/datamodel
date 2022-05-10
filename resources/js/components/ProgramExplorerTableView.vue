@@ -1,8 +1,31 @@
 <template>
     <div>
+        <b-form v-if="show_header" id="filterForm" inline class="w-100 bg-light">
+            <b-row id="toolbar" class="row w-100">
+                <b-col xl="1" lg="1" class="pt-1">
+                    <span class="m-2 position-relative" style="top:12px" >FILTER</span>
+                </b-col>
+                <b-col xl="2" lg="3" style="display: flex; flex-direction: row; justify-content: left">
+                    <b-input-group class="w-100 m-2 mt-3 mt-sm-3 mt-lg-2" size="sm">
+                        <b-form-input v-model="form.name" type="search" id="searchName" placeholder="Po nazivu ..." @update="onSubmit"></b-form-input>
+                        <template #append>
+                            <b-input-group-text><b-icon-zoom-in></b-icon-zoom-in></b-input-group-text>
+                        </template>
+                    </b-input-group>
+                </b-col>
+                <b-col xl="2" lg="2" style="display: flex; justify-content: left">
+                    <b-form-select size="sm" class="m-2 w-100" v-model="form.program_type" :options="programTypes" @change="onSubmit"></b-form-select>
+                </b-col>
+                <b-col xl="2" lg="2" style="display: flex; justify-content: left">
+                    <b-form-select size="sm" class="m-2 w-100" v-model="form.program_status" :options="programStatuses" @change="onSubmit"></b-form-select>
+                </b-col>
+            </b-row>
+        </b-form>
         <b-table
             :items="programs"
             :fields="fields"
+            :per-page="page_size"
+            :current-page="currentPage"
             head-variant="dark"
             small
             bordered
@@ -20,6 +43,12 @@
                 <span :class="getStatusClass(data.value)">{{ data.item.statusText.toUpperCase() }}</span>
             </template>
         </b-table>
+        <b-pagination
+            v-model="currentPage"
+            :total-rows="programs.length"
+            :per-page="page_size"
+            aria-controls="profileTable" align="right"
+        ></b-pagination>
     </div>
 </template>
 
@@ -27,18 +56,32 @@
 export default {
     name: "ProgramExplorerTableView",
     props: {
-        source: { typeof: String, default: '/programs'}
+        source: { typeof: String, default: '/programs/filterCache'},
+        page_size: { typeof: Number, default: 10 },
+        show_header: { typeof: Boolean, default: true },
+        f_name : { typeof: String, default: ''},
+        f_program_type: { typeof: Number, default: 0 },
+        f_program_status : { typeof: Number, default: 0 },
+        f_page: {typeof: Number, default: 0 }
     },
     methods: {
         async getData() {
-            let data = new FormData();
-            await axios.post(this.source, data)
+            let formData = new FormData();
+            for(const property in this.form) {
+                formData.append(property, this.form[property]);
+            }
+            await axios.post(this.source, formData)
             .then(response => {
                 console.log(response.data);
                 this.programs = [];
                 for(const property in response.data) {
                     this.programs.push(response.data[property])
                 }
+            })
+            .catch(error => {
+                console.log(error);
+                console.log(error.response.message);
+
             });
         },
         rowClicked(item, index, event) {
@@ -75,16 +118,84 @@ export default {
             }
 
             return retval;
-        }
+        },
+        async onSubmit() {
+            if(this.form.program_type == 0) this.form.program_status = 0;
 
+            await this.getData();
+            // Update statusa
+            this.updateProgramStatuses();
+
+        },
+        updateProgramStatuses() {
+            this.programStatuses.length = 0;
+            this.programStatuses.push({ value: 0, text: 'Po statusu'});
+            if(this.form.program_status != 0) {
+                this.programStatuses.push({ value: -1, text: 'U PROGRAMU'});
+                this.programStatuses.push({ value: -2, text: 'SUSPENDOVAN/ODBIJEN'});
+                this.programStatuses.push({ value: -3, text: "KRAJ PROGRAMA"});
+            }
+
+            switch(this.form.program_type) {
+                case 2: // RAISING STARTS
+                    this.programStatuses.push({ value: 1, text: 'PRIJAVA'});
+                    this.programStatuses.push({ value: 2, text: 'EVALUACIJA PRIJAVE'});
+                    this.programStatuses.push({ value: 3, text: 'FAZA 1'});
+                    this.programStatuses.push({ value: 4, text: 'DEMO DAY'});
+                    this.programStatuses.push({ value: 1, text: 'UGOVOR'});
+                    break;
+                case 5: // INCUBATION BITF
+                    this.programStatuses.push({ value: 1, text: 'PRIJAVA'});
+                    this.programStatuses.push({ value: 2, text: 'PREDSELEKCIJA'});
+                    this.programStatuses.push({ value: 3, text: 'SELEKCIJA'});
+                    this.programStatuses.push({ value: 4, text: 'UGOVOR'});
+                    break;
+                default:
+                    break;
+            }
+        },
+        pageChanged(ctx) {
+            // console.log(`Page changed ${this.currentPage}`);
+            let data = new FormData();
+            data.append('page', this.currentPage);
+            axios.post('/profiles/setSessionVars', data)
+                .then(response => {
+                    console.log(response.data);
+                });
+        },
 
     },
     async mounted() {
+        this.form.name = this.f_name;
+        this.form.program_type = this.f_program_type;
+        this.form.program_status = this.f_program_status;
+
         await this.getData();
+        this.updateProgramStatuses();
+
+        this.currentPage = this.f_page;
     },
     data() {
         return {
             programs: [],
+            currentPage: 0,
+            form: {
+                name: '',
+                program_type: 0,
+                program_status: 0,
+            },
+            programTypes: [
+                { value: 0, text: 'Po tipu'},
+                { value: 2, text: 'RAISING STARTS'},
+                { value: 5, text: 'INCUBATION BITF'},
+            ],
+            programStatuses: [
+                { value: 0, text: 'Po statusu'},
+                { value: -1, text: 'Aktivan' },
+                { value: -2, text: 'Suspendovan' },
+                { value: -3, text: 'Kraj programa' },
+                { value: 1, text: 'Prijava/Selekcija/Ugovor'}
+            ],
             fields: [
                 {
                     key: 'company',
