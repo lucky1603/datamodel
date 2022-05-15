@@ -1,0 +1,62 @@
+<template>
+    <div class="card">
+        <div class="card-header bg-primary text-white">PROGRAMI NA KOJIMA UČESTVUJE</div>
+        <div class="card-body d-flex flex-wrap">
+            <tile-item
+                v-for="(program, index) in programs"
+                :title="program.name"
+                :key="index"
+                :subtitle="program.status"
+                :photo="getImageForProgramType(program.type)"
+                :id="program.id" class="mr-2 bg-secondary" @tile-clicked="tileClicked"></tile-item>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: "ProfilePrograms",
+    props: {
+        profileId: {typeof: Number, default: 0},
+        source: { typeof: String, default: '/profiles/programsForProfile' }
+    },
+    data() {
+        return {
+            programs: [],
+        }
+    },
+    methods: {
+        async getData() {
+            await axios.get(this.source + '/' + this.profileId)
+            .then(response => {
+                console.log(response.data);
+                this.programs.length = 0;
+                for(let program in response.data) {
+                    this.programs.push(response.data[program]);
+                }
+            });
+        },
+        getImageForProgramType(programType) {
+            switch(programType) {
+                case 2:
+                    return '/images/custom/raisingstarts.png';
+                case 5:
+                    return '/images/custom/inkubacija.png';
+                default:
+                    return '/images/custom/noimage.png';
+            }
+        },
+        tileClicked(tileId) {
+            console.log(tileId);
+            window.location = '/programs/' + tileId;
+        }
+    },
+    async mounted() {
+        await this.getData();
+    }
+}
+</script>
+
+<style scoped>
+
+</style>

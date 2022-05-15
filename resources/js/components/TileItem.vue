@@ -2,8 +2,11 @@
     <div :class="cardClass" style="width: 100px; height: 120px" role="button" @click="tileClicked">
         <div class="card-body p-0">
             <div v-if="label != null && label.show" :class="labelClass"><span>{{ label.text }}</span></div>
-            <div class="d-flex flex-column align-items-start justify-content-center w-100 h-100">
-                <img :src="imageSource" class="w-100">
+            <div class="d-flex flex-column w-100 h-100">
+                <div class="d-flex align-items-center p-1" style="height: 100px;">
+                    <img :src="imageSource" class="w-100">
+                </div>
+
                 <div class="d-flex align-items-center justify-content-center bg-dark w-100" style="height: 20px">
                     <span class="font-10 text-white">{{ title }}</span>
                 </div>

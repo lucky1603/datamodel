@@ -75,6 +75,7 @@ Route::post('profiles/filter', 'ProfileController@filter')->name('profiles.filte
 Route::post('profiles/filterCache', 'ProfileController@filterCache')->name('profiles.filterCache');
 Route::get('profiles/create', 'ProfileController@create')->name('profiles.create');
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
+Route::get('profiles/programsForProfile/{profile}', 'ProfileController@getProgramsForProfile')->name('profiles.programs');
 Route::post('profiles/programAttendances/{profile}', 'ProfileController@programAttendances')->name('profiles.programAttendances');
 Route::get('profiles/edit/{profile}', 'ProfileController@edit')->name('profiles.edit');
 Route::get('profiles/statistics/{profile}', 'ProfileController@getStatistics')->name('profiles.getStatistics');
@@ -82,6 +83,7 @@ Route::post('profiles/statistics', 'ProfileController@updateStatistics')->name('
 Route::post('profiles/edit', 'ProfileController@update')->name('profiles.update');
 Route::get('profiles/trainingCandidates', 'ProfileController@getTrainingCandidates')->name('profiles.trainingcandidates');
 Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');
+Route::get('profiles/pvd/{profile}', 'ProfileController@getProfileViewData')->name('profiles.pvd');
 Route::get('profiles/profileTexts/{profile}', 'ProfileController@getProfileTexts')->name('profiles.profileTexts');
 Route::get('profiles/profileData/{profile}', 'ProfileController@getProfileData')->name('profiles.profileData');
 Route::get('profiles/programdata/{program}', 'ProfileController@getProgramData')->name('profiles.programdata');

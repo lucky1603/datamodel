@@ -12,24 +12,27 @@
         $data = $model->getData();
         $programs = $model->getPrograms();
     @endphp
-    <h3>PROPERTIES</h3>
-    @foreach($data as $key=>$value)
-        @if(is_array($value))
-            @continue
-        @endif
 
-        <div class="d-flex">
-            <span class="w-25 mr-2">{{ $key }}:</span>
-            <span><strong>{{ $value }}</strong></span>
-        </div>
-    @endforeach
-    <h3>PROGRAMS</h3>
-    @if(count($programs) > 0)
-        @foreach($programs as $program)
-            <a href="{{ route('programs.show', ['program' => $program->getId()]) }}">{{ $program->getValue('program_name') }}</a>
-        @endforeach
-    @else
-        <p>No active programs</p>
-    @endif
+{{--    <h3>PROPERTIES</h3>--}}
+{{--    @foreach($data as $key=>$value)--}}
+{{--        @if(is_array($value))--}}
+{{--            @continue--}}
+{{--        @endif--}}
+
+{{--        <div class="d-flex">--}}
+{{--            <span class="w-25 mr-2">{{ $key }}:</span>--}}
+{{--            <span><strong>{{ $value }}</strong></span>--}}
+{{--        </div>--}}
+{{--    @endforeach--}}
+{{--    <h3>PROGRAMS</h3>--}}
+{{--    @if(count($programs) > 0)--}}
+{{--        @foreach($programs as $program)--}}
+{{--            <a href="{{ route('programs.show', ['program' => $program->getId()]) }}">{{ $program->getValue('program_name') }}</a>--}}
+{{--        @endforeach--}}
+{{--    @else--}}
+{{--        <p>No active programs</p>--}}
+{{--    @endif--}}
+
+    <profile-view :profile_id="{{ $model->getId() }}"></profile-view>
 
 @endsection

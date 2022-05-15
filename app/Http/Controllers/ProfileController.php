@@ -4,37 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Attribute;
 use App\AttributeGroup;
-use App\Business\BusinessModel;
-use App\Business\Client;
-use App\Business\Contract;
-use App\Business\DemoDay;
-use App\Business\Founder;
 use App\Business\IncubationProgram;
 use App\Business\Mentor;
-use App\Business\Preselection;
 use App\Business\Profile;
 use App\Business\Program;
 use App\Business\ProgramFactory;
 use App\Business\RaisingStartsProgram;
-use App\Business\Selection;
-use App\Business\Situation;
-use App\Business\TeamMember;
 use App\Business\Training;
 use App\Exports\ProfileExport;
 use App\Exports\RaisingStartsProgramExport;
-use App\Http\Middleware\Authenticate;
-use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateRaisingStartsRequest;
 use App\Mail\ApplicationSuccess;
 use App\Mail\CustomMessage;
-use App\Mail\DemoDayNotification;
 use App\Mail\MeetingNotification;
 use App\Mail\ProfileCreated;
-use App\Mail\ProfileRejected;
 use App\ProfileCache;
 use App\User;
-use App\Value;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -44,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
+use \Illuminate\Support\Collection;
 
 class ProfileController extends Controller
 {
@@ -920,6 +907,59 @@ class ProfileController extends Controller
         return $profileData;
     }
 
+    public function getProfileViewData($profileId): array
+    {
+        $profile = Profile::find($profileId);
+
+        $profileData = [
+            'name' => $profile->getValue('name'),
+            'mb' => $profile->getValue('id_number'),
+            'is_company' => $profile->getValue('is_company'),
+            'address' => $profile->getValue('address'),
+            'webpage' => $profile->getValue('profile_webpage'),
+            'ino_desc' => $profile->getvalue('short_ino_desc'),
+            'business_branch' => $profile->getValue('business_branch'),
+            'profile_status' => $profile->getValue('profile_status'),
+            'profile_status_text' => $profile->getText('profile_status'),
+            'ntp' => $profile->getText('ntp')
+        ];
+
+        $profileLogo = $profile->getValue('profile_logo');
+        if($profileLogo == null || $profileLogo == ['filename' => '', 'filelink' => '']) {
+            $profileData['logo'] = asset('/images/custom/noimage.png');
+        } else {
+            $profileData['logo'] = $profileLogo['filelink'];
+        }
+
+        $contactData = [
+            'name' => $profile->getValue('contact_person'),
+            'email' => $profile->getValue('contact_email'),
+            'phone' => $profile->getValue('contact_phone')
+        ];
+
+        $user = $profile->getUsers()->first();
+        if($user->photo != null ) {
+            $contactData['photo'] = $user->photo;
+        } else {
+            $contactData['photo'] = asset('/images/custom/nophoto2.png');
+        }
+
+        $programData = [];
+        $programs = $profile->getPrograms();
+        foreach($programs as $program) {
+            $programData[] = [
+                'id' => $program->getId(),
+                'name' => $program->getValue('program_name')
+            ];
+        }
+
+        return [
+            'profile' => $profileData,
+            'contact' => $contactData,
+            'programs' => $programData
+        ];
+    }
+
     public function getProfileTexts($profileId) {
         $profile = Profile::find($profileId);
         $attributes = $profile->getAttributes();
@@ -940,6 +980,21 @@ class ProfileController extends Controller
         }
 
         return $programData;
+    }
+
+    public function getProgramsForProfile($profileId): Collection
+    {
+        $profile = Profile::find($profileId);
+        return $profile->getPrograms()->map(function($program) {
+            return [
+                'id' => $program->getId(),
+                'name' => $program->getValue('program_name'),
+                'type' => $program->getValue('program_type'),
+                'status' => $program->getStatus(),
+                'statusText' => $program->getStatusText()
+            ];
+        });
+
     }
 
     /**
