@@ -82,6 +82,8 @@ Vue.component('profile-statistics', require('./components/ProfileStatistics').de
 Vue.component('program-explorer-table-view', require('./components/ProgramExplorerTableView').default);
 Vue.component('profile-view', require('./components/ProfileView').default);
 Vue.component('profile-programs', require('./components/ProfilePrograms').default);
+Vue.component('profile-users', require('./components/ProfileUsers').default);
+Vue.component('user-form', require('./components/UserForm').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

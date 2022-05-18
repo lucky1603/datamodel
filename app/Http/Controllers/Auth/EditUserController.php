@@ -41,6 +41,17 @@ class EditUserController extends Controller
         return view('auth.edituser', ['user' => $user]);
     }
 
+    public function userData($userId): array
+    {
+        $user = User::find($userId);
+        return [
+            'name' => $user->name,
+            'photo' => $user->photo,
+            'email' => $user->email,
+            'position' => $user->position,
+        ];
+    }
+
     public function editFromAdminPreview($userId) {
         $user = User::find($userId);
         $backroute = session('usereditbackto');

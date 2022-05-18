@@ -901,7 +901,12 @@ class ProfileController extends Controller
 
         $profileData = [];
         foreach($order as $key) {
-            $profileData[$key] = $data[$key];
+            if($key === 'business_branch') {
+                $profileData[$key] = $profile->getText($key);
+            } else {
+                $profileData[$key] = $data[$key];
+            }
+
         }
 
         return $profileData;
@@ -918,7 +923,7 @@ class ProfileController extends Controller
             'address' => $profile->getValue('address'),
             'webpage' => $profile->getValue('profile_webpage'),
             'ino_desc' => $profile->getvalue('short_ino_desc'),
-            'business_branch' => $profile->getValue('business_branch'),
+            'business_branch' => $profile->getText('business_branch'),
             'profile_status' => $profile->getValue('profile_status'),
             'profile_status_text' => $profile->getText('profile_status'),
             'ntp' => $profile->getText('ntp')
@@ -995,6 +1000,19 @@ class ProfileController extends Controller
             ];
         });
 
+    }
+
+    public function getProfileUsers($profileId) {
+        $profile = Profile::find($profileId);
+        return $profile->getUsers()->map(function($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+                'photo' => $user->photo,
+                'email' => $user->email,
+                'position' => $user->position
+            ];
+        });
     }
 
     /**

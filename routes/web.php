@@ -38,6 +38,7 @@ Route::post('/edituser/deleted', 'Auth\EditUserController@deleted')->name('user.
 Route::post('/edituser/updatePassword', 'Auth\EditUserController@updatePassword')->name('user.updatepassword');
 Route::get('/edituser/addforprofile/{profile}', 'Auth\EditUserController@addForProfile')->name('user.addforprofile');
 Route::post('/edituser/addedforprofile/{profile}', 'Auth\EditUserController@addedForProfile')->name('user.addedforprofile');
+Route::get('edituser/userData/{user}', 'Auth\EditUserController@userData')->name('user.userData');
 Route::get('/edituser/add', 'Auth\EditUserController@add')->name('user.add');
 Route::get('/edituser/{user}', 'Auth\EditUserController@edit')->name('user.edit');
 Route::post('/edituser/{user}', 'Auth\EditUserController@update')->name('user.update');
@@ -76,6 +77,7 @@ Route::post('profiles/filterCache', 'ProfileController@filterCache')->name('prof
 Route::get('profiles/create', 'ProfileController@create')->name('profiles.create');
 Route::post('profiles/create', 'ProfileController@store')->name('profiles.store');
 Route::get('profiles/programsForProfile/{profile}', 'ProfileController@getProgramsForProfile')->name('profiles.programs');
+Route::get('profiles/profileUsers/{profile}', 'ProfileController@getProfileUsers')->name('profiles.profileUsers');
 Route::post('profiles/programAttendances/{profile}', 'ProfileController@programAttendances')->name('profiles.programAttendances');
 Route::get('profiles/edit/{profile}', 'ProfileController@edit')->name('profiles.edit');
 Route::get('profiles/statistics/{profile}', 'ProfileController@getStatistics')->name('profiles.getStatistics');
