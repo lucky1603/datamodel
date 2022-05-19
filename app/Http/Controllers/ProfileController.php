@@ -971,11 +971,15 @@ class ProfileController extends Controller
         $programData = [];
         foreach($attributes as $attribute) {
             if($attribute->name == 'profile_logo' || $attribute->name == 'profile_background') {
-                $programData[$attribute->name] = $attribute->getValue()['filelink'];
+                if($attribute->getValue() != null) {
+                    $programData[$attribute->name] = $attribute->getValue()['filelink'];
+                } else {
+                    $programData[$attribute->name] = '/images/custom/nophoto2.png';
+                }
+
             } else {
                 $programData[$attribute->name] = $attribute->getText();
             }
-
         }
         $program = $profile->getActiveProgram();
         if($program != null) {

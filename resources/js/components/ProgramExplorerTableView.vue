@@ -142,7 +142,7 @@ export default {
                     this.programStatuses.push({ value: 2, text: 'EVALUACIJA PRIJAVE'});
                     this.programStatuses.push({ value: 3, text: 'FAZA 1'});
                     this.programStatuses.push({ value: 4, text: 'DEMO DAY'});
-                    this.programStatuses.push({ value: 1, text: 'UGOVOR'});
+                    this.programStatuses.push({ value: 5, text: 'UGOVOR'});
                     break;
                 case 5: // INCUBATION BITF
                     this.programStatuses.push({ value: 1, text: 'PRIJAVA'});

@@ -859,4 +859,67 @@ class Program extends SituationsModel
         });
     }
 
+    public static function migrateToNewModel()
+    {
+        // Zameni vrednosti atributa - status profila
+        $options = [
+            1 =>  __('gui-select.PS-New'),
+            2 => __('gui-select.PS-Active'),
+            3 => __('gui-select.PS-Inactive'),
+            4 => __('gui-select.PS-Suspended')
+        ];
+
+        $attribute = Attribute::where('name', 'profile_status')->first();
+        $attribute->setOptions($options);
+
+        // Promeni vrednosti statusa profila i programa
+        Program::find()->each(function($program) {
+            $profile = $program->getProfile();
+            $profile_status = $profile->getValue('profile_status');
+
+            if(in_array($profile_status, [1,2])) {
+                $profile->setValue('profile_status', 1);
+            }
+
+            // Ako je aktivan program u fazi prijave i selekcije.
+            if($profile_status == 3) {
+                // Prebacujemo statuse profila na 2, statuse programa ne diramo
+                $profile->setValue('profile_status', 2);
+            }
+
+            // Ako je u programu
+            if($profile_status == 4) {
+                $profile->setValue('profile_status', 2);
+                $program->setStatus(Program::$PROGRAM_ACTIVE);
+            }
+
+            // Ako je odbijena prijava.
+            if($profile_status == 5) {
+                $profile->setValue('profile_status', 4);
+                $program->setStatus(Program::$PROGRAM_APP_DENIED);
+            }
+
+            // Transfer situacija
+            if($program->getSituatiions()->count() == 0) {
+                $situations = $profile->getSituations();
+                for($i = 1; $i < $situations->count(); $i++) {
+                    $situation = $situations[$i];
+                    $program->addSituation($situation);
+                }
+            }
+
+        });
+    }
+
+    public static function transferSituations() {
+        Program::find()->each(function($program) {
+            $profile = $program->getProfile();
+            $situations = $profile->getSituations();
+            for($i = 1; $i < $situations->count(); $i++) {
+                $situation = $situations[$i];
+                $program->addSituation($situation);
+            }
+        });
+    }
+
 }

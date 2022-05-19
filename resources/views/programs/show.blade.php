@@ -98,7 +98,10 @@
                     </div>
                 @endfor
             </div>
-
+        @elseif($status == -2)
+            <div class="d-flex align-items-center justify-content-center w-100 h-100">
+                <h1 class="display-1">PRIJAVA ODBIJENA</h1>
+            </div>
         @endif
     </div>
 @endsection
