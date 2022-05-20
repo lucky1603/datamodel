@@ -302,7 +302,7 @@ class ProfileController extends Controller
     }
 
     public function sessions($id) {
-        $this->authorize('read_client_profile', [$id]);
+//        $this->authorize('read_client_profile', [$id]);
         $profile = Profile::find($id);
         return view('profiles.sessions', ['model' => $profile]);
     }

@@ -19,7 +19,7 @@
                         <program-list
                             title="{{mb_strtoupper( __("Companies I am Working With")) }}" :mentorid="{{ $mentor->getId() }}"
                             addRoute="{{ route('mentors.addprogram', ['mentor' => $mentor->getId()]) }}"
-                            addProgramTitle="{{ __('Connect Company') }}" role="{{ $role }}">
+                            addProgramTitle="{{ __('Connect Company') }}" role="{{ $role }}" token="{{ csrf_token() }}">
                         </program-list>
                     </div>
                 </div>

@@ -4,7 +4,7 @@
             <span class="font-10">{{ date }}</span>
         </div>
         <div class="card-body py-0">
-            <div class="ribbon-two ribbon-two-success"><span>Poslat</span></div>
+            <div v-if="sent" class="ribbon-two ribbon-two-success"><span>Poslat</span></div>
             <div class="d-flex align-items-center justify-content-center" style="height: 80px;">
                 <img src="/images/custom/chart-icon.png" style="width: 64px">
             </div>

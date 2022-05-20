@@ -27,13 +27,9 @@
                     @row-selected="selected" style="height: 95%"></b-table>
             </div>
         </div>
-        <b-modal id="addProgramModal" ref="addProgramModal" header-bg-variant="dark" header-text-variant="light" >
+        <b-modal id="addProgramModal" ref="addProgramModal" hide-footer header-bg-variant="dark" header-text-variant="light" >
             <template #modal-title>{{ addprogramtitle }}</template>
-            <span v-html="formContent"></span>
-            <template #modal-footer>
-                <b-button variant="primary" @click="onOk">Prihvati</b-button>
-                <b-button variant="light" @click="onCancel">Odustani</b-button>
-            </template>
+            <mentor-add-program :mentorId="mentorid" :token="token" @finished="closeDialog"></mentor-add-program>
         </b-modal>
     </div>
 
@@ -79,17 +75,11 @@ export default {
             Dispecer.$emit('program-selected', this.program);
         },
         async showModal() {
-            let content = null;
-            await axios.get(`/mentors/addprogram/${this.mentorid}`)
-                .then(response => {
-                    let content = $(response.data).find('form#myFormAddMentorProgram').first().parent().html();
-                    this.$refs['addProgramModal'].show();
-                    this.formContent = content;
-                    console.log(content);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            this.$refs['addProgramModal'].show();
+        },
+        closeDialog() {
+            this.$refs['addProgramModal'].hide();
+            this.getPrograms();
         },
         async onOk() {
             const form = $('form#myFormAddMentorProgram').first();

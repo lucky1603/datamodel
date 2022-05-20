@@ -5,8 +5,8 @@
             <img :src="profile.logo" class="w-100 ">
         </div>
 
-        <div class="d-flex bg-white p-2">
-            <img :src="contact.photo" class="rounded-circle" style="height: 48px; width: 48px">
+        <div class="d-flex bg-light p-2">
+            <img :src="contact.photo" class="rounded-circle" style="height: 48px; width: 48px;">
             <div class="d-flex flex-column justify-content-center ml-3">
                 <span class="font-weight-bold font-13">{{ contact.name}}</span>
             </div>

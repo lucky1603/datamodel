@@ -8,6 +8,7 @@
                 v-for="(report, index) in reports"
                 :key="index"
                 :name="report.name"
+                :sent="report.status == 2 ? true : false"
                 :date="report.dueDate" :link="'/mentor-reports/edit/' + report.id" class="ml-2 mr-2">
             </mentor-report-item>
         </div>
@@ -24,6 +25,7 @@ export default {
         async getData() {
             axios.get(`/mentors/reportsForProgram/${this.mentorId}/${this.programId}`)
             .then(response => {
+                console.log('reports are ...');
                 console.log(response.data);
                 this.reports = response.data;
             });

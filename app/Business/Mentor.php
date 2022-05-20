@@ -64,6 +64,9 @@ class Mentor extends SituationsModel
         // First remove the program sessions
         $this->removeSessionsForProgram($program);
 
+        // Remove reports connected to this mentor and program.
+        $this->removeReportsForProgram($program);
+
         // Detach program and refresh.
         $this->instance->instances()->detach($program->instance->id);
         $this->instance->refresh();
@@ -71,6 +74,8 @@ class Mentor extends SituationsModel
 
     /**
      * Removes all programs from a mentor.
+     * By removing of the program, all attached sessions
+     * and reports will be deleted too.
      */
     public function removeAllPrograms() {
         $this->getPrograms()->each(function($program) {
@@ -119,6 +124,7 @@ class Mentor extends SituationsModel
         $session->delete();
     }
 
+
     /**
      * Remove all sessions for one program.
      * @param Program $program
@@ -131,16 +137,19 @@ class Mentor extends SituationsModel
         }
     }
 
+    public function removeReportsForProgram(Program $program) {
+        $reports = $this->getReportsForProgram($program->getId());
+        $reports->each(function($report) {
+            $report->delete();
+        });
+    }
+
     /**
      * Deletes the mentor.
      */
     public function delete()
     {
-        $sessions = $this->getSessions();
-        $sessions->each(function($session) {
-            $this->removeSession($session);
-        });
-
+        $this->removeAllPrograms();
         parent::delete();
     }
 
@@ -227,9 +236,10 @@ class Mentor extends SituationsModel
      * @param Program $program
      * @return mixed
      */
-    public function getReportsForProgram(Program $program) {
-        return MentorReport::all()->filter(function($report) use ($program) {
-            return $report->program_id == $program->getId();
+    public function getReportsForProgram($programId) {
+        $mentorId = $this->getId();
+        return MentorReport::all()->filter(function($report) use ($programId, $mentorId) {
+            return $report->program_id == $programId && $report->mentor_id == $mentorId;
         });
 
     }

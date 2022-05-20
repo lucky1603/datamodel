@@ -92,7 +92,7 @@
 
 
             @else
-                @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+                @if(\Illuminate\Support\Facades\Auth::user()->isRole('mentor'))
                     <div class="form-group">
                         @php
                             $attribute = $session->getAttribute('session_is_finished');

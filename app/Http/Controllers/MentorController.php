@@ -12,9 +12,11 @@ use App\MentorReport;
 use App\User;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 
 class MentorController extends Controller
 {
@@ -145,6 +147,35 @@ class MentorController extends Controller
         return view('mentors.addprogram', ['mentorId' => $mentorId, 'programs' => $filteredPrograms]);
     }
 
+    public function filterAddPrograms(Request $request, $mentorId): Collection
+    {
+        $data = $request->post();
+        $name = '';
+        if(isset($data['name'])) {
+            $name = $data['name'];
+        }
+
+        $mentor = Mentor::find($mentorId);
+        $mentorPrograms = $mentor->getPrograms();
+        $mentorProgramIds = $mentorPrograms->map(function($program) {
+            return $program->getId();
+        });
+
+        return DB::table('program_caches')->select()->get()->filter(function($program) use($name, $mentorProgramIds) {
+            $contained = $mentorProgramIds->contains($program->program_id);
+            if($name != '') {
+                return $program->program_status == -1 && !$contained && str_contains($program->profile_name, $name);
+            }
+
+            return $program->program_status == -1 && !$contained;
+        })->map(function($program) {
+            return [
+                'value' => $program->program_id,
+                'text' => $program->profile_name
+            ];
+        });
+    }
+
     public function storeProgram(Request $request) {
         $data = $request->post();
 
@@ -160,23 +191,30 @@ class MentorController extends Controller
                     $due_date = $report->contract_check;
                     $name = $report->report_name;
 
-                    $mentorReport = MentorReport::create([
+                    MentorReport::create([
+                        'mentor_id' => $mentor->getId(),
+                        'program_id' => $program->getId(),
                         'name' => $name,
                         'due_date' => $due_date
                     ]);
-
-//                    $mentorReport->attachProgram($program);
-//                    $mentorReport->save();
-//                    $mentorReport->attachMentor($mentor);
-//                    $mentorReport->save();
-
-                    $program->instance->mentor_reports()->save($mentorReport);
-                    $mentor->instance->mentor_reports()->save($mentorReport);
                 }
             }
         } else {
             $program = Program::find($data['program']);
             $mentor->addProgram( $program );
+            // Add reports
+            foreach ($program->instance->reports as $report) {
+                $due_date = $report->contract_check;
+                $name = $report->report_name;
+
+                MentorReport::create([
+                    'mentor_id' => $mentor->getId(),
+                    'program_id' => $program->getId(),
+                    'name' => $name,
+                    'due_date' => $due_date
+                ]);
+
+            }
 
         }
 
@@ -323,10 +361,18 @@ class MentorController extends Controller
                     'value' => $attribute->getText()
                 ];
             } else {
-                $data[$attribute->name] = [
-                    'label' => $attribute->label,
-                    'value' => $attribute->getValue()['filelink']
-                ];
+                if($attribute->getValue() != null && $attribute->getValue() != [ 'filelink' => '', 'filename' => '' ]) {
+                    $data[$attribute->name] = [
+                        'label' => $attribute->label,
+                        'value' => $attribute->getValue()['filelink']
+                    ];
+                } else {
+                    $data[$attribute->name] = [
+                        'label' => $attribute->label,
+                        'value' => asset('/images/custom/nophoto2.png')
+                    ];
+                }
+
             }
 
         }
@@ -384,6 +430,13 @@ class MentorController extends Controller
         $mentorList = [];
         foreach ($mentors as $mentor) {
             $data = $mentor->getData();
+            if($data['photo'] == null) {
+                $data['photo'] = [
+                    'filename' => 'nophoto2.png',
+                    'filelink' => asset('/images/custom/nophoto2.png')
+                ];
+            }
+
             $mentorList[] = [
                 'id' => $data['id'],
                 'name' => $data['name'],
@@ -399,16 +452,16 @@ class MentorController extends Controller
 
     public function reportsForProgram($mentorId, $programId): array
     {
-        $program = ProgramFactory::resolve($programId);
         $mentor = Mentor::find($mentorId);
-        $reports = $mentor->getReportsForProgram($program);
+        $reports = $mentor->getReportsForProgram($programId);
         $reportData = [];
         foreach($reports as $report) {
             $report->load('file_groups');
             $reportData[] = [
                 'name' => $report->name,
                 'dueDate' => date_format(date_create($report->due_date), 'd.m.Y.'),
-                'id' => $report->id
+                'id' => $report->id,
+                'status' => $report->status,
             ];
         }
 

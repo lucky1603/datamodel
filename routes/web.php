@@ -150,6 +150,7 @@ Route::get('mentors', 'MentorController@index')->name('mentors.index');
 Route::get('mentors/create', 'MentorController@create')->name('mentors.create');
 Route::post('mentors/create', 'MentorController@store')->name('mentors.store');
 Route::post('mentors/filter', 'MentorController@filter')->name('mentors.filter');
+Route::post('mentors/filterAddPrograms/{mentor}', 'MentorController@filterAddPrograms')->name('mentors.filterAddPrograms');
 Route::get('mentors/ownsessions/{mentor}', 'MentorController@ownSessions')->name('mentors.ownsessions');
 Route::get('mentors/edit/{mentor}', 'MentorController@edit')->name('mentors.edit');
 Route::post('mentors/edit', 'MentorController@update')->name('mentors.update');
