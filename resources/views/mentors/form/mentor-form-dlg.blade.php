@@ -89,12 +89,16 @@
                 <div class="form-group" style="min-height: 150px">
                     @php
                         $attribute = $attributes->where('name', 'specialities')->first();
-                        $value = $attribute->getValue() ?? null;
+                        $value = $attribute->getValue() ?? [];
                     @endphp
                     <label for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
                     <select id="{{$attribute->name}}[]" name="{{$attribute->name}}[]" class="form-control" multiple style="height: 120px" >
                         @foreach($attribute->getOptions() as $key => $val)
-                            <option value="{{$key}}" @if($value != null && in_array($key, $value)) selected @endif>{{ $val }}</option>
+                            @if(is_array($value))
+                                <option value="{{$key}}" @if($value != null && in_array($key, $value)) selected @endif>{{ $val }}</option>
+                            @else
+                                <option value="{{$key}}" @if($value != null && $key == $value) selected @endif>{{ $val }}</option>
+                            @endif
                         @endforeach
                     </select>
                     <span class="text-danger error-notification" id="{{ $attribute->name }}Error" style="display: none"></span>
