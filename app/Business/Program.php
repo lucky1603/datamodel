@@ -900,7 +900,7 @@ class Program extends SituationsModel
             }
 
             // Transfer situacija
-            if($program->getSituatiions()->count() == 0) {
+            if($program->getSituations()->count() == 0) {
                 $situations = $profile->getSituations();
                 for($i = 1; $i < $situations->count(); $i++) {
                     $situation = $situations[$i];
