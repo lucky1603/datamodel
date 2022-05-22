@@ -171,7 +171,7 @@ class MentorController extends Controller
         })->map(function($program) {
             return [
                 'value' => $program->program_id,
-                'text' => $program->profile_name
+                'text' => $program->profile_name.' - '.$program->program_name
             ];
         });
     }

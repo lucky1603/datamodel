@@ -16,6 +16,7 @@ class CreateProgramCachesTable extends Migration
         Schema::create('program_caches', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('program_id')->unique();
+            $table->string('program_name');
             $table->integer('program_type')->default(0);
             $table->string('program_type_text');
             $table->string('profile_name');

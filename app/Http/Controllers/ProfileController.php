@@ -1138,6 +1138,7 @@ class ProfileController extends Controller
                 public $id;
                 public $photo;
                 public $name;
+                public $programName;
                 public function __construct($program)
                 {
                     $profile = $program->getProfile();
@@ -1145,6 +1146,7 @@ class ProfileController extends Controller
                     $profile_logo = $profile->getValue('profile_logo');
                     $this->photo = $profile_logo != null ? $profile_logo['filelink'] : asset('/images/custom/nophoto2.png');
                     $this->name = $profile->getValue('name');
+                    $this->programName = $program->getValue('program_name');
                 }
             } ;
         });

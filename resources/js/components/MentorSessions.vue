@@ -23,6 +23,7 @@
                         <div class="card-body overflow-auto" style="display:flex; flex-wrap: wrap">
                             <round-item v-for="(program, index) in programs"
                                         :title="program.name"
+                                        :subtitle="program.programName"
                                         :id="program.id"
                                         :key="program.id"
                                         :photo="program.photo"

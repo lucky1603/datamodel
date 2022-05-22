@@ -850,6 +850,7 @@ class Program extends SituationsModel
             DB::table('program_caches')->insert([
                 'program_id' => $program->getId(),
                 'program_type' => $program->getValue('program_type'),
+                'program_name' => $program->getValue('program_name'),
                 'program_type_text' => $program->getText('program_name'),
                 'profile_name' => $profile->getValue('name'),
                 'profile_logo' => $logo,

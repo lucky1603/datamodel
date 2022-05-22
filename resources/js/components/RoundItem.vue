@@ -1,9 +1,10 @@
 <template>
     <div class="d-flex flex-column align-items-center" style="width: 100px; height: 70px">
         <img :src="imgSource" :class="imgClass" width="50px" :style="imgStyle" :title="title" @click="imgClicked" style="border-width: 5px">
-        <span class="font-10 attribute-label text-center">
+        <span class="font-10 attribute-label text-center mt-1">
             {{ title }}
         </span>
+        <span v-if="subtitle != ''" class="text-dark" style="font-size: 9px">{{ subtitle }}</span>
     </div>
 
 
@@ -42,6 +43,7 @@ export default {
         id : { typeof: Number, default: 0},
         photo : { typeof: String, default: ''},
         title : { typeof: String, default: 'Title'},
+        subtitle: { typeof: String, default: ''},
         width : { typeof: Number, default: 50 },
         height: { typeof: Number, default: 50 }
     },
