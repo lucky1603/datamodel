@@ -64,7 +64,7 @@
     </div>
     <div class="col-lg-5">
         <div class="card">
-            <div class="card-header bg-primary text-white">STATIKA KOMPANIJE</div>
+            <div class="card-header bg-primary text-white">POSLOVNI PODACI KOMPANIJE</div>
             <div class="card-body">
                 <program-statistics-form :profile_id="profile_id" class="m-0 mt-2"></program-statistics-form>
             </div>

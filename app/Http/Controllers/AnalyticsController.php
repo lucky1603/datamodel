@@ -167,10 +167,12 @@ class AnalyticsController extends Controller
 
     public function getCountryNames(Request $request) {
         $countryIds = $request->post('ids');
-        $countries = DB::table('countries')->whereIn('id', $countryIds)->get();
         $countryNames = [];
-        foreach($countries as $country) {
-            $countryNames[] = $country->country;
+        if($countryIds != null) {
+            $countries = DB::table('countries')->whereIn('id', $countryIds)->get();
+            foreach($countries as $country) {
+                $countryNames[] = $country->country;
+            }
         }
 
         return $countryNames;

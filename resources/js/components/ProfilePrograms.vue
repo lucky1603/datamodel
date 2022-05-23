@@ -5,8 +5,8 @@
             <tile-item
                 v-for="(program, index) in programs"
                 :title="program.name"
+                :label="{ text: program.statusText, show: true }"
                 :key="index"
-                :subtitle="program.status"
                 :photo="getImageForProgramType(program.type)"
                 :id="program.id" class="mr-2 bg-secondary" @tile-clicked="tileClicked"></tile-item>
         </div>

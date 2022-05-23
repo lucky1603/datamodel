@@ -10,6 +10,10 @@
                 <div class="d-flex align-items-center justify-content-center bg-dark w-100" style="height: 20px">
                     <span class="font-10 text-white">{{ title }}</span>
                 </div>
+
+                <div v-if="subtitle != ''" class="bg-primary text-white d-flex align-items-center justify-content-center">
+                    <span class="font-10">{{ subtitle }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -49,7 +53,7 @@ export default {
     props: {
         id: { typeof: Number, default: 0 },
         title: {typeof: String, default: 'Title'},
-        subtitle : {typeof: String, default: 'Subtitle'},
+        subtitle : {typeof: String, default: ''},
         photo: {typeof: String, default: ''},
         padding: { typeof: Number, default: 0 },
         label: null

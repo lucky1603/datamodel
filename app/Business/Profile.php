@@ -428,7 +428,7 @@ class Profile extends SituationsModel
             $faza_razvoja->addOption(['value' => 3, 'text' => 'Alpha/Prototype 1']);
             $faza_razvoja->addOption(['value' => 4, 'text' => 'Beta/Prototype 2']);
             $faza_razvoja->addOption(['value' => 5, 'text' => 'MVP']);
-            $faza_razvoja->addOption(['value' => 6, 'text' => 'Revenue']);
+            $faza_razvoja->addOption(['value' => 6, 'text' => 'Revenue & First product']);
         }
 
         // Dodaj atribut - faza razvoja.
@@ -784,6 +784,42 @@ class Profile extends SituationsModel
         static::find()->each(function($profile) {
             $profile->updateState();
         });
+    }
+
+    public static function updateStatisticAttributes() {
+        // Update faza razvoja
+        $faza_razvoja = Attribute::where('name', 'faza_razvoja')->first();
+        $faza_razvoja_options = $faza_razvoja->getOptions();
+        $faza_razvoja_options[6] = "Revenue & First Product";
+        $faza_razvoja_options[7] = "Scaleup";
+        $faza_razvoja_options[8] = "R&D center";
+        $faza_razvoja->setOptions($faza_razvoja_options);
+
+        // Add new attribute and propagate to all programs
+        $women_founders = self::selectOrCreateAttribute(['women_founders_count',__('Female Founders Count'), 'integer', NULL, 250]);
+        Profile::addOverallAttribute($women_founders, 0);
+
+        $broj_zasticenih_zigova = self::selectOrCreateAttribute((['broj_zasticenih_zigova', __('Protected Trademark Count'), 'integer', NULL, 251]));
+        Profile::addOverallAttribute($broj_zasticenih_zigova, 0);
+
+        $broj_povratnika_iz_inostranstva = self::selectOrCreateAttribute(['broj_povratnika_iz_inostranstva', __('Employees that were more than 24 months abroad'), 'integer', NULL, 252]);
+        Profile::addOverallAttribute($broj_povratnika_iz_inostranstva, 0);
+
+        $investicije_vc_fond = self::selectOrCreateAttribute(['investicije_vc_fond', __('Investments amount - VC Fond'), 'double', NULL, 253]);
+        Profile::addOverallAttribute($investicije_vc_fond, 0.0);
+
+        $investicije_angels_investors = self::selectOrCreateAttribute(['investicije_angels_investors', __('Investments amount - Angels Investors'), 'double', NULL, 253]);
+        Profile::addOverallAttribute($investicije_angels_investors, 0.0);
+
+        $investicije_grant = self::selectOrCreateAttribute(['investicije_grant', __('Investments amount - grant'), 'double', NULL, 255]);
+        Profile::addOverallAttribute($investicije_grant, 0.0);
+
+        $investicije_3f = self::selectOrCreateAttribute(['$investicije_3f', __('Investments amount - 3F'), 'double', NULL, 256]);
+        Profile::addOverallAttribute($investicije_3f, 0.0);
+
+        $investicije_other = self::selectOrCreateAttribute(['$investicije_other', __('Investments amount - Other'), 'double', NULL, 257]);
+        Profile::addOverallAttribute($investicije_other, 0.0);
+
     }
 
 

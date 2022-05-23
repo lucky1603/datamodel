@@ -1,26 +1,38 @@
 <template>
     <b-form v-if="editMode" class="w-100 mt-4">
-        <h4 class="w-100 attribute-label text-center">OSNOVNA STATISTIKA</h4>
+        <div v-if="header" class="p-2 m-0">
+            <p class="text-center attribute-label font-weight-bold">VAŽNO</p>
+            <p class="font-11 text-center">Kako biste otpočeli Fazu 2 potrebno je da unesete sve podatke ispod:</p>
+            <div class="d-flex align-items-center justify-content-center">
+                <b-button size="sm" type="button" variant="primary" @click="openForm">Dodaj statistiku</b-button>
+            </div>
+        </div>
+        <h4 class="w-100 attribute-label text-center">POSLOVNI PODACI</h4>
         <div class="d-flex flex-wrap justify-content-center border border-light shadow-sm p-2">
             <b-form-group
                 label="Prihodi"
-                description="Iznos prihoda za proteklu godinu" class="attribute-label font-weight-bold mr-3">
-                <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                description="Iznos ostvarenih prihoda za proteklu godinu" class="attribute-label font-weight-bold mr-3"
+                style="max-width: 200px">
+                <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm" >
                     <b-form-input v-model="form.iznos_prihoda" size="sm" type="number" min="0.0"  step="0.01" ></b-form-input>
                 </b-input-group>
             </b-form-group>
 
             <b-form-group
                 label="Izvoz"
-                description="Ukupna suma izvoza za proteklu godinu" class="attribute-label font-weight-bold mr-3">
-                <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                description="Iznos ostvarenih prihoda u prethodnoj godini koji je ostvaren na stranim tržištima"
+                class="attribute-label font-weight-bold mr-3"
+                style="max-width: 200px">
+                <b-input-group append="RSD" size="sm" style="width: 200px; max-width: 300px" class="shadow-sm">
                     <b-form-input v-model="form.iznos_izvoza" size="sm" type="number" min="0.0"  step="0.01"></b-form-input>
                 </b-input-group>
             </b-form-group>
 
             <b-form-group
-                label="Porezi"
-                description="Iznos plaćenih poreza za proteklu godinu" class="attribute-label font-weight-bold mr-3">
+                label="Porezi i doprinosi"
+                description="Iznos plaćenih poreza i doprinosa u prethodnoj godini"
+                class="attribute-label font-weight-bold mr-3"
+                style="max-width: 200px">
                 <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
                     <b-form-input v-model="form.iznos_placenih_poreza" size="sm" type="number" min="0.0" step="0.01"></b-form-input>
                 </b-input-group>
@@ -28,13 +40,17 @@
 
             <b-form-group
                 label="Faza razvoja"
-                description="U kojoj se fazi razvoja nalazite" class="attribute-label font-weight-bold mr-3" >
-                <b-form-select v-model="form.faza_razvoja" :options="faze_razvoja" size="sm" style="width: 150px"></b-form-select>
+                description="U kojoj se fazi razvoja nalazite"
+                class="attribute-label font-weight-bold mr-3"
+                style="max-width: 200px">
+                <b-form-select v-model="form.faza_razvoja" :options="faze_razvoja" size="sm" style="width: 200px"></b-form-select>
             </b-form-group>
 
             <b-form-group
                 label="Ulaganja"
-                description="Ulaganje u istraživanje i razvoj (iznos)" class="attribute-label font-weight-bold mr-3">
+                description="Ulaganje u istraživanje i razvoj (iznos)"
+                class="attribute-label font-weight-bold mr-3"
+                style="max-width: 200px">
                 <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
                     <b-form-input v-model="form.iznos_ulaganja_istrazivanje_razvoj" size="sm" type="number" min="0.0" step="0.01"></b-form-input>
                 </b-input-group>
@@ -48,23 +64,72 @@
 
             <b-form-group
                 label="Angažovani"
-                description="Broj svih angažovanih ljudi na projektu" class="attribute-label font-weight-bold mr-3" style="width: 100px">
+                description="Broj ukupno angažovanih" class="attribute-label font-weight-bold mr-3" style="width: 100px">
                 <b-form-input v-model="form.broj_angazovanih" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
             </b-form-group>
 
             <b-form-group
                 label="Žene"
-                description="Broj angažovanih žena projektu" class="attribute-label font-weight-bold mr-3" style="width: 100px">
+                description="Broj ukupno angažovanih žena u timu" class="attribute-label font-weight-bold mr-3" style="width: 100px">
                 <b-form-input v-model="form.broj_angazovanih_zena" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
+            </b-form-group>
+            <b-form-group
+                label="Žene osnivači"
+                description="Broj žena u osnivačkoj strukturi" class="attribute-label font-weight-bold mr-3" style="width: 100px">
+                <b-form-input v-model="form.women_founders_count" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
             </b-form-group>
             <b-form-group
                 label="Inovacije"
                 description="Broj inovacija koje razvijate" class="attribute-label font-weight-bold mr-3" style="width: 100px">
                 <b-form-input v-model="form.broj_inovacija" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
             </b-form-group>
+            <b-form-group
+                label="Povratnici iz inostranstva"
+                description="Broj zaposlenih koji su više od 24 meseca pretežno boravili u inostranstvu" class="attribute-label font-weight-bold mr-3" style="width: 100px">
+                <b-form-input v-model="form.broj_povratnika_iz_inostranstva" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
+            </b-form-group>
 
         </div>
-        <h4 class="w-100 attribute-label text-center mt-4">BROJ ZAŠTIĆENIH PATENATA</h4>
+        <h4 class="w-100 attribute-label text-center mt-4">IZNOS INVESTICIJA PO KATEGORIJAMA</h4>
+        <div class="d-flex flex-wrap justify-content-center border border-light shadow-sm p-2">
+            <b-form-group
+                label="VC Fond"
+                description="Iznos investicija - VC Fond" class="attribute-label font-weight-bold mr-3" style="max-width: 200px">
+                <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                    <b-form-input v-model="form.investicije_vc_fond" size="sm" type="number" min="0.0" step="0.01"></b-form-input>
+                </b-input-group>
+            </b-form-group>
+            <b-form-group
+                label="Angels Investors"
+                description="Iznos investicija - Angels Investors" class="attribute-label font-weight-bold mr-3" style="max-width: 200px">
+                <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                    <b-form-input v-model="form.investicije_angels_investors" size="sm" type="number" min="0.0" step="0.01"></b-form-input>
+                </b-input-group>
+            </b-form-group>
+            <b-form-group
+                label="Grant"
+                description="Iznos investicija - Grant" class="attribute-label font-weight-bold mr-3" style="max-width: 200px">
+                <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                    <b-form-input v-model="form.investicije_grant" size="sm" type="number" min="0.0" step="0.01"></b-form-input>
+                </b-input-group>
+            </b-form-group>
+            <b-form-group
+                label="3F"
+                description="Iznos investicija - 3F" class="attribute-label font-weight-bold mr-3" style="max-width: 200px">
+                <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                    <b-form-input v-model="form.investicije_3f" size="sm" type="number" min="0.0" step="0.01"></b-form-input>
+                </b-input-group>
+            </b-form-group>
+            <b-form-group
+                label="Drugo"
+                description="Iznos investicija - Drugo" class="attribute-label font-weight-bold mr-3" style="max-width: 200px">
+                <b-input-group append="RSD" size="sm" style="width: 200px" class="shadow-sm">
+                    <b-form-input v-model="form.investicije_other" size="sm" type="number" min="0.0" step="0.01"></b-form-input>
+                </b-input-group>
+            </b-form-group>
+        </div>
+
+        <h4 class="w-100 attribute-label text-center mt-4">BROJ ZAŠTIĆENIH PRAVA INTELEKTUALNE SVOJINE</h4>
 
         <div class="d-flex flex-wrap justify-content-center border border-light shadow-sm p-2">
             <b-form-group
@@ -82,6 +147,11 @@
                 description="Broj zaštićenih autorskih dela" class="attribute-label font-weight-bold mr-3" style="width: 100px">
                 <b-form-input v-model="form.broj_autorskih_dela" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
             </b-form-group>
+            <b-form-group
+                label="Zaštićen žig (logo)"
+                description="Broj zaštićenih žigova" class="attribute-label font-weight-bold mr-3" style="width: 100px">
+                <b-form-input v-model="form.broj_zasticenih_zigova" size="sm" type="number" style="width: 80px" class="shadow-sm"></b-form-input>
+            </b-form-group>
         </div>
         <h4 class="w-100 h4 attribute-label text-center mt-4">SPISAK ZEMALJA U KOJE IZVOZITE</h4>
 
@@ -89,31 +159,24 @@
         <hr/>
         <div class="d-flex align-items-center justify-content-center mt-4">
             <b-button type="button" size="sm" variant="primary" class="m-1" @click="onSubmit">Prihvati izmene</b-button>
-            <b-button type="button" size="sm" variant="outline-primary" class="m-1" @click="closeForm">Zatvori formu</b-button>
+            <b-button v-if="statistic_sent" type="button" size="sm" variant="outline-primary" class="m-1" @click="closeForm">Zatvori formu</b-button>
         </div>
     </b-form>
     <div v-else>
-        <div v-if="!statistic_sent" class="p-2 m-0">
-            <p class="text-center attribute-label font-weight-bold">MOLBA</p>
-            <p class="font-11 text-center">Molimo Vas da, dok čekate datum sastanka, u međuvremenu popunite podatke koji su nam neophodni za statistiku.</p>
-            <div class="d-flex align-items-center justify-content-center">
-                <b-button size="sm" type="button" variant="primary" @click="openForm">Dodaj statistiku</b-button>
-            </div>
-        </div>
-        <div v-else class="p-2">
-            <h4 class="attribute-label text-center">STATISTIKA</h4>
+        <div class="p-2">
+            <h4 class="attribute-label text-center">POSLOVNI PODACI KOMPANIJE</h4>
             <div class="d-flex flex-column align-items-center justify-content-center">
                 <table class="table table-sm table-bordered font-11 shadow-sm">
                     <tr>
-                        <td colspan="2">Iznos prihoda za proteklu godinu</td>
+                        <td colspan="2">Iznos ostvarenih prihoda za proteklu godinu</td>
                         <td class="font-weight-bold text-right attribute-label">{{ formatter.format(form.iznos_prihoda) }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">Ukupna suma izvoza za proteklu godinu</td>
+                        <td colspan="2">Iznos ostvarenih prihoda u prethodnoj godini koji je ostvaren na stranim tržištima</td>
                         <td class="font-weight-bold text-right attribute-label">{{ formatter.format(form.iznos_izvoza)  }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">Iznos plaćenih poreza za proteklu godinu</td>
+                        <td colspan="2">Iznos plaćenih poreza i doprinosa u prethodnoj godini</td>
                         <td class="font-weight-bold text-right attribute-label">{{ formatter.format(form.iznos_placenih_poreza) }}</td>
                     </tr>
                     <tr>
@@ -125,12 +188,16 @@
                         <td class="font-weight-bold text-right attribute-label">{{ form.broj_zaposlenih }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">Broj svih angažovanih ljudi na projektu</td>
+                        <td colspan="2">Broj ukupno angažovanih</td>
                         <td class="font-weight-bold text-right attribute-label">{{ form.broj_angazovanih }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">Od toga žene</td>
+                        <td colspan="2">Broj ukupno angažovanih žena u timu</td>
                         <td class="font-weight-bold text-right attribute-label">{{ form.broj_angazovanih_zena }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Broj žena u osnivačkoj strukturi</td>
+                        <td class="font-weight-bold text-right attribute-label">{{ form.women_founders_count }}</td>
                     </tr>
                     <tr>
                         <td colspan="2">Faza razvoja</td>
@@ -141,7 +208,33 @@
                         <td class="font-weight-bold text-right attribute-label">{{ form.broj_inovacija }}</td>
                     </tr>
                     <tr>
-                        <td rowspan="3" style="position: relative">
+                        <td rowspan="5">
+                            <div class="d-flex align-items-center justify-content-left" style="height: 150px">
+                                IZNOS INVESTICIJA PO KATEGORIJAMA
+                            </div>
+                        </td>
+                        <td>Investicije VC Fond</td>
+                        <td class="text-right attribute-label font-weight-bold">{{ formatter.format(form.investicije_vc_fond) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Investicije - Angels Investors</td>
+                        <td class="text-right attribute-label font-weight-bold">{{ formatter.format(form.investicije_angels_investors) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Investicije - Grant</td>
+                        <td class="text-right attribute-label font-weight-bold">{{ formatter.format(form.investicije_grant) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Investicije - 3F</td>
+                        <td class="text-right attribute-label font-weight-bold">{{ formatter.format(form.investicije_3f) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Investicije - Ostalo</td>
+                        <td class="text-right attribute-label font-weight-bold">{{ formatter.format(form.investicije_other) }}</td>
+                    </tr>
+
+                    <tr>
+                        <td rowspan="4" style="position: relative">
                             <div class="d-flex align-items-center" style="height: 100px">
                                 BROJ ZAŠTIĆENIH PATENATA
                             </div>
@@ -156,6 +249,14 @@
                     <tr>
                         <td>Broj autorskih dela</td>
                         <td class="text-right attribute-label font-weight-bold">{{ form.broj_autorskih_dela }}</td>
+                    </tr>
+                    <tr>
+                        <td>Broj zaštićenih žigova</td>
+                        <td class="text-right attribute-label font-weight-bold">{{ form.broj_zasticenih_zigova }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Broj zaposlenih koji su više od 24 meseca pretežno boravili u inostranstvu</td>
+                        <td class="text-right attribute-label font-weight-bold">{{ form.broj_povratnika_iz_inostranstva }}</td>
                     </tr>
                     <tr>
                         <td colspan="2">Zemlje u koje ste izvozili</td>
@@ -173,7 +274,9 @@
 export default {
     name: "ProgramStatisticsForm",
     props: {
-        profile_id: { typeof: Number, default: 0 }
+        profile_id: { typeof: Number, default: 0 },
+        header: { typeof: Boolean, default: false },
+        test: { typeof: Number, default: 0 }
     },
     computed: {
         selectedCountryNames() {
@@ -200,7 +303,15 @@ export default {
         async getData() {
             await axios.get('/profiles/statistics/' + this.profile_id)
             .then(response => {
-                this.form = response.data;
+                console.log('statistika ...');
+                console.log(response.data);
+                // this.form = response.data;
+                for(let property in response.data) {
+                    if(response.data[property] != null)
+                    {
+                        this.form[property] = response.data[property];
+                    }
+                }
                 this.form.id = this.profile_id;
                 if(this.countries == null) {
                     this.countries = [];
@@ -280,8 +391,16 @@ export default {
                 currency: 'RSD'
             });
 
+
+
         await this.getData();
         await this.getCountries();
+
+        if(!this.statistic_sent) {
+            this.editMode = true;
+        }
+
+
     },
     data() {
         return {
@@ -303,6 +422,14 @@ export default {
                 broj_autorskih_dela: 0,
                 broj_inovacija: 0,
                 countries: [],
+                women_founders_count: 0,
+                broj_zasticenih_zigova: 0,
+                broj_povratnika_iz_inostranstva: 0,
+                investicije_vc_fond: 0.0,
+                investicije_angels_investors: 0.0,
+                investicije_grant: 0.0,
+                investicije_3f: 0.0,
+                investicije_other: 0.0
             },
             faze_razvoja: [
                 { value: 0, text: "Izaberite ..."},

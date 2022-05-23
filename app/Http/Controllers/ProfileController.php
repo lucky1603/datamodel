@@ -839,7 +839,10 @@ class ProfileController extends Controller
             'countries' => $countries,
             'statistic_sent' => $profile->getValue('statistic_sent'),
             'faza_razvoja' => $profile->getValue('faza_razvoja'),
-            'membership_type' => $profile->getValue('membership_type')
+            'membership_type' => $profile->getValue('membership_type'),
+            'women_founders_count' => $profile->getValue('women_founders_count'),
+            'broj_povratnika_iz_inostranstva' => $profile->getValue('broj_povratnika_iz_inostranstva'),
+            'broj_zasticenih_zigova' => $profile->getValue('broj_zasticenih_zigova'),
         ];
     }
 

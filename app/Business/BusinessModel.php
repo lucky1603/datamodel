@@ -361,6 +361,7 @@ class BusinessModel
             $att = $object->getAttribute($attribute->name);
             if($att == null) {
                 $object->addAttribute($attribute);
+                $attribute->setValue($value);
             }
 
             if($value != null) {

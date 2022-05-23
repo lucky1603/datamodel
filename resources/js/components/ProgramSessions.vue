@@ -9,22 +9,32 @@
                     <div style="height: 55%">
                         <mentor-data :mentorid="mentorId" aboutme="PODACI O MENTORU" :usertype="usertype"></mentor-data>
                     </div>
-                    <div class="card shadow mt-2" style="height: 43%">
+                    <div class="card shadow mt-2" style="height: 26vh">
                         <div class="card-header card-header-light-background">
                             <div class="d-inline-flex align-items-center">
                                 <span class="h4 attribute-label">MENTORI</span>
                             </div>
                         </div>
-                        <div class="card-body overflow-auto" style="height: 95%; display:flex; flex-wrap: wrap">
-                            <tile-item v-for="(mentor, index) in mentors"
-                                       :title="mentor.name"
-                                       :id="mentor.id"
-                                       :key="mentor.id"
-                                       :photo="mentor.photo"
-                                       class="mr-2"
-                                       @tile-clicked="selectMentor(mentor.id)">
+                        <div class="card-body overflow-auto" style="display:flex; flex-wrap: wrap">
+<!--                            <tile-item v-for="(mentor, index) in mentors"-->
+<!--                                       :title="mentor.name"-->
+<!--                                       :subtitle="mentor.program"-->
+<!--                                       :id="mentor.id"-->
+<!--                                       :key="mentor.id"-->
+<!--                                       :photo="mentor.photo"-->
+<!--                                       class="mr-2"-->
+<!--                                       @tile-clicked="selectMentor(mentor.id)">-->
 
-                            </tile-item>
+<!--                            </tile-item>-->
+
+                            <round-item v-for="(mentor, index) in mentors"
+                                        :title="mentor.name"
+                                        :subtitle="mentor.program"
+                                        :id="mentor.id"
+                                        :key="mentor.id"
+                                        :photo="mentor.photo"
+                                        class="mr-2"
+                                        @tile-clicked="selectMentor(mentor.id)"></round-item>
                         </div>
                     </div>
                 </div>

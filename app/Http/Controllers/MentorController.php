@@ -382,18 +382,19 @@ class MentorController extends Controller
 
     public function forProgram($programId) {
         $program = Program::find($programId);
-        $mentors = $program->getMentors()->map(function($mentor) {
-            return new class($mentor) {
+        $mentors = $program->getMentors()->map(function($mentor) use($program) {
+            return new class($mentor, $program) {
                 public $id;
                 public $photo;
                 public $name;
 
-                public function __construct($mentor)
+                public function __construct($mentor, $program)
                 {
                     $this->id = $mentor->getId();
                     $this->photo = $mentor->getValue('photo')['filelink'];
                     $this->name = $mentor->getValue('name');
                     $this->address = $mentor->getValue('address');
+                    $this->program = $program->getValue('program_name');
                 }
             } ;
         });
