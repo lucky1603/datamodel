@@ -252,7 +252,7 @@
                 }
 
                 $('#button_spinner').attr('hidden', false);
-                var profileId = <?php echo $model->getId(); ?>;
+                var profile_id = <?php echo $model->getId(); ?>;
 
                 var result = 0;
                 $.get('/profiles/check/' + profileId, function(data) {

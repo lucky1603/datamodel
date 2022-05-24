@@ -14,6 +14,6 @@
         $token = csrf_token();
     @endphp
 
-    <profile-view :profile_id="{{ $model->getId() }}" token="{{ $token }}"></profile-view>
+    <profile-view :profile_id="{{ $model->getId() }}" token="{{ $token }}" :active_user_id="{{ auth()->user()->id }}" ></profile-view>
 
 @endsection

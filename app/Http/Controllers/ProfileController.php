@@ -1075,7 +1075,7 @@ class ProfileController extends Controller
         }
 
         $data['programName'] = $program->getValue('program_name');
-        $data['profileId'] = $profile->getId();
+        $data['profile_id'] = $profile->getId();
 
         return json_encode($data);
     }
@@ -1220,7 +1220,7 @@ class ProfileController extends Controller
     }
 
     public function filterOtherCompanies($profileId) {
-//        $this->authorize('read_client_profile', $profileId);
+//        $this->authorize('read_client_profile', $profile_id);
         return ProfileCache::all()
             ->where('profile_id','!=', $profileId)
             ->map(function($profile) {

@@ -40,7 +40,7 @@
                             type="email"
                             size="sm"
                             id="name"
-                            v-model="userdata.email"
+                            v-model="userdata.email" :disabled="userId != 0"
                             placeholder="Unesite ime korisnika">
                         </b-form-input>
                     </b-form-group>

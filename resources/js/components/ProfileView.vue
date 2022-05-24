@@ -22,7 +22,7 @@
                 <span class="attribute-label font-12 flex-wrap">{{ contact.phone}}</span>
             </div>
         </div>
-        <profile-users :profileId="profile_id" :token="token" class="mt-4"></profile-users>
+        <profile-users :profile_id="profile_id" :token="token" :active_user_id="active_user_id" class="mt-4"></profile-users>
     </div>
 
     <div class="col-lg-4">
@@ -79,7 +79,8 @@ export default {
     name: "ProfileView",
     props: {
         profile_id: { typeof: Number, default: 0 },
-        token: { typeof: String, default: ''}
+        token: { typeof: String, default: ''},
+        active_user_id : { typeof: Number, default: 0 }
     },
     methods: {
         async getData() {
@@ -119,7 +120,8 @@ export default {
                 email: '',
                 phone: ''
             },
-            programs: []
+            programs: [],
+            activeUserId: this.active_user_id
         }
     },
     async mounted() {

@@ -237,7 +237,7 @@
             });
 
             $('#btnSendMail').on('click', function(evt) {
-                var profileId = <?php echo $model->getId();?>;
+                var profile_id = <?php echo $model->getId();?>;
 
                 $.get('/profiles/testMail/' + profileId, function(data) {
                     alert('Mail je poslat!');

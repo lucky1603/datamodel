@@ -311,6 +311,25 @@ class EditUserController extends Controller
         return redirect($return_to);
     }
 
+    public function deleteAsync(Request $request): array
+    {
+        $data = $request->post();
+
+        if(isset($data['user_id'])) {
+            $user = User::find(intval($data['user_id']));
+            $user->delete();
+            return [
+                'code' => 0,
+                'message' => 'Success! The user is deleted!'
+            ];
+        }
+
+        return [
+            'code' => 1,
+            'message' => 'Error! No user with id = '.$data['user_id']
+        ];
+    }
+
     public function updatePassword(Request $request) {
         $request-> validate([
             'token' => 'required',
