@@ -26,7 +26,7 @@
                         <div class="col-lg-5">
                             <div class="d-flex flex-column">
                                 <label class="attribute-label font-italic">Kad i gde</label>
-                                <div class="d-flex align-items-center justify-content-center border py-1">
+                                <div class="d-flex flex-wrap align-items-center justify-content-center border py-1">
                                     <div class="d-inline-flex mx-2 align-items-center" title="Datum početka    ">
                                         <i class="mdi mdi-calendar mr-1 attribute-label font-16"></i>
                                         <span>{{ training.training_start_date}}</span>

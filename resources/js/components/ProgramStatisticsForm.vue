@@ -3,9 +3,9 @@
         <div v-if="header" class="p-2 m-0">
             <p class="text-center attribute-label font-weight-bold">VAŽNO</p>
             <p class="font-11 text-center">Kako biste otpočeli Fazu 2 potrebno je da unesete sve podatke ispod:</p>
-            <div class="d-flex align-items-center justify-content-center">
-                <b-button size="sm" type="button" variant="primary" @click="openForm">Dodaj statistiku</b-button>
-            </div>
+<!--            <div class="d-flex align-items-center justify-content-center">-->
+<!--                <b-button size="sm" type="button" variant="primary" @click="openForm">Dodaj statistiku</b-button>-->
+<!--            </div>-->
         </div>
         <h4 class="w-100 attribute-label text-center">POSLOVNI PODACI</h4>
         <div class="d-flex flex-wrap justify-content-center border border-light shadow-sm p-2">
