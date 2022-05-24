@@ -35,8 +35,7 @@
             </li>
         @endif
 
-        @if($program instanceof \App\Business\RaisingStartsProgram &&
-            ($program->getStatus() > 3 || $program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE))
+        @if($program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE))
             <li class="side-nav-item" id="navSessions">
                 <a href="{{route('programs.sessions', ['program' => $program->getId()])}}" class="side-nav-link">
                     <i class="uil-bill"></i>
@@ -73,7 +72,7 @@
                 </a>
             </li>
         @endif
-        @if(($program instanceof \App\Business\RaisingStartsProgram && $program->getStatus() == 5) || $program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE )
+        @if($program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE )
             <li class="side-nav-item" id="navEvents">
                 <a href="{{route('programs.sessions', ['program' => $program->getId()])}}" class="side-nav-link">
                     <i class="uil-dashboard"></i>
