@@ -33,11 +33,13 @@ class ProgramController extends Controller
     }
 
     public function show($programId) {
+        $this->authorize('read_program', $programId);
         $program = ProgramFactory::resolve($programId,true);
         return view('programs.show', ['program' => $program]);
     }
 
     public function profile($programId) {
+        $this->authorize('read_program', $programId);
         $program = ProgramFactory::resolve($programId, true);
         $profile = $program->getProfile();
         if($program->getStatus() == 1) {
@@ -562,7 +564,8 @@ class ProgramController extends Controller
                     'profile_name' => $profile->getValue('name'),
                     'profile_logo' => $profile->getValue('profile_logo')['filelink'],
                     'program_status' => $program->getStatus(),
-                    'program_status_text' => $program->getStatusText()
+                    'program_status_text' => $program->getStatusText(),
+                    'program_name' => $program->getValue('program_name')
                 ]);
         }
 
@@ -650,7 +653,8 @@ class ProgramController extends Controller
                     'profile_name' => $profile->getValue('name'),
                     'profile_logo' => $profile->getValue('profile_logo')['filelink'],
                     'program_status' => $program->getStatus(),
-                    'program_status_text' => $program->getStatusText()
+                    'program_status_text' => $program->getStatusText(),
+                    'program_name' => $program->getValue('program_name')
                 ]);
 
         }

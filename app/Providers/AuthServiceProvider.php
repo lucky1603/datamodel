@@ -42,9 +42,14 @@ class AuthServiceProvider extends ServiceProvider
                 $id = $parameter[0];
                 $profile = Auth::user()->profile();
                 $program = $profile->getActiveProgram();
-                if($program != null && $program->getId() == $id) {
+                $selectedPrograms = $profile->getPrograms()->filter(function($program) use($id) {
+                    return $program->getId() == $id;
+                });
+
+                if($selectedPrograms->count() > 0) {
                     return true;
                 }
+
             }
             else {
                 return $user->abilities()->contains($ability);
