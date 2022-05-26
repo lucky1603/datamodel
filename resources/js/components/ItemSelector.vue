@@ -11,10 +11,10 @@
             <b-form-select v-model="originalsSelected" :options="getOriginalItems" :select-size="5" multiple></b-form-select>
         </div>
         <div class="col-lg-2" style="display: flex; flex-direction: column; align-items: center; justify-content: center">
-            <b-button variant="primary" class="mb-1" size="sm" @click="addAll" style="width: 100px">Dodaj sve</b-button>
-            <b-button variant="outline-primary" class="mb-1" size="sm" @click="addSelected" style="width: 100px">Dodaj</b-button>
-            <b-button variant="outline-primary" class="mb-1" size="sm" @click="removeSelected" style="width: 100px">Ukloni</b-button>
-            <b-button variant="primary" class="mb-1" size="sm" @click="removeAll" style="width: 100px">Ukloni sve</b-button>
+            <b-button variant="primary" class="mb-1 mt-3" size="sm" @click="addAll"  title="Dodaj sve"><i class="uil-angle-double-right"></i></b-button>
+            <b-button variant="outline-primary" class="mb-1" size="sm" @click="addSelected"  title="Dodaj izabrane"><i class="uil-angle-right"></i></b-button>
+            <b-button variant="outline-primary" class="mb-1" size="sm" @click="removeSelected"  title="Ukloni izabrane"><i class="uil-angle-left"></i></b-button>
+            <b-button variant="primary" class="mb-1" size="sm" @click="removeAll" title="Ukloni sve"><i class="uil-angle-double-left"></i></b-button>
         </div>
         <div class="col-lg-5 form-group">
             <p class="attribute-label font-weight-bold text-center">{{ right_title }}</p>
