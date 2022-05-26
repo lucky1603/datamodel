@@ -57,9 +57,9 @@
             <template #cell(website)="data">
                 <a :href="data.value" target="_blank">{{ data.value }}</a>
             </template>
-            <template #cell(contact_email)="data">
-                <a :href="'mailto://' + data.value" target="_blank">{{ data.value }}</a>
-            </template>
+<!--            <template #cell(contact_email)="data">-->
+<!--                <a :href="'mailto://' + data.value" target="_blank">{{ data.value }}</a>-->
+<!--            </template>-->
         </b-table>
         <b-pagination
             v-model="currentPage"
@@ -99,12 +99,12 @@ export default {
                         tdClass: 'font-14',
                         sortable: false,
                     },
-                    {
-                        key: 'contact_email',
-                        label: 'Kontakt',
-                        tdClass: 'font-14',
-                        sortable: false
-                    },
+                    // {
+                    //     key: 'contact_email',
+                    //     label: 'Kontakt',
+                    //     tdClass: 'font-14',
+                    //     sortable: false
+                    // },
                 ]
             } else {
                 return [

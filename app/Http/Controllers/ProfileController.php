@@ -1237,7 +1237,7 @@ class ProfileController extends Controller
                     $this->name = $profile->name;
                     $this->logo = $profile->logo;
                     $this->website = $profile->website;
-                    $this->contact_email = $profile->contact_person_email;
+//                    $this->contact_email = $profile->contact_person_email;
                 }
             };
         });

@@ -62,13 +62,11 @@ class EditUserController extends Controller
         return view('auth.edituser', ['user' => $user]);
     }
 
-
     /**
      * Updates the user with the data from the form.
-     *
      * @param Request $request
      * @param User $user
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, User $user) {
         $data = $request->post();
@@ -103,8 +101,12 @@ class EditUserController extends Controller
             return redirect(route('users'));
         }
 
-        $profile = $user->profile();
-        return redirect(route('profiles.profile', $profile->getId()));
+//        $profile = $user->profile();
+//        return redirect(route('profiles.profile', $profile->getId()));
+        return [
+            'code' => 0,
+            'message' => "User changed!"
+        ];
 
     }
 
