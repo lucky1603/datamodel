@@ -27,7 +27,6 @@
 @section('scripts')
     <script type="text/javascript">
         $('#textBtn').click(function() {
-            alert('click')
             $('#photo').trigger('click');
         })
 
