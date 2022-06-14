@@ -10,15 +10,15 @@
             <span class="menu-arrow"></span>
         </a>
         <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
-            <li><a href="{{ route('home') }}">{{ mb_strtoupper(__('Za prijave')) }}</a></li>
-            <li><a href="{{ route('profiles.programStatisticsDashboard') }}">{{ mb_strtoupper(__('Za kompanije')) }}</a></li>
+            <li><a href="{{ route('home') }}">{{ mb_strtoupper(__('RAISING STARTS')) }}</a></li>
+            <li><a href="{{ route('profiles.programStatisticsDashboard') }}">{{ mb_strtoupper(__('ZA KOMPANIJE')) }}</a></li>
         </ul>
     </li>
 
     <li class="side-nav-item">
         <a href="javascript:void(0);" class="side-nav-link" aria-expanded="false">
-            <i class="uil-user-exclamation"></i>
-            <span>{{ mb_strtoupper( __('Profiles') ) }}</span>
+            <i class="uil-bag"></i>
+            <span>{{ mb_strtoupper( __('Companies') ) }}</span>
             <span class="menu-arrow"></span>
         </a>
         <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
@@ -37,21 +37,21 @@
 
     <li class="side-nav-item">
         <a href="{{ route('mentors.index') }}" class="side-nav-link">
-            <i class="uil-bill"></i>
+            <i class="uil-chat-bubble-user"></i>
             <span>{{ strtoupper(__('Mentors')) }}</span>
         </a>
     </li>
 
     <li class="side-nav-item">
         <a href="{{ route('users') }}" class="side-nav-link">
-            <i class="uil-chat-bubble-user"></i>
+            <i class="uil-users-alt"></i>
             <span>{{ strtoupper(__('Users')) }}</span>
         </a>
     </li>
 
     <li class="side-nav-item">
         <a href="{{ route('trainings') }}" class="side-nav-link">
-            <i class="uil-laptop-cloud"></i>
+            <i class="uil-rss-alt"></i>
             <span>{{ mb_strtoupper(__('Events')) }}</span>
         </a>
     </li>

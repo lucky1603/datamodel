@@ -10,14 +10,7 @@
 
 @section('sidemenu')
     @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
-        <li class="side-nav-item" id="navProfile">
-            <a href="{{route('profiles.show', ['profile' => $model->getId()])}}" class="side-nav-link">
-                <i class="uil-dashboard"></i>
-                <span>{{ mb_strtoupper( __('Application')) }}</span>
-            </a>
-        </li>
-
-        <li class="side-nav-item mt-4">
+        <li class="side-nav-item">
             <a href="{{ route('profiles.index') }}" class="side-nav-link">
                 <i class="uil-backspace"></i>
                 <span>{{ mb_strtoupper(__('Back to List')) }}</span>
@@ -26,14 +19,14 @@
     @else
         <li class="side-nav-item">
             <a href="{{route('profiles.show', ['profile' => $model->getId()])}}" class="side-nav-link">
-                <i class="uil-dashboard"></i>
+                <i class="uil-user"></i>
                 <span>{{ mb_strtoupper( __('Moji podaci')) }}</span>
             </a>
         </li>
 
         <li class="side-nav-item">
             <a href="javascript:void(0);" class="side-nav-link" aria-expanded="false">
-                <i class="uil-user-exclamation"></i>
+                <i class="uil-laptop-cloud"></i>
                 <span>{{ mb_strtoupper( __('Moji programi') ) }}</span>
                 <span class="menu-arrow"></span>
             </a>
@@ -53,7 +46,7 @@
 
         <li class="side-nav-item" id="navOtherProfiles">
             <a href="{{ route('profiles.otherCompanies', ['profile' => $model->getId()]) }}" class="side-nav-link">
-                <i class="uil-dashboard"></i>
+                <i class="uil-bag"></i>
                 <span>{{ mb_strtoupper( __('Other Profiles')) }}</span>
             </a>
         </li>

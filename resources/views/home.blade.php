@@ -5,7 +5,7 @@
 {{--@endsection()--}}
 
 @section('page-header')
-    <span class="h4" style="position: relative; top:3vh; left: 2vh">{{ mb_strtoupper(__('DASHBOARD')) }}</span>
+    <span class="h4" style="position: relative; top:3vh; left: 2vh">{{ mb_strtoupper(__('DASHBOARD RAISING STARTS')) }}</span>
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
 
     <div class="row">
         <div class="col-lg-3">
-            <show-company-types></show-company-types>
+            <show-company-types :program_type="2"></show-company-types>
         </div>
         <div class="col-lg-3">
             <application-statuses program_id="{{ \App\Business\Program::$RAISING_STARTS }}"></application-statuses>
@@ -27,6 +27,7 @@
             <div id="mesto-kompanija" class="apex-charts shadow-sm bg-white" data-colors="#727cf5,#0acf97,#fa5c7c,#ffbc00"></div>
         </div>
     </div>
+    <additional-program-statistics :program_type="2" token="{{ csrf_token() }}"></additional-program-statistics>
     <div class="row">
         <div class="col-lg-3">
             <find-criteria title="{{ __('How innovative') }}" source="/analytics/splitOptions/how_innovative"></find-criteria>
@@ -77,7 +78,7 @@
 
             // Get Chart data series
             let series = [];
-            axios.get('/analytics/ntp')
+            axios.get('/analytics/ntp/2')
             .then(response => {
                 series = response.data;
                 console.log(response.data);

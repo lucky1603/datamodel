@@ -85,6 +85,8 @@ Vue.component('profile-programs', require('./components/ProfilePrograms').defaul
 Vue.component('profile-users', require('./components/ProfileUsers').default);
 Vue.component('user-form', require('./components/UserForm').default);
 Vue.component('mentor-add-program', require('./components/MentorAddProgram').default);
+Vue.component('percentage-card', require('./components/PercentageCard').default);
+Vue.component('additional-program-statistics', require('./components/AdditionalProgramStatistics').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

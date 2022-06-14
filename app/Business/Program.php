@@ -485,7 +485,7 @@ class Program extends SituationsModel
      * @return mixed
      */
     public function getTrainings() {
-        return $this->instance->instances()->filter(function($instance) {
+        return $this->instance->instances->filter(function($instance) {
             if($instance->entity->name == 'Training')
                 return true;
         })->map(function($instance) {
@@ -854,8 +854,13 @@ class Program extends SituationsModel
                 'program_type_text' => $program->getText('program_name'),
                 'profile_name' => $profile->getValue('name'),
                 'profile_logo' => $logo,
+                'profile_type' => $profile->getValue('is_company') ? 1 : 0, // 1 - If it's a company, 0 - if it's a startup
                 'program_status' => $program->getStatus(),
                 'program_status_text' => $program->getStatusText(),
+                'ntp' => $program->getValue('ntp'),
+                'ntp_text' => $program->getText('ntp'),
+                'session_count' => $program->getSessions()->count(),
+                'workshop_count' => $program->getAttendances()->filter(function($attendance) { return $attendance->getTraining()->getValue('training_type') == 1; })->count()
             ]);
         });
     }

@@ -19,25 +19,39 @@ class AnalyticsController extends Controller
      * Raspodela programa po NTP.
      * @return array
      */
-    public function ntp(): array
+    public function ntp($program_type = 0): array
     {
-        return DB::table('profile_caches')
+        $query = DB::table('program_caches')
             ->selectRaw("ntp_text as ntp, COUNT(ntp) as count")
-            ->groupBy(["ntp", "ntp_text"])->get()->toArray();
+            ->groupBy(["ntp", "ntp_text"]);
+        if($program_type != 0) {
+            $query = $query->where('program_type', $program_type);
+        }
 
-        return $result;
+        return $query->get()->toArray();
+
     }
 
     /**
      * Raspodela po tipovima startapa.
      * @return array
      */
-    public function startupTypes(): array
+    public function startupTypes(Request $request): array
     {
+        $program_type = 0;
+        if($request->post('program_type') !== null) {
+            $program_type = $request->post('program_type');
+        }
 
-        $appliedGroups = DB::table("profile_caches")
-            ->selectRaw("is_company as id, is_company_text as type, COUNT(is_company) as count")
-            ->groupBy(["is_company", "is_company_text"])->get();
+        $query = DB::table("program_caches")
+            ->selectRaw("profile_type, COUNT(profile_type) as count")
+            ->groupBy(["profile_type"]);
+
+        if($program_type != 0) {
+            $query = $query->where('program_type', $program_type);
+        }
+
+        $appliedGroups = $query->get();
 
         $startapi = $appliedGroups[0]->count;
         $kompanije = $appliedGroups[1]->count;
@@ -83,27 +97,43 @@ class AnalyticsController extends Controller
 
     }
 
-    public function applicationStatuses($programType): array
+    public function programStatuses($programType): array
     {
-        $profileStates = DB::table('profile_caches')
-            ->selectRaw('profile_state as id, profile_state_text as name, COUNT(profile_state) as count')
-            ->groupBy(['profile_state', 'profile_state_text'])->get();
+        $query = DB::table('program_caches')
+            ->selectRaw('program_status as id, program_status_text as name, COUNT(program_status) as count')
+            ->groupBy(['program_status', 'program_status_text']);
+
+        if($programType != 0) {
+            $query = $query->where('program_type', $programType);
+        }
+
+        $programStatuses = $query->get();
 
         $applied = 0;
         $sent = 0;
+        $inProgram = 0;
+        $outOfProgram = 0;
         $total = 0;
-        foreach($profileStates as $profileState) {
-            $total += $profileState->count;
-            if($profileState->id <= 2)
-                $applied += $profileState->count;
-            if($profileState->id > 2) {
-                $sent += $profileState->count;
+        foreach($programStatuses as $programStatus) {
+            $total += $programStatus->count;
+            if($programStatus->id == 1) {
+                $applied = $programStatus->count;
+            }
+
+            if($programStatus->id == -1) {
+                $inProgram = $programStatus->count;
+            }
+
+            if($programStatus->id < -1) {
+                $outOfProgram = $programStatus->count;
             }
         }
 
         return [
             'applied' => $applied,
-            'sent' => $sent,
+            'sent' => $total - $applied,
+            'inProgram' => $inProgram,
+            'outOfProgram' => $outOfProgram,
             'total' => $total
         ];
 
@@ -133,26 +163,29 @@ class AnalyticsController extends Controller
             $total += $row->count;
         }
 
-//        $attr = Attribute::where('name', $attributeName)->first();
-//        $attrOptions = $attr->getOptions();
-//
-//        $items = [];
-//        $total = 0;
-//
-//        foreach($attrOptions as $key=>$value) {
-//            $count = Program::find([$attributeName => $key])->count();
-//            $name = $value;
-//            $items[] = [
-//                'text' => $name,
-//                'count' => $count
-//            ];
-//
-//            $total += $count;
-//        }
-
         return [
             'items' => $items,
             'total' => $total
+        ];
+    }
+
+    public function getWorkshopAndSessionStats(Request $request): array
+    {
+        $program_type = 0;
+        if($request->post('program_type') !== null) {
+            $program_type = $request->post('program_type');
+        }
+
+        $query = DB::table('program_caches')->selectRaw("SUM(session_count) as sessions, SUM(workshop_count) as workshops");
+        if($program_type != 0) {
+            $query = $query->where('program_type', $program_type);
+        }
+
+        $counts = $query->get()->first();
+
+        return [
+            'workshops' => $counts->workshops,
+            'sessions' => $counts->sessions
         ];
     }
 

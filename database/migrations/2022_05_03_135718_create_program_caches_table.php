@@ -21,8 +21,13 @@ class CreateProgramCachesTable extends Migration
             $table->string('program_type_text');
             $table->string('profile_name');
             $table->string('profile_logo');
+            $table->integer('profile_type')->default(0);  // 0 - Startup, 1 - Company
             $table->integer('program_status')->default(0);
             $table->string("program_status_text");
+            $table->integer("ntp")->default(0);
+            $table->string("ntp_text");
+            $table->integer("session_count")->default(0);
+            $table->integer("workshop_count")->default(0);
             $table->timestamps();
         });
     }

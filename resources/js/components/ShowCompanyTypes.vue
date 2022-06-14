@@ -2,7 +2,7 @@
     <div>
         <div class="card tilebox-one">
             <div class="card-body">
-                <i class="uil uil-users-alt float-right"></i>
+                <i class="uil uil-arrow-up-right float-right"></i>
                 <h6 class="text-uppercase mt-0">Startapovi</h6>
                 <h2 class="my-2" id="active-users-count">{{ startupCount}}</h2>
                 <p class="mb-0 text-muted">
@@ -13,7 +13,7 @@
         </div>
         <div class="card tilebox-one shadow">
             <div class="card-body">
-                <i class="uil uil-window-restore float-right"></i>
+                <i class="uil uil-bag float-right"></i>
                 <h6 class="text-uppercase mt-0">Kompanije</h6>
                 <h2 class="my-2" id="company">{{ companyCount}}</h2>
                 <p class="mb-0 text-muted">
@@ -29,9 +29,14 @@
 <script>
 export default {
     name: "ShowCompanyTypes",
+    props: {
+        program_type: { typeof: Number, default: 2 }
+    },
     methods: {
         async getData() {
-            await axios.get('/analytics/startupTypes')
+            let formData = new FormData();
+            formData.append('program_type', this.program_type)
+            await axios.post('/analytics/startupTypes', formData)
                 .then(response => {
                     let result = response.data;
                     this.startupCount = result.startupCount;

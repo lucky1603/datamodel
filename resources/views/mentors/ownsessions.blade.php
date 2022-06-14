@@ -25,7 +25,7 @@
     </li>
     <li class="side-nav-item mm-active" id="navSessions">
         <a href="{{ route('mentors.ownsessions', ['mentor' => $mentorId]) }}" class="side-nav-link">
-            <i class="uil-user"></i>
+            <i class="uil-users-alt"></i>
             <span>{{ mb_strtoupper( __('Mentoring Sessions')) }}</span>
         </a>
     </li>

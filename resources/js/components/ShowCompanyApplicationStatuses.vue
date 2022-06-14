@@ -2,7 +2,7 @@
     <div>
         <div class="card tilebox-one">
             <div class="card-body">
-                <i class="uil uil-users-alt float-right"></i>
+                <i class="uil uil-file-alt float-right"></i>
                 <h6 class="text-uppercase mt-0">Započete prijave</h6>
                 <h2 class="my-2" id="active-users-count">{{ applied}}</h2>
                 <p class="mb-0 text-muted">
@@ -13,9 +13,9 @@
         </div>
         <div class="card tilebox-one shadow">
             <div class="card-body">
-                <i class="uil uil-window-restore float-right"></i>
+                <i class="uil uil-file-check-alt float-right"></i>
                 <h6 class="text-uppercase mt-0">Poslato prijava</h6>
-                <h2 class="my-2" id="company">{{ sent}}</h2>
+                <h2 class="my-2" id="company">{{ sent }}</h2>
                 <p class="mb-0 text-muted">
                     <span class="text-danger mr-2">{{ sentPercentage }}%</span>
                     <span class="text-nowrap">od ukupnog broja kompanija</span>
@@ -29,7 +29,7 @@
 export default {
     name: "ShowCompanyApplicationStatuses",
     props: {
-        program_id: {typeof: Number, default: 0},
+        program_type: {typeof: Number, default: 0},
     },
     computed: {
         appliedPercentage() {
@@ -47,10 +47,8 @@ export default {
     },
     methods: {
         async getData() {
-            let program_id = this.program_id;
-            await axios.get(`/analytics/applicationStatuses/${program_id}`)
+            await axios.get(`/analytics/programStatuses/${this.program_type}`)
             .then(response => {
-                console.log(response.data);
                 this.applied = response.data.applied;
                 this.sent = response.data.sent;
                 this.total = response.data.total;

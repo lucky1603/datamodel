@@ -14,7 +14,7 @@
         <li class="side-nav-item" id="navProfile">
             <a href="{{route('programs.show', ['program' => $program->getId()])}}" class="side-nav-link">
                 <i class="uil-dashboard"></i>
-                <span>{{ mb_strtoupper( __('Application')) }}</span>
+                <span>{{ mb_strtoupper( __('Preview')) }}</span>
             </a>
         </li>
 
@@ -22,14 +22,14 @@
             ( $program->getStatus() > 2 || $program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE ))
             <li class="side-nav-item" id="navEvents">
                 <a href="{{route('programs.trainings', ['program' => $program->getId()])}}" class="side-nav-link">
-                    <i class="uil-bill"></i>
+                    <i class="uil-rss-alt"></i>
                     <span>{{ mb_strtoupper(__('Events')) }}</span>
                 </a>
             </li>
         @elseif($program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE)
             <li class="side-nav-item" id="navEvents">
                 <a href="{{route('programs.trainings', ['program' => $program->getId()])}}" class="side-nav-link">
-                    <i class="uil-bill"></i>
+                    <i class="uil-rss-alt"></i>
                     <span>{{ mb_strtoupper(__('Events')) }}</span>
                 </a>
             </li>
@@ -38,14 +38,14 @@
         @if($program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE))
             <li class="side-nav-item" id="navSessions">
                 <a href="{{route('programs.sessions', ['program' => $program->getId()])}}" class="side-nav-link">
-                    <i class="uil-bill"></i>
+                    <i class="uil-users-alt"></i>
                     <span>{{ mb_strtoupper(__('Mentoring Sessions')) }}</span>
                 </a>
             </li>
 
             <li class="side-nav-item" id="navReports">
                 <a href="{{route('reports.programReports', ['program' => $program->getId()])}}" class="side-nav-link">
-                    <i class="uil-bill"></i>
+                    <i class="uil-chart-pie-alt"></i>
                     <span>{{ mb_strtoupper(__('Reports')) }}</span>
                 </a>
             </li>
@@ -61,13 +61,13 @@
         <li class="side-nav-item">
             <a href="{{route('programs.profile', ['program' => $program->getId()])}}" class="side-nav-link">
                 <i class="uil-dashboard"></i>
-                <span>{{ mb_strtoupper( __('Application')) }}</span>
+                <span>{{ mb_strtoupper( __('Preview')) }}</span>
             </a>
         </li>
         @if(($program instanceof \App\Business\RaisingStartsProgram && $program->getStatus() >= 3) || $program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE)
             <li class="side-nav-item" id="navProfile">
                 <a href="{{route('programs.trainings', ['program' => $program->getId()])}}" class="side-nav-link">
-                    <i class="uil-bill"></i>
+                    <i class="uil-rss-alt"></i>
                     <span>{{ mb_strtoupper(__('Events')) }}</span>
                 </a>
             </li>
@@ -75,7 +75,7 @@
         @if($program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE )
             <li class="side-nav-item" id="navEvents">
                 <a href="{{route('programs.sessions', ['program' => $program->getId()])}}" class="side-nav-link">
-                    <i class="uil-dashboard"></i>
+                    <i class="uil-users-alt"></i>
                     <span>{{ mb_strtoupper( __('Mentoring Sessions')) }}</span>
                 </a>
             </li>
@@ -83,7 +83,7 @@
         @if($program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE)
             <li class="side-nav-item">
                 <a href="{{route('reports.programReports', ['program' => $program->getId()])}}" class="side-nav-link">
-                    <i class="uil-dashboard"></i>
+                    <i class="uil-chart-pie-alt"></i>
                     <span>{{ mb_strtoupper( __('Reports')) }}</span>
                 </a>
             </li>
