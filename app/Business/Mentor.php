@@ -219,8 +219,9 @@ class Mentor extends SituationsModel
 
         $mentorType = self::selectOrCreateAttribute(['mentor-type', __("Mentor Type"), 'select', NULL, 8]);
         if(count($mentorType->getOptions()) == 0) {
-            $mentorType->addOption(['value' => 1, 'text' => __('Business Mentor')]);
-            $mentorType->addOption(['value' => 2, 'text' => __('Tech Mentor')]);
+            $mentorType->addOption(['value' => 1, 'text' => __('Business')]);
+            $mentorType->addOption(['value' => 2, 'text' => __('Tech')]);
+            $mentorType->addOption(['value' => 3, 'text' => __('Specialist')]);
         }
         $attributes->add($mentorType);
 

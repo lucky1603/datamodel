@@ -26,27 +26,6 @@
         <div class="col-lg-6">
             <div id="mesto-kompanija" class="apex-charts shadow-sm bg-white" data-colors="#727cf5,#0acf97,#fa5c7c,#ffbc00"></div>
         </div>
-
-{{--        <div class="col-lg-3">--}}
-{{--            <div class="card shadow">--}}
-{{--                <ntp-widget--}}
-{{--                    id="ntpStructure"--}}
-{{--                    source="/analytics/ntp"--}}
-{{--                    :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"--}}
-{{--                    :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-widget>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="col-lg-3">--}}
-{{--            <div class="card shadow">--}}
-{{--                <ntp-piechart--}}
-{{--                    id="ntpPie"--}}
-{{--                    source="/analytics/ntp"--}}
-{{--                    :labels="['BEOGRAD', 'NIŠ', 'ČAČAK']"--}}
-{{--                    :bgcolors="['rgba(255,0,0,0.7)', 'rgba(0,255,0,0.7)','rgba(0,128,255,0.7)']"></ntp-piechart>--}}
-{{--            </div>--}}
-
-{{--        </div>--}}
-
     </div>
     <div class="row">
         <div class="col-lg-3">
