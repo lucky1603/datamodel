@@ -87,6 +87,7 @@ Vue.component('user-form', require('./components/UserForm').default);
 Vue.component('mentor-add-program', require('./components/MentorAddProgram').default);
 Vue.component('percentage-card', require('./components/PercentageCard').default);
 Vue.component('additional-program-statistics', require('./components/AdditionalProgramStatistics').default);
+Vue.component('raising-starts-dashboard', require('./components/RaisingStartsDashboard').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -12,10 +12,10 @@
             <percentage-card title="Van programa" :value="outOfProgram" :total="totalPrograms" subtitle="od prijavljenih" icon="uil-sign-out-alt"></percentage-card>
         </div>
         <div class="col-lg-3">
-            <percentage-card title="Održano radionica" :value="workshops" icon="uil-meeting-board"></percentage-card>
+            <percentage-card title="Održano radionica" :value="workshops" icon="uil-meeting-board" :height="140"></percentage-card>
         </div>
         <div class="col-lg-3">
-            <percentage-card title="Održano mentorskih sesija" :value="sessions" ></percentage-card>
+            <percentage-card title="Održano mentorskih sesija" :value="sessions" :height="140" ></percentage-card>
         </div>
     </div>
 </template>

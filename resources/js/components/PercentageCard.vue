@@ -1,5 +1,5 @@
 <template>
-    <div class="card tilebox-one" style="min-height: 140px">
+    <div class="card tilebox-one shadow" :style="cardStyle">
         <div class="card-body">
             <i :class="iconClass"></i>
             <h6 class="text-uppercase mt-0">{{ title }}</h6>
@@ -20,8 +20,10 @@ export default {
         subtitle: { typeof: String, default: "Subtitle"},
         value: { typeof: Number, default: 0 },
         total: { typeof: Number, default: 0 },
-        icon: { typeof: String, default: 'uil-users-alt'}
+        icon: { typeof: String, default: 'uil-users-alt'},
+        height: { typeof:Number, default: 140 }
     },
+
     computed: {
         percentage() {
             if(this.total != 0) {
@@ -32,6 +34,11 @@ export default {
         },
         iconClass() {
             return `uil ${this.icon} float-right`;
+        },
+        cardStyle() {
+            return {
+                maxHeight: this.height + 'px'
+            }
         }
     },
     data() {

@@ -163,6 +163,7 @@ export default {
         async getData() {
             await axios.get('/analytics/getProfileStatisticsSummary')
             .then(response => {
+                console.log(response.data);
                 this.analysis = response.data;
                 this.labels1.length = 0;
                 this.values1.length = 0;
@@ -190,45 +191,13 @@ export default {
 
                 }
 
-                // this.analysis.po_tehnologiji.forEach(option => {
-                //     this.labels2.push(option.name);
-                //     this.values2.push(option.count);
-                // });
             })
         },
-        async createChart(id, labels, values) {
-            const data = {
-                labels: labels,
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: values,
-                    backgroundColor: this.backgroundColors,
-                    hoverOffset: 4
-                }]
-            };
 
-            const config = {
-                type: 'pie',
-                data: data,
-                options: {
-                    layout: {
-                        padding: 20
-                    },
-
-                }
-            };
-
-            const ctx = document.getElementById(id);
-            return new Chart(ctx, config);
-        },
         getCurrencyValue(value) {
             let formatter = new Intl.NumberFormat('sr-RS', {
                 style: 'currency',
                 currency: 'RSD',
-
-                // These options are needed to round to whole numbers if that's what you want.
-                //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-                //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
             });
 
             return formatter.format(value);
@@ -236,8 +205,6 @@ export default {
     },
     async mounted() {
         await this.getData();
-        this.chart1 = await this.createChart('chartBB', this.labels2, this.values2);
-        this.chart2 = await this.createChart('chartDP', this.labels1, this.values1);
     },
     data() {
         return {

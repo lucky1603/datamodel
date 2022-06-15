@@ -21,6 +21,7 @@ Route::get('/', 'HomeController@root');
 
 Auth::routes();
 
+Route::get('analytics/raisingStartsDashboard', 'AnalyticsController@raisingStartsDashboard')->name('analytics.RsDashboard');
 Route::get('analytics/ntp/{program_type}', 'AnalyticsController@ntp')->name('analytics.ntp');
 Route::get('analytics/getProfileStatisticsSummary', 'AnalyticsController@getProfileStatisticsSummary')->name('analytics.getProfileStatisticsSummary');
 Route::post('analytics/startupTypes', 'AnalyticsController@startupTypes')->name('analytics.startupTypes');

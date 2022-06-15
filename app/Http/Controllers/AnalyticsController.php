@@ -15,6 +15,10 @@ class AnalyticsController extends Controller
         $this->middleware('auth');
     }
 
+    public function raisingStartsDashboard() {
+        return view('rstarts-dashboard');
+    }
+
     /**
      * Raspodela programa po NTP.
      * @return array
