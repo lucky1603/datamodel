@@ -10,8 +10,8 @@
             <span class="menu-arrow"></span>
         </a>
         <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
-{{--            <li><a href="{{ route('home') }}">{{ mb_strtoupper(__('RAISING STARTS')) }}</a></li>--}}
-            <li><a href="{{ route('analytics.RsDashboard') }}">{{ mb_strtoupper(__('RAISING STARTS')) }}</a></li>
+            <li><a href="{{ route('home') }}">{{ mb_strtoupper(__('RAISING STARTS')) }}</a></li>
+{{--            <li><a href="{{ route('analytics.RsDashboard') }}">{{ mb_strtoupper(__('RAISING STARTS')) }}</a></li>--}}
             <li><a href="{{ route('profiles.programStatisticsDashboard') }}">{{ mb_strtoupper(__('ZA KOMPANIJE')) }}</a></li>
 
         </ul>
