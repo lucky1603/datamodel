@@ -5,7 +5,7 @@
             <h6 class="text-uppercase mt-0">{{ title }}</h6>
             <h2 class="my-2" id="active-users-count">{{ value}}</h2>
             <p v-if="total > 0" class="mb-0 text-muted">
-                <span class="text-success mr-2">{{ percentage }} %</span>
+                <span :class="percentageClass">{{ percentage }} %</span>
                 <span class="text-nowrap">{{subtitle }}</span>
             </p>
         </div> <!-- end card-body-->
@@ -21,7 +21,8 @@ export default {
         value: { typeof: Number, default: 0 },
         total: { typeof: Number, default: 0 },
         icon: { typeof: String, default: 'uil-users-alt'},
-        height: { typeof:Number, default: 140 }
+        height: { typeof:Number, default: 140 },
+        percentage_color: { typeof: String, default: 'text-success'}
     },
 
     computed: {
@@ -32,12 +33,15 @@ export default {
 
             return 0;
         },
+        percentageClass() {
+            return `${this.percentage_color} mr-2`;
+        },
         iconClass() {
             return `uil ${this.icon} float-right`;
         },
         cardStyle() {
             return {
-                maxHeight: this.height + 'px'
+                minHeight: this.height + 'px',
             }
         }
     },

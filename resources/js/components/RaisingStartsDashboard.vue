@@ -13,6 +13,7 @@
                     :value="companiesCount"
                     :total="total"
                     subtitle="od svih prijavljenih"
+                    percentage_class="text-danger"
                     icon="uil-bag"></percentage-card>
                 <percentage-card
                     title="Potpisan ugovor"
@@ -20,11 +21,7 @@
                     :total="total"
                     subtitle="od svih prijavljenih"
                     icon="uil-file-contract-dollar"></percentage-card>
-                <percentage-card
-                    title="Radionice"
-                    :value="workshops"
-                    :height="115" icon="uil-meeting-board"
-                    ></percentage-card>
+
             </div>
             <div class="col-lg-3">
                 <percentage-card
@@ -32,6 +29,7 @@
                     :value="applied"
                     :total="total"
                     subtitle="od svih prijavljenih"
+                    percentage_class="text-danger"
                     icon="uil-file-alt"></percentage-card>
                 <percentage-card
                     title="Poslate prijave"
@@ -44,23 +42,118 @@
                     :value="outOfProgram"
                     :total="total"
                     subtitle="od svih prijavljenih"
+                    percentage_class="text-danger"
                     icon="uil-sign-out-alt"></percentage-card>
-                <percentage-card
-                    title="Mentorske sesije"
-                    :value="sessions"
-                    :height="115"
-                ></percentage-card>
+
             </div>
             <div class="col-lg-6">
-                <div class="card shadow-sm" style="max-height: 600px; height:600px">
-                    <div class="card-header mt-1">
-                        <h4 class="header-title mt-1">BROJ PRIJAVLJENIH PO NTP</h4>
-                    </div>
+                <div class="card shadow-sm" style="height:300px">
+<!--                    <div class="card-header">-->
+<!--                        <h4 class="header-title mt-1">BROJ PRIJAVLJENIH PO NTP</h4>-->
+<!--                    </div>-->
                     <div class="card-body" >
                         <apexchart type="donut" :options="chartOptions" :series="chartValues" height="100%" ></apexchart>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <percentage-card
+                            title="Radionice"
+                            :value="workshops"
+                            :height="140" icon="uil-meeting-board"
+                        ></percentage-card>
+                    </div>
+                    <div class="col-lg-6">
+
+                        <percentage-card
+                            title="Mentorske sesije"
+                            :value="sessions"
+                            :height="140"
+                        ></percentage-card>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="d-flex flex-wrap">
+            <h5 class="mr-2 mt-0 pt-0 attribute-label">Prikaži dodatnu statistiku i za:</h5>
+            <div class="d-flex">
+                <b-form-checkbox v-model="bInnovation" name="check-button" switch class="mr-2">
+                    Inovativnost</b>
+                </b-form-checkbox>
+            </div>
+            <div class="d-flex">
+                <b-form-checkbox v-model="bTechDevelopment" name="check-button" switch class="mr-2">
+                    Faza tehnološkog razvoja
+                </b-form-checkbox>
+            </div>
+            <div class="d-flex">
+                <b-form-checkbox v-model="bBusinessDevelopment" name="check-button" switch class="mr-2">
+                    Faza poslovnog razvoja
+                </b-form-checkbox>
+            </div>
+            <div class="d-flex">
+                <b-form-checkbox v-model="bWayOfFinding" name="check-button" switch class="mr-2">
+                    Način nalaženja
+                </b-form-checkbox>
+            </div>
+            <div class="d-flex">
+                <b-form-checkbox v-model="bIntellectualProperty" name="check-button" switch class="mr-2">
+                    Intelektualna svojina
+                </b-form-checkbox>
+            </div>
+            <div class="d-flex">
+                <b-form-checkbox v-model="bBusinessBranch" name="check-button" switch class="mr-2">
+                    Oblast proizvoda/usluge
+                </b-form-checkbox>
+            </div>
+            <div class="d-flex">
+                <b-form-checkbox v-model="bProductType" name="check-button" switch class="mr-2">
+                    Tip proizvoda/usluge
+                </b-form-checkbox>
+            </div>
+
+        </div>
+        <div class="d-flex flex-wrap mt-2 mx-0 p-0">
+            <find-criteria v-if="bInnovation"
+                           title="KOLIKO JE INOVATIVAN VAŠ PROIZVOD/USLUGA?"
+                           source="/analytics/splitOptions/how_innovative"
+                           class="mr-3"
+                           style="max-width: 335px">
+            </find-criteria>
+            <find-criteria v-if="bTechDevelopment"
+                           title="Faza razvoja - Tehnološki razvoj"
+                           source="/analytics/splitOptions/dev_phase_tech"
+                           class="mr-3"
+                           style="max-width: 335px">
+            </find-criteria>
+            <find-criteria v-if="bBusinessDevelopment"
+                           title="Faza razvoja - Poslovni razvoj"
+                           source="/analytics/splitOptions/dev_phase_business"
+                           class="mr-3"
+                           style="max-width: 335px">
+            </find-criteria>
+            <find-criteria v-if="bWayOfFinding" title="Kako ste nas našli?"
+                           source="/analytics/splitOptions/howdiduhear"
+                           class="mr-3"
+                           style="max-width: 335px"></find-criteria>
+            <find-criteria v-if="bIntellectualProperty"
+                            title="Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine?"
+                            source="/analytics/splitOptions/intellectual_property"
+                            class="mr-3"
+                            style="max-width: 335px">
+            </find-criteria>
+            <find-criteria v-if="bBusinessBranch"
+                           title="Kojoj oblasti pripada inovativni proizvod i/ili usluga koju razvijate?"
+                           source="/analytics/splitOptions/how_innovative"
+                           class="mr-3"
+                           style="max-width: 335px">
+            </find-criteria>
+            <find-criteria v-if="bProductType"
+                           title="Tip prozvoda ili usluge"
+                           source="/analytics/splitOptions/product_type"
+                           class="mr-3"
+                           style="max-width: 335px">
+            </find-criteria>
         </div>
     </div>
 </template>
@@ -70,7 +163,7 @@ export default {
     name: "RaisingStartsDashboard",
     props: {
         program_type: { typeof: Number, default: 0 },
-        token: { typeof: String, default: ''}
+        token: { typeof: String, default: ''},
     },
     methods: {
         async getData() {
@@ -129,7 +222,14 @@ export default {
             chartOptions: {
                 labels: []
             },
-            chartValues: []
+            chartValues: [],
+            bInnovation: false,
+            bTechDevelopment: false,
+            bBusinessDevelopment: false,
+            bWayOfFinding: false,
+            bIntellectualProperty: false,
+            bBusinessBranch: false,
+            bProductType: false
 
         }
     }
