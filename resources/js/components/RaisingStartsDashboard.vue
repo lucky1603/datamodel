@@ -78,7 +78,7 @@
             <h5 class="mr-2 mt-0 pt-0 attribute-label">Prikaži dodatnu statistiku i za:</h5>
             <div class="d-flex">
                 <b-form-checkbox v-model="bInnovation" name="check-button" switch class="mr-2">
-                    Inovativnost</b>
+                    Inovativnost
                 </b-form-checkbox>
             </div>
             <div class="d-flex">
