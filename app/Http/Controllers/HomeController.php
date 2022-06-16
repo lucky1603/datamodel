@@ -57,7 +57,7 @@ class HomeController extends Controller
             }
         }
 
-        return view('rstarts-dashboard');
+        return view('home');
 //        return view('dashboard');
     }
 
