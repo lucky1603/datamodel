@@ -164,10 +164,10 @@ class MentorController extends Controller
         return DB::table('program_caches')->select()->get()->filter(function($program) use($name, $mentorProgramIds) {
             $contained = $mentorProgramIds->contains($program->program_id);
             if($name != '') {
-                return $program->program_status == -1 && !$contained && str_contains($program->profile_name, $name);
+                return $program->program_status == 5 && !$contained && str_contains($program->profile_name, $name);
             }
 
-            return $program->program_status == -1 && !$contained;
+            return $program->program_status == 5 && !$contained;
         })->map(function($program) {
             return [
                 'value' => $program->program_id,
