@@ -34,6 +34,10 @@
             location.href = '/mentors';
         }) ;
 
+        $('body').submit(function() {
+            $('#buttonSubmit').attr('disabled', true);
+        });
+
         $('#photo').on('change', function (evt) {
             let el = evt.currentTarget;
             console.log(el);

@@ -6,6 +6,7 @@ use App\Business\Mentor;
 use App\Business\Program;
 use App\Business\ProgramFactory;
 use App\Business\Session;
+use App\Http\Requests\MentorRequest;
 use App\Mail\MentorCreated;
 use App\Mail\ProfileCreated;
 use App\MentorReport;
@@ -37,17 +38,8 @@ class MentorController extends Controller
         return view('mentors.create', ['attributes' => $attributes, 'action' => $action]);
     }
 
-    public function store(Request $request) {
-        $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'required',
-            'specialities' => 'required',
-            'mentor-type' => 'in:1,2'
-        ]);
-
+    public function store(MentorRequest $request) {
         $data = $request->post();
-
 
         $file = $request->file('photo');
         if($file != null) {
@@ -96,7 +88,7 @@ class MentorController extends Controller
     public function update(Request $request) {
         $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255',
+//            'email' => 'required|email|max:255',
             'phone' => 'required',
             'specialities' => 'required',
             'mentor-type' => 'in:1,2'

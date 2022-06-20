@@ -36,7 +36,7 @@
             <template #modal-title>{{ editmentortitle }}</template>
             <span v-html="formContent"></span>
             <template #modal-footer>
-                <b-button variant="primary" @click="onOk">Prihvati</b-button>
+                <b-button variant="primary" id="okButton" @click="onOk">Prihvati</b-button>
                 <b-button variant="light" @click="onCancel">Odustani</b-button>
             </template>
         </b-modal>
@@ -86,6 +86,7 @@ export default {
             });
         },
         onOk() {
+            $('#okButton').attr('disabled', true);
             const data = new FormData($('form#myMentorForm')[0]);
             if($('#photo')[0].files.length > 0) {
                 data.append('photo', $('#photo')[0].files[0]);
@@ -103,6 +104,7 @@ export default {
                     console.log('success');
                     console.log(data);
                     $('.error-notification').hide();
+                    $('#okButton').attr('disabled', false);
                     editForm.$refs['editMentorModal'].hide();
                     editForm.getData();
                 },

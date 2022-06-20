@@ -39,7 +39,7 @@
                 name="{{ $attribute->name }}"
                 @if($value != null) value="{{ $value }}" @endif
                 class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
-                autocomplete="{{ $attribute->name }}">
+                autocomplete="{{ $attribute->name }}" disabled>
             <span class="text-danger error-notification" id="{{ $attribute->name }}Error" style="display: none"></span>
         </div>
         <div class="form-group">
