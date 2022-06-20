@@ -91,7 +91,7 @@ class MentorController extends Controller
 //            'email' => 'required|email|max:255',
             'phone' => 'required',
             'specialities' => 'required',
-            'mentor-type' => 'in:1,2'
+            'mentor-type' => 'in:1,2,3'
         ]);
 
         $data = $request->post();
