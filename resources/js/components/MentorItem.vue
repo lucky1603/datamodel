@@ -45,12 +45,28 @@ export default {
         ribbonClass() {
             if(this.type == 1)
                 return "ribbon-two ribbon-two-info";
-            return "ribbon-two ribbon-two-success";
+            else if(this.type == 2)
+                return "ribbon-two ribbon-two-success";
+            else
+                return "ribbon-two ribbon-two-warning";
         },
         headerClass() {
             if(this.type == 1)
                 return "card-header bg-info text-white d-flex align-items-center justify-content-center py-1";
-            return "card-header bg-success text-white d-flex align-items-center justify-content-center py-1";
+            else if(this.type == 2)
+                return "card-header bg-success text-white d-flex align-items-center justify-content-center py-1";
+            else
+                return "card-header bg-warning text-white d-flex align-items-center justify-content-center py-1";
+        },
+        typeText() {
+            switch(this.type) {
+                case 1:
+                    return "BUSINESS";
+                case 2:
+                    return "TECH";
+                default:
+                    return "SPECIALIST";
+            }
         }
     },
     methods: {
@@ -66,13 +82,10 @@ export default {
         phone: { typeof: String, default: ''},
         type: { typeof: Number, default: 0}
     },
-    mounted() {
-        this.typeText = this.type == 1 ? 'POSLOVNI' : 'TEHNIČKI';
-    },
+
     data() {
         return {
             link : '/mentors/profile/' + this.id,
-            typeText: {typeof: String, default: ''}
         }
     }
 }
