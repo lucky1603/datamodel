@@ -116,8 +116,9 @@ export default {
             loading: false,
             mentorTypes: [
                 { value: 0, text: "Po tipu" },
-                { value: 1, text: "Poslovni" },
-                { value: 2, text: "Tehnički"}
+                { value: 1, text: "Business" },
+                { value: 2, text: "Tech"},
+                { value: 3, text: "Specialist"}
             ],
             form: {
                 name : '',
