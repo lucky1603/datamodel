@@ -62,6 +62,11 @@ class MentorController extends Controller
                 'position' => "Mentor",
             ]);
 
+            $photo = $mentor->getValue('photo');
+            if($photo != null && $photo != ['filename' => '', 'filelink' => '']) {
+                $user->photo = $photo['filelink'];
+            }
+
             $user->setRememberToken(Str::random(60));
             $user->save();
 
