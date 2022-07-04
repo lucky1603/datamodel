@@ -1,27 +1,5 @@
 <template>
-<!--    <div class="card ribbon-box shadow" style="width: 350px; height: 200px; margin: 5px">-->
-<!--        <div class="card-body">-->
-<!--            <div :class="ribbonClass"><span>{{ typeText }}</span></div>-->
-<!--            <div class="row">-->
-<!--                <div class="col-5">-->
-<!--                    <img :src="imagelink" style="width: 100%">-->
-<!--                </div>-->
-<!--                <div class="col-7 text-center">-->
-<!--                    <div style="height: 80%">-->
-<!--                        <a :href="link" class="h4 mt-0 mb-4">{{ title }}</a>-->
-<!--                    </div>-->
-
-<!--                    <div style="height: 20%">-->
-<!--                        <a :href="'mailto://' + email" target="_blank">{{ email }}</a>-->
-<!--                        <p>{{ phone }}</p>-->
-<!--                    </div>-->
-
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-    <div class="card shadow m-2" style="width: 180px; height: 250px" role="button" @click="cardClicked">
+    <div class="card shadow m-2" :style="cardStyle" role="button" @click="cardClicked">
         <div :class="headerClass">
             <span class="font-11 font-weight-bold">{{ typeText }}</span>
         </div>
@@ -67,6 +45,12 @@ export default {
                 default:
                     return "SPECIALIST";
             }
+        },
+        cardStyle() {
+            return {
+                width: this.width,
+                height: this.height
+            }
         }
     },
     methods: {
@@ -80,7 +64,9 @@ export default {
         title: { typeof: String, default: ''},
         email: { typeof: String, default: ''},
         phone: { typeof: String, default: ''},
-        type: { typeof: Number, default: 0}
+        type: { typeof: Number, default: 0},
+        width: { typeof: String, default: '180px'},
+        height: { typeof: String, default: '250px' }
     },
 
     data() {

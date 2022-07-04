@@ -30,16 +30,19 @@
                 aria-controls="my-table" @input="pageChanged"
             ></b-pagination>
         </div>
-        <div style="display: flex; flex-wrap: wrap" >
-            <mentor-item
-                v-for="item in visibleItems"
-                :key="item.id"
-                :id="item.id"
-                :title="item.name"
-                :imagelink="item.photo.filelink"
-                :email="item.email"
-                :phone="item.phone" :type="item.mentorType"></mentor-item>
-        </div>
+        <table class="table table-borderless text-center">
+            <tr v-for="(row,i) in rows" >
+                <td v-for="(item, j) in row" >
+                    <mentor-item
+                        :key="item.id"
+                        :id="item.id"
+                        :title="item.name"
+                        :imagelink="item.photo.filelink"
+                        :email="item.email"
+                        :phone="item.phone" :type="item.mentorType"></mentor-item>
+                </td>
+            </tr>
+        </table>
     </div>
 </template>
 
@@ -48,8 +51,14 @@ export default {
     name: "MentorExplorer",
     props: {
         source: {typeof: String, default: '/mentors/filter'},
-        itemsperpage: {typeof: Number, default: 9},
-        createlink: {typeof: String, default: '/mentors/create'}
+        createlink: {typeof: String, default: '/mentors/create'},
+        col_count : { typeof: Number, default: 5 },
+        row_count : { typeof: Number, default: 3 }
+    },
+    computed: {
+        itemsPerPage() {
+            return this.col_count * this.row_count;
+        }
     },
     methods: {
         async getData() {
@@ -90,6 +99,20 @@ export default {
         async showCurrentPage() {
             this.visibleItems = [];
             this.visibleItems = this.pages[this.currentPage - 1];
+            this.rows.length = 0;
+            let cols = null;
+            for(let i = 0; i < this.visibleItems.length; i++) {
+                if(i % this.col_count == 0) {
+                    cols = [];
+                }
+
+                cols[i % this.col_count] = this.visibleItems[i];
+
+                if(i % this.col_count == this.col_count - 1 || i == this.visibleItems.length - 1) {
+                    this.rows.push(cols);
+                    cols = null;
+                }
+            }
         },
         pageChanged() {
             console.log(`Page changed ${this.currentPage}`);
@@ -108,7 +131,6 @@ export default {
     data() {
         return {
             items: [],
-            itemsPerPage: 9,
             pages: [],
             visibleItems: [],
             currentPage: 1,
@@ -123,7 +145,9 @@ export default {
             form: {
                 name : '',
                 mentorType: 0
-            }
+            },
+            rows: []
+
         }
     },
     async mounted() {

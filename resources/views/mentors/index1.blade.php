@@ -12,5 +12,5 @@
         }
     @endphp
 
-    <mentor-explorer></mentor-explorer>
+    <mentor-explorer class="container"></mentor-explorer>
 @endsection
