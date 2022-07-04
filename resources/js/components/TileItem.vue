@@ -1,5 +1,5 @@
 <template>
-    <div :class="cardClass" style="width: 100px; height: 120px" role="button" @click="tileClicked">
+    <div :class="cardClass" style="width: 100px; height: 130px" role="button" @click="tileClicked" :title="title">
         <div class="card-body p-0">
             <div v-if="label != null && label.show" :class="labelClass"><span>{{ label.text }}</span></div>
             <div class="d-flex flex-column w-100 h-100">
@@ -7,8 +7,8 @@
                     <img :src="imageSource" class="w-100">
                 </div>
 
-                <div class="d-flex align-items-center justify-content-center bg-dark w-100" style="height: 20px">
-                    <span class="font-10 text-white">{{ title }}</span>
+                <div class="d-flex align-items-center justify-content-center w-100" >
+                    <span class="font-10 text-primary">{{ dTitle }}</span>
                 </div>
 
                 <div v-if="subtitle != ''" class="bg-primary text-white d-flex align-items-center justify-content-center">
@@ -48,6 +48,13 @@ export default {
                 default:
                     return 'ribbon-two ribbon-two-info';
             }
+        },
+        dTitle() {
+            if(this.title != null && this.title.length > this.titleMaxLength + 3) {
+                return this.title.slice(0,  this.titleMaxLength) + '...';
+            }
+
+            return this.title;
         }
     },
     props: {
@@ -56,7 +63,8 @@ export default {
         subtitle : {typeof: String, default: ''},
         photo: {typeof: String, default: ''},
         padding: { typeof: Number, default: 0 },
-        label: null
+        label: null,
+        titleMaxLength: { typeof: Number, default: 24 }
     },
     methods: {
         tileClicked() {
