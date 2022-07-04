@@ -30,7 +30,7 @@
                 aria-controls="my-table" @input="pageChanged"
             ></b-pagination>
         </div>
-        <table class="table table-borderless text-center">
+        <table class="table table-borderless text-center container">
             <tr v-for="(row,i) in rows" >
                 <td v-for="(item, j) in row" >
                     <mentor-item
