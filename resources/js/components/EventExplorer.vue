@@ -30,25 +30,29 @@
                 aria-controls="my-table" @input="pageChanged"
             ></b-pagination>
         </div>
-        <div style="display: flex; flex-wrap: wrap">
-            <event-item
-                v-for="item in visibleItems"
-                :status="item.status"
-                :type="item.type"
-                :title="item.name"
-                :date="item.date"
-                :id="item.id"
-                :key="item.id"
-                :is_client="is_client"
-                :attendance="item.attendance"
-                width="300"
-                :where="item.location"
-                :time="item.time"
-                :duration="item.duration"
-                :description="item.description"
-                :height="item_height"
-                :duration-unit="item.durationUnit" @event-clicked="onEventClicked"></event-item>
-        </div>
+
+        <table class="table table-borderless text-center container">
+            <tr v-for="(row,i) in rows" >
+                <td v-for="(item, j) in row" >
+                    <event-item
+                        :status="item.status"
+                        :type="item.type"
+                        :title="item.name"
+                        :date="item.date"
+                        :id="item.id"
+                        :key="item.id"
+                        :is_client="is_client"
+                        :attendance="item.attendance"
+                        width="300"
+                        :where="item.location"
+                        :time="item.time"
+                        :duration="item.duration"
+                        :description="item.description"
+                        :height="item_height"
+                        :duration-unit="item.durationUnit" @event-clicked="onEventClicked"></event-item>
+                </td>
+            </tr>
+        </table>
     </div>
 
 </template>
@@ -59,11 +63,17 @@ export default {
     props: {
         can_create: true,
         createlink: {typeof: String, default: '/trainings/create'},
-        itemsperpage: {typeof: Number, default: 9},
         source: {typeof: String, default: '/trainings/filter'},
         is_client: { typeof: Boolean, default: false },
         program_id: { typeof: Number, default: 0 },
-        item_height: { typeof: Number, default: 225 }
+        item_height: { typeof: Number, default: 225 },
+        row_count : { typeof: Number, default: 2},
+        col_count : { typeof: Number, default: 4}
+    },
+    computed: {
+        itemsPerPage() {
+            return this.col_count * this.row_count;
+        }
     },
     methods: {
         async getData() {
@@ -103,6 +113,20 @@ export default {
         async showCurrentPage() {
             this.visibleItems = [];
             this.visibleItems = this.pages[this.currentPage - 1];
+            this.rows.length = 0;
+            let cols = null;
+            for(let i = 0; i < this.visibleItems.length; i++) {
+                if(i % this.col_count == 0) {
+                    cols = [];
+                }
+
+                cols[i % this.col_count] = this.visibleItems[i];
+
+                if(i % this.col_count == this.col_count - 1 || i == this.visibleItems.length - 1) {
+                    this.rows.push(cols);
+                    cols = null;
+                }
+            }
         },
         pageChanged() {
             console.log(`Page changed ${this.currentPage}`);
@@ -137,7 +161,6 @@ export default {
     data() {
         return {
             items: [],
-            itemsPerPage: 9,
             pages: [],
             visibleItems: [],
             currentPage: 1,
@@ -150,7 +173,8 @@ export default {
             form: {
                 name: '',
                 eventType: 0
-            }
+            },
+            rows: []
         }
     }
 }
