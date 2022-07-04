@@ -12,5 +12,5 @@
         }
     @endphp
 
-    <mentor-explorer class="container"></mentor-explorer>
+    <mentor-explorer class="container" row_count="2"></mentor-explorer>
 @endsection
