@@ -26,16 +26,16 @@
                     <span>{{ mb_strtoupper(__('Events')) }}</span>
                 </a>
             </li>
-        @elseif($program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE)
+        {{-- @elseif($program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE)
             <li class="side-nav-item" id="navEvents">
                 <a href="{{route('programs.trainings', ['program' => $program->getId()])}}" class="side-nav-link">
                     <i class="uil-rss-alt"></i>
                     <span>{{ mb_strtoupper(__('Events')) }}</span>
                 </a>
-            </li>
+            </li> --}}
         @endif
 
-        @if($program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE))
+        @if($program->getStatus() == \App\Business\Program::$PROGRAM_ACTIVE)
             <li class="side-nav-item" id="navSessions">
                 <a href="{{route('programs.sessions', ['program' => $program->getId()])}}" class="side-nav-link">
                     <i class="uil-users-alt"></i>
