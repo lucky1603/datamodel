@@ -128,6 +128,11 @@ class ProfileController extends Controller
         $profile = Profile::find($data['profileid']);
         $profile->setData($data);
 
+        $programs = $profile->getPrograms()->map(function($program) {
+            return $program->getValue('program_name');
+        });
+        $programs = implode(',', $programs->toArray());
+
         // Update cache
         $pcache = ProfileCache::where('profile_id', $data['profileid'])->first();
         if($pcache != null) {
@@ -137,16 +142,10 @@ class ProfileController extends Controller
             $pcache->membership_type_text = $profile->getText('membership_type') ?? '';
             $pcache->ntp = $profile->getValue('ntp') ?? 0;
             $pcache->ntp_text = $profile->getText('ntp') ?? 'Nije podesen';
-            $pcache->profile_state = $profile->getValue('profile_state');
-            $pcache->profile_state_text = $profile->getText('profile_state') ?? '';
+            $pcache->profile_state = $profile->getValue('profile_status');
+            $pcache->profile_state_text = $profile->getText('profile_status') ?? '';
             $pcache->is_company = $profile->getValue('is_company');
             $pcache->is_company_text = $pcache->is_company ? 'Kompanija' : 'Startap';
-            $program = $profile->getActiveProgram();
-            if($program != null) {
-                $pcache->program_name = $program->getValue('program_name');
-            } else {
-                $pcache->program_name = 'Nema aktivnog programa';
-            }
             $pcache->contact_person_name = $profile->getValue('contact_person');
             $pcache->contact_person_email = $profile->getValue('contact_email');
             $pcache->website = $profile->getValue('profile_webpage');
@@ -154,15 +153,9 @@ class ProfileController extends Controller
             $pcache->faza_razvoja_tekst = $profile->getText('faza_razvoja') ?? 'Nije podešena';
             $pcache->business_branch = $profile->getValue('business_branch') ?? 0;
             $pcache->business_branch_text = $profile->getText('business_branch') ?? 'Nije podeseno';
-            $pcache->program_name = $profile->getActiveProgram() != null ? $profile->getActiveProgram()->getValue('program_name') : 'Nema';
+            $pcache->program_name = $programs;
             $pcache->save();
         } else {
-            $program = $profile->getActiveProgram();
-            if($program != null) {
-                $program_name = $program->getValue('program_name');
-            } else {
-                $program_name = 'Nema aktivnog programa';
-            }
             ProfileCache::create([
                 'profile_id' => $profile->getId(),
                 'name' => $data['name'],
@@ -175,7 +168,6 @@ class ProfileController extends Controller
                 'profile_state_text' => $profile->getText('profile_state'),
                 'is_company' => $profile->getValue('is_company'),
                 'is_company_text' => $profile->getValue('is_company') ? 'Kompanija' : 'Startap',
-                'program_name' => $program_name,
                 'contact_person_name' => $profile->getValue('contact_person'),
                 'contact_person_email' => $profile->getValue('contact_email'),
                 'faza_razvoja' => $profile->getValue('faza_razvoja') ?? 0,
@@ -183,7 +175,7 @@ class ProfileController extends Controller
                 'business_branch' => $profile->getValue('business_branch') ?? 0,
                 'business_branch_text' => $profile->getText('business_branch') ?? '',
                 'website' => $profile->getValue('profile_webpage'),
-                'program_name' => $profile->getActiveProgram() != null ? $profile->getActiveProgram()->getValue('program_name') : 'Nema'
+                'program_name' => $programs
             ]);
         }
 
@@ -194,13 +186,15 @@ class ProfileController extends Controller
         $data = $request->post();
 
         // If the client fills it set the status to 'interested'
-        if(auth()->user()->isRole('client')) {
-            $data['profile_status'] = 2;
-        }
-        // If the NTP operator fills it set the status to 'mapped'
-        if(auth()->user()->isAdmin()) {
-            $data['profile_status'] = 1;
-        }
+        // if(auth()->user()->isRole('client')) {
+        //     $data['profile_status'] = 2;
+        // }
+        // // If the NTP operator fills it set the status to 'mapped'
+        // if(auth()->user()->isAdmin()) {
+        //     $data['profile_status'] = 1;
+        // }
+
+        $data['profile_status'] = 1;
 
         $profile_photo = Utils::getFilesFromRequest($request, 'profile_logo');
         if($profile_photo != null) {
@@ -234,9 +228,9 @@ class ProfileController extends Controller
         $profile->attachUser($user);
 
         // Sync current profile state with its status.
-        $profile->updateState();
+        // $profile->updateState();
 
-        if($profile->getAttribute('profile_status')->getValue() == 1) {
+        if(auth()->user()->isAdmin()) {
             $profile->addSituationByData(__('Mapped'), []);
         } else {
             $profile->addSituationByData(__('Interest'), []);
@@ -248,8 +242,8 @@ class ProfileController extends Controller
 
         // Add profile cache
         $is_company = $profile->getValue('is_company');
-        $program = $profile->getActiveProgram();
-        $programName = $program != null ? $program->getValue('program_name') : '';
+        // $program = $profile->getActiveProgram();
+        // $programName = $program != null ? $program->getValue('program_name') : '';
         $logo = $profile->getValue('profile_logo');
         if($logo == null || $logo == ['filename' => '', 'filelink' => '']) {
             $logo = asset('images/custom/nophoto2.png', false);
@@ -264,11 +258,10 @@ class ProfileController extends Controller
             'membership_type_text' => $profile->getText('membership_type'),
             'ntp' => $profile->getValue('ntp') ?? 0,
             'ntp_text' => $profile->getText('ntp'),
-            'profile_state' => $profile->getValue('profile_state') ?? 0,
-            'profile_state_text' => $profile->getText('profile_state'),
+            'profile_state' => $profile->getValue('profile_status') ?? 0,
+            'profile_state_text' => $profile->getText('profile_status'),
             'is_company' => $is_company,
             'is_company_text' => $is_company == true ? "Kompanija" : "Startap",
-            'program_name' => $profile->getValue('program_name'),
             'contact_person_name' => $profile->getValue('contact_person'),
             'contact_person_email' => $profile->getValue('contact_email'),
             'faza_razvoja' => $profile->getValue('faza_razvoja') ?? 0,

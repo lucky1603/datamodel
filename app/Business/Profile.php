@@ -351,7 +351,11 @@ class Profile extends SituationsModel
 
         Profile::find()->each(function($profile) use($addStatisticAttributes) {
             $is_company = $profile->getValue('is_company') ?? false;
-            $program = $profile->getActiveProgram();
+            $programs = $profile->getPrograms()->map(function($program) {
+                return $program->getValue('program_name');
+            });
+            $programs = implode(',', $programs->toArray());
+
             $logo = $profile->getValue('profile_logo');
             if($logo == null || $logo == ['filename' => '', 'filelink' => '']) {
                 $logo = asset('images/custom/nophoto2.png', false);
@@ -371,7 +375,7 @@ class Profile extends SituationsModel
                 'profile_state_text' => $profile->getText('profile_status') ?? '',
                 'is_company' => $is_company,
                 'is_company_text' => $is_company == true ? "Kompanija" : "Startap",
-                'program_name' => $program != null ?  $program->getValue('program_name') : '',
+                'program_name' => $programs,
                 'contact_person_name' => $profile->getValue('contact_person') ?? '',
                 'contact_person_email' => $profile->getValue('contact_email') ?? '',
                 'website' => $profile->getValue('profile_webpage') ?? '',
