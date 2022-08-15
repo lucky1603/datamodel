@@ -569,6 +569,24 @@ class ProgramController extends Controller
                 ]);
         }
 
+        // get the founders
+        $founderCount = count($data['founderName']);
+        if( $founderCount > 0 && $data['founderName'][0] != null) {
+            $foundersData = [];
+            for($i = 0; $i < $founderCount; $i++) {
+                $foundersData[] = [
+                    'founder_name' => $data['founderName'][$i],
+                    'founder_part' => $data['founderPart'][$i],
+                    'founder_university' => $data['founderUniversity'][$i]
+                ];
+
+            }
+
+            $program->updateFounders($foundersData);
+        } else {
+            $program->removeAllFounders();
+        }
+
         return redirect(route('programs.profile', ['program' => $program->getId()]));
     }
 

@@ -111,10 +111,6 @@
         </table>
     </div>
 
-
-
-
-
     <button id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj člana tima" >+</button>
 </div>
 
@@ -174,7 +170,6 @@
             @endif
         </tbody>
     </table>
-
 
     <button id="btnAddFounder" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj osnivača" >+</button>
 </div>

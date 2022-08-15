@@ -291,6 +291,7 @@ class Program extends SituationsModel
 
             $founder->setValue('founder_name', $founderData['founder_name']);
             $founder->setValue('founder_part', $founderData['founder_part']);
+            $founder->setValue('founder_university', $founderData['founder_university']);
         }
 
         // Obrisi suvisne clanove
@@ -318,6 +319,7 @@ class Program extends SituationsModel
                 $this->addFounder(new Founder([
                     'founder_name' => $founder['founder_name'],
                     'founder_part' => $founder['founder_part'],
+                    'founder_university' => $founder['founder_university'],
                 ]));
             }
         }
