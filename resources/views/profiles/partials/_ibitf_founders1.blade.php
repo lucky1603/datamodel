@@ -51,8 +51,11 @@
                     </tr>
                 @endif
             @else
+                @php
+                    $counter = 0;
+                @endphp
                 @foreach($founders as $founder)
-                    <tr>
+                    <tr id="row-{{ $counter }}" data-id="{{ $counter }}">
                         <td>
                             <input type="text" name="founderName[]" class="w-100" value="{{ $founder->getValue('founder_name') }}">
                             @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
@@ -64,6 +67,9 @@
                         <td>
                             <input type="text" name="founderPart[]" class="w-100" value="{{ $founder->getValue('founder_part') }}">
                             @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
+                        </td>
+                        <td>
+                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" data-id="{{ $counter ++ }}" class="delete-icon"/>
                         </td>
                     </tr>
                 @endforeach

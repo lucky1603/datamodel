@@ -191,6 +191,13 @@
                 cloned.appendTo('tbody#foundersBody');
             });
 
+            $('.delete-icon').click(function(evt) {
+                let icon = evt.target;
+                let id = $(icon).data('id');
+                let nodeToRemove = $('img[data-id=' + id + ']')[0];
+                $(nodeToRemove).parent().parent().remove();
+            });
+
             $('input[type="text"]').keypress(function() {
                 dirty = true;
             });

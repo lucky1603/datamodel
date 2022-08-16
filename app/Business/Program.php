@@ -283,46 +283,31 @@ class Program extends SituationsModel
         $foundersCount = $founders->count();
         $foundersDataCount = count($foundersData);
 
-        $count = min($foundersCount, $foundersDataCount);
+        // $count = min($foundersCount, $foundersDataCount);
 
-        $counter = 0;
-        foreach($founders as $founder) {
-            $founderData = $foundersData[$counter++];
-
-            $founder->setValue('founder_name', $founderData['founder_name']);
-            $founder->setValue('founder_part', $founderData['founder_part']);
-            $founder->setValue('founder_university', $founderData['founder_university']);
-        }
-
-        // Obrisi suvisne clanove
-        if($count < $foundersCount) {
-            $ids = [];
-            for($i = $foundersCount - 1; $i >= $count; $i-- )
-            {
-                $ids[] = $founders->get($i)->getId();
-            }
-
-            $founders->filter(function($founder) use($ids) {
-                if(in_array($founder->getId(), $ids))
-                    return true;
-                return false;
-            })->each(function($founder) {
-                $this->removeFounder($founder);
-            });
-        }
-
-        // Add new members, if membersData is larger than the current
-        // members' collection.
-        if($count < $foundersDataCount)  {
-            for($i = $count; $i < $foundersDataCount; $i++) {
-                $founder = $foundersData[$i];
+        if($foundersCount != $foundersDataCount) {
+            // Delete all.
+            $this->removeAllFounders();
+            // Add again.
+            for($i = 0; $i < $foundersDataCount; $i++) {
+                $fData = $foundersData[$i];
                 $this->addFounder(new Founder([
-                    'founder_name' => $founder['founder_name'],
-                    'founder_part' => $founder['founder_part'],
-                    'founder_university' => $founder['founder_university'],
+                    'founder_name' => $fData['founder_name'],
+                    'founder_part' => $fData['founder_part'],
+                    'founder_university' => $fData['founder_university'],
                 ]));
             }
+        } else {
+            // Update existing.
+            $counter = 0;
+            foreach($founders as $founder) {
+                $founder->setValue('founder_name', $foundersData[$counter]['founder_name']);
+                $founder->setValue('founder_part', $foundersData[$counter]['founder_part']);
+                $founder->setValue('founder_university', $foundersData[$counter]['founder_university']);
+                $counter++;
+            }
         }
+
     }
 
     // ------------- Team Members ------------------
@@ -411,51 +396,77 @@ class Program extends SituationsModel
         $membersCount = $members->count();
         $membersDataCount = count($membersData);
 
-        $count = min($membersCount, $membersDataCount);
+        // $count = min($membersCount, $membersDataCount);
 
-        $counter = 0;
-        foreach($members as $member)
-        {
-            $memberData = $membersData[$counter];
-
-            $member->setValue('team_member_name', $memberData['team_member_name']);
-            $member->setValue('team_education', $memberData['team_education']);
-            $member->setValue('team_role', $memberData['team_role']);
-            $member->setValue('team_other_job', $memberData['team_other_job']);
-            $counter++;
-        }
-
-        // Obrisi suvisne clanove
-        if($count < $membersCount) {
-            $ids = [];
-            for($i = $membersCount - 1; $i >= $count; $i-- )
-            {
-                $ids[] = $members->get($i)->getId();
-            }
-
-            $members->filter(function($member) use($ids) {
-                if(in_array($member->getId(), $ids))
-                    return true;
-                return false;
-            })->each(function($member) {
-                $this->removeTeamMember($member);
-            });
-        }
-
-        // Add new members, if membersData is larger than the current
-        // members' collection.
-        if($count < $membersDataCount)  {
-            for($i = $count; $i < $membersDataCount; $i++) {
-                $member = $membersData[$i];
-
+        if($membersCount != $membersDataCount) {
+            // Delete all.
+            $this->removeAllMembers();
+            // Add again.
+            for($i = 0; $i < $membersDataCount; $i ++) {
+                $mData = $membersData[$i];
                 $this->addTeamMember(new TeamMember([
-                    'team_member_name' => $member['team_member_name'],
-                    'team_education' => $member['team_education'],
-                    'team_role' => $member['team_role'],
-                    'team_other_job' => $member['team_other_job']
+                    'team_member_name' => $mData['team_member_name'],
+                    'team_education' => $mData['team_education'],
+                    'team_role' => $mData['team_role'],
+                    'team_other_job' => $mData['team_other_job']
                 ]));
             }
+
+        } else {
+            // Update existing.
+            $counter = 0;
+            foreach($members as $member) {
+                $member->setValue('team_member_name', $membersData[$counter]['team_member_name']);
+                $member->setValue('team_education', $membersData[$counter]['team_education']);
+                $member->setValue('team_role', $membersData[$counter]['team_role']);
+                $member->setValue('team_other_job', $membersData[$counter]['team_other_job']);
+                $counter++;
+            }
         }
+
+        // $counter = 0;
+        // foreach($members as $member)
+        // {
+        //     $memberData = $membersData[$counter];
+
+        //     $member->setValue('team_member_name', $memberData['team_member_name']);
+        //     $member->setValue('team_education', $memberData['team_education']);
+        //     $member->setValue('team_role', $memberData['team_role']);
+        //     $member->setValue('team_other_job', $memberData['team_other_job']);
+        //     $counter++;
+        // }
+
+        // // Obrisi suvisne clanove
+        // if($count < $membersCount) {
+        //     $ids = [];
+        //     for($i = $membersCount - 1; $i >= $count; $i-- )
+        //     {
+        //         $ids[] = $members->get($i)->getId();
+        //     }
+
+        //     $members->filter(function($member) use($ids) {
+        //         if(in_array($member->getId(), $ids))
+        //             return true;
+        //         return false;
+        //     })->each(function($member) {
+        //         $this->removeTeamMember($member);
+        //     });
+        // }
+
+        // // Add new members, if membersData is larger than the current
+        // // members' collection.
+        // if($count < $membersDataCount)  {
+        //     for($i = $count; $i < $membersDataCount; $i++) {
+        //         $member = $membersData[$i];
+
+        //         $this->addTeamMember(new TeamMember([
+        //             'team_member_name' => $member['team_member_name'],
+        //             'team_education' => $member['team_education'],
+        //             'team_role' => $member['team_role'],
+        //             'team_other_job' => $member['team_other_job']
+        //         ]));
+        //     }
+        // }
     }
 
     // -------------- End of Team Members ----------
