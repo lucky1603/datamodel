@@ -183,6 +183,14 @@
                 let cloned = $('tbody#membersBody tr:first-child').clone();
                 cloned.find('textarea').val('');
                 cloned.appendTo('tbody#membersBody');
+
+                cloned.find('td img').click(function(evt) {
+                    let icon = evt.target;
+                    let id = $(icon).data('id');
+                    if($(icon).parent().parent().parent().children().length > 1) {
+                        $(icon).parent().parent().remove();
+                    }
+                })
             });
 
             $('#btnAddFounder').click(function() {
@@ -194,14 +202,20 @@
                 cloned.find('td img').click(function(evt) {
                     let icon = evt.target;
                     let id = $(icon).data('id');
-                    $(icon).parent().parent().remove();
+                    if($(icon).parent().parent().parent().children().length > 1) {
+                        $(icon).parent().parent().remove();
+                    }
                 })
             });
 
             $('.delete-icon').click(function(evt) {
                 let icon = evt.target;
                 let id = $(icon).data('id');
-                $(icon).parent().parent().remove();
+                console.log($(icon).parent().parent().parent()[0]);
+
+                if($(icon).parent().parent().parent().children().length > 1) {
+                    $(icon).parent().parent().remove();
+                }
             });
 
             $('input[type="text"]').keypress(function() {

@@ -76,6 +76,7 @@
                         <td>
                             <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
                         </td>
+
                     </tr>
                 @endforeach
             @endif

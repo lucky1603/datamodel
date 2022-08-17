@@ -68,6 +68,9 @@
                                 <textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror">{{ old('memberOtherJob.'.$i) }}</textarea>
                                 @error('memberOtherJob.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
+                            <td>
+                                <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
+                            </td>
                         </tr>
                     @endfor
                 @else
@@ -76,6 +79,9 @@
                         <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror"></textarea></td>
                         <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror"></textarea></td>
                         <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror"></textarea></td>
+                        <td>
+                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
+                        </td>
                     </tr>
 
                     <tr>
@@ -83,6 +89,9 @@
                         <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror"></textarea></td>
                         <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror"></textarea></td>
                         <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror"></textarea></td>
+                        <td>
+                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
+                        </td>
                     </tr>
                 @endif
             @else
@@ -103,6 +112,9 @@
                         <td>
                             <textarea name="memberOtherJob[]" rows="4" class="w-100">{{ $teamMember->getValue('team_other_job') }}</textarea>
                             @error('memberOtherJob')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        </td>
+                        <td>
+                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
                         </td>
                     </tr>
                 @endforeach
@@ -140,6 +152,9 @@
                                 <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="{{ old('founderPart.'.$i) }}">
                                 @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
+                            <td>
+                                <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
+                            </td>
                         </tr>
                     @endfor
                 @else
@@ -151,6 +166,9 @@
                         <td>
                             <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="0">
                             @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
+                        </td>
+                        <td>
+                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
                         </td>
                     </tr>
                 @endif
@@ -164,6 +182,9 @@
                         <td>
                             <input type="text" name="founderPart[]" class="w-100" value="{{ $founder->getValue('founder_part') }}">
                             @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
+                        </td>
+                        <td>
+                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
                         </td>
                     </tr>
                 @endforeach
