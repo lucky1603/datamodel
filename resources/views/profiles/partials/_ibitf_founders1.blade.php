@@ -30,7 +30,9 @@
                             <td>
                                 <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="{{ old('founderPart.'.$i) }}">
                                 @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
-
+                            </td>
+                            <td>
+                                <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
                             </td>
                         </tr>
                     @endfor
@@ -48,6 +50,9 @@
                             <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="0">
                             @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
+                        <td>
+                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
+                        </td>
                     </tr>
                 @endif
             @else
@@ -55,7 +60,7 @@
                     $counter = 0;
                 @endphp
                 @foreach($founders as $founder)
-                    <tr id="row-{{ $counter }}" data-id="{{ $counter }}">
+                    <tr>
                         <td>
                             <input type="text" name="founderName[]" class="w-100" value="{{ $founder->getValue('founder_name') }}">
                             @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
@@ -69,7 +74,7 @@
                             @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
-                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" data-id="{{ $counter ++ }}" class="delete-icon"/>
+                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
                         </td>
                     </tr>
                 @endforeach
