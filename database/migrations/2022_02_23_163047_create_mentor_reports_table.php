@@ -18,7 +18,7 @@ class CreateMentorReportsTable extends Migration
             $table->foreignId('mentor_id')->nullable(true);
             $table->foreignId('program_id')->nullable(true);
             $table->string('name')->nullable(true);
-            $table->timestamp('due_date');
+            $table->timestamp('due_date')->nullable();
             $table->unsignedSmallInteger('status')->default(0);
             $table->timestamps();
 

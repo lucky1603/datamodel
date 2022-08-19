@@ -9,6 +9,7 @@
                 :key="index"
                 :name="report.name"
                 :sent="report.status == 2 ? true : false"
+                :alert="report.status == 1 ? true : false"
                 :date="report.dueDate" :link="'/mentor-reports/edit/' + report.id" class="ml-2 mr-2">
             </mentor-report-item>
         </div>
