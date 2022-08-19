@@ -79,6 +79,7 @@ class Mentor extends SituationsModel
      */
     public function removeAllPrograms() {
         $this->getPrograms()->each(function($program) {
+
             $this->removeProgram($program);
         });
     }

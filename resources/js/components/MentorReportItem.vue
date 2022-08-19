@@ -1,7 +1,8 @@
 <template>
     <div class="card shadow-sm ribbon-box" role="button" @click="handleClick">
-        <div class="card-header bg-primary text-white justify-content-center py-0" style="height: 25px">
+        <div class="card-header bg-primary text-white py-0 justify-content-center" style="height: 25px">
             <span class="font-10">{{ date }}</span>
+            <img v-if="alert" src="/images/custom/izvestaj-upozorenje.png" class="ml-auto" height="16" />
         </div>
         <div class="card-body py-0">
             <div v-if="sent" class="ribbon-two ribbon-two-success"><span>Poslat</span></div>
@@ -21,6 +22,7 @@ export default {
     props: {
         date: { typeof: String, default: '####-##-##' },
         sent: { typeof: Boolean, default: false },
+        alert: { typeof: Boolean, default: false },
         name: { typeof: String, default: 'Dummy' },
         link: { typeof: String, default: ''}
     },
