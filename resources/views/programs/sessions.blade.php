@@ -8,7 +8,10 @@
 @endsection
 
 @section('profile-content')
+    @php
+        $userType = Auth::user()->roles->first()->name;
+    @endphp
     <program-sessions
         :programid="{{ $program->getId() }}"
-        usertype="{{ $profile->getUsers()->first()->roles->first()->name }}"></program-sessions>
+        usertype="{{ $userType }}"></program-sessions>
 @endsection

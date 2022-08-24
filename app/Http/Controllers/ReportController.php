@@ -154,6 +154,8 @@ class ReportController extends Controller
         $report->narative_approved = $data['narative_approved'] == 'on';
         $report->report_approved = $data['report_approved'] == 'on';
 
+        $report->status = $report->report_approved ? Report::$APPROVED : Report::$REJECTED;
+
         $report->save();
 
     }

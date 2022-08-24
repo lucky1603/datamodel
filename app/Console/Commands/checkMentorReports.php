@@ -46,9 +46,7 @@ class checkMentorReports extends Command
             if($report->file_groups()->count() == 0) {
                 $dtNow = new DateTime(now());
                 $dtCheck = new DateTime($report->due_date);
-                var_dump($dtCheck);
                 $diff = date_diff($dtCheck,$dtNow)->format('%R%a');
-                echo "Diff is ".$diff."\n";
                 if($diff <= 5 && $diff >= -5) {
                     if($report->status != Report::$WARNING) {
                         $report->status = Report::$WARNING;

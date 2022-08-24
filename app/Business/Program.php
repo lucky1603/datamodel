@@ -794,6 +794,23 @@ class Program extends SituationsModel
 
     }
 
+    public function hasReportAlert() {
+        if($this->getStatus() != Program::$PROGRAM_ACTIVE) {
+            return false;
+        }
+
+        $reports = $this->getReports();
+        $hasAlert = false;
+        foreach($reports as $report) {
+            if($report->status == Report::$WARNING)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Returns the textual representation of the status text.
      * @return string
@@ -940,5 +957,6 @@ class Program extends SituationsModel
             }
         });
     }
+
 
 }

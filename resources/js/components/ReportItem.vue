@@ -36,9 +36,13 @@ export default {
                 case 1:
                     return '/images/custom/izvestaj-upozorenje.png';
                 case 2:
+                    return '/images/custom/envelope24-icon.png';
+                case 3:
+                    return '/images/custom/izvestaj-kasnjenje.png';
+                case 4:
                     return '/images/custom/izvestaj-poslato.png';
                 default:
-                    return '/images/custom/izvestaj-kasnjenje.png';
+                    return '/images/custom/attention-icon.png';
             }
         },
         iconText() {
@@ -49,8 +53,12 @@ export default {
                     return 'Upozorenje';
                 case 2:
                     return 'Poslat';
-                default:
+                case 3:
                     return 'Zakasnio';
+                case 4:
+                    return 'Prihvaćen';
+                default:
+                    return "Odbijen";
             }
         }
     },

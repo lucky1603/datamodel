@@ -1,32 +1,21 @@
 <template>
-    <div class="card w-100" style="height: 95%">
+    <div class="card w-100" style="height: 100%">
         <div v-if="mentors.length > 0" class="card-header bg-dark text-light">
             {{ title.toUpperCase()}}
         </div>
         <div v-if="mentors.length > 0" class="card-body">
             <div class="row h-100">
                 <div class="col-lg-5 h-100">
-                    <div style="height: 55%">
+                    <div style="height: 65%">
                         <mentor-data :mentorid="mentorId" aboutme="PODACI O MENTORU" :usertype="usertype"></mentor-data>
                     </div>
-                    <div class="card shadow mt-2" style="height: 26vh">
+                    <div class="card shadow-sm mt-2" style="height: 30%">
                         <div class="card-header card-header-light-background">
                             <div class="d-inline-flex align-items-center">
                                 <span class="h4 attribute-label">MENTORI</span>
                             </div>
                         </div>
                         <div class="card-body overflow-auto" style="display:flex; flex-wrap: wrap">
-<!--                            <tile-item v-for="(mentor, index) in mentors"-->
-<!--                                       :title="mentor.name"-->
-<!--                                       :subtitle="mentor.program"-->
-<!--                                       :id="mentor.id"-->
-<!--                                       :key="mentor.id"-->
-<!--                                       :photo="mentor.photo"-->
-<!--                                       class="mr-2"-->
-<!--                                       @tile-clicked="selectMentor(mentor.id)">-->
-
-<!--                            </tile-item>-->
-
                             <round-item v-for="(mentor, index) in mentors"
                                         :title="mentor.name"
                                         :subtitle="mentor.program"
@@ -39,7 +28,8 @@
                     </div>
                 </div>
                 <div class="col-lg-7 h-100">
-                    <session-editor-table :mentorid="this.mentorId" :programid="this.programid" style="height: 73vh"></session-editor-table>
+                    <session-editor-table :mentorid="this.mentorId" :programid="this.programid" :style="this.sedStyle" ></session-editor-table>
+                    <mentor-reports-explorer v-if="usertype == 'administrator'" :mentorId="this.mentorid" style="height: 45%"></mentor-reports-explorer>
                 </div>
             </div>
         </div>
@@ -54,12 +44,28 @@
 </template>
 
 <script>
+import { VBHover } from 'bootstrap-vue';
+
 export default {
     name: "ProgramSessions",
     props : {
         programid: { typeof: Number, default: 0 },
         title : { typeof: String, default: 'Sesije'},
         usertype: { typeof: String, default: 'administrator'}
+    },
+    computed: {
+        sedStyle() {
+            if(this.usertype != 'administrator') {
+                return {
+                    height: "100%"
+                }
+            } else {
+                return {
+                    height: "55%",
+                    marginBottom: "2vh"
+                }
+            }
+        }
     },
     methods: {
         async getMentors() {

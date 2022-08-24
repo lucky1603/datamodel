@@ -47,7 +47,11 @@
                 <a href="{{route('reports.programReports', ['program' => $program->getId()])}}" class="side-nav-link">
                     <i class="uil-chart-pie-alt"></i>
                     <span>{{ mb_strtoupper(__('Reports')) }}</span>
+                    @if ($program->hasReportAlert())
+                        <img src="/images/custom/izvestaj-kasnjenje.png" height="16" style="position: relative; top: -10px"/>
+                    @endif
                 </a>
+
             </li>
         @endif
 

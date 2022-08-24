@@ -14,6 +14,8 @@ class Report extends Model
     public static int $WARNING = 1;
     public static int $SENT = 2;
     public static int $LATE = 3;
+    public static int $APPROVED = 4;
+    public static int $REJECTED = 5;
 
 
     protected $guarded = [];
