@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <profile-programs :profileId="profile_id"></profile-programs>
+            <profile-programs :profileId="profile_id" :user_type="user_type"></profile-programs>
 
         </div>
     </div>
@@ -80,7 +80,8 @@ export default {
     props: {
         profile_id: { typeof: Number, default: 0 },
         token: { typeof: String, default: ''},
-        active_user_id : { typeof: Number, default: 0 }
+        active_user_id : { typeof: Number, default: 0 },
+        user_type: { typeof: String, default: "administrator" }
     },
     methods: {
         async getData() {

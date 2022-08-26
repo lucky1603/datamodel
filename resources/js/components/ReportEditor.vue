@@ -29,7 +29,7 @@
                   </file-group-viewer>
               </div>
 
-              <div v-if="user_role === 'profile'" class="d-flex align-items-center justify-content-center">
+              <div v-if="user_role === 'profile' && this.report_status <= 3" class="d-flex align-items-center justify-content-center">
                   <button   id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-4" title="Dodaj izveštaj" @click="showModal">+</button>
               </div>
 
@@ -125,6 +125,7 @@ export default {
                 console.log(response.data);
 
                 let report = response.data;
+                this.report_status = report.status;
                 this.form.title = report.report_name;
                 this.form.contract_check = report.contract_check;
                 if(report.file_groups.length > 0) {
@@ -196,7 +197,8 @@ export default {
                 narative_approved: 'off',
                 report_approved: 'off',
                 fileGroups: []
-            }
+            },
+            report_status: 0
         }
     }
 }

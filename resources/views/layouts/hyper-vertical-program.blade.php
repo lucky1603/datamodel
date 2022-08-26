@@ -48,7 +48,8 @@
                     <i class="uil-chart-pie-alt"></i>
                     <span>{{ mb_strtoupper(__('Reports')) }}</span>
                     @if ($program->hasReportAlert())
-                        <img src="/images/custom/izvestaj-kasnjenje.png" height="16" style="position: relative; top: -10px"/>
+                        {{-- <img src="/images/custom/Button-warning-icon.png" height="16" style="position: relative; top: -12px; left: -12px; height: 24px"/> --}}
+                        <img src="/images/custom/Button-warning-icon.png" style="height: 20px" title="Podsetnik za slanje izveštaja">
                     @endif
                 </a>
 
@@ -89,6 +90,9 @@
                 <a href="{{route('reports.programReports', ['program' => $program->getId()])}}" class="side-nav-link">
                     <i class="uil-chart-pie-alt"></i>
                     <span>{{ mb_strtoupper( __('Reports')) }}</span>
+                    @if ($program->hasReportAlert())
+                        <img src="/images/custom/Button-warning-icon.png" style="height: 20px" title="Podsetnik za slanje izveštaja">
+                    @endif
                 </a>
             </li>
         @endif

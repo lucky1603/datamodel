@@ -46,6 +46,9 @@ class checkReports extends Command
                 $dtNow = new DateTime(now());
                 $dtCheck = new DateTime($report->contract_check);
                 $diff = date_diff($dtCheck,$dtNow)->format('%R%a');
+
+                $programId = $report->getProgram()->getId();
+                // echo "Program - ".$programId.", date difference is ".$diff." days, report status is ".$report->status."\n";
                 if($diff <= 5 && $diff >= -5) {
                     if($report->status != Report::$WARNING) {
                         $report->status = Report::$WARNING;
@@ -54,8 +57,8 @@ class checkReports extends Command
                     }
 
                 } else if($diff > 5) {
-                    $report->status = Report::$LATE;
                     if($report->status != Report::$LATE) {
+                        $report->status = Report::$LATE;
                         $report->save();
                         $counter++;
                     }

@@ -996,7 +996,8 @@ class ProfileController extends Controller
                 'name' => $program->getValue('program_name'),
                 'type' => $program->getValue('program_type'),
                 'status' => $program->getStatus(),
-                'statusText' => $program->getStatusText()
+                'statusText' => $program->getStatusText(),
+                'reportAlert' => $program->hasReportAlert()
             ];
         });
 

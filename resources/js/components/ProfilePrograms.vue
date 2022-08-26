@@ -8,6 +8,8 @@
                 :label="{ text: program.statusText, show: true }"
                 :key="index"
                 :photo="getImageForProgramType(program.type)"
+                :show_alert="program.reportAlert"
+                alert_title="Vreme za slanje izveštaja"
                 :id="program.id" class="mr-2 bg-secondary" @tile-clicked="tileClicked"></tile-item>
         </div>
     </div>
@@ -18,7 +20,8 @@ export default {
     name: "ProfilePrograms",
     props: {
         profileId: {typeof: Number, default: 0},
-        source: { typeof: String, default: '/profiles/programsForProfile' }
+        source: { typeof: String, default: '/profiles/programsForProfile' },
+        user_type: { typeof: String, default: 'administrator' }
     },
     data() {
         return {
@@ -48,7 +51,12 @@ export default {
         },
         tileClicked(tileId) {
             console.log(tileId);
-            window.location = '/programs/' + tileId;
+            if(this.user_type == 'administrator') {
+                window.location = '/programs/' + tileId;
+            } else {
+                window.location = "/programs/profile/" + tileId;
+            }
+
         }
     },
     async mounted() {

@@ -86,6 +86,7 @@ class ReportController extends Controller
             'financial_approved' => $r->financial_approved,
             'narative_approved' => $r->narative_approved,
             'report_approved' => $r->report_approved,
+            'status' => $r->status
         ];
 
         $reportData['file_groups'] = [];

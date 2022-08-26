@@ -12,8 +12,9 @@
         $data = $model->getData();
         $programs = $model->getPrograms();
         $token = csrf_token();
+        $role = auth()->user()->roles->first()->name;
     @endphp
 
-    <profile-view :profile_id="{{ $model->getId() }}" token="{{ $token }}" :active_user_id="{{ auth()->user()->id }}" ></profile-view>
+    <profile-view :profile_id="{{ $model->getId() }}" token="{{ $token }}" :active_user_id="{{ auth()->user()->id }}" user_type="{{ $role }}" ></profile-view>
 
 @endsection

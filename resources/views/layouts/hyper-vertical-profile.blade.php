@@ -37,7 +37,17 @@
             <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
                 @if(count($programs) > 0)
                     @foreach($programs as $program)
-                        <li><a href="{{ route('programs.profile', ['program' => $program->getId()]) }}">{{ mb_strtoupper($program->getValue('program_name')) }}</a></li>
+                        <li>
+                            <div class="d-flex justify-content-start">
+                                <a href="{{ route('programs.profile', ['program' => $program->getId()]) }}">
+                                    {{ mb_strtoupper($program->getValue('program_name')) }}
+                                    @if ($program->hasReportAlert())
+                                        <img src="/images/custom/Button-warning-icon.png" style="height: 20px" title="Podsetnik za slanje izveštaja">
+                                    @endif
+                                </a>
+                            </div>
+
+                        </li>
                     @endforeach
                 @endif
                 <li><a href="{{ route('programs.create') }}">{{ mb_strtoupper(__("New Program")) }}</a></li>

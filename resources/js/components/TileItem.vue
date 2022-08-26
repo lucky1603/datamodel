@@ -3,8 +3,12 @@
         <div class="card-body p-0">
             <div v-if="label != null && label.show" :class="labelClass"><span>{{ label.text }}</span></div>
             <div class="d-flex flex-column w-100 h-100">
-                <div class="d-flex align-items-center p-1" style="height: 100px;">
+                <div class="d-flex align-items-top p-1" style="height: 100px;">
                     <img :src="imageSource" class="w-100">
+                    <img v-if="show_alert"
+                    src="/images/custom/Button-warning-icon.png"
+                    :title="alert_title"
+                    style="position: relative; left: -24px; top: -24px; height: 48px; width: 48px">
                 </div>
 
                 <div class="d-flex align-items-center justify-content-center w-100" >
@@ -64,7 +68,9 @@ export default {
         photo: {typeof: String, default: ''},
         padding: { typeof: Number, default: 0 },
         label: null,
-        titleMaxLength: { typeof: Number, default: 24 }
+        titleMaxLength: { typeof: Number, default: 24 },
+        show_alert: { typeof: Boolean, default: false },
+        alert_title : { typeof: String, default: "Upozorenje"}
     },
     methods: {
         tileClicked() {
