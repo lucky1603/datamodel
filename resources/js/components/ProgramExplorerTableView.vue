@@ -70,6 +70,7 @@ export default {
             for(const property in this.form) {
                 formData.append(property, this.form[property]);
             }
+            console.log(this.form);
             await axios.post(this.source, formData)
             .then(response => {
                 console.log(response.data);
@@ -120,7 +121,7 @@ export default {
             return retval;
         },
         async onSubmit() {
-            if(this.form.program_type == 0) this.form.program_status = 0;
+            // if(this.form.program_type == 0) this.form.program_status = 0;
 
             await this.getData();
             // Update statusa
@@ -130,11 +131,10 @@ export default {
         updateProgramStatuses() {
             this.programStatuses.length = 0;
             this.programStatuses.push({ value: 0, text: 'Po statusu'});
-            if(this.form.program_status != 0) {
-                this.programStatuses.push({ value: -1, text: 'U PROGRAMU'});
-                this.programStatuses.push({ value: -2, text: 'SUSPENDOVAN/ODBIJEN'});
-                this.programStatuses.push({ value: -3, text: "KRAJ PROGRAMA"});
-            }
+
+            this.programStatuses.push({ value: -1, text: 'U PROGRAMU'});
+            this.programStatuses.push({ value: -2, text: 'SUSPENDOVAN/ODBIJEN'});
+            this.programStatuses.push({ value: -3, text: "KRAJ PROGRAMA"});
 
             switch(this.form.program_type) {
                 case 2: // RAISING STARTS
