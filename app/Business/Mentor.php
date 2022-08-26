@@ -246,4 +246,36 @@ class Mentor extends SituationsModel
 
     }
 
+    public function deleteReportsForProgram($programId) {
+        $reports = $this->getReportsForProgram($programId);
+        $reports->each(function($report) {
+            $report->delete();
+        });
+    }
+
+    public function addReportsForProgram($programId) {
+        $program = $this->getPrograms()->filter(function($program) use($programId) {
+            return $program->getId() == $programId;
+        })->first();
+
+        if($program == null)
+            return;
+
+        // $program = ProgramFactory::resolve($programId);
+
+        // Add reports
+        foreach ($program->instance->reports as $report) {
+            $due_date = $report->contract_check;
+            $name = $report->report_name;
+
+            MentorReport::create([
+                'mentor_id' => $this->getId(),
+                'program_id' => $program->getId(),
+                'name' => $name,
+                'due_date' => $due_date
+            ]);
+
+        }
+    }
+
 }

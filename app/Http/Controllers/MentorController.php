@@ -197,7 +197,7 @@ class MentorController extends Controller
                 }
             }
         } else {
-            $program = Program::find($data['program']);
+            $program = ProgramFactory::resolve($data['program']);
             $mentor->addProgram( $program );
             // Add reports
             foreach ($program->instance->reports as $report) {
@@ -465,5 +465,7 @@ class MentorController extends Controller
 
         return $reportData;
     }
+
+
 
 }
