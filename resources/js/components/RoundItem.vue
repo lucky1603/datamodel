@@ -72,7 +72,8 @@ export default {
             this.$emit('tile-clicked', this.id);
         },
         imgSelected(id) {
-            if(this.id === id) {
+            console.log('Dobio poruku ' + id);
+            if(this.id == id) {
                 this.isSelected = true;
             } else {
                 this.isSelected = false;

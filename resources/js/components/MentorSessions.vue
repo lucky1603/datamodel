@@ -28,7 +28,7 @@
                                         :key="program.id"
                                         :photo="program.photo"
                                         class="mr-2"
-                                        @tile-clicked="selectProgram(program.id)"></round-item>
+                                        @tile-clicked="tileClicked(program.id)"></round-item>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,8 @@ export default {
         mentorid: { typeof: Number, default: 0 },
         title : { typeof: String, default: 'Sesije'},
         usertype: { typeof: String, default: 'administrator'},
-        token: { typeof: String, default: ''}
+        token: { typeof: String, default: ''},
+        programid: { typeof: Number, default: 0 }
     },
     methods: {
         async getPrograms() {
@@ -66,10 +67,33 @@ export default {
 
                 });
         },
+        async tileClicked(tileId) {
+            await this.saveSelectedProgram(tileId);
+            await this.selectProgram(tileId);
+        },
         selectProgram(programid) {
             Dispecer.$emit('program-selected', programid);
             this.programId = programid;
             Dispecer.$emit('tile-selected', programid);
+            console.log('Selektovao program ' + programid);
+        },
+        async saveSelectedProgram(programId) {
+            var data = new FormData();
+            data.append('program_id', programId);
+            data.append("_token", this.token);
+            await axios.post('/mentors/saveSelectedProgram', data);
+        },
+        async getSelectedProgram() {
+            var data = new FormData();
+            data.append("_token", this.token);
+            await axios.post('/mentors/getSelectedProgram', data)
+            .then(response => {
+                let programId = response.data;
+                console.log('Selected Program');
+                console.log(programId);
+
+
+            });
         }
     },
     data() {
@@ -82,8 +106,16 @@ export default {
     },
     async mounted() {
         await this.getPrograms();
+        // await this.getSelectedProgram();
         if(this.programs.length > 0) {
-            this.selectProgram(this.programs[0].id);
+            if(this.programid != 0) {
+                this.selectProgram(this.programid);
+            } else {
+                this.selectProgram(this.programs[0].id);
+            }
+        }
+        else {
+            console.log('programi nema');
         }
     }
 

@@ -103,11 +103,15 @@ const app = new Vue({
         },
         programClick(id) {
             window.location = '/programs/' + id;
+        },
+        mentorProgramSelected(id) {
+            alert("Mentor program " + id + " selected!");
         }
     },
     mounted() {
         Dispecer.$on('profile-clicked', this.profileClick);
         Dispecer.$on('program-clicked', this.programClick);
+        // Dispecer.$on('program-selected', this.mentorProgramSelected);
     }
 });
 

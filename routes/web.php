@@ -168,6 +168,8 @@ Route::get('mentors/reportsForProgram/{mentor}/{program}', 'MentorController@rep
 Route::get('mentors/addprogram/{mentor}', 'MentorController@addProgram')->name('mentors.addprogram');
 Route::post('mentors/addprogram', 'MentorController@storeProgram')->name('mentors.storeprogram');
 Route::get('mentors/profile/{mentor}', 'MentorController@profile')->name('mentors.profile');
+Route::post('mentors/saveSelectedProgram', 'MentorController@saveSelectedProgram');
+Route::post('mentors/getSelectedProgram', 'MentorController@getSelectedProgram');
 
 Route::post('mentor-reports/addFileGroup', 'MentorReportController@fileGroupAdded')->name('mentorreports.fileGroupAdded');
 Route::get('mentor-reports/get/{report}', "MentorReportController@get")->name('mentorreports.get');

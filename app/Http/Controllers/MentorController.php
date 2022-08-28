@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Business\Mentor;
 use App\Business\Program;
 use App\Business\ProgramFactory;
-use App\Business\Session;
+use App\Business\Session as MentorSession;
 use App\Http\Requests\MentorRequest;
 use App\Mail\MentorCreated;
 use App\Mail\ProfileCreated;
@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Facades\Session;
 
 class MentorController extends Controller
 {
@@ -124,6 +126,7 @@ class MentorController extends Controller
     public function profile($mentorId) {
         $mentor = Mentor::find($mentorId);
         $role = auth()->user()->roles()->first()->name;
+        Session::forget('mentor-report');
         return view('mentors.profile', ['mentor' => $mentor, 'role' => $role]);
     }
 
@@ -243,7 +246,7 @@ class MentorController extends Controller
     {
         $arr = [];
 
-        $sessions = Session::find()->filter(function($session) use($programId, $mentorId) {
+        $sessions = MentorSession::find()->filter(function($session) use($programId, $mentorId) {
             if($session->getProgram()->getId() == $programId && $session->getMentor()->getId() == $mentorId) {
                 return true;
             }
@@ -297,7 +300,8 @@ class MentorController extends Controller
     public function ownSessions($mentorId) {
         $mentor = Mentor::find($mentorId);
         $token = csrf_token();
-        return view('mentors.ownsessions', ['mentor' => $mentor, 'token' => $token]);
+        $programId = Session::get('mentor-report');
+        return view('mentors.ownsessions', ['mentor' => $mentor, 'token' => $token, 'programId' => $programId ]);
     }
 
     /**
@@ -464,6 +468,18 @@ class MentorController extends Controller
         }
 
         return $reportData;
+    }
+
+    public function saveSelectedProgram(Request $request) {
+        $programId = $request->post('program_id');
+        // Session::forget('sinisa');
+        Session::put('mentor-report', $programId);
+        return true;
+    }
+
+    public function getSelectedProgram(Request $request) {
+        $programId = Session::get('mentor-report');
+        return $programId ?? 0;
     }
 
 
