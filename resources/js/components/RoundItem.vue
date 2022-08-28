@@ -1,10 +1,22 @@
 <template>
     <div class="d-flex flex-column align-items-center" style="width: 100px; height: 70px">
-        <img :src="imgSource" :class="imgClass" width="50px" :style="imgStyle" :title="title" @click="imgClicked" style="border-width: 5px">
-        <span class="font-10 attribute-label text-center mt-1">
+        <div class="d-flex align-items-center justify-content-center">
+            <img
+                :src="imgSource"
+                :class="imgClass"
+                :style="imgStyle"
+                :title="title"
+                 @click="imgClicked">
+        </div>
+
+        <div :class="titleClass">
+            <div style="font-size: 11px">{{ title }}</div>
+            <div v-if="subtitle != ''" style="font-size: 9px">{{ subtitle }}</div>
+        </div>
+        <!-- <span :class="titleClass">
             {{ title }}
         </span>
-        <span v-if="subtitle != ''" class="text-dark" style="font-size: 9px">{{ subtitle }}</span>
+        <span v-if="subtitle != ''" class="text-dark" style="font-size: 9px">{{ subtitle }}</span> -->
     </div>
 
 
@@ -37,6 +49,14 @@ export default {
             if(this.photo == '')
                 return '/images/custom/nophoto2.png';
             return this.photo;
+        },
+        titleClass() {
+            let c = "d-flex flex-column justify-content-center align-items-center text-center mt-1 p-1";
+            if(this.isSelected) {
+                return c + " bg-primary text-white";
+            }
+
+            return c;
         }
     },
     props: {
