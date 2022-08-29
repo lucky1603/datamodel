@@ -18,7 +18,8 @@
               </div>
               <div class="form-group mb-2">
                   <label class="attribute-label">Datum očekivanog slanja</label>
-                  <b-form-input type="date" v-model="form.contract_check" :disabled="this.report_id != 0"></b-form-input>
+                  <!-- <b-form-input type="date" v-model="form.contract_check" :disabled="this.report_id != 0"></b-form-input> -->
+                  <b-form-datepicker v-model="form.contract_check" :disabled="this.report_id != 0"></b-form-datepicker>
               </div>
 
               <div style="margin-left: 10vw; margin-right: 10vw; padding-top: 5vh">
