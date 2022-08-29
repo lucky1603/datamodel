@@ -6,7 +6,7 @@
                     <span class="h4 attribute-label">SESIJE</span>
                 </div>
 
-                <b-button class="float-right" variant="primary" @click="newSession"><i class="dripicons-user-group"></i></b-button>
+                <b-button class="float-right" variant="primary" @click="newSession1"><i class="dripicons-user-group"></i></b-button>
             </div>
             <div class="card-body overflow-auto" style="display: flex; flex-wrap: wrap">
                 <tile-item
@@ -36,12 +36,30 @@
                 <b-button variant="light" @click="onAddCancel">Odustani</b-button>
             </template>
         </b-modal>
+        <b-modal id="addSituationModal1" ref="addSituationModal1" size="lg" header-bg-variant="dark" header-text-variant="light">
+            <template #modal-title>{{ addsessiontitle }}</template>
+            <session-form ref="sessions_form" :mentor_id="mentorid" :program_id="programid" :token="token" action="/sessions/create"></session-form>
+            <template #modal-footer>
+                <b-button variant="primary" @click="onAddSession">Prihvati</b-button>
+                <b-button variant="light" @click="onCancelAddSession">Odustani</b-button>
+            </template>
+        </b-modal>
+        <b-modal id="viewSituationModal1" ref="viewSituationModal1" size="lg" header-bg-variant="dark" header-text-variant="light">
+            <template #modal-title>{{ viewsessiontitle }}</template>
+            <session-form ref="sessions_form" :mentor_id="mentorid" :program_id="programid" :token="token" action="/sessions/edit" :session_id="sessionId"></session-form>
+            <template #modal-footer>
+                <b-button variant="primary" @click="onEditSession">Prihvati</b-button>
+                <b-button variant="light" @click="onCancelEditSession">Odustani</b-button>
+            </template>
+        </b-modal>
     </div>
 
 </template>
 
 <script>
+import SessionForm from './SessionForm.vue';
 export default {
+  components: { SessionForm },
     name: "SessionEditorTable",
     props: {
         mentorid: 0,
@@ -49,7 +67,9 @@ export default {
         viewContent: null,
         formContent: null,
         addsessiontitle: { typeof: String, default: 'Dodaj novu sesiju'},
-        viewsessiontitle: { typeof: String, default: 'Pregledaj sesiju'}
+        viewsessiontitle: { typeof: String, default: 'Pregledaj sesiju'},
+        token: { typeof: String, default: ''},
+        session_id: { typeof: Number, default: 0}
     },
     methods : {
         async getSessions() {
@@ -106,7 +126,8 @@ export default {
         tileClicked(id) {
             console.log(`Tile ${id} selected`);
             this.sessionId = id;
-            this.viewSession();
+            // this.viewSession();
+            this.editSession();
         },
         onOk() {
             const form = document.getElementById('mySessionEditForm');
@@ -142,6 +163,39 @@ export default {
         },
         closePreview() {
             this.$refs['viewSituationModal'].hide();
+        },
+        newSession1() {
+            this.$refs['addSituationModal1'].show();
+        },
+        editSession() {
+            this.$refs['viewSituationModal1'].show();
+        },
+        onAddSession() {
+            this.$refs['sessions_form'].send()
+            .then(response => {
+                this.getSessions();
+                this.$refs['addSituationModal1'].hide();
+            })
+            .catch(errors => {
+                console.log(errors);
+            });
+
+        },
+        onCancelAddSession() {
+            this.$refs['addSituationModal1'].hide();
+        },
+        onEditSession() {
+            this.$refs['sessions_form'].send()
+            .then(response => {
+                this.getSessions();
+                this.$refs['viewSituationModal1'].hide();
+            })
+            .catch(errors => {
+                console.log(errors);
+            });
+        },
+        onCancelEditSession() {
+            this.$refs['viewSituationModal1'].hide();
         }
     },
     data () {

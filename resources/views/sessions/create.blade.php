@@ -13,7 +13,7 @@
 
             <div class="form-group">
                 <label for="session_title">{{__('Session Title')}}</label>
-                <input type="text" id="session_title" name="session_title" class="form-control form-control-sm">
+                <input type="text" id="session_title" name="session_title" class="form-control form-control-sm" required>
             </div>
 
             <div class="row">
@@ -22,19 +22,19 @@
                         <input type="date"
                                    id="session_start_date"
                                    name="session_start_date"
-                                   class="form-control form-control-sm">
+                                   class="form-control form-control-sm" required>
                 </div>
                 <div class="col-lg-3 form-group">
                     <label for="session_start_time">{{__('Start Time')}}</label>
-                    <input type="time" class="form-control form-control-sm" id="session_start_time" name="session_start_time">
+                    <input type="time" class="form-control form-control-sm" id="session_start_time" name="session_start_time" required>
                 </div>
                 <div class="col-lg-3 form-group">
                     <label for="session_duration">{{__("Duration")}}</label>
-                    <input type="text" class="form-control form-control-sm" id="session_duration" name="session_duration">
+                    <input type="text" class="form-control form-control-sm" id="session_duration" name="session_duration" required>
                 </div>
                 <div class="col-lg-3 form-group">
                     <label for="session_duration_unit">{{__("Duration Unit")}}</label>
-                    <select id="session_duration_unit" name="session_duration_unit" class="form-control form-control-sm">
+                    <select id="session_duration_unit" name="session_duration_unit" class="form-control form-control-sm" required>
                         <option value="1">{{__('Minutes(s)')}}</option>
                         <option value="2">{{__('Hour(s)')}}</option>
                         <option value="3">{{__("Day(s)") }}</option>

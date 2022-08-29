@@ -190,6 +190,7 @@ Route::post('sessions/create', 'SessionController@store')->name('sessions.store'
 Route::post('sessions/edit', 'SessionController@update')->name('sessions.update');
 Route::get('sessions/edit/{session}', 'SessionController@edit')->name('sessions.edit');
 Route::get('sessions/create/{program}/{mentor}', 'SessionController@create')->name('sessions.create');
+Route::post('sessions/getSessionData', 'SessionController@getSessionData');
 
 Route::get('user/getsessionvalue/{key}', "UserController@getSessionValue")->name('getsessionvalue');
 Route::post('user/setsessionvalues', 'UserController@setSessionValues')->name('setsessionvalues');
