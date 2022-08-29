@@ -13,5 +13,5 @@
     @endphp
     <program-sessions
         :programid="{{ $program->getId() }}"
-        usertype="{{ $userType }}"></program-sessions>
+        usertype="{{ $userType }}" token={{ csrf_token() }}></program-sessions>
 @endsection

@@ -63,6 +63,37 @@
                     rows="3"
                     max-rows="6"></b-form-textarea>
             </b-form-group>
+            <b-form-checkbox
+                v-if="user_type == 'mentor'"
+                id="session_is_finished"
+                v-model="form.session_is_finished"
+                name="session_is_finished"
+                :value="true"
+                :unchecked-value="false">
+                    Sesija zavrsena
+            </b-form-checkbox>
+            <b-form-group v-if="form.session_is_finished && user_type != 'profile'"
+                id="mentor_feedback_group"
+                label="Feedback mentora"
+                label-for="mentor_feedback" class="mt-1">
+                <b-form-textarea
+                    id="mentor_feedback"
+                    v-model="form.mentor_feedback"
+                    placeholder="Feeback mentora ..."
+                    rows="3"
+                    max-rows="6" :disabled="user_type != 'mentor'"></b-form-textarea>
+            </b-form-group>
+            <b-form-group v-if="form.session_is_finished && user_type != 'mentor'"
+                id="client_feedback_group"
+                label="Feedback klijenta"
+                label-for="client_feedback" class="mt-1">
+                <b-form-textarea
+                    id="client_feedback"
+                    v-model="form.client_feedback"
+                    placeholder="Feeback klijenta ..."
+                    rows="3"
+                    max-rows="6" :disabled="user_type != 'profile'"></b-form-textarea>
+            </b-form-group>
         </form>
     </div>
 </template>
@@ -75,7 +106,8 @@ export default {
         program_id: { typeof: Number, default: 0 },
         action: { typeof: String, default: ''},
         token: { typeof: String, default: '' },
-        session_id: { typeof: Number, default: 0 }
+        session_id: { typeof: Number, default: 0 },
+        user_type: { typeof: String, default: 'administrator' }
     },
     methods: {
         send() {
@@ -114,6 +146,7 @@ export default {
             data.append('session_id', this.session_id);
             await axios.post('/sessions/getSessionData', data)
             .then(response => {
+                console.log(response.data);
                 for(let property in this.form) {
                     if(property == 'session_short_note' && response.data[property] == null)
                         continue;
@@ -135,7 +168,10 @@ export default {
                 session_start_time: '',
                 session_duration: 0,
                 session_duration_unit: 0,
-                session_short_note: ''
+                session_short_note: '',
+                client_feedback: '',
+                mentor_feedback: '',
+                session_is_finished: false
             },
             units: [
                 { value: 0, text: "Izaberite"},

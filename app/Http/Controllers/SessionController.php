@@ -80,6 +80,7 @@ class SessionController extends Controller
         // TODO: Validation
 
         $data = $request->post();
+        var_dump($data);
 
         $sessionId = $data['sessionid'];
         $session = Session::find($sessionId);
@@ -89,7 +90,10 @@ class SessionController extends Controller
         $time = $data['session_start_time'];
         $data['session_start_time'] = $date." ".$time;
 
+        $data['session_is_finished'] = $data['session_is_finished'] == 'true' ? true : false;
+
         $session->setData($data);
+        return $session->getData();
 
         return redirect(route('profiles.sessions', ['profile' => $profileId]));
     }

@@ -38,7 +38,12 @@
         </b-modal>
         <b-modal id="addSituationModal1" ref="addSituationModal1" size="lg" header-bg-variant="dark" header-text-variant="light">
             <template #modal-title>{{ addsessiontitle }}</template>
-            <session-form ref="sessions_form" :mentor_id="mentorid" :program_id="programid" :token="token" action="/sessions/create"></session-form>
+            <session-form
+                ref="sessions_form"
+                :mentor_id="mentorid"
+                :program_id="programid"
+                :token="token"
+                action="/sessions/create" :user_type="user_type"></session-form>
             <template #modal-footer>
                 <b-button variant="primary" @click="onAddSession">Prihvati</b-button>
                 <b-button variant="light" @click="onCancelAddSession">Odustani</b-button>
@@ -46,7 +51,12 @@
         </b-modal>
         <b-modal id="viewSituationModal1" ref="viewSituationModal1" size="lg" header-bg-variant="dark" header-text-variant="light">
             <template #modal-title>{{ viewsessiontitle }}</template>
-            <session-form ref="sessions_form" :mentor_id="mentorid" :program_id="programid" :token="token" action="/sessions/edit" :session_id="sessionId"></session-form>
+            <session-form
+                ref="sessions_form"
+                :mentor_id="mentorid"
+                :program_id="programid"
+                :token="token" action="/sessions/edit"
+                :session_id="sessionId" :user_type="user_type"></session-form>
             <template #modal-footer>
                 <b-button variant="primary" @click="onEditSession">Prihvati</b-button>
                 <b-button variant="light" @click="onCancelEditSession">Odustani</b-button>
@@ -69,7 +79,8 @@ export default {
         addsessiontitle: { typeof: String, default: 'Dodaj novu sesiju'},
         viewsessiontitle: { typeof: String, default: 'Pregledaj sesiju'},
         token: { typeof: String, default: ''},
-        session_id: { typeof: Number, default: 0}
+        session_id: { typeof: Number, default: 0},
+        user_type: { typeof: String, default: 'administrator' }
     },
     methods : {
         async getSessions() {

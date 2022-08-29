@@ -33,7 +33,12 @@
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <session-editor-table :mentorid="this.mentorid" :programid="this.programId" :token="token" style="height: 40vh; margin-bottom: 2vh"></session-editor-table>
+                    <session-editor-table
+                        :mentorid="this.mentorid"
+                        :programid="this.programId"
+                        :token="token"
+                        :user_type="usertype"
+                        style="height: 40vh; margin-bottom: 2vh"></session-editor-table>
                     <mentor-reports-explorer :mentorId="this.mentorid" style="height: 35vh"></mentor-reports-explorer>
                 </div>
             </div>

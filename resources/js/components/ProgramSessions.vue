@@ -28,7 +28,10 @@
                     </div>
                 </div>
                 <div class="col-lg-7 h-100">
-                    <session-editor-table :mentorid="this.mentorId" :programid="this.programid" :style="this.sedStyle" ></session-editor-table>
+                    <session-editor-table
+                        :mentorid="this.mentorId"
+                        :programid="this.programid"
+                        :style="this.sedStyle" :token="token" :user_type="usertype" ></session-editor-table>
                     <mentor-reports-explorer v-if="usertype == 'administrator'" :mentorId="this.mentorid" style="height: 45%"></mentor-reports-explorer>
                 </div>
             </div>
@@ -51,7 +54,8 @@ export default {
     props : {
         programid: { typeof: Number, default: 0 },
         title : { typeof: String, default: 'Sesije'},
-        usertype: { typeof: String, default: 'administrator'}
+        usertype: { typeof: String, default: 'administrator'},
+        token: { typeof: String, default: ''}
     },
     computed: {
         sedStyle() {
