@@ -34,11 +34,13 @@ class SessionController extends Controller
     }
 
     public function store(Request $request) {
-//        $request->validate([
-//            'session_name' => 'required',
-//            'session_start_date' => 'required|date',
-//            'session_start_time' => 'required',
-//        ]);
+       $request->validate([
+           'session_title' => 'required',
+           'session_start_date' => 'required|date',
+           'session_start_time' => 'required',
+           'session_duration' => 'integer|min:1',
+           'session_duration_unit' => 'in:1,2,3|required'
+       ]);
 
         $data = $request->post();
         foreach($data as $key=>$value) {
@@ -51,6 +53,11 @@ class SessionController extends Controller
 
         unset($data['mentorid']);
         unset($data['programid']);
+
+        $date = $data['session_start_date'];
+        $time = $data['session_start_time'];
+
+        $data['session_start_time'] = $date." ".$time;
 
         $session = new Session($data);
         if($session->instance != null) {
@@ -77,6 +84,11 @@ class SessionController extends Controller
         $sessionId = $data['sessionid'];
         $session = Session::find($sessionId);
         $profileId = $session->getProgram()->getProfile()->getId();
+
+        $date = $data['session_start_date'];
+        $time = $data['session_start_time'];
+        $data['session_start_time'] = $date." ".$time;
+
         $session->setData($data);
 
         return redirect(route('profiles.sessions', ['profile' => $profileId]));
@@ -88,5 +100,18 @@ class SessionController extends Controller
 
     public function forMentor($mentorid) {
 
+    }
+
+    public function getSessionData(Request $request) {
+        $sessionId = $request->post('session_id');
+        $session = Session::find($sessionId);
+        $sessionData = $session != null ? $session->getData() : [];
+        if(count($sessionData) > 0) {
+            $time = $sessionData['session_start_time'];
+            $time_tokens = explode(" ", $time);
+            $sessionData['session_start_time'] = $time_tokens[1];
+        }
+
+        return $sessionData;
     }
 }
