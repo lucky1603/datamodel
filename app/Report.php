@@ -25,6 +25,10 @@ class Report extends Model
         return $this->belongsTo(Instance::class);
     }
 
+    public function company_stat() {
+        return $this->belongsTo(CompanyStat::class);
+    }
+
     public function file_groups(): BelongsToMany
     {
         return $this->belongsToMany(FileGroup::class);

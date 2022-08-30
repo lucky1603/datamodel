@@ -887,8 +887,8 @@ class Program extends SituationsModel
                 'profile_type' => $profile->getValue('is_company') ? 1 : 0, // 1 - If it's a company, 0 - if it's a startup
                 'program_status' => $program->getStatus(),
                 'program_status_text' => $program->getStatusText(),
-                'ntp' => $program->getValue('ntp'),
-                'ntp_text' => $program->getText('ntp'),
+                'ntp' => $profile->getValue('ntp'),
+                'ntp_text' => $profile->getText('ntp'),
                 'session_count' => $program->getSessions()->count(),
                 'workshop_count' => $program->getAttendances()->filter(function($attendance) { return $attendance->getTraining()->getValue('training_type') == 1; })->count()
             ]);
