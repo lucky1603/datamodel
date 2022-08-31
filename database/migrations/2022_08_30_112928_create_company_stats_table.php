@@ -17,14 +17,25 @@ class CreateCompanyStatsTable extends Migration
             $table->id();
             $table->decimal('iznos_prihoda')->default(0.0);
             $table->decimal('iznos_izvoza')->default(0.0);
+            $table->unsignedSmallInteger('faza_razvoja')->default(0);
             $table->unsignedSmallInteger('broj_zaposlenih')->default(0);
             $table->unsignedSmallInteger('broj_angazovanih')->default(0);
-            $table->decimal('iznos_placenih_poreza')->default(0.0);
-            $table->decimal('iznos_ulaganja_istrazivanje_razvoj')->default(0.0);
+            $table->unsignedSmallInteger('broj_angazovanih_zena')->default(0);
+            $table->unsignedSmallInteger('women_founders_count')->default(0);
+            $table->unsignedSmallInteger('broj_povratnika_iz_inostranstva')->default(0);
             $table->unsignedSmallInteger('broj_malih_patenata')->default(0);
             $table->unsignedSmallInteger('broj_patenata')->default(0);
             $table->unsignedSmallInteger('broj_autorskih_dela')->default(0);
             $table->unsignedSmallInteger('broj_inovacija')->default(0);
+            $table->unsignedSmallInteger('broj_zasticenih_zigova')->default(0);
+            $table->decimal('iznos_placenih_poreza')->default(0.0);
+            $table->decimal('iznos_ulaganja_istrazivanje_razvoj')->default(0.0);
+            $table->decimal('investicije_vc_fond')->default(0.0);
+            $table->decimal('investicije_angels_investors')->default(0.0);
+            $table->decimal('investicije_grant')->default(0.0);
+            $table->decimal('investicije_3f')->default(0.0);
+            $table->decimal('investicije_other')->default(0.0);
+
             $table->tinyInteger('statistic_sent')->default(0);
             $table->timestamps();
         });

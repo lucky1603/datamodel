@@ -197,6 +197,9 @@ Route::post('user/setsessionvalues', 'UserController@setSessionValues')->name('s
 
 Route::post('reports/addFileGroup', 'ReportController@fileGroupAdded')->name('reports.fileGroupAdded');
 Route::get('reports/{report}', 'ReportController@edit')->name('reports.edit');
+Route::get('reports/getStatistics/{report}', 'ReportController@getStatistics')->name('report.getStatistics');
+Route::post('reports/changeStatus', 'ReportController@changeStatus')->name('reports.changeStatus');
+Route::post('reports/statistics', 'ReportController@updateStatistics')->name('reports.updateStatistics');
 Route::post('reports/{report}', 'ReportController@update')->name('reports.update');
 Route::get('reports/addFileGroup/{report}', 'ReportController@addFileGroup')->name('reports.addFileGroup');
 Route::get('reports/create/{program}', 'ReportController@create')->name('reports.create');

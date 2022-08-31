@@ -3,9 +3,6 @@
         <div v-if="header" class="p-2 m-0">
             <p class="text-center attribute-label font-weight-bold">VAŽNO</p>
             <p class="font-11 text-center">Kako biste otpočeli Fazu 2 potrebno je da unesete sve podatke ispod:</p>
-<!--            <div class="d-flex align-items-center justify-content-center">-->
-<!--                <b-button size="sm" type="button" variant="primary" @click="openForm">Dodaj statistiku</b-button>-->
-<!--            </div>-->
         </div>
         <h4 class="w-100 attribute-label text-center">POSLOVNI PODACI</h4>
         <div class="d-flex flex-wrap justify-content-center border border-light shadow-sm p-2">
@@ -276,7 +273,10 @@ export default {
     props: {
         profile_id: { typeof: Number, default: 0 },
         header: { typeof: Boolean, default: false },
-        test: { typeof: Number, default: 0 }
+        test: { typeof: Number, default: 0 },
+        report_id: { typeof: Number, default: 0 },
+        user_type: { typeof: String, default: 'administrator'}
+
     },
     computed: {
         selectedCountryNames() {
@@ -301,7 +301,14 @@ export default {
             return this.formatter.format(value);
         },
         async getData() {
-            await axios.get('/profiles/statistics/' + this.profile_id)
+            var action = '';
+            if(this.profile_id != 0) {
+                action = '/profiles/statistics/' + this.profile_id;
+            } else {
+                action = '/reports/getStatistics/' + this.report_id;
+            }
+
+            await axios.get(action)
             .then(response => {
                 console.log('statistika ...');
                 console.log(response.data);
@@ -341,15 +348,6 @@ export default {
         async onSubmit() {
             let formData = new FormData();
 
-            // for(const property in this.form) {
-            //     if(property != 'countries')
-            //         data.append(property, this.form[property]);
-            //     else {
-            //
-            //     }
-            //
-            // }
-
             for(const[key, value] of Object.entries(this.form)) {
                 if(key != 'countries') {
                     if(key === 'statistic_sent') {
@@ -374,12 +372,21 @@ export default {
                 }
             }
 
-            await axios.post('/profiles/statistics', formData)
+            var action = '';
+            if(this.profile_id != 0) {
+                action = '/profiles/statistics';
+            } else {
+                formData.append('report_id', this.report_id);
+                action = '/reports/statistics';
+            }
+
+            await axios.post(action, formData)
             .then(response => {
                 console.log(response.data);
             });
 
-            this.editMode = false;
+            // this.editMode = false;
+            this.closeForm();
             await this.getData();
             await this.getCountries();
         }
@@ -399,8 +406,6 @@ export default {
         if(!this.statistic_sent) {
             this.editMode = true;
         }
-
-
     },
     data() {
         return {

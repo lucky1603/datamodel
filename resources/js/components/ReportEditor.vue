@@ -22,16 +22,28 @@
                   <b-form-datepicker v-model="form.contract_check" :disabled="this.report_id != 0"></b-form-datepicker>
               </div>
 
-              <div style="margin-left: 10vw; margin-right: 10vw; padding-top: 5vh">
-                  <file-group-viewer
-                      v-for="(fileGroup, index) in this.form.fileGroups"
-                      :file_group="fileGroup"
-                      :index="index + 1" :key="index" class="m-2 shadow" >
-                  </file-group-viewer>
-              </div>
+              <div class="container">
+                <b-card no-body>
+                    <b-tabs pills card>
+                        <b-tab title="Datoteke izveštaja" active>
+                            <h3 class="text-center text-dark">Datoteke izveštaja</h3>
+                            <div style="margin-left: 4vw; margin-right: 4vw; padding-top: 4vh">
+                                <file-group-viewer
+                                    v-for="(fileGroup, index) in this.form.fileGroups"
+                                    :file_group="fileGroup"
+                                    :index="index + 1" :key="index" class="m-2 shadow" >
+                                </file-group-viewer>
+                            </div>
 
-              <div v-if="user_role === 'profile' && this.report_status <= 3" class="d-flex align-items-center justify-content-center">
-                  <button   id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-4" title="Dodaj izveštaj" @click="showModal">+</button>
+                            <div v-if="user_role === 'profile' && this.report_status <= 3" class="d-flex align-items-center justify-content-center">
+                                <button   id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-4" title="Dodaj izveštaj" @click="showModal">+</button>
+                            </div>
+                        </b-tab>
+                        <b-tab title="Statistika">
+                            <program-statistics-form :report_id="report_id"></program-statistics-form>
+                        </b-tab>
+                    </b-tabs>
+                  </b-card>
               </div>
 
               <div v-if="report_id != 0 && user_role != 'profile'" class="form-group d-flex flex-wrap align-items-center justify-content-center mt-4" >
@@ -57,7 +69,6 @@
                           <span class="attribute-label">Ispunjeni poslovni uslovi</span>
                       </b-form-checkbox>
 
-
                       <b-form-checkbox
                           id="chkNarativeApproved"
                           v-model="form.narative_approved"
@@ -80,8 +91,10 @@
 
               </div>
               <div class="d-flex align-items-center justify-content-center mt-4">
-                  <b-button v-if="user_role != 'profile'" type="submit" variant="primary" class="mr-2">Pošalji</b-button>
-                  <b-button type="button" variant="danger" @click="cancelClicked">Zatvori</b-button>
+                  <b-button v-if="user_role == 'profile' && report_status < 2" type="submit" variant="primary" class="mr-2">Pošalji</b-button>
+                  <b-button v-if="user_role == 'administrator' && report_status < 4" type="button" variant="primary" class="mr-2" @click="onPrihvati">Prihvati</b-button>
+                  <b-button v-if="user_role == 'administrator' && report_status < 4" type="button" variant="danger" class="mr-2" @click="onOdbij">Odbij</b-button>
+                  <b-button type="button" variant="outline-primary" @click="cancelClicked">Zatvori</b-button>
               </div>
 
               <b-modal id="addReportModal" ref="addReportModal" header-bg-variant="dark" header-text-variant="light" >
@@ -151,23 +164,28 @@ export default {
         cancelClicked() {
             window.location.href=`/reports/programReports/${this.program_id}`;
         },
-        onSubmit() {
-            let data = new FormData();
-            for(let property in this.form) {
-                if(property == 'fileGroups' ) {
-                    continue;
-                } else {
-                    data.append(property, this.form[property]);
-                }
-            }
+        async onSubmit() {
+            // let data = new FormData();
+            // for(let property in this.form) {
+            //     if(property == 'fileGroups' ) {
+            //         continue;
+            //     } else {
+            //         data.append(property, this.form[property]);
+            //     }
+            // }
 
-            data.append('_token', this.token);
+            // data.append('_token', this.token);
 
-            axios.post(this.action, data)
+            // axios.post(this.action, data)
+            // .then(response => {
+            //     console.log(response.data);
+            //     window.location.href='/reports/programReports/' + this.program_id;
+            // });
+
+            await this.doSubmit()
             .then(response => {
-                console.log(response.data);
-                window.location.href='/reports/programReports/' + this.program_id;
-            });
+                window.location.href = '/reports/programReports/' + this.program_id;
+            })
         },
         async showModal() {
             this.$refs['addReportModal'].show();
@@ -177,8 +195,67 @@ export default {
             this.$refs['addReportModal'].hide();
             location.reload();
         },
+        async doSubmit() {
+            return new Promise((resolve, reject)  => {
+                let data = new FormData();
+                for(let property in this.form) {
+                    if(property == 'fileGroups' ) {
+                        continue;
+                    } else {
+                        data.append(property, this.form[property]);
+                    }
+                }
+
+                console.log("forma je ...");
+                console.log(this.form);
+
+                data.append('_token', this.token);
+
+                axios.post(this.action, data)
+                .then(response => {
+                    console.log(response.data);
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+            }) ;
+        },
         onCancel() {
             this.$refs['addReportModal'].hide();
+        },
+        async onPrihvati() {
+            await this.doSubmit()
+            .then(response => {
+                var formData = new FormData();
+                formData.append('_token', this.token);
+                formData.append('status', 4);
+                formData.append('report_id', this.report_id);
+                axios.post('/reports/changeStatus', formData)
+                .then(response => {
+                    window.location.href='/reports/programReports/' + this.program_id;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            });
+
+
+        },
+        async onOdbij() {
+            await this.doSubmit();
+
+            var formData = new FormData();
+            formData.append('_token', this.token);
+            formData.append('status', 5);
+            formData.append('report_id', this.report_id);
+            await axios.post('/reports/changeStatus', formData)
+            .then(response => {
+                window.location.href='/reports/programReports/' + this.program_id;
+            })
+            .catch(error => {
+                console.log(error);
+            });
         }
     },
     async mounted() {

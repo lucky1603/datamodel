@@ -8,6 +8,8 @@ use App\Business\ProgramFactory;
 use App\File;
 use App\FileGroup;
 use App\Report;
+use App\CompanyStat;
+use App\Country;
 use Hamcrest\Util;
 use Illuminate\Http\Request;
 
@@ -155,7 +157,7 @@ class ReportController extends Controller
         $report->narative_approved = $data['narative_approved'] == 'on';
         $report->report_approved = $data['report_approved'] == 'on';
 
-        $report->status = $report->report_approved ? Report::$APPROVED : Report::$REJECTED;
+        $report->status = Report::$SENT;
 
         $report->save();
 
@@ -201,7 +203,7 @@ class ReportController extends Controller
             }
 
             $report->addFileGroup($fileGroup);
-            $report->setAttribute('status', Report::$SENT);
+            // $report->setAttribute('status', Report::$SENT);
             $report->save();
         }
 
@@ -246,6 +248,113 @@ class ReportController extends Controller
 //            $contract_check = $report->contract_check;
 //            $diff =
 //        });
+    }
+
+    public function changeStatus(Request $request) {
+        $data = $request->post();
+        $status = $data['status'];
+        $report_id = $data['report_id'];
+        $report = Report::find($report_id);
+        if($report == null)
+            return false;
+
+        $report->status = $status;
+        $report->save();
+        return true;
+    }
+
+    public function getStatistics($reportId) {
+        $report = Report::find($reportId);
+        $statisticData = [
+            'iznos_prihoda' => 100.50,
+            'iznos_izvoza' => 0.0,
+            'broj_zaposlenih' => 0,
+            'broj_angazovanih' => 0,
+            'broj_angazovanih_zena' => 0,
+            'iznos_placenih_poreza' => 0.0,
+            'iznos_ulaganja_istrazivanje_razvoj' => 0.0,
+            'broj_malih_patenata' => 0,
+            'broj_patenata' => 0,
+            'broj_autorskih_dela' => 0,
+            'broj_inovacija' => 0,
+            'countries' => [],
+            'statistic_sent' => false,
+            'faza_razvoja' => 0,
+            'membership_type' => 0,
+            'women_founders_count' => 0,
+            'broj_povratnika_iz_inostranstva' => 0,
+            'broj_zasticenih_zigova' => 0,
+        ];
+
+        if($report->company_stat != null) {
+            $countries = $report->company_stat->countries->map(function($country) {
+                return $country->id;
+            });
+
+            $statisticData['iznos_prihoda'] = $report->company_stat->iznos_prihoda;
+            $statisticData['iznos_izvoza'] = $report->company_stat->iznos_izvoza;
+            $statisticData['broj_zaposlenih'] = $report->company_stat->broj_zaposlenih;
+            $statisticData['broj_angazovanih'] = $report->company_stat->broj_angazovanih;
+            $statisticData['broj_angazovanih_zena'] = $report->company_stat->broj_angazovanih_zena;
+            $statisticData['iznos_placenih_poreza'] = $report->company_stat->iznos_placenih_poreza;
+            $statisticData['iznos_ulaganja_istrazivanje_razvoj'] = $report->company_stat->iznos_ulaganja_istrazivanje_razvoj;
+            $statisticData['broj_malih_patenata'] = $report->company_stat->broj_malih_patenata;
+            $statisticData['broj_patenata'] = $report->company_stat->broj_patenata;
+            $statisticData['broj_autorskih_dela'] = $report->company_stat->broj_autorskih_dela;
+            $statisticData['broj_inovacija'] = $report->company_stat->broj_inovacija;
+            $statisticData['countries'] = $countries;
+            $statisticData['statistic_sent'] = $report->company_stat->statistic_sent;
+            $statisticData['faza_razvoja'] = $report->company_stat->faza_razvoja;
+            $statisticData['women_founders_count'] = $report->company_stat->women_founders_count;
+            $statisticData['broj_povratnika_iz_inostranstva'] = $report->company_stat->broj_povratnika_iz_inostranstva;
+            $statisticData['broj_zasticenih_zigova'] = $report->company_stat->broj_zasticenih_zigova;
+        }
+
+        return $statisticData;
+    }
+
+    public function updateStatistics(Request $request) {
+        $data = $request->post();
+        $report_id = $data['report_id'];
+        $report = Report::find($report_id);
+
+        if($report->company_stat == null) {
+            $company_stat = CompanyStat::create();
+            $report->company_stat()->associate($company_stat);
+            $report->save();
+        }
+
+        // Update countries.
+        $report->company_stat->countries()->detach();
+        $countryIds = $data['countries'];
+        if(count($countryIds) > 0) {
+            foreach($countryIds as $countryId) {
+                $country = Country::find($countryId);
+                $report->company_stat->countries()->attach($country);
+            }
+            $report->company_stat->statistic_sent = true;
+            $report->company_stat->save();
+        }
+
+        $report->company_stat->iznos_prihoda = $data['iznos_prihoda'];
+        $report->company_stat->iznos_izvoza = $data['iznos_izvoza'];
+        $report->company_stat->broj_zaposlenih = $data['broj_zaposlenih'];
+        $report->company_stat->broj_angazovanih = $data['broj_angazovanih'];
+        $report->company_stat->broj_angazovanih_zena = $data['broj_angazovanih_zena'];
+        $report->company_stat->iznos_placenih_poreza = $data['iznos_placenih_poreza'];
+        $report->company_stat->iznos_ulaganja_istrazivanje_razvoj = $data['iznos_ulaganja_istrazivanje_razvoj'];
+        $report->company_stat->broj_malih_patenata = $data['broj_malih_patenata'];
+        $report->company_stat->broj_patenata = $data['broj_patenata'];
+        $report->company_stat->broj_autorskih_dela = $data['broj_autorskih_dela'];
+        $report->company_stat->broj_inovacija = $data['broj_inovacija'];
+        $report->company_stat->faza_razvoja = $data['faza_razvoja'];
+        $report->company_stat->women_founders_count = $data['women_founders_count'];
+        $report->company_stat->broj_povratnika_iz_inostranstva = $data['broj_povratnika_iz_inostranstva'];
+        $report->company_stat->broj_zasticenih_zigova = $data['broj_zasticenih_zigova'];
+
+        $report->company_stat->save();
+
+        return true;
     }
 
 

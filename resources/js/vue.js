@@ -89,6 +89,7 @@ Vue.component('percentage-card', require('./components/PercentageCard').default)
 Vue.component('additional-program-statistics', require('./components/AdditionalProgramStatistics').default);
 Vue.component('raising-starts-dashboard', require('./components/RaisingStartsDashboard').default);
 Vue.component('session-form', require('./components/SessionForm.vue').default);
+Vue.component('statistic-form', require('./components/StatisticForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
