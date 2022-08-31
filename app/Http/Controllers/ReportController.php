@@ -266,7 +266,7 @@ class ReportController extends Controller
     public function getStatistics($reportId) {
         $report = Report::find($reportId);
         $statisticData = [
-            'iznos_prihoda' => 100.50,
+            'iznos_prihoda' => 0,
             'iznos_izvoza' => 0.0,
             'broj_zaposlenih' => 0,
             'broj_angazovanih' => 0,
