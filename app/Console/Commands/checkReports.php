@@ -49,7 +49,7 @@ class checkReports extends Command
 
                 $programId = $report->getProgram()->getId();
                 // echo "Program - ".$programId.", date difference is ".$diff." days, report status is ".$report->status."\n";
-                if($diff <= 10 && $diff >= -5) {
+                if($diff <= 5 && $diff >= -5) {
                     if($report->status != Report::$WARNING) {
                         $report->status = Report::$WARNING;
                         $report->save();
@@ -62,6 +62,10 @@ class checkReports extends Command
                         $report->save();
                         $counter++;
                     }
+                } else {
+                    $report->status = Report::$SCHEDULED;
+                    $report->save();
+                    $counter++;
                 }
             } else {
                 if($report->status != Report::$SENT) {
