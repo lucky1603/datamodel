@@ -26,7 +26,8 @@ export default {
         upper_cell: { typeof: String, default: 'Upper cell content'},
         lower_cell: { typeof: String, default: 'Lower cell content'},
         status: { typeof: Number, default: 1},
-        report_id: { typeof: Number, default: 0 }
+        report_id: { typeof: Number, default: 0 },
+        user_type: { typeof: String, default: 'administrator'}
     },
     computed: {
         iconSource() {
@@ -64,6 +65,12 @@ export default {
     },
     methods: {
         onClick() {
+            if(this.user_type != 'profile' && this.status < 2)
+            {
+                this.$emit('report-low-status');
+                return;
+            }
+
             window.location.href = '/reports/'+this.report_id;
         }
     }

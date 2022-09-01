@@ -7,9 +7,19 @@
             :order_number="report.orderNumber"
             :upper_cell="report.reportName"
             :lower_cell="report.reportDue"
-            :status="report.status" class="m-2 shadow"></report-item>
+            :status="report.status"
+            :user_type="user_role"
+            class="m-2 shadow" @report-low-status="reportLowStatus"></report-item>
 
 <!--        <button v-if="user_role === 'profile'"  id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-4" title="Dodaj izveštaj" @click="addNew">+</button>-->
+        <b-modal ref="mbox" title="Nedozvoljena akcija" header-bg-variant="dark" header-text-variant="light">
+            <p>Izveštaj još uvek nije poslat!</p>
+            <template #modal-footer="{ ok }">
+                <div class="d-flex align-items-center justify-content-center">
+                    <b-button size="sm" variant="outline-dark" @click="ok()">OK</b-button>
+                </div>
+            </template>
+        </b-modal>
     </div>
 </template>
 
@@ -30,6 +40,9 @@ export default {
         },
         addNew() {
             window.location.href='/reports/create/' + this.program_id;
+        },
+        reportLowStatus() {
+            this.$refs.mbox.show();
         }
     },
     data() {
