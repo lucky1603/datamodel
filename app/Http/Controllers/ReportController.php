@@ -326,15 +326,18 @@ class ReportController extends Controller
 
         // Update countries.
         $report->company_stat->countries()->detach();
-        $countryIds = $data['countries'];
-        if(count($countryIds) > 0) {
-            foreach($countryIds as $countryId) {
-                $country = Country::find($countryId);
-                $report->company_stat->countries()->attach($country);
+        if(isset($data['countries'])) {
+            $countryIds = $data['countries'];
+            if(count($countryIds) > 0) {
+                foreach($countryIds as $countryId) {
+                    $country = Country::find($countryId);
+                    $report->company_stat->countries()->attach($country);
+                }
+                $report->company_stat->statistic_sent = true;
+                $report->company_stat->save();
             }
-            $report->company_stat->statistic_sent = true;
-            $report->company_stat->save();
         }
+
 
         $report->company_stat->iznos_prihoda = $data['iznos_prihoda'];
         $report->company_stat->iznos_izvoza = $data['iznos_izvoza'];
