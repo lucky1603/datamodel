@@ -110,19 +110,26 @@
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
-
-
-                        <!-- item-->
-                        <a href="javascript:void(0);"
-                           class="dropdown-item notify-item"
-                           onclick="event.preventDefault(); document.getElementById('logoutForm').submit()">
-                            <i class="mdi mdi-logout mr-1"></i>
-                            <span>Logout</span>
-                            <form id="logoutForm" method="POST" action="{{ route('logout') }}">
-                                @csrf
-                            </form>
-                        </a>
-
+                            <a href="javascript:void(0)"
+                                class="dropdown-item notify-item"
+                                onclick="event.preventDefault(); document.getElementById('changePasswordForm').submit()">
+                                <i class="mdi mdi-form-textbox-password"></i>
+                                <span>Promeni lozinku</span>
+                                <form id="changePasswordForm" method="POST" action="{{ route('user.changePassword') }}">
+                                    @csrf
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                </form>
+                            </a>
+                            <!-- item-->
+                            <a href="javascript:void(0);"
+                            class="dropdown-item notify-item"
+                            onclick="event.preventDefault(); document.getElementById('logoutForm').submit()">
+                                <i class="mdi mdi-logout mr-1"></i>
+                                <span>Logout</span>
+                                <form id="logoutForm" method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                </form>
+                            </a>
                         </div>
                     </li>
 

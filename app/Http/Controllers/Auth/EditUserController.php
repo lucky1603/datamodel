@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class EditUserController extends Controller
 {
@@ -28,6 +29,23 @@ class EditUserController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'position' => ['required', 'string']
         ]);
+    }
+
+    public function changePassword(Request $request) {
+        $userId = $request->post('user_id');
+        $user = User::find($userId);
+        $rememberToken = $user->getRememberToken();
+        if($rememberToken == '') {
+            $user->setRememberToken(Str::random(60));
+            $user->save();
+            $user->refresh();
+            $rememberToken = $user->getRememberToken();
+        }
+
+        return view('auth.changepassword')->with(
+            ['token' => $rememberToken, 'email' => $user->getAttribute('email')]
+        );
+
     }
 
     /**

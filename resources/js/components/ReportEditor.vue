@@ -2,10 +2,9 @@
   <div class="card">
     <div class="card-header bg-dark text-light">
       <span v-if="report_id == 0" class="h4">KREIRAJ NOVI IZVEŠTAJ</span>
-      <span v-else-if="user_role == 'profile'"
-        class="h4">
+      <span v-else-if="user_role == 'profile'" class="h4">
         PRIPREMI IZVEŠTAJ ZA SLANJE
-        </span>
+      </span>
       <span v-else class="h4">PREGLED IZVEŠTAJA</span>
     </div>
     <div class="card-body">
@@ -131,6 +130,7 @@
             type="submit"
             variant="primary"
             class="mr-2"
+            :disabled="form.fileGroups.length == 0"
             >Pošalji</b-button
           >
           <b-button
