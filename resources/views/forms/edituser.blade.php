@@ -55,6 +55,7 @@
     });
 
     $('#passwordButton').click(function() {
+        $("body").css("cursor", "progress");
         let formData = new FormData();
         formData.append('_token', "<?= csrf_token() ?>");
         formData.append('user_id', "<?= $user->id ?>");
@@ -66,6 +67,7 @@
             type: 'POST',
             success: function(data){
                 console.log(data);
+                $("body").css("cursor", "default");
                 alert("Email poslat korisniku!");
             }
         });
