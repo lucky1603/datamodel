@@ -36,7 +36,9 @@ Route::get('analytics/programStatuses/{programType}', 'AnalyticsController@progr
 
 Route::get('/edituser', 'Auth\EditUserController@index')->name('users');
 Route::get('/edituser/addadmin', 'Auth\EditUserController@addadmin')->name('user.addadmin');
+Route::get('/edituser/changePasswordFromEmail/{token}', 'Auth\EditUserController@changePasswordFromEmail')->name('user.changePasswordFromEmail');
 Route::post('/edituser/changePassword', 'Auth\EditUserController@changePassword')->name('user.changePassword');
+Route::post('/edituser/initSendPassword', 'Auth\EditUserController@initSendPassword')->name('user.initSendPassword');
 Route::post('/edituser/adminadded', 'Auth\EditUserController@adminadded')->name('user.adminadded');
 Route::post('/edituser/deleteAsync', 'Auth\EditUserController@deleteAsync')->name('user.deleteAsync');
 Route::post('/edituser/deleted', 'Auth\EditUserController@deleted')->name('user.deleted');

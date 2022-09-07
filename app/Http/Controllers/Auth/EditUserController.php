@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Business\Client;
 use App\Business\Profile;
 use App\Http\Controllers\Controller;
+use App\Mail\ChangePassword;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -47,6 +49,8 @@ class EditUserController extends Controller
         );
 
     }
+
+
 
     /**
      * Calls the form for the editing of the client data.
@@ -367,5 +371,28 @@ class EditUserController extends Controller
 
         return redirect(route('home'));
     }
+
+    public function initSendPassword(Request $request) {
+        $userId = $request->post('user_id');
+        $user = User::find($userId);
+        if($user == null) {
+            return 0;
+        }
+
+        Mail::to($user->email)->send(new ChangePassword($user));
+
+        return 1;
+    }
+
+    public function changePasswordFromEmail($token) {
+        $user = User::all()->filter(function($user) use($token) {
+            return $user->getRememberToken() == $token;
+        })->first();
+
+        return view('auth.changepassword')->with(
+            ['token' => $token, 'email' => $user->getAttribute('email')]
+        );
+    }
+
 
 }

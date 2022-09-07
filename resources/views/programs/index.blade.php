@@ -27,6 +27,15 @@
         } else {
             $page = 1;
         }
+
+        $alltogether = [
+            'page' => $page,
+            'status' => $program_status,
+            'name' => $name,
+            'type' => $program_type
+        ] ;
+
+        var_dump($alltogether);
     @endphp
     <program-explorer-table-view
         page_size="15"

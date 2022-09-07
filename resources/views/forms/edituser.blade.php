@@ -20,6 +20,9 @@
             <label for="position">{{ __('Position') }}</label>
             <input type="text" id="position" name="position" class="form-control" value="{{ $user->position }}">
         </div>
+        <div class="d-flex align-items-center justify-content-center">
+            <button id="passwordButton" type="button" class="btn btn-sm btn-info">Iniciraj promenu lozinke</button>
+        </div>
     </div>
 </div>
 
@@ -29,9 +32,42 @@
     <button type="submit" class="btn btn-sm btn-primary">{{ __('Save') }}</button>
 </div>
 
+
+<b-modal
+        id="messageDlg"
+        ref="messageDlg"
+        header-bg-variant="dark"
+        header-text-variant="light"
+    >
+        <template #modal-title>Dodaj izvestaj</template>
+
+        <template #modal-footer="{ ok }"">
+            <b-button size="sm" variant="outline-dark" @click="ok()">OK</b-button>
+        </template>
+    </b-modal>
+
+
 <script type="text/javascript">
+
     $('#textBtn').click(function() {
         $('#photo').trigger('click');
 
-    })
+    });
+
+    $('#passwordButton').click(function() {
+        let formData = new FormData();
+        formData.append('_token', "<?= csrf_token() ?>");
+        formData.append('user_id', "<?= $user->id ?>");
+        $.ajax({
+            url: 'edituser/initSendPassword',
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function(data){
+                console.log(data);
+                alert("Email poslat korisniku!");
+            }
+        });
+    });
 </script>
