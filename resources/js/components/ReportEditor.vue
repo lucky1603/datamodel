@@ -60,6 +60,7 @@
                     class="btn btn-success rounded-circle mt-4"
                     title="Dodaj izveštaj"
                     @click="showModal"
+                    :disabled="!dateCheck || !statusCheck"
                   >
                     +
                   </button>
@@ -198,6 +199,18 @@ export default {
     canSend() {
       return true;
     },
+    dateCheck() {
+      let today = Date.now();
+      if (today > this.date_bound.getTime()) {
+        return false;
+      }
+
+      return true;
+    },
+    statusCheck() {
+      if (this.report_status >= 2) return false;
+      return true;
+    },
   },
   methods: {
     async getData() {
@@ -223,6 +236,10 @@ export default {
         this.form.business_fulfilled = report.business_fulfilled ? "on" : "off";
         this.form.narative_approved = report.narative_approved ? "on" : "off";
         this.form.report_approved = report.report_approved ? "on" : "off";
+
+        this.date_bound = new Date(Date.parse(this.form.contract_check));
+        this.date_bound.setDate(this.date_bound.getDate() + 1);
+        this.date_bound.setHours(0, 0, 1);
       });
     },
     cancelClicked() {
@@ -339,6 +356,7 @@ export default {
         fileGroups: [],
       },
       report_status: 0,
+      date_bound: null,
     };
   },
 };
