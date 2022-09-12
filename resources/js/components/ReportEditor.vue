@@ -6,6 +6,10 @@
         PRIPREMI IZVEŠTAJ ZA SLANJE
       </span>
       <span v-else class="h4">PREGLED IZVEŠTAJA</span>
+      <span style="float: right; margin-right: 10px">
+        <img :src="statusIcon" style="height: 24px" class="mr-1" />
+        {{ statusText }}
+      </span>
     </div>
     <div class="card-body">
       <form
@@ -83,7 +87,7 @@
             name="chkTechFulfilled"
             value="on"
             unchecked-value="off"
-            :disabled="form.fileGroups.length == 0"
+            :disabled="form.fileGroups.length == 0 || this.report_status != 2"
             class="mx-4 my-2"
           >
             <span class="attribute-label">Ispunjeni tehnički uslovi</span>
@@ -95,7 +99,7 @@
             name="chkBusinessFulfilled"
             value="on"
             unchecked-value="off"
-            :disabled="form.fileGroups.length == 0"
+            :disabled="form.fileGroups.length == 0 || this.report_status != 2"
             class="mx-4 my-2"
           >
             <span class="attribute-label">Ispunjeni poslovni uslovi</span>
@@ -107,7 +111,7 @@
             name="chkNarativeApproved"
             value="on"
             unchecked-value="off"
-            :disabled="form.fileGroups.length == 0"
+            :disabled="form.fileGroups.length == 0 || this.report_status != 2"
             class="mx-4 my-2"
           >
             <span class="attribute-label">Odobren narativ</span>
@@ -119,7 +123,7 @@
             name="chkReportApproved"
             value="on"
             unchecked-value="off"
-            :disabled="form.fileGroups.length == 0"
+            :disabled="form.fileGroups.length == 0 || this.report_status != 2"
             class="mx-4 my-2"
           >
             <span class="attribute-label">Odobren izveštaj</span>
@@ -210,6 +214,38 @@ export default {
     statusCheck() {
       if (this.report_status >= 2) return false;
       return true;
+    },
+    statusIcon() {
+      switch (this.report_status) {
+        case 0:
+          return "/images/custom/izvestaj-zakazan.png";
+        case 1:
+          return "/images/custom/envelope-upozorenje.png";
+        case 2:
+          return "/images/custom/envelope24-icon.png";
+        case 3:
+          return "/images/custom/izvestaj-kasnjenje.png";
+        case 4:
+          return "/images/custom/izvestaj-poslato.png";
+        default:
+          return "/images/custom/attention-icon.png";
+      }
+    },
+    statusText() {
+      switch (this.report_status) {
+        case 0:
+          return "Zakazan";
+        case 1:
+          return "Upozorenje";
+        case 2:
+          return "Poslat";
+        case 3:
+          return "Zakasnio";
+        case 4:
+          return "Prihvaćen";
+        default:
+          return "Odbijen";
+      }
     },
   },
   methods: {
