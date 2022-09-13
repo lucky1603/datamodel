@@ -64,7 +64,7 @@
                     class="btn btn-success rounded-circle mt-4"
                     title="Dodaj izveštaj"
                     @click="showModal"
-                    :disabled="!dateCheck || !statusCheck"
+                    :disabled="!statusCheck"
                   >
                     +
                   </button>
@@ -212,7 +212,7 @@ export default {
       return true;
     },
     statusCheck() {
-      if (this.report_status >= 2) return false;
+      if (this.report_status > 2) return false;
       return true;
     },
     statusIcon() {
