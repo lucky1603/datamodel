@@ -265,6 +265,7 @@ export default {
               name: fg.name,
               note: fg.note,
               files: fg.files,
+              created_at: fg.created_at,
             });
           }
         }

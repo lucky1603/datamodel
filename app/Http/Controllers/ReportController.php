@@ -88,7 +88,7 @@ class ReportController extends Controller
             'financial_approved' => $r->financial_approved,
             'narative_approved' => $r->narative_approved,
             'report_approved' => $r->report_approved,
-            'status' => $r->status
+            'status' => $r->status,
         ];
 
         $reportData['file_groups'] = [];
@@ -105,7 +105,8 @@ class ReportController extends Controller
                 'id' => $file_group->id,
                 'name' => $file_group->name,
                 'note' => $file_group->note,
-                'files' => $files
+                'files' => $files,
+                'created_at' => date("d.m.Y. H:m:i", strtotime($r->created_at))
             ];
 
         }
