@@ -106,7 +106,7 @@ class ReportController extends Controller
                 'name' => $file_group->name,
                 'note' => $file_group->note,
                 'files' => $files,
-                'created_at' => date("d.m.Y. H:m:i", strtotime($r->created_at))
+                'created_at' => date("d.m.Y. H:m:i", strtotime($file_group->created_at))
             ];
 
         }
