@@ -3,7 +3,7 @@
     <div class="card-header bg-dark text-light">
       <span class="font-14 font-weight-light">{{ fileGroup.name }}</span>
       <div class="float-right font-14 font-weight-light">
-        <span class="text-warning mr-2">Kreiran:</span>
+        <span class="text-warning mr-2">Dodat:</span>
         <span class="text-white">{{ fileGroup.created_at }}</span>
       </div>
     </div>
