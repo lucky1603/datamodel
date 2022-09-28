@@ -52,6 +52,13 @@
     </li>
 
     <li class="side-nav-item">
+        <a href="{{ route('forms.showForms') }}" class="side-nav-link">
+            <i class="uil-users-alt"></i>
+            <span>{{ mb_strtoupper(__('Forms Preview')) }}</span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
         <a href="{{ route('trainings') }}" class="side-nav-link">
             <i class="uil-rss-alt"></i>
             <span>{{ mb_strtoupper(__('Events')) }}</span>

@@ -212,5 +212,9 @@ Route::get('reports/getData/{report}', "ReportController@getData")->name('report
 Route::get('reports/programReports/{program}', 'ReportController@programReports')->name('reports.programReports');
 Route::get('reports/programReportsInfo/{program}', 'ReportController@programReportsInfo')->name('reports.programReportsInfo');
 
+Route::get('forms/showRaisingStarts', 'FormController@showRaisingStarts')->name('forms.showRaisingStarts');
+Route::get('forms/showIncubation', 'FormController@showIncubation')->name('forms.showIncubation');
+Route::get('forms/showForms', 'FormController@showForms')->name('forms.showForms');
+
 
 

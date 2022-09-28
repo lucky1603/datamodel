@@ -3,7 +3,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'responsible_lastname')->first();
-        $responsible_lastname = $attribute->getValue() ?? explode(' ', $model->getAttribute('contact_person')->getValue())[1];
+        $responsible_lastname = $attribute->getValue() ?? isset($model) ? explode(' ', $model->getAttribute('contact_person')->getValue())[1] : '';
 
     @endphp
 
@@ -16,7 +16,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'responsible_firstname')->first();
-        $responsible_name = $attribute->getValue() ?? explode(' ', $model->getAttribute('contact_person')->getValue())[0];
+        $responsible_name = $attribute->getValue() ?? isset($model) ? explode(' ', $model->getAttribute('contact_person')->getValue())[0] : '';
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
@@ -28,7 +28,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'responsible_telephone')->first();
-        $phone = $attribute->getValue() ?? $model->getAttribute('contact_phone')->getValue();
+        $phone = $attribute->getValue() ?? isset($model) ? $model->getAttribute('contact_phone')->getValue() : '';
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
@@ -40,7 +40,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'responsible_cellular')->first();
-        $phone = $attribute->getValue() ?? $model->getAttribute('contact_phone')->getValue();
+        $phone = $attribute->getValue() ?? isset($model) ? $model->getAttribute('contact_phone')->getValue() : '';
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
@@ -52,7 +52,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'responsible_email')->first();
-        $email = $attribute->getValue() ?? $model->getAttribute('contact_email')->getValue();
+        $email = $attribute->getValue() ?? isset($model) ? $model->getAttribute('contact_email')->getValue() : '';
     @endphp
     <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label col-form-label-sm">{!! $attribute->label !!}</label>
     <div class="col-sm-10">
