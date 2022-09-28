@@ -53,8 +53,8 @@
 
     <li class="side-nav-item">
         <a href="{{ route('forms.showForms') }}" class="side-nav-link">
-            <i class="uil-users-alt"></i>
-            <span>{{ mb_strtoupper(__('Forms Preview')) }}</span>
+            <i class="uil-book-alt"></i>
+            <span>{{ mb_strtoupper(__('Forms')) }}</span>
         </a>
     </li>
 
