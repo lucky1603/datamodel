@@ -1,5 +1,9 @@
 @extends('layouts.hyper-vertical-mainframe')
 
+@section('page-header')
+    <span class="h4" style="position: relative; top:3vh; left: 2vh">{{ mb_strtoupper(__('Forms Preview')) }}</span>
+@endsection
+
 @section('content')
     <div class="container d-flex align-items-center justify-content-center w-100 h-100">
         <div id="cardIncubation" class="card m-2" role="button" style="width: 250px; height: 250px" title="Pokaži formular za Incubation">
