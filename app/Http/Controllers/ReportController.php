@@ -73,6 +73,14 @@ class ReportController extends Controller
         return view('reports.edit', ['report' => $reportId, 'token' => $token, 'program' => $program->getId(), 'role' => $role]);
     }
 
+    public function deleteFileGroup(Request $request) {
+        $fileGroupId = $request->post('file_group_id');
+        $fileGroup = FileGroup::find($fileGroupId);
+        $fileGroup->deleted = 1;
+        $fileGroup->save();
+        return "success";
+    }
+
     public function getData($reportId) {
         $r = Report::find($reportId)->load('file_groups');
 
@@ -106,7 +114,9 @@ class ReportController extends Controller
                 'name' => $file_group->name,
                 'note' => $file_group->note,
                 'files' => $files,
-                'created_at' => date("d.m.Y. H:m:i", strtotime($file_group->created_at))
+                'created_at' => date("d.m.Y. H:i", strtotime($file_group->created_at)),
+                'updated_at' => date('d.m.Y. H:i', strtotime($file_group->updated_at)),
+                'deleted' => $file_group->deleted
             ];
 
         }

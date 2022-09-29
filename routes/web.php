@@ -199,6 +199,7 @@ Route::get('user/getsessionvalue/{key}', "UserController@getSessionValue")->name
 Route::post('user/setsessionvalues', 'UserController@setSessionValues')->name('setsessionvalues');
 
 Route::post('reports/addFileGroup', 'ReportController@fileGroupAdded')->name('reports.fileGroupAdded');
+Route::post('reports/deleteFileGroup', 'ReportController@deleteFileGroup')->name('reports.deleteFileGroup');
 Route::get('reports/{report}', 'ReportController@edit')->name('reports.edit');
 Route::get('reports/getStatistics/{report}', 'ReportController@getStatistics')->name('report.getStatistics');
 Route::post('reports/changeStatus', 'ReportController@changeStatus')->name('reports.changeStatus');

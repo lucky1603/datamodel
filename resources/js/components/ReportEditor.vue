@@ -49,7 +49,9 @@
                     :file_group="fileGroup"
                     :index="index + 1"
                     :key="index"
+                    :user_role="user_role"
                     class="m-2 shadow"
+                    @delete-file-group="deleteFileGroup(fileGroup.id)"
                   >
                   </file-group-viewer>
                 </div>
@@ -177,6 +179,19 @@
             <b-button type="button" variant="danger" @click="onCancel">Odustani</b-button>
           </template>
         </b-modal>
+
+        <b-modal
+          ref="deleteFileGroup"
+          header-bg-variant="dark"
+          header-text-variant="light"
+        >
+          <template #modal-title>Brisanje dodatih fajlova</template>
+          Da li ste sigurni da želite da obrišete grupu priloženih datoteka?
+          <template #modal-footer>
+            <b-button type="button" variant="primary" @click="onDelete">Da</b-button>
+            <b-button type="button" variant="danger" @click="onCancelDelete">Ne</b-button>
+          </template>
+        </b-modal>
       </form>
     </div>
   </div>
@@ -251,8 +266,8 @@ export default {
   methods: {
     async getData() {
       await axios.get(`/reports/getData/${this.report_id}`).then((response) => {
-        console.log(response.data);
-
+        console.log(response);
+        this.form.fileGroups.length = 0;
         let report = response.data;
         this.report_status = report.status;
         this.form.title = report.report_name;
@@ -266,6 +281,8 @@ export default {
               note: fg.note,
               files: fg.files,
               created_at: fg.created_at,
+              updated_at: fg.updated_at,
+              deleted: fg.deleted == 0 ? false : true,
             });
           }
         }
@@ -374,6 +391,25 @@ export default {
           console.log(error);
         });
     },
+    deleteFileGroup(fileGroup) {
+      this.file_group_id = fileGroup;
+      this.$refs.deleteFileGroup.show();
+    },
+    async onDelete() {
+      let formData = new FormData();
+      formData.append("file_group_id", this.file_group_id);
+      await axios.post("/reports/deleteFileGroup", formData).then((response) => {
+        location.reload();
+      });
+
+      await this.getData();
+      this.file_group_id = 0;
+      this.$refs.deleteFileGroup.hide();
+      this.reload();
+    },
+    onCancelDelete() {
+      this.$refs.deleteFileGroup.hide();
+    },
   },
   async mounted() {
     if (this.report_id != 0) {
@@ -394,6 +430,7 @@ export default {
       },
       report_status: 0,
       date_bound: null,
+      file_group_id: 0,
     };
   },
 };
