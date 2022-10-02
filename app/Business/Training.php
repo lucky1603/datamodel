@@ -78,6 +78,8 @@ class Training extends BusinessModel
 
         $attributes->add(self::selectOrCreateAttribute(['files', 'Priložene datoteke', 'file', 'multiple', 13]));
 
+        $attributes->add(self::selectOrCreateAttribute(['program_type', "Tip programa", 'integer', NULL, 14]));
+
         return $attributes;
 
     }
