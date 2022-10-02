@@ -300,7 +300,7 @@ export default {
         this.form.eventStatus = this.training.event_status;
         this.form.attendances = trainingData.attendances;
         this.eventType = this.training.training_type;
-        this.programType = this.programTypes[this.training.program_type];
+        this.programType = this.training.program_type;
       });
     },
     async getAttendance() {
