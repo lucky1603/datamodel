@@ -158,7 +158,6 @@ class TrainingsController extends Controller
      * @return Application|RedirectResponse|Redirector
      */
     public function store(Request $request) {
-
         $request->validate([
             'training_name' => 'required|max:255',
             'training_start_date' => 'required',
@@ -350,6 +349,20 @@ class TrainingsController extends Controller
         $data['training_start_time'] = $training->getText('training_start_time');
         $data['training_start_date'] = $training->getText('training_start_date');
         $data['training_duration_unit'] = $training->getText('training_duration_unit');
+        if(isset($data['program_type'])) {
+            switch($data['program_type']) {
+                case 2:
+                    $data['program_type'] = "Raising Starts";
+                    break;
+                case 5:
+                    $data['program_type'] = "Incubation BITF";
+                    break;
+                default:
+                    $data['program_type'] = "Rastuće kompanije";
+                    break;
+            }
+        }
+
         $attendanceData = [];
         $attendances = $training->getAttendances();
         foreach($attendances as $attendance) {
