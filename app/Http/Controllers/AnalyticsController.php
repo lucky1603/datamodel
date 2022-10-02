@@ -190,7 +190,7 @@ class AnalyticsController extends Controller
 
 
         $workshops = Training::find()->filter(function($training) use($program_type){
-            return $training->getValue('program_type') == $program_type;
+            return $training->getValue('program_type') == $program_type && $training->getValue('training_type') == 1;
         })->count();
 
         return [
