@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Attribute;
 use App\Business\Program;
+use App\Business\Training;
 use App\ProfileCache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -187,8 +188,13 @@ class AnalyticsController extends Controller
 
         $counts = $query->get()->first();
 
+
+        $workshops = Training::find()->filter(function($training) use($program_type){
+            return $training->getValue('program_type') == $program_type;
+        })->count();
+
         return [
-            'workshops' => $counts->workshops,
+            'workshops' => $workshops,
             'sessions' => $counts->sessions
         ];
     }
