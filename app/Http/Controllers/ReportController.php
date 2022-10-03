@@ -97,6 +97,7 @@ class ReportController extends Controller
             'narative_approved' => $r->narative_approved,
             'report_approved' => $r->report_approved,
             'status' => $r->status,
+            'synchronized' => $r->synchronized
         ];
 
         $reportData['file_groups'] = [];
@@ -259,6 +260,16 @@ class ReportController extends Controller
 //            $contract_check = $report->contract_check;
 //            $diff =
 //        });
+    }
+
+    public function changeSyncState(Request $request) {
+        $data = $request->post();
+        $data['synchronized'] = $data['synchronized'] == 'true' ? true : false;
+        $report = Report::find($data['report_id']);
+        $report->synchronized = $data['synchronized'];
+        $report->save();
+
+        return 'success';
     }
 
     public function changeStatus(Request $request) {

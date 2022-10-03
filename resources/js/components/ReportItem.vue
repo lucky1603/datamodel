@@ -72,10 +72,10 @@ export default {
   },
   methods: {
     onClick() {
-      if (this.user_type != "profile" && this.status < 2) {
-        this.$emit("report-error-status", "Izveštaj još uvek nije poslat!");
-        return;
-      }
+      //   if (this.user_type != "profile" && this.status < 2) {
+      //     this.$emit("report-error-status", "Izveštaj još uvek nije poslat!");
+      //     return;
+      //   }
 
       if (this.user_type == "profile" && this.status == 3) {
         this.$emit("report-error-status", "Zakasnili ste sa slanjem izveštaja!");

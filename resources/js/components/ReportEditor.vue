@@ -29,13 +29,28 @@
             :disabled="this.report_id != 0"
           ></b-form-input>
         </div>
-        <div class="form-group mb-2">
-          <label class="attribute-label">Datum očekivanog slanja</label>
-          <!-- <b-form-input type="date" v-model="form.contract_check" :disabled="this.report_id != 0"></b-form-input> -->
-          <b-form-datepicker
-            v-model="form.contract_check"
-            :disabled="this.report_id != 0"
-          ></b-form-datepicker>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="form-group mb-2">
+              <label class="attribute-label">Datum očekivanog slanja</label>
+              <!-- <b-form-input type="date" v-model="form.contract_check" :disabled="this.report_id != 0"></b-form-input> -->
+              <b-form-datepicker
+                v-model="form.contract_check"
+                :disabled="this.report_id != 0"
+              ></b-form-datepicker>
+            </div>
+          </div>
+          <div class="col-lg-4 d-flex align-items-end justify-content-left">
+            <b-form-checkbox
+              v-model="synchronized"
+              name="synchronized"
+              switch
+              class="mb-2"
+              @change="changeSync"
+            >
+              U sinhronizaciji
+            </b-form-checkbox>
+          </div>
         </div>
 
         <div class="container">
@@ -133,6 +148,15 @@
         </div>
         <div class="d-flex align-items-center justify-content-center mt-4">
           <b-button
+            v-if="user_role == 'administrator' && report_status == 2"
+            variant="info"
+            type="button"
+            class="mr-2"
+            @click="statusBack"
+          >
+            Vrati status
+          </b-button>
+          <b-button
             v-if="user_role == 'profile' && report_status < 2"
             type="submit"
             variant="primary"
@@ -190,6 +214,19 @@
           <template #modal-footer>
             <b-button type="button" variant="primary" @click="onDelete">Da</b-button>
             <b-button type="button" variant="danger" @click="onCancelDelete">Ne</b-button>
+          </template>
+        </b-modal>
+        <b-modal
+          ref="changeSyncDialog"
+          header-bg-variant="dark"
+          header-text-variant="light"
+        >
+          <template #modal-title>Promena sinhronizacije</template>
+          {{ sync_message }}
+          <template #modal-footer>
+            <b-button type="button" variant="primary" @click="onCloseChangeSync"
+              >Ok</b-button
+            >
           </template>
         </b-modal>
       </form>
@@ -266,10 +303,11 @@ export default {
   methods: {
     async getData() {
       await axios.get(`/reports/getData/${this.report_id}`).then((response) => {
-        console.log(response);
+        console.log(response.data);
         this.form.fileGroups.length = 0;
         let report = response.data;
         this.report_status = report.status;
+        this.synchronized = report.synchronized == 1 ? true : false;
         this.form.title = report.report_name;
         this.form.contract_check = report.contract_check;
         if (report.file_groups.length > 0) {
@@ -410,6 +448,36 @@ export default {
     onCancelDelete() {
       this.$refs.deleteFileGroup.hide();
     },
+    async statusBack() {
+      let formData = new FormData();
+      formData.append("_token", this.token);
+      formData.append("status", 1);
+      formData.append("report_id", this.report_id);
+      await axios.post("/reports/changeStatus", formData).then((response) => {
+        location.reload();
+      });
+    },
+    async changeSync(sync) {
+      console.log(sync);
+      let formData = new FormData();
+      formData.append("_token", this.token);
+      formData.append("report_id", this.report_id);
+      formData.append("synchronized", this.synchronized);
+      await axios.post("/reports/changeSyncState", formData).then((response) => {
+        console.log(response);
+      });
+
+      if (sync) {
+        this.sync_message = "Izveštaj je u sinhronizaciji.";
+      } else {
+        this.sync_message = "Izveštaj je van sinhronizacije.";
+      }
+
+      this.$refs.changeSyncDialog.show();
+    },
+    onCloseChangeSync() {
+      this.$refs.changeSyncDialog.hide();
+    },
   },
   async mounted() {
     if (this.report_id != 0) {
@@ -428,9 +496,11 @@ export default {
         report_approved: "off",
         fileGroups: [],
       },
+      synchronized: true,
       report_status: 0,
       date_bound: null,
       file_group_id: 0,
+      sync_message: "",
     };
   },
 };

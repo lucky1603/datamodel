@@ -42,6 +42,8 @@ class checkReports extends Command
         $counter = 0;
         $reports = Report::all()->load('file_groups');
         foreach($reports as $report) {
+            if($report->synchronized == 0)
+                continue;
             if($report->file_groups->count() === 0) {
                 $dtNow = new DateTime(now());
                 $dtCheck = new DateTime($report->contract_check);
