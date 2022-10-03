@@ -897,11 +897,13 @@ class ProfileController extends Controller
 
         $profileData = [];
         foreach($order as $key) {
-            if($key === 'business_branch') {
-                $profileData[$key] = $profile->getText($key);
-            } else {
-                $profileData[$key] = $data[$key];
-            }
+            // if($key === 'business_branch') {
+            //     $profileData[$key] = $profile->getText($key);
+            // } else {
+            //     $profileData[$key] = $data[$key];
+            // }
+
+            $profileData[$key] = $data[$key];
 
         }
 
