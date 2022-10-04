@@ -255,12 +255,15 @@ class AnalyticsController extends Controller
         }
 
         $pcaches = ProfileCache::all();
+
         foreach($pcaches as $pcache) {
-            if($pcache->memberhip_type == 1)
-                $resultData['punopravni'] ++;
-            else if($pcache->memberhip_type == 2) {
-                $resultData['virtuelni'] ++;
+            if($pcache->membership_type == 1) {
+                $resultData['virtuelni'] += 1;
             }
+            else if($pcache->membership_type == 2) {
+                $resultData['punopravni'] += 1;
+            }
+
 
             $resultData['prihod'] += $pcache->iznos_prihoda;
             $resultData['izvoz'] += $pcache->iznos_izvoza;

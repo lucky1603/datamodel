@@ -184,9 +184,10 @@ class Profile extends SituationsModel
         $membership_type = self::selectOrCreateAttribute(['membership_type', __('Tip članstva'), 'select', NULL, 19]);
         if(count($membership_type->getOptions()) == 0) {
             $membership_type->addOption(['value' => 0, 'text' => 'Nije član']);
-            $membership_type->addOption(['value' => 1, 'text' => 'Punopravni član']);
-            $membership_type->addOption(['value' => 2, 'text' => 'Virtuelni član']);
+            $membership_type->addOption(['value' => 1, 'text' => 'Virtuelni član']);
+            $membership_type->addOption(['value' => 2, 'text' => 'Punopravni član']);
             $membership_type->addOption(['value' => 3, 'text' => 'Alumni']);
+            $membership_type->addOption(['value' => 4, 'text' => 'Co-Working']);
         }
         $attributes[] = $membership_type;
 
