@@ -29,6 +29,7 @@
         "bootstrap-vue": "^2.21.2",
         "bulma": "^0.9.1",
         "chart.js": "^3.6.2",
+        "laravel-vue-i18n": "^2.2.2",
         "mdi-icons": "^1.0.1",
         "vue-apexcharts": "^1.6.2",
         "vue-chart.js": "^0.2.0"

@@ -80,5 +80,40 @@ return [
     'Application-Reset' => 'Poništi unos od poslednjeg sačuvanog stanja',
     'Application-Help' => 'Pokaži instrukcije za unos',
     'Application-SaveDataAndSendApp' => 'Kreiraj korisnički profil i sačuvaj podatke prijave u njega. Kada se prijavite na profil, moći ćete da nastavite sa unosom podataka.',
-    'Application-ReturnToMain' => 'Vrati se na glavnu stranicu programa'
+    'Application-ReturnToMain' => 'Vrati se na glavnu stranicu programa',
+
+
+    /**
+     * Basic dashboard
+     */
+    'basic_dashboard_startups' => "Startapovi",
+    'basic_dashboard_companies' => "Kompanije",
+    'basic_dashboard_contract_signed' => "Potpisan ugovor",
+    'basic_dashboard_application' => 'U procesu prijave',
+    'basic_dashboard_applications_sent' => 'Poslate prijave',
+    'basic_dashboard_rejected' => 'Odbijeni',
+    'basic_dashboard_worshops' => 'Radionice',
+    'basic_dashboard_mentoring_sessions' => 'Mentorske sesije',
+    'basic_dashboard_statistics' => 'Statistika',
+    'basic_dashboard_of_all_registered' => 'Od svih prijavljenih',
+
+    /**
+     * Raising Starts Dashboard
+     */
+    'rs_dashboard_additional_statistics' => "Prikaži dodatnu statistiku i za:",
+    'rs_dashboard_innovation' => "Inovativnost",
+    'rs_dashboard_tech_progress_phase' => 'Faza tehnološkog razvoja',
+    'rs_dashboard_bus_progress_phase' => 'Faza poslovnog razvoja',
+    'rs_dashboard_way_of_finding_out' => "Način nalaženja",
+    'rs_dashboard_intellectual_property' => 'Intelektualna svojina',
+    'rs_dashboard_type_of_product_service' => 'Tip proizvoda/usluge',
+    'rs_dashboard_field_of_product_service' => 'Oblast proizvoda/usluge',
+    'rs_dashboard_innovation_text' => "KOLIKO JE INOVATIVAN VAŠ PROIZVOD/USLUGA?",
+    'rs_dashboard_tech_progress_phase_text' => 'FAZA RAZVOJA - TEHNOLOŠKI RAZVOJ',
+    'rs_dashboard_bus_progress_phase_text' => 'FAZA RAZVOJA - POSLOVNI RAZVOJ',
+    'rs_dashboard_way_of_finding_out_text' => "KAKO STE SAZNALI ZA NAS?",
+    'rs_dashboard_intellectual_property_text' => 'DA LI STE SPROVODILI NEKE AKTIVNOSTI U CILJU ZAŠTITE PRAVA INTELEKTUALNE SVOJINE?',
+    'rs_dashboard_type_of_product_service_text' => 'TIP PROZVODA ILI USLUGE',
+    'rs_dashboard_field_of_product_service_text' => 'KOJOJ OBLASTI PRIPADA INOVATIVNI PROIZVOD I/ILI USLUGA KOJU RAZVIJATE?',
+
 ];

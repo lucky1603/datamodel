@@ -218,5 +218,7 @@ Route::get('forms/showRaisingStarts', 'FormController@showRaisingStarts')->name(
 Route::get('forms/showIncubation', 'FormController@showIncubation')->name('forms.showIncubation');
 Route::get('forms/showForms', 'FormController@showForms')->name('forms.showForms');
 
+Route::get('/lang-{lang}.js', 'LanguageController@show');
+
 
 

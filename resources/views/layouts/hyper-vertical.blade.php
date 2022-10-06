@@ -20,6 +20,9 @@
     <link href="/assets/css/vendor/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/vendor/select.bootstrap4.css" rel="stylesheet" type="text/css" />
 
+    <!-- Localization -->
+    <script src="/lang-{{ app()->getLocale() }}.js"></script>
+
     @yield('analytics')
 
 </head>

@@ -7,12 +7,16 @@
 import Vue from "vue"
 import {BootstrapVue, IconsPlugin} from "bootstrap-vue";
 
+import _ from 'lodash'
+Vue.prototype._ = str => _.get(window.i18n, str);
+
 /* Ovo zakomentarisati da bi se koristila tema  */
 // import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueApexCharts from "vue-apexcharts";
 
 Vue.use(VueApexCharts);
+// Vue.use(i18nVue);
 
 window.Vue = require('vue').default;
 window.Dispecer = new Vue();

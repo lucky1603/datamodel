@@ -2,49 +2,49 @@
   <div class="row">
     <div class="col-lg-3">
       <percentage-card
-        title="Startapovi"
+        :title="_('gui.basic_dashboard_startups')"
         :value="startupCount"
         :total="total"
-        subtitle="od svih prijavljenih"
+        :subtitle="_('gui.basic_dashboard_of_all_registered')"
         icon="uil-arrow-up-right"
       ></percentage-card>
       <percentage-card
-        title="Kompanije"
+        :title="_('gui.basic_dashboard_companies')"
         :value="companiesCount"
         :total="total"
-        subtitle="od svih prijavljenih"
+        :subtitle="_('gui.basic_dashboard_of_all_registered')"
         percentage_class="text-danger"
         icon="uil-bag"
       ></percentage-card>
       <percentage-card
-        title="Potpisan ugovor"
+        :title="_('gui.basic_dashboard_contract_signed')"
         :value="inProgram"
         :total="total"
-        subtitle="od svih prijavljenih"
+        :subtitle="_('gui.basic_dashboard_of_all_registered')"
         icon="uil-file-contract-dollar"
       ></percentage-card>
     </div>
     <div class="col-lg-3">
       <percentage-card
-        title="U procesu prijave"
+        :title="_('gui.basic_dashboard_application')"
         :value="applied"
         :total="total"
-        subtitle="od svih prijavljenih"
+        :subtitle="_('gui.basic_dashboard_of_all_registered')"
         percentage_class="text-danger"
         icon="uil-file-alt"
       ></percentage-card>
       <percentage-card
-        title="Poslate prijave"
+        :title="_('gui.basic_dashboard_applications_sent')"
         :value="sent"
         :total="total"
-        subtitle="od svih prijavljenih"
+        :subtitle="_('gui.basic_dashboard_of_all_registered')"
         icon="uil-file-check-alt"
       ></percentage-card>
       <percentage-card
-        title="Odbijeni"
+        :title="_('gui.basic_dashboard_rejected')"
         :value="outOfProgram"
         :total="total"
-        subtitle="od svih prijavljenih"
+        :subtitle="_('gui.basic_dashboard_of_all_registered')"
         percentage_class="text-danger"
         icon="uil-sign-out-alt"
       ></percentage-card>
@@ -63,7 +63,7 @@
       <div class="row">
         <div class="col-lg-6">
           <percentage-card
-            title="Radionice"
+            :title="_('gui.basic_dashboard_worshops')"
             :value="workshops"
             :height="140"
             icon="uil-meeting-board"
@@ -71,7 +71,7 @@
         </div>
         <div class="col-lg-6">
           <percentage-card
-            title="Mentorske sesije"
+            :title="_('gui.basic_dashboard_mentoring_sessions')"
             :value="sessions"
             :height="140"
           ></percentage-card>
@@ -107,6 +107,10 @@ export default {
   },
 
   async mounted() {
+    let test = _("gui.startups");
+    console.log("here comes ...");
+    console.log(test);
+    console.log(window.i18n);
     await this.getData();
   },
 

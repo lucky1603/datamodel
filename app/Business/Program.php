@@ -877,6 +877,17 @@ class Program extends SituationsModel
                 $logo = $logo['filelink'];
             }
 
+            $contract = $program->getWorkflow()->getPhases()->filter(function($phase) {
+                return $phase instanceof Contract;
+            })->first();
+
+            $year = 1996;
+            if($contract != null) {
+                $contract_date = $contract->getValue('signed_at');
+                $year = date("Y", strtotime($contract_date));
+                echo $year."\n";
+            }
+
             DB::table('program_caches')->insert([
                 'program_id' => $program->getId(),
                 'program_type' => $program->getValue('program_type'),
@@ -890,7 +901,9 @@ class Program extends SituationsModel
                 'ntp' => $profile->getValue('ntp'),
                 'ntp_text' => $profile->getText('ntp'),
                 'session_count' => $program->getSessions()->count(),
-                'workshop_count' => $program->getAttendances()->filter(function($attendance) { return $attendance->getTraining()->getValue('training_type') == 1; })->count()
+                'workshop_count' => $program->getAttendances()->filter(function($attendance) { return $attendance->getTraining()->getValue('training_type') == 1; })->count(),
+                'year' => $year,
+                'membership_type' => $profile->getValue('membership_type')
             ]);
         });
     }

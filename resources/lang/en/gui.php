@@ -78,6 +78,45 @@ return [
     'Application-Send' => 'Submit Application',
     'Application-Reset' => 'Reset tne data entered from the last saved state.',
     'Application-Help' => 'Show entry instructions.',
-    'Application-SaveDataAndSendApp' => 'Kreiraj korisnički profil i sačuvaj podatke prijave u njega. Kada se prijavite na profil, moći ćete da nastavite sa unosom podataka.',
-    'Application-ReturnToMain' => 'Vrati se na glavnu stranicu programa'
+    'Application-SaveDataAndSendApp' => 'Create user profile and save application data in it. When You sign in to Your profile, you will be able to continue with the data entry.',
+    'Application-ReturnToMain' => 'Go back to the main page',
+
+    /**
+     * Basic dashboard
+     */
+    'basic_dashboard_startups' => "Startups",
+    'basic_dashboard_companies' => "Companies",
+    'basic_dashboard_contract_signed' => "Contract signed",
+    'basic_dashboard_application' => 'In registration process',
+    'basic_dashboard_applications_sent' => 'Sent applications',
+    'basic_dashboard_rejected' => 'Rejected',
+    'basic_dashboard_worshops' => 'Workshops',
+    'basic_dashboard_mentoring_sessions' => 'Mentoring sessions',
+    'basic_dashboard_statistics' => 'Statistics',
+    'basic_dashboard_of_all_registered' => 'of total count',
+
+    /**
+     * Raising Starts Dashboard
+     */
+    'rs_dashboard_additional_statistics' => "Show additional statistics for:",
+    'rs_dashboard_innovation' => "Innovation",
+    'rs_dashboard_innovation_text' => "How innovative is your product/service?",
+    'rs_dashboard_tech_progress_phase' => 'Tech Progress Phase',
+    'rs_dashboard_tech_progress_phase_text' => 'Development Phase - Technological Development',
+    'rs_dashboard_bus_progress_phase' => 'Business Progress Phase',
+    'rs_dashboard_bus_progress_phase_text' => 'Development Phase - Business Development',
+    'rs_dashboard_way_of_finding_out' => "Way of Finding out About us",
+    'rs_dashboard_way_of_finding_out_text' => "How did You Find Out About Us?",
+    'rs_dashboard_intellectual_property' => 'Intellectual Property',
+    'rs_dashboard_intellectual_property_text' => 'Have You conducted any activities regarding the intellectual property protection?',
+    'rs_dashboard_type_of_product_service' => 'Type of Product/Service',
+    'rs_dashboard_type_of_product_service_text' => 'Type of Product or Service',
+    'rs_dashboard_field_of_product_service' => 'Field of Product/Service',
+    'rs_dashboard_field_of_product_service_text' => 'To which field belongs the product or service, You have been developing?',
+
+
+
+    /**
+     * Profile statistics
+     */
 ];

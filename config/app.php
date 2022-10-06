@@ -69,6 +69,11 @@ return [
 
     'timezone' => 'Europe/Belgrade',
 
+    'locales' => [
+        'en',
+        'sr-RS'
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
@@ -80,7 +85,7 @@ return [
     |
     */
 
-    'locale' => 'sr-RS',
+    'locale' => env('APP_LOCALE', 'sr-RS'),
 
     /*
     |--------------------------------------------------------------------------
