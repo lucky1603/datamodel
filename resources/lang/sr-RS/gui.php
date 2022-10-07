@@ -116,4 +116,23 @@ return [
     'rs_dashboard_type_of_product_service_text' => 'TIP PROZVODA ILI USLUGE',
     'rs_dashboard_field_of_product_service_text' => 'KOJOJ OBLASTI PRIPADA INOVATIVNI PROIZVOD I/ILI USLUGA KOJU RAZVIJATE?',
 
+    /**
+     * Profile statistics
+     */
+
+    'profile_statistics_membership' => "ČLANSTVO",
+    'profile_statistics_registered' => "Prijavljeni",
+    'profile_statistics_virtual' => 'Virtuelni',
+    'profile_statistics_punopravni' => 'Punopravni',
+    'profile_statistics_finances' => 'FINANSIJE',
+    'profile_statistics_income' => 'Prihodi',
+    'profile_statistics_export' => 'Izvozi',
+    'profile_statistics_payed_taxes' => "Plaćeni porezi",
+    'profile_statistics_investments' => 'Investicije',
+    'profile_statistics_hr' => 'LJUDSKI RESURSI',
+    'profile_statistics_employed' => 'Zaposleni',
+    'profile_statistics_engaged' => 'Angazovani',
+    'profile_statistics_women' => 'Od toga žene',
+    'profile_statistics_by_technology' => 'PO TEHNOLOGIJAMA',
+    'profile_statistics_by_dev_phases' => 'PO FAZAMA RAZVOJA'
 ];

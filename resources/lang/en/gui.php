@@ -119,4 +119,20 @@ return [
     /**
      * Profile statistics
      */
+
+     'profile_statistics_membership' => "MEMBERSHIP",
+     'profile_statistics_registered' => "Registered",
+     'profile_statistics_virtual' => 'Virtual',
+     'profile_statistics_punopravni' => 'Full-fledged',
+     'profile_statistics_finances' => 'FINANCES',
+     'profile_statistics_income' => 'Income',
+     'profile_statistics_export' => 'Export',
+     'profile_statistics_payed_taxes' => "Payed taxes",
+     'profile_statistics_investments' => 'Investments',
+     'profile_statistics_hr' => 'HUMAN RESOURCES',
+     'profile_statistics_employed' => 'Employed',
+     'profile_statistics_engaged' => 'Engaged',
+     'profile_statistics_women' => 'Women',
+     'profile_statistics_by_technology' => 'BY TECHNOLOGY',
+     'profile_statistics_by_dev_phases' => 'BY DEVELOPMENT PHASES'
 ];

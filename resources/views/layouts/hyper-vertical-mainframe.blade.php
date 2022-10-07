@@ -34,9 +34,9 @@
             <span class="menu-arrow"></span>
         </a>
         <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
-            <li><a href="{{ route('profiles.index') }}">{{ mb_strtoupper(__('Lista'))  }}</a></li>
-            <li><a href="{{ route('profiles.create') }}">{{ mb_strtoupper(__('Kreiraj novu'))  }}</a></li>
-            <li><a href="{{ route('profiles.prepareMail') }}">{{ mb_strtoupper('Pošalji podsetnik') }}</a></li>
+            <li><a href="{{ route('profiles.index') }}">{{ mb_strtoupper(__('List'))  }}</a></li>
+            <li><a href="{{ route('profiles.create') }}">{{ mb_strtoupper(__('Create New'))  }}</a></li>
+            <li><a href="{{ route('profiles.prepareMail') }}">{{ mb_strtoupper(__('Send Reminder')) }}</a></li>
         </ul>
     </li>
 

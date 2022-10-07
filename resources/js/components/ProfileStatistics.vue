@@ -3,7 +3,9 @@
     <div class="row">
       <div class="col-xl-4">
         <div class="card shadow-sm">
-          <div class="card-header text-center"><h4>ČLANSTVO</h4></div>
+          <div class="card-header text-center">
+            <h4>{{ _("gui.profile_statistics_membership") }}</h4>
+          </div>
           <div class="card-body row" style="padding: 30px 24px">
             <div class="col-lg-4">
               <div class="d-flex justify-content-center align-items-center h-100 w-100">
@@ -12,7 +14,9 @@
                   style="height: 100px; width: 120px"
                 >
                   <div class="card-header bg-primary p-0">
-                    <h6 class="text-center text-light">Prijavljeni</h6>
+                    <h6 class="text-center text-light">
+                      {{ _("gui.profile_statistics_registered") }}
+                    </h6>
                   </div>
                   <div
                     class="card-body d-flex flex-column justify-content-center align-items-start px-0"
@@ -26,7 +30,9 @@
               <div class="d-flex justify-content-center align-items-center h-100 w-100">
                 <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
                   <div class="card-header bg-primary text-light p-0">
-                    <h6 class="text-center text-light">Virtuelni</h6>
+                    <h6 class="text-center text-light">
+                      {{ _("gui.profile_statistics_virtual") }}
+                    </h6>
                   </div>
                   <div
                     class="card-body d-flex flex-column justify-content-center align-items-start px-0"
@@ -40,7 +46,9 @@
               <div class="d-flex justify-content-center align-items-center h-100 w-100">
                 <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
                   <div class="card-header bg-primary text-light p-0">
-                    <h6 class="text-center text-light">Punopravni</h6>
+                    <h6 class="text-center text-light">
+                      {{ _("gui.profile_statistics_punopravni") }}
+                    </h6>
                   </div>
                   <div
                     class="card-body d-flex flex-column justify-content-center align-items-start px-0"
@@ -55,7 +63,9 @@
       </div>
       <div class="col-xl-4">
         <div class="card shadow-sm">
-          <div class="card-header text-center"><h4>FINANSIJE</h4></div>
+          <div class="card-header text-center">
+            <h4>{{ _("gui.profile_statistics_finances") }}</h4>
+          </div>
           <div class="card-body" style="padding: 16px 24px">
             <div class="row">
               <div class="col-lg-6">
@@ -65,7 +75,7 @@
                   <h6
                     class="text-center text-success w-100 bg-primary text-light py-1 mt-0"
                   >
-                    Prihodi
+                    {{ _("gui.profile_statistics_income") }}
                   </h6>
                   <p
                     class="text-center w-100 font-12 font-weight-bold"
@@ -79,7 +89,9 @@
                 <div
                   class="d-flex flex-column justify-content-center align-items-start shadow-sm mb-1 p-0"
                 >
-                  <h6 class="text-center text-light w-100 bg-primary py-1 mt-0">Izvoz</h6>
+                  <h6 class="text-center text-light w-100 bg-primary py-1 mt-0">
+                    {{ _("gui.profile_statistics_export") }}
+                  </h6>
                   <p
                     class="text-center w-100 font-12 font-weight-bold"
                     style="font-family: 'Roboto Light'"
@@ -95,7 +107,7 @@
                   class="d-flex flex-column justify-content-center align-items-start shadow-sm mb-1 p-0"
                 >
                   <h6 class="text-center text-light w-100 bg-primary py-1 mt-0">
-                    Plaćeni porezi
+                    {{ _("gui.profile_statistics_payed_taxes") }}
                   </h6>
                   <p
                     class="text-center w-100 font-12 font-weight-bold"
@@ -110,7 +122,7 @@
                   class="d-flex flex-column justify-content-center align-items-start shadow-sm mb-1 p-0"
                 >
                   <h6 class="text-center text-light w-100 bg-primary py-1 mt-0">
-                    Investicije
+                    {{ _("gui.profile_statistics_investments") }}
                   </h6>
                   <p
                     class="text-center w-100 font-12 font-weight-bold"
@@ -126,13 +138,17 @@
       </div>
       <div class="col-xl-4">
         <div class="card shadow-sm">
-          <div class="card-header text-center"><h4>LJUDSKI RESURSI</h4></div>
+          <div class="card-header text-center">
+            <h4>{{ _("gui.profile_statistics_hr") }}</h4>
+          </div>
           <div class="card-body row" style="padding: 30px 24px">
             <div class="col-lg-4">
               <div class="d-flex justify-content-center align-items-center h-100 w-100">
                 <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
                   <div class="card-header bg-primary text-light p-0">
-                    <h6 class="text-center text-light">ZAPOSLENI</h6>
+                    <h6 class="text-center text-light">
+                      {{ _("gui.profile_statistics_employed") }}
+                    </h6>
                   </div>
                   <div
                     class="card-body d-flex flex-column justify-content-center align-items-start px-0"
@@ -146,7 +162,9 @@
               <div class="d-flex justify-content-center align-items-center h-100 w-100">
                 <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
                   <div class="card-header bg-primary text-light p-0">
-                    <h6 class="text-center text-light">ANGAŽOVANI</h6>
+                    <h6 class="text-center text-light">
+                      {{ _("gui.profile_statistics_engaged") }}
+                    </h6>
                   </div>
                   <div
                     class="card-body d-flex flex-column justify-content-center align-items-start px-0"
@@ -160,7 +178,9 @@
               <div class="d-flex justify-content-center align-items-center h-100 w-100">
                 <div class="card m-2 shadow-sm" style="height: 100px; width: 120px">
                   <div class="card-header bg-primary text-light p-0">
-                    <h6 class="text-center text-light">OD TOGA ŽENE</h6>
+                    <h6 class="text-center text-light">
+                      {{ _("gui.profile_statistics_women") }}
+                    </h6>
                   </div>
                   <div
                     class="card-body d-flex flex-column justify-content-center align-items-start px-0"
@@ -179,7 +199,9 @@
       <div class="col-lg-6">
         <div class="card shadow-sm">
           <div class="card-header mt-1">
-            <h4 class="header-title mt-1">PO TEHNOLOGIJAMA</h4>
+            <h4 class="header-title mt-1">
+              {{ _("gui.profile_statistics_by_technology") }}
+            </h4>
           </div>
           <div class="card-body" style="height: 400px">
             <apexchart
@@ -194,7 +216,9 @@
       <div class="col-lg-6">
         <div class="card shadow-sm">
           <div class="card-header mt-1">
-            <h4 class="header-title mt-1">PO FAZAMA RAZVOJA</h4>
+            <h4 class="header-title mt-1">
+              {{ _("gui.profile_statistics_by_dev_phases") }}
+            </h4>
           </div>
           <div class="card-body" style="height: 400px">
             <!--                    <canvas id="chartDP"></canvas>-->
