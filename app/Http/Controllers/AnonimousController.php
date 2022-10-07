@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use PharIo\Manifest\InvalidEmailException;
 use PHPUnit\Util\Test;
+use Illuminate\Support\Facades\App;
 
 class AnonimousController extends Controller
 {
@@ -331,6 +332,23 @@ class AnonimousController extends Controller
 
     public function construction() {
         return view('anonimous.construction');
+    }
+
+    public function toggleLocale() {
+        $locale = session('locale');
+        var_dump($locale);
+        if($locale == null) {
+            $locale = app()->getLocale();
+        }
+
+        if($locale == 'sr-RS') {
+            $locale = "en";
+        } else {
+            $locale = "sr-RS";
+        }
+        var_dump($locale);
+        session()->put('locale', $locale);
+        return "success";
     }
 
 

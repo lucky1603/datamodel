@@ -1,3 +1,24 @@
+@php
+    $locale = session('locale');
+    if($locale == null) {
+        $locale = app()->getLocale();
+    } else {
+        app()->setLocale($locale);
+    }
+
+    if($locale == 'sr-RS') {
+        $firstImage = '/assets/images/flags/serbia_64.png';
+        $secondImage = '/assets/images/flags/us.jpg';
+        $firstLanguage = "Srpski";
+        $secondLanguage = "English";
+    } else {
+        $firstImage = '/assets/images/flags/us.jpg';
+        $secondImage = '/assets/images/flags/serbia_64.png';
+        $firstLanguage = "English";
+        $secondLanguage = "Srpski";
+    }
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +42,7 @@
     <link href="/assets/css/vendor/select.bootstrap4.css" rel="stylesheet" type="text/css" />
 
     <!-- Localization -->
-    <script src="/lang-{{ app()->getLocale() }}.js"></script>
+    <script src="/lang-{{ $locale }}.js"></script>
 
     @yield('analytics')
 
@@ -93,6 +114,21 @@
                             <form class="p-3">
                                 <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
                             </form>
+                        </div>
+                    </li>
+
+                    <li class="dropdown notification-list topbar-dropdown">
+                        <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="{{ $firstImage }}" alt="user-image" class="mr-0 mr-sm-1" height="12">
+                            <span class="align-middle d-none d-sm-inline-block">{{ $firstLanguage }}</span> <i class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu">
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item" id="selectLang">
+                                <img src="{{ $secondImage }}" alt="user-image" class="mr-1" height="12"> <span class="align-middle">{{ $secondLanguage }}</span>
+                            </a>
+
                         </div>
                     </li>
 
@@ -239,6 +275,14 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        $('#selectLang').click(function() {
+            axios.get('/toggleLocale')
+            .then(response => {
+                console.log(response.data);
+                location.reload();
+            });
+        });
+
        $('#newClient').on('click', function(evt) {
            var where = $('#newClient').attr('href');
            $.get(where, function(data) {

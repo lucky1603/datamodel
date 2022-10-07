@@ -148,13 +148,13 @@
         </div>
         <div class="d-flex align-items-center justify-content-center mt-4">
           <b-button
-            v-if="user_role == 'administrator' && report_status == 2"
+            v-if="user_role == 'administrator' && report_status >= 2"
             variant="info"
             type="button"
             class="mr-2"
             @click="statusBack"
           >
-            Vrati status
+            Omoguci slanje
           </b-button>
           <b-button
             v-if="user_role == 'profile' && report_status < 2"

@@ -1,5 +1,15 @@
 @extends('layouts.hyper-vertical')
 
+@php
+    $locale = session('locale');
+    if($locale == null) {
+        $locale = app()->getLocale();
+    } else {
+        app()->setLocale($locale);
+    }
+
+@endphp
+
 @section('sidemenu')
     @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
 
