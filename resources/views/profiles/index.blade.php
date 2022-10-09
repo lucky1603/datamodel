@@ -1,5 +1,15 @@
 @extends('layouts.hyper-vertical-mainframe')
 
+@php
+    $locale = session('locale');
+    if($locale == null) {
+        $locale = app()->getLocale();
+    } else {
+        app()->setLocale($locale);
+    }
+
+@endphp
+
 @section('page-title')
     {{ mb_strtoupper(__('Company List')) }}
 @endsection

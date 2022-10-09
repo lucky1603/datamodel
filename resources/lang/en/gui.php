@@ -63,6 +63,8 @@ return [
     'accept' => 'Accept',
     'reject' => 'Reject',
     'sign' => 'Sign',
+    'choose' => 'Choose',
+    'cancel' => 'Cancel',
 
     /*
      * Validation Errors
@@ -134,5 +136,77 @@ return [
      'profile_statistics_engaged' => 'Engaged',
      'profile_statistics_women' => 'Women',
      'profile_statistics_by_technology' => 'BY TECHNOLOGY',
-     'profile_statistics_by_dev_phases' => 'BY DEVELOPMENT PHASES'
+     'profile_statistics_by_dev_phases' => 'BY DEVELOPMENT PHASES',
+
+     /**
+      * Profile index
+      */
+
+      'profile_list_filter' => 'FILTER',
+      'profile_list_filter_name' => 'By Name ...',
+      'profile_list_state_choice' => 'By State',
+      'profile_list_state_new' => 'New',
+      'profile_list_state_active' => 'Active',
+      'profile_list_state_alumni' => 'Alumni',
+      'profile_list_state_rejected' => 'Suspended/rejected',
+      'profile_list_type_choice' => 'By Type ...',
+      'profile_list_type_startup' => 'Startup',
+      'profile_list_type_company' => 'Company',
+      'profile_list_ntp_choice' => 'By NTP ...',
+
+      /**
+       * Membership Type
+       */
+
+      'membership_type_new' => 'New',
+      'membership_type_virtual' => 'Virtual',
+      'membership_type_full_fledged' => 'Full fledged',
+      'membership_type_alumni' => 'Alumni',
+      'membership_type_rejected' => 'Suspended/rejected',
+
+      /**
+       * Science Technology Park
+       */
+
+      'ntp_beograd' => 'STP Belgrade',
+      'ntp_nis' => 'STP Niš',
+      'ntp_cacak' => 'STP Čačak',
+
+      /**
+       * Profile create form
+       */
+
+       'profile_create_form_name' => 'Name',
+
+       'profile_create_form_is_company' => 'Is it a company?',
+       'profile_create_form_id_number' => 'ID Number',
+       'profile_create_form_contact_person' => 'Contact Person',
+       'profile_create_form_email' => 'Email',
+       'profile_create_form_contact_phone' => 'Contact Phone',
+       'profile_create_form_web_page' => 'Web Page',
+       'profile_create_form_address' => 'Address',
+       'profile_create_form_logo' => 'Logo',
+       'profile_create_form_background' => 'Background',
+       'profile_create_form_university' => 'University/Education',
+       'profile_create_form_basic_activity' => 'Basic Activity',
+       'profile_create_form_short_description' => 'Short Description of Innovation',
+       'profile_create_form_membership_type' => 'Membership Type',
+       'profile_create_form_ntp' => 'STP',
+
+       'profile_create_form_name_placeholder' => 'Enter company name',
+       'profile_create_form_id_number_placeholder' => 'Enter ID number',
+       'profile_create_form_contact_person_placeholder' => 'First and second name of the contact person',
+       'profile_create_form_email_placeholder' => 'Email of the contact Person',
+       'profile_create_form_web_page_placeholder' => 'Web page of the company',
+       'profile_create_form_address_placeholder' => 'Enter the company address',
+       'profile_create_form_image_select_placeholder' => 'Choose the image by pressing on browse button or simply drag it here.',
+       'profile_create_form_short_description_placeholder' => 'Enter the short description of your innovation',
+
+
+       /**
+        * Basic activities
+        */
+
+        'basic_activities_choose' => 'Choose ...',
+
 ];

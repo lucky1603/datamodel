@@ -44,6 +44,7 @@
     <!-- Localization -->
     <script src="/lang-{{ $locale }}.js"></script>
 
+
     @yield('analytics')
 
 </head>

@@ -3,14 +3,14 @@
         <b-form v-if="this.show" ref="forma" @submit.prevent="onSubmit" >
             <b-form-row>
                 <b-col ref="nameColumn" :lg="form.is_company == 'on' ? 6 : 12">
-                    <b-form-group id="name-group" size="sm" label="Ime" label-for="name">
-                        <b-form-input id="name" size="sm" v-model="form.name" placeholder="Unesite ime"></b-form-input>
+                    <b-form-group id="name-group" size="sm" :label="_('gui.profile_create_form_name')" label-for="name">
+                        <b-form-input id="name" size="sm" v-model="form.name" :placeholder="_('gui.profile_create_form_name_placeholder')"></b-form-input>
                         <span v-if="errors.name" class="text-danger">{{ errors.name}}</span>
                     </b-form-group>
                 </b-col>
                 <b-col ref="id_number_column" lg="6" v-if="form.is_company == 'on'">
-                    <b-form-group id="id_number_group" size="sm" label="Matični broj" label-for="name" description="Broj od 8 cifara">
-                        <b-form-input id="name" size="sm" v-model="form.id_number" placeholder="Unesite matični broj"></b-form-input>
+                    <b-form-group id="id_number_group" size="sm" :label="_('gui.profile_create_form_id_number')" label-for="name" description="Broj od 8 cifara">
+                        <b-form-input id="name" size="sm" v-model="form.id_number" :placeholder="_('gui.profile_create_form_id_number_placeholder')"></b-form-input>
                         <span v-if="errors.id_number" class="text-danger">{{ errors.id_number}}</span>
                     </b-form-group>
                 </b-col>
@@ -22,19 +22,19 @@
                 value="on"
                 unchecked-value="off"
             >
-                Da li je kompanija?
+                {{ _('gui.profile_create_form_is_company')}}
             </b-form-checkbox>
 
             <b-form-row class="mt-2">
                 <b-col lg="4" size="sm">
-                    <b-form-group id="contact_person_group" size="sm" label="Kontakt osoba" label-for="contact_person">
-                        <b-form-input id="contact_person" size="sm" v-model="form.contact_person" placeholder="Ime i prezime osobe za kontakt"></b-form-input>
+                    <b-form-group id="contact_person_group" size="sm" :label="_('gui.profile_create_form_contact_person')" label-for="contact_person">
+                        <b-form-input id="contact_person" size="sm" v-model="form.contact_person" :placeholder="_('gui.profile_create_form_contact_person_placeholder')"></b-form-input>
                         <span v-if="errors.contact_person" class="text-danger">{{ errors.contact_person}}</span>
                     </b-form-group>
                 </b-col>
                 <b-col lg="4" size="sm">
-                    <b-form-group id="contact_email_group" size="sm" label="Email" label-for="contact_email">
-                        <b-form-input id="contact_email" size="sm" v-model="form.contact_email" placeholder="Email osobe za kontakt"></b-form-input>
+                    <b-form-group id="contact_email_group" size="sm" :label="_('gui.profile_create_form_email')" label-for="contact_email">
+                        <b-form-input id="contact_email" size="sm" v-model="form.contact_email" :placeholder="_('gui.profile_create_form_email_placeholder')"></b-form-input>
                         <span v-if="errors.contact_email" class="text-danger">{{ errors.contact_email}}</span>
                     </b-form-group>
                 </b-col>
@@ -47,13 +47,13 @@
                 </b-col>
             </b-form-row>
 
-            <b-form-group id="profile_webpage_group" size="sm" label="Web stranica" label-for="profile_webpage">
-                <b-form-input id="profile_webpage" size="sm" v-model="form.profile_webpage" placeholder="Web stranica kompanije"></b-form-input>
+            <b-form-group id="profile_webpage_group" size="sm" :label="_('gui.profile_create_form_web_page')" label-for="profile_webpage">
+                <b-form-input id="profile_webpage" size="sm" v-model="form.profile_webpage" :placeholder="_('gui.profile_create_form_web_page_placeholder')"></b-form-input>
                 <span v-if="errors.profile_webpage" class="text-danger">{{ errors.profile_webpage}}</span>
             </b-form-group>
 
-            <b-form-group id="address_group" size="sm" label="Adresa" label-for="address">
-                <b-form-input id="address" size="sm" v-model="form.address" placeholder="Adresa kompanije"></b-form-input>
+            <b-form-group id="address_group" size="sm" :label="_('gui.profile_create_form_address')" label-for="address">
+                <b-form-input id="address" size="sm" v-model="form.address" :placeholder="_('gui.profile_create_form_address_placeholder')"></b-form-input>
                 <span v-if="errors.address" class="text-danger">{{ errors.address}}</span>
             </b-form-group>
 
@@ -63,56 +63,56 @@
                     ref="profile_logo"
                     name="profile_logo"
                     v-model="form.profile_logo"
-                    placeholder="Izaberite sliku pritiskom na dugme ili je jednostavno prevucite ovde."
+                    :placeholder="_('gui.profile_create_form_image_select_placeholder')"
                     drop-placeholder="Spustite fajl ovde!" @input="onFileSelect"></b-form-file>
                 <file-item v-if="form.profile_logo_file != null && form.profile_logo_file.filelink != ''" :filelink="form.profile_logo_file.filelink" :filename="form.profile_logo_file.filename"></file-item>
             </b-form-group>
 
-            <b-form-group id="profile_background_group" size="sm" label="Pozadina" label-for="profile_background">
+            <b-form-group id="profile_background_group" size="sm" :label="_('gui.profile_create_form_background')" label-for="profile_background">
                 <b-form-file
                     id="profile_background"
                     ref="profile_background"
                     name="profile_background"
                     v-model="form.profile_background"
-                    placeholder="Izaberite sliku pritiskom na dugme ili je jednostavno prevucite ovde."
+                    :placeholder="_('gui.profile_create_form_image_select_placeholder')"
                     drop-placeholder="Spustite fajl ovde!"></b-form-file>
                 <file-item v-if="form.profile_background_file != null && form.profile_background_file.filelink != ''" :filelink="form.profile_background_file.filelink" :filename="form.profile_background_file.filename"></file-item>
             </b-form-group>
             <b-form-row>
                 <b-col lg="6" size="sm">
-                    <b-form-group id="university_group" label="Fakultet" label-for="university">
+                    <b-form-group id="university_group" :label="_('gui.profile_create_form_university')" label-for="university">
                         <b-form-select v-model="form.university" :options="universities" size="sm"></b-form-select>
                         <span v-if="errors.university" class="text-danger">{{ errors.university}}</span>
                     </b-form-group>
                 </b-col>
                 <b-col lg="6" size="sm">
-                    <b-form-group id="activities_group" label="Osnovna aktivnost" label-for="business_branch">
+                    <b-form-group id="activities_group" :label="_('gui.profile_create_form_basic_activity')" label-for="business_branch">
                         <b-form-select v-model="form.business_branch" :options="activities" size="sm"></b-form-select>
                         <span v-if="errors.business_branch" class="text-danger">{{ errors.business_branch}}</span>
                     </b-form-group>
                 </b-col>
             </b-form-row>
-            <b-form-group id="short_ino_desc_group" label="Kratak opis inovacije" label-for="short_ino_desc">
+            <b-form-group id="short_ino_desc_group" :label="_('gui.profile_create_form_short_description')" label-for="short_ino_desc">
                 <b-form-textarea
                     id="short_ino_desc"
                     v-model="form.short_ino_desc"
-                    placeholder="Unesite kratak opis vaše inovacije"
+                    :placeholder="_('gui.profile_create_form_short_description_placeholder')"
                     rows="3"></b-form-textarea>
                 <span v-if="errors.short_ino_desc" class="text-danger">{{ errors.short_ino_desc}}</span>
             </b-form-group>
-            <b-form-group id="membership_type_group" label="Tip članstva" label-for="membership_type">
+            <b-form-group id="membership_type_group" :label="_('gui.profile_create_form_membership_type')" label-for="membership_type">
                 <b-form-select v-model="form.membership_type" :options="membershipTypes" size="sm"></b-form-select>
                 <span v-if="errors.membership_type" class="text-danger">{{ errors.membership_type}}</span>
             </b-form-group>
 
-            <b-form-group id="ntp_group" label="NTP" label-for="ntp">
+            <b-form-group id="ntp_group" :label="_('gui.profile_create_form_ntp')" label-for="ntp">
                 <b-form-select v-model="form.ntp" :options="ntps" size="sm"></b-form-select>
                 <span v-if="errors.ntp" class="text-danger">{{ errors.ntp}}</span>
             </b-form-group>
 
             <div v-if="show_buttons" class="d-flex align-items-center justify-content-center">
-                <b-button size="sm" variant="primary" type="submit" class="mx-1" >Prihvati</b-button>
-                <b-button size="sm" variant="outline-primary" type="button" class="mx-1" @click="onCancel">Odustani</b-button>
+                <b-button size="sm" variant="primary" type="submit" class="mx-1" >{{ _('gui.accept')}}</b-button>
+                <b-button size="sm" variant="outline-primary" type="button" class="mx-1" @click="onCancel">{{ _('gui.cancel')}}</b-button>
             </div>
 
         </b-form>
@@ -248,13 +248,13 @@ export default {
         return {
             show: true,
             ntps: [
-                { value: 0, text: 'Nije dodeljen ...'},
+                { value: 0, text: window.i18n.gui.profile_list_ntp_choice },
                 { value: 1, text: 'Naučno-tehnološki park Beograd' },
                 { value: 2, text: 'Naučno-tehnološki park Niš' },
                 { value: 3, text: 'Naučno-tehnološki park Čačak' }
             ],
             universities: [
-                { value: null, text: 'Izaberite ...' },
+                { value: null, text: window.i18n.gui.choose },
                 { value: 1 ,text: 'Arhitektura' },
                 { value: 2, text: 'Ekonomija' },
                 { value: 3, text: 'Elektrotehnika' },
@@ -264,31 +264,31 @@ export default {
                 { value: 7, text: 'Šumarstvo' }
             ],
             activities: [
-                { value: null, text: 'Izaberite ...'},
-                { value: 1, text: 'Energetska efikasnost, zelene, čiste tehnologije i ekologija'},
-                { value: 2, text: 'Veštačka inteligencija, baze podataka i analitika'},
-                { value: 3, text: 'Novi materijali i 3 D štampa'},
-                { value: 4, text: 'Tehnologija u sportu'},
-                { value: 5, text: 'Ekonomske transakcije, finansije, marketing i prodaja'},
-                { value: 6, text: 'Robotika i automatizacija'},
-                { value: 7, text: 'Turizam i putovanja'},
-                { value: 8, text: 'Edukacija , obrazovanje i usavršavanje'},
-                { value: 9, text: 'Mediji , komunikacije i društvene mreže/ Gaming i zabava'},
-                { value: 10, text: 'Medicinske tehnologije'},
-                { value: 11, text: 'Ostalo'},
+                { value: null, text: window.i18n.gui.choose},
+                { value: 1, text: window.i18n['gui-select']['BB-EnEff'] },
+                { value: 2, text: window.i18n['gui-select']['BB-AI']},
+                { value: 3, text: window.i18n['gui-select']['BB-NewMat']},
+                { value: 4, text: window.i18n['gui-select']['BB-TechSport']},
+                { value: 5, text: window.i18n['gui-select']['BB-EcoTrans']},
+                { value: 6, text: window.i18n['gui-select']['BB-RoboAuto']},
+                { value: 7, text: window.i18n['gui-select']['BB-Tourism']},
+                { value: 8, text: window.i18n['gui-select']['BB-Education']},
+                { value: 9, text: window.i18n['gui-select']['BB-MediaGaming']},
+                { value: 10, text: window.i18n['gui-select']['BB-MedTech']},
+                { value: 11, text: window.i18n['gui-select']['BB-Other']},
             ],
             contactReasons: [
-                { value: 0, text: 'Izaberite ...'},
+                { value: 0, text: window.i18n.gui.choose},
                 { value: 1, text: 'Razlog 1'},
                 { value: 2, text: 'Razlog 2'},
                 { value: 3, text: 'Razlog 3'},
             ],
             membershipTypes: [
-                { value: 0, text: 'Nije član'},
-                { value: 1, text: 'Virtuelni član'},
-                { value: 2, text: 'Punopravni član'},
-                { value: 3, text: 'Alumni'},
-                { value: 4, text: 'Co-Working'}
+                { value: 0, text: window.i18n.gui.membership_type_new},
+                { value: 1, text: window.i18n.gui.membership_type_virtual},
+                { value: 2, text: window.i18n.gui.membership_type_full_fledged},
+                { value: 3, text: window.i18n.gui.membership_type_alumni},
+                { value: 4, text: window.i18n.gui.membership_type_rejected}
             ],
             form : {
                 profileid: 0,

@@ -237,6 +237,9 @@
 
 <script>
 import Chart from "chart.js/auto";
+import _ from 'lodash'
+Vue.prototype._ = str => _.get(window.i18n, str);
+
 export default {
   name: "ProfileStatistics",
   components: { Chart },
@@ -283,6 +286,7 @@ export default {
   },
   async mounted() {
     await this.getData();
+
   },
   data() {
     return {

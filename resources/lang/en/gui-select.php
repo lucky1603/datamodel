@@ -24,22 +24,22 @@ return [
      * Business Branches
      */
 
-    'BB-IOT' => "IoT, povezani uređaji i pametni gradovi",
-    'BB-EnEff' => 'Energetska efikasnost, zelene, čiste tehnologije i biotehnologija',
-    'BB-AI' => 'Veštačka inteligencija, baze podataka i analitika',
-    'BB-NewMat' => 'Novi materijali i 3 D štampa',
-    'BB-Civic' => 'Građevina, konstrukcija, arhitektura',
-    'BB-TechSport' => 'Tehnologije u sportu, wellness & fitness',
-    'BB-Finance' => 'Finansije, logistika i lanci snabdevanja, unapređenje poslovanja',
-    'BB-Marketing' => 'Marketing i prodaja',
-    'BB-EcoTrans' => 'Ekonomske transakcije, finansije, marketing i prodaja',
-    'BB-RoboAuto' => 'Robotika i automatizacija',
-    'BB-Tourism' => 'Turizam, odmor i putovanja',
-    'BB-Education' => 'Edukacija , obrazovanje i usavršavanje',
-    'BB-MediaGaming' => 'Mediji , komunikacije i društvene mreže/ Gaming i zabava',
-    'BB-MedTech' => 'Medicinske tehnologije i farmacija',
-    'BB-Agriculture' => 'Poljoprivreda i prehranrana',
-    'BB-Other' => "Ostalo",
+    'BB-IOT' => "IoT, connected devices, smart cities",
+    'BB-EnEff' => 'Energetic efficiency, green, clean technologies and biotechnologies',
+    'BB-AI' => 'Artificial intelligence, databases and analytics',
+    'BB-NewMat' => 'New materials and 3D printing',
+    'BB-Civic' => 'Building, construction, architecture',
+    'BB-TechSport' => 'Technologies in sports, wellness & fitness',
+    'BB-Finance' => 'Finance, logistics and supply chains, business improvement',
+    'BB-Marketing' => 'Marketing and sales',
+    'BB-EcoTrans' => 'Economic transactions, finance, marketing and sales',
+    'BB-RoboAuto' => 'Robotics and automation',
+    'BB-Tourism' => 'Tourism, vacation and travel',
+    'BB-Education' => 'Education, education and training',
+    'BB-MediaGaming' => 'Media, communications and social networks/ Gaming and entertainmenta',
+    'BB-MedTech' => 'Medical technologies and pharmacy',
+    'BB-Agriculture' => 'Agriculture and food',
+    'BB-Other' => "Other",
 
     /*
      * Contact Reasons

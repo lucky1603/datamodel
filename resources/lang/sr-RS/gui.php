@@ -64,6 +64,8 @@ return [
     'reject' => 'Odbij',
     'sign' => 'Potpiši',
     'rollback' => 'Prethodno',
+    'choose' => 'Izaberite',
+    'cancel' => 'Odustani',
 
     /*
      * Validation Errors
@@ -134,5 +136,75 @@ return [
     'profile_statistics_engaged' => 'Angazovani',
     'profile_statistics_women' => 'Od toga žene',
     'profile_statistics_by_technology' => 'PO TEHNOLOGIJAMA',
-    'profile_statistics_by_dev_phases' => 'PO FAZAMA RAZVOJA'
+    'profile_statistics_by_dev_phases' => 'PO FAZAMA RAZVOJA',
+
+    /**
+      * Profile index
+      */
+
+      'profile_list_filter' => 'FILTER',
+      'profile_list_filter_name' => 'Po imenu ...',
+      'profile_list_state_choice' => 'Po stanju ...',
+      'profile_list_state_new' => 'Nova',
+      'profile_list_state_active' => 'Aktivna',
+      'profile_list_state_alumni' => 'Alumni',
+      'profile_list_state_rejected' => 'Suspendovana/odbijena',
+      'profile_list_type_choice' => 'Po tipu ...',
+      'profile_list_type_startup' => 'Startap',
+      'profile_list_type_company' => 'Kompanija',
+      'profile_list_ntp_choice' => 'Po NTP ...',
+
+      /**
+       * Membership Type
+       */
+
+      'membership_type_new' => 'Novi',
+      'membership_type_virtual' => 'Virtuelni',
+      'membership_type_full_fledged' => 'Punopravni',
+      'membership_type_alumni' => 'Alumni',
+      'membership_type_rejected' => 'Suspendovana/odbijena',
+
+      /**
+       * Science Technology Park
+       */
+
+      'ntp_beograd' => 'NTP Beograd',
+      'ntp_nis' => 'NTP Niš',
+      'ntp_cacak' => 'NTP Čačak',
+
+      /**
+       * Profile create form
+       */
+
+       'profile_create_form_name' => 'Ime',
+       'profile_create_form_is_company' => 'Da li je kompanija?',
+       'profile_create_form_id_number' => 'Matični broj',
+       'profile_create_form_contact_person' => 'Kontakt osoba',
+       'profile_create_form_email' => 'Email',
+       'profile_create_form_contact_phone' => 'Kontakt telefon',
+       'profile_create_form_web_page' => 'Web stranica',
+       'profile_create_form_address' => 'Adresa',
+       'profile_create_form_logo' => 'Logo',
+       'profile_create_form_background' => 'Pozadina',
+       'profile_create_form_university' => 'Fakultet/Obrazovanje',
+       'profile_create_form_basic_activity' => 'Osnovna aktivnost',
+       'profile_create_form_short_description' => 'Kratak opis inovacije',
+       'profile_create_form_membership_type' => 'Tip članstva',
+       'profile_create_form_ntp' => 'NTP',
+
+       'profile_create_form_name_placeholder' => 'Unesite ime kompanije',
+       'profile_create_form_id_number_placeholder' => 'Unesite matični broj',
+       'profile_create_form_contact_person_placeholder' => 'Ime i prezime kontakt osobe',
+       'profile_create_form_email_placeholder' => 'Email kontakt osobe',
+       'profile_create_form_web_page_placeholder' => 'Web strana kompanije',
+       'profile_create_form_address_placeholder' => 'Unesite adresu kompanije',
+       'profile_create_form_image_select_placeholder' => 'Izaberite sliku pritiskom na dugme ili je jednostavno prevucite ovde.',
+       'profile_create_form_short_description_placeholder' => 'Unesite kratak opis inovacije',
+
+       /**
+        * Basic activities
+        */
+
+        'basic_activities_choose' => 'Choose ...',
+        'basic_activities_'
 ];
