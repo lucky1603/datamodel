@@ -206,5 +206,16 @@ return [
         */
 
         'basic_activities_choose' => 'Choose ...',
-        'basic_activities_'
+        'basic_activities_',
+
+        /**
+         * Profile table.
+         */
+        'profile_table_company' => 'Kompanija',
+        'profile_table_membership_type' => 'Tip članstva',
+        'profile_table_status' => 'Status',
+        'profile_table_type' => 'Tip',
+        'profile_table_ntp' => 'NTP',
+        'profile_table_program' => 'Program',
+        'profile_table_astype' => 'Tip društva'
 ];

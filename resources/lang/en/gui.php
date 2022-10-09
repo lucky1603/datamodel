@@ -209,4 +209,14 @@ return [
 
         'basic_activities_choose' => 'Choose ...',
 
+        /**
+         * Profile table.
+         */
+        'profile_table_company' => 'Company',
+        'profile_table_membership_type' => 'Membership Type',
+        'profile_table_status' => 'Status',
+        'profile_table_type' => 'Type',
+        'profile_table_ntp' => 'STP',
+        'profile_table_program' => 'Program',
+        'profile_table_astype' => 'Association Type'
 ];

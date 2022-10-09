@@ -128,7 +128,7 @@ export default {
         return [
           {
             key: "name",
-            label: "Kompanija",
+            label: window.i18n.gui.profile_table_company,
             sortable: true,
           },
           {
@@ -148,34 +148,34 @@ export default {
         return [
           {
             key: "name",
-            label: "Kompanija",
+            label: window.i18n.gui.profile_table_company,
             sortable: true,
           },
           {
             key: "membership_type",
-            label: "Tip članstva",
+            label:  window.i18n.gui.profile_table_membership_type,
             sortable: true,
           },
           {
             key: "program",
-            label: "Program",
+            label:  window.i18n.gui.profile_table_program,
             sortable: false,
           },
           {
             key: "stateText",
-            label: "Status",
+            label:  window.i18n.gui.profile_table_status,
             tdClass: "text-center",
             thClass: "text-center",
             sortable: true,
           },
           {
             key: "isCompany",
-            label: "Tip društva",
+            label: window.i18n.gui.profile_table_astype,
             sortable: true,
           },
           {
             key: "ntp",
-            label: "ntp",
+            label: window.i18n.gui.profile_table_ntp,
             sortable: true,
           },
         ];
@@ -273,34 +273,7 @@ export default {
         is_company: -1,
         ntp: 0,
       },
-      fields: [
-        {
-          key: "company",
-          label: "Kompanija",
-        },
-        {
-          key: "membership_type",
-          label: "Tip članstva",
-        },
-        {
-          key: "program",
-          label: "Program",
-        },
-        {
-          key: "stateText",
-          label: "Status",
-          tdClass: "text-center",
-          thClass: "text-center",
-        },
-        {
-          key: "tip",
-          label: "Tip društva",
-        },
-        {
-          key: "ntp",
-          label: "ntp",
-        },
-      ],
+
       states: [
         { value: 0, text: window.i18n.gui.profile_list_state_choice },
         { value: 1, text: window.i18n.gui.profile_list_state_new },
