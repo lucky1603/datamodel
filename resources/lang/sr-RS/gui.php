@@ -66,6 +66,7 @@ return [
     'rollback' => 'Prethodno',
     'choose' => 'Izaberite',
     'cancel' => 'Odustani',
+    'send' => 'Pošalji',
 
     /*
      * Validation Errors
@@ -217,5 +218,16 @@ return [
         'profile_table_type' => 'Tip',
         'profile_table_ntp' => 'NTP',
         'profile_table_program' => 'Program',
-        'profile_table_astype' => 'Tip društva'
+        'profile_table_astype' => 'Tip društva',
+
+        /**
+         * Profile bulk mail
+         */
+        'reminder_title' => 'Izaberi primaoce',
+        'reminder_all_companies' => 'Sve kompanije',
+        'reminder_selected_companies' => 'Izabrane kompanije',
+        'reminder_add_all' => 'Dodaj sve',
+        'reminder_add_selected' => 'Dodaj odabrane',
+        'reminder_remove_selected' => 'Ukloni odabrane',
+        'reminder_remove_all' => 'Ukloni sve',
 ];

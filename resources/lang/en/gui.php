@@ -65,6 +65,7 @@ return [
     'sign' => 'Sign',
     'choose' => 'Choose',
     'cancel' => 'Cancel',
+    'send' => 'Send',
 
     /*
      * Validation Errors
@@ -218,5 +219,18 @@ return [
         'profile_table_type' => 'Type',
         'profile_table_ntp' => 'STP',
         'profile_table_program' => 'Program',
-        'profile_table_astype' => 'Association Type'
+        'profile_table_astype' => 'Association Type',
+
+        /**
+         * Profile bulk mail
+         */
+        'reminder_title' => 'Select Recipients',
+        'reminder_all_companies' => 'All Companies',
+        'reminder_selected_companies' => 'Selected Companies',
+        'reminder_add_all' => 'Add All',
+        'reminder_add_selected' => 'Add Selected',
+        'reminder_remove_selected' => 'Remove Selected',
+        'reminder_remove_all' => 'Remove All',
+
+
 ];

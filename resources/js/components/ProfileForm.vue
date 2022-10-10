@@ -39,7 +39,7 @@
                     </b-form-group>
                 </b-col>
                 <b-col lg="4" size="sm">
-                    <b-form-group id="contact_phone_group" size="sm" label="Kontakt telefon" label-for="contact_phone">
+                    <b-form-group id="contact_phone_group" size="sm" :label="_('gui.profile_create_form_contact_phone')" label-for="contact_phone">
 <!--                        <b-form-input id="contact_phone" size="sm" v-model="form.contact_phone" placeholder="xxx xxx-xxx(x)" @input="enforcePhoneFormat"></b-form-input>-->
                         <b-form-input id="contact_phone" size="sm" v-model="form.contact_phone" placeholder="xxx xxx-xxx(x)" data-toggle="input-mask" data-mask-format="000 000-0000"></b-form-input>
                         <span v-if="errors.contact_phone" class="text-danger">{{ errors.contact_phone}}</span>

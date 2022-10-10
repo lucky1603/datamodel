@@ -3,8 +3,8 @@
         v-model="value"
         ref="selector"
         :originalitems="originalItems"
-        left_title="SVE KOMPANIJE"
-        right_title="IZABRANE KOMPANIJE"
+        :left_title="_('gui.reminder_all_companies')"
+        :right_title="_('gui.reminder_selected_companies')"
         @input="selectionChanged"></item-selector>
 </template>
 

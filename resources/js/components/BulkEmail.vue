@@ -7,7 +7,7 @@
           <form method="POST" enctype="multipart/form-data" action="#" @submit.prevent="onSubmit">
               <input type="hidden" name="_token" :value="token">
               <div class="text-center">
-                  <h4 class="attribute-label">IZABERITE PRIMAOCE</h4>
+                  <h4 class="attribute-label">{{ _('gui.reminder_title') }}</h4>
               </div>
               <div class="form-group mt-4">
                   <companies-selector v-model="form.recipients" :source="items_source"></companies-selector>
@@ -19,7 +19,7 @@
               <div class="text-center">
                   <b-button ref="sendButton" id="sendButton" type="submit" class="mt-3" variant="primary" size="sm" :disabled="form.recipients.length == 0">
                       <span id="okSpinner" ref="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      Pošalji
+                      {{ _('gui.send')}}
                   </b-button>
                   <b-button
                       ref="cancelButton"
@@ -27,7 +27,7 @@
                       type="button"
                       class="mt-3"
                       variant="outline-primary"
-                      size="sm" @click="onCancel">Odustani</b-button>
+                      size="sm" @click="onCancel">{{ _('gui.cancel')}}</b-button>
               </div>
           </form>
       </div>

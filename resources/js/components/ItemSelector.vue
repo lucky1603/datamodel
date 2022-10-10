@@ -3,7 +3,7 @@
         <div class="col-lg-5 form-group">
             <p class="attribute-label font-weight-bold text-center">{{ left_title }}</p>
             <b-input-group class="w-100 mb-1" size="sm">
-                <b-form-input v-model="searchOriginal" type="search" id="searchOriginal" placeholder="Po nazivu ..." @update="onSearchOriginalsUpdate"></b-form-input>
+                <b-form-input v-model="searchOriginal" type="search" id="searchOriginal" :placeholder="_('gui.profile_list_filter_name')" @update="onSearchOriginalsUpdate"></b-form-input>
                 <template #append>
                     <b-input-group-text><b-icon-zoom-in></b-icon-zoom-in></b-input-group-text>
                 </template>
@@ -11,15 +11,15 @@
             <b-form-select v-model="originalsSelected" :options="getOriginalItems" :select-size="5" multiple></b-form-select>
         </div>
         <div class="col-lg-2" style="display: flex; flex-direction: column; align-items: center; justify-content: center">
-            <b-button variant="primary" class="mb-1 mt-3" size="sm" @click="addAll"  title="Dodaj sve"><i class="uil-angle-double-right"></i></b-button>
-            <b-button variant="outline-primary" class="mb-1" size="sm" @click="addSelected"  title="Dodaj izabrane"><i class="uil-angle-right"></i></b-button>
-            <b-button variant="outline-primary" class="mb-1" size="sm" @click="removeSelected"  title="Ukloni izabrane"><i class="uil-angle-left"></i></b-button>
-            <b-button variant="primary" class="mb-1" size="sm" @click="removeAll" title="Ukloni sve"><i class="uil-angle-double-left"></i></b-button>
+            <b-button variant="primary" class="mb-1 mt-3" size="sm" @click="addAll"  :title="_('gui.reminder_add_all')"><i class="uil-angle-double-right"></i></b-button>
+            <b-button variant="outline-primary" class="mb-1" size="sm" @click="addSelected"  :title="_('gui.reminder_add_selected')"><i class="uil-angle-right"></i></b-button>
+            <b-button variant="outline-primary" class="mb-1" size="sm" @click="removeSelected"  :title="_('gui.reminder_remove_selected')"><i class="uil-angle-left"></i></b-button>
+            <b-button variant="primary" class="mb-1" size="sm" @click="removeAll" :title="_('gui.reminder_remove_all')"><i class="uil-angle-double-left"></i></b-button>
         </div>
         <div class="col-lg-5 form-group">
             <p class="attribute-label font-weight-bold text-center">{{ right_title }}</p>
             <b-input-group class="w-100 mb-1" size="sm">
-                <b-form-input v-model="searchSelected" type="search" id="searchSelected" placeholder="Po nazivu ..." @update="onSearchOriginalsUpdate"></b-form-input>
+                <b-form-input v-model="searchSelected" type="search" id="searchSelected" :placeholder="_('gui.profile_list_filter_name')" @update="onSearchOriginalsUpdate"></b-form-input>
                 <template #append>
                     <b-input-group-text><b-icon-zoom-in></b-icon-zoom-in></b-input-group-text>
                 </template>
