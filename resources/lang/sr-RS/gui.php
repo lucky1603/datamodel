@@ -230,4 +230,54 @@ return [
         'reminder_add_selected' => 'Dodaj odabrane',
         'reminder_remove_selected' => 'Ukloni odabrane',
         'reminder_remove_all' => 'Ukloni sve',
+
+        /**
+         * Mentor explorer
+         */
+        'mentor_explorer_by_type' => 'Po tipu',
+        'mentor_explorer_business' => 'Poslovni',
+        'mentor_explorer_tech' => 'Tehnički',
+        'mentor_explorer_specialist' => 'Specijalista',
+        'mentor_explorer_new_mentor' => "NOVI MENTOR",
+
+        /**
+         * Mentor profile
+         */
+
+        'mentor_profile_change_data' => 'Promeni podatke',
+
+        /**
+         * Program list control (kod mentora)
+         */
+         'program_list_no_companies' => "Nema povezanih kompanija",
+
+       /**
+        * Mentor Add Program Control
+        */
+       'mentor_add_program_choose' => 'Izaberite jedan ili više programa ...',
+       'mentor_add_program_label' => 'PROGRAMI',
+       'mentor_add_program_filter_placeholder' => "Filtriraj po programu ...",
+
+       /**
+         * Mentor Form
+         */
+        'mentor_form_name' => 'Ime',
+        'mentor_form_name_placeholder' => 'Ime i prezime mentora',
+        'mentor_form_company' => 'Kompanija',
+        'mentor_form_company_placeholder' => 'Ime kompanije ili društva',
+        'mentor_form_email' => 'E-Mail',
+        'mentor_form_email_placeholder' => 'E-Mail kompanije',
+        'mentor_form_phone' => 'Broj telefona',
+        'mentor_form_phone_placeholder' => 'Unesite broj telefona',
+        'mentor_form_address' => 'Address',
+        'mentor_form_address_placeholder' => 'Unesite adresu kompanije',
+        'mentor_form_browse' => 'Izaberi',
+        'mentor_form_specialities' => "Specijalnosti",
+        'mentor_form_mentor_type' => "Tip mentora",
+        'mentor_form_photo' => "Fotografija",
+
+        /**
+         * Mentor Data
+         */
+        'mentor_data_no_mentor' => "Nema izabranog mentora!",
 ];

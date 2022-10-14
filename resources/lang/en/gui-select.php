@@ -40,6 +40,7 @@ return [
     'BB-MedTech' => 'Medical technologies and pharmacy',
     'BB-Agriculture' => 'Agriculture and food',
     'BB-Other' => "Other",
+    'BB-Select' => "Please Select ...",
 
     /*
      * Contact Reasons
@@ -83,5 +84,13 @@ return [
     'PROFSTATE-Contract' => 'Contract',
     'PROFSTATE-InProgram' => 'In Program',
     'PROFSTATE-Rejected' => 'Rejected',
+
+    /**
+     * Mentor Type
+     */
+    'mentor_type_choose' => 'Choose',
+    'mentor_type_business' => 'Business',
+    'mentor_type_tech' => 'Tech',
+    'mentor_type_specialist' => 'Specialist',
 
 ];

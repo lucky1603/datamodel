@@ -21,7 +21,9 @@
 @endsection
 
 @section('content')
-    @include('mentors.form.mentor-form', ['action' => route('mentors.store'), 'showCommands' => true, 'showTitle' => true,  'title' => __('Add New Mentor')])
+    {{-- @include('mentors.form.mentor-form', ['action' => route('mentors.store'), 'showCommands' => true, 'showTitle' => true,  'title' => __('Add New Mentor')]) --}}
+
+    <mentor-form token="{{ csrf_token() }}" action="/mentors/create"></mentor-form>
 @endsection
 
 @section('scripts')

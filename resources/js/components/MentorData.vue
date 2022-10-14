@@ -5,7 +5,7 @@
                 <div class="d-inline-flex align-items-center">
                     <span class="h4 attribute-label">{{ aboutme.toUpperCase() }}</span>
                 </div>
-                <b-button v-if="mentor != null && usertype === 'administrator'" variant="primary" class="float-right" title="Promeni podatke" @click="showModal"><i class="dripicons-user"></i></b-button>
+                <b-button v-if="mentor != null && usertype === 'administrator'" variant="primary" class="float-right" :title="editmentortitle" @click="showModal1"><i class="dripicons-user"></i></b-button>
             </div>
             <div class="card-body pt-0 pb-0 h-100 ">
                 <div v-if="mentor != null" class="row h-100">
@@ -28,16 +28,21 @@
                     </div>
                 </div>
                 <div v-if="mentor == null">
-                    Nije izabran mentor.
+                    {{ _('gui.mentor_data_no_mentor') }}
                 </div>
             </div>
         </div>
         <b-modal id="editMentorModal" ref="editMentorModal" size="lg" header-bg-variant="dark" header-text-variant="light" scrollable>
             <template #modal-title>{{ editmentortitle }}</template>
-            <span v-html="formContent"></span>
+            <mentor-form
+                ref="mentorEditForm"
+                :mentor_id="mentorid"
+                :token="token"
+                action="/mentors/edit"
+                returnLocation="/mentors/edit" :showButtons="false"></mentor-form>
             <template #modal-footer>
-                <b-button variant="primary" id="okButton" @click="onOk">Prihvati</b-button>
-                <b-button variant="light" @click="onCancel">Odustani</b-button>
+                <b-button variant="primary" id="okButton" @click="onOk">{{ _('gui.accept')}}</b-button>
+                <b-button variant="light" @click="onCancel">{{ _('gui.cancel') }}</b-button>
             </template>
         </b-modal>
     </div>
@@ -51,16 +56,36 @@ export default {
         mentorid: 0,
         aboutme: {typeof: String, default: 'About Me'},
         editmentortitle: { type: String, default: 'Edit Mentor Data'},
-        usertype: { typeof: String, default: 'administrator'}
+        usertype: { typeof: String, default: 'administrator'},
+        token: { typeof: String, default: ''}
     },
     methods : {
         getData() {
             if(this.mentorId != 0 && this.mentorId != null) {
                 axios.get(`/mentors/showdata/${this.mentorId}`)
                     .then(response => {
+                        console.log(response.data);
                          this.mentor = response.data;
+                         var specArray = [];
+                         for(let i in this.mentor.specialities.value) {
+                            specArray.push(this.specialities[this.mentor.specialities.value[i]]);
+                         }
+
+                         var strval = "";
+                         for(let i = 0; i < specArray.length; i++) {
+                            if(i != 0) {
+                                strval += " ; ";
+                            }
+                            strval += specArray[i];
+                         }
+
+                         this.mentor.specialities.value = strval;
+
                     });
             }
+        },
+        showModal1() {
+            this.$refs['editMentorModal'].show();
         },
         async showModal() {
             await axios.get(`/mentors/edit/${this.mentorid}`)
@@ -87,36 +112,13 @@ export default {
         },
         onOk() {
             $('#okButton').attr('disabled', true);
-            const data = new FormData($('form#myMentorForm')[0]);
-            if($('#photo')[0].files.length > 0) {
-                data.append('photo', $('#photo')[0].files[0]);
-            }
-
-            let editForm = this;
-
-            $.ajax({
-                url: '/mentors/edit',
-                type: 'POST',
-                processData: false,
-                contentType: false,
-                data: data,
-                success: function(data) {
-                    console.log('success');
-                    console.log(data);
-                    $('.error-notification').hide();
-                    $('#okButton').attr('disabled', false);
-                    editForm.$refs['editMentorModal'].hide();
-                    editForm.getData();
-                },
-                error(data) {
-                    let errorData = data.responseJSON;
-                    $('.error-notification').hide();
-                    for(let key in errorData.errors) {
-                       let value = errorData.errors[key];
-                       $('#' + key + 'Error').show().text(value);
-                    }
-                }
-            })
+            this.$refs.mentorEditForm.onSubmit()
+            .then(response => {
+                $('#okButton').attr('disabled', false);
+                console.log(response.data);
+                this.getData();
+                this.$refs.editMentorModal.hide();
+            });
         },
         onCancel() {
             this.$refs['editMentorModal'].hide();
@@ -132,7 +134,26 @@ export default {
             mentorId: 0,
             keys: [],
             values: [],
-            formContent: null
+            formContent: null,
+            specialities: [
+                window.i18n['gui-select']["BB-Select"],
+                window.i18n['gui-select']["BB-IOT"],
+                window.i18n['gui-select']["BB-EnEff"],
+                window.i18n['gui-select']["BB-AI"],
+                window.i18n['gui-select']["BB-NewMat"],
+                window.i18n['gui-select']["BB-Civic"],
+                window.i18n['gui-select']["BB-TechSport"],
+                window.i18n['gui-select']["BB-Finance"],
+                window.i18n['gui-select']["BB-Marketing"],
+                window.i18n['gui-select']["BB-EcoTrans"],
+                window.i18n['gui-select']["BB-RoboAuto"],
+                window.i18n['gui-select']["BB-Tourism"],
+                window.i18n['gui-select']["BB-Education"],
+                window.i18n['gui-select']["BB-MediaGaming"],
+                window.i18n['gui-select']["BB-MedTech"],
+                window.i18n['gui-select']["BB-Agriculture"],
+                window.i18n['gui-select']["BB-Other"],
+            ]
         }
     },
     mounted() {

@@ -96,6 +96,7 @@ Vue.component('session-form', require('./components/SessionForm.vue').default);
 Vue.component('statistic-form', require('./components/StatisticForm.vue').default);
 Vue.component('basic-dashboard', require('./components/BasicDashboard.vue').default);
 Vue.component('incubation-dashboard', require('./components/IncubationDashboard.vue').default);
+Vue.component('mentor-form', require('./components/MentorForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

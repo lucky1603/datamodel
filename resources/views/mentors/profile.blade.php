@@ -1,5 +1,15 @@
 @extends('layouts.hyper-vertical')
 
+@php
+    $locale = session('locale');
+    if($locale == null) {
+        $locale = app()->getLocale();
+    } else {
+        app()->setLocale($locale);
+    }
+
+@endphp
+
 @section('page-header')
     <span class="h4" style="position: relative; top:3vh; left: 2vh">{{ mb_strtoupper(__('Mentor Profile')) }} - <span class="attribute-label">{{ $mentor->getValue('name') }}</span></span>
 @endsection
@@ -10,7 +20,7 @@
             <div class="col-lg-12 h-100 p-2">
                 <div class="row" style="height: 55%">
                     <div class="col-lg-12 h-100 p-2">
-                        <mentor-data :mentorid="{{ $mentor->getId() }}" aboutme="{{ __('About Me') }}" editmentortitle="{{ __('Change Mentor Data') }}"></mentor-data>
+                        <mentor-data :mentorid="{{ $mentor->getId() }}" aboutme="{{ __('About Me') }}" editmentortitle="{{ __('Change Mentor Data') }}" token="{{ csrf_token() }}"></mentor-data>
                     </div>
                 </div>
 

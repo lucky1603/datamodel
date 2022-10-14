@@ -7,7 +7,7 @@
                 </b-col>
                 <b-col xl="2" lg="4" style="display: flex; flex-direction: row; justify-content: left">
                     <b-input-group class="w-100 m-2 mt-3 mt-sm-3 mt-lg-2" size="sm">
-                        <b-form-input v-model="form.name" type="search" id="searchName" placeholder="Po imenu ..." @update="onSubmit"></b-form-input>
+                        <b-form-input v-model="form.name" type="search" id="searchName" :placeholder="_('gui.profile_list_filter_name')" @update="onSubmit"></b-form-input>
                         <template #append>
                             <b-input-group-text><b-icon-zoom-in></b-icon-zoom-in></b-input-group-text>
                         </template>
@@ -17,7 +17,7 @@
                     <b-form-select size="sm" class="m-2 w-100" v-model="form.mentorType" :options="mentorTypes" @change="onSubmit"></b-form-select>
                 </b-col>
                 <b-col xl="2" lg="3" offset-xl="5" class="d-flex flex-row flex-lg-row-reverse" >
-                    <a :href="createlink" role="button" class="text-secondary m-2 position-relative" style="top:5px" ><i class="dripicons-document-new"></i> NOVI MENTOR</a>
+                    <a :href="createlink" role="button" class="text-secondary m-2 position-relative" style="top:5px" ><i class="dripicons-document-new mr-2"></i>{{ _('gui.mentor_explorer_new_mentor') }}</a>
                 </b-col>
             </b-row>
         </b-form>
@@ -137,10 +137,10 @@ export default {
             formContent: null,
             loading: false,
             mentorTypes: [
-                { value: 0, text: "Po tipu" },
-                { value: 1, text: "Business" },
-                { value: 2, text: "Tech"},
-                { value: 3, text: "Specialist"}
+                { value: 0, text: window.i18n.gui.mentor_explorer_by_type },
+                { value: 1, text: window.i18n.gui.mentor_explorer_business },
+                { value: 2, text: window.i18n.gui.mentor_explorer_tech },
+                { value: 3, text: window.i18n.gui.mentor_explorer_specialist }
             ],
             form: {
                 name : '',

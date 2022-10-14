@@ -10,7 +10,7 @@
             </div>
             <div class="card-body font-12" style="height: 95%">
                 <div v-if="this.programs.length == 0" class="d-flex align-items-center justify-content-center w-100 h-100">
-                    <span class="h4 text-secondary">TRENUTNO NEMA DODELJENIH KOMPANIJA</span>
+                    <span class="h4 text-secondary">{{ _('gui.program_list_no_companies')}}</span>
                 </div>
                 <b-table
                     ref="ProgramsTable"

@@ -2,9 +2,9 @@
     <div>
         <b-form @submit.prevent="onSubmit">
             <b-form-group
-                description="Izaberite jedan ili više programa ..."
+                :description="_('gui.mentor_add_program_choose')"
                 id="program-group"
-                label="PROGRAMI"
+                :label="_('gui.mentor_add_program_label')"
                 label-for="program">
                 <b-form-select v-model="program" :options="programs" multiple :select-size="4"></b-form-select>
             </b-form-group>
@@ -12,11 +12,11 @@
                 <template #prepend>
                     <b-input-group-text><i class="uil-search"></i></b-input-group-text>
                 </template>
-                <b-form-input type="text" placeholder="Filtrirajte po imenu ..." v-model="name" @update="getPrograms"></b-form-input>
+                <b-form-input type="text" :placeholder="_('gui.mentor_add_program_filter_placeholder')" v-model="name" @update="getPrograms"></b-form-input>
             </b-input-group>
             <div class="d-flex align-items-center justify-content-center mt-2">
-                <b-button type="submit" variant="primary" size="sm" class="mr-2">Prihvati</b-button>
-                <b-button type="button" variant="outline-primary" size="sm" @click="odustani">Odustani</b-button>
+                <b-button type="submit" variant="primary" size="sm" class="mr-2">{{ _('gui.accept') }}</b-button>
+                <b-button type="button" variant="outline-primary" size="sm" @click="odustani">{{ _('gui.cancel') }}</b-button>
             </div>
         </b-form>
     </div>

@@ -86,6 +86,29 @@ class MentorController extends Controller
 
     }
 
+    public function getData($mentor_id) {
+        $mentor = Mentor::find($mentor_id);
+        $retData =  [
+            'name' => $mentor->getValue('name'),
+            'company' => $mentor->getValue('company'),
+            'email' => $mentor->getValue('email'),
+            'phone' => $mentor->getValue('phone'),
+            'address' => $mentor->getValue('address'),
+            'company' => $mentor->getValue('company'),
+            'mentor_type' => $mentor->getValue('mentor-type'),
+            'specialities' => is_array($mentor->getValue('specialities')) ?
+                $mentor->getValue('specialities') :
+                [$mentor->getValue('specialities')]
+        ];
+
+        $photo = $mentor->getValue('photo');
+        if($photo != null && $photo != ['filelink' => '', 'filename' => '']) {
+            $retData['photo'] = $photo['filelink'];
+        }
+
+        return $retData;
+    }
+
     public function edit($mentorId) {
         $mentor = Mentor::find($mentorId);
         $action = route('mentors.update');
@@ -95,13 +118,13 @@ class MentorController extends Controller
     public function update(Request $request) {
         $request->validate([
             'name' => 'required|max:255',
-//            'email' => 'required|email|max:255',
             'phone' => 'required',
             'specialities' => 'required',
             'mentor-type' => 'in:1,2,3'
         ]);
 
         $data = $request->post();
+        unset($data['photo']);
 
         $photo = $request->file('photo');
         if($photo != null) {
@@ -349,6 +372,14 @@ class MentorController extends Controller
     }
 
     public function showData($mentorId) {
+
+        $locale = session('locale');
+        if($locale == null) {
+            $locale = app()->getLocale();
+        } else {
+            app()->setLocale($locale);
+        }
+
         $mentor = Mentor::find($mentorId);
         $data = [];
 
@@ -358,18 +389,18 @@ class MentorController extends Controller
             $attribute = $mentor->getAttribute($key);
             if($attribute->name != 'photo') {
                 $data[$attribute->name] = [
-                    'label' => $attribute->label,
-                    'value' => $attribute->getText()
+                    'label' => __($attribute->label),
+                    'value' => $attribute->name != 'specialities' ? $attribute->getText() : $attribute->getValue(),
                 ];
             } else {
                 if($attribute->getValue() != null && $attribute->getValue() != [ 'filelink' => '', 'filename' => '' ]) {
                     $data[$attribute->name] = [
-                        'label' => $attribute->label,
+                        'label' => __($attribute->label),
                         'value' => $attribute->getValue()['filelink']
                     ];
                 } else {
                     $data[$attribute->name] = [
-                        'label' => $attribute->label,
+                        'label' => __($attribute->label),
                         'value' => asset('/images/custom/nophoto2.png')
                     ];
                 }

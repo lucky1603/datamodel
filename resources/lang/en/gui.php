@@ -232,5 +232,55 @@ return [
         'reminder_remove_selected' => 'Remove Selected',
         'reminder_remove_all' => 'Remove All',
 
+        /**
+         * Mentor explorer
+         */
+        'mentor_explorer_by_type' => 'By type',
+        'mentor_explorer_business' => 'Business',
+        'mentor_explorer_tech' => 'Tech',
+        'mentor_explorer_specialist' => 'Specialist',
+        'mentor_explorer_new_mentor' => "NEW MENTOR",
+
+        /**
+         * Mentor profile
+         */
+
+         'mentor_profile_change_data' => 'Change Data',
+
+         /**
+          * Program list control (kod mentora)
+          */
+          'program_list_no_companies' => "No attached companies",
+
+        /**
+         * Mentor Add Program Control
+         */
+        'mentor_add_program_choose' => 'Pick one or more programs ...',
+        'mentor_add_program_label' => 'PROGRAMS',
+        'mentor_add_program_filter_placeholder' => "Filter by Program ...",
+
+        /**
+         * Mentor Form
+         */
+        'mentor_form_name' => 'Name',
+        'mentor_form_name_placeholder' => 'Mentors first and last name',
+        'mentor_form_company' => 'Company',
+        'mentor_form_company_placeholder' => 'Name of company or association',
+        'mentor_form_email' => 'E-Mail',
+        'mentor_form_email_placeholder' => 'Company E-Mail',
+        'mentor_form_phone' => 'Phone Number',
+        'mentor_form_phone_placeholder' => 'Contact Phone Number',
+        'mentor_form_address' => 'Address',
+        'mentor_form_address_placeholder' => 'Company Address',
+        'mentor_form_browse' => 'Browse',
+        'mentor_form_specialities' => "Specialities",
+        'mentor_form_mentor_type' => "Mentor Type",
+        'mentor_form_photo' => "Photo",
+
+        /**
+         * Mentor Data
+         */
+        'mentor_data_no_mentor' => "No mentor selected.",
+
 
 ];

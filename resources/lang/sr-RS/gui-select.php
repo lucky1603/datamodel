@@ -89,4 +89,12 @@ return [
     'PROFSTATE-InProgram' => 'U programu',
     'PROFSTATE-Rejected' => 'Odbijen',
 
+    /**
+     * Mentor Type
+     */
+    'mentor_type_choose' => 'Izaberite',
+    'mentor_type_business' => 'Poslovni',
+    'mentor_type_tech' => 'Tech',
+    'mentor_type_specialist' => 'Specijalista',
+
 ];
