@@ -1,5 +1,15 @@
 @extends('layouts.hyper-vertical')
 
+@php
+    $locale = session('locale');
+    if($locale == null) {
+        $locale = app()->getLocale();
+    } else {
+        app()->setLocale($locale);
+    }
+
+@endphp
+
 @section('content')
     {{-- @include('mentors.form.mentor-form-dlg', ['action' => route('mentors.update'), 'showCommands' => false, 'showTitle' => false]) --}}
 
