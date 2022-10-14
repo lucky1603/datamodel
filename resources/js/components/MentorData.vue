@@ -66,20 +66,25 @@ export default {
                     .then(response => {
                         console.log(response.data);
                          this.mentor = response.data;
-                         var specArray = [];
-                         for(let i in this.mentor.specialities.value) {
-                            specArray.push(this.specialities[this.mentor.specialities.value[i]]);
-                         }
-
-                         var strval = "";
-                         for(let i = 0; i < specArray.length; i++) {
-                            if(i != 0) {
-                                strval += " ; ";
+                         if(Array.isArray(this.mentor.specialities.value)) {
+                            var specArray = [];
+                            for(let i in this.mentor.specialities.value) {
+                                specArray.push(this.specialities[this.mentor.specialities.value[i]]);
                             }
-                            strval += specArray[i];
+
+                            var strval = "";
+                            for(let i = 0; i < specArray.length; i++) {
+                                if(i != 0) {
+                                    strval += " ; ";
+                                }
+                                strval += specArray[i];
+                            }
+
+                            this.mentor.specialities.value = strval;
+                         } else {
+                            this.mentor.specialities.value = this.specialities[this.mentor.specialities.value];
                          }
 
-                         this.mentor.specialities.value = strval;
 
                     });
             }
