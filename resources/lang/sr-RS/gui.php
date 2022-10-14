@@ -67,6 +67,10 @@ return [
     'choose' => 'Izaberite',
     'cancel' => 'Odustani',
     'send' => 'Pošalji',
+    'sessions' => 'Sesije',
+    'companies' => 'Kompanije',
+    'reports' => 'Izveštaji',
+    'mentor_reports' => "Mentorski izveštaji",
 
     /*
      * Validation Errors
@@ -280,4 +284,9 @@ return [
          * Mentor Data
          */
         'mentor_data_no_mentor' => "Nema izabranog mentora!",
+
+        /**
+         * Mentor sessions
+         */
+        'mentor_sessions_companies' => 'Kompanije',
 ];

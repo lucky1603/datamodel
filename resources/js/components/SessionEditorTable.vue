@@ -3,7 +3,7 @@
         <div class="card shadow-sm h-100" role="button">
             <div class="card-header card-header-light-background">
                 <div class="d-inline-flex align-items-center">
-                    <span class="h4 attribute-label">SESIJE</span>
+                    <span class="h4 attribute-label">{{ _('gui.sessions').toUpperCase() }}</span>
                 </div>
 
                 <b-button class="float-right" variant="primary" @click="newSession1"><i class="dripicons-user-group"></i></b-button>

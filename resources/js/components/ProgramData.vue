@@ -33,7 +33,7 @@
         <b-modal id="editProfileModal" ref="editProfileModal" size="lg" header-bg-variant="dark" header-text-variant="light">
             <template #modal-title>{{ title }}</template>
 <!--            <span v-html="formContent"></span>-->
-            <profile-form :profile_id="this.program.profileId" ref="myProfileForm" action="/profiles/edit" :token="token"></profile-form>
+            <profile-form :profile_id="this.program.profile_id" ref="myProfileForm" action="/profiles/edit" :token="token"></profile-form>
             <template #modal-footer>
                 <b-button variant="primary" @click="onOk">Prihvati</b-button>
                 <b-button variant="light" @click="onCancel">Odustani</b-button>
@@ -68,11 +68,13 @@ export default {
             this.getData();
         },
         showModal() {
-            axios.get(`/profiles/edit/${this.program.profileId}`)
-                .then(response => {
-                    this.$refs['editProfileModal'].show();
-                    this.formContent = $(response.data).find('form#myForm').first().parent().html();
-                });
+            this.$refs['editProfileModal'].show();
+
+            // axios.get(`/profiles/edit/${this.program.profileId}`)
+            //     .then(response => {
+            //         this.$refs['editProfileModal'].show();
+            //         this.formContent = $(response.data).find('form#myForm').first().parent().html();
+            //     });
         },
         onOk() {
             document.body.style.cursor  = 'wait'

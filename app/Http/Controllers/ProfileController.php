@@ -125,6 +125,8 @@ class ProfileController extends Controller
             $data['profile_background'] = $profile_background;
         }
 
+        $data['is_company'] = $data['is_company'] == 'true' ? true : false;
+
         $profile = Profile::find($data['profileid']);
         $profile->setData($data);
 
@@ -1025,6 +1027,14 @@ class ProfileController extends Controller
      */
     public function getProgramData($programId)
     {
+
+        $locale = session('locale');
+        if($locale == null) {
+            $locale = app()->getLocale();
+        } else {
+            app()->setLocale($locale);
+        }
+
         $program = ProgramFactory::resolve($programId);
         $profile = $program->getProfile();
 
@@ -1052,7 +1062,7 @@ class ProfileController extends Controller
                 continue;
             if(!in_array($attribute->name, ['profile_logo', 'profile_background'])) {
                 $data[$attribute->name] = [
-                    'label' => $attribute->label,
+                    'label' => __($attribute->label),
                     'value' => $attribute->getText()
                 ];
             } else {
@@ -1063,7 +1073,7 @@ class ProfileController extends Controller
 
                 $img = $attribute->getValue() != null && $attribute->getValue()['filelink'] != '' ? $attribute->getValue()['filelink'] : $defaultImage;
                 $data[$attribute->name] = [
-                    'label' => $attribute->label,
+                    'label' => __($attribute->label),
                     'value' => $img,
                 ];
             }

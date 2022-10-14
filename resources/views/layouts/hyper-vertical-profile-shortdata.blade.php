@@ -8,7 +8,7 @@
 
     <div class="row" >
         <div class="d-none d-xl-block col-xl-3" style="min-height: 450px">
-            <profile-data :profile_id="{{ $profile->getId() }}"></profile-data>
+            <profile-data :profile_id="{{ $profile->getId() }}" token={{ csrf_token() }}></profile-data>
             <profile-users :profile_id="{{ $profile->getId() }}" token="{{ csrf_token() }}" :active_user_id="{{ auth()->user()->id }}" class="mt-4"></profile-users>
         </div> <!-- end col-->
 

@@ -1,7 +1,7 @@
 <template>
     <div class="card shadow-sm">
         <div class="card-header" style="background-color: #efefef">
-            <span class="h4 attribute-label">IZVEŠTAJI</span>
+            <span class="h4 attribute-label">{{ _('gui.reports').toUpperCase() }}</span>
         </div>
         <div class="card-body d-flex flex-wrap align-items-center justify-content-start overflow-auto">
             <mentor-report-item

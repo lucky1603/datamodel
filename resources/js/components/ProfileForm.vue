@@ -2,13 +2,13 @@
     <div>
         <b-form v-if="this.show" ref="forma" @submit.prevent="onSubmit" >
             <b-form-row>
-                <b-col ref="nameColumn" :lg="form.is_company == 'on' ? 6 : 12">
+                <b-col ref="nameColumn" :lg="is_company ? 6 : 12">
                     <b-form-group id="name-group" size="sm" :label="_('gui.profile_create_form_name')" label-for="name">
                         <b-form-input id="name" size="sm" v-model="form.name" :placeholder="_('gui.profile_create_form_name_placeholder')"></b-form-input>
                         <span v-if="errors.name" class="text-danger">{{ errors.name}}</span>
                     </b-form-group>
                 </b-col>
-                <b-col ref="id_number_column" lg="6" v-if="form.is_company == 'on'">
+                <b-col ref="id_number_column" lg="6" v-if="is_company">
                     <b-form-group id="id_number_group" size="sm" :label="_('gui.profile_create_form_id_number')" label-for="name" description="Broj od 8 cifara">
                         <b-form-input id="name" size="sm" v-model="form.id_number" :placeholder="_('gui.profile_create_form_id_number_placeholder')"></b-form-input>
                         <span v-if="errors.id_number" class="text-danger">{{ errors.id_number}}</span>
@@ -16,12 +16,7 @@
                 </b-col>
             </b-form-row>
             <b-form-checkbox
-                id="is_company"
-                v-model="form.is_company"
-                name="is_company"
-                value="on"
-                unchecked-value="off"
-            >
+                v-model="is_company">
                 {{ _('gui.profile_create_form_is_company')}}
             </b-form-checkbox>
 
@@ -134,6 +129,7 @@ export default {
             if(this.profile_id != 0) {
                 await axios.get(`/profiles/profileData/${this.profile_id}`)
                     .then(response => {
+                        console.log(response.data);
                         let profileData = response.data;
                         this.form = {};
                         for(let property in profileData) {
@@ -151,6 +147,8 @@ export default {
                                 this.form[property] = profileData[property];
                             }
                         }
+
+                        this.is_company = this.form.is_company;
                     });
             }
 
@@ -160,6 +158,7 @@ export default {
             console.log(this.form.profile_logo);
         },
         onSubmit() {
+            this.form.is_company = this.is_company;
             let formData = new FormData();
             formData.append('_token', this.token);
 
@@ -246,6 +245,7 @@ export default {
     },
     data() {
         return {
+            is_company: false,
             show: true,
             ntps: [
                 { value: 0, text: window.i18n.gui.profile_list_ntp_choice },
@@ -294,7 +294,7 @@ export default {
                 profileid: 0,
                 name: '',
                 id_number: '',
-                is_company: 'off',
+                is_company: false,
                 contact_person: '',
                 contact_email: '',
                 contact_phone: '',

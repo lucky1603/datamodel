@@ -17,7 +17,7 @@
                     <div class="card shadow-sm mt-2" style="height: 26vh">
                         <div class="card-header card-header-light-background">
                             <div class="d-inline-flex align-items-center">
-                                <span class="h4 attribute-label">KOMPANIJE</span>
+                                <span class="h4 attribute-label">{{ _('gui.mentor_sessions_companies').toUpperCase()}}</span>
                             </div>
                         </div>
                         <div class="card-body overflow-auto" style="display:flex; flex-wrap: wrap">
@@ -46,7 +46,7 @@
         <div v-else>
             <img src="/images/custom/classroom.jpg" style="position: absolute; left: 0px; top: 0px; width: 100%; opacity: 0.5">
             <div style="position: absolute; left: 100px; top: 100px">
-                <p class="attribute-label" style="font-family: 'Roboto Light'; font-size: 38px; font-weight: bold">NEMA DODELJENIH KOMPANIJA</p>
+                <p class="attribute-label" style="font-family: 'Roboto Light'; font-size: 38px; font-weight: bold">{{ _('gui.program_list_no_companies')}}</p>
             </div>
         </div>
 

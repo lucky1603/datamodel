@@ -1,6 +1,16 @@
 @extends('layouts.hyper-vertical')
 
 @php
+    $locale = session('locale');
+    if($locale == null) {
+        $locale = app()->getLocale();
+    } else {
+        app()->setLocale($locale);
+    }
+
+@endphp
+
+@php
     $mentorId = $mentor->getId();
 @endphp
 
@@ -13,7 +23,9 @@
 @section('content')
     <mentor-sessions
         :mentorid="{{ $mentorId }}"
-        usertype="{{ \Illuminate\Support\Facades\Auth::user()->roles->first()->name }}" token="{{ $token }}" programid="{{ $programId }}"></mentor-sessions>
+        usertype="{{ \Illuminate\Support\Facades\Auth::user()->roles->first()->name }}"
+        token="{{ $token }}"
+        programid="{{ $programId }}" title="{{ __('Sessions') }}"></mentor-sessions>
 @endsection
 
 @section('sidemenu')

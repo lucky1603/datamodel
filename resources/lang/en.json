@@ -5,5 +5,13 @@
     "Telefon" : "Phone",
     "Adresa" : "Address",
     "Specijalnosti" : "Specialities",
-    "Tip Mentora" : "Mentor Type"
+    "Tip Mentora" : "Mentor Type",
+    "Da li je kompanija" : "Is it a Company?",
+    "Matični broj" : "ID Number",
+    "Kontakt osoba" : "Contact",
+    "Broj telefona" : "Phone Number",
+    "Fakultet" : "University",
+    "Kratak opis inovacije" : "Short Description of Innovation",
+    "Osnovna aktivnost" : "Basic Activity",
+    "Tip članstva" : "Membership Type"
 }

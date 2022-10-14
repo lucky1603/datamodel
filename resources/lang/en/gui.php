@@ -66,6 +66,10 @@ return [
     'choose' => 'Choose',
     'cancel' => 'Cancel',
     'send' => 'Send',
+    'sessions' => 'Sessions',
+    'companies' => 'Companies',
+    'reports' => 'Reports',
+    'mentor_reports' => "Mentor Reports",
 
     /*
      * Validation Errors
@@ -281,6 +285,12 @@ return [
          * Mentor Data
          */
         'mentor_data_no_mentor' => "No mentor selected.",
+
+        /**
+         * Mentor sessions
+         */
+        'mentor_sessions_companies' => 'Companies',
+
 
 
 ];
