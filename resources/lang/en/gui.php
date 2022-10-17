@@ -70,6 +70,8 @@ return [
     'companies' => 'Companies',
     'reports' => 'Reports',
     'mentor_reports' => "Mentor Reports",
+    'close' => 'Close',
+    'report' => 'Report',
 
     /*
      * Validation Errors
@@ -290,6 +292,46 @@ return [
          * Mentor sessions
          */
         'mentor_sessions_companies' => 'Companies',
+
+        /**
+         * Session editor table
+         */
+        'session_form_title_edit' => 'Preview Session Data',
+        'session_form_title_create' => 'Create New Session',
+
+        /**
+         * Session form
+         */
+        'session_form_title' => 'Session Title',
+        'session_form_title_placeholder' => 'Intro session',
+        'session_form_beginning_date' => 'Beginning Date',
+        'session_form_beginning_time' => 'Beginning Time',
+        'session_form_duration' => 'Duration',
+        'session_form_duration_unit' => 'Duration Unit',
+        'session_form_short_note' => 'Short Note',
+        'session_form_short_note_placeholder' => 'Enter notes if there are any ...',
+        'session_form_session_finished' => 'Session Finished',
+        'session_form_has_mentor_feedback' => 'Has Mentor Feedback',
+        'session_form_mentor_feedback' => 'Mentor Feedback',
+        'session_form_client_feedback' => 'Client Feedback',
+        'session_form_has_client_feedback' => 'Has Client Feedback',
+
+        /**
+         * Mentor Report editor
+         */
+        'mentor_report_due_date' => 'Due Date',
+        'mentor_report_attached_documents' => "Apended Reports",
+        'mentor_report_append_document' => 'Append Report',
+
+
+        /**
+         * File Group Editor
+         */
+        'file_group_editor_report_files' => 'Report Files',
+        'file_group_editor_placeholder' => 'Browse for the files or simply drag them here ...',
+        'file_group_editor_note' => 'Note',
+        'file_group_editor_note_placeholder' => 'Enter notes if there are any ...',
+
 
 
 

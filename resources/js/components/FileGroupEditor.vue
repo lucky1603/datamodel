@@ -7,7 +7,7 @@
             <hr>
             <b-form-group
                 id="files"
-                label="Datoteke izveštaja"
+                :label="_('gui.file_group_editor_report_files')"
                 label-for="fileInput"
             >
                 <b-form-file
@@ -15,22 +15,22 @@
                     id="fileInput"
                     v-model="form.files"
                     :state="null"
-                    placeholder="Izaberite datoteke ili ih prevucite ovde..."
+                    :placeholder="_('gui.file_group_editor_placeholder')"
                     drop-placeholder="Prevucite datoteke ovde..." multiple
                 ></b-form-file>
             </b-form-group>
-            <b-form-group label="Napomena">
+            <b-form-group :label="_('gui.file_group_editor_note')">
                 <b-form-textarea
                     id="textarea"
                     v-model="form.note"
-                    placeholder="Unesite napomenu ako je imate..."
+                    :placeholder="_('gui.file_group_editor_note_placeholder')"
                     rows="3"
                     max-rows="6"
                 ></b-form-textarea>
             </b-form-group>
             <div v-if="show_buttons" class="d-flex align-items-center justify-content-center">
-                <b-button type="submit" variant="info" class="mr-2">Prihvati</b-button>
-                <b-button type="button" variant="danger" @click="onCancel">Odustani</b-button>
+                <b-button type="submit" variant="info" class="mr-2">{{ _('gui.accept') }}</b-button>
+                <b-button type="button" variant="danger" @click="onCancel">{{ _('gui.cancel') }}</b-button>
             </div>
         </b-form>
     </div>

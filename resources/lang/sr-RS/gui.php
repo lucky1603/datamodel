@@ -71,6 +71,8 @@ return [
     'companies' => 'Kompanije',
     'reports' => 'Izveštaji',
     'mentor_reports' => "Mentorski izveštaji",
+    'close' => 'Zatvori',
+    'report' => 'Izveštaj',
 
     /*
      * Validation Errors
@@ -289,4 +291,42 @@ return [
          * Mentor sessions
          */
         'mentor_sessions_companies' => 'Kompanije',
+
+        /**
+         * Session editor table
+         */
+        'session_form_title_edit' => 'Pregledaj podatke sesije',
+        'session_form_title_create' => 'Kreiraj novu sesiju',
+
+        /**
+         * Session form
+         */
+        'session_form_title' => 'Naslov sesije',
+        'session_form_title_placeholder' => 'Uvodna sesija upoznavanja',
+        'session_form_beginning_date' => 'Datum početka',
+        'session_form_beginning_time' => 'Vreme početka',
+        'session_form_duration' => 'Trajanje',
+        'session_form_duration_unit' => 'Jedinica trajanja',
+        'session_form_short_note' => 'Kratka beleška',
+        'session_form_short_note_placeholder' => 'Unesite belešku, ako je ima ...',
+        'session_form_session_finished' => 'Sesija završena',
+        'session_form_has_mentor_feedback' => 'Ima feedback mentora',
+        'session_form_mentor_feedback' => 'Feedback mentora',
+        'session_form_client_feedback' => 'Feedback klijenta',
+        'session_form_has_client_feedback' => 'Ima feedback klijenta',
+
+        /**
+         * Mentor Report editor
+         */
+        'mentor_report_due_date' => 'Datum dospeća',
+        'mentor_report_attached_documents' => "Priloženi dokumenti",
+        'mentor_report_append_document' => 'Priloži dokumente',
+
+        /**
+         * File Group Editor
+         */
+        'file_group_editor_report_files' => 'Datoteke izveštaja',
+        'file_group_editor_placeholder' => 'Izaberite datoteke ili ih prevucite ovde...',
+        'file_group_editor_note' => 'Napomena',
+        'file_group_editor_note_placeholder' => 'Unesite napomenu ako je imate ...',
 ];

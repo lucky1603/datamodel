@@ -38,7 +38,9 @@
                         :programid="this.programId"
                         :token="token"
                         :user_type="usertype"
-                        style="height: 40vh; margin-bottom: 2vh"></session-editor-table>
+                        style="height: 40vh; margin-bottom: 2vh"
+                        :viewsessiontitle="_('gui.session_form_title_edit')"
+                        :addsessiontitle="_('gui.session_form_title_create')"></session-editor-table>
                     <mentor-reports-explorer :mentorId="this.mentorid" style="height: 35vh"></mentor-reports-explorer>
                 </div>
             </div>

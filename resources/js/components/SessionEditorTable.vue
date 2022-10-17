@@ -6,7 +6,11 @@
                     <span class="h4 attribute-label">{{ _('gui.sessions').toUpperCase() }}</span>
                 </div>
 
-                <b-button class="float-right" variant="primary" @click="newSession1"><i class="dripicons-user-group"></i></b-button>
+                <b-button
+                    class="float-right"
+                    variant="primary"
+                    @click="newSession1"
+                    :title="_('gui.session_form_title_create')"><i class="dripicons-user-group"></i></b-button>
             </div>
             <div class="card-body overflow-auto" style="display: flex; flex-wrap: wrap">
                 <tile-item
@@ -45,8 +49,8 @@
                 :token="token"
                 action="/sessions/create" :user_type="user_type"></session-form>
             <template #modal-footer>
-                <b-button variant="primary" @click="onAddSession">Prihvati</b-button>
-                <b-button variant="light" @click="onCancelAddSession">Odustani</b-button>
+                <b-button variant="primary" @click="onAddSession">{{ _('gui.accept') }}</b-button>
+                <b-button variant="light" @click="onCancelAddSession">{{ _('gui.cancel')}}</b-button>
             </template>
         </b-modal>
         <b-modal id="viewSituationModal1" ref="viewSituationModal1" size="lg" header-bg-variant="dark" header-text-variant="light">
@@ -58,8 +62,8 @@
                 :token="token" action="/sessions/edit"
                 :session_id="sessionId" :user_type="user_type"></session-form>
             <template #modal-footer>
-                <b-button variant="primary" @click="onEditSession">Prihvati</b-button>
-                <b-button variant="light" @click="onCancelEditSession">Odustani</b-button>
+                <b-button variant="primary" @click="onEditSession">{{ _('gui.accept') }}</b-button>
+                <b-button variant="light" @click="onCancelEditSession">{{ _('gui.cancel')}}</b-button>
             </template>
         </b-modal>
     </div>

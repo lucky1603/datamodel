@@ -13,5 +13,13 @@
     "Fakultet" : "University",
     "Kratak opis inovacije" : "Short Description of Innovation",
     "Osnovna aktivnost" : "Basic Activity",
-    "Tip članstva" : "Membership Type"
+    "Tip članstva" : "Membership Type",
+    "Prvi izveštaj" : "First Report",
+    "Drugi izveštaj" : "Second Report",
+    "Izveštaj" : "Report",
+    "IZVEŠTAJ" : "REPORT",
+    "PRVI IZVEŠTAJ" : "FIRST REPORT",
+    "DRUGI IZVEŠTAJ" : "SECOND REPORT",
+    "DODATNI IZVEŠTAJ" : "ADDITIONAL REPORT",
+    "Dodatni izveštaj" : "Additional Report"
 }

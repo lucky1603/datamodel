@@ -11,13 +11,20 @@ use Illuminate\Http\Request;
 class MentorReportController extends Controller
 {
     public function get($reportId) {
+        $locale = session('locale');
+        if($locale == null) {
+            $locale = app()->getLocale();
+        } else {
+            app()->setLocale($locale);
+        }
+
         $r = MentorReport::find($reportId)->load('file_groups');
 
         $reportData = [
             'id' => $r->id,
             'program_id' => $r->pogram_id,
             'mentor_id' => $r->mentor_id,
-            'name' => $r->name,
+            'name' => __($r->name),
             'status' => $r->status,
             'dueDate' => $r->due_date
         ];
@@ -32,9 +39,23 @@ class MentorReportController extends Controller
                 ];
             }
 
+            $fileGroupName = $file_group->name;
+            $fileParts = explode(' ', $fileGroupName);
+            $arrLength = count($fileParts);
+            if($arrLength > 1) {
+                $last = $fileParts[$arrLength - 1];
+                unset($fileParts[$arrLength - 1]);
+                $fileGroupName = implode(' ', $fileParts);
+                $fileGroupName = __($fileGroupName).' '.$last;
+            } else {
+                $fileGroupName = __($fileGroupName);
+            }
+
+
+
             $reportData['file_groups'][] = [
                 'id' => $file_group->id,
-                'name' => $file_group->name,
+                'name' => $fileGroupName,
                 'note' => $file_group->note,
                 'files' => $files
             ];

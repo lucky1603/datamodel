@@ -4,33 +4,34 @@
             <span class="h4">{{ report.name }}</span>
         </div>
         <div class="card-body">
-            <p><strong>Dospeva: </strong>{{ report.dueDate }}</p>
+            <p><strong>{{ _('gui.mentor_report_due_date') }}: </strong>{{ report.dueDate }}</p>
             <div class="d-flex flex-column justify-content-center align-items-center shadow-sm">
-                <p class="text-center h5 attribute-label mb-2">PRILOŽENI IZVEŠTAJI</p>
+                <p class="text-center h5 attribute-label mb-2">{{ _('gui.mentor_report_attached_documents')}}</p>
 
                 <file-group-viewer
                     v-for="(fileGroup, index) in report.file_groups"
                     :file_group="fileGroup"
                     :index="index + 1" :key="index" class="m-2 shadow" style="width: 50vw"></file-group-viewer>
-                <button type="button" class="btn btn-success rounded-circle mt-4 mb-2" title="Dodaj izveštaj" @click="add">+</button>
+                <button type="button" class="btn btn-success rounded-circle mt-4 mb-2" :title="_('gui.mentor_report_append_document')" @click="add">+</button>
             </div>
 
             <div class="d-flex align-items-center justify-content-center mt-4">
-                <b-button variant="primary" type="button" @click="close">Zatvori</b-button>
+                <b-button variant="primary" type="button" @click="close">{{ _('gui.close') }}</b-button>
             </div>
         </div>
         <b-modal id="addReportModal" ref="addReportModal" header-bg-variant="dark" header-text-variant="light" >
-            <template #modal-title>Dodaj izvestaj</template>
+            <template #modal-title>{{ _('gui.mentor_report_append_document') }}</template>
             <file-group-editor
                 ref="fed"
                :show_buttons="false"
                :token="token"
                :report_id="report_id"
                 action="/mentor-reports/addFileGroup"
+                :title="_('gui.report')"
             ></file-group-editor>
             <template #modal-footer>
-                <b-button type="button" variant="primary" @click="onOk">Prihvati</b-button>
-                <b-button type="button" variant="danger" @click="onCancel">Odustani</b-button>
+                <b-button type="button" variant="primary" @click="onOk">{{ _('gui.accept') }}</b-button>
+                <b-button type="button" variant="danger" @click="onCancel">{{ _('gui.cancel') }}</b-button>
             </template>
         </b-modal>
     </div>

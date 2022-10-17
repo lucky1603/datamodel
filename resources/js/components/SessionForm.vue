@@ -3,13 +3,13 @@
         <form ref="session_form" method="POST" enctype="multipart/form-data" @submit.prevent="send">
             <b-form-group
                 id="session_title_group"
-                label="Naslov sesije"
+                :label="_('gui.session_form_title')"
                 label-for="session_title">
                 <b-form-input
                     id="session_title"
                     v-model="form.session_title"
                     type="text"
-                    placeholder="Unesite naslov sesije"
+                    :placeholder="_('gui.session_form_title_placeholder')"
                     required>
                 </b-form-input>
                 <span v-if="errors.session_title" class="text-danger">{{ errors.session_title}}</span>
@@ -18,7 +18,7 @@
                 <div class="col-lg-4">
                     <b-form-group
                         id="session_start_date_group"
-                        label="Datum početka"
+                        :label="_('gui.session_form_beginning_date')"
                         label-for="session_start_date">
                         <b-form-datepicker id="session_start_date" v-model="form.session_start_date"></b-form-datepicker>
                         <span v-if="errors.session_start_date" class="text-danger">{{ errors.session_start_date}}</span>
@@ -27,7 +27,7 @@
                 <div class="col-lg-4">
                     <b-form-group
                         id="session_start_time_group"
-                        label="Vreme početka"
+                        :label="_('gui.session_form_beginning_time')"
                         label-for="session_start_time">
                         <b-form-timepicker id="session_start_time" v-model="form.session_start_time"></b-form-timepicker>
                         <span v-if="errors.session_start_time" class="text-danger">{{ errors.session_start_time}}</span>
@@ -36,7 +36,7 @@
                 <div class="col-lg-2">
                     <b-form-group
                         id="session_duration_group"
-                        label="Trajanje"
+                        :label="_('gui.session_form_duration')"
                         label-for="session_duration">
                         <b-input type="number" id="session_duration" v-model="form.session_duration"></b-input>
                         <span v-if="errors.session_duration" class="text-danger">{{ errors.session_duration}}</span>
@@ -45,7 +45,7 @@
                 <div class="col-lg-2">
                     <b-form-group
                         id="session_duration_unit_group"
-                        label="Jedinica trajanja"
+                        :label="_('gui.session_form_duration_unit')"
                         label-for="session_duration_unit">
                         <b-form-select v-model="form.session_duration_unit" :options="units"></b-form-select>
                         <span v-if="errors.session_duration_unit" class="text-danger">{{ errors.session_duration_unit}}</span>
@@ -54,12 +54,12 @@
             </div>
             <b-form-group
                 id="session_short_note_group"
-                label="Kratka beleška"
+                :label="_('gui.session_form_short_note')"
                 label-for="session_short_note">
                 <b-form-textarea
                     id="session_short_note"
                     v-model="form.session_short_note"
-                    placeholder="Unesite belešku ako je ima ..."
+                    :placeholder="_('gui.session_form_short_note_placeholder')"
                     rows="3"
                     max-rows="6"></b-form-textarea>
             </b-form-group>
@@ -70,27 +70,27 @@
                 name="session_is_finished"
                 :value="true"
                 :unchecked-value="false">
-                    Sesija zavrsena
+                    {{ _('gui.session_form_session_finished')}}
             </b-form-checkbox>
             <b-form-group v-if="form.session_is_finished && user_type != 'profile'"
                 id="mentor_feedback_group"
-                label="Feedback mentora"
+                :label="_('gui.session_form_session_mentor_feedback')"
                 label-for="mentor_feedback" class="mt-1">
                 <b-form-textarea
                     id="mentor_feedback"
                     v-model="form.mentor_feedback"
-                    placeholder="Feeback mentora ..."
+                    :placeholder="_('gui.session_form_session_mentor_feedback') + ' ...'"
                     rows="3"
                     max-rows="6" :disabled="user_type != 'mentor'"></b-form-textarea>
             </b-form-group>
             <b-form-group v-if="form.session_is_finished && user_type != 'mentor'"
                 id="client_feedback_group"
-                label="Feedback klijenta"
+                :label="_('gui.session_form_session_mentor_feedback')"
                 label-for="client_feedback" class="mt-1">
                 <b-form-textarea
                     id="client_feedback"
                     v-model="form.client_feedback"
-                    placeholder="Feeback klijenta ..."
+                    :placeholder="_('gui.session_form_session_mentor_feedback') + ' ...'"
                     rows="3"
                     max-rows="6" :disabled="user_type != 'profile'"></b-form-textarea>
             </b-form-group>

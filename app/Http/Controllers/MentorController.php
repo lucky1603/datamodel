@@ -485,13 +485,20 @@ class MentorController extends Controller
 
     public function reportsForProgram($mentorId, $programId): array
     {
+        $locale = session('locale');
+        if($locale == null) {
+            $locale = app()->getLocale();
+        } else {
+            app()->setLocale($locale);
+        }
+
         $mentor = Mentor::find($mentorId);
         $reports = $mentor->getReportsForProgram($programId);
         $reportData = [];
         foreach($reports as $report) {
             $report->load('file_groups');
             $reportData[] = [
-                'name' => $report->name,
+                'name' => __($report->name),
                 'dueDate' => date_format(date_create($report->due_date), 'd.m.Y.'),
                 'id' => $report->id,
                 'status' => $report->status,
