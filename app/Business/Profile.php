@@ -689,12 +689,10 @@ class Profile extends SituationsModel
         return $program;
     }
 
-    public function removeProgram() {
-        $this->getActiveProgram()->delete();
-        $this->instance->instances->each(function($instance) {
-            $instance->delete();
-        });
-
+    public function removeProgram($programId) {
+        $this->instance->instances()->detach($programId);
+        $program = ProgramFactory::resolve($programId);
+        $program->delete();
         $this->instance->refresh();
     }
 

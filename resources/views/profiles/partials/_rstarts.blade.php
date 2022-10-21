@@ -20,7 +20,7 @@
         <select id="{{$attribute->name}}" name="{{$attribute->name}}"
                 class="form-control form-control-sm mandatory-field"
                 @error($attribute->name) is-error @enderror
-                @if(isset($model)) disabled @endif>
+                @if(isset($model) && $value != null) disabled @endif>
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $val)
                 <option value="{{$key}}" @if($key == $value) selected @endif>{{$val}}</option>
@@ -42,7 +42,7 @@
                 name="{{$attribute->name}}"
                 class="form-control form-control-sm mandatory-field"
                 @error($attribute->name) is-error @enderror
-                @if(isset($model)) disabled @endif>
+                @if(isset($model)  && $value != null) disabled @endif>
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $val)
                 <option value="{{$key}}" @if($key == $value) selected @endif>{{$val}}</option>

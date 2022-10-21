@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use \Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\RequestMatcher;
 
 class ProfileController extends Controller
 {
@@ -197,6 +198,7 @@ class ProfileController extends Controller
         // }
 
         $data['profile_status'] = 1;
+        $data['is_company'] = $data['is_company'] == 'true' ? true : false;
 
         $profile_photo = Utils::getFilesFromRequest($request, 'profile_logo');
         if($profile_photo != null) {

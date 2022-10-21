@@ -294,7 +294,7 @@ class Program extends SituationsModel
                 $this->addFounder(new Founder([
                     'founder_name' => $fData['founder_name'],
                     'founder_part' => $fData['founder_part'],
-                    'founder_university' => $fData['founder_university'],
+                    'founder_university' => $fData['founder_university'] ?? '',
                 ]));
             }
         } else {
@@ -303,7 +303,7 @@ class Program extends SituationsModel
             foreach($founders as $founder) {
                 $founder->setValue('founder_name', $foundersData[$counter]['founder_name']);
                 $founder->setValue('founder_part', $foundersData[$counter]['founder_part']);
-                $founder->setValue('founder_university', $foundersData[$counter]['founder_university']);
+                $founder->setValue('founder_university', $foundersData[$counter]['founder_university'] ?? '');
                 $counter++;
             }
         }
@@ -524,9 +524,33 @@ class Program extends SituationsModel
      */
     public function delete()
     {
-        $this->instance->instances->each(function($instance) {
-            $instance->delete();
+        // Delete founders
+        $founderIds = $this->getFounders()->map(function($founder) {
+            return $founder->getId();
         });
+
+        foreach($founderIds as $founderId) {
+            $this->instance->instances()->detach($founderId);
+            $founder = Founder::find($founderId);
+            if($founder != null) {
+                $founder->delete();
+            }
+        }
+
+        $this->instance->save();
+
+        // Delete workflow
+        $workflow = $this->getWorkflow();
+        $workflow->delete();
+
+        // Delete situations
+        $situations = $this->getSituations();
+        foreach($situations as $situation) {
+            $this->instance->instances()->detach($situation->getId());
+            $situation->delete();
+        }
+
+        $this->instance->save();
 
         parent::delete();
     }
@@ -762,7 +786,7 @@ class Program extends SituationsModel
 
     public function setStatus(int $status) {
         if($status > 0 && isset($this->workflow)) {
-            $this->workflow->setCurrentIndex($status - 1);
+            $this->workflow->setCurrentIndex($status);
         }
         $this->setValue('program_status', $status);
     }
@@ -885,7 +909,6 @@ class Program extends SituationsModel
             if($contract != null) {
                 $contract_date = $contract->getValue('signed_at');
                 $year = date("Y", strtotime($contract_date));
-                echo $year."\n";
             }
 
             DB::table('program_caches')->insert([

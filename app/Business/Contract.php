@@ -208,14 +208,15 @@ class Contract extends PhaseImpl
                 'code' => 1,
                 'message' => 'Polje za broj ugovora ne može biti prazno!'
             ];
-        } else {
-            if(Attribute::checkValue(Entity::where('name', 'Contract')->first(), 'contract_number', $data['contract_number'])) {
-                return [
-                    'code' => 1,
-                    'message' => 'Ugovor sa ovim brojem već postoji u bazi!'
-                ];
-            }
         }
+        // else {
+        //     if(Attribute::checkValue(Entity::where('name', 'Contract')->first(), 'contract_number', $data['contract_number'])) {
+        //         return [
+        //             'code' => 1,
+        //             'message' => 'Ugovor sa ovim brojem već postoji u bazi!'
+        //         ];
+        //     }
+        // }
 
         if($data['amount'] == null) {
             return [

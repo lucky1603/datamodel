@@ -2,6 +2,7 @@
 
 namespace App\Business;
 
+use App\Report;
 use App\AttributeGroup;
 use \Illuminate\Support\Collection;
 
@@ -30,14 +31,50 @@ class IncubationProgram extends Program
     {
         if($this->getWorkflow() == null)
             $this->setWorkflow(new IncubationWorkflow());
-        $this->workflow->setCurrentIndex($this->getStatus()-1);
+        $this->workflow->setCurrentIndex($this->getStatus());
+    }
+
+    public function initReports()
+    {
+        $profile = $this->getProfile();
+
+        $lastPhase = $this->getWorkflow()->getPhases()->last();
+        if(!($lastPhase instanceof Contract)) {
+            return;
+        }
+
+        $contract_date = $lastPhase->getValue('signed_at');
+
+        // Add two reports with one year difference.
+        $report = Report::create([
+            'company_name' =>  $profile->getValue('name'),
+            'program_name' => $this->getValue('program_name'),
+            'report_name' => 'Prvi izveštaj',
+            'report_description' => 'Prvi periodični izveštaj',
+            'contract_start' => $contract_date,
+            'contract_check' => date('Y-m-d', strtotime('+ 1 year', strtotime($contract_date))),
+        ]);
+
+        $this->addReport($report);
+
+        // Add two reports with 3 months difference.
+        $report = Report::create([
+            'company_name' =>  $profile->getValue('name'),
+            'program_name' => $this->getValue('program_name'),
+            'report_name' => 'Drugi izveštaj',
+            'report_description' => 'Drugi periodični izveštaj',
+            'contract_start' => $contract_date,
+            'contract_check' => date('Y-m-d', strtotime('+ 2 years', strtotime($contract_date))),
+        ]);
+
+        $this->addReport($report);
     }
 
     protected function updateProgramData()
     {
         $this->setData([
             'program_type' => Program::$INKUBACIJA_BITF,
-            'program_name' => 'Incubation BITF',
+            'program_name' => __('Incubation BITF'),
             'program_status' => 1,
         ]);
     }

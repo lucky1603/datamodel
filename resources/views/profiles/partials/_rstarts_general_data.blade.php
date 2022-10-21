@@ -14,7 +14,7 @@
                class="mandatory-field form-control form-control-sm @error($attribute->name) is-invalid @enderror"
                id="{{ $attribute->name }}"
                name="{{ $attribute->name }}"
-               value="{{ $value }}" @if(isset($model)) disabled @endif>
+               value="{{ $value }}" @if(isset($model) && isset($instance_id) && $value != null ) disabled @endif>
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @endif
@@ -32,7 +32,7 @@
     <div class="col-sm-10">
         <input type="text"
                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
-               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
+               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model) && isset($instance_id) && $value != null) disabled @endif>
         @error($attribute->name)
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
@@ -48,7 +48,7 @@
     <div class="col-sm-10">
         <input type="text"
                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
-               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
+               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model) && isset($instance_id) && $value != null) disabled @endif>
         @error($attribute->name)
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
@@ -69,7 +69,7 @@
                id="{{ $attribute->name }}"
                name="{{$attribute->name}}"
                value="{{ $value }}"
-               autocomplete="{{ $attribute->name }}" @if(isset($model)) disabled @endif >
+               autocomplete="{{ $attribute->name }}" @if(isset($model) && isset($instance_id) && $value != null) disabled @endif >
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
@@ -87,7 +87,7 @@
     <div class="col-sm-10">
         <input type="text"
                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
-               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif data-toggle="input-mask" data-mask-format="000 000-0000">
+               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model) && isset($instance_id) && $value != null) disabled @endif data-toggle="input-mask" data-mask-format="000 000-0000">
         <span class="font-12 text-dark">Unesite broj telefona u formatu 0## ### - ###(#)</span>
 
         @error($attribute->name)
@@ -159,7 +159,7 @@
     <div class="col-sm-10">
         <input type="date"
                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
-               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
+               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model) && isset($instance_id) && $value != null) disabled @endif>
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
@@ -170,13 +170,16 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_id_number')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
+        if($value == null) {
+            $value = $model->getValue('id_number');
+        }
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text"
                class="form-control form-control-sm  @error($attribute->name) is-invalid @enderror mandatory-field"
-               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
+               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model) && isset($instance_id) && $value != null) disabled @endif>
 
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
@@ -194,7 +197,7 @@
     <div class="col-sm-10">
         <input type="text"
                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field"
-               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model)) disabled @endif>
+               id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if(isset($model) && isset($instance_id) && $value != null) disabled @endif>
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
@@ -208,7 +211,7 @@
     @endphp
     <label class="attribute-label mandatory-label" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror mandatory-field"
-              id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if(isset($model)) disabled @endif>{{ $value }}</textarea>
+              id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if(isset($model) && isset($instance_id) && $value != null) disabled @endif>{{ $value }}</textarea>
     @error($attribute->name)
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -224,7 +227,7 @@
     <div class="col-lg-10">
         <select id="{{$attribute->name}}"
                 name="{{$attribute->name}}"
-                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field" @if(isset($model)) disabled @endif>
+                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field" @if(isset($model) && $value != null) disabled @endif>
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $val)
                 <option value="{{$key}}" @if($key == $value) selected @endif>{{$val}}</option>

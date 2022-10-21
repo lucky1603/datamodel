@@ -11,25 +11,8 @@
                 @csrf
                 <input type="hidden" id="id" name="id" value="{{ $id }}">
                 <input type="hidden" id="profile" name="profile" value="{{ $profile }}">
+                <input type="hidden" id="programId" name="programId" value="{{ $program->getId() }}">
 
-                <div class="form-group">
-                    @php
-                        $attribute = $attributes->where('name', 'passed')->first();
-                        $value = $attribute->getValue() ?? false;
-                    @endphp
-
-                    <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
-                    <span class="attribute-label mr-1">{!! $attribute->label !!}  </span>
-
-                    <!-- Bool Switch-->
-                    <input type="checkbox" id="{{ $attribute->name }}" name="{{ $attribute->name }}" @if($value) checked @endif data-switch="primary"
-                    onclick="if(document.getElementById('{{ $attribute->name }}').checked) {
-                        document.getElementById('{{$attribute->name}}Hidden').disabled = true;
-                    } else {
-                        document.getElementById('{{$attribute->name}}Hidden').disabled = false;
-                    }" >
-                    <label for="{{ $attribute->name }}" data-on-label="Da" data-off-label="Ne" style="top: 15px"></label>
-                </div>
                 <div class="form-group">
                     @php
                         $attribute = $attributes->where('name', 'note')->first();
@@ -77,13 +60,19 @@
 
         <div class="row text-center " style="height: 15%; display: flex; flex-direction: row; justify-content: center; align-items: center">
 
-                <button type="button" id="btnNotifyClientPreselection" class="btn btn-sm btn-warning" @if($status != $validStatus) disabled @endif>{{__('gui.notify')}}</button>
+                <button type="button" id="btnSavePreselection" class="btn btn-sm btn-primary ml-1"  @if($status != $validStatus) disabled @endif>
+                    <span id="button_spinner_save_preselection" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                    <span id="button_text">{{__('gui.save')}}</span>
+                </button>
 
-                <button type="button" id="btnSavePreselection" class="btn btn-sm btn-primary ml-1"  @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
-
-                <button type="button" id="btnNext" class="btn btn-sm btn-success ml-1 btnNext"  @if($status != $validStatus) disabled @endif>
+                <button type="button" id="btnPreselectionPassed" class="btn btn-sm btn-success ml-1 btnNext"  @if($status != $validStatus) disabled @endif>
                     <span id="button_spinner_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                     <span id="button_text">{{__('gui.accept')}}</span>
+                </button>
+
+                <button type="button" id="btnPreselectionFailed" class="btn btn-sm btn-danger ml-1 btnNext"  @if($status != $validStatus) disabled @endif>
+                    <span id="button_spinner_cancel" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                    <span id="button_text">{{__('gui.reject')}}</span>
                 </button>
 
         </div>

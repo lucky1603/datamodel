@@ -194,9 +194,11 @@
 
             // P R E S E L E C T I O N
             $('#btnSavePreselection').on('click', function(evt) {
+                $('#button_spinner_save_preselection').attr('hidden', false);
                 var id = $('#id').val();
                 var data = $('form#myForm').serialize();
                 $.post('/preselection/update/' + id, data, function(data, status, xhr) {
+                    $('#button_spinner_save_preselection').attr('hidden', true);
                     location.reload();
                 });
             });
@@ -219,15 +221,48 @@
             });
 
             $('#btnPreselectionFailed').click(function(evt) {
-                $('#button_spinner_ok').attr('hidden', false);
+                $('#button_spinner_cancel').attr('hidden', false);
                 let formData = new FormData($('form#myForm')[0]);
                 formData.append('passed', 'off');
 
                 axios.post('/programs/evalPhase', formData)
                     .then(response => {
                         console.log(response.data);
-                        $('#button_spinner_ok').attr('hidden', true);
+                        $('#button_spinner_cancel').attr('hidden', true);
                         location.reload();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        $('#button_spinner_cancel').attr('hidden', true);
+                    });
+            });
+
+            // S E L E C T I O N
+            $('#btnSaveSelection').click(function(evt) {
+                $('#button_spinner_save_selection').attr('hidden', false);
+                var id = $('#selectionId').val();
+                var data = $('form#myFormSelection').serialize();
+                $.post('/selection/update/' + id, data, function(data, status, xhr) {
+                    $('#button_spinner_save_selection').attr('hidden', true);
+                    location.reload();
+                });
+            });
+
+            $('#btnSelectionPassed').click(function(evt) {
+                $('#button_spinner_ok').attr('hidden', false);
+                let formData = new FormData($('form#myFormSelection')[0]);
+                formData.append('passed', 'on');
+
+                axios.post('/programs/evalPhase', formData)
+                    .then(response => {
+                        $('#button_spinner_ok').attr('hidden', true);
+                        console.log('Odgovor na validaciju selekcije ...');
+                        console.log(response.data);
+                        if(response.data.code != 0) {
+                            alert(response.data["message"]);
+                        } else {
+                            location.reload();
+                        }
                     })
                     .catch(error => {
                         console.log(error);
@@ -235,13 +270,21 @@
                     });
             });
 
-            // S E L E C T I O N
-            $('#btnSaveSelection').click(function(evt) {
-                var id = $('#selectionId').val();
-                var data = $('form#myFormSelection').serialize();
-                $.post('/selection/update/' + id, data, function(data, status, xhr) {
-                    location.reload();
-                });
+            $('#btnSelectionFailed').click(function(evt) {
+                $('#button_spinner_sel_failed').attr('hidden', false);
+                let formData = new FormData($('form#myFormSelection')[0]);
+                formData.append('passed', 'off');
+
+                axios.post('/programs/evalPhase', formData)
+                    .then(response => {
+                        console.log(response.data);
+                        $('#button_spinner_sel_failed').attr('hidden', true);
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        $('#button_spinner_sel_failed').attr('hidden', true);
+                    });
             });
 
             // F A Z A   1

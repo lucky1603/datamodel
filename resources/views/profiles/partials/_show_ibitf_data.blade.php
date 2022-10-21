@@ -18,6 +18,11 @@
                             $attributes = $program->getAttributesForGroup($attributeGroup);
                         @endphp
                         @if($attributeGroup->name == 'ibitf_founders')
+
+                            @php
+                                $founders = $program->getFounders();
+                            @endphp
+
                             <table class="table table-sm table-bordered font-12">
                                 <thead class="bg-primary text-light">
                                 <tr>
@@ -27,18 +32,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @for($i = 1; $i <= 3; $i ++)
-                                    @php
-                                        $attribute = $attributes->where('name', 'founder_name_'.$i)->first();
-                                    @endphp
-                                    @if($attribute->getValue() != null and strlen($attribute->getValue()) > 0)
+                                    @foreach ($founders as $founder)
                                         <tr>
-                                            <td>{{ $attributes->where('name', 'founder_name_'.$i)->first()->getValue() }}</td>
-                                            <td>{{ $attributes->where('name', 'founder_university_'.$i)->first()->getValue() }}</td>
-                                            <td>{{ $attributes->where('name', 'founder_share_'.$i)->first()->getValue() }}</td>
+                                            <td>{{ $founder->getValue('founder_name') }}</td>
+                                            <td>{{ $founder->getValue('founder_university')}}</td>
+                                            <td>{{ $founder->getValue('founder_part')}}</td>
                                         </tr>
-                                    @endif
-                                @endfor
+                                    @endforeach
                                 </tbody>
                             </table>
                         @elseif($attributeGroup->name == 'ibitf_expenses')

@@ -119,7 +119,7 @@ class ProgramController extends Controller
         if($program === null) {
             return [
                 'code' => 2,
-                'message' => __('Profile doesn\'t exist'),
+                'message' => __('Program doesn\'t exist'),
             ];
         }
 
@@ -228,6 +228,7 @@ class ProgramController extends Controller
 
         $mandatory_parameters = collect([]);
         $data = $program->getData();
+
         $programType = $program->getAttribute('program_type')->getValue();
 
         if($programType == 5 /* Inkubacija BITF */) {
@@ -243,12 +244,12 @@ class ProgramController extends Controller
 
             $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
 
-            // Obavezan unos sa bar jednog osnivaca.
-            $group_parameters = AttributeGroup::get('ibitf_founders')->attributes->filter(function($attribute, $key) {
-                return $key < 3;
-            })->map(function($attribute, $key) {
-                return $attribute->name;
-            });
+            // // Obavezan unos sa bar jednog osnivaca.
+            // $group_parameters = AttributeGroup::get('ibitf_founders')->attributes->filter(function($attribute, $key) {
+            //     return $key < 3;
+            // })->map(function($attribute, $key) {
+            //     return $attribute->name;
+            // });
 
             $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
 
@@ -276,6 +277,15 @@ class ProgramController extends Controller
 
             $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
 
+            // Check for founders first
+            if($program->getFounders()->count() == 0) {
+                return json_encode([
+                    'code' => 0,
+                    'message' => 'Morate uneti bar jednog osnivača!',
+                ]);
+            }
+
+
             foreach($mandatory_parameters as $parameterName) {
                 if(!isset($data[$parameterName])
                     || (is_string($data[$parameterName]) && strlen($data[$parameterName]) == 0) ) {
@@ -289,7 +299,7 @@ class ProgramController extends Controller
 
             // Check for the attachments.
             // APR
-            if(!isset($data['resenje_apr_link']) && $data['resenje_fajl']['filelink'] == '') {
+            if(!isset($data['resenje_apr_link']) && (!isset($data['resenje_fajl']) || $data['resenje_fajl']['filelink'] == '')) {
                 return json_encode([
                     'code' => 0,
                     'message' => 'Nema podataka o APR registraciji'
@@ -297,26 +307,14 @@ class ProgramController extends Controller
             }
 
             // Check for the cv's.
-            if(!isset($data['linkedin_founders']) && $data['founders_cv']['filelink'] == '') {
+            if(!isset($data['linkedin_founders']) &&(!isset($data['founders_cv']) || $data['founders_cv']['filelink'] == '')) {
                 return json_encode([
                     'code' => 0,
-                    'message' => 'Nema podataka o osnivacima'
+                    'message' => 'Nema biografskih podataka o osnivacima'
                 ]);
             }
 
         } else if($programType == Program::$RAISING_STARTS) {
-//            if(!auth()->user()->isAdmin()) {
-//                // Check for the date.
-//                $end = strtotime('2021-12-30 12:00');
-//                $now = strtotime(now());
-//                if($now > $end) {
-//                    return json_encode([
-//                        'code' => 0,
-//                        'message' => 'Rok za prijavljivanje je prošao!',
-//                    ]);
-//                }
-//            }
-
             $assertion = $this->checkRaisingStartsProgramData($program);
             if($assertion['code'] == 0) {
                 return json_encode($assertion);
@@ -565,7 +563,8 @@ class ProgramController extends Controller
                     'profile_logo' => $profile->getValue('profile_logo')['filelink'],
                     'program_status' => $program->getStatus(),
                     'program_status_text' => $program->getStatusText(),
-                    'program_name' => $program->getValue('program_name')
+                    'program_name' => $program->getValue('program_name'),
+                    'ntp_text' => $program->getText('ntp')
                 ]);
         }
 
@@ -672,7 +671,8 @@ class ProgramController extends Controller
                     'profile_logo' => $profile->getValue('profile_logo')['filelink'],
                     'program_status' => $program->getStatus(),
                     'program_status_text' => $program->getStatusText(),
-                    'program_name' => $program->getValue('program_name')
+                    'program_name' => $program->getValue('program_name'),
+                    'ntp_text' => $program->getText('ntp')
                 ]);
 
         }

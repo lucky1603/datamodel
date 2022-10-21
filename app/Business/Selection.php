@@ -117,4 +117,27 @@ class Selection extends PhaseImpl
         $this->status = $value;
     }
 
+    public function validateData(array $data): array
+    {
+        if($data['fulfillment_grade'] == 0) {
+            return [
+                'code' => 1,
+                'message' => 'Morate izabrati stepen ispunjenosti!'
+            ];
+        }
+
+        if($data['selection_date'] == null) {
+            return [
+                'code' => 2,
+                'message' => 'Mora se podesiti datum selekcije!'
+            ];
+        }
+
+
+        return [
+            'code' => 0,
+            'message' => 'Podaci validni!'
+        ];
+    }
+
 }

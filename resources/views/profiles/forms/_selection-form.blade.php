@@ -11,6 +11,8 @@
                 @csrf
                 <input type="hidden" id="selectionId" name="id" value="{{ $id }}">
                 <input type="hidden" id="profile" name="profile" value="{{ $profile }}">
+                <input type="hidden" id="programId" name="programId" value="{{ $program->getId() }}">
+
 
                 <div class="form-group row">
                     <!-- Stepen ispunjenosti -->
@@ -61,26 +63,6 @@
                                name="{{ $attribute->name }}"
                                @if($attribute->getValue() != null) value="{{ $attribute->getValue() }}" @endif>
                     </div>
-                    @php
-                        $attribute = $attributes->where('name', 'passed')->first();
-                        $value = $attribute->getValue() ?? false;
-                    @endphp
-                    <label class="attribute-label col-lg-1 col-form-label col-form-label-sm">{!! $attribute->label !!}  </label>
-                    <div class="col-lg-3">
-                        <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
-                        <input
-                            type="checkbox"
-                            id="checkSelectionPassed"
-                            name="{{ $attribute->name }}"
-                            @if($value) checked @endif
-                            data-switch="primary"
-                            onclick="if(document.getElementById('checkSelectionPassed').checked)
-                                        document.getElementById('{{ $attribute->name }}Hidden').disabled=true;
-                                     else
-                                        document.getElementById('{{ $attribute->name }}Hidden').disabled=false;
-                                "/>
-                        <label for="checkSelectionPassed" data-on-label="Da" data-off-label="Ne" style="top:2px"></label>
-                    </div>
                 </div>
 
 
@@ -89,11 +71,17 @@
 
 
         <div class="row text-center" style="height: 15%; display: flex; flex-direction: row; justify-content: center; align-items: center">
-            <button type="button" id="btnNotifyClientSelection" class="btn btn-sm btn-warning" @if($status != $validStatus) disabled @endif>{{__('gui.notify')}}</button>
-            <button type="button" id="btnSaveSelection" class="btn btn-sm btn-primary ml-1" @if($status != $validStatus) disabled @endif>{{__('gui.save')}}</button>
+            <button type="button" id="btnSaveSelection" class="btn btn-sm btn-primary ml-1" @if($status != $validStatus) disabled @endif>
+                <span id="button_spinner_save_selection" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_text">{{__('gui.save')}}</span>
+            </button>
             <button type="button" id="btnSelectionPassed" class="btn btn-sm btn-success ml-1 btnNext" @if($status != $validStatus) disabled @endif>
                 <span id="button_spinner_sel_ok" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
                 <span id="button_text">{{__('gui.accept')}}</span>
+            </button>
+            <button type="button" id="btnSelectionFailed" class="btn btn-sm btn-danger ml-1 btnNext" @if($status != $validStatus) disabled @endif>
+                <span id="button_spinner_sel_failed" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_text">{{__('gui.reject')}}</span>
             </button>
         </div>
     </form>
