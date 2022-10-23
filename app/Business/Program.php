@@ -82,9 +82,9 @@ class Program extends SituationsModel
             return WorkflowFactory::resolve($instance->id);
         })->first();
 
-        if($this->workflow == null) {
-            $this->initWorkflow();
-        }
+        // if($this->workflow == null) {
+        //     $this->initWorkflow();
+        // }
 
         return $this->workflow;
     }

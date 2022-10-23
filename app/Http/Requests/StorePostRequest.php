@@ -127,17 +127,17 @@ class StorePostRequest extends FormRequest
                 }
             }
 
-            if($data['rstarts_innovative_area'] == 16) {
-                if($data['rstarts_innovative_area_other'] == '') {
-                    $validator->errors()->add('rstarts_innovative_area_other', 'Ako je gornja opcija "Ostalo" ovo polje mora imati vrednost');
-                }
-            }
+            // if($data['rstarts_innovative_area'] == 16) {
+            //     if($data['rstarts_innovative_area_other'] == '') {
+            //         $validator->errors()->add('rstarts_innovative_area_other', 'Ako je gornja opcija "Ostalo" ovo polje mora imati vrednost');
+            //     }
+            // }
 
-            if($data['rstarts_howdiduhear'] == 8) {
-                if($data['rstarts_other_sources'] == '') {
-                    $validator->errors()->add('rstarts_other_sources', 'Ako je gornja opcija "Ostalo" ovo polje mora imati vrednost');
-                }
-            }
+            // if($data['rstarts_howdiduhear'] == 8) {
+            //     if($data['rstarts_other_sources'] == '') {
+            //         $validator->errors()->add('rstarts_other_sources', 'Ako je gornja opcija "Ostalo" ovo polje mora imati vrednost');
+            //     }
+            // }
 
             if(isset($data['rstarts_webpage'])) {
                 if(strlen($data['rstarts_webpage']) > 255) {

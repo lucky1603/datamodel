@@ -56,10 +56,10 @@
 
 @include('profiles.partials._rstarts_general_data', ['mode' => $mode])
 @include('profiles.partials._rstarts_team', ['mode' => $mode])
-@include('profiles.partials._rstarts_business_model', $mode)
-@include('profiles.partials._rstarts_startup_story', $mode)
-@include('profiles.partials._rstarts_additional_doc', $mode)
+@include('profiles.partials._rstarts_business_model', ['mode' => $mode])
+@include('profiles.partials._rstarts_startup_story', ['mode' => $mode])
+@include('profiles.partials._rstarts_additional_doc', ['mode' => $mode])
 @if(auth()->user() == null)
-    @include('profiles.partials._rstarts_izjave', $mode)
+    @include('profiles.partials._rstarts_izjave', ['mode' => $mode] )
 @endif
 

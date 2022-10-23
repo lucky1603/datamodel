@@ -60,6 +60,7 @@
         @elseif($status == -1)
             @php
                 $phaseCount = $workflow->getPhases()->count();
+                var_dump($phaseCount);
             @endphp
             <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
                 @for($i = 1; $i <= $phaseCount; $i++)

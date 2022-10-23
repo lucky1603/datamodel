@@ -53,19 +53,19 @@
                         @endif
                         <tr>
                             <td>
-                                <textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror">{{ old('memberName.'.$i) }}</textarea>
+                                <textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>{{ old('memberName.'.$i) }}</textarea>
                                 @error('memberName.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
                             <td>
-                                <textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror">{{ old('memberEducation.'.$i) }}</textarea>
+                                <textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>{{ old('memberEducation.'.$i) }}</textarea>
                                 @error('memberEducation.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
                             <td>
-                                <textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror">{{ old( 'memberRole.'.$i) }}</textarea>
+                                <textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror"  @if($mode == 'anonimous') disabled @endif>{{ old( 'memberRole.'.$i) }}</textarea>
                                 @error('memberRole.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
                             <td>
-                                <textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror">{{ old('memberOtherJob.'.$i) }}</textarea>
+                                <textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror"  @if($mode == 'anonimous') disabled @endif>{{ old('memberOtherJob.'.$i) }}</textarea>
                                 @error('memberOtherJob.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
                             <td>
@@ -75,20 +75,20 @@
                     @endfor
                 @else
                     <tr>
-                        <td><textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror"></textarea></td>
-                        <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror"></textarea></td>
-                        <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror"></textarea></td>
-                        <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror"></textarea></td>
+                        <td><textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror"  @if($mode == 'anonimous') disabled @endif></textarea></td>
+                        <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror"  @if($mode == 'anonimous') disabled @endif></textarea></td>
+                        <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror"  @if($mode == 'anonimous') disabled @endif></textarea></td>
+                        <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror"  @if($mode == 'anonimous') disabled @endif></textarea></td>
                         <td>
                             <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
                         </td>
                     </tr>
 
                     <tr>
-                        <td><textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror"></textarea></td>
-                        <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror"></textarea></td>
-                        <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror"></textarea></td>
-                        <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror"></textarea></td>
+                        <td><textarea name="memberName[]" rows="4" class="w-100 @error('memberName.*') is-invalid @enderror" @if($mode == 'anonimous') disabled @endif></textarea></td>
+                        <td><textarea name="memberEducation[]" rows="4" class="w-100 @error('memberEducation.*') is-invalid @enderror"  @if($mode == 'anonimous') disabled @endif></textarea></td>
+                        <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror"  @if($mode == 'anonimous') disabled @endif></textarea></td>
+                        <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror" @if($mode == 'anonimous') disabled @endif></textarea></td>
                         <td>
                             <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
                         </td>
@@ -98,19 +98,19 @@
                 @foreach($teamMembers as $teamMember)
                     <tr>
                         <td>
-                            <textarea name="memberName[]" rows="4" class="w-100" required>{{ $teamMember->getValue('team_member_name') }}</textarea>
+                            <textarea name="memberName[]" rows="4" class="w-100" required @if($mode == 'anonimous') disabled @endif>{{ $teamMember->getValue('team_member_name') }}</textarea>
                             @error('memberName')<div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
-                            <textarea name="memberEducation[]" rows="4" class="w-100">{{ $teamMember->getValue('team_education') }}</textarea>
+                            <textarea name="memberEducation[]" rows="4" class="w-100" @if($mode == 'anonimous') disabled @endif>{{ $teamMember->getValue('team_education') }}</textarea>
                             @error('memberEducation')<div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
-                            <textarea name="memberRole[]" rows="4" class="w-100">{{ $teamMember->getValue('team_role') }}</textarea>
+                            <textarea name="memberRole[]" rows="4" class="w-100" @if($mode == 'anonimous') disabled @endif>{{ $teamMember->getValue('team_role') }}</textarea>
                             @error('memberRole')<div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
-                            <textarea name="memberOtherJob[]" rows="4" class="w-100">{{ $teamMember->getValue('team_other_job') }}</textarea>
+                            <textarea name="memberOtherJob[]" rows="4" class="w-100" @if($mode == 'anonimous') disabled @endif>{{ $teamMember->getValue('team_other_job') }}</textarea>
                             @error('memberOtherJob')<div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
@@ -145,11 +145,11 @@
 
                         <tr>
                             <td>
-                                <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror" value="{{ old('founderName.'.$i) }}">
+                                <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror" value="{{ old('founderName.'.$i) }}" @if($mode == 'anonimous') disabled @endif>
                                 @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
                             <td>
-                                <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="{{ old('founderPart.'.$i) }}">
+                                <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="{{ old('founderPart.'.$i) }}" @if($mode == 'anonimous') disabled @endif>
                                 @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
                             <td>
@@ -160,11 +160,11 @@
                 @else
                     <tr>
                         <td>
-                            <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror" >
+                            <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror"  @if($mode == 'anonimous') disabled @endif>
                             @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
-                            <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="0">
+                            <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="0" @if($mode == 'anonimous') disabled @endif>
                             @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
@@ -176,11 +176,11 @@
                 @foreach($founders as $founder)
                     <tr>
                         <td>
-                            <input type="text" name="founderName[]" class="w-100" value="{{ $founder->getValue('founder_name') }}">
+                            <input type="text" name="founderName[]" class="w-100" value="{{ $founder->getValue('founder_name') }}" @if($mode == 'anonimous') disabled @endif>
                             @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
-                            <input type="text" name="founderPart[]" class="w-100" value="{{ $founder->getValue('founder_part') }}">
+                            <input type="text" name="founderPart[]" class="w-100" value="{{ $founder->getValue('founder_part') }}" @if($mode == 'anonimous') disabled @endif>
                             @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
@@ -203,7 +203,13 @@
         CV-jevi minimum dva postojeća/planirana osnivača startapa <i class="dripicons-information font-18" title="Datoteke moraju biti u
         formatu (.pdf, .docx, .xlsx) i njihova veličina ne sme premašivati 1MB. Svi fajlovi moraju biti istovremeno dodati."></i>
     </label>
-    <input type="file" multiple name="rstarts_founder_cvs[]" title="Svi fajlovi moraju biti istovremeno dodati!" id="rstarts_founder_cvs" class="form-control @error('rstarts_founder_cvs') is-invalid @enderror @if(isset($model)) mandatory-field @endif">
+    <input
+        type="file"
+        multiple name="rstarts_founder_cvs[]"
+        title="Svi fajlovi moraju biti istovremeno dodati!"
+        id="rstarts_founder_cvs"
+        class="form-control @error('rstarts_founder_cvs') is-invalid @enderror @if(isset($model)) mandatory-field @endif"
+        @if($mode == 'anonimous') disabled @endif>
     @error('rstarts_founder_cvs') <div class="alert alert-danger">{{ $message }}</div>@enderror
     @if($attribute != null && $attribute->getValue() != null)
         @if(isset($attribute->getValue()['filelink']))
@@ -230,7 +236,7 @@
             $val = $attribute->getValue() ?? old($attribute->name);
         }
     @endphp
-    <textarea class="form-control @error("rstarts_founder_links") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $val }}</textarea>
+    <textarea class="form-control @error("rstarts_founder_links") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $val }}</textarea>
     @error('rstarts_founder_links') <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -245,7 +251,7 @@
             startap ideje ili ukoliko ste saradjivali u poslovanju ili zajednički radili u okviru iste organizacije.)
         </span>
     </label>
-    <textarea class="form-control @error("rstarts_team_history") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    <textarea class="form-control @error("rstarts_team_history") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error('rstarts_team_history') <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -254,7 +260,7 @@
         $attribute = $attributes->where('name', 'rstarts_app_motive')->first();
     @endphp
     <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Šta vas je motivisalo da se prijavite za ovaj Program? (max 1050 karaktera)</label>
-    <textarea class="form-control @error("rstarts_app_motive") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    <textarea class="form-control @error("rstarts_app_motive") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error('rstarts_app_motive') <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 

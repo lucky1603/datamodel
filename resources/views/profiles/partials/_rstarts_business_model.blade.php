@@ -6,7 +6,12 @@
         $attribute = $attributes->where('name', 'rstarts_tagline')->first();
     @endphp
     <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    <textarea
+        class="form-control @error($attribute->name) is-invalid @enderror"
+        id="{{$attribute->name}}"
+        name="{{$attribute->name}}"
+        rows="3"
+        @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -19,7 +24,7 @@
             Da li ovaj problem postoji globalno? Da li mislite da je ovaj problem težak i opišite zašto.
             Kako ste saznali za taj problem?)</span>
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -32,7 +37,7 @@
             tog tržišta uz navodjenje izvora koji su korišćeni za prikupljanje tih podataka (primer izvora koji možete koristiti: https://www.statista.com/).
             Koliki prostor vidite za širenje svog biznisa odnosno za geografsku ekspanziju (navesti zemlje širenja tržišta u naredne 2 godine)?) </span>
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -45,7 +50,7 @@
             motivi, navike, komunikacija, strahovi itd.) Opišite da li ste već ostvarili komunikaciju/sproveli aktivnosti (ankete, intervjui i sl.)
             sa njima. Ukoliko jeste, sa koliko njih i koji su vaši zaključci?) </span>
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -59,7 +64,7 @@
                 Navedite šta vaš proizvod i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste potrebe kupaca)
  </span>
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -73,7 +78,7 @@
             kupci trenutno koriste ili druge metode koje primenjuju za rešavanje datog problema))
         </span>
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -86,7 +91,7 @@
             Šta vaš proizvod  i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste/slične potrebe kupaca.)
         </span>
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -97,7 +102,7 @@
     @endphp
     <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">Koliko je inovativan vaš proizvod/usluga (odaberite jednu opciju)?</label>
     <div class="col-lg-7">
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>
             <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
                 <option value="{{$key}}" @if($key == $selectedValue) selected @endif>{{$value}}</option>
@@ -114,7 +119,7 @@
     <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Obrazložite odabranu opciju (npr. zašto mislite da je
         vaš proizvod potpuno nov na tržištu, značajno poboljšan i drugo):
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -127,7 +132,7 @@
             $selectedValue = $attribute->getValue() ?? old($attribute->name);
         @endphp
         <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm font-12 font-weight-normal @if(isset($model)) mandatory-label @endif">{!! $attribute->label !!}</label>
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>
             <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
                 <option value="{{$key}}" @if($key == $selectedValue) selected @endif>{{$value}}</option>
@@ -141,7 +146,7 @@
             $selectedValue = $attribute->getValue() ?? old($attribute->name);
         @endphp
         <label for="{{ $attribute->name }}" class="attribute-label col-form-label col-form-label-sm font-12 font-weight-normal @if(isset($model)) mandatory-label @endif">{!! $attribute->label !!}</label>
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>
             <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
                 <option value="{{$key}}" @if($key == $selectedValue ) selected @endif>{{$value}}</option>
@@ -156,7 +161,7 @@
         $attribute = $attributes->where('name', 'six_months_income')->first();
         $value = $attribute->getValue() ?? old($attribute->name) ?? 0;
     @endphp
-    <label for="{{ $attribute->name }}" class="col-sm-5 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-5 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif" @if($mode == 'anonimous') disabled @endif>{{ $attribute->label }}</label>
     <div class="col-sm-2">
         <input type="text"
                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
@@ -174,7 +179,7 @@
     @endphp
     <label for="{{ $attribute->name }}" class="col-lg-5 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">Da li ste sprovodili neke aktivnosti u cilju zaštite prava intelektualne svojine?</label>
     <div class="col-lg-7">
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>
             <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
                 <option value="{{$key}}" @if($key == $selectedValue) selected @endif>{{$value}}</option>
@@ -194,7 +199,7 @@
         Ukoliko ste zaštitili ili planirate da zaštitite neko pravo intelektualne svojine, navedite ko su
         vlasnici ili ko bi bili vlasnici te intelektualne svojine (max 400 karatera).
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -204,7 +209,7 @@
         $selectedValue = $attribute->getValue() ?? old($attribute->name);
     @endphp
     <label for="{{ $attribute->name }}" class="attribute-label @if(isset($model)) mandatory-label @endif">Kojoj oblasti pripada inovativni proizvod i/ili usluga koje razvijate?</label>
-    <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+    <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>
         <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
         @foreach($attribute->getOptions() as $key => $value)
             <option value="{{$key}}" @if($key == $selectedValue) selected @endif>{{$value}}</option>
@@ -223,7 +228,7 @@
            id="{{ $attribute->name }}"
            name="{{ $attribute->name }}"
            class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
-           value="{{ $value }}">
+           value="{{ $value }}" @if($mode == 'anonimous') disabled @endif>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -232,6 +237,6 @@
         $attribute = $attributes->where('name', 'rstarts_business_plan')->first();
     @endphp
     <label class="attribute-label @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Kako vaš startap planira da zaradjuje?</label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>

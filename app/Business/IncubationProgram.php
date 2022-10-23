@@ -29,7 +29,7 @@ class IncubationProgram extends Program
 
     public function initWorkflow()
     {
-        if($this->workflow == null)
+        if($this->getWorkflow() == null)
             $this->setWorkflow(new IncubationWorkflow());
         $this->workflow->setCurrentIndex($this->getStatus());
     }

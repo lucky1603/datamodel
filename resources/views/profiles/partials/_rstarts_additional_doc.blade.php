@@ -10,7 +10,7 @@
         <i class="dripicons-information font-18" title="Datoteke moraju biti u
         formatu (.pdf, .docx, .xlsx) i njihova veličina ne sme premašivati 1MB"></i>
     </label>
-    <input type="file" name="rstarts_dodatni_dokumenti[]" multiple class="form-control @error($attribute->name) is-invalid @enderror">
+    <input type="file" name="rstarts_dodatni_dokumenti[]" multiple class="form-control @error($attribute->name) is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 
     @if($attribute != null && $attribute->getValue() != null)

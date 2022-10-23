@@ -13,7 +13,7 @@
             informacije od eksperata, potencijalnih kupaca itd.))
         </span>
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -35,7 +35,7 @@
         Fajlovi <i class="dripicons-information font-18" title="Datoteke moraju biti u
         formatu (.png, .jpg, .jpeg, .gif, .bmp, .pdf, .docx, .xlsx) i njihova veličina ne sme premašivati 1MB"></i>
     </label>
-    <input type="file" name="rstarts_files[]" multiple class="form-control @error('rstarts_files') is-invalid @enderror">
+    <input type="file" name="rstarts_files[]" multiple class="form-control @error('rstarts_files') is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>
     @if($attribute != null && $attribute->getValue() != null)
         @if(isset($attribute->getValue()['filelink']))
             <a href="{{$attribute->getValue()['filelink']}}" target="_blank">{{ $attribute->getValue()['filename'] }}</a>
@@ -61,7 +61,7 @@
     @endphp
     <label class="attribute-label col-form-label col-form-label-sm font-12">Linkovi
         <span class="font-12 text-dark font-weight-normal">(linkove upisati u ovo polje, odvojene tačkom-zarezom)</span></label>
-    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">{{ $val }}</textarea>
+    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>{{ $val }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -73,7 +73,7 @@
     <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         <span class="attribute-label">Navedite ukoliko ste ranije učestvovali u nekom mentorskom ili startap programu.</span>
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -92,7 +92,7 @@
             primljenom finansiranju/nagradi.)
         </span>
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -106,7 +106,7 @@
         Fajlovi  <i class="dripicons-information font-18" title="Datoteke moraju biti u
         formatu (.png, .jpg, .jpeg, .gif, .bmp, .pdf, .docx, .xlsx) i njihova veličina ne sme premašivati 1MB"></i>
     </label>
-    <input type="file" name="rstarts_financing_proof_files[]" multiple class="form-control @error('rstarts_financing_proof_files') is-invalid @enderror">
+    <input type="file" name="rstarts_financing_proof_files[]" multiple class="form-control @error('rstarts_financing_proof_files') is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>
     @if($attribute != null && $attribute->getValue() != null)
         @if(isset($attribute->getValue()['filelink']))
             <a href="{{$attribute->getValue()['filelink']}}" target="_blank">{{ $attribute->getValue()['filename'] }}</a>
@@ -132,7 +132,7 @@
     @endphp
     <label class="attribute-label col-form-label col-form-label-sm font-12">Linkovi
         <span class="font-12 text-dark font-weight-normal">(linkove upisati u ovo polje, odvojene tačkom-zarezom)</span></label>
-    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">{{ $val }}</textarea>
+    <textarea rows="2" name="{{ $attribute->name }}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>{{ $val }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -143,7 +143,7 @@
     <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         <span class="attribute-label">Šta očekujete od učešća u ovom Programu? U kom segmentu razvoja startapa smatrate da vam je najpotrebnija podrška?</span>
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -154,7 +154,7 @@
     <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         <span class="attribute-label">Koliko finansijskih sredstava mislite da vam je potrebno u trenutnoj fazi razvoja i za šta?</span>
     </label>
-    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
+    <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -171,7 +171,13 @@
             videti vaš video klip))
         </span>
     </label>
-    <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" value="{{ $attribute->getValue() ?? old($attribute->name)}}">
+    <input
+        type="text"
+        class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
+        id="{{$attribute->name}}"
+        name="{{$attribute->name}}"
+        value="{{ $attribute->getValue() ?? old($attribute->name)}}"
+        @if($mode == 'anonimous') disabled @endif>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
@@ -182,7 +188,7 @@
     @endphp
     <label for="{{ $attribute->name }}" class="col-lg-3 attribute-label col-form-label col-form-label-sm @if(isset($model)) mandatory-label @endif">Kako ste čuli za Raising Starts?</label>
     <div class="col-lg-9">
-        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
+        <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" @if($mode == 'anonimous') disabled @endif>
             <option value="0" @if( $selectedValue == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $value)
                 <option value="{{$key}}" @if($key == $selectedValue) selected @endif>{{$value}}</option>
@@ -198,7 +204,7 @@
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
     <label for="{{ $attribute->name }}" class="attribute-label">{{ $attribute->label }}</label>
-    <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" value="{{ $value }}">
+    <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" value="{{ $value }}" @if($mode == 'anonimous') disabled @endif>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 

@@ -307,35 +307,41 @@ class AnonimousController extends Controller
         $program = new RaisingStartsProgram($data);
 
         // get the team members
-        $memberCount = count($data['memberName']);
-        if( $memberCount > 0 && $data['memberName'][0] != null) {
-            $membersData = [];
-            for($i = 0; $i < $memberCount; $i++) {
-                $membersData[] = [
-                    'team_member_name' => $data['memberName'][$i],
-                    'team_education' => $data['memberEducation'][$i],
-                    'team_role' => $data['memberRole'][$i],
-                    'team_other_job' => $data['memberOtherJob'][$i]
-                ];
-            }
+        if(isset($data['memberName'])) {
+            $memberCount = count($data['memberName']);
+            if( $memberCount > 0 && $data['memberName'][0] != null) {
+                $membersData = [];
+                for($i = 0; $i < $memberCount; $i++) {
+                    $membersData[] = [
+                        'team_member_name' => $data['memberName'][$i],
+                        'team_education' => $data['memberEducation'][$i],
+                        'team_role' => $data['memberRole'][$i],
+                        'team_other_job' => $data['memberOtherJob'][$i]
+                    ];
+                }
 
-            $program->updateTeamMembers($membersData);
+                $program->updateTeamMembers($membersData);
+            }
         }
+
 
         // get the founders
-        $founderCount = count($data['founderName']);
-        if( $founderCount > 0 && $data['founderName'][0] != null) {
-            $foundersData = [];
-            for($i = 0; $i < $founderCount; $i++) {
-                $foundersData[] = [
-                    'founder_name' => $data['founderName'][$i],
-                    'founder_part' => $data['founderPart'][$i],
-                ];
+        if(isset($data['founderName'])) {
+            $founderCount = count($data['founderName']);
+            if( $founderCount > 0 && $data['founderName'][0] != null) {
+                $foundersData = [];
+                for($i = 0; $i < $founderCount; $i++) {
+                    $foundersData[] = [
+                        'founder_name' => $data['founderName'][$i],
+                        'founder_part' => $data['founderPart'][$i],
+                    ];
 
+                }
+
+                $program->updateFounders($foundersData);
             }
-
-            $program->updateFounders($foundersData);
         }
+
 
         // attach program to profile
         $profile->addProgram($program);
