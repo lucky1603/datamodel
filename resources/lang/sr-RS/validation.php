@@ -117,6 +117,7 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'Neispravan format web stranice.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'captcha' => 'Nepravilna CAPTCHA sekvenca, unesite sekvencu karktera sa slike iznad!',
 
     /*
     |--------------------------------------------------------------------------

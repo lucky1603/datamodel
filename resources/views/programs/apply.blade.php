@@ -138,6 +138,7 @@
                 result = response.data;
             })
 
+            // In case of raising starts form
             const appType = $('#app_type').val();
             if(appType == 1) {
                 $('#rstart_id_number_group').hide();
@@ -159,6 +160,32 @@
                     $('#rstart_id_number_group').show();
                     $('#rstarts_basic_registered_activity_group').show();
                     $('#rstarts_founding_date_group').show();
+                }
+            });
+
+            // In case of Incubation BITF
+            // Toggle PIB and ID_NUMBER
+            const legalStatus = $('#legal_status').val();
+            if(legalStatus != 2) {
+                $('#pibRow').hide();
+                $('#idNumberRow').hide();
+                $('#dateRow').hide();
+            } else {
+                $('#pibRow').show();
+                $('#idNumberRow').show();
+                $('#dateRow').show();
+            }
+
+            $('#legal_status').change(function() {
+                const legalStatus = $('#legal_status').val();
+                if(legalStatus != 2) {
+                    $('#pibRow').hide();
+                    $('#idNumberRow').hide();
+                    $('#dateRow').hide();
+                } else {
+                    $('#pibRow').show();
+                    $('#idNumberRow').show();
+                    $('#dateRow').show();
                 }
             });
 

@@ -29,7 +29,7 @@ class IncubationProgram extends Program
 
     public function initWorkflow()
     {
-        if($this->getWorkflow() == null)
+        if($this->workflow == null)
             $this->setWorkflow(new IncubationWorkflow());
         $this->workflow->setCurrentIndex($this->getStatus());
     }
@@ -130,7 +130,13 @@ class IncubationProgram extends Program
 
         $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['program_name_or_company', __('Program or Company Name'), 'varchar', NULL, 2])));
         $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['date_of_establishment', __('Founding Date'), 'datetime', NULL, 3])));
-        $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['legal_status', __("Legal Status"), 'varchar', NULL, 4])));
+        $legal_status = self::selectOrCreateAttribute(['legal_status', __("gui-select.legal_status_title"), 'select', NULL, 4]);
+        if(count($legal_status->getOptions()) == 0) {
+            $legal_status->addOption(['value' => 1, 'text' => __('gui-select.legal_status_startup')]);
+            $legal_status->addOption(['value' => 2, 'text' => __('gui-select.legal_status_company')]);
+        }
+        $attributes->add($ag_general->addAttribute($legal_status));
+
 
         $primary_activity = $ag_general->addAttribute(self::selectOrCreateAttribute(['business_branch', __('Business Branch'), 'select', NULL, 5]));
         if(count($primary_activity->getOptions()) == 0) {

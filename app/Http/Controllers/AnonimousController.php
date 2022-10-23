@@ -2,24 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Entity;
 use App\Attribute;
+use Hamcrest\Util;
+use App\ProfileCache;
+use App\Mail\TestMail;
+use PHPUnit\Util\Test;
 use App\AttributeGroup;
 use App\Business\Profile;
 use App\Business\Program;
-use App\Business\RaisingStartsProgram;
-use App\Http\Requests\CreateProfileRequest;
-use App\Http\Requests\StorePostRequest;
+use Illuminate\Support\Str;
 use App\Mail\ProfileCreated;
-use App\Mail\TestMail;
-use App\User;
-use Hamcrest\Util;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Business\IncubationProgram;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
+use App\Business\RaisingStartsProgram;
+use App\Http\Requests\StorePostRequest;
 use PharIo\Manifest\InvalidEmailException;
-use PHPUnit\Util\Test;
-use Illuminate\Support\Facades\App;
+use App\Http\Requests\CreateProfileRequest;
+use App\Http\Requests\StoreIncubationRequest;
 
 class AnonimousController extends Controller
 {
@@ -88,14 +93,146 @@ class AnonimousController extends Controller
         return redirect(route('user.notify', ['token' => $token]));
     }
 
+    public function createIncubationBITF() {
+        $attributeData = IncubationProgram::getAttributesDefinition();
+
+        return view(
+            'anonimous.createIncubationBITF',
+            [
+                'attributes' => $attributeData['attributes'],
+                'attributeGroups' => $attributeData['attributeGroups']
+            ]);
+    }
+
+    public function storeIncubationBITF(StoreIncubationRequest $request) {
+        $data = $request->post();
+
+        // Create Profile
+        $profileData = [
+            'name' => $data['program_name_or_company'],
+            'is_company' => $data['legal_status'] == 2,
+            'ntp' => $data['ntp'],
+            'business_branch' => $data['business_branch'],
+            'id_number' => $data['id_number'],
+            'contact_person' => $data['responsible_firstname']. ' '.$data['responsible_lastname'],
+            'contact_email' => $data['responsible_email'],
+            'contact_phone' => $data['responsible_cellular'],
+            'address' => $data['address'],
+            'profile_webpage' => $data['web'],
+            'profile_status' => 2,
+            'profile_state' => 1,
+        ];
+
+        // Check Profile
+        if(Attribute::checkValue( Entity::where('name', 'Profile')->first(), 'name', $profileData['name']))
+        {
+            // Profil postoji u bazi
+            return redirect(route('wrongUserPassword'));
+
+        }
+
+        // Check User
+        if(User::where('email', $profileData['contact_email'])->count() > 0) {
+            // Postoji user u bazi sa tim imenom
+            return redirect(route('wrongUserPassword'));
+        }
+
+        $profile = new Profile($profileData);
+        $user = User::where('email', $data['responsible_email'])->first();
+        if($user == null) {
+            $user = User::create([
+                'name' => $profileData['contact_person'],
+                'email' => $profileData['contact_email'],
+                'password' => Hash::make(Str::random(10)),
+                'position' => "Odgovorno lice",
+            ]);
+
+            $user->setRememberToken(Str::random(60));
+            $user->save();
+            $user->assignRole('profile');
+        }
+
+        $profile->attachUser($user);
+
+        // Create/Attach User
+        if($profile->getAttribute('profile_status')->getValue() == 1) {
+            $profile->addSituationByData(__('Mapped'), []);
+        } else {
+            $profile->addSituationByData(__('Interest'), []);
+        }
+
+        $program = new IncubationProgram($data);
+        $profile->addProgram($program);
+        $situation = $profile->addSituationByData(__('Applying'),
+        [
+            'program_type' => Program::$INKUBACIJA_BITF,
+            'program_name' => "INCUBATION BITF"
+        ]);
+        $program->addSituation($situation);
+
+        $profile->setValue('profile_status', 3);
+        $program->setStatus(1);
+        $profile->updateState();
+
+        // Send verification email to the user.
+        $email = $profile->getAttribute('contact_email')->getValue();
+        try {
+            Mail::to($email)->send(new ProfileCreated($profile));
+        } catch (\Exception $ioe) {
+
+        }
+
+        // Update Cache
+        // Update Profile Cache
+        ProfileCache::create([
+            'profile_id' => $profile->getId(),
+            'name' => $profile->getValue('name'),
+            'logo' => $profile->getValue('profile_logo') != null ? $profile->getValue('profile_logo')['filelink'] : asset('/images/custom/nophoto2.png'),
+            'membership_type' => $profile->getValue['membership_type'] ?? 0,
+            'membership_type_text' => $profile->getText['membership_type'] ?? '',
+            'ntp' => $profile->getValue('ntp') ?? 0,
+            'ntp_text' => $profile->getText('ntp') ?? '',
+            'profile_state' => $profile->getValue('profile_state'),
+            'profile_state_text' => $profile->getText('profile_state'),
+            'is_company' => $profile->getValue('is_company'),
+            'is_company_text' => $profile->getValue('is_company') ? 'Kompanija' : 'Startap',
+            'contact_person_name' => $profile->getValue('contact_person'),
+            'contact_person_email' => $profile->getValue('contact_email'),
+            'faza_razvoja' => $profile->getValue('faza_razvoja') ?? 0,
+            'faza_razvoja_tekst' => $profile->getText('faza_razvoja') ?? '',
+            'business_branch' => $profile->getValue('business_branch') ?? 0,
+            'business_branch_text' => $profile->getText('business_branch') ?? '',
+            'website' => $profile->getValue('profile_webpage') ?? '',
+            'program_name' => $program->getValue('program_name') ?? ''
+        ]);
+
+        // Update program cache
+        DB::table('program_caches')
+        ->insert([
+            'program_id' => $program->getId(),
+            'program_type' => $program->getValue('program_type'),
+            'program_type_text' => $program->getValue('program_name'),
+            'profile_name' => $profile->getValue('name'),
+            'profile_logo' => $profile->getValue('profile_logo') != null ? $profile->getValue('profile_logo')['filelink'] : asset('/images/custom/nophoto2.png'),
+            'program_status' => $program->getStatus(),
+            'program_status_text' => $program->getStatusText(),
+            'program_name' => $program->getValue('program_name'),
+            'ntp_text' => $program->getText('ntp') ?? ''
+        ]);
+
+        // Go to confirmation page.
+        $token = $user->getRememberToken();
+        return redirect(route('user.notify'));
+
+    }
+
     public function createRaisingStarts() {
-//        $attributeData = RaisingStartsProgram::getAttributesDefinition();
-//        return view('anonimous.createRaisingStarts', ['attributes' => $attributeData['attributes']]);
-        return view('anonimous.application-closed');
+       $attributeData = RaisingStartsProgram::getAttributesDefinition();
+       return view('anonimous.createRaisingStarts', ['attributes' => $attributeData['attributes']]);
+        // return view('anonimous.application-closed');
     }
 
     public function storeRaisingStarts(StorePostRequest $request) {
-
         $data = $request->post();
 
         $data['rstarts_logo'] = Utils::getFilesFromRequest($request, 'rstarts_logo');
@@ -108,6 +245,7 @@ class AnonimousController extends Controller
         $profileData = [
             'name' => $data['rstarts_startup_name'],
             'is_company' => $data['app_type'] == 2,
+            'ntp' => $data['ntp'],
             'id_number' => $data['rstarts_id_number'],
             'contact_person' => $data['rstarts_applicant_name'],
             'contact_email' => $data['rstarts_email'],
@@ -123,6 +261,22 @@ class AnonimousController extends Controller
                 'filename' => ''
             ]
         ];
+
+
+        // Check Profile
+        if(Attribute::checkValue( Entity::where('name', 'Profile')->first(), 'name', $profileData['name']))
+        {
+            // Profil postoji u bazi
+            return redirect(route('wrongUserPassword'));
+
+        }
+
+        // Check User
+        if(User::where('email', $profileData['contact_email'])->count() > 0) {
+            // Postoji user u bazi sa tim imenom
+            return redirect(route('wrongUserPassword'));
+        }
+
 
         $profile = new Profile($profileData);
         $user = User::where('email', $data['rstarts_email'])->first();
@@ -186,11 +340,13 @@ class AnonimousController extends Controller
         // attach program to profile
         $profile->addProgram($program);
 
-        $profile->addSituationByData(__('Applying'),
+        $situation = $profile->addSituationByData(__('Applying'),
             [
                 'program_type' => Program::$RAISING_STARTS,
                 'program_name' => 'RAISING STARTS'
             ]);
+
+        $program->addSituation($situation);
 
         $profile->setValue('profile_status', 3);
         $program->setStatus(1);
@@ -203,6 +359,44 @@ class AnonimousController extends Controller
         } catch (\Exception $ioe) {
 
         }
+
+        // Update Cache
+        // Update Profile Cache
+        ProfileCache::create([
+            'profile_id' => $profile->getId(),
+            'name' => $profile->getValue('name'),
+            'logo' => $profile->getValue('profile_logo') != null ? $profile->getValue('profile_logo')['filelink'] : asset('/images/custom/nophoto2.png'),
+            'membership_type' => $profile->getValue['membership_type'] ?? 0,
+            'membership_type_text' => $profile->getText['membership_type'] ?? '',
+            'ntp' => $profile->getValue('ntp') ?? 0,
+            'ntp_text' => $profile->getText('ntp') ?? '',
+            'profile_state' => $profile->getValue('profile_state'),
+            'profile_state_text' => $profile->getText('profile_state'),
+            'is_company' => $profile->getValue('is_company'),
+            'is_company_text' => $profile->getValue('is_company') ? 'Kompanija' : 'Startap',
+            'contact_person_name' => $profile->getValue('contact_person'),
+            'contact_person_email' => $profile->getValue('contact_email'),
+            'faza_razvoja' => $profile->getValue('faza_razvoja') ?? 0,
+            'faza_razvoja_tekst' => $profile->getText('faza_razvoja') ?? '',
+            'business_branch' => $profile->getValue('business_branch') ?? 0,
+            'business_branch_text' => $profile->getText('business_branch') ?? '',
+            'website' => $profile->getValue('profile_webpage'),
+            'program_name' => $program->getValue('program_name')
+        ]);
+
+        // Update program cache
+        DB::table('program_caches')
+        ->insert([
+            'program_id' => $program->getId(),
+            'program_type' => $program->getValue('program_type'),
+            'program_type_text' => $program->getValue('program_name'),
+            'profile_name' => $profile->getValue('name'),
+            'profile_logo' => $profile->getValue('profile_logo') != null ? $profile->getValue('profile_logo')['filelink'] : asset('/images/custom/nophoto2.png'),
+            'program_status' => $program->getStatus(),
+            'program_status_text' => $program->getStatusText(),
+            'program_name' => $program->getValue('program_name'),
+            'ntp_text' => $program->getText('ntp')
+        ]);
 
         // Go to confirmation page.
         $token = $user->getRememberToken();
@@ -295,6 +489,15 @@ class AnonimousController extends Controller
 //        }
 
         return view('anonimous.notify-user');
+    }
+
+    public function wrongUserPassword() {
+        $poruka = "
+            Profil koji ste uneli ili kontakt osoba već postoje u bazi.
+            Molimo, prijavite se na svoj nalog, i prijavite se na program sa svog profila.
+        ";
+
+        return view('anonimous.notify-user', ['message' => htmlentities($poruka)]);
     }
 
     public function accountExpired() {

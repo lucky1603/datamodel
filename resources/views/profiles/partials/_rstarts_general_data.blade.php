@@ -170,7 +170,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_id_number')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
-        if($value == null) {
+        if($value == null && isset($model)) {
             $value = $model->getValue('id_number');
         }
     @endphp

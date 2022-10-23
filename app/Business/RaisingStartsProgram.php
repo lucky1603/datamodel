@@ -72,7 +72,7 @@ class RaisingStartsProgram extends Program
 
     public function initWorkflow($instanceId = null)
     {
-        if($this->getWorkflow() == null)
+        if($this->workflow == null)
             $this->setWorkflow(new RaisingStartsWorkflow());
         $this->workflow->setCurrentIndex($this->getStatus());
     }

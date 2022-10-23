@@ -97,4 +97,12 @@ return [
     'mentor_type_tech' => 'Tech',
     'mentor_type_specialist' => 'Specijalista',
 
+    /**
+     * Legal status
+     */
+
+    'legal_status_title' => 'Pravni status',
+    'legal_status_startup' => 'Startup (minimalno 2 člana tima)',
+    'legal_status_company' => 'Regitrovano privredno društvo ne starije od 2 godiie, u većinski srpskom vlasništvu',
+
 ];

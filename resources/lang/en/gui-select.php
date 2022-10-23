@@ -93,4 +93,13 @@ return [
     'mentor_type_tech' => 'Tech',
     'mentor_type_specialist' => 'Specialist',
 
+
+    /**
+     * Legal status
+     */
+
+    'legal_status_title' => 'Legal Status',
+    'legal_status_startup' => 'Startup (minimum 2 team members)',
+    'legal_status_company' => 'Registered economic society, not older than 2 yars, in majority Serbian ownership',
+
 ];
