@@ -6,7 +6,7 @@
         $value = $attribute->getValue() ?? isset($model) ? $model->getAttribute('name')->getValue() : old($attribute->name);
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm @if($mode == 'anonimous') mandatory-label @endif">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
         @error($attribute->name)
@@ -20,7 +20,7 @@
         $attribute = $attributes->where('name', 'legal_status')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label for="legal_status" class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ __('gui-select.legal_status_title') }}</label>
+    <label for="legal_status" class="col-lg-2 attribute-label col-form-label col-form-label-sm @if($mode == 'anonimous') mandatory-label @endif">{{ __('gui-select.legal_status_title') }}</label>
     <div class="col-lg-10">
         <select id="{{ $attribute->name }}" name="{{ $attribute->name}}"
                 class="form-control form-control-sm mandatory-field @error($attribute->name) is-invalid @enderror">
@@ -42,7 +42,7 @@
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm @if($mode == 'anonimous') mandatory-label @endif">{{ $attribute->label }}</label>
     <div class="col-sm-4">
         <input type="date" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
         @error($attribute->name)
@@ -88,7 +88,7 @@
         $attvalue = $attribute->getValue() ?? isset($model) ? $model->getAttribute('business_branch')->getValue() : old($attribute->name);
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm @if($mode == 'anonimous') mandatory-label @endif">{!! $attribute->label !!}</label>
     <div class="col-sm-10">
         <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
             <option value="0" @if( $attvalue == 0) selected @endif>Choose...</option>
@@ -108,7 +108,7 @@
         $value = $attribute->getValue() ?? isset($model) ? $model->getAttribute('address')->getValue() : old($attribute->name);
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label @error($attribute->name) is-invalid @enderror">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm @if($mode == 'anonimous') mandatory-label @endif @error($attribute->name) is-invalid @enderror">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
         @error($attribute->name)

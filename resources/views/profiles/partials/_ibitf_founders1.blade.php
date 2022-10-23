@@ -20,15 +20,15 @@
 
                         <tr>
                             <td>
-                                <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror" value="{{ old('founderName.'.$i) }}">
+                                <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror" value="{{ old('founderName.'.$i) }}" @if ($mode == 'anonimous') disabled @endif>
                                 @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
                             <td>
-                                <input type="text" name="founderUniversity[]" class="w-100" @error('founderUniversity.*') is-invalid @enderror value="{{ old('founderUniversity.'.$i) }}">
+                                <input type="text" name="founderUniversity[]" class="w-100" @error('founderUniversity.*') is-invalid @enderror value="{{ old('founderUniversity.'.$i) }}" @if ($mode == 'anonimous') disabled @endif
                                 @error('founderUniversity.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
                             <td>
-                                <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="{{ old('founderPart.'.$i) }}">
+                                <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="{{ old('founderPart.'.$i) }}" @if ($mode == 'anonimous') disabled @endif>
                                 @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
                             <td>
@@ -39,15 +39,15 @@
                 @else
                     <tr>
                         <td>
-                            <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror" >
+                            <input type="text" name="founderName[]" class="w-100 @error('founderName.*') is-invalid @enderror"  @if ($mode == 'anonimous') disabled @endif>
                             @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
-                            <input type="text" name="founderUniversity[]" class="w-100" @error('founderUniversity.*') is-invalid @enderror >
+                            <input type="text" name="founderUniversity[]" class="w-100" @error('founderUniversity.*') is-invalid @enderror  @if ($mode == 'anonimous') disabled @endif>
                             @error('founderUniversity.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
-                            <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="0">
+                            <input type="text" name="founderPart[]" class="w-100 @error('founderPart.*') is-invalid @enderror" value="0" @if ($mode == 'anonimous') disabled @endif>
                             @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
@@ -62,15 +62,15 @@
                 @foreach($founders as $founder)
                     <tr>
                         <td>
-                            <input type="text" name="founderName[]" class="w-100" value="{{ $founder->getValue('founder_name') }}">
+                            <input type="text" name="founderName[]" class="w-100" value="{{ $founder->getValue('founder_name') }}" @if ($mode == 'anonimous') disabled @endif>
                             @error('founderName.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
-                            <input type="text" name="founderUniversity[]" class="w-100" value="{{ $founder->getValue('founder_university') }}">
+                            <input type="text" name="founderUniversity[]" class="w-100" value="{{ $founder->getValue('founder_university') }}" @if ($mode == 'anonimous') disabled @endif>
                             @error('founderUniversity.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
-                            <input type="text" name="founderPart[]" class="w-100" value="{{ $founder->getValue('founder_part') }}">
+                            <input type="text" name="founderPart[]" class="w-100" value="{{ $founder->getValue('founder_part') }}" @if ($mode == 'anonimous') disabled @endif>
                             @error('founderPart.*') <div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>

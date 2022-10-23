@@ -1,9 +1,27 @@
-@include('profiles.partials._ibitf_general_data')
-@include('profiles.partials._ibitf_responsible_person')
-@include('profiles.partials._ibitf_contests')
-@include('profiles.partials._ibitf_financial_users')
-@include('profiles.partials._ibitf_founders1')
-@include('profiles.partials._ibitf_founding_enterprise')
+@if(!isset($model))
+<div class="attribute-label font-14 m-1 p-4" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+    <p>U cilju boljeg razumevanja Prijavnog formulara, obe kategorije se u daljem tekstu nazivaju “startap”.</p>
+    <p>Obavezna polja za kreiranje profila su označena zvezdicom (<span class="text-danger">*</span>) i svetlo
+        plavom pozadinom. <strong>Ova polja su obavezna za kreiranje profila</strong>. Nakon kreiranog profila možete popuniti
+        preostali deo prijave i konačno je poslati kada je spremna.</p>
+</div>
+@endif
+
+@include('profiles.partials._ibitf_general_data', ['mode' => $mode])
+@include('profiles.partials._ibitf_responsible_person', ['mode' => $mode])
+
+@if ($mode == 'anonimous')
+    <div class="d-flex align-items-center justify-content-center mt-4">
+        <span class="mr-1 font-weight-bold">Polja ispod su samo informativnog karaketera i nemoguće ih je popuniti u ovom koraku. Aho želite odmah na slanje podataka</span>
+        <a href="#submitArea" class="font-weight-bold">kliknite ovde.</a>
+    </div>
+
+@endif
+
+@include('profiles.partials._ibitf_contests', ['mode' => $mode])
+@include('profiles.partials._ibitf_financial_users', ['mode' => $mode])
+@include('profiles.partials._ibitf_founders1', ['mode' => $mode])
+@include('profiles.partials._ibitf_founding_enterprise', ['mode' => $mode])
 
 <div class="bg-light p-4">
     <h4 class="mb-3">NAPOMENE PRE POPUNJAVANJA OBRASCA</h4>
@@ -25,11 +43,11 @@
     <p>Za sva pitanja koja budete imali tokom popunjavanja prijave kontaktirajte nas na: 011/3370-950. </p>
 </div>
 
-@include('profiles.partials._ibitf_general_2_data')
-@include('profiles.partials._ibitf_expenses')
-@include('profiles.partials._ibitf_generate_income')
-@include('profiles.partials._ibitf_infrastructure')
-@include('profiles.partials._ibitf_attachments')
+@include('profiles.partials._ibitf_general_2_data', ['mode' => $mode])
+@include('profiles.partials._ibitf_expenses', ['mode' => $mode])
+@include('profiles.partials._ibitf_generate_income', ['mode' => $mode])
+@include('profiles.partials._ibitf_infrastructure', ['mode' => $mode])
+@include('profiles.partials._ibitf_attachments', ['mode' => $mode])
 
 
 

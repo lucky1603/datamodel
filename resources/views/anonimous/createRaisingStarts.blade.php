@@ -61,7 +61,7 @@
 
                 <form id="myRaisingStartsForm" method="POST" enctype="multipart/form-data" action="{{ route('storeRaisingStarts') }}" class="mt-4 h-100 w-100">
                     @csrf
-                    @include('profiles.partials._rstarts')
+                    @include('profiles.partials._rstarts', ['model' => 'anonimous'])
 
                     <div class="mt-4" style="display: flex">
                         <input

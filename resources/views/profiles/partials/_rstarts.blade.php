@@ -54,12 +54,12 @@
     </div>
 </div>
 
-@include('profiles.partials._rstarts_general_data')
-@include('profiles.partials._rstarts_team')
-@include('profiles.partials._rstarts_business_model')
-@include('profiles.partials._rstarts_startup_story')
-@include('profiles.partials._rstarts_additional_doc')
+@include('profiles.partials._rstarts_general_data', ['mode' => $mode])
+@include('profiles.partials._rstarts_team', ['mode' => $mode])
+@include('profiles.partials._rstarts_business_model', $mode)
+@include('profiles.partials._rstarts_startup_story', $mode)
+@include('profiles.partials._rstarts_additional_doc', $mode)
 @if(auth()->user() == null)
-    @include('profiles.partials._rstarts_izjave')
+    @include('profiles.partials._rstarts_izjave', $mode)
 @endif
 

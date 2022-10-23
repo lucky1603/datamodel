@@ -6,7 +6,7 @@
             $attribute = $attributes->where('name', 'founding_company_planned')->first();
         @endphp
 
-        <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
+        <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off" @if ($mode == 'anonimous') disabled @endif>
         <span class="attribute-label mr-1">{!! $attribute->label !!}  </span>
         <input
             class="checkbox-aligned"
@@ -21,14 +21,14 @@
                 } else {
                 document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
                 }
-                ">
+                " @if ($mode == 'anonimous') disabled @endif>
     </div>
     <div class="col-sm-4">
         @php
             $attribute = $attributes->where('name', 'founding_act_prepared')->first();
         @endphp
 
-        <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
+        <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off" @if ($mode == 'anonimous') disabled @endif>
         <span class="attribute-label mr-1">{!! $attribute->label !!} </span>
         <input
             class="checkbox-aligned"
@@ -43,14 +43,14 @@
                 } else {
                 document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
                 }
-                ">
+                " @if ($mode == 'anonimous') disabled @endif>
     </div>
     <div class="col-sm-4">
         @php
             $attribute = $attributes->where('name', 'founding_act_in_preparation')->first();
         @endphp
 
-        <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off">
+        <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off" @if ($mode == 'anonimous') disabled @endif>
         <span class="attribute-label mr-1">{!! $attribute->label !!}  </span>
         <input
             class="checkbox-aligned"
@@ -65,7 +65,7 @@
                 } else {
                 document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
                 }
-                ">
+                " @if ($mode == 'anonimous') disabled @endif>
     </div>
 
 </div>

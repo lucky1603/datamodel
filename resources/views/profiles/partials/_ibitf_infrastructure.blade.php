@@ -8,7 +8,7 @@
             @php
                 $attribute = $attributes->where('name', 'office_space')->first();
             @endphp
-            <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+            <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
         </td>
     </tr>
     <tr>
@@ -30,7 +30,7 @@
                     } else {
                     document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
                     }
-                    ">
+                    " @if ($mode == 'anonimous') disabled @endif>
         </td>
     </tr>
     <tr>
@@ -52,7 +52,7 @@
                     } else {
                     document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
                     }
-                    ">
+                    " @if ($mode == 'anonimous') disabled @endif>
         </td>
     </tr>
     <tr>
@@ -74,7 +74,7 @@
                     } else {
                     document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
                     }
-                    ">
+                    " @if ($mode == 'anonimous') disabled @endif>
         </td>
     </tr>
     <tr>
@@ -83,7 +83,7 @@
             @php
                 $attribute = $attributes->where('name', 'other_services')->first();
             @endphp
-            <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+            <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
         </td>
     </tr>
     <tr>
@@ -106,7 +106,7 @@
                     } else {
                     document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
                     }
-                    ">
+                    " @if ($mode == 'anonimous') disabled @endif>
         </td>
     </tr>
     <tr>
@@ -115,7 +115,7 @@
             @php
                 $attribute = $attributes->where('name', 'specific_needs')->first();
             @endphp
-            <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+            <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
         </td>
     </tr>
     <tr>
@@ -137,7 +137,7 @@
                     } else {
                     document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
                     }
-                    ">
+                    " @if ($mode == 'anonimous') disabled @endif>
         </td>
     </tr>
     <tr>
@@ -159,7 +159,7 @@
                     } else {
                     document.getElementById('{{ $attribute->name }}Hidden').disabled = false;
                     }
-                    ">
+                    " @if ($mode == 'anonimous') disabled @endif>
         </td>
     </tr>
 </table>

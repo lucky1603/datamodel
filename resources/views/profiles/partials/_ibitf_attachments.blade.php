@@ -11,7 +11,7 @@
         class="form-control"
         id="{{ $attribute->name }}"
         name="{{$attribute->name}}"
-        value="{{ $attribute->getValue() }}">
+        value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
 </div>
 
 @php
@@ -23,14 +23,14 @@
     @if($attribute->getValue() != null)
         <table class="table table-responsive">
             <tr>
-                <td><a href="{{ $attribute->getValue()['filelink'] }}">{{ $attribute->getValue()['filename'] }}</a></td>
+                <td><a href="{{ $attribute->getValue()['filelink'] }}" @if ($mode == 'anonimous') disabled @endif>{{ $attribute->getValue()['filename'] }}</a></td>
             </tr>
             <tr>
-                <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
+                <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}" @if ($mode == 'anonimous') disabled @endif>
             </tr>
         </table>
     @else
-        <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
+        <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}" @if ($mode == 'anonimous') disabled @endif>
     @endif
 </div>
 
@@ -40,7 +40,7 @@
 
 <div class="form-group">
     <label class="attribute-label" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
-    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if ($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() }}</textarea>
 </div>
 
 @php
@@ -55,10 +55,10 @@
                 <td><a href="{{ $attribute->getValue()['filelink'] }}">{{ $attribute->getValue()['filename'] }}</a></td>
             </tr>
             <tr>
-                <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
+                <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}" @if ($mode == 'anonimous') disabled @endif>
             </tr>
         </table>
     @else
-        <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}">
+        <input type="file" class="form-control" id="{{ $attribute->name }}" name="{{ $attribute->name }}" @if ($mode == 'anonimous') disabled @endif>
     @endif
 </div>

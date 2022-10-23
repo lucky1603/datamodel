@@ -26,19 +26,19 @@
                 @php
                     $attribute = $attributes->where('name', 'zarada_zaposleni_1_g1')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'zarada_zaposleni_1_g2')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'zarada_zaposleni_1_g3')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
         <tr>
@@ -47,19 +47,19 @@
                 @php
                     $attribute = $attributes->where('name', 'zarada_zaposleni_2_g1')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'zarada_zaposleni_2_g2')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'zarada_zaposleni_2_g3')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
         <tr>
@@ -68,19 +68,19 @@
                 @php
                     $attribute = $attributes->where('name', 'naknada_agazovani_1_g1')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'naknada_agazovani_1_g2')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'naknada_agazovani_1_g3')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
         <tr>
@@ -89,19 +89,19 @@
                 @php
                     $attribute = $attributes->where('name', 'naknada_agazovani_2_g1')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'naknada_agazovani_2_g2')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'naknada_agazovani_2_g3')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
         <tr>
@@ -110,19 +110,19 @@
                 @php
                     $attribute = $attributes->where('name', 'knjigovodstvo_g1')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'knjigovodstvo_g2')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'knjigovodstvo_g3')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
         <tr>
@@ -131,19 +131,19 @@
                 @php
                     $attribute = $attributes->where('name', 'Advokati_g1')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'Advokati_g2')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'Advokati_g3')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
         <tr>
@@ -152,19 +152,19 @@
                 @php
                     $attribute = $attributes->where('name', 'zakup_kancelarije_g1')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'zakup_kancelarije_g2')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'zakup_kancelarije_g3')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
         <tr>
@@ -173,19 +173,19 @@
                 @php
                     $attribute = $attributes->where('name', 'rezijski_troskovi_g1')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'rezijski_troskovi_g2')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'rezijski_troskovi_g3')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
         <tr>
@@ -194,19 +194,19 @@
                 @php
                     $attribute = $attributes->where('name', 'ostali_fiksni_troskovi_g1')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'ostali_fiksni_troskovi_g2')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'ostali_fiksni_troskovi_g3')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
         <tr class="bg-light">
@@ -221,19 +221,19 @@
                 @php
                     $attribute = $attributes->where('name', 'troskovi_materijala_g1')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'troskovi_materijala_g2')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'troskovi_materijala_g3')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
         <tr>
@@ -242,19 +242,19 @@
                 @php
                     $attribute = $attributes->where('name', 'troskovi_alata_za_rad_g1')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'troskovi_alata_za_rad_g2')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'troskovi_alata_za_rad_g3')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
         <tr>
@@ -263,19 +263,19 @@
                 @php
                     $attribute = $attributes->where('name', 'ostali_troskovi_g1')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'ostali_troskovi_g2')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'ostali_troskovi_g3')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
     </tbody>

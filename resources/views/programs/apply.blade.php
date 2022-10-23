@@ -40,12 +40,12 @@
                         @endif
                         @switch($programType)
                             @case(\App\Business\Program::$INKUBACIJA_BITF)
-                                @include('profiles.partials._ibitf')
+                                @include('profiles.partials._ibitf', ['mode' => 'user'])
                                 @break
                             @case(\App\Business\Program::$RASTUCE_KOMPANIJE)
                                 @break
                             @case(\App\Business\Program::$RAISING_STARTS)
-                                @include('profiles.partials._rstarts')
+                                @include('profiles.partials._rstarts', ['mode' => 'user'])
                                 @break
                         @endswitch
                     </div>

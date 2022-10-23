@@ -45,9 +45,9 @@
                         </div>
                     </div>
 
-                    @include('profiles.partials._ibitf')
+                    @include('profiles.partials._ibitf', ['mode' => 'anonimous'])
 
-                    <div class="mt-4" style="display: flex">
+                    <div class="mt-4" style="display: flex" id="submitArea">
                         <input
                             type="checkbox"
                             id="gdpr"

@@ -4,7 +4,7 @@
 @php
     $attribute = $attributes->where('name', 'generating_income')->first();
 @endphp
-<textarea class="form-control mb-2" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3">{{ $attribute->getValue() }}</textarea>
+<textarea class="form-control mb-2" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if ($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() }}</textarea>
 <table class="w-100">
     <thead class="bg-dark text-light table-bordered text-center">
         <tr>
@@ -23,25 +23,25 @@
                 @php
                     $attribute = $attributes->where('name', 'available_assets')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'needed_assets')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'own_assets')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'credits')->first();
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
     </tbody>
