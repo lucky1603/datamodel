@@ -236,7 +236,15 @@ class ProgramController extends Controller
                 return $attribute->name;
             });
 
-            $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
+            $abc = $group_parameters->filter(function($parameter) use($group_parameters, $program) {
+                if($program->getValue('legal_status') != 2) {
+                  return !in_array($parameter, ['pib', 'id_number', 'date_of_establishment']);
+                } else {
+                  return true;
+                }
+            });
+
+            $mandatory_parameters = $mandatory_parameters->concat($abc);
 
             $group_parameters = AttributeGroup::get('ibitf_responsible_person')->attributes->map(function($attribute, $key) {
                 return $attribute->name;
