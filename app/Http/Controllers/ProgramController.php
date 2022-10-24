@@ -252,7 +252,7 @@ class ProgramController extends Controller
 
             $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
 
-            // // Obavezan unos sa bar jednog osnivaca.
+            // // Obavezan unos sa bar jednog osnivaca. - Ovo je zakomentarisano jer se sada radi na drugi način.
             // $group_parameters = AttributeGroup::get('ibitf_founders')->attributes->filter(function($attribute, $key) {
             //     return $key < 3;
             // })->map(function($attribute, $key) {

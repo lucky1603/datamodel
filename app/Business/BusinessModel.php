@@ -8,6 +8,7 @@ use App\Attribute;
 use App\AttributeGroup;
 use App\Entity;
 use App\Instance;
+use App\Utilities;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +55,7 @@ class BusinessModel
      * Deletes the model.
      */
     public function delete() {
-        $this->instance->delete();
+        Utilities::deleteInstance($this->instance);
     }
 
     /**

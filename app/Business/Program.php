@@ -525,36 +525,15 @@ class Program extends SituationsModel
 
     /**
      * Deletes the program and all of its instances.
+     * WARNING: It is strictly TECHNICAL delete, used
+     * in the process of testing and bug fixing.
+     * It is by no means meant to do this regularely in
+     * the course of the business process.
      */
+
     public function delete()
     {
-        // Delete founders
-        $founderIds = $this->getFounders()->map(function($founder) {
-            return $founder->getId();
-        });
-
-        foreach($founderIds as $founderId) {
-            $this->instance->instances()->detach($founderId);
-            $founder = Founder::find($founderId);
-            if($founder != null) {
-                $founder->delete();
-            }
-        }
-
-        $this->instance->save();
-
-        // Delete workflow
-        $workflow = $this->getWorkflow();
-        $workflow->delete();
-
-        // Delete situations
-        $situations = $this->getSituations();
-        foreach($situations as $situation) {
-            $this->instance->instances()->detach($situation->getId());
-            $situation->delete();
-        }
-
-        $this->instance->save();
+        DB::table('program_caches')->where('program_id', $this->instance->id)->delete();
 
         parent::delete();
     }
@@ -894,6 +873,8 @@ class Program extends SituationsModel
         DB::table('program_caches')->delete();
 
         Program::find()->each(function($program) {
+            if($program == null)
+                return true;
             $profile = $program->getProfile();
             if($profile == null)
                 return true;
@@ -905,14 +886,17 @@ class Program extends SituationsModel
                 $logo = $logo['filelink'];
             }
 
-            $contract = $program->getWorkflow()->getPhases()->filter(function($phase) {
-                return $phase instanceof Contract;
-            })->first();
-
             $year = 1996;
-            if($contract != null) {
-                $contract_date = $contract->getValue('signed_at');
-                $year = date("Y", strtotime($contract_date));
+            $workflow = $program->getWorkflow();
+            if($workflow != null) {
+                $contract = $program->getWorkflow()->getPhases()->filter(function($phase) {
+                    return $phase instanceof Contract;
+                })->first();
+
+                if($contract != null) {
+                    $contract_date = $contract->getValue('signed_at');
+                    $year = date("Y", strtotime($contract_date));
+                }
             }
 
             DB::table('program_caches')->insert([

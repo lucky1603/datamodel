@@ -225,5 +225,47 @@ class Value extends Model
 
     }
 
+    public static function remove($instance_id, Attribute $attribute) {
+        switch($attribute->type) {
+            case 'text':
+                $tablename = 'text_values';
+                break;
+            case 'varchar':
+                $tablename = 'varchar_values';
+                break;
+            case 'integer':
+                $tablename = 'integer_values';
+                break;
+            case 'double':
+                $tablename = 'double_values';
+                break;
+            case 'datetime':
+                $tablename = 'datetime_values';
+                break;
+            case 'select':
+                $tablename = 'select_values';
+                break;
+            case 'file':
+                $tablename = 'file_values';
+                break;
+            case 'bool':
+                $tablename = 'bool_values';
+                break;
+            case 'timestamp':
+                $tablename = 'timestamp_values';
+                break;
+            default:
+                $tablename = $attribute->type.'_values';
+                break;
+        }
+
+        $query = DB::table($tablename)->where([
+            'attribute_id' => $attribute->id,
+            'instance_id' => $instance_id
+        ]);
+
+        $query->delete();
+    }
+
 
 }

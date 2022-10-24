@@ -65,6 +65,16 @@ class Attribute extends Model
     }
 
     /**
+     * Removes the value from the value table.
+     * Usefull by the deleting of objects.
+     */
+    public function removeValue() {
+        if(isset($this->pivot)) {
+            return Value::remove($this->pivot->instance_id, $this);
+        }
+    }
+
+    /**
      * Return textual version of the value.
      * @return string|null
      */
