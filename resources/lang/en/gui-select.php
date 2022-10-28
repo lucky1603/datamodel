@@ -102,4 +102,32 @@ return [
     'legal_status_startup' => 'Startup (minimum 2 team members)',
     'legal_status_company' => 'Registered economic society, not older than 2 yars, in majority Serbian ownership',
 
+    /**
+     * Company intentions.
+     */
+    'company_intentions_title' => 'Company intentds to',
+    'company_intentions_partially_move' => 'To move its activities or a part of the business to STP Belgrade',
+    'company_intentions_move' => 'To move its complete business to STP Belgrade',
+    'company_intentions_independent' => 'To found its own company for R&D in Beglrade',
+
+    /**
+     * Company type (restuce)
+     */
+    'company_type_founded' => 'Already founded as the daughter company in Serbia of the mother company abroads',
+    'company_type_planned' => 'Mother company is planning to establish a daughter company in Serbia ',
+
+    /**
+     * Which membership type is the company applying to?
+     */
+    'membership_type_full' => 'Full Membership',
+    'membership_type_virtual' => 'Virtual Membership',
+
+    /**
+     * Commercialization phases.
+     */
+    'commercialization_phase_first_contacts' => 'First contacts made with the target group',
+    'commercialization_phase_need_confirmed' => 'A need and a target group confirmed - first test users',
+    'commercialization_phase_product_established' => 'Commercialized product with established partnerships and first buyers ',
+    'commercialization_phase_growth_strategy' => 'Growth strategy and multiple market business defined'
+
 ];

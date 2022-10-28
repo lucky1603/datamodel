@@ -65,6 +65,8 @@ Route::get('/createRaisingStarts', 'AnonimousController@createRaisingStarts')->n
 Route::post('/createRaisingStarts', 'AnonimousController@storeRaisingStarts')->name('storeRaisingStarts');
 Route::get('createIncubationBITF', 'AnonimousController@createIncubationBITF')->name('createIncubationBITF');
 Route::post('storeIncubationBITF', 'AnonimousController@storeIncubationBITF')->name('storeIncubationBITF');
+Route::get('createRastuce', 'AnonimousController@createRastuce')->name('createRastuce');
+Route::post('createRastuce', 'AnonimousController@storeRastuce')->name('storeRastuce');
 Route::get('refreshcaptcha', 'AnonimousController@refreshCaptcha');
 Route::get('testmail/{email}', 'AnonimousController@testMail');
 Route::get('construction', 'AnonimousController@construction');

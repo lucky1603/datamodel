@@ -105,4 +105,32 @@ return [
     'legal_status_startup' => 'Startup (minimalno 2 člana tima)',
     'legal_status_company' => 'Regitrovano privredno društvo ne starije od 2 godiie, u većinski srpskom vlasništvu',
 
+    /**
+     * Namere kompanije.
+     */
+    'company_intentions_title' => 'Kompanija namerava da',
+    'company_intentions_partially_move' => 'Svoje razvojne aktivnosti ili deo poslovanja premesti u NTP Beograd',
+    'company_intentions_move' => 'Svoje celokupno poslovanje planira da premesti u NTP Beograd',
+    'company_intentions_independent' => 'Planira da osnuje zavisno društvo za razvoj inovacije u NTP Beograd',
+
+    /**
+     * Company type ( Rising Companies )
+     */
+    'company_type_founded' => 'je već osnovana kao zavisno društvo/ogranak/predstavništvo u Srbiji matične kompanije u inostranstvu',
+    'company_type_planned' => 'kao matična kompanija planira da osnuje zavisno drštvo/ogranak/predstavništvo u Srbiji',
+
+    /**
+     * Which membership type is the company applying to?
+     */
+    'membership_type_full' => 'Puno članstvo',
+    'membership_type_virtual' => 'Virtuelno članstvo',
+
+    /**
+     * Faze komercijalizacije
+     */
+    'commercialization_phase_first_contacts' => 'Ostvareni prvi kontakti sa ciljnom grupom',
+    'commercialization_phase_need_confirmed' => 'Potvrđena potreba i ciljna grupa – prvi test korisnici',
+    'commercialization_phase_product_established' => 'Komercijalizovan proizvod sa uspostavljenim partnerstvima i prvi kupcima ',
+    'commercialization_phase_growth_strategy' => 'Definisana strategija rasta i poslovanje na više tržišta'
+
 ];

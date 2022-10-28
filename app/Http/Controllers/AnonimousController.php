@@ -15,6 +15,7 @@ use App\Business\Program;
 use Illuminate\Support\Str;
 use App\Mail\ProfileCreated;
 use Illuminate\Http\Request;
+use App\Business\RastuceProgram;
 use Illuminate\Support\Facades\DB;
 use App\Business\IncubationProgram;
 use Illuminate\Support\Facades\App;
@@ -224,6 +225,23 @@ class AnonimousController extends Controller
         $token = $user->getRememberToken();
         return redirect(route('user.notify'));
 
+    }
+
+    public function createRastuce() {
+        $attributeData = RastuceProgram::getAttributesDefinition();
+
+        return view('anonimous.createRastuce',
+        [
+            'attributes' => $attributeData['attributes'],
+            'attributeGroups' => $attributeData['attributeGroups']
+        ]);
+    }
+
+
+    public function storeRastuce(Request $request) {
+        $data = $request->post();
+        var_dump($data);
+        return true;
     }
 
     public function createRaisingStarts() {

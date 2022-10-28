@@ -238,4 +238,16 @@ class Attribute extends Model
 
         return false;
     }
+
+    /**
+     * Delete attribute from the database
+     */
+    public function delete()
+    {
+        $this->attribute_options->each(function($option) {
+            $option->delete();
+        });
+
+        parent::delete();
+    }
 }
