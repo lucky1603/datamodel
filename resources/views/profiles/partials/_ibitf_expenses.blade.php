@@ -1,8 +1,7 @@
-<h3 class="text-center attribute-label mt-4">{{ $attributeGroups->where('name', 'ibitf_expenses')->first()->label }}</h3>
+<h3 class="text-center attribute-label mt-4 @if($mode != 'anonimous') mandatory-label @endif">{{ $attributeGroups->where('name', 'ibitf_expenses')->first()->label }}</h3>
 <p>Potrudite se da realno sagledate troškove za naredne 3 godine i prikažite ih u
     priloženoj tabeli. Fiksni (troškovi koji su stalni i ne zavise od obima prodaje
-    i proizvodnje) i varijabilni troškovi ( troškovi metarijala i ostali troškovi v
-    ezani za proizvodnju i rad).</p>
+    i proizvodnje) i varijabilni troškovi ( troškovi metarijala i ostali troškovi vezani za proizvodnju i rad).</p>
 
 <table class="w-100 table-bordered mt-4">
     <thead class="bg-dark text-light text-center">
@@ -15,7 +14,7 @@
     </thead>
     <tbody>
         <tr class="bg-light">
-            <td><strong>Fiksni troskovi ukupno</strong></td>
+            <td><strong>Fiksni troškovi ukupno</strong></td>
             <td></td>
             <td></td>
             <td></td>
@@ -63,7 +62,7 @@
             </td>
         </tr>
         <tr>
-            <td>Naknada angažovani 1</td>
+            <td>Naknada angažovanih 1</td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'naknada_agazovani_1_g1')->first();
@@ -84,7 +83,7 @@
             </td>
         </tr>
         <tr>
-            <td>Naknada angažovani 2</td>
+            <td>Naknada angažovanih 2</td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'naknada_agazovani_2_g1')->first();

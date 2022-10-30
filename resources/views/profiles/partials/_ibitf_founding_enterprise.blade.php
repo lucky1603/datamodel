@@ -7,7 +7,7 @@
         @endphp
 
         <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off" @if ($mode == 'anonimous') disabled @endif>
-        <span class="attribute-label mr-1">{!! $attribute->label !!}  </span>
+        <span class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif mr-1">{!! $attribute->label !!}  </span>
         <input
             class="checkbox-aligned"
             type="checkbox"
@@ -29,7 +29,7 @@
         @endphp
 
         <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off" @if ($mode == 'anonimous') disabled @endif>
-        <span class="attribute-label mr-1">{!! $attribute->label !!} </span>
+        <span class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif mr-1">{!! $attribute->label !!} </span>
         <input
             class="checkbox-aligned"
             type="checkbox"
@@ -51,7 +51,7 @@
         @endphp
 
         <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off" @if ($mode == 'anonimous') disabled @endif>
-        <span class="attribute-label mr-1">{!! $attribute->label !!}  </span>
+        <span class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif mr-1">{!! $attribute->label !!}  </span>
         <input
             class="checkbox-aligned"
             type="checkbox"

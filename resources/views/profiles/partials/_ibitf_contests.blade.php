@@ -5,7 +5,7 @@
         $attribute = $attributes->where('name', 'program_name_contests')->first();
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 @if($mode == 'anonimous') attribute-grayed @else attribute-label @endif col-form-label col-form-label-sm">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
     </div>
@@ -16,7 +16,7 @@
         $attribute = $attributes->where('name', 'year')->first();
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 @if($mode == 'anonimous') attribute-grayed @else attribute-label @endif col-form-label col-form-label-sm">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
     </div>
@@ -27,7 +27,7 @@
         $attribute = $attributes->where('name', 'prizes_and_places')->first();
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 @if($mode == 'anonimous') attribute-grayed @else attribute-label @endif col-form-label col-form-label-sm">{{ $attribute->label }}</label>
     <div class="col-sm-10">
         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
     </div>

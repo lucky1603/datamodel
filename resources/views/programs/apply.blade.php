@@ -3,7 +3,7 @@
 @section('page-header')
     <div class="w-50 d-inline-block" style="height: 7vh">
         <div><span class="h4" style="position: relative; top:2vh; left: 1vh">{{ $model->getValue('name') }}</span></div>
-        <div><span class="text-primary font-12" style="position: relative; top: 2vh; left: 1vh">PRIJAVA NA PROGRAM {{ $programName }}</span></div>
+        <div><span class="font-12" style="position: relative; top: 2vh; left: 1vh">{{ __('PRIJAVA') }}</span></div>
     </div>
 @endsection
 

@@ -108,11 +108,14 @@ class AnonimousController extends Controller
     public function storeIncubationBITF(StoreIncubationRequest $request) {
         $data = $request->post();
 
+        // Always this value. (NTP Beograd)
+        $data['ntp'] = 1;
+
         // Create Profile
         $profileData = [
             'name' => $data['program_name_or_company'],
             'is_company' => $data['legal_status'] == 2,
-            'ntp' => $data['ntp'],
+            'ntp' => 1,
             'business_branch' => $data['business_branch'],
             'id_number' => $data['id_number'],
             'contact_person' => $data['responsible_firstname']. ' '.$data['responsible_lastname'],

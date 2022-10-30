@@ -22,12 +22,14 @@
                     {{ $message}}
                 @else
                     <p>
-                        Na osnovu vaših podataka kreiran je profil za vas. Na Vašu email adresu je poslat email sa verifikacionim linkom.
-                        Kada se prijavite na svoj profil, bićete u mogućnosti da nastavite sa popunjavanjem podataka iz prijave.
+                        Na osnovu podataka koje ste naveli kreiran je vaš profil, a na e-mail adresu koju ste uneli poslat je
+                        verifikacioni link. Klikom na njega aktivirate profil. Prijavom na svoj profil bićete u mogućnosti da
+                        nastavite sa daljim popunjavanjem prijave za program.
                     </p>
 
                     <p class="font-12 mt-4 text-dark">
-                        <strong>Ukoliko ne možete da pronadjete e-mail pogledajte spam folder ili nas kontaktirajte na <a href="mailto://event@ntpark.rs">event@ntpark.rs</a></strong>
+                        <strong>Ukoliko ne možete da pronadjete e-mail, proverite i spam folder ili nas kontaktirajte na
+                            <a href="mailto://event@ntpark.rs">event@ntpark.rs</a></strong>
                     </p>
                 @endif
             </div>

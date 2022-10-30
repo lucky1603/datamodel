@@ -11,6 +11,7 @@ use App\Business\ProgramFactory;
 use App\Business\RaisingStartsProgram;
 use App\Business\Situation;
 use App\Business\Training;
+use App\Http\Requests\UpdateIncubationRequest;
 use App\Http\Requests\UpdateRaisingStartsRequest;
 use App\Mail\ApplicationSuccess;
 use App\ProfileCache;
@@ -238,9 +239,9 @@ class ProgramController extends Controller
 
             $abc = $group_parameters->filter(function($parameter) use($group_parameters, $program) {
                 if($program->getValue('legal_status') != 2) {
-                  return !in_array($parameter, ['pib', 'id_number', 'date_of_establishment']);
+                  return !in_array($parameter, ['pib', 'id_number', 'date_of_establishment','telephone_number','email']);
                 } else {
-                  return true;
+                  return !in_array($parameter, ['telephone_number', 'email']);
                 }
             });
 
@@ -250,7 +251,11 @@ class ProgramController extends Controller
                 return $attribute->name;
             });
 
-            $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
+            $abc = $group_parameters->filter(function($parameter) use($group_parameters, $program) {
+                return !in_array($parameter, ['responsible_telephone', 'responsible_function']);
+            });
+
+            $mandatory_parameters = $mandatory_parameters->concat($abc);
 
             // // Obavezan unos sa bar jednog osnivaca. - Ovo je zakomentarisano jer se sada radi na drugi način.
             // $group_parameters = AttributeGroup::get('ibitf_founders')->attributes->filter(function($attribute, $key) {
@@ -259,7 +264,7 @@ class ProgramController extends Controller
             //     return $attribute->name;
             // });
 
-            $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
+            // $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
 
             $group_parameters = AttributeGroup::get('ibitf_founding_enterprise')->attributes->map(function($attribute, $key) {
                 return $attribute->name;
@@ -523,7 +528,7 @@ class ProgramController extends Controller
             });
     }
 
-    public function saveIBITFApplicationData(Request $request) {
+    public function saveIBITFApplicationData(UpdateIncubationRequest $request) {
         $data = $request->post();
 
         $fileData = $this->addFileToData($request, 'resenje_fajl');

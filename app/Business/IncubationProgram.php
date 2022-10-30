@@ -319,7 +319,7 @@ class IncubationProgram extends Program
         $attributes->add($ag_expenses->addAttribute(self::selectOrCreateAttribute(['ostali_fiksni_troskovi_g2', __("Other Fixed Expenses"), 'double', NULL, 64])));
         $attributes->add($ag_expenses->addAttribute(self::selectOrCreateAttribute(['troskovi_materijala_g2', __('Material Expenses'), 'double', NULL, 65])));
         $attributes->add($ag_expenses->addAttribute(self::selectOrCreateAttribute(['troskovi_alata_za_rad_g2', __('Working tool expenses'), 'double', NULL, 66])));
-        $attributes->add($ag_expenses->addAttribute(self::selectOrCreateAttribute(['ostali_troskovi_g2', __("Other expenses"), 'double', NULL, 67])));
+        $attributes->add($ag_expenses->addAttribute(self::selectOrCreateAttribute(['ostali_troskovi_g2', __("Other Expenses"), 'double', NULL, 67])));
 
         //// Trokovi - godina 3
 

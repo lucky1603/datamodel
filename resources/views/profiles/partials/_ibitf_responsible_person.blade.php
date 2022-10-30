@@ -39,7 +39,14 @@
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $phone }}">
+        <input type="text"
+            class="form-control form-control-sm"
+            id="{{ $attribute->name }}"
+            name="{{ $attribute->name }}"
+            value="{{ $phone }}"
+            data-toggle="input-mask"
+            data-mask-format="000 000-0000">
+        <span class="font-12 text-dark">Unesite broj telefona u formatu 0## ### - ###(#)</span>
     </div>
 </div>
 
@@ -51,7 +58,14 @@
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $phone }}">
+        <input type="text"
+            class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
+            id="{{ $attribute->name }}"
+            name="{{ $attribute->name }}"
+            value="{{ $phone }}"
+            data-toggle="input-mask"
+            data-mask-format="000 000-0000">
+        <span class="font-12 text-dark">Unesite broj telefona u formatu 0## ### - ###(#)</span>
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror

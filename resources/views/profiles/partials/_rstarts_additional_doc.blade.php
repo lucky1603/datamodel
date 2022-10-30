@@ -4,7 +4,7 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_dodatni_dokumenti')->first();
     @endphp
-    <label class="attribute-label col-form-label col-form-label-sm font-12">Bilans stanja i bilans uspeha za
+    <label class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif col-form-label col-form-label-sm font-12">Bilans stanja i bilans uspeha za
         prethodne godine poslovanja ako se prijavljujete kao privredno društvo. Ukoliko u trenutku prijave
         nisu dostupni zvanični izveštaji dodati bruto bilans/bilanse dobijene od računovodstva.
         <i class="dripicons-information font-18" title="Datoteke moraju biti u

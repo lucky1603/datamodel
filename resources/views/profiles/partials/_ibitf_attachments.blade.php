@@ -5,7 +5,7 @@
 @endphp
 
 <div class="form-group">
-    <label class="attribute-label" for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
+    <label class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif" for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
     <input
         type="text"
         class="form-control"
@@ -19,7 +19,7 @@
 @endphp
 
 <div class="form-group">
-    <label class="attribute-label" for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
+    <label class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif" for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
     @if($attribute->getValue() != null)
         <table class="table table-responsive">
             <tr>
@@ -39,7 +39,7 @@
 @endphp
 
 <div class="form-group">
-    <label class="attribute-label" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
+    <label class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
     <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if ($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() }}</textarea>
 </div>
 
@@ -48,7 +48,7 @@
 @endphp
 
 <div class="form-group">
-    <label class="attribute-label" for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
+    <label class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif" for="{{ $attribute->name }}">{!! $attribute->label !!}</label>
     @if($attribute->getValue() != null)
         <table class="table table-responsive">
             <tr>

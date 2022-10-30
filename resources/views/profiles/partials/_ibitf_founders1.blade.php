@@ -1,4 +1,4 @@
-<h3 class="text-center attribute-label m-4">{{ \App\AttributeGroup::where('name', 'ibitf_founders')->first()->label }}</h3>
+<h3 class="text-center attribute-label m-4 @if($mode != 'anonimous') mandatory-label @endif">{{ \App\AttributeGroup::where('name', 'ibitf_founders')->first()->label }}</h3>
 
 <div class="row">
     <div class="col-sm-12 text-center">

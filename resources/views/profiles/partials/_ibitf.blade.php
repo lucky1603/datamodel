@@ -1,9 +1,12 @@
 @if(!isset($model))
 <div class="attribute-label font-14 m-1 p-4" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
     <p>U cilju boljeg razumevanja Prijavnog formulara, obe kategorije se u daljem tekstu nazivaju “startap”.</p>
-    <p>Obavezna polja za kreiranje profila su označena zvezdicom (<span class="text-danger">*</span>) i svetlo
-        plavom pozadinom. <strong>Ova polja su obavezna za kreiranje profila</strong>. Nakon kreiranog profila možete popuniti
-        preostali deo prijave i konačno je poslati kada je spremna.</p>
+    <p>
+        Obavezna polja za kreiranje profila su označena zvezdicom (<span class="text-danger">*</span>) i svetlo plavom
+        pozadinom.<strong>Ova polja su obavezna za kreiranje profila</strong>. Nakon kreiranog profila možete popuniti
+        preostali deo prijave kroz softver nakon što vam stigne verifikacioni mail sa daljim upustvima i konačno je poslati
+        kroz softver kada je spremna.
+    </p>
 </div>
 @endif
 
@@ -43,7 +46,7 @@
     <p>Za sva pitanja koja budete imali tokom popunjavanja prijave kontaktirajte nas na: 011/3370-950. </p>
 </div>
 
-@include('profiles.partials._ibitf_general_2_data', ['mode' => $mode])
+@include('profiles.partials._ibitf_general_2_data')
 @include('profiles.partials._ibitf_expenses', ['mode' => $mode])
 @include('profiles.partials._ibitf_generate_income', ['mode' => $mode])
 @include('profiles.partials._ibitf_infrastructure', ['mode' => $mode])
