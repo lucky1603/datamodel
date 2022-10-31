@@ -72,6 +72,7 @@ Route::get('testmail/{email}', 'AnonimousController@testMail');
 Route::get('construction', 'AnonimousController@construction');
 Route::get('expired', 'AnonimousController@accountExpired')->name('expired');
 Route::get('toggleLocale', 'AnonimousController@toggleLocale')->name('toggleLocale');
+Route::get('universities','AnonimousController@universities')->name('universities');
 
 Route::get('programs/statistics/{program}', 'ProgramController@getStatistics')->name('program.getStatistics');
 Route::post('programs/statistics', 'ProgramController@updateStatistics')->name('program.updateStatistics');

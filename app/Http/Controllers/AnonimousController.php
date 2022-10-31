@@ -6,6 +6,7 @@ use App\User;
 use App\Entity;
 use App\Attribute;
 use Hamcrest\Util;
+use App\University;
 use App\ProfileCache;
 use App\Mail\TestMail;
 use PHPUnit\Util\Test;
@@ -581,5 +582,16 @@ class AnonimousController extends Controller
         return "success";
     }
 
+    public function universities() {
+        $universities = University::all()->map(function($university) {
+            return [
+                'value' => $university->id,
+                'text' => $university->name
+            ];
+        });
+
+        return $universities;
+
+    }
 
 }

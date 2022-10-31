@@ -153,6 +153,20 @@ export default {
             }
 
         },
+        async getUniversities() {
+            await axios.get('/universities')
+            .then(response => {
+                console.log(response.data);
+                this.universities.length = 0;
+
+                for(let property in response.data) {
+                    this.universities.push({
+                        value: response.data[property].value,
+                        text: response.data[property].text
+                    });
+                }
+            });
+        },
         onFileSelect(file) {
             console.log(file);
             console.log(this.form.profile_logo);
@@ -241,6 +255,7 @@ export default {
 
     },
     async mounted() {
+        await this.getUniversities();
         await this.getData();
     },
     data() {
