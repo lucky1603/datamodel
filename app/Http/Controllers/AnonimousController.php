@@ -116,7 +116,7 @@ class AnonimousController extends Controller
         $profileData = [
             'name' => $data['program_name_or_company'],
             'is_company' => $data['legal_status'] == 2,
-            'ntp' => 1,
+            'ntp' => $data['ntp'],
             'business_branch' => $data['business_branch'],
             'id_number' => $data['id_number'],
             'contact_person' => $data['responsible_firstname']. ' '.$data['responsible_lastname'],
@@ -211,6 +211,9 @@ class AnonimousController extends Controller
             'program_name' => $program->getValue('program_name') ?? ''
         ]);
 
+        // Get current year
+
+
         // Update program cache
         DB::table('program_caches')
         ->insert([
@@ -222,7 +225,8 @@ class AnonimousController extends Controller
             'program_status' => $program->getStatus(),
             'program_status_text' => $program->getStatusText(),
             'program_name' => $program->getValue('program_name'),
-            'ntp_text' => $program->getText('ntp') ?? ''
+            'ntp_text' => $program->getText('ntp') ?? '',
+            'year' => date('Y')
         ]);
 
         // Go to confirmation page.
@@ -423,7 +427,8 @@ class AnonimousController extends Controller
             'program_status' => $program->getStatus(),
             'program_status_text' => $program->getStatusText(),
             'program_name' => $program->getValue('program_name'),
-            'ntp_text' => $program->getText('ntp')
+            'ntp_text' => $program->getText('ntp'),
+            'year' => date('Y', strtotime('+ 1 year', strtotime(now()))),
         ]);
 
         // Go to confirmation page.

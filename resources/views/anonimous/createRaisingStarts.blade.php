@@ -27,7 +27,7 @@
                         Pred vama je prijavni formular za Raising Starts, prvi pre-seed program u Srbiji, koji startap
                         timovima i kompanijama u najranijim fazama razvoja inovativnih proizvoda i usluga donosi
                         sveobuhvatnu stručnu i finansijsku podršku. Program obuhvata intenzivne obuke za razvoj biznisa,
-                        rad 1 na 1 sa mentorima i do 15.000 CHF bespovratno (no equty) za pokrivanje troškova namenjenih
+                        rad 1 na 1 sa mentorima i do 20.000 CHF bespovratno (no equty) za pokrivanje troškova namenjenih
                         izradi prototipa, razvoj biznis modela, istraživanju tržišta, testiranju prvih kupaca, zaštiti
                         intelektualne svojine i ostalih troškova vezanih za razvoj novih proizvoda ili usluga. Više
                         informacija o programu pogledajte na <a href="https://ntpark.rs/raising-starts" target="_blank">website-u</a> .
@@ -43,14 +43,12 @@
                     <p>
                         Molimo vas da pažljivo pročitate pitanja, popunite prijavu, i budete što precizniji u odgovorima
                         kako bi prijava bila adekvatno ocenjena. Nedovoljno popunjene prijave biće slabije ocenjene. Pre
-                        popunjavanja prijavnog obrasca obavezno pročitajte
-                        <a href="https://ntpark.rs/wp-content/uploads/2021/11/Raising-Starts-2021-Javni-poziv.pdf" target="_blank">Javni poziv</a>
-                        i <a href="https://ntpark.rs/wp-content/uploads/2021/11/Raising-Starts-2021-Vodic.pdf" target="_blank">Raising Starts vodič</a>.
+                        popunjavanja prijavnog obrasca obavezno pročitajte Javni poziv i Raising Starts vodič.
                         <span style="color: #e94d0c">Važno! U Prilogu 1 Vodiča (strana 17) pogledajte detaljno uputstvo kojim se definiše faza razvoja
                             startapa u kontekstu ovog Programa.</span>
                     </p>
                     <p>
-                        <strong>Prijave se podnose elektronskim putem do 30.12.2021. u 12:00h u podne.</strong>
+                        Prijave se podnose elektronskim putem do <strong><u>30.12.2021. u 12:00h u podne.</u></strong>
                     </p>
                     <p>
                         Ukoliko imate nekih pitanja slobodno nas kontaktirajte na: <a href="mailto://info@ntpark.rs" target="_blank">info@ntpark.rs</a>

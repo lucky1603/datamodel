@@ -549,6 +549,9 @@ class ProgramController extends Controller
         } else {
             // Create program.
             $data['init_workflow'] = true;
+
+            // It will always be NTP Beograd.
+            $data['ntp'] = 1;
             $program = ProgramFactory::create(Program::$INKUBACIJA_BITF, $data);
 
             // Add it to the profile.
@@ -577,7 +580,8 @@ class ProgramController extends Controller
                     'program_status' => $program->getStatus(),
                     'program_status_text' => $program->getStatusText(),
                     'program_name' => $program->getValue('program_name'),
-                    'ntp_text' => $program->getText('ntp')
+                    'ntp_text' => $program->getText('ntp'),
+                    'year' => date('Y'),
                 ]);
         }
 
@@ -685,7 +689,8 @@ class ProgramController extends Controller
                     'program_status' => $program->getStatus(),
                     'program_status_text' => $program->getStatusText(),
                     'program_name' => $program->getValue('program_name'),
-                    'ntp_text' => $program->getText('ntp')
+                    'ntp_text' => $program->getText('ntp'),
+                    'year' => date('Y', strtotime('+ 1 year', strtotime(now()))),
                 ]);
 
         }

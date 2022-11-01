@@ -77,7 +77,7 @@
         $attribute = $attributes->where('name', 'responsible_email')->first();
         $email = $attribute->getValue() ?? isset($model) ? $model->getAttribute('contact_email')->getValue() : old($attribute->name);
     @endphp
-    <label for="{{ $attribute->name }}" class="col-sm-2 col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
+    <label for="{{ $attribute->name }}" class="attribute-label col-sm-2 col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
     <div class="col-sm-10">
         <input type="email"
                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror"
