@@ -61,7 +61,7 @@
                     @csrf
                     @include('profiles.partials._rstarts', ['mode' => 'anonimous'])
 
-                    <div class="mt-4" style="display: flex">
+                    <div class="mt-4" style="display: flex" id="submitArea">
                         <input
                             type="checkbox"
                             id="gdpr"

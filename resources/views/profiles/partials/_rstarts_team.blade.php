@@ -1,7 +1,7 @@
-<h3 class="text-center attribute-label" style="margin-top: 120px;">{{ \App\AttributeGroup::where('name', 'rstarts_tim')->first()->label }}</h3>
+<h3 class="text-center @if($mode == 'anonimous') attribute-grayed @else attribute-label @endif" style="margin-top: 120px;">{{ \App\AttributeGroup::where('name', 'rstarts_tim')->first()->label }}</h3>
 
 <div class="text-center mt-2 mb-2">
-    <h4 class="attribute-label @if(isset($model)) mandatory-label @endif">Članovi tima </h4>
+    <h4 class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif @if(isset($model)) mandatory-label @endif">Članovi tima </h4>
     <div class="overflow-auto">
         <table class="table-bordered w-100 no-gutters">
             <thead class="bg-dark text-light">
@@ -127,7 +127,7 @@
 </div>
 
 <div class="text-center mt-4 mb-2">
-    <h4 class="attribute-label  @if(isset($model)) mandatory-label @endif">Planirana/postojeća osnivačka struktura startapa</h4>
+    <h4 class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif  @if(isset($model)) mandatory-label @endif">Planirana/postojeća osnivačka struktura startapa</h4>
     <table class="table-bordered w-100">
         <thead class="bg-dark text-light">
         <tr>

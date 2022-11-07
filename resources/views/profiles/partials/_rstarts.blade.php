@@ -55,6 +55,15 @@
 </div>
 
 @include('profiles.partials._rstarts_general_data', ['mode' => $mode])
+
+@if ($mode == 'anonimous')
+    <div class="d-flex align-items-center justify-content-center mt-4">
+        <span class="mr-1 font-weight-bold">Polja ispod su samo informativnog karaketera i nemoguće ih je popuniti u ovom koraku. Aho želite odmah na slanje podataka</span>
+        <a href="#submitArea" class="font-weight-bold">kliknite ovde.</a>
+    </div>
+
+@endif
+
 @include('profiles.partials._rstarts_team', ['mode' => $mode])
 @include('profiles.partials._rstarts_business_model', ['mode' => $mode])
 @include('profiles.partials._rstarts_startup_story', ['mode' => $mode])

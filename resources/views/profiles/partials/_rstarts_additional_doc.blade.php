@@ -1,4 +1,4 @@
-<h3 class="text-center attribute-label" style="margin-top: 120px">Dodatna dokumentacija</h3>
+<h3 class="text-center @if($mode == 'anonimous') attribute-grayed @else attribute-label @endif" style="margin-top: 120px">Dodatna dokumentacija</h3>
 
 <div class="form-group">
     @php

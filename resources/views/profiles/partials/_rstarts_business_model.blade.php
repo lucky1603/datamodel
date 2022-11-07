@@ -1,4 +1,4 @@
-<h3 class="text-center attribute-label" style="margin-top: 120px">Poslovna ideja</h3>
+<h3 class="text-center @if($mode == 'anonimous') attribute-grayed @else attribute-label @endif" style="margin-top: 120px">Poslovna ideja</h3>
 
 <div class="form-group">
     @php
@@ -122,7 +122,7 @@
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
 
-<h5 class="text-center attribute-label mt-4">Vaša inovacija se nalazi u fazi (odaberite jednu opciju za tehnološki i jednu opciju za poslovni razvoj)</h5>
+<h5 class="text-center @if($mode == 'anonimous') attribute-grayed @else attribute-label @endif mt-4">Vaša inovacija se nalazi u fazi (odaberite jednu opciju za tehnološki i jednu opciju za poslovni razvoj)</h5>
 
 <div class="row mb-4">
     <div class="col-lg-6 form-group">

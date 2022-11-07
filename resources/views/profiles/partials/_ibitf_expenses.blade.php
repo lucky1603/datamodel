@@ -1,4 +1,4 @@
-<h3 class="text-center attribute-label mt-4 @if($mode != 'anonimous') mandatory-label @endif">{{ $attributeGroups->where('name', 'ibitf_expenses')->first()->label }}</h3>
+<h3 class="text-center mt-4 @if($mode != 'anonimous') mandatory-label attribute-label @else attribute-grayed @endif">{{ $attributeGroups->where('name', 'ibitf_expenses')->first()->label }}</h3>
 <p>Potrudite se da realno sagledate troškove za naredne 3 godine i prikažite ih u
     priloženoj tabeli. Fiksni (troškovi koji su stalni i ne zavise od obima prodaje
     i proizvodnje) i varijabilni troškovi ( troškovi metarijala i ostali troškovi vezani za proizvodnju i rad).</p>

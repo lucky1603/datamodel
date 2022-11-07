@@ -1,4 +1,4 @@
-<h3 class="text-center attribute-label mt-4">{{ mb_strtoupper(__('Generisanje prihoda'))  }}</h3>
+<h3 class="text-center @if($mode == 'anonimous') attribute-grayed @else attribute-label @endif mt-4">{{ mb_strtoupper(__('Generisanje prihoda'))  }}</h3>
 <p class="@if($mode != 'anonimous') mandatory-label @endif">Obrazložite: Koji je model prihodovanja (prodaja proizvoda, licenci, usluga, članarina ili sl.). Kako ćete generisati
     prihode? Koji izvor finansiranja će podići Vašu kompaniju. Popunite tabelu ispod.</p>
 @php

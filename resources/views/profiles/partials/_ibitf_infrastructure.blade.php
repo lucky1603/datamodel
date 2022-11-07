@@ -1,4 +1,4 @@
-<h3 class="text-center attribute-label mt-4">{{ $attributeGroups->where('name', 'ibitf_infrastructure')->first()->label }}</h3>
+<h3 class="text-center @if($mode == 'anonimous') attribute-grayed @else attribute-label @endif mt-4">{{ $attributeGroups->where('name', 'ibitf_infrastructure')->first()->label }}</h3>
 <p class="text-right font-italic">(odgovarajuće polje označite sa X)</p>
 <table class="w-100 table-bordered">
     <tr>

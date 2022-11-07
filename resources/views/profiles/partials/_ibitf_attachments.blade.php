@@ -1,4 +1,4 @@
-<h3 class="text-center attribute-label mt-4 mb-4">{{ $attributeGroups->where('name', 'ibitf_attachments')->first()->label }}</h3>
+<h3 class="text-center @if($mode == 'anonimous') attribute-grayed @else attribute-label @endif mt-4 mb-4">{{ $attributeGroups->where('name', 'ibitf_attachments')->first()->label }}</h3>
 
 @php
     $attribute = $attributes->where('name', 'resenje_apr_link')->first();

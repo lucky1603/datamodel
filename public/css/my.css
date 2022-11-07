@@ -143,6 +143,10 @@
     color: #afafaf;
 }
 
+.attribute-grayed-title {
+    color: #cecece;
+}
+
 .inbox-widget .inbox-item .inbox-item-img img {
     width: 40px;
     height: 40px;
