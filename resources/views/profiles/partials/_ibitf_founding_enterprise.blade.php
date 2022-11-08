@@ -4,6 +4,7 @@
     <div class="col-sm-4">
         @php
             $attribute = $attributes->where('name', 'founding_company_planned')->first();
+            $value = $attribute->getValue() ?? old($attribute->name);
         @endphp
 
         <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off" @if ($mode == 'anonimous') disabled @endif>
@@ -13,7 +14,7 @@
             type="checkbox"
             id="{{ $attribute->name }}"
             name="{{$attribute->name}}"
-            @if($attribute->getValue()) checked @endif style="padding-top: 10px"
+            @if($value) checked @endif style="padding-top: 10px"
             onclick="
                 if(document.getElementById('{{ $attribute->name }}').checked)
                 {
@@ -26,6 +27,7 @@
     <div class="col-sm-4">
         @php
             $attribute = $attributes->where('name', 'founding_act_prepared')->first();
+            $value = $attribute->getValue() ?? old($attribute->name);
         @endphp
 
         <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off" @if ($mode == 'anonimous') disabled @endif>
@@ -35,7 +37,7 @@
             type="checkbox"
             id="{{ $attribute->name }}"
             name="{{$attribute->name}}"
-            @if($attribute->getValue()) checked @endif style="padding-top: 10px"
+            @if($value) checked @endif style="padding-top: 10px"
             onclick="
                 if(document.getElementById('{{ $attribute->name }}').checked)
                 {
@@ -48,6 +50,7 @@
     <div class="col-sm-4">
         @php
             $attribute = $attributes->where('name', 'founding_act_in_preparation')->first();
+            $value = $attribute->getValue() ?? old($attribute->name);
         @endphp
 
         <input id="{{ $attribute->name }}Hidden" type="hidden" name="{{ $attribute->name }}" value="off" @if ($mode == 'anonimous') disabled @endif>
@@ -57,7 +60,7 @@
             type="checkbox"
             id="{{ $attribute->name }}"
             name="{{$attribute->name}}"
-            @if($attribute->getValue()) checked @endif style="padding-top: 10px"
+            @if($value) checked @endif style="padding-top: 10px"
             onclick="
                 if(document.getElementById('{{ $attribute->name }}').checked)
                 {

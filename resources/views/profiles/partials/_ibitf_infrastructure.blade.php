@@ -7,8 +7,9 @@
         <td class="w-25">
             @php
                 $attribute = $attributes->where('name', 'office_space')->first();
+                $value = $attribute->getValue() ?? old($attribute->name);
             @endphp
-            <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
+            <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if ($mode == 'anonimous') disabled @endif>
         </td>
     </tr>
     <tr>
@@ -16,13 +17,14 @@
         <td class="text-center">
             @php
                 $attribute = $attributes->where('name', 'administrative_services')->first();
+                $value = $attribute->getValue() ?? old($attribute->name);
             @endphp
             <input
                 class="checkbox-aligned"
                 type="checkbox"
                 id="{{ $attribute->name }}"
                 name="{{$attribute->name}}"
-                @if($attribute->getValue()) checked @endif style="padding-top: 10px"
+                @if($value) checked @endif style="padding-top: 10px"
                 onclick="
                     if(document.getElementById('{{ $attribute->name }}').checked)
                     {
@@ -38,13 +40,14 @@
         <td class="text-center">
             @php
                 $attribute = $attributes->where('name', 'bookkeeping_services')->first();
+                $value = $attribute->getValue() ?? old($attribute->name);
             @endphp
             <input
                 class="checkbox-aligned"
                 type="checkbox"
                 id="{{ $attribute->name }}"
                 name="{{$attribute->name}}"
-                @if($attribute->getValue()) checked @endif style="padding-top: 10px"
+                @if($value) checked @endif style="padding-top: 10px"
                 onclick="
                     if(document.getElementById('{{ $attribute->name }}').checked)
                     {
@@ -60,13 +63,14 @@
         <td class="text-center">
             @php
                 $attribute = $attributes->where('name', 'legal_services')->first();
+                $value = $attribute->getValue() ?? old($attribute->name);
             @endphp
             <input
                 class="checkbox-aligned"
                 type="checkbox"
                 id="{{ $attribute->name }}"
                 name="{{$attribute->name}}"
-                @if($attribute->getValue()) checked @endif style="padding-top: 10px"
+                @if($value) checked @endif style="padding-top: 10px"
                 onclick="
                     if(document.getElementById('{{ $attribute->name }}').checked)
                     {
@@ -82,8 +86,9 @@
         <td>
             @php
                 $attribute = $attributes->where('name', 'other_services')->first();
+                $value = $attribute->getValue() ?? old($attribute->name);
             @endphp
-            <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
+            <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if ($mode == 'anonimous') disabled @endif>
         </td>
     </tr>
     <tr>
@@ -92,13 +97,14 @@
         <td class="text-center">
             @php
                 $attribute = $attributes->where('name', 'consulting_services')->first();
+                $value = $attribute->getValue() ?? old($attribute->name);
             @endphp
             <input
                 class="checkbox-aligned"
                 type="checkbox"
                 id="{{ $attribute->name }}"
                 name="{{$attribute->name}}"
-                @if($attribute->getValue()) checked @endif style="padding-top: 10px"
+                @if($value) checked @endif style="padding-top: 10px"
                 onclick="
                     if(document.getElementById('{{ $attribute->name }}').checked)
                     {
@@ -114,8 +120,9 @@
         <td>
             @php
                 $attribute = $attributes->where('name', 'specific_needs')->first();
+                $value = $attribute->getValue() ?? old($attribute->name);
             @endphp
-            <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
+            <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if ($mode == 'anonimous') disabled @endif>
         </td>
     </tr>
     <tr>
@@ -123,13 +130,14 @@
         <td class="text-center">
             @php
                 $attribute = $attributes->where('name', 'promotion_services')->first();
+                $value = $attribute->getValue() ?? old($attribute->name);
             @endphp
             <input
                 class="checkbox-aligned"
                 type="checkbox"
                 id="{{ $attribute->name }}"
                 name="{{$attribute->name}}"
-                @if($attribute->getValue()) checked @endif style="padding-top: 10px"
+                @if($value) checked @endif style="padding-top: 10px"
                 onclick="
                     if(document.getElementById('{{ $attribute->name }}').checked)
                     {
@@ -145,13 +153,14 @@
         <td class="text-center">
             @php
                 $attribute = $attributes->where('name', 'connection_services')->first();
+                $value = $attribute->getValue() ?? old($attribute->name);
             @endphp
             <input
                 class="checkbox-aligned"
                 type="checkbox"
                 id="{{ $attribute->name }}"
                 name="{{$attribute->name}}"
-                @if($attribute->getValue()) checked @endif style="padding-top: 10px"
+                @if($value) checked @endif style="padding-top: 10px"
                 onclick="
                     if(document.getElementById('{{ $attribute->name }}').checked)
                     {

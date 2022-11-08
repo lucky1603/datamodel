@@ -97,17 +97,29 @@ class AnonimousController extends Controller
 
     public function createIncubationBITF() {
         $attributeData = IncubationProgram::getAttributesDefinition();
-
+        if(auth()->user() == null) $mode = 'anonimous'; else $mode = 'loggedin';
         return view(
             'anonimous.createIncubationBITF',
             [
                 'attributes' => $attributeData['attributes'],
-                'attributeGroups' => $attributeData['attributeGroups']
+                'attributeGroups' => $attributeData['attributeGroups'],
+                'mode' => $mode
             ]);
     }
 
     public function storeIncubationBITF(StoreIncubationRequest $request) {
         $data = $request->post();
+
+        // Get the files
+        $fileData = $this->addFileToData($request, 'resenje_fajl');
+        if($fileData != null) {
+            $data['resenje_fajl'] = $fileData;
+        }
+
+        $fileData = $this->addFileToData($request, 'founders_cv');
+        if($fileData != null) {
+            $data['founders_cv'] = $fileData;
+        }
 
         // Always this value. (NTP Beograd)
         $data['ntp'] = 1;
@@ -174,6 +186,26 @@ class AnonimousController extends Controller
             'program_name' => "INCUBATION BITF"
         ]);
         $program->addSituation($situation);
+
+        // Add founders
+        // get the founders
+        $founderCount = count($data['founderName']);
+        if( $founderCount > 0 && $data['founderName'][0] != null) {
+            $foundersData = [];
+            for($i = 0; $i < $founderCount; $i++) {
+                $foundersData[] = [
+                    'founder_name' => $data['founderName'][$i],
+                    'founder_part' => $data['founderPart'][$i],
+                    'founder_university' => $data['founderUniversity'][$i]
+                ];
+
+            }
+
+            $program->updateFounders($foundersData);
+        } else {
+            $program->removeAllFounders();
+        }
+
 
         $profile->setValue('profile_status', 3);
         $program->setStatus(1);
@@ -254,7 +286,8 @@ class AnonimousController extends Controller
 
     public function createRaisingStarts() {
        $attributeData = RaisingStartsProgram::getAttributesDefinition();
-       return view('anonimous.createRaisingStarts', ['attributes' => $attributeData['attributes']]);
+       if(auth()->user() == null) $mode = 'anonimous'; else $mode = 'loggedin';
+       return view('anonimous.createRaisingStarts', ['attributes' => $attributeData['attributes'], 'mode' => $mode]);
         // return view('anonimous.application-closed');
     }
 

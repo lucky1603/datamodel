@@ -24,7 +24,7 @@
                 <form action="{{ route('storeIncubationBITF') }}" method="POST" enctype="multipart/form-data" id="myIncubationBITFForm" class="mt-4 w-100 h-100">
                     @csrf
 
-                    @include('profiles.partials._ibitf', ['mode' => 'anonimous'])
+                    @include('profiles.partials._ibitf', ['mode' => $mode])
 
                     <div class="mt-4" style="display: flex" id="submitArea">
                         <input

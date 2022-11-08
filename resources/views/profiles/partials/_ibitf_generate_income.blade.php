@@ -3,8 +3,9 @@
     prihode? Koji izvor finansiranja će podići Vašu kompaniju. Popunite tabelu ispod.</p>
 @php
     $attribute = $attributes->where('name', 'generating_income')->first();
+    $value = $attribute->getValue() ?? old($attribute->name);
 @endphp
-<textarea class="form-control mb-2" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if ($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() }}</textarea>
+<textarea class="form-control mb-2" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if ($mode == 'anonimous') disabled @endif>{{ $value }}</textarea>
 <table class="w-100">
     <thead class="bg-dark text-light table-bordered text-center">
         <tr>
@@ -22,26 +23,30 @@
             <td>
                 @php
                     $attribute = $attributes->where('name', 'available_assets')->first();
+                    $value = $attribute->getValue() ?? old($attribute->name);
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'needed_assets')->first();
+                    $value = $attribute->getValue() ?? old($attribute->name);
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'own_assets')->first();
+                    $value = $attribute->getValue() ?? old($attribute->name);
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
             <td>
                 @php
                     $attribute = $attributes->where('name', 'credits')->first();
+                    $value = $attribute->getValue() ?? old($attribute->name);
                 @endphp
-                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}" @if ($mode == 'anonimous') disabled @endif>
+                <input class="w-100" type="text" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}" @if ($mode == 'anonimous') disabled @endif>
             </td>
         </tr>
     </tbody>
