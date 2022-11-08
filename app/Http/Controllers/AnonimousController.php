@@ -632,4 +632,20 @@ class AnonimousController extends Controller
 
     }
 
+    private function addFileToData(Request $request, $filename): ?array
+    {
+        $file = $request->file($filename);
+        if($file != null) {
+            $originalFileName = $file->getClientOriginalName();
+            $path = $file->store('documents');
+            $path = asset($path);
+            return [
+                'filename' => $originalFileName,
+                'filelink' => $path
+            ];
+        }
+
+        return null;
+    }
+
 }
