@@ -37,13 +37,16 @@
 </head>
 <body>
     <div id="app">
-        <div style="height: 100px; text-align: center; margin: 50px 250px " >
+
+        <div class="d-flex align-items-center justify-content-center" style="height: 10vh">
             <img src="/images/custom/logo-lat.png" height="100%"/>
         </div>
 
-        <main class="py-4">
+        <div style="height: 90vh">
             @yield('content')
-        </main>
+        </div>
+
+
     </div>
 </body>
 </html>
