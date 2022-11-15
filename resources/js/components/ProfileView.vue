@@ -63,7 +63,6 @@
         :profile_id="profile_id"
         :token="token"
         :active_user_id="active_user_id"
-        class="border border-danger"
       ></profile-users>
     </div>
   </div>
