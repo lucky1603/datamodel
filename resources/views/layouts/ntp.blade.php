@@ -38,11 +38,11 @@
 <body>
     <div id="app">
 
-        <div class="d-flex align-items-center justify-content-center" style="height: 10vh">
-            <img src="/images/custom/logo-lat.png" height="100%"/>
+        <div class="d-flex align-items-center justify-content-center p-4" style="height: 15vh">
+            <img src="/images/custom/logo-lat.png" style="width: 350px"/>
         </div>
 
-        <div style="height: 90vh">
+        <div style="height: 85vh">
             @yield('content')
         </div>
 
