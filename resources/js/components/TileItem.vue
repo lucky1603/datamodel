@@ -1,7 +1,7 @@
 <template>
   <div
     :class="cardClass"
-    style="width: 100px; height: 130px"
+    style="width: 100px; height: 100px"
     role="button"
     @click="tileClicked"
     :title="title"
@@ -12,7 +12,7 @@
       </div>
       <div :class="tileClass">
         <div class="d-flex align-items-top p-1" style="height: 100px">
-          <img :src="imageSource" class="w-100" />
+          <img :src="imageSource" style="width:80px; height: 60px" />
           <img
             v-if="show_alert"
             src="/images/custom/Button-warning-icon.png"

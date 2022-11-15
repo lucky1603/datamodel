@@ -1,34 +1,8 @@
 <template>
   <div class="row">
     <div class="col-lg-3">
-      <!-- <div class="d-flex align-items-center justify-content-center bg-light" style="width: 100%; min-height: 200px">
-            <img :src="profile.logo" class="w-100 ">
-        </div>
-
-        <div class="d-flex bg-light p-2">
-            <img :src="contact.photo" class="rounded-circle" style="height: 48px; width: 48px;">
-            <div class="d-flex flex-column justify-content-center ml-3">
-                <span class="font-weight-bold font-13">{{ contact.name}}</span>
-            </div>
-        </div>
-        <div class="d-flex flex-column align-items-start bg-light shadow py-2">
-            <div class="d-flex mt-2 ml-2" >
-                <i class="uil-envelope mr-2"></i>
-                <span class="attribute-label font-12 flex-wrap">{{ contact.email}}</span>
-            </div>
-
-            <div class="d-flex mt-2 ml-2" >
-                <i class="uil-phone mr-2"></i>
-                <span class="attribute-label font-12 flex-wrap">{{ contact.phone}}</span>
-            </div>
-        </div> -->
       <profile-data :profile_id="profile_id"></profile-data>
-      <profile-users
-        :profile_id="profile_id"
-        :token="token"
-        :active_user_id="active_user_id"
-        class="mt-4"
-      ></profile-users>
+
     </div>
 
     <div class="col-lg-4">
@@ -85,15 +59,12 @@
       </div>
     </div>
     <div class="col-lg-5">
-      <div class="card">
-        <div class="card-header bg-primary text-white">POSLOVNI PODACI KOMPANIJE</div>
-        <div class="card-body">
-          <program-statistics-form
-            :profile_id="profile_id"
-            class="m-0 mt-2"
-          ></program-statistics-form>
-        </div>
-      </div>
+        <profile-users
+        :profile_id="profile_id"
+        :token="token"
+        :active_user_id="active_user_id"
+        class="border border-danger"
+      ></profile-users>
     </div>
   </div>
 </template>

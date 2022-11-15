@@ -46,11 +46,21 @@
                     @csrf
                     <div class="form-group">
                         <label for="email">{{ __('Email address') }}</label>
-                        <input class="form-control" type="email" id="email" name="email" required="" placeholder="{{ __('Enter your email') }}">
+                        <input class="form-control @error('email') is-invalid @enderror" type="email" id="email" name="email" placeholder="{{ __('Enter your email') }}" value="{{ old('email') }}">
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="password">{{ __('Password') }}</label>
-                        <input class="form-control" type="password" required="" id="password" name="password" placeholder="{{ __('Enter your password') }}">
+                        <input class="form-control @error('password') is-invalid @enderror" type="password" id="password" name="password" placeholder="{{ __('Enter your password') }}" value="{{ old('email') }}">
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 {{--                    <div class="form-group mb-3">--}}
 {{--                        <div class="custom-control custom-checkbox">--}}

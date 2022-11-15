@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="card">
+        <div class="card m-0">
             <div class="card-header bg-primary text-white">
                 <span class="float-left">KORISNICI PROFILA</span>
                 <b-button variant="primary" size="sm" class="float-right" @click="showModalAddUser"><i class="uil-user-plus"></i></b-button>

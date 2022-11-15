@@ -38,7 +38,7 @@
 <body>
     <div id="app">
 
-        <div class="d-flex align-items-center justify-content-center p-4" style="height: 15vh">
+        <div class="d-flex align-items-center justify-content-center p-4" style="height: 15vh; background-color: #ebebeb">
             <img src="/images/custom/logo-lat.png" style="width: 350px"/>
         </div>
 
