@@ -24,12 +24,8 @@
                     <p>
                         Na osnovu podataka koje ste naveli kreiran je vaš profil, a na e-mail adresu koju ste uneli poslat je
                         verifikacioni link. Klikom na njega aktivirate profil. Prijavom na svoj profil bićete u mogućnosti da
-                        nastavite sa daljim popunjavanjem prijave za program.
-                    </p>
-
-                    <p class="font-12 mt-4 text-dark">
-                        <strong>Ukoliko ne možete da pronadjete e-mail, proverite i spam folder ili nas kontaktirajte na
-                            <a href="mailto://event@ntpark.rs">event@ntpark.rs</a></strong>
+                        započnete popunjavanje prijave za program Raising Starts. Ukoliko ne možete da pronađete e-mail proverite
+                        i spam folder ili nas kontaktirajte na <a href="mailto://event@ntpark.rs">event@ntpark.rs</a>.
                     </p>
                 @endif
             </div>

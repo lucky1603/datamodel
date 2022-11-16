@@ -15,6 +15,12 @@
                id="{{ $attribute->name }}"
                name="{{ $attribute->name }}"
                value="{{ $value }}" @if(isset($model) && isset($instance_id) && $value != null ) disabled @endif>
+        @if ($key == 'rstarts_address')
+            <div class="text-dark font-12 mt-1">
+                Ukoliko se trenutna adresa startapa razlikuje u odnosu na onu koja je registrovana kod APR-a,
+                moilimo navedite i trenutnu adresu.
+            </div>
+        @endif
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @endif

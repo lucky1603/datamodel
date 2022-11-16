@@ -108,7 +108,8 @@
                         </p>
                         <h3>POMOĆ</h3>
                         <p class="text-dark">
-                            Ove informacije možete ponovo videti izborom tastera "Pomoć".
+                            Detaljnije uputstvo i korake kroz prijavu možete pogledati u VIDEU. Ove informacije možete ponovo videti
+                            izborom tastera "Pomoć".
                         </p>
                     </div>
                     <div class="modal-footer">
