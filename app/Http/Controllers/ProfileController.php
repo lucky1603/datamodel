@@ -86,6 +86,52 @@ class ProfileController extends Controller
         return view('profiles.shownew', ['model' => $profile, /* 'situations' => $situations */]);
     }
 
+    public function getSituations($profileId) {
+        $profile = Profile::find($profileId);
+        if($profile == null) {
+            return [
+                'code' => 1,
+                'message' => 'No profile with that Id'
+            ];
+        }
+
+        $situations = $profile->getSituations()->sortDesc();
+        $situationData = [];
+        foreach($situations as $situation) {
+            $situationItem['name'] = $situation->getValue('name');
+            $situationItem['occured_at'] = $situation->getText('occurred_at');
+            $situationItem['description'] = $situation->getValue('description');
+            $attributes = $situation->getDisplayAttributes();
+            $situationItem['displayAttributes'] = [];
+            foreach($attributes as $attribute) {
+                $situationItem['displayAttributes'][] = [
+                    'name' => $attribute->name,
+                    'label' => $attribute->label,
+                    'type' => $attribute->type,
+                ];
+
+                $lastIndex = count($situationItem['displayAttributes']) - 1;
+                if($attribute->type != 'file') {
+                    $situationItem['displayAttributes'][$lastIndex]['value'] = $attribute->getValue();
+                } else {
+                    $situationItem['displayAttributes'][$lastIndex]['value'] = [
+                        'filelink' => $attribute->getValue()['filelink'],
+                        'filename' => $attribute->getValue()['filename']
+                    ];
+                }
+            }
+
+            $situationData[] = $situationItem;
+        }
+
+        return [
+            'code' => 0,
+            'message' => 'Success!',
+            'value' => $situationData
+        ];
+
+    }
+
     public function create() {
 
         $this->authorize('manage_client_profiles');

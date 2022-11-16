@@ -64,12 +64,15 @@
         :token="token"
         :active_user_id="active_user_id"
       ></profile-users>
+      <activity-flow :profile_id="profile_id" class="mt-2"></activity-flow>
     </div>
   </div>
 </template>
 
 <script>
+import ActivityFlow from './ActivityFlow.vue';
 export default {
+  components: { ActivityFlow },
   name: "ProfileView",
   props: {
     profile_id: { typeof: Number, default: 0 },

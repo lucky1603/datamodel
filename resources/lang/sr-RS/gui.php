@@ -73,6 +73,7 @@ return [
     'mentor_reports' => "Mentorski izveštaji",
     'close' => 'Zatvori',
     'report' => 'Izveštaj',
+    'activities' => 'Aktivnosti',
 
     /*
      * Validation Errors

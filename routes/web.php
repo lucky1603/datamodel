@@ -79,6 +79,7 @@ Route::get('programs/statistics/{program}', 'ProgramController@getStatistics')->
 Route::post('programs/statistics', 'ProgramController@updateStatistics')->name('program.updateStatistics');
 
 Route::get('profiles', 'ProfileController@index')->name('profiles.index');
+Route::get('profiles/situations/{profile}', 'ProfileController@getSituations')->name('profiles.situations');
 Route::post('profiles/setSessionVars', 'ProfileController@setSessionVars')->name('profiles.setSessionVars');
 Route::get('profiles/exportProfiles', 'ProfileController@exportProfiles')->name('profiles.exportProfiles');
 Route::get('profiles/programStatisticsDashboard', 'ProfileController@programStatisticsDashboard')->name('profiles.programStatisticsDashboard');

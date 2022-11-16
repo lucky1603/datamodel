@@ -72,6 +72,7 @@ return [
     'mentor_reports' => "Mentor Reports",
     'close' => 'Close',
     'report' => 'Report',
+    'activities' => 'Activities',
 
     /*
      * Validation Errors
