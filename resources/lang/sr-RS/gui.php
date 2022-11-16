@@ -74,6 +74,7 @@ return [
     'close' => 'Zatvori',
     'report' => 'Izveštaj',
     'activities' => 'Aktivnosti',
+    'myprograms' => 'Moji programi',
 
     /*
      * Validation Errors

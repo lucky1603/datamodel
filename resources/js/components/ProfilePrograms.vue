@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header bg-primary text-white">PROGRAMI NA KOJIMA UČESTVUJE</div>
+        <div class="card-header bg-primary text-white">{{ _('gui.myprograms').toUpperCase() }}</div>
         <div class="card-body d-flex flex-wrap">
             <tile-item
                 v-for="(program, index) in programs"

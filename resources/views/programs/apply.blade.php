@@ -19,7 +19,7 @@
 @section('content')
     <div class="card mb-0" style="height: 100%">
         <div class="card-header bg-dark text-light">
-            <h2 class="text-center">Prijava na <span class="attribute-label">{{ $programName }}</span></h2>
+            <h2 class="text-center">PRIJAVA</h2>
         </div>
         <div class="card-body">
             @php

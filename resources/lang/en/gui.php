@@ -73,6 +73,7 @@ return [
     'close' => 'Close',
     'report' => 'Report',
     'activities' => 'Activities',
+    'myprograms' => 'My Programs',
 
     /*
      * Validation Errors

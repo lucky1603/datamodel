@@ -54,12 +54,12 @@
             </ul>
         </li>
 
-        <li class="side-nav-item" id="navOtherProfiles">
+        {{-- <li class="side-nav-item" id="navOtherProfiles">
             <a href="{{ route('profiles.otherCompanies', ['profile' => $model->getId()]) }}" class="side-nav-link">
                 <i class="uil-bag"></i>
                 <span>{{ mb_strtoupper( __('Other Profiles')) }}</span>
             </a>
-        </li>
+        </li> --}}
     @endif
 @endsection
 
