@@ -17,21 +17,19 @@
     <div class="row" style="height: 600px; margin: auto">
         <div class="col-6 offset-3 h-100" style="display: flex; flex-direction: column; justify-content: center">
             <div class="font-18" style="font-family: 'Roboto Light'; display: flex; flex-direction: column; align-items: center; justify-content: center" >
-                <p>Poštovani,</p>
+                <p class="mb-4">Sjajno!</p>
                 @if (isset($message))
                     {{ $message}}
                 @else
                     <p>
-                        Na osnovu podataka koje ste naveli kreiran je vaš profil, a na e-mail adresu koju ste uneli poslat je
-                        verifikacioni link. Klikom na njega aktivirate profil. Prijavom na svoj profil bićete u mogućnosti da
+                        Na osnovu podataka koje ste naveli kreiran je vaš profil, <strong>a na e-mail adresu koju ste uneli poslat je
+                        verifikacioni link. Klikom na njega aktivirate profil.</strong> Prijavom na svoj profil bićete u mogućnosti da
                         započnete popunjavanje prijave za program Raising Starts. Ukoliko ne možete da pronađete e-mail proverite
                         i spam folder ili nas kontaktirajte na <a href="mailto://event@ntpark.rs">event@ntpark.rs</a>.
                     </p>
                 @endif
             </div>
-            <div class="text-center mt-5">
-                <a type="button" role="button" class="btn btn-primary rounded-pill" href="{{ route("home")}}" >NA PRIJAVU</a>
-            </div>
+
 
 
         </div>

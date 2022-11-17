@@ -71,7 +71,7 @@
 
     <div class="d-flex align-items-center justify-content-center mt-4 mb-4">
         <span class="attribute-label font-14 ">U nastavku se možete informativno upoznati sa pitanjima koja vas čekaju prilikom popunjavanja prijave.
-        Prijavu popunjavate na linku koji dobijate nakon što registrujete svoj profil</span>
+        Prijavu popunjavate na linku koji dobijate nakon što registrujete svoj profil.</span>
     </div>
 
     <div class="row mt-4">
@@ -110,7 +110,7 @@
 @include('profiles.partials._rstarts_startup_story', ['mode' => $mode])
 @include('profiles.partials._rstarts_additional_doc', ['mode' => $mode])
 
-@if ($mode != 'anonimous')
+@if ($mode == 'administrator')
     <div class="mt-4 d-flex align-items-center" id="submitArea">
         <input
             type="checkbox"
