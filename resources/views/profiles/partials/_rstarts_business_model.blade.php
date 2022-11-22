@@ -194,7 +194,7 @@
     @endphp
     <label class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         Ukoliko ste sproveli neko istraživanje na temu intelektualne svojine, mogućnosti zaštite intelektualne
-        svojine ili ukoliko ste zaštitili logotip, patent, mali patent ili slično opišite, sa najviše 50 reči.
+        svojine ili ukoliko ste zaštitili logotip, patent, mali patent ili slično opišite.
         Ukoliko ste zaštitili ili planirate da zaštitite neko pravo intelektualne svojine, navedite ko su
         vlasnici ili ko bi bili vlasnici te intelektualne svojine (max 400 karatera).
     </label>

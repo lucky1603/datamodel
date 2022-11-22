@@ -82,10 +82,6 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h3>GENERALNO</h3>
-                        <p class="text-dark">
-                            Molimo, pročitajte ove informacije kako biste što lakše poslali prijavu.
-                        </p>
                         <h3>VALIDNOST PODATAKA</h3>
                         <p class="text-dark">
                             Popunite prazna polja označena zvezdicom pre pokušaja podnošenja prijave. Na pojedinim poljima

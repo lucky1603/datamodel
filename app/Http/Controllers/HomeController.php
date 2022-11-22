@@ -37,16 +37,16 @@ class HomeController extends Controller
             $instance = auth()->user()->instances->first();
             if(isset($instance) && $instance->entity->name === 'Profile') {
                 $profile = Profile::find($instance->id);
-//                if($program != null && $program->getValue('program_type') == Program::$RAISING_STARTS) {
-//                    $deadline = strtotime('2021-12-30 12:00');
-//                    $now = strtotime(now());
-//                    if($now > $deadline && $program->getStatus() == 1) {
-//                        Auth::logout();
-//                        return redirect(route('expired'));
-//                    }
-//                }
+                $program = $profile->getPrograms()->filter(function($program) {
+                    return $program->getStatus() == 1;
+                })->first();
+
+                if($program != null) {
+                    return redirect(route('programs.profile', ['program' => $program->getId()]));
+                }
 
                 return redirect(route('profiles.show', ['profile' => $profile->getId()]));
+
             }
             else if(isset($instance) && $instance->entity->name === 'Mentor') {
                 $mentor = Mentor::find($instance->id);

@@ -477,7 +477,7 @@ class Profile extends SituationsModel
             case __('Interest'):
                 $data = [
                     'name' => $situationType,
-                    'description' => __('gui-situations.PROFILE-INTEREST'),
+                    // 'description' => __('gui-situations.PROFILE-INTEREST'),
                     'sender' => $this->getAttribute('name')->getValue()
                 ];
 
@@ -485,7 +485,7 @@ class Profile extends SituationsModel
             case __('Mapped'):
                 $data = [
                     'name' => $situationType,
-                    'description' => __('gui-situations.PROFILE-MAPPED'),
+                    // 'description' => __('gui-situations.PROFILE-MAPPED'),
                     'sender' => 'NTP'
                 ];
 
@@ -493,37 +493,37 @@ class Profile extends SituationsModel
             case __('Applying'):
                 $data = [
                     'name' => $situationType,
-                    'description' => __('gui-situations.PROFILE-APPLYING'),
+                    // 'description' => __('gui-situations.PROFILE-APPLYING'),
                     'sender' => $this->getAttribute('name')->getValue()
                 ];
 
                 $situation = new Situation($data);
-                $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
-                $situation->addAttribute(self::selectOrCreateAttribute(['program_name', 'Ime programa', 'varchar', NULL, 2]));
+                // $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
+                // $situation->addAttribute(self::selectOrCreateAttribute(['program_name', 'Ime programa', 'varchar', NULL, 2]));
 
                 break;
 
             case __('Application Sent'):
                 $data = [
                     'name' => $situationType,
-                    'description' => __('gui-situations.PROFILE-APPSENT'),
+                    // 'description' => __('gui-situations.PROFILE-APPSENT'),
                     'sender' => $this->getAttribute('name')->getValue()
                 ];
 
                 $situation = new Situation($data);
-                $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
-                $situation->addAttribute(self::selectOrCreateAttribute(['program_name', 'Ime programa', 'varchar', NULL, 2]));
+                // $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
+                // $situation->addAttribute(self::selectOrCreateAttribute(['program_name', 'Ime programa', 'varchar', NULL, 2]));
                 break;
             case __('Preselection needed'):
                 $data = [
                     'name' => $situationType,
-                    'description' => __('gui-situations.PROFILE-PRESELECTION'),
+                    // 'description' => __('gui-situations.PROFILE-PRESELECTION'),
                     'sender' => 'NTP'
                 ];
 
                 $situation = new Situation($data);
-                $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
-                $situation->addAttribute(self::selectOrCreateAttribute(['program_name', 'Ime programa', 'varchar', NULL, 2]));
+                // $situation->addAttribute(self::selectOrCreateAttribute(['program_type', 'Tip programa', 'integer', NULL, 1]));
+                // $situation->addAttribute(self::selectOrCreateAttribute(['program_name', 'Ime programa', 'varchar', NULL, 2]));
                 break;
             case __('Preselection Done'):
                 $data = [

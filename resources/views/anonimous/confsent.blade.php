@@ -22,9 +22,9 @@
                 </p>
 
             </div>
-            <div class="text-center mt-5">
+            {{-- <div class="text-center mt-5">
                 <a type="button" role="button" class="btn btn-primary rounded-pill" href="https://ntpark.rs" >NA GLAVNU STRANU</a>
-            </div>
+            </div> --}}
 
         </div>
 

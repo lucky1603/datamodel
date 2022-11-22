@@ -549,7 +549,7 @@ class ProfileController extends Controller
             ]);
 
             // Update the profile status.
-            $profile->setData(['profile_status' => 3]);
+            $profile->setData(['profile_status' => 1]);
             $profile->updateState();
 
         }

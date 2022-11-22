@@ -413,7 +413,7 @@ class AnonimousController extends Controller
 
         $program->addSituation($situation);
 
-        $profile->setValue('profile_status', 3);
+        $profile->setValue('profile_status', 1);
         $program->setStatus(1);
         $profile->updateState();
 
