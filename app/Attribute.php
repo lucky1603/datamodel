@@ -156,6 +156,14 @@ class Attribute extends Model
         return $optionValues;
     }
 
+    public function removeOption($option) {
+        foreach($this->attribute_options as $attribute_option) {
+            if($attribute_option->value == $option) {
+                $attribute_option->delete();
+            }
+        }
+    }
+
     /**
      * Adds the single option.
      * @param array $optionProperties

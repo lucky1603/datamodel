@@ -286,7 +286,7 @@ class AnonimousController extends Controller
 
     public function createRaisingStarts() {
        $attributeData = RaisingStartsProgram::getAttributesDefinition();
-       if(auth()->user() == null) $mode = 'anonimous'; else $mode = 'loggedin';
+       if(auth()->user() == null) $mode = 'anonimous'; else $mode = auth()->user()->roles->first()->name;
        return view('anonimous.createRaisingStarts', ['attributes' => $attributeData['attributes'], 'mode' => $mode]);
         // return view('anonimous.application-closed');
     }

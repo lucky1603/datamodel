@@ -69,7 +69,7 @@
                                 @error('memberOtherJob.*')<div class="alert alert-danger">{{ $message }}</div>@enderror
                             </td>
                             <td>
-                                <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
+                                <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon" @if($mode == 'anonimous') disabled @endif/>
                             </td>
                         </tr>
                     @endfor
@@ -80,7 +80,7 @@
                         <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror"  @if($mode == 'anonimous') disabled @endif></textarea></td>
                         <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror"  @if($mode == 'anonimous') disabled @endif></textarea></td>
                         <td>
-                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
+                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon" @if($mode == 'anonimous') disabled @endif/>
                         </td>
                     </tr>
 
@@ -90,7 +90,7 @@
                         <td><textarea name="memberRole[]" rows="4" class="w-100 @error('memberRole.*') is-invalid @enderror"  @if($mode == 'anonimous') disabled @endif></textarea></td>
                         <td><textarea name="memberOtherJob[]" rows="4" class="w-100 @error('memberOtherJob.*') is-invalid @enderror" @if($mode == 'anonimous') disabled @endif></textarea></td>
                         <td>
-                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
+                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon" @if($mode == 'anonimous') disabled @endif/>
                         </td>
                     </tr>
                 @endif
@@ -114,7 +114,7 @@
                             @error('memberOtherJob')<div class="alert alert-danger">{{ $message }}</div>@enderror
                         </td>
                         <td>
-                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon"/>
+                            <img src="/images/custom/Delete-icon.png" role="button" width="16" height="16" class="delete-icon" @if($mode == 'anonimous') disabled @endif/>
                         </td>
                     </tr>
                 @endforeach
@@ -123,7 +123,10 @@
         </table>
     </div>
 
-    <button id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj člana tima" >+</button>
+    @if ($mode != 'anonimous')
+        <button id="btnAddMember" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj člana tima" >+</button>
+    @endif
+
 </div>
 
 <div class="text-center mt-4 mb-2">
@@ -191,8 +194,10 @@
             @endif
         </tbody>
     </table>
+    @if ($mode != 'anonimous')
+        <button id="btnAddFounder" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj osnivača">+</button>
+    @endif
 
-    <button id="btnAddFounder" type="button" class="btn btn-success rounded-circle mt-1" title="Dodaj osnivača" >+</button>
 </div>
 
 <div class="form-group">

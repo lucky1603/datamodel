@@ -39,7 +39,7 @@
                     </p>
                     <p>
                         Da biste započeli i popunili prijavu za učešće na programu, potrebno je najpre da
-                        <a href="{{ route('createRaisingStarts') }}">registrujete svoj profil</a>. Nakon registracije profila
+                        registrujete svoj profil. Nakon registracije profila
                         na mejl koji ste uneli dobićete verifikacioni link koji vas dalje vodi na prijavu.<br />
                         Formular za registrovanje je u nastavku.<br />
                         U nastavku takođe, možete informativno pogledati pitanja koja vas čekaju u samoj prijavi.
@@ -51,7 +51,7 @@
                         pročitajte Javni poziv i vodič kroz Raising Starts program.<br />
                         <span style="color: #ff0000">U Prilogu 1 Vodiča (strana 17) pogledajte detaljno uputstvo kojim se definiše
                         faza razvoja startapa u kontekstu ovog Programa</span>.<br />
-                        Za povratak na Raising Starts landing stranicu klinknite <a href="#">ovde</a>.
+                        Za povratak na Raising Starts landing stranicu klinknite <a href="https://ntpark.rs/raising-starts">ovde</a>.
 
                     </p>
                     <p>
