@@ -36,6 +36,8 @@ class StorePostRequest extends FormRequest
             'rstarts_email' => 'required|email|max:255',
             'rstarts_telephone' => 'required|regex:/0\d{2}\s(\d{3,4})-(\d{3,4})/',
 //            'rstarts_telephone' => 'required|not_regex: /[A-Za-z]+/',
+            'rstarts_short_ino_desc' => 'required|max:300',
+            'rstarts_product_type' => 'in:1,2,3',
             'rstarts_logo' => 'file|mimes:jpg,jpeg,bmp,png,gif',
             'rstarts_team_history' => 'max:1000',
             'rstarts_app_motive' => 'max:1050',

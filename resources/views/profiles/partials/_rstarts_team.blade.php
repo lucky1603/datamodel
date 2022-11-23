@@ -255,6 +255,7 @@
             (Navedite da li ste prethodno kao tim (ili deo članova tima) radili na razvoju
             startap ideje ili ukoliko ste saradjivali u poslovanju ili zajednički radili u okviru iste organizacije.)
         </span>
+        <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 300 karaktera)</span>
     </label>
     <textarea class="form-control @error("rstarts_team_history") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error('rstarts_team_history') <div class="alert alert-danger">{{ $message }}</div>@enderror
@@ -264,7 +265,8 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_app_motive')->first();
     @endphp
-    <label class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Šta vas je motivisalo da se prijavite za ovaj Program? (max 1050 karaktera)</label>
+    <label class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Šta vas je motivisalo da se prijavite za ovaj Program?</label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 300 karaktera)</span>
     <textarea class="form-control @error("rstarts_app_motive") is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error('rstarts_app_motive') <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>

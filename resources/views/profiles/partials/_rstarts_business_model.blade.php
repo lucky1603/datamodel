@@ -5,6 +5,7 @@
         $attribute = $attributes->where('name', 'rstarts_tagline')->first();
     @endphp
     <label class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayes @else char-postfix @endif">(do 80 karaktera)</span>
     <textarea
         class="form-control @error($attribute->name) is-invalid @enderror"
         id="{{$attribute->name}}"
@@ -23,6 +24,7 @@
             Da li ovaj problem postoji globalno? Da li mislite da je ovaj problem težak i opišite zašto.
             Kako ste saznali za taj problem?)</span>
     </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 500 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
@@ -36,6 +38,7 @@
             tog tržišta uz navodjenje izvora koji su korišćeni za prikupljanje tih podataka (primer izvora koji možete koristiti: https://www.statista.com/).
             Koliki prostor vidite za širenje svog biznisa odnosno za geografsku ekspanziju (navesti zemlje širenja tržišta u naredne 2 godine)?) </span>
     </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 500 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
@@ -49,6 +52,7 @@
             motivi, navike, komunikacija, strahovi itd.) Opišite da li ste već ostvarili komunikaciju/sproveli aktivnosti (ankete, intervjui i sl.)
             sa njima. Ukoliko jeste, sa koliko njih i koji su vaši zaključci?) </span>
     </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 500 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
@@ -63,6 +67,7 @@
                 Navedite šta vaš proizvod i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste potrebe kupaca)
  </span>
     </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 800 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
@@ -77,6 +82,7 @@
             kupci trenutno koriste ili druge metode koje primenjuju za rešavanje datog problema))
         </span>
     </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 500 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
@@ -90,6 +96,7 @@
             Šta vaš proizvod  i/ili uslugu čini jedinstvenim u poređenju sa postojećim koji zadovoljavaju iste/slične potrebe kupaca.)
         </span>
     </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 500 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
@@ -118,6 +125,7 @@
     <label class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Obrazložite odabranu opciju (npr. zašto mislite da je
         vaš proizvod potpuno nov na tržištu, značajno poboljšan i drugo):
     </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 500 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
@@ -236,6 +244,7 @@
         $attribute = $attributes->where('name', 'rstarts_business_plan')->first();
     @endphp
     <label class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">Kako vaš startap planira da zaradjuje?</label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 800 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>

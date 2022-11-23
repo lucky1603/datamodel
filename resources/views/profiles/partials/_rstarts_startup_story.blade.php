@@ -13,6 +13,7 @@
             informacije od eksperata, potencijalnih kupaca itd.))
         </span>
     </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 500 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
@@ -73,6 +74,7 @@
     <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         <span class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif">Navedite ukoliko ste ranije učestvovali u nekom mentorskom ili startap programu.</span>
     </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 500 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name) }}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
@@ -92,6 +94,7 @@
             primljenom finansiranju/nagradi.)
         </span>
     </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 500 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
@@ -143,6 +146,7 @@
     <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         <span class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif">Šta očekujete od učešća u ovom Programu? U kom segmentu razvoja startapa smatrate da vam je najpotrebnija podrška?</span>
     </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 500 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>
@@ -154,6 +158,7 @@
     <label class=" @if(isset($model)) mandatory-label @endif" for="{{ $attribute->name }}">
         <span class="@if($mode == 'anonimous') attribute-grayed @else attribute-label @endif">Koliko finansijskih sredstava mislite da vam je potrebno u trenutnoj fazi razvoja i za šta?</span>
     </label>
+    <span class="@if($mode == 'anonimous') char-postfix-grayed @else char-postfix @endif">(do 500 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if($mode == 'anonimous') disabled @endif>{{ $attribute->getValue() ?? old($attribute->name)}}</textarea>
     @error($attribute->name) <div class="alert alert-danger">{{ $message }}</div>@enderror
 </div>

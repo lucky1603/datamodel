@@ -237,7 +237,7 @@
         $attribute = $attributes->where('name', 'rstarts_short_ino_desc')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
-    <label class="attribute-label mandatory-label" for="{{ $attribute->name }}">{!! $attribute->label !!} </label>
+    <label class="attribute-label mandatory-label" for="{{ $attribute->name }}">{!! $attribute->label !!} </label> <span class="char-postfix">(do 300 karaktera)</span>
     <textarea class="form-control @error($attribute->name) is-invalid @enderror mandatory-field"
               id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if(isset($model) && isset($instance_id) && $value != null) disabled @endif>{{ $value }}</textarea>
     @error($attribute->name)

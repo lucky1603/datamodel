@@ -143,6 +143,16 @@
     color: #afafaf;
 }
 
+.char-postfix {
+    font-size: 12;
+    color: #0077bb;
+}
+
+.char-postfix-grayed {
+    font-size: 12;
+    color: #afafaf;
+}
+
 .attribute-grayed-title {
     color: #cecece;
 }
