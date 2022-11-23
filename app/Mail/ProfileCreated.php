@@ -31,6 +31,7 @@ class ProfileCreated extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.profilecreated')->with(['recipient' => $this->profile->getAttribute('contact_person')->getValue()]);
+        return $this->view('emails.profilecreated')
+            ->with(['recipient' => $this->profile->getAttribute('contact_person')->getValue()])->subject(__("Profil je registrovan"));
     }
 }

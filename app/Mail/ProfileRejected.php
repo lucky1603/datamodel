@@ -31,6 +31,6 @@ class ProfileRejected extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.profilerejected')->with(['profile' => $this->profile]);
+        return $this->view('emails.profilerejected')->with(['profile' => $this->profile])->subject(__('Neuspesno kreiranje profila'));
     }
 }
