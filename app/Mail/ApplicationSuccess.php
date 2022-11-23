@@ -33,6 +33,11 @@ class ApplicationSuccess extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.application-success', ['profile' => $this->profile, 'program' => $this->program])->subject(__('Prijava je podneta'));
+        return $this->view('emails.application-success',
+            [
+                'profile' => $this->profile,
+                'program' => $this->program,
+                'recipient' => $this->profile->getAttribute('contact_person')->getValue()
+            ])->subject(__('Prijava je podneta'));
     }
 }
