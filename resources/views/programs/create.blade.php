@@ -25,8 +25,7 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">Inkubacija BITF</h5>
-                            <p class="card-text">Nešto o programu. Nešto o programu. Nešto o programu. Nešto o programu.
-                                Nešto o programu. Nešto o programu. Nešto o programu.</p>
+                            <p class="card-text">Program za startape - svestrana podrška za ubrzan razvoj, pristup investiranju, umrežavanje.</p>
                             @php
                                 $programId = $profile->hasProgram(\App\Business\Program::$INKUBACIJA_BITF);
                             @endphp
@@ -37,7 +36,7 @@
                                 </a>
                             @else
                             <a
-                                href="{{ route('programs.apply', ['program' => \App\Business\Program::$INKUBACIJA_BITF, 'profile' => $profile->getId()]) }}"
+                                {{-- href="{{ route('programs.apply', ['program' => \App\Business\Program::$INKUBACIJA_BITF, 'profile' => $profile->getId()]) }}" --}}
                                 class="btn btn-primary"
                                 >{{ __('gui.Apply-Yourself') }}</a>
                             @endif
@@ -55,9 +54,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">RASTUĆE KOMPANIJE</h5>
-                            <p class="card-text">Nešto o programu. Nešto o programu. Nešto o programu. Nešto o programu.
-                                Nešto o programu. Nešto o programu. Nešto o programu.</p>
-                            <a href="#" class="btn btn-primary">{{ __('gui.Apply-Yourself') }}</a>
+                            <p class="card-text">Podrška kompanijama u zrelijim fazama razvoja - umnrežavanje, pristup talentima, vidljivost i promocija.</p>
+                            <a  class="btn btn-primary">{{ __('gui.Apply-Yourself') }}</a>
                         </div> <!-- end card-body-->
                     </div> <!-- end col -->
                 </div> <!-- end row-->
@@ -74,8 +72,7 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">RAISING STARTS</h5>
-                            <p class="card-text">Nešto o programu. Nešto o programu. Nešto o programu. Nešto o programu.
-                                Nešto o programu. Nešto o programu. Nešto o programu.</p>
+                            <p class="card-text">Pre-seed akcelerator. Stručna podrška i do 20.000 CHF za ubrzan razvoj stratapa u najranijim fazama razvoja.</p>
                             @php
                                 $programId = $profile->hasProgram(\App\Business\Program::$RAISING_STARTS);
                             @endphp
