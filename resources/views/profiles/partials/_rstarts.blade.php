@@ -12,6 +12,11 @@
     @php
         $attribute = $attributes->where('name', 'app_type')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
+        if($value == null) {
+            if(isset($model)) {
+                if($model->getValue('is_company') == false) $value = 1; else $value = 2;
+            }
+        }
     @endphp
     <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
     <div class="col-lg-10">
@@ -33,6 +38,9 @@
     @php
         $attribute = $attributes->where('name', 'ntp')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
+        if($value == null) {
+            if(isset($model)) $value = $model->getValue('ntp');
+        }
     @endphp
     <label for="{{ $attribute->name }}" class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label">Naučno-tehnološki park u kojem aplicirate za Raising Starts program:</label>
     <div class="col-lg-10">

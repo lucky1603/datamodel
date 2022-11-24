@@ -168,6 +168,9 @@
     @php
         $attribute = $attributes->where('name', 'rstarts_webpage')->first();
         $value = $attribute->getValue() ?? old($attribute->name);
+        if($value == null) {
+            if(isset($model)) $value = $model->getValue('profile_webpage');
+        }
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
