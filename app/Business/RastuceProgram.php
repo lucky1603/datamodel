@@ -54,11 +54,11 @@ class RastuceProgram extends Program
     {
         switch($status) {
             case 1:
-                return __('Application');
+                return __('Prijava');
             case 2:
-                return __('Validation');
+                return __('Validacija');
             case 3:
-                return __('Contract');
+                return __('Ugovor');
             default:
                 return parent::getTextForStatus($status);
         }

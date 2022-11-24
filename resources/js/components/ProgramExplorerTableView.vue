@@ -41,6 +41,15 @@
             @change="onSubmit"
           ></b-form-select>
         </b-col>
+        <b-col xl="2" lg="2" style="display: flex; justify-content: left">
+            <b-form-select
+              size="sm"
+              class="m-2 w-100"
+              v-model="form.year"
+              :options="years"
+              @change="onSubmit"
+            ></b-form-select>
+          </b-col>
       </b-row>
     </b-form>
     <b-table
@@ -166,8 +175,10 @@ export default {
       this.programStatuses.push({ value: 0, text: "Po statusu" });
 
       this.programStatuses.push({ value: -1, text: "U PROGRAMU" });
-      this.programStatuses.push({ value: -2, text: "SUSPENDOVAN/ODBIJEN" });
-      this.programStatuses.push({ value: -3, text: "KRAJ PROGRAMA" });
+      this.programStatuses.push({ value: -2, text: "ODBIJEN" });
+      this.programStatuses.push({ value: -3, text: "PREKID" });
+      this.programStatuses.push({ value: -4, text: "KRAJ"});
+      this.programStatuses.push({ value: -5, text: "ODUSTAO"});
 
       switch (this.form.program_type) {
         case 2: // RAISING STARTS
@@ -215,6 +226,7 @@ export default {
         name: "",
         program_type: 0,
         program_status: 0,
+        year: 0,
       },
       programTypes: [
         { value: 0, text: "Po tipu" },
@@ -224,9 +236,16 @@ export default {
       programStatuses: [
         { value: 0, text: "Po statusu" },
         { value: -1, text: "Aktivan" },
-        { value: -2, text: "Suspendovan" },
-        { value: -3, text: "Kraj programa" },
+        { value: -2, text: "Odbijena prijava" },
+        { value: -3, text: "Suspendovan" },
+        { value: -4, text: "Kraj programa"},
+        { value: -5, text: "Odustao"},
         { value: 1, text: "Prijava/Selekcija/Ugovor" },
+      ],
+      years: [
+        { value: 0, text: "Po godini" },
+        { value: 2022, text: "2022" },
+        { value: 2023, text: "2023" }
       ],
       fields: [
         {
@@ -244,6 +263,11 @@ export default {
           label: "Status",
           sortable: true,
         },
+        {
+           key: "year",
+           label: "Godina",
+           sortable: true,
+        }
       ],
     };
   },

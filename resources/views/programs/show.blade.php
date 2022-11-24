@@ -57,7 +57,7 @@
                     </div>
                 @endfor
             </div>
-        @elseif($status == -1)
+        @else
             @php
                 $phaseCount = $workflow->getPhases()->count();
             @endphp
@@ -98,12 +98,13 @@
                     </div>
                 @endfor
             </div>
-        @elseif($status == -2)
+        {{-- @elseif($status == -2)
             <div class="d-flex align-items-center justify-content-center w-100 h-100">
                 <h1 class="display-1">PRIJAVA ODBIJENA</h1>
-            </div>
+            </div> --}}
         @endif
     </div>
+
 @endsection
 
 @section('activities')

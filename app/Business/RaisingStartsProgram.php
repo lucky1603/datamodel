@@ -111,7 +111,7 @@ class RaisingStartsProgram extends Program
             case 1:
                 return "Prijava";
             case 2:
-                return "Evaluacija prijave";
+                return "Evaluacija";
             case 3:
                 return "Faza 1";
             case 4:

@@ -26,6 +26,7 @@ class Program extends SituationsModel
     public static int $PROGRAM_APP_DENIED = -2;
     public static int $PROGRAM_SUSPENDED = -3;
     public static int $PROGRAM_FINISHED = -4;
+    public static int $PROGRAM_APPNOTSENT = -5;
 
 
     public ?Workflow $workflow = null;
@@ -861,11 +862,15 @@ class Program extends SituationsModel
             case -1:
                 return "U PROGRAMU";
             case -2:
-                return "Odbijena prijava";
+                return "Odbijen";
             case -3:
-                return "Prekid programa";
+                return "Prekid";
+            case -4:
+                return "Završetak";
+            case -5:
+                return "Odustao";
             default:
-                return "Kraj programa";
+                return "Nedefinisano";
         }
     }
 
@@ -875,6 +880,9 @@ class Program extends SituationsModel
         Program::find()->each(function($program) {
             if($program == null)
                 return true;
+
+            $program->initWorkflow();
+
             $profile = $program->getProfile();
             if($profile == null)
                 return true;
@@ -895,8 +903,21 @@ class Program extends SituationsModel
 
                 if($contract != null) {
                     $contract_date = $contract->getValue('signed_at');
-                    $year = date("Y", strtotime($contract_date));
+                    if($contract_date != '') {
+                        $year = date("Y", strtotime($contract_date));
+                    } else {
+                        $year = date('Y', strtotime($program->instance->created_at));
+                        $year += 1;
+                    }
+
+                } else {
+                    $year = date('Y', strtotime($program->instance->created_at));
+                    $year += 1;
                 }
+            }
+            else {
+                $year = date('Y', strtotime($program->instance->created_at));
+                $year += 1;
             }
 
             DB::table('program_caches')->insert([
@@ -917,6 +938,29 @@ class Program extends SituationsModel
                 'membership_type' => $profile->getValue('membership_type') ?? 0
             ]);
         });
+    }
+
+    public static function closeUnsentForms() {
+        Program::find()->filter(function($program) {
+            $created = $program->instance->created_at;
+            $createdYear = date("Y", strtotime($created));
+            $currentYear = date("Y", strtotime(now()));
+            return ( $program->getStatus() == 1 && ($createdYear != $currentYear));
+      })->map(function($program) {
+        $program->setStatus(-5);
+        $situation = new Situation([
+            'name' => 'Istekao rok',
+            'description' => 'Rok za slanje prijave je istekao',
+            'sender' => 'NTP'
+        ]);
+
+        $program->addSituation($situation);
+
+        $profile = $program->getProfile();
+        if($profile != null) {
+            $profile->addSituation($situation);
+        }
+      });
     }
 
     public static function migrateToNewModel()

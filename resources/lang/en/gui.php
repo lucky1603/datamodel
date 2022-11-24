@@ -74,6 +74,7 @@ return [
     'report' => 'Report',
     'activities' => 'Activities',
     'myprograms' => 'My Programs',
+    'nostartedprograms' => "No started programs yet",
 
     /*
      * Validation Errors

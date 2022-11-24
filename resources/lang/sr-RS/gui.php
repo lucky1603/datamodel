@@ -75,6 +75,7 @@ return [
     'report' => 'Izveštaj',
     'activities' => 'Aktivnosti',
     'myprograms' => 'Moji programi',
+    'nostartedprograms' => "Nema još uvek započetih programa",
 
     /*
      * Validation Errors

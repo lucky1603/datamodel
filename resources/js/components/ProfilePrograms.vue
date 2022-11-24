@@ -12,6 +12,9 @@
                 alert_title="Vreme za slanje izveštaja"
                 :id="program.id" class="mr-2 bg-secondary" @tile-clicked="tileClicked"></tile-item>
         </div>
+        <div v-if="programs.length == 0" class="d-flex align-items-center justify-content-center" style="height: 150px">
+            <h3 class="text-center attribute-gray">{{ _('gui.nostartedprograms').toUpperCase() }}</h3>
+        </div>
     </div>
 </template>
 
@@ -35,6 +38,11 @@ export default {
                 console.log(response.data);
                 this.programs.length = 0;
                 for(let program in response.data) {
+                    let programEntry = response.data[program];
+                    if(programEntry.status == -5 && this.user_type == 'profile' ) {
+                        continue;
+                    }
+
                     this.programs.push(response.data[program]);
                 }
             });

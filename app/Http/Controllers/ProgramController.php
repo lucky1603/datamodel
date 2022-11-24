@@ -494,6 +494,13 @@ class ProgramController extends Controller
             Session::put('program_status', $data['program_status']);
         }
 
+        if($data['year'] == 0) {
+            unset($data['year']);
+            Session::forget('year');
+        } else {
+            Session::put('year', $data['year']);
+        }
+
         if(count($data) == 0)
             $data = [];
 
@@ -513,6 +520,7 @@ class ProgramController extends Controller
                     public $logo;
                     public $status;
                     public $statusText;
+                    public $year;
 
                     public function __construct($program)
                     {
@@ -523,6 +531,7 @@ class ProgramController extends Controller
                         $this->logo = $program->profile_logo;
                         $this->status = $program->program_status;
                         $this->statusText = $program->program_status_text;
+                        $this->year = $program->year;
                     }
                 };
             });
