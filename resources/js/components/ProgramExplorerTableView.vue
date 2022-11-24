@@ -226,7 +226,7 @@ export default {
         name: "",
         program_type: 0,
         program_status: 0,
-        year: 0,
+        year: 2023,
       },
       programTypes: [
         { value: 0, text: "Po tipu" },
