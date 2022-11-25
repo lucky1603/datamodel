@@ -14,7 +14,7 @@
             <a href="https://platforma.ntpark.rs/login" target="_blank">https://platforma.ntpark.rs/login</a>
         </p>
         <p>Prijavu možete popunjavati iz više puta i čuvati na svom profilu pre finalnog podnošenja. Detaljnije uputstvo i korake
-            kroz prijavu možete pogledati u <a href="#">VIDEU</a>.</p>
+            kroz prijavu možete pogledati u <a href="https://youtu.be/aSlGzOPbAIo">VIDEU</a>.</p>
         <p>Srećno!</p>
         <p>Raising Starts tim</p>
     </div>
