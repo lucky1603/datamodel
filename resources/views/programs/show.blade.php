@@ -105,6 +105,15 @@
         @endif
     </div>
 
+    @if ($program->getStatus() == 2)
+        <div class="d-flex align-items-center justify-content-center">
+            <button type="button" class="btn btn-small btn-success" id="buttonBackToForm" style="width: 150px">
+                <span id="button_backstatus_spinner" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" hidden></span>
+                <span id="button_backstatus_text">{{ __('Vrati status') }}</span>
+            </button>
+        </div>
+    @endif
+
 @endsection
 
 @section('activities')
@@ -153,6 +162,21 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
+
+            // Back status to form
+            $('#buttonBackToForm').click(function() {
+                $('#button_backstatus_spinner').attr('hidden', false);
+                let data = new FormData();
+                data.append('_token', "<?= csrf_token() ?>");
+                data.append('program_id', "<?= $program->getId() ?>");
+                axios.post('/programs/backToForm', data)
+                .then(response => {
+                    $('#button_backstatus_spinner').attr('hidden', true);
+                    console.log(response.data);
+                    location.reload();
+                });
+            });
+
             // A P P   E V A L U A T I O N
             $('#btnSaveDecision').click(function() {
                 let id = $('#id').val();

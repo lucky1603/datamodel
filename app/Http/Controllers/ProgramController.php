@@ -342,6 +342,12 @@ class ProgramController extends Controller
             ]);
         $program->addSituation($situation);
         $program->setStatus(2);
+        DB::table('program_caches')->where('program_id', $program->getId())->update(
+            [
+                'program_status' => $program->getStatus(),
+                'program_status_text' => $program->getStatusText()
+            ]
+        );
 
         // Send confirmation mail.
         $email = $profile->getValue('contact_email');
@@ -356,6 +362,43 @@ class ProgramController extends Controller
             'message' => "Prijava uspešno popunjena i poslata! Sačekajte da budete preusmereni."
         ]);
 
+    }
+
+    public function backToForm(Request $request) {
+        $programId = $request->post('program_id');
+        $program = Program::find($programId);
+        if($program != null) {
+            $program->setStatus(1);
+            DB::table('program_caches')->where('program_id', $program->getId())->update(
+                [
+                    'program_status' => $program->getStatus(),
+                    'program_status_text' => $program->getStatusText()
+                ]
+            );
+
+
+            $profile = $program->getProfile();
+            if($profile != null) {
+                $situation = new Situation([
+                    'name' => 'VRACEN STATUS',
+                    'description' => 'Vraćen je status kako bi klijent mogao da dopuni podatke.',
+                    'sender' => 'NTP'
+                ]);
+
+                $profile->addSituation($situation);
+                $program->addSituation($situation);
+            }
+
+            return [
+                'code' => 0,
+                'message' => 'Success!'
+            ];
+        }
+
+        return [
+            'code' => 1,
+            'message' => __('Nema programa sa tim id-jem!')
+        ];
     }
 
     private function checkRaisingStartsProgramData(RaisingStartsProgram $program): array

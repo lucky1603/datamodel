@@ -77,6 +77,7 @@ Route::get('universities','AnonimousController@universities')->name('universitie
 
 Route::get('programs/statistics/{program}', 'ProgramController@getStatistics')->name('program.getStatistics');
 Route::post('programs/statistics', 'ProgramController@updateStatistics')->name('program.updateStatistics');
+Route::post('programs/backToForm', 'ProgramController@backToForm')->name('programs.backToForm');
 
 Route::get('profiles', 'ProfileController@index')->name('profiles.index');
 Route::get('profiles/situations/{profile}', 'ProfileController@getSituations')->name('profiles.situations');
