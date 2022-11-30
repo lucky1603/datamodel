@@ -87,6 +87,7 @@ export default {
   props: {
     program_type: { typeof: Number, default: 0 },
     token: { typeof: String, default: "" },
+    year: { typeof: Number, default: 0}
   },
   data() {
     return {
@@ -107,11 +108,8 @@ export default {
   },
 
   async mounted() {
-    let test = _("gui.startups");
-    console.log("here comes ...");
-    console.log(test);
-    console.log(window.i18n);
     await this.getData();
+    Dispecer.$on('refresh-components', this.refresh);
   },
 
   methods: {
@@ -119,13 +117,15 @@ export default {
       let formData = new FormData();
       formData.append("program_type", this.program_type);
       formData.append("_token", this.token);
+      formData.append('year', this.year);
+
       await axios.post("/analytics/startupTypes", formData).then((response) => {
         this.startupCount = response.data.startupCount;
         this.companiesCount = response.data.companyCount;
       });
 
       await axios
-        .get("/analytics/programStatuses/" + this.program_type)
+        .post("/analytics/programStatuses", formData)
         .then((response) => {
           this.applied = response.data.applied;
           this.total = response.data.total;
@@ -141,7 +141,7 @@ export default {
           this.sessions = response.data.sessions;
         });
 
-      await axios.get("/analytics/ntp/" + this.program_type).then((response) => {
+      await axios.post("/analytics/ntp", formData).then((response) => {
         console.log("Chart data");
         console.log(response.data);
         this.chartValues.length = 0;
@@ -153,6 +153,9 @@ export default {
         }
       });
     },
+    async refresh() {
+        await this.getData();
+    }
   },
 };
 </script>

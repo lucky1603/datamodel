@@ -23,16 +23,17 @@ Route::get('/', 'HomeController@root');
 Auth::routes();
 
 Route::get('analytics/raisingStartsDashboard', 'AnalyticsController@raisingStartsDashboard')->name('analytics.RsDashboard');
-Route::get('analytics/ntp/{program_type}', 'AnalyticsController@ntp')->name('analytics.ntp');
 Route::get('analytics/getProfileStatisticsSummary', 'AnalyticsController@getProfileStatisticsSummary')->name('analytics.getProfileStatisticsSummary');
 Route::post('analytics/startupTypes', 'AnalyticsController@startupTypes')->name('analytics.startupTypes');
 Route::get('analytics/howDidUHear', 'AnalyticsController@howDidUHear')->name('analytics.howDidUHear');
+Route::get('analytics/howDidUHear1/{year}', 'AnalyticsController@howDidUHear1')->name('analytics.howDidUHear1');
 Route::get('analytics/splitInterest', 'AnalyticsController@splitInterest')->name('analytics.splitInterest');
 Route::get('analytics/countries', 'AnalyticsController@getCountries')->name('analytics.countries');
 Route::post('analytics/countryNames', 'AnalyticsController@getCountryNames')->name('analytics.countryNames');
 Route::post('analytics/workshopAndSessionStats', 'AnalyticsController@getWorkshopAndSessionStats')->name('analytics.workshopAndSessionStats');
-Route::get('analytics/splitOptions/{attributeName}', 'AnalyticsController@splitOptions')->name('analytics.splitOptions');
-Route::get('analytics/programStatuses/{programType}', 'AnalyticsController@programStatuses')->name('analytics.programStatuses');
+Route::get('analytics/splitOptions/{attributeName}/{year}', 'AnalyticsController@splitOptions')->name('analytics.splitOptions');
+Route::post('analytics/programStatuses', 'AnalyticsController@programStatuses')->name('analytics.programStatuses');
+Route::post('analytics/ntp', 'AnalyticsController@ntp')->name('analytics.ntp');
 
 
 Route::get('/edituser', 'Auth\EditUserController@index')->name('users');

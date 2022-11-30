@@ -484,6 +484,32 @@ class RaisingStartsProgram extends Program
             $productType = $program->getValue("rstarts_product_type") ?? 0;
             $productTypeText = $program->getText("rstarts_product_type") ?? __("Not Selected");
 
+            $year = 1996;
+            $workflow = $program->getWorkflow();
+            if($workflow != null) {
+                $contract = $program->getWorkflow()->getPhases()->filter(function($phase) {
+                    return $phase instanceof Contract;
+                })->first();
+
+                if($contract != null) {
+                    $contract_date = $contract->getValue('signed_at');
+                    if($contract_date != '') {
+                        $year = date("Y", strtotime($contract_date));
+                    } else {
+                        $year = date('Y', strtotime($program->instance->created_at));
+                        $year += 1;
+                    }
+
+                } else {
+                    $year = date('Y', strtotime($program->instance->created_at));
+                    $year += 1;
+                }
+            }
+            else {
+                $year = date('Y', strtotime($program->instance->created_at));
+                $year += 1;
+            }
+
             DB::table('raising_starts_caches')->insert([
                 'profile_id' => $profileId,
                 'how_innovative' => $howInnovative,
@@ -497,7 +523,8 @@ class RaisingStartsProgram extends Program
                 'intellectual_property' => $intellectualProperty,
                 'intellectual_property_text' => $intellectualPropertyText,
                 'product_type' => $productType,
-                'product_type_text' => $productTypeText
+                'product_type_text' => $productTypeText,
+                'year' => $year,
             ]);
         });
 

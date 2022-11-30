@@ -24,13 +24,26 @@ class AnalyticsController extends Controller
      * Raspodela programa po NTP.
      * @return array
      */
-    public function ntp($program_type = 0): array
+    public function ntp(Request $request): array
     {
+        $program_type = $request->post('program_type');
+        $year = $request->post('year');
+
         $query = DB::table('program_caches')
             ->selectRaw("ntp_text as ntp, COUNT(ntp) as count")
             ->groupBy(["ntp", "ntp_text"]);
+
+        $queryData = [];
         if($program_type != 0) {
-            $query = $query->where('program_type', $program_type);
+            $queryData['program_type'] = $program_type;
+        }
+
+        if($year != 0) {
+            $queryData['year'] = $year;
+        }
+
+        if(count($queryData) > 0) {
+            $query = $query->where($queryData);
         }
 
         return $query->get()->toArray();
@@ -48,18 +61,29 @@ class AnalyticsController extends Controller
             $program_type = $request->post('program_type');
         }
 
+        $year = $request->post('year');
+
         $query = DB::table("program_caches")
             ->selectRaw("profile_type, COUNT(profile_type) as count")
             ->groupBy(["profile_type"]);
 
+        $queryData = [];
         if($program_type != 0) {
-            $query = $query->where('program_type', $program_type);
+            $queryData['program_type'] = $program_type;
+        }
+
+        if($year != 0) {
+            $queryData['year'] = $year;
+        }
+
+        if(count($queryData) > 0) {
+            $query = $query->where($queryData);
         }
 
         $appliedGroups = $query->get();
 
-        $startapi = $appliedGroups[0]->count;
-        $kompanije = $appliedGroups[1]->count;
+        $startapi = count($appliedGroups) > 0 ? $appliedGroups[0]->count : 0;
+        $kompanije = count($appliedGroups) > 0 ? $appliedGroups[1]->count : 0;
 
         return [
             'startupCount' => $startapi,
@@ -98,18 +122,45 @@ class AnalyticsController extends Controller
         ];
     }
 
+    public function howDidUHear1(Request $request) {
+        $year = $request->post('year');
+
+        $query = DB::table('raising_starts_caches')
+            ->selectRaw('howdiduhear_text as text, count(howdiduhear) as count')
+            ->groupBy(['howdiduhear_text'])
+            ->where('year', $year);
+
+        $rows = $query->get();
+        $total = 0;
+        foreach($rows as $row) {
+            $total += $row->count;
+        }
+
+        return [
+            "items" => $rows,
+            "total" => $total,
+        ];
+    }
+
     public function splitBusinessBranch() {
 
     }
 
-    public function programStatuses($programType): array
+    public function programStatuses(Request $request): array
     {
+        $programType = $request->post('program_type');
+        $year = $request->post('year');
+
         $query = DB::table('program_caches')
             ->selectRaw('program_status as id, program_status_text as name, COUNT(program_status) as count')
             ->groupBy(['program_status', 'program_status_text']);
 
         if($programType != 0) {
             $query = $query->where('program_type', $programType);
+        }
+
+        if($year != 0) {
+            $query = $query->where('year', $year);
         }
 
         $programStatuses = $query->get();
@@ -149,14 +200,19 @@ class AnalyticsController extends Controller
         return $result['items'];
     }
 
-    public function splitOptions($attributeName): array
+    public function splitOptions($attributeName, $year): array
     {
         $selectString = $attributeName.'_text as text, COUNT('. $attributeName.") as count";
 
-        $rows = DB::table('raising_starts_caches')
+        $query = DB::table('raising_starts_caches')
             ->selectRaw($selectString)
-            ->groupBy([$attributeName, $attributeName.'_text'])
-            ->get();
+            ->groupBy([$attributeName, $attributeName.'_text']);
+
+        if($year != 0) {
+            $query = $query->where('year', $year);
+        }
+
+        $rows = $query->get();
 
         $items = [];
         $total = 0;
@@ -176,22 +232,29 @@ class AnalyticsController extends Controller
 
     public function getWorkshopAndSessionStats(Request $request): array
     {
-        $program_type = 0;
-        if($request->post('program_type') !== null) {
-            $program_type = $request->post('program_type');
+        $program_type = $request->post('program_type');
+        $year = $request->post('year');
+        $query = DB::table('program_caches')->selectRaw("SUM(session_count) as sessions, SUM(workshop_count) as workshops");
+
+        $queryData = [];
+        if($program_type != 0) {
+            $queryData['program_type'] = $program_type;
         }
 
-        $query = DB::table('program_caches')->selectRaw("SUM(session_count) as sessions, SUM(workshop_count) as workshops");
-        if($program_type != 0) {
-            $query = $query->where('program_type', $program_type);
+        if($year != 0) {
+            $queryData['year'] = $year;
+        }
+
+        if(count($queryData) > 0) {
+            $query = $query->where($queryData);
         }
 
         $counts = $query->get()->first();
+        $workshops = Training::getForYearAndType($year, 1 /* workshop */)->count();
 
-
-        $workshops = Training::find()->filter(function($training) use($program_type){
-            return $training->getValue('program_type') == $program_type && $training->getValue('training_type') == 1;
-        })->count();
+        // $workshops = Training::find()->filter(function($training) use($program_type){
+        //     return $training->getValue('program_type') == $program_type && $training->getValue('training_type') == 1;
+        // })->count();
 
         return [
             'workshops' => $workshops,

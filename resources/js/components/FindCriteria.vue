@@ -24,14 +24,15 @@ export default {
         title: { typeof: String, default: 'Title'},
         source: { typeof: String, default: '/analytics/howDidUHear'},
         input_items: { typeof: Array, default: []},
-        item_count: { typeof: Number, default: 0 }
+        item_count: { typeof: Number, default: 0 },
+        year: { typeof: Number, default: 2023 }
     },
     computed: {
 
     },
     methods: {
         async getData() {
-            await axios.get(this.source)
+            await axios.get(this.source + '/' + this.year)
                 .then(response => {
                     this.items = response.data.items;
                     this.total = response.data.total;
@@ -55,6 +56,7 @@ export default {
     async mounted() {
         if( this.source != '') {
             await this.getData();
+            Dispecer.$on('refresh-components', this.getData);
         } else {
             setTimeout(() => {
                 this.total = this.item_count;
@@ -67,9 +69,6 @@ export default {
             }, 1000);
 
         }
-
-
-
 
 
 

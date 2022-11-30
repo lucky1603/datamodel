@@ -222,5 +222,12 @@ class Training extends BusinessModel
         });
     }
 
+    public static function getForYearAndType($year, $type) {
+        return Training::find()->filter(function($training) use($year, $type) {
+            $trainingYear = date("Y", strtotime($training->getValue('training_start_date')));
+            return $trainingYear == $year && $training->getValue('training_type') == $type;
+        });
+    }
+
 
 }

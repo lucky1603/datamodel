@@ -138,5 +138,12 @@ class Session extends SituationsModel
         return $attributes;
     }
 
+    public static function getForYear($year) {
+        return Session::find()->filter(function($session) use($year) {
+            $sessionYear = date("Y", strtotime($session->getValue('session_start_date')));
+            return $sessionYear == $year;
+        });
+    }
+
 
 }

@@ -874,6 +874,36 @@ class Program extends SituationsModel
         }
     }
 
+    public function getYear() {
+        $year = 0;
+        $workflow = $this->getWorkflow();
+        if($workflow != null) {
+            $contract = $this->getWorkflow()->getPhases()->filter(function($phase) {
+                return $phase instanceof Contract;
+            })->first();
+
+            if($contract != null) {
+                $contract_date = $contract->getValue('signed_at');
+                if($contract_date != '') {
+                    $year = date("Y", strtotime($contract_date));
+                } else {
+                    $year = date('Y', strtotime($this->instance->created_at));
+                    $year += 1;
+                }
+
+            } else {
+                $year = date('Y', strtotime($this->instance->created_at));
+                $year += 1;
+            }
+        }
+        else {
+            $year = date('Y', strtotime($this->instance->created_at));
+            $year += 1;
+        }
+
+        return $year;
+    }
+
     public static function makeCache() {
         DB::table('program_caches')->delete();
 
@@ -962,6 +992,8 @@ class Program extends SituationsModel
         }
       });
     }
+
+
 
     public static function migrateToNewModel()
     {

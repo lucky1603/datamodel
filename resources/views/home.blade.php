@@ -18,7 +18,11 @@
 @endsection
 
 @section('content')
-    <raising-starts-dashboard token="{{ csrf_token() }}" :program_type="2"></raising-starts-dashboard>
+    <div id="apa11">
+        <raising-starts-dashboard token="{{ csrf_token() }}" :program_type="2" :year="2022"></raising-starts-dashboard>
+    </div>
 @endsection
+
+
 
 

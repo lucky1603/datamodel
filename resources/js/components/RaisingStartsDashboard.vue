@@ -1,7 +1,14 @@
 <template>
   <div>
-    <basic-dashboard :program_type="program_type" :token="token"></basic-dashboard>
-    <div class="d-flex flex-wrap">
+    <div class="d-flex align-items-center justify-content-center w-100">
+
+        <div class="d-flex flex-row w-25 my-1 mx-2">
+            <label style="width: 100px; padding: 7px">Godina: </label>
+            <b-form-select v-model="year" :options="years" @change="selectionChanged"></b-form-select>
+        </div>
+    </div>
+    <basic-dashboard :program_type="program_type" :token="token" :year="year"></basic-dashboard>
+    <div v-if="program_type == 2" class="d-flex flex-wrap">
       <h5 class="mr-2 mt-0 pt-0 attribute-label">
         {{ _("gui.rs_dashboard_additional_statistics") }}
       </h5>
@@ -61,13 +68,14 @@
         </b-form-checkbox>
       </div>
     </div>
-    <div class="d-flex flex-wrap mt-2 mx-0 p-0">
+    <div v-if="program_type == 2" class="d-flex flex-wrap mt-2 mx-0 p-0">
       <find-criteria
         v-if="bInnovation"
         :title="_('gui.rs_dashboard_innovation_text')"
         source="/analytics/splitOptions/how_innovative"
         class="mr-3"
         style="max-width: 335px"
+        :year="year"
       >
       </find-criteria>
       <find-criteria
@@ -76,6 +84,7 @@
         source="/analytics/splitOptions/dev_phase_tech"
         class="mr-3"
         style="max-width: 335px"
+        :year="year"
       >
       </find-criteria>
       <find-criteria
@@ -84,6 +93,7 @@
         source="/analytics/splitOptions/dev_phase_business"
         class="mr-3"
         style="max-width: 335px"
+        :year="year"
       >
       </find-criteria>
       <find-criteria
@@ -92,6 +102,7 @@
         source="/analytics/splitOptions/howdiduhear"
         class="mr-3"
         style="max-width: 335px"
+        :year="year"
       ></find-criteria>
       <find-criteria
         v-if="bIntellectualProperty"
@@ -99,6 +110,7 @@
         source="/analytics/splitOptions/intellectual_property"
         class="mr-3"
         style="max-width: 335px"
+        :year="year"
       >
       </find-criteria>
       <find-criteria
@@ -107,6 +119,7 @@
         source="/analytics/splitOptions/how_innovative"
         class="mr-3"
         style="max-width: 335px"
+        :year="year"
       >
       </find-criteria>
       <find-criteria
@@ -115,6 +128,7 @@
         source="/analytics/splitOptions/product_type"
         class="mr-3"
         style="max-width: 335px"
+        :year="year"
       >
       </find-criteria>
     </div>
@@ -127,10 +141,13 @@ export default {
   components: { BasicDashboard },
   name: "RaisingStartsDashboard",
   props: {
-    program_type: { typeof: Number, default: 0 },
     token: { typeof: String, default: "" },
   },
-  methods: {},
+  methods: {
+    selectionChanged() {
+        Dispecer.$emit('refresh-components');
+    }
+  },
   async mounted() {},
   data() {
     return {
@@ -141,6 +158,18 @@ export default {
       bIntellectualProperty: false,
       bBusinessBranch: false,
       bProductType: false,
+      year: 2023,
+      years: [
+        { value: 0, text: 'SVE'},
+        { value: 2022, text: '2022'},
+        { value: 2023, text: '2023'}
+      ],
+      program_type: 2,
+      programTypes: [
+        { value: 2, text: 'RAISING STARTS' },
+        { value: 5, text: 'INCUBATION BITF' },
+        { value: 4, text: 'GROWING COMPANIES'}
+      ]
     };
   },
 };

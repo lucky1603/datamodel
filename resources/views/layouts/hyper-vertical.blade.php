@@ -65,7 +65,7 @@
     <!-- End Google Tag Manager (noscript) -->
 
 <!-- Begin page -->
-<div class="wrapper">
+<div id="app12" class="wrapper">
     <!-- ========== Left Sidebar Start ========== -->
     <div class="left-side-menu">
 
@@ -116,7 +116,7 @@
     <!-- ============================================================== -->
 
     <div class="content-page frame-padding">
-        <div class="content" >
+        <div id="content" class="content" >
             <!-- Topbar Start -->
             <div class="navbar-custom frame-padding">
                 @yield('page-header')
