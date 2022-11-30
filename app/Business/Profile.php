@@ -705,7 +705,7 @@ class Profile extends SituationsModel
         $programIds = $this->getPrograms()->map(function($program) {
             return $program->getId();
         });
-        DB::table('program_caches')->where('program_id', 'in', $programIds)->delete();
+        DB::table('program_caches')->whereIn('program_id', $programIds)->delete();
 
         // Delete.
         parent::delete();
