@@ -460,13 +460,15 @@ class AnonimousController extends Controller
         DB::table('program_caches')
         ->insert([
             'program_id' => $program->getId(),
+            'program_name' => $program->getValue('program_name'),
             'program_type' => $program->getValue('program_type'),
             'program_type_text' => $program->getValue('program_name'),
             'profile_name' => $profile->getValue('name'),
             'profile_logo' => $profile->getValue('profile_logo') != null ? $profile->getValue('profile_logo')['filelink'] : asset('/images/custom/nophoto2.png'),
+            'profile_type' => $profile->getValue('is_company') ? 1 : 0,
             'program_status' => $program->getStatus(),
             'program_status_text' => $program->getStatusText(),
-            'program_name' => $program->getValue('program_name'),
+            'ntp' => $program->getValue('ntp'),
             'ntp_text' => $program->getText('ntp'),
             'year' => date('Y', strtotime('+ 1 year', strtotime(now()))),
         ]);
