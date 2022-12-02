@@ -432,12 +432,17 @@ class AnonimousController extends Controller
 
         }
 
+        $logoImage = asset('/images/custom/nophoto2.png');
+        if($profile->getValue('profile_logo') != null && $profile->getValue('profile_logo')['filelink'] != "" ) {
+            $logoImage = $profile->getValue('profile_logo')['filelink'];
+        }
+
         // Update Cache
         // Update Profile Cache
         ProfileCache::create([
             'profile_id' => $profile->getId(),
             'name' => $profile->getValue('name'),
-            'logo' => $profile->getValue('profile_logo') != null ? $profile->getValue('profile_logo')['filelink'] : asset('/images/custom/nophoto2.png'),
+            'logo' => $logoImage,
             'membership_type' => $profile->getValue['membership_type'] ?? 0,
             'membership_type_text' => $profile->getText['membership_type'] ?? '',
             'ntp' => $profile->getValue('ntp') ?? 0,
@@ -464,7 +469,7 @@ class AnonimousController extends Controller
             'program_type' => $program->getValue('program_type'),
             'program_type_text' => $program->getValue('program_name'),
             'profile_name' => $profile->getValue('name'),
-            'profile_logo' => $profile->getValue('profile_logo') != null ? $profile->getValue('profile_logo')['filelink'] : asset('/images/custom/nophoto2.png'),
+            'profile_logo' => $logoImage,
             'profile_type' => $profile->getValue('is_company') ? 1 : 0,
             'program_status' => $program->getStatus(),
             'program_status_text' => $program->getStatusText(),
