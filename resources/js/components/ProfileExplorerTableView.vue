@@ -55,7 +55,7 @@
 
         <b-col xl="3" lg="2" class="d-flex flex-row flex-lg-row-reverse">
           <a
-            href="/profiles/exportRaisingStarts"
+            href="/profiles/exportProfiles"
             role="button"
             style="top: 5px"
             class="text-secondary m-2 position-relative float-right"

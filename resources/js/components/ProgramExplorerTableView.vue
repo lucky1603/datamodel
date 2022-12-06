@@ -50,6 +50,15 @@
               @change="onSubmit"
             ></b-form-select>
           </b-col>
+        <b-col xl="3" lg="2" class="d-flex flex-row flex-lg-row-reverse">
+            <a
+                href="/profiles/exportRaisingStarts"
+                role="button"
+                style="top: 5px"
+                class="text-secondary m-2 position-relative float-right"
+                ><i class="dripicons-export"></i> EXPORT</a
+            >
+        </b-col>
       </b-row>
     </b-form>
     <b-table

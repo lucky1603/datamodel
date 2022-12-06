@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Business\Profile;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -18,8 +19,31 @@ class ProfileExport implements FromCollection, WithHeadings, WithStyles, WithMap
     */
     public function collection(): \Illuminate\Support\Collection
     {
-        return Profile::find()->map(function($profile) {
-           return $profile->getData();
+        $filterData = [];
+        $profileState = Session::get('profile_state');
+        if($profileState != null && $profileState != 0) {
+            $filterData['profile_status'] = $profileState;
+        }
+
+        $is_company = Session::get('is_company');
+        if(isset($is_company) && $is_company != -1) {
+            $filterData['is_company'] = $is_company == 1;
+        }
+
+        $ntp = Session::get('ntp');
+        if(isset($ntp) && $ntp != 0) {
+            $filterData['ntp'] = $ntp;
+        }
+
+        return Profile::find(count($filterData) > 0 ? $filterData : null)->map(function($profile) {
+           $filter = ['name', 'is_company', 'id_number', 'contact_person', 'contact_phone', 'contact_email','profile_status'];
+           $attributes = $profile->getAttributes();
+           $retData = [];
+           foreach($filter as $filterItem) {
+                $attribute = $attributes->where('name', $filterItem)->first();
+                $retData[$attribute->name] = $attribute->getText();
+           }
+           return $retData;
         });
     }
 
@@ -27,7 +51,7 @@ class ProfileExport implements FromCollection, WithHeadings, WithStyles, WithMap
     {
         $attributes = Profile::getAttributesDefinition();
         $labels = [];
-        $filter = ['name', 'is_company', 'id_number', 'contact_person', 'contact_phone', 'contact_email'];
+        $filter = ['name', 'is_company', 'id_number', 'contact_person', 'contact_phone', 'contact_email','profile_status'];
         foreach($attributes as $attribute) {
             if(in_array($attribute->name, $filter)) {
                 $labels[] = $attribute->label;
@@ -60,6 +84,7 @@ class ProfileExport implements FromCollection, WithHeadings, WithStyles, WithMap
             $row['contact_person'],
             $row['contact_email'],
             $row['contact_phone'],
+            $row['profile_status']
         ];
     }
 }
