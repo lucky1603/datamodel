@@ -1462,7 +1462,7 @@ class ProfileController extends Controller
         $token = csrf_token();
         $content = "<p>Poštovani/a ,</p>
                     <p>Uskoro ističe rok za slanje prijava na program 'Raising Starts'.</p>
-                    <p>Podsećamo Vas, da Vašu prijavu možete poslati najkasnije do 28.12. u 24:00h. Sve prijave poslate posle tog roka neće biti uzete u razmatranje.</p>
+                    <p>Podsećamo Vas, da Vašu prijavu možete poslati najkasnije do 28.12. u 12:00h. Sve prijave poslate posle tog roka neće biti uzete u razmatranje.</p>
                     <p>Srdačan pozdrav,</p>
                     <p>Vaš NTP</p>";
 
@@ -1492,15 +1492,30 @@ class ProfileController extends Controller
     public function getMailClients(): array
     {
         $clients = [];
-        $profiles = Profile::find()->filter(function($profile) {
-            return ( $profile->getValue('profile_state') == 2 /* && $profile->getActiveProgram()->getStatus() == 1 */);
+        // $profiles = Profile::find()->filter(function($profile) {
+        //     return ( $profile->getValue('profile_state') == 2 /* && $profile->getActiveProgram()->getStatus() == 1 */);
+        // });
+        // foreach($profiles as $profile) {
+        //     $clients[] = [
+        //         'id' => $profile->getId(),
+        //         'profile' => $profile->getValue('name'),
+        //         'selected' => false
+        //     ];
+        // }
+
+        $programs = Program::find(['program_type' => Program::$RAISING_STARTS, 'program_status' => 1])->filter(function($program) {
+            return $program->getYear() == '2023';
         });
-        foreach($profiles as $profile) {
-            $clients[] = [
-                'id' => $profile->getId(),
-                'profile' => $profile->getValue('name'),
-                'selected' => false
-            ];
+
+        foreach($programs as $program) {
+            $profile = $program->getProfile();
+            if($profile != null) {
+                $clients[] = [
+                    'id' => $profile->getId(),
+                    'profile' => $profile->getValue('name'),
+                    'selected' => false
+                ];
+            }
         }
 
         return $clients;
