@@ -1519,7 +1519,7 @@ class ProfileController extends Controller
             if($profile != null) {
                 $clients[] = [
                     'id' => $profile->getId(),
-                    'profile' => $profile->getValue('name'),
+                    'profile' => $program->profile_name,
                     'selected' => false
                 ];
             }
