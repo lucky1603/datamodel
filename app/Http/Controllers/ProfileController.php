@@ -2,35 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Attribute;
+use App\ProfileCache;
+use App\ProgramCache;
 use App\AttributeGroup;
-use App\Business\IncubationProgram;
 use App\Business\Mentor;
 use App\Business\Profile;
 use App\Business\Program;
-use App\Business\ProgramFactory;
-use App\Business\RaisingStartsProgram;
 use App\Business\Training;
-use App\Exports\ProfileExport;
-use App\Exports\RaisingStartsProgramExport;
-use App\Http\Requests\StoreProfileRequest;
-use App\Http\Requests\UpdateRaisingStartsRequest;
-use App\Mail\ApplicationSuccess;
 use App\Mail\CustomMessage;
-use App\Mail\MeetingNotification;
+use Illuminate\Support\Str;
 use App\Mail\ProfileCreated;
-use App\ProfileCache;
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Exports\ProfileExport;
+use App\Business\ProgramFactory;
+use App\Mail\ApplicationSuccess;
+use App\Mail\MeetingNotification;
 use Illuminate\Support\Facades\DB;
+use \Illuminate\Support\Collection;
+use App\Business\IncubationProgram;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
-use \Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
+use App\Business\RaisingStartsProgram;
+use Illuminate\Support\Facades\Session;
+use App\Http\Requests\StoreProfileRequest;
+use App\Exports\RaisingStartsProgramExport;
+use App\Http\Requests\UpdateRaisingStartsRequest;
 use Symfony\Component\HttpFoundation\RequestMatcher;
 
 class ProfileController extends Controller
@@ -1507,8 +1508,14 @@ class ProfileController extends Controller
             return $program->getYear() == '2023';
         });
 
+        $programs = ProgramCache::where([
+            'program_type' => Program::$RAISING_STARTS,
+            'program_status' => 1,
+            'year' => 2023
+        ])->get();
+
         foreach($programs as $program) {
-            $profile = $program->getProfile();
+            $profile = ProgramFactory::resolve($program->program_id)->getProfile();
             if($profile != null) {
                 $clients[] = [
                     'id' => $profile->getId(),
