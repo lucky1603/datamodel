@@ -60,7 +60,7 @@
                         Prijave se podnose elektronskim putem do <strong><u>28.12.2022. u podne.</u></strong>
                     </p>
                     <p>
-                        Ukoliko imate nekih pitanja slobodno nas kontaktirajte na: <a href="mailto://info@ntpark.rs" target="_blank">info@ntpark.rs</a>
+                        Ukoliko imate nekih pitanja slobodno nas kontaktirajte na: <a href="mailto:info@ntpark.rs" target="_blank">info@ntpark.rs</a>
                     </p>
                     <p>Srećno!</p>
 
