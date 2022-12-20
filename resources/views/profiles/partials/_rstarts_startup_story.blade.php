@@ -23,7 +23,7 @@
         linkovi, dokumenta/nacrti.
         <span class="font-12 text-dark font-weight-normal">
             Dokaz mora imati jasno obrazloženje šta predstavlja. Slika/skica/nacrt bez obraloženja neće biti uzeta u razmatranje.
-            Obratiti pažnju da tehnološka izvodljivost mora biti u skladu sa naznačenim stepenom razvoja u delu 3.9.
+            Obratiti pažnju da tehnološka izvodljivost mora biti u skladu sa naznačenim stepenom razvoja.
         </span>
     </label>
 </div>
