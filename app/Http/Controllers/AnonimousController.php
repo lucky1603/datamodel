@@ -286,8 +286,12 @@ class AnonimousController extends Controller
 
     public function createRaisingStarts() {
        $attributeData = RaisingStartsProgram::getAttributesDefinition();
+
        if(auth()->user() == null) {
             $mode = 'anonimous';
+            if(strtotime(now()) >= strtotime("2022-12-28 12:00:00")) {
+                return view('anonimous.application-closed');
+            }
        } else if(auth()->user()->roles->first()->name == 'profile') {
             return redirect(route('home'));
        } else {
@@ -295,7 +299,7 @@ class AnonimousController extends Controller
        }
 
        return view('anonimous.createRaisingStarts', ['attributes' => $attributeData['attributes'], 'mode' => $mode]);
-        // return view('anonimous.application-closed');
+    //    return view('anonimous.application-closed');
     }
 
     public function storeRaisingStarts(StorePostRequest $request) {
