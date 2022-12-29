@@ -483,6 +483,7 @@ class RaisingStartsProgram extends Program
             $intellectualPropertyText = $program->getText('rstarts_intellectual_property') ?? __("Not Selected");
             $productType = $program->getValue("rstarts_product_type") ?? 0;
             $productTypeText = $program->getText("rstarts_product_type") ?? __("Not Selected");
+            $program_status = $program->getStatus();
 
             $year = 1996;
             $workflow = $program->getWorkflow();
@@ -524,6 +525,7 @@ class RaisingStartsProgram extends Program
                 'intellectual_property_text' => $intellectualPropertyText,
                 'product_type' => $productType,
                 'product_type_text' => $productTypeText,
+                'program_status' => $program_status,
                 'year' => $year,
             ]);
         });

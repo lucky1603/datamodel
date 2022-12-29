@@ -212,6 +212,9 @@ class AnalyticsController extends Controller
             $query = $query->where('year', $year);
         }
 
+        // Uzmi u obzir status programa
+        $query = $query->whereIn('program_status', [-1,-3,-4,2,3,4,5,6,7,8,9]);
+
         $rows = $query->get();
 
         $items = [];

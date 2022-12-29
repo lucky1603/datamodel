@@ -15,6 +15,7 @@ class FixRaisingStartsCache extends Migration
     {
         Schema::table('raising_starts_caches', function(Blueprint $table) {
             $table->unsignedInteger('year')->default(0)->after('product_type_text');
+            $table->smallInteger('program_status')->default(1)->after('product_type_text');
         });
     }
 
@@ -27,6 +28,7 @@ class FixRaisingStartsCache extends Migration
     {
         Schema::table('raising_starts_caches', function(Blueprint $table) {
             $table->removeColumn('year');
+            $table->removeColumn('program_status');
         });
     }
 }
