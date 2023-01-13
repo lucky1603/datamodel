@@ -97,7 +97,7 @@ class AnonimousController extends Controller
 
     public function createIncubationBITF() {
         $attributeData = IncubationProgram::getAttributesDefinition();
-        if(auth()->user() == null) $mode = 'anonimous'; else $mode = 'loggedin';
+        if(auth()->user() == null) $mode = 'anonimous'; else $mode = auth()->user()->roles->first()->name;
         return view(
             'anonimous.createIncubationBITF',
             [
