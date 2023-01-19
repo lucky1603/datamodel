@@ -27,6 +27,7 @@ use App\Http\Requests\StorePostRequest;
 use PharIo\Manifest\InvalidEmailException;
 use App\Http\Requests\CreateProfileRequest;
 use App\Http\Requests\StoreIncubationRequest;
+use App\Http\Requests\StoreRastuceRequest;
 
 class AnonimousController extends Controller
 {
@@ -189,22 +190,25 @@ class AnonimousController extends Controller
 
         // Add founders
         // get the founders
-        $founderCount = count($data['founderName']);
-        if( $founderCount > 0 && $data['founderName'][0] != null) {
-            $foundersData = [];
-            for($i = 0; $i < $founderCount; $i++) {
-                $foundersData[] = [
-                    'founder_name' => $data['founderName'][$i],
-                    'founder_part' => $data['founderPart'][$i],
-                    'founder_university' => $data['founderUniversity'][$i]
-                ];
+        if(isset($data['founderName'])) {
+            $founderCount = count($data['founderName']);
+            if( $founderCount > 0 && $data['founderName'][0] != null) {
+                $foundersData = [];
+                for($i = 0; $i < $founderCount; $i++) {
+                    $foundersData[] = [
+                        'founder_name' => $data['founderName'][$i],
+                        'founder_part' => $data['founderPart'][$i],
+                        'founder_university' => $data['founderUniversity'][$i]
+                    ];
 
+                }
+
+                $program->updateFounders($foundersData);
+            } else {
+                $program->removeAllFounders();
             }
-
-            $program->updateFounders($foundersData);
-        } else {
-            $program->removeAllFounders();
         }
+
 
 
         $profile->setValue('profile_status', 3);
@@ -278,9 +282,22 @@ class AnonimousController extends Controller
     }
 
 
-    public function storeRastuce(Request $request) {
+    public function storeRastuce(StoreRastuceRequest $request) {
         $data = $request->post();
-        var_dump($data);
+        //var_dump($data);
+
+        // Get the files
+        $fileData = $this->addFileToData($request, 'rastuce_financial_reports');
+        if($fileData != null) {
+            $data['rastuce_financial_reports'] = $fileData;
+        }
+
+        $fileData = $this->addFileToData($request, 'rastuce_cvs');
+        if($fileData != null) {
+            $data['rastuce_cvs'] = $fileData;
+        }
+
+
         return true;
     }
 
@@ -576,12 +593,11 @@ class AnonimousController extends Controller
     }
 
     public function wrongUserPassword() {
-        $poruka = "
-            Profil koji ste uneli ili kontakt osoba već postoje u bazi.
+        $poruka = "Profil koji ste uneli ili kontakt osoba već postoje u bazi.
             Molimo, prijavite se na svoj nalog, i prijavite se na program sa svog profila.
         ";
 
-        return view('anonimous.notify-user', ['message' => htmlentities($poruka)]);
+        return view('anonimous.notify-user', ['message' => htmlentities($poruka), 'showTitle' => false]);
     }
 
     public function accountExpired() {

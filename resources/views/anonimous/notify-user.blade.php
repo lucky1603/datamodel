@@ -17,7 +17,10 @@
     <div class="row" style="height: 600px; margin: auto">
         <div class="col-6 offset-3 h-100" style="display: flex; flex-direction: column; justify-content: center">
             <div class="font-18" style="font-family: 'Roboto Light'; display: flex; flex-direction: column; align-items: center; justify-content: center" >
-                <p class="mb-4">Sjajno!</p>
+                @if (isset($showTitle) && $showTitle == true)
+                    <p class="mb-4">Sjajno!</p>
+                @endif
+
                 @if (isset($message))
                     {{ $message}}
                 @else
