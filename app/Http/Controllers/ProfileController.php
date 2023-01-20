@@ -58,9 +58,10 @@ class ProfileController extends Controller
     }
 
     public function otherCompanies($profileId) {
-        $profile = Profile::find($profileId);
-        $role = Auth::user()->roles()->first()->name;
-        return view('profiles.other-profiles', ['model' => $profile, 'role' => $role]);
+        abort(403, "Ova akcija nije dozvoljena");
+        // $profile = Profile::find($profileId);
+        // $role = Auth::user()->roles()->first()->name;
+        // return view('profiles.other-profiles', ['model' => $profile, 'role' => $role]);
     }
 
     /**
@@ -1478,15 +1479,19 @@ class ProfileController extends Controller
         $profileIds = $data['recipients'];
         $content = $data['content'];
 
-        var_dump($content);
+        // $ems = ProfileCache::whereIn('profile_id', $profileIds)->get()->map(function($profile) use($content) {
+        //     $email = $profile->getValue('contact_email');
+        //     Mail::to($email)->send(new CustomMessage($content));
+        // });
 
         $emails = Profile::find()->filter(function($profile) use($profileIds) {
             return in_array($profile->getId(), $profileIds);
-        })->map(function($profile) {
+        })->map(function($profile) use($content) {
             return $profile->getValue('contact_email');
         });
 
         Mail::to($emails)->send(new CustomMessage($content));
+        // Mail::to("info@ntpark.rs")->bcc($emails)->send(new CustomMessage($content));
         return redirect(route('profiles.index'));
     }
 
