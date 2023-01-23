@@ -80,6 +80,9 @@ class AnalyticsController extends Controller
             $query = $query->where($queryData);
         }
 
+        // Uzmi u obzir status programa
+        //$query = $query->whereIn('program_status', [-1,-3,-4,1, 2,3,4,5,6,7,8,9]);
+
         $appliedGroups = $query->get();
 
         $startapi = count($appliedGroups) > 0 ? $appliedGroups[0]->count : 0;
