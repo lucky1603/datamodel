@@ -2,10 +2,12 @@
 
 namespace App\Exports;
 
-use App\Business\IncubationProgram;
 use App\Business\Program;
-use App\Business\RaisingStartsProgram;
+use App\Business\ProgramFactory;
 use App\Business\RastuceProgram;
+use Illuminate\Support\Facades\DB;
+use App\Business\IncubationProgram;
+use App\Business\RaisingStartsProgram;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -24,7 +26,7 @@ class RaisingStartsProgramExport implements FromCollection, WithHeadings, WithSt
     {
 
         if($this->programs == null) {
-            $this->programs = $this->getPrograms();
+            $this->programs = $this->getPrograms1();
         }
 
         $attributeTexts = $this->programs->map(function($program) {
@@ -38,7 +40,7 @@ class RaisingStartsProgramExport implements FromCollection, WithHeadings, WithSt
     public function headings(): array
     {
         if($this->programs == null) {
-            $this->programs = $this->getPrograms();
+            $this->programs = $this->getPrograms1();
         }
 
         // TODO: Implement headings() method.
@@ -88,6 +90,42 @@ class RaisingStartsProgramExport implements FromCollection, WithHeadings, WithSt
         }
 
         return $programs;
+    }
+
+    private function getPrograms1() {
+        $programType = Session::get("program_type", Program::$RAISING_STARTS);
+        $programStatus = Session::get("program_status", 0);
+        $year = Session::get("year");
+        $profileName = Session::get("program_name");
+
+        $filterData = [
+            'program_type' => $programType,
+        ];
+
+        if($programStatus != 0) {
+            $filterData['program_status'] = $programStatus;
+        }
+
+        if(isset($year)) {
+            $filterData['year'] = $year;
+        }
+
+        $programRowsQuery = DB::table('program_caches');
+
+        foreach($filterData as $key=>$value) {
+            $programRowsQuery = $programRowsQuery->where($key, $value);
+        }
+
+        if(isset($profileName) && $profileName != '') {
+            $programRowsQuery = $programRowsQuery->whereRaw('profile_name LIKE "'.$profileName.'%"');
+        }
+
+        $programRows = $programRowsQuery->get();
+
+        return $programRows->map(function($programRow) {
+            return ProgramFactory::resolve($programRow->program_id);
+        });
+
     }
 }
 
