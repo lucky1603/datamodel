@@ -73,30 +73,30 @@
             });
 
 
-            // Toggle PIB and ID_NUMBER
-            const legalStatus = $('#legal_status').val();
-            if(legalStatus != 2) {
-                $('#pibRow').hide();
-                $('#idNumberRow').hide();
-                $('#dateRow').hide();
-            } else {
-                $('#pibRow').show();
-                $('#idNumberRow').show();
-                $('#dateRow').show();
-            }
+            // // Toggle PIB and ID_NUMBER
+            // const legalStatus = $('#legal_status').val();
+            // if(legalStatus != 2) {
+            //     $('#pibRow').hide();
+            //     $('#idNumberRow').hide();
+            //     $('#dateRow').hide();
+            // } else {
+            //     $('#pibRow').show();
+            //     $('#idNumberRow').show();
+            //     $('#dateRow').show();
+            // }
 
-            $('#legal_status').change(function() {
-                const legalStatus = $('#legal_status').val();
-                if(legalStatus != 2) {
-                    $('#pibRow').hide();
-                    $('#idNumberRow').hide();
-                    $('#dateRow').hide();
-                } else {
-                    $('#pibRow').show();
-                    $('#idNumberRow').show();
-                    $('#dateRow').show();
-                }
-            });
+            // $('#legal_status').change(function() {
+            //     const legalStatus = $('#legal_status').val();
+            //     if(legalStatus != 2) {
+            //         $('#pibRow').hide();
+            //         $('#idNumberRow').hide();
+            //         $('#dateRow').hide();
+            //     } else {
+            //         $('#pibRow').show();
+            //         $('#idNumberRow').show();
+            //         $('#dateRow').show();
+            //     }
+            // });
 
             $('#buttonSend').click(function() {
                 $('#okSpinner').show();

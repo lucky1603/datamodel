@@ -51,3 +51,23 @@
         </tr>
     </tbody>
 </table>
+
+@php
+    $attribute = $attributes->where('name', 'income_expectations')->first();
+    $value = $attribute->getValue() ?? old($attribute->name);
+@endphp
+<div class="form-group mt-2">
+    <label for="{{ $attribute->name }}" class="@if($mode == 'anonimous') attribute-grayed @else attribute-label mandatory-label @endif">{!! $attribute->label !!}</label><br/>
+    <span class="mt-0" style="font-size: 12px; position: relative; top: -10px">Odgovorite tekstualno sa obrazloženjem ili u vidu cash flow ili dijagrama.</span>
+    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if ($mode == 'anonimous') disabled @endif>{{ $value }}</textarea>
+</div>
+
+@php
+    $attribute = $attributes->where('name', 'intellectual_property')->first();
+    $value = $attribute->getValue() ?? old($attribute->name);
+@endphp
+<div class="form-group mt-2">
+    <label for="{{ $attribute->name }}" class="@if($mode == 'anonimous') attribute-grayed @else attribute-label mandatory-label @endif">{!! $attribute->label !!}</label><br/>
+    <span class="mt-0" style="font-size: 12px; position: relative; top: -10px">Da li imate zaštićen patent? Da li ste razmišljali o zaštiti intelektualne svojine i ako jeste, da li ste proverili mogućnosti?</span>
+    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if ($mode == 'anonimous') disabled @endif>{{ $value }}</textarea>
+</div>

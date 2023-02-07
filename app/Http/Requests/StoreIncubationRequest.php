@@ -34,6 +34,9 @@ class StoreIncubationRequest extends FormRequest
             'responsible_email' => 'required|email',
             'gdpr' => 'required',
             'captcha' => 'required|captcha',
+            'id_number' => 'required',
+            'date_of_establishment' => 'required|date',
+            'pib' => 'required'
         ];
 
         if($this['legal_status'] == 2) {

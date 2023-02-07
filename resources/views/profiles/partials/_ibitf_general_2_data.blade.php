@@ -18,6 +18,15 @@
 </div>
 
 @php
+    $attribute = $attributes->where('name', 'program_goals')->first();
+    $value = $attribute->getValue() ?? old($attribute->name);
+@endphp
+<div class="form-group mt-2">
+    <label for="{{ $attribute->name }}" class="@if($mode == 'anonimous') attribute-grayed @else attribute-label mandatory-label @endif">{!! $attribute->label !!}</label><br/>
+    <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if ($mode == 'anonimous') disabled @endif>{{ $value }}</textarea>
+</div>
+
+@php
     $attribute = $attributes->where('name', 'problem_solving')->first();
     $value = $attribute->getValue() ?? old($attribute->name);
 @endphp

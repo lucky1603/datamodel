@@ -162,6 +162,7 @@ class IncubationProgram extends Program
         $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['telephone_number', __('Phone Number'), 'varchar', NULL, 10])));
         $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['email', __('Email'), 'varchar', ['ui' => 'email'], 11])));
         $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['web', __('Web address'), 'varchar', NULL, 12])));
+        $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['founding_date', __('Datum osnivanja'), 'datetime', NULL, 151])));
 
         $attributeGroups->add($ag_general);
 
@@ -271,6 +272,7 @@ class IncubationProgram extends Program
 
         $attributes->add($ag_general_2->addAttribute(self::selectOrCreateAttribute(['program_project_name', __('Program/Project Name'), 'text', NULL, 36])));
         $attributes->add($ag_general_2->addAttribute(self::selectOrCreateAttribute(['program_project_description', __('Short Description of Project'), 'text', NULL, 37])));
+        $attributes->add($ag_general_2->addAttribute(self::selectOrCreateAttribute(['program_goals', __('Koje ciljeve definisane javnim pozivom vaš program ispunjava?'), 'text', NULL, 137])));
         $attributes->add($ag_general_2->addAttribute(self::selectOrCreateAttribute(['problem_solving', __('Problem You are Solving'), 'text', NULL, 38])));
         $attributes->add($ag_general_2->addAttribute(self::selectOrCreateAttribute(['solutions', __('Solutions'), 'text', NULL, 39])));
         $attributes->add($ag_general_2->addAttribute(self::selectOrCreateAttribute(['development_phase', __('Development Phase'), 'text', NULL, 40])));
@@ -353,7 +355,8 @@ class IncubationProgram extends Program
         $attributes->add($ag_generate_income->addAttribute(self::selectOrCreateAttribute(['needed_assets', __('Needed Assets'), 'double', NULL, 82])));
         $attributes->add($ag_generate_income->addAttribute(self::selectOrCreateAttribute(['own_assets', __('Own Assets'), 'double', NULL, 83])));
         $attributes->add($ag_generate_income->addAttribute(self::selectOrCreateAttribute(['credits', __("Credits/Other Way of Financing"), 'double', NULL, 84])));
-
+        $attributes->add($ag_generate_income->addAttribute(self::selectOrCreateAttribute(['income_expectations', __('Kada se očekuje da prihodi budu veći od troškova?'), 'text', NULL, 184])));
+        $attributes->add($ag_generate_income->addAttribute(self::selectOrCreateAttribute(['intellectual_property', __('Intelektualna svojina'), 'text', NULL, 185])));
         $attributeGroups->add($ag_generate_income);
 
         // Infrastrukturne usluge.

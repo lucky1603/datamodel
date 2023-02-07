@@ -86,7 +86,9 @@
         <li>Rešenje o izvršenoj registraciji privrednog društva ili izvod iz registra za privredno društvo ili link sa APR gde se može preuzeti rešenje</li>
         <li>Podaci o osnivačima i vlasnicima (lični podaci i kratke profesionalne biografije ili linkovi ka Linkedin profilima ukoliko postoje za svako lice)</li>
     </ol>
-    <p>Za sva pitanja koja budete imali tokom popunjavanja prijave kontaktirajte nas na: 011/3370-950. </p>
+    <p>Za sva pitanja koja budete imali tokom popunjavanja prijave kontaktirajte nas na telefon 011/3370-950 ili putem elektronske pošte na adresu
+        <a href="mailto:office@bitf.rs" target="_blank">office@bitf.rs</a>.
+    </p>
 </div>
 
 @include('profiles.partials._ibitf_general_2_data')
