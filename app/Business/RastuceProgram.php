@@ -110,23 +110,25 @@ class RastuceProgram extends Program
         $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['founding_date', "Datum osnivanja", 'datetime', NULL, 3])));
         $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['webpage', "Internet stranica", 'varchar', NULL, 4])));
         $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['business_branch', "Sektor/Oblast/Industrija", 'select', NULL, 5])));
-        $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['responsible_person', "Odgovorno lice", 'varchar', NULL, 6])));
-        $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['contact', "Kontakt", 'varchar', NULL, 7])));
-        $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['innovative_product', "Inovativni proizvod ili tehnologija", 'varchar', NULL, 8])));
+        $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['responsible_person', "Odgovorno lice", 'varchar', NULL, 7])));
+        $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['responsible_person_email', "E-mail", 'varchar', NULL, 8])));
+        $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['responsible_person_phone', "Telefon", 'varchar', NULL, 9])));
+        $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['address', "Adresa", 'varchar', NULL, 10])));
+        $attributes->add($ag_general->addAttribute(self::selectOrCreateAttribute(['innovative_product', "Inovativni proizvod ili tehnologija", 'varchar', NULL, 11])));
 
         // Tim
         $ag_tim = self::getAttributeGroup('rastuce_tim', __('Tim'), 2);
         $attributeGroups->add($ag_tim);
 
-        $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['team_description', 'Da li je tim uspostavljen i razvijen?', 'text', NULL, 9])));
+        $attributes->add($ag_tim->addAttribute(self::selectOrCreateAttribute(['team_description', 'Da li je tim uspostavljen i razvijen?', 'text', NULL, 13])));
 
         // Razvoj inovativnog proizvoda ili tehnologije
-        $ag_innovative = self::getAttributeGroup('rastuce_inovative', __('Razvoj inovativnog proizvoda ili tehnologije'), 3);
+        $ag_innovative = self::getAttributeGroup('rastuce_inovative', __('Razvoj inovativnog proizvoda ili tehnologije'), 14);
         $attributeGroups->add($ag_innovative);
 
         // Proizvod 1
-        $attributes->add($ag_innovative->addAttribute(self::selectOrCreateAttribute(['innovative_product_1', "Proizvod 1", 'varchar', NULL, 10])));
-        $innovative_phase1 = self::selectOrCreateAttribute(['innovative_phase_1', 'Faza razvoja inovacije/tehnologije 1', 'select', 'multiselect', 10]);
+        $attributes->add($ag_innovative->addAttribute(self::selectOrCreateAttribute(['innovative_product_1', "Proizvod 1", 'varchar', NULL, 15])));
+        $innovative_phase1 = self::selectOrCreateAttribute(['innovative_phase_1', 'Faza razvoja inovacije/tehnologije 1', 'select', 'multiselect', 16]);
         if(count($innovative_phase1->getOptions()) == 0) {
             $innovative_phase1->addOption(["value" => 1, 'text' => 'Ideja ili nacrt']);
             $innovative_phase1->addOption(["value" => 2, 'text' => 'Prototip u laboratoriji ili eksperimentalnom okruženju']);
@@ -138,8 +140,8 @@ class RastuceProgram extends Program
         $attributes->add($ag_innovative->addAttribute($innovative_phase1));
 
         // Proizvod 2
-        $attributes->add($ag_innovative->addAttribute(self::selectOrCreateAttribute(['innovative_product_2', "Proizvod 2", 'varchar', NULL, 10])));
-        $innovative_phase2 = self::selectOrCreateAttribute(['innovative_phase_2', 'Faza razvoja inovacije/tehnologije 2', 'select', 'multiselect', 10]);
+        $attributes->add($ag_innovative->addAttribute(self::selectOrCreateAttribute(['innovative_product_2', "Proizvod 2", 'varchar', NULL, 17])));
+        $innovative_phase2 = self::selectOrCreateAttribute(['innovative_phase_2', 'Faza razvoja inovacije/tehnologije 2', 'select', 'multiselect', 18]);
         if(count($innovative_phase2->getOptions()) == 0) {
             $innovative_phase2->addOption(["value" => 1, 'text' => 'Ideja ili nacrt']);
             $innovative_phase2->addOption(["value" => 2, 'text' => 'Prototip u laboratoriji ili eksperimentalnom okruženju']);
@@ -151,8 +153,8 @@ class RastuceProgram extends Program
         $attributes->add($ag_innovative->addAttribute($innovative_phase2));
 
         // Proizvod 3
-        $attributes->add($ag_innovative->addAttribute(self::selectOrCreateAttribute(['innovative_product_3', "Proizvod 3", 'varchar', NULL, 10])));
-        $innovative_phase3 = self::selectOrCreateAttribute(['innovative_phase_3', 'Faza razvoja inovacije/tehnologije 3', 'select', 'multiselect', 10]);
+        $attributes->add($ag_innovative->addAttribute(self::selectOrCreateAttribute(['innovative_product_3', "Proizvod 3", 'varchar', NULL, 19])));
+        $innovative_phase3 = self::selectOrCreateAttribute(['innovative_phase_3', 'Faza razvoja inovacije/tehnologije 3', 'select', 'multiselect', 20]);
         if(count($innovative_phase3->getOptions()) == 0) {
             $innovative_phase3->addOption(["value" => 1, 'text' => 'Ideja ili nacrt']);
             $innovative_phase3->addOption(["value" => 2, 'text' => 'Prototip u laboratoriji ili eksperimentalnom okruženju']);
@@ -163,16 +165,16 @@ class RastuceProgram extends Program
 
         $attributes->add($ag_innovative->addAttribute($innovative_phase3));
 
-        $attributes->add($ag_innovative->addAttribute(self::selectOrCreateAttribute(['product_developed', 'Da li su inovativni proizvod ili tehnologija razvijeni?', 'text', NULL, 11])));
-        $attributes->add($ag_innovative->addAttribute(self::selectOrCreateAttribute(['innovation_grade', 'Opišite stepen inovativnosti tehnologije', 'text', NULL, 12])));
-        $attributes->add($ag_innovative->addAttribute(self::selectOrCreateAttribute(['intellectual_property_protected', 'Da li kompanija ima zaštićena prava intelektualne svojine?', 'text', NULL, 13])));
+        $attributes->add($ag_innovative->addAttribute(self::selectOrCreateAttribute(['product_developed', 'Da li su inovativni proizvod ili tehnologija razvijeni?', 'text', NULL, 21])));
+        $attributes->add($ag_innovative->addAttribute(self::selectOrCreateAttribute(['innovation_grade', 'Opišite stepen inovativnosti tehnologije', 'text', NULL, 22])));
+        $attributes->add($ag_innovative->addAttribute(self::selectOrCreateAttribute(['intellectual_property_protected', 'Da li kompanija ima zaštićena prava intelektualne svojine?', 'text', NULL, 23])));
 
         // Razvoj tržišta i komercijalizacija
         $ag_marketdev = self::getAttributeGroup('rastuce_razvoj_trzista', __('Razvoj tržišta i komercijalizacija'), 4);
         $attributeGroups->add($ag_marketdev);
 
-        $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(['product_commercialization_1', __('Proizvod 1'), 'varchar', NULL, 14])));
-        $commercialization_phase_1 = self::selectOrCreateAttribute(['commercialization_phase_1', __('Faza komercijalizacije - proizvod 1'), 'select', NULL, 15]);
+        $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(['product_commercialization_1', __('Proizvod 1'), 'varchar', NULL, 24])));
+        $commercialization_phase_1 = self::selectOrCreateAttribute(['commercialization_phase_1', __('Faza komercijalizacije - proizvod 1'), 'select', NULL, 25]);
         if(count($commercialization_phase_1->getOptions()) == 0) {
             $commercialization_phase_1->addOption(['value' => 1, 'text' => __('gui-select.commercialization_phase_first_contacts') ]);
             $commercialization_phase_1->addOption(['value' => 2, 'text' => __('gui-select.commercialization_phase_need_confirmed') ]);
@@ -181,8 +183,8 @@ class RastuceProgram extends Program
         }
         $attributes->add($ag_marketdev->addAttribute($commercialization_phase_1));
 
-        $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(['product_commercialization_2', __('Proizvod 2'), 'varchar', NULL, 16])));
-        $commercialization_phase_2 = self::selectOrCreateAttribute(['commercialization_phase_2', __('Faza komercijalizacije - proizvod 2'), 'select', NULL, 17]);
+        $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(['product_commercialization_2', __('Proizvod 2'), 'varchar', NULL, 26])));
+        $commercialization_phase_2 = self::selectOrCreateAttribute(['commercialization_phase_2', __('Faza komercijalizacije - proizvod 2'), 'select', NULL, 27]);
         if(count($commercialization_phase_2->getOptions()) == 0) {
             $commercialization_phase_2->addOption(['value' => 1, 'text' => __('gui-select.commercialization_phase_first_contacts') ]);
             $commercialization_phase_2->addOption(['value' => 2, 'text' => __('gui-select.commercialization_phase_need_confirmed') ]);
@@ -191,7 +193,7 @@ class RastuceProgram extends Program
         }
         $attributes->add($ag_marketdev->addAttribute($commercialization_phase_2));
 
-        $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(['product_commercialization_3', __('Proizvod 3'), 'varchar', NULL, 18])));
+        $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(['product_commercialization_3', __('Proizvod 3'), 'varchar', NULL, 28])));
         $commercialization_phase_3 = self::selectOrCreateAttribute(['commercialization_phase_3', __('Faza komercijalizacije - proizvod 3'), 'select', NULL, 19]);
         if(count($commercialization_phase_3->getOptions()) == 0) {
             $commercialization_phase_3->addOption(['value' => 1, 'text' => __('gui-select.commercialization_phase_first_contacts') ]);
@@ -201,14 +203,14 @@ class RastuceProgram extends Program
         }
         $attributes->add($ag_marketdev->addAttribute($commercialization_phase_3));
 
-        $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(['problem_desc', 'Opišite koji problem na tržištu rešavate inovativnim proizvodom ili tehnologijom', 'text', NULL, 15])));
+        $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(['problem_desc', 'Opišite koji problem na tržištu rešavate inovativnim proizvodom ili tehnologijom', 'text', NULL, 29])));
         $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(
             [
                 'solution_advantage',
                 'Opišite jedinstvenu prednost rešenja u odnosu na postojeća (indirektna i direktna konkurencija) i šta vaše rešenje čini inovativnim sa stanovišta poslovanja.',
                 'text',
                 NULL,
-                16
+                30
             ])));
 
         $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(
@@ -217,7 +219,7 @@ class RastuceProgram extends Program
                 'Da li su proizvod ili tehnologija komercijalizovani?',
                 'text',
                 NULL,
-                17
+                31
             ])));
 
         $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(
@@ -226,7 +228,7 @@ class RastuceProgram extends Program
                 'Opišite svoje tržište, ostvarena partnerstva/reference, kao i strategiju rasta.',
                 'text',
                 NULL,
-                18
+                32
             ])));
 
         $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(
@@ -235,7 +237,7 @@ class RastuceProgram extends Program
                 'Da li je kompanija dobila investiciju za inovativni proizvod ili tehnologiju?',
                 'text',
                 NULL,
-                19
+                33
             ])));
 
         $attributes->add($ag_marketdev->addAttribute(self::selectOrCreateAttribute(
@@ -244,7 +246,7 @@ class RastuceProgram extends Program
                 'Kako kompanija finansira svoj razvoj?',
                 'text',
                 NULL,
-                20
+                34
             ])));
 
         // Rast kompanije na godišnjem nivou

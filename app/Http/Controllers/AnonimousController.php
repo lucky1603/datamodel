@@ -209,8 +209,6 @@ class AnonimousController extends Controller
             }
         }
 
-
-
         $profile->setValue('profile_status', 3);
         $program->setStatus(1);
         $profile->updateState();
@@ -229,8 +227,8 @@ class AnonimousController extends Controller
             'profile_id' => $profile->getId(),
             'name' => $profile->getValue('name'),
             'logo' => $profile->getValue('profile_logo') != null ? $profile->getValue('profile_logo')['filelink'] : asset('/images/custom/nophoto2.png'),
-            'membership_type' => $profile->getValue['membership_type'] ?? 0,
-            'membership_type_text' => $profile->getText['membership_type'] ?? '',
+            'membership_type' => $profile->getValue('membership_type') ?? 0,
+            'membership_type_text' => $profile->getText('membership_type') ?? '',
             'ntp' => $profile->getValue('ntp') ?? 0,
             'ntp_text' => $profile->getText('ntp') ?? '',
             'profile_state' => $profile->getValue('profile_state'),
@@ -282,23 +280,145 @@ class AnonimousController extends Controller
     }
 
 
-    public function storeRastuce(StoreRastuceRequest $request) {
+    public function storeRastuce(Request $request) {
         $data = $request->post();
-        //var_dump($data);
+        var_dump($data);
 
         // Get the files
-        $fileData = $this->addFileToData($request, 'rastuce_financial_reports');
+        $fileData = Utils::getFilesFromRequest($request, 'rastuce_financial_reports');
         if($fileData != null) {
             $data['rastuce_financial_reports'] = $fileData;
         }
 
-        $fileData = $this->addFileToData($request, 'rastuce_cvs');
+        $fileData = Utils::getFilesFromRequest($request, 'rastuce_cvs');
         if($fileData != null) {
             $data['rastuce_cvs'] = $fileData;
         }
 
+        $fileData = Utils::getFilesFromRequest($request, 'rastuce_presentation');
+        if($fileData != null) {
+            $data['rastuce_presentation'] = $fileData;
+        }
 
-        return true;
+        // Create Profile
+        $profileData = [
+            'name' => $data['company_name'],
+            'is_company' => true,
+            'ntp' => $data['ntp'],
+            'business_branch' => $data['business_branch'],
+            'id_number' => $data['id_number'],
+            'contact_person' => $data['responsible_person'],
+            'contact_email' => $data['responsible_person_email'],
+            'contact_phone' => $data['responsible_person_phone'],
+            'address' => $data['address'],
+            'profile_webpage' => $data['webpage'],
+            'profile_status' => 2,
+            'profile_state' => 1,
+        ];
+
+        // Check Profile
+        if(Attribute::checkValue( Entity::where('name', 'Profile')->first(), 'name', $profileData['name']))
+        {
+            // Profil postoji u bazi
+            return redirect(route('wrongUserPassword'));
+
+        }
+
+        // Check User
+        if(User::where('email', $profileData['contact_email'])->count() > 0) {
+            // Postoji user u bazi sa tim imenom
+            return redirect(route('wrongUserPassword'));
+        }
+
+        $profile = new Profile($profileData);
+        $user = User::where('email', $data['responsible_person_email'])->first();
+        if($user == null) {
+            $user = User::create([
+                'name' => $profileData['contact_person'],
+                'email' => $profileData['contact_email'],
+                'password' => Hash::make(Str::random(10)),
+                'position' => "Odgovorno lice",
+            ]);
+
+            $user->setRememberToken(Str::random(60));
+            $user->save();
+            $user->assignRole('profile');
+        }
+
+        $profile->attachUser($user);
+
+        // Dodaj situaciju
+        $profile->addSituationByData(__('Interest'), []);
+
+        // Kreiraj program
+        $program = new RastuceProgram($data);
+
+        // Dodaj program u profil
+        $profile->addProgram($program);
+
+        // Dodaj situaciju u program i profil.
+        $situation = $profile->addSituationByData(__('Applying'),
+        [
+            'program_type' => Program::$RASTUCE_KOMPANIJE,
+            'program_name' => "RASTUCE KOMPANIJE"
+        ]);
+        $program->addSituation($situation);
+
+        $profile->setValue('profile_status', 3);
+        $program->setStatus(1);
+        // $profile->updateState();
+
+        // Send verification email to the user.
+        $email = $profile->getAttribute('contact_email')->getValue();
+        try {
+            Mail::to($email)->send(new ProfileCreated($profile));
+        } catch (\Exception $ioe) {
+
+        }
+
+        // Update Cache
+        // Update Profile Cache
+        ProfileCache::create([
+            'profile_id' => $profile->getId(),
+            'name' => $profile->getValue('name'),
+            'logo' => $profile->getValue('profile_logo') != null ? $profile->getValue('profile_logo')['filelink'] : asset('/images/custom/nophoto2.png'),
+            'membership_type' => $profile->getValue('membership_type') ?? 0,
+            'membership_type_text' => $profile->getText('membership_type') ?? '',
+            'ntp' => $profile->getValue('ntp') ?? 0,
+            'ntp_text' => $profile->getText('ntp') ?? '',
+            'profile_state' => $profile->getValue('profile_state'),
+            'profile_state_text' => $profile->getText('profile_state'),
+            'is_company' => $profile->getValue('is_company'),
+            'is_company_text' => $profile->getValue('is_company') ? 'Kompanija' : 'Startap',
+            'contact_person_name' => $profile->getValue('contact_person'),
+            'contact_person_email' => $profile->getValue('contact_email'),
+            'faza_razvoja' => $profile->getValue('faza_razvoja') ?? 0,
+            'faza_razvoja_tekst' => $profile->getText('faza_razvoja') ?? '',
+            'business_branch' => $profile->getValue('business_branch') ?? 0,
+            'business_branch_text' => $profile->getText('business_branch') ?? '',
+            'website' => $profile->getValue('profile_webpage') ?? '',
+            'program_name' => $program->getValue('program_name') ?? ''
+        ]);
+
+        // Update program cache
+        DB::table('program_caches')
+        ->insert([
+            'program_id' => $program->getId(),
+            'program_type' => $program->getValue('program_type'),
+            'program_type_text' => $program->getValue('program_name'),
+            'profile_name' => $profile->getValue('name'),
+            'profile_logo' => $profile->getValue('profile_logo') != null ? $profile->getValue('profile_logo')['filelink'] : asset('/images/custom/nophoto2.png'),
+            'program_status' => $program->getStatus(),
+            'program_status_text' => $program->getStatusText(),
+            'program_name' => $program->getValue('program_name'),
+            'ntp_text' => $program->getText('ntp') ?? '',
+            'year' => date('Y')
+        ]);
+
+        // Go to confirmation page.
+        $token = $user->getRememberToken();
+        return redirect(route('user.notify'));
+
     }
 
     public function createRaisingStarts() {

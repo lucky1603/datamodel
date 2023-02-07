@@ -23,7 +23,22 @@
         </div>
         <div class="card-body">
             @php
-                $route = ($programType == \App\Business\Program::$RAISING_STARTS) ? route('programs.saveapplicationdata') : route('programs.saveIBITFApplicationData');
+                switch($programType) {
+                    case \App\Business\Program::$RAISING_STARTS:
+                        $route = route('programs.saveapplicationdata');
+                        break;
+                    case \App\Business\Program::$INKUBACIJA_BITF:
+                        $route = route('programs.saveIBITFApplicationData');
+                        break;
+                    case \App\Business\Program::$RASTUCE_KOMPANIJE:
+                        $route = route('programs.saveRastuceApplicationData');
+                        break;
+                    default:
+                        $route = '';
+                        break;
+                }
+
+                //$route = ($programType == \App\Business\Program::$RAISING_STARTS) ? route('programs.saveapplicationdata') : route('programs.saveIBITFApplicationData');
             @endphp
             <form id="myForm" style="height: 100%" method="post" enctype="multipart/form-data" action="{{ $route }}" >
                 @csrf
@@ -43,6 +58,7 @@
                                 @include('profiles.partials._ibitf', ['mode' => 'user'])
                                 @break
                             @case(\App\Business\Program::$RASTUCE_KOMPANIJE)
+                                @include('profiles.partials._rastuce', ['mode' => 'user'])
                                 @break
                             @case(\App\Business\Program::$RAISING_STARTS)
                                 @include('profiles.partials._rstarts', ['mode' => 'user'])

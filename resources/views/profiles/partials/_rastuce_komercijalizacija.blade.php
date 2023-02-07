@@ -12,7 +12,7 @@
     <div class="form-group row">
         @php
             $attribute = $attributes->where('name', 'product_commercialization_'.$i)->first();
-            $value = $attribute->getValue() ?? isset($model) ? $model->getValue($val) : old($attribute->name);
+            $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);;
         @endphp
 
         <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -32,7 +32,7 @@
     <div class="form-group row">
         @php
             $attribute = $attributes->where('name', 'commercialization_phase_'.$i)->first();
-            $value = $attribute->getValue() ?? old($attribute->name);
+            $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);;
         @endphp
         <label for="{{ $attribute->name }}"
             class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>

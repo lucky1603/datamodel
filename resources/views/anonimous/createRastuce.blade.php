@@ -99,3 +99,27 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#okSpinner').hide();
+            $('#cancelSpinner').hide();
+            $('#buttonSend').click(function() {
+                $('#okSpinner').show();
+                try {
+                    document.getElementById('myRastuceForm').submit();
+                    $(this).attr('disabled', true);
+                } catch (e) {
+                    console.log(e.message);
+                }
+
+            });
+
+            $('#buttonCancel').click(function() {
+                $('#cancelSpinner').show();
+                location.href = 'https://ntpark.rs/raising-starts/';
+            });
+        })
+    </script>
+@endsection

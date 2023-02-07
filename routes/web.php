@@ -141,6 +141,7 @@ Route::post('programs/filterCache', 'ProgramController@filterCache')->name('prog
 Route::post('programs/evalPhase', 'ProgramController@evalPhase')->name('programs.evalPhase');
 Route::post('programs/saveApplicationData', 'ProgramController@saveApplicationData')->name('programs.saveapplicationdata');
 Route::post('programs/saveIBITFApplicationData', 'ProgramController@saveIBITFApplicationData')->name('programs.saveIBITFApplicationData');
+Route::post('programs/saveRastuceApplicationData', 'ProgramController@saveRastuceApplicationData')->name('programs.saveRastuceApplicationData');
 
 
 Route::get('/files/create', 'FileController@create')->name('files.create');

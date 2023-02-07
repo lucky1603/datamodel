@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
+use Illuminate\Database\Eloquent\Model;
 use phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 
 class Attribute extends Model
@@ -257,5 +258,52 @@ class Attribute extends Model
         });
 
         parent::delete();
+    }
+
+    public function getAllValues() {
+        switch($this->type) {
+            case 'text':
+                $tablename = 'text_values';
+                break;
+            case 'varchar':
+                $tablename = 'varchar_values';
+                break;
+            case 'integer':
+                $tablename = 'integer_values';
+                break;
+            case 'double':
+                $tablename = 'double_values';
+                break;
+            case 'datetime':
+                $tablename = 'datetime_values';
+                break;
+            case 'select':
+                $tablename = 'select_values';
+                break;
+            case 'file':
+                $tablename = 'file_values';
+                break;
+            case 'bool':
+                $tablename = 'bool_values';
+                break;
+            case 'timestamp':
+                $tablename = 'timestamp_values';
+                break;
+            default:
+                $tablename = $this->type.'_values';
+                break;
+        }
+
+        $query = DB::table($tablename)->where([
+            'attribute_id' => $this->id,
+        ]);
+
+        $rows = $query->get();
+        $retValues = [];
+        foreach($rows as $row) {
+            $retValues[] = $row->value;
+        }
+
+        return $retValues;
     }
 }

@@ -589,6 +589,10 @@ class ProgramController extends Controller
             });
     }
 
+    public function saveRastuceApplicationData(Request $request) {
+
+    }
+
     public function saveIBITFApplicationData(UpdateIncubationRequest $request) {
         $data = $request->post();
 
