@@ -965,7 +965,9 @@ class Program extends SituationsModel
                 'session_count' => $program->getSessions()->count(),
                 'workshop_count' => $program->getAttendances()->filter(function($attendance) { return $attendance->getTraining()->getValue('training_type') == 1; })->count(),
                 'year' => $year,
-                'membership_type' => $profile->getValue('membership_type') ?? 0
+                'membership_type' => $profile->getValue('membership_type') ?? 0,
+                'opstina' => $program->getValue('opstine') ?? 0,
+                'opstina_text' => $program->getValue('opstine') != null ? $program->getText('opstine') : ''
             ]);
         });
     }
