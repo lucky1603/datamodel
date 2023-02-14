@@ -967,7 +967,7 @@ class Program extends SituationsModel
                 'year' => $year,
                 'membership_type' => $profile->getValue('membership_type') ?? 0,
                 'opstina' => $program->getValue('opstine') ?? 0,
-                'opstina_text' => $program->getValue('opstine') != null ? $program->getText('opstine') : ''
+                'opstina_text' => $program->getValue('opstine') != null ? $program->getText('opstine') : __('Nije uneseno')
             ]);
         });
     }

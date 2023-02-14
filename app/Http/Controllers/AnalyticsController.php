@@ -46,8 +46,57 @@ class AnalyticsController extends Controller
             $query = $query->where($queryData);
         }
 
-        return $query->get()->toArray();
+        $query = $query->whereNotIn('program_status', [0,1]);
 
+        return $query->get()->toArray();
+    }
+
+    public function prijave_po_gradovima(Request $request) {
+        $program_type = $request->post('program_type');
+        $year = $request->post('year');
+
+        $query = DB::table('program_caches')
+            ->selectRaw("ntp_text as ntp, COUNT(ntp) as count")
+            ->groupBy(["ntp", "ntp_text"]);
+
+        $queryData = [];
+        if($program_type != 0) {
+            $queryData['program_type'] = $program_type;
+        }
+
+        if($year != 0) {
+            $queryData['year'] = $year;
+        }
+
+        if(count($queryData) > 0) {
+            $query = $query->where($queryData);
+        }
+
+        return $query->get()->toArray();
+    }
+
+    public function prijave_po_opstinama(Request $request) {
+        $program_type = $request->post('program_type');
+        $year = $request->post('year');
+
+        $query = DB::table('program_caches')
+            ->selectRaw("opstina_text as opstina, COUNT(opstina) as count")
+            ->groupBy(["opstina", "opstina_text"]);
+
+        $queryData = [];
+        if($program_type != 0) {
+            $queryData['program_type'] = $program_type;
+        }
+
+        if($year != 0) {
+            $queryData['year'] = $year;
+        }
+
+        if(count($queryData) > 0) {
+            $query = $query->where($queryData);
+        }
+
+        return $query->get()->toArray();
     }
 
     /**

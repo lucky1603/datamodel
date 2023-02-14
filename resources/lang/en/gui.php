@@ -106,6 +106,10 @@ return [
     'basic_dashboard_mentoring_sessions' => 'Mentoring sessions',
     'basic_dashboard_statistics' => 'Statistics',
     'basic_dashboard_of_all_registered' => 'of total count',
+    'basic_dashboard_distribution_programs_by_ntp' => 'Program Distribution by STP',
+    'basic_dashboard_distribution_apps_by_city' => 'Application Distribution by City',
+    'basic_dashboard_distribution_apps_by_municipalities' => 'Application Distribution by Municipalities',
+
 
     /**
      * Raising Starts Dashboard

@@ -34,6 +34,8 @@ Route::post('analytics/workshopAndSessionStats', 'AnalyticsController@getWorksho
 Route::get('analytics/splitOptions/{attributeName}/{year}', 'AnalyticsController@splitOptions')->name('analytics.splitOptions');
 Route::post('analytics/programStatuses', 'AnalyticsController@programStatuses')->name('analytics.programStatuses');
 Route::post('analytics/ntp', 'AnalyticsController@ntp')->name('analytics.ntp');
+Route::post('analytics/prijaveGradovi', 'AnalyticsController@prijave_po_gradovima')->name('analytics.prijaveGradovi');
+Route::post('analytics/prijaveOpstine', 'AnalyticsController@prijave_po_opstinama')->name('analytics.prijaveOpstine');
 
 
 Route::get('/edituser', 'Auth\EditUserController@index')->name('users');

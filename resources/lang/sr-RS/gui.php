@@ -108,6 +108,9 @@ return [
     'basic_dashboard_mentoring_sessions' => 'Mentorske sesije',
     'basic_dashboard_statistics' => 'Statistika',
     'basic_dashboard_of_all_registered' => 'Od svih prijavljenih',
+    'basic_dashboard_distribution_programs_by_ntp' => 'Raspodela programa po NTP',
+    'basic_dashboard_distribution_apps_by_city' => 'Raspodela prijava po gradovima',
+    'basic_dashboard_distribution_apps_by_municipalities' => 'Raspodela prijava po opštinama',
 
     /**
      * Raising Starts Dashboard
