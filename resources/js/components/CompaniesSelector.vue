@@ -35,6 +35,8 @@ export default {
 
             });
 
+
+
         },
         selectionChanged() {
             this.$emit('input', this.value);
@@ -43,7 +45,8 @@ export default {
     mounted() {
         console.log("input values");
         console.log(this.value);
-        this.getData();
+        setTimeout(this.getData, 1500);
+        // await this.getData();
     },
     data() {
         return {

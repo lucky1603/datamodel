@@ -1233,7 +1233,7 @@ class ProfileController extends Controller
                 ];
             });
 
-        return $candidates;
+        return $candidates->toArray();
     }
 
     public function list() {
