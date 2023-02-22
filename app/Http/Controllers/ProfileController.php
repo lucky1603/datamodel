@@ -1218,22 +1218,20 @@ class ProfileController extends Controller
         return $arr;
     }
 
-    public function getTrainingCandidates(): array
+    public function getTrainingCandidates()
     {
-        $programs = Program::find();
-        $candidates = [];
-        $filteredPrograms = $programs->filter(function($program) {
-            return $program->isEventCandidate();
-        });
-
-        foreach($filteredPrograms as $program) {
-            $candidates[] = [
-                'id' => $program->getId(),
-                'programType' => $program->getValue('program_type'),
-                'programName' => $program->getvalue('program_name'),
-                'profile' => $program->getProfile()->getValue('name')
-            ];
-        }
+        $candidates = DB::table('program_caches')
+            ->where('program_type', 2)
+            ->where('program_status', '>=', 3)
+            ->get()
+            ->map(function($program) {
+                return [
+                    'id' => $program->program_id,
+                    'programType' => $program->program_type,
+                    'programName' => $program->program_name,
+                    'profile' => $program->profile_name
+                ];
+            });
 
         return $candidates;
     }
