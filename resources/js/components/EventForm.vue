@@ -127,7 +127,7 @@
       </div>
 
       <div class="d-flex flex-column mt-2">
-        <label class="attribute-label font-italic">Organizator</label>
+        <label class="attribute-label font-italic">Agenda</label>
         <div
           id="trainingDescriptionHtml"
           class="p-2 overflow-auto border"
