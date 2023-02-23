@@ -77,6 +77,10 @@ class RaisingStartsProgram extends Program
         $this->workflow->setCurrentIndex($this->getStatus());
     }
 
+    protected function getDefaultYear() {
+        return parent::getDefaultYear() + 1;
+    }
+
     protected function updateProgramData()
     {
         $this->setData([

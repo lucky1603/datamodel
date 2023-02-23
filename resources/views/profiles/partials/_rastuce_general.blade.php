@@ -3,7 +3,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'company_name')->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);
+        $value = $attribute->getValue()  ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) ) ;
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -22,7 +22,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'id_number')->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -41,7 +41,7 @@
 <div class="form-group row" id="dateRow">
     @php
         $attribute = $attributes->where('name', 'founding_date')->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);;
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm @if($mode == 'anonimous') mandatory-label @endif">{{ $attribute->label }}</label>
@@ -56,7 +56,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'webpage')->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);;
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -75,7 +75,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'business_branch')->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);;
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
     @endphp
     <label for="{{ $attribute->name }}"
            class="col-lg-2 attribute-label col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
@@ -97,7 +97,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'responsible_person')->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);;
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -116,7 +116,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'responsible_person_email')->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);;
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -135,7 +135,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'responsible_person_phone')->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);;
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -144,7 +144,7 @@
                class="mandatory-field form-control form-control-sm @error($attribute->name) is-invalid @enderror"
                id="{{ $attribute->name }}"
                name="{{ $attribute->name }}"
-               value="{{ $value }}" @if(isset($model) && isset($instance_id) && $value != null ) disabled @endif>
+               value="{{ $value }}" @if(isset($model) && isset($instance_id) && $value != null ) disabled @endif data-toggle="input-mask" data-mask-format="000 000-0000">
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @endif
@@ -154,7 +154,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'address')->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);;
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -174,7 +174,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'innovative_product')->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);;
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>

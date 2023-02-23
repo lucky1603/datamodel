@@ -175,32 +175,33 @@
                     $('#rstarts_founding_date_group').show();
                 }
             });
+            // Raising starts
 
             // In case of Incubation BITF
-            // Toggle PIB and ID_NUMBER
-            const legalStatus = $('#legal_status').val();
-            if(legalStatus != 2) {
-                $('#pibRow').hide();
-                $('#idNumberRow').hide();
-                $('#dateRow').hide();
-            } else {
-                $('#pibRow').show();
-                $('#idNumberRow').show();
-                $('#dateRow').show();
-            }
+            // Toggle PIB and ID_NUMBER - S.Ristic/10.2.2023 - nije vise potrebno
+            // const legalStatus = $('#legal_status').val();
+            // if(legalStatus != 2) {
+            //     $('#pibRow').hide();
+            //     $('#idNumberRow').hide();
+            //     $('#dateRow').hide();
+            // } else {
+            //     $('#pibRow').show();
+            //     $('#idNumberRow').show();
+            //     $('#dateRow').show();
+            // }
 
-            $('#legal_status').change(function() {
-                const legalStatus = $('#legal_status').val();
-                if(legalStatus != 2) {
-                    $('#pibRow').hide();
-                    $('#idNumberRow').hide();
-                    $('#dateRow').hide();
-                } else {
-                    $('#pibRow').show();
-                    $('#idNumberRow').show();
-                    $('#dateRow').show();
-                }
-            });
+            // $('#legal_status').change(function() {
+            //     const legalStatus = $('#legal_status').val();
+            //     if(legalStatus != 2) {
+            //         $('#pibRow').hide();
+            //         $('#idNumberRow').hide();
+            //         $('#dateRow').hide();
+            //     } else {
+            //         $('#pibRow').show();
+            //         $('#idNumberRow').show();
+            //         $('#dateRow').show();
+            //     }
+            // });
 
             let dev_phase_business = $('#rstarts_dev_phase_bussines').val();
             console.log(dev_phase_business);
@@ -352,7 +353,9 @@
                     $('#button_spinner').attr('hidden', true);
 
                     if(result.code == 0) {
-                        $.toast(result.message);
+                        $.toast({
+                            text: result.message
+                        });
 
                     } else {
                         $.toast({

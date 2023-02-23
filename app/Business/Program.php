@@ -887,21 +887,25 @@ class Program extends SituationsModel
                 if($contract_date != '') {
                     $year = date("Y", strtotime($contract_date));
                 } else {
-                    $year = date('Y', strtotime($this->instance->created_at));
-                    $year += 1;
+                    $year = $this->getDefaultYear();
                 }
 
             } else {
-                $year = date('Y', strtotime($this->instance->created_at));
-                $year += 1;
+                $year = $this->getDefaultYear();
             }
         }
         else {
-            $year = date('Y', strtotime($this->instance->created_at));
-            $year += 1;
+            $year = $this->getDefaultYear();
         }
 
         return $year;
+    }
+
+    /**
+     * Get year in the case the there is no contract or contract is not yet signed.
+     */
+    protected function getDefaultYear() {
+        return date('Y', strtotime($this->instance->created_at));
     }
 
     public static function makeCache() {
@@ -924,31 +928,34 @@ class Program extends SituationsModel
                 $logo = $logo['filelink'];
             }
 
-            $year = 1996;
-            $workflow = $program->getWorkflow();
-            if($workflow != null) {
-                $contract = $program->getWorkflow()->getPhases()->filter(function($phase) {
-                    return $phase instanceof Contract;
-                })->first();
+            // $year = 1996;
+            // $workflow = $program->getWorkflow();
+            // if($workflow != null) {
+            //     $contract = $program->getWorkflow()->getPhases()->filter(function($phase) {
+            //         return $phase instanceof Contract;
+            //     })->first();
 
-                if($contract != null) {
-                    $contract_date = $contract->getValue('signed_at');
-                    if($contract_date != '') {
-                        $year = date("Y", strtotime($contract_date));
-                    } else {
-                        $year = date('Y', strtotime($program->instance->created_at));
-                        $year += 1;
-                    }
+            //     if($contract != null) {
+            //         $contract_date = $contract->getValue('signed_at');
+            //         if($contract_date != '') {
+            //             $year = date("Y", strtotime($contract_date));
+            //         } else {
+            //             $year = date('Y', strtotime($program->instance->created_at));
+            //             $year += 1;
+            //         }
 
-                } else {
-                    $year = date('Y', strtotime($program->instance->created_at));
-                    $year += 1;
-                }
-            }
-            else {
-                $year = date('Y', strtotime($program->instance->created_at));
-                $year += 1;
-            }
+            //     } else {
+            //         $year = date('Y', strtotime($program->instance->created_at));
+            //         $year += 1;
+            //     }
+            // }
+            // else {
+            //     $year = date('Y', strtotime($program->instance->created_at));
+            //     if($program->getValue('program_type') == Program::$RAISING_STARTS)
+            //         $year += 1;
+            // }
+
+            $year = $program->getYear();
 
             DB::table('program_caches')->insert([
                 'program_id' => $program->getId(),

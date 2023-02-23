@@ -12,7 +12,8 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'innovative_product_'.$i)->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);;
+        // $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
+        $value = $attribute->getValue();
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -21,7 +22,7 @@
                class="mandatory-field form-control form-control-sm @error($attribute->name) is-invalid @enderror"
                id="{{ $attribute->name }}"
                name="{{ $attribute->name }}"
-               value="{{ $value }}">
+               value="{{ $value }}" @if ($mode == 'anonimous') disabled @endif>
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @endif
@@ -32,14 +33,15 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'innovative_phase_'.$i)->first();
-        $value = $attribute->getValue() ?? isset($model) ? $model->getValue($attribute->name) : old($attribute->name);;
+        // $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
+        $value = $attribute->getValue();
     @endphp
     <label for="{{ $attribute->name }}"
            class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
     <div class="col-sm-10">
         <select id="{{$attribute->name}}"
             name="{{$attribute->name}}"
-            class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field">
+            class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field" @if ($mode == 'anonimous') disabled @endif>
             <option value="0">{{ __('Izaberite ...') }}</option>
             @foreach($attribute->getOptions() as $key => $val)
                 <option value="{{$key}}" @if($key == $value) selected @endif>{{$val}}</option>

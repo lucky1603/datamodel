@@ -9,6 +9,7 @@ use App\Business\Profile;
 use App\Business\Program;
 use App\Business\ProgramFactory;
 use App\Business\RaisingStartsProgram;
+use App\Business\RastuceProgram;
 use App\Business\Situation;
 use App\Business\Training;
 use App\Http\Requests\UpdateIncubationRequest;
@@ -341,6 +342,12 @@ class ProgramController extends Controller
             if($assertion['code'] == 0) {
                 return json_encode($assertion);
             }
+        } else if($programType == Program::$RASTUCE_KOMPANIJE) {
+            $assertion = $this->checkRastuceProgramData($program);
+
+            if($assertion['code'] == 0) {
+                return json_encode($assertion);
+            }
         }
 
         $profile = $program->getProfile();
@@ -407,6 +414,57 @@ class ProgramController extends Controller
         return [
             'code' => 1,
             'message' => __('Nema programa sa tim id-jem!')
+        ];
+    }
+
+    private function checkRastuceProgramData(RastuceProgram $program) {
+        $data = $program->getData();
+
+        // $dropDowns = ['intention', 'company_type', 'apply_for_membership_type'];
+        // foreach($dropDowns as $dropDown) {
+        //     if($data[$dropDown] == 0) {
+        //         $attribute = $program->getAttribute($dropDown);
+        //         return [
+        //             'code' => 0,
+        //             'message' => 'Nevalidna vrednost za parametar "'.$attribute->label.'"',
+        //         ];
+        //     }
+        // }
+
+        $ignores = collect(["ovlasceno_lice","funkcija","contact_info"]);
+        $attributes = $program->getAttributes();
+        $failAttributes = $attributes->filter(function($attribute) use($ignores) {
+            return !$ignores->contains($attribute->name) && $attribute->getValue() == null;
+        });
+
+        if($failAttributes->count() > 0) {
+            $firstAttribute = $failAttributes->first();
+            return [
+                'code' => 0,
+                'message' => 'Nevalidna vrednost za parametar "'.$firstAttribute->label.'"'
+            ];
+        } else {
+            $fileAttrNames = [
+                "rastuce_financial_reports",
+                "rastuce_cvs",
+                "rastuce_presentation"
+            ];
+
+            foreach($fileAttrNames as $fileAttributeName) {
+                 $attribute = $attributes->where('name', $fileAttributeName)->first();
+                 $files = $attribute->getValue();
+                 if($files[0]['filename'] == '') {
+                    return [
+                        'code' => 0,
+                        'message' => "Argument '".$attribute->label."' ne može biti prazan!",
+                    ];
+                 }
+            }
+        }
+
+        return [
+            'code' => 1,
+            'message' => 'Kontrola prošla uspešno!'
         ];
     }
 
@@ -590,6 +648,57 @@ class ProgramController extends Controller
     }
 
     public function saveRastuceApplicationData(Request $request) {
+        $data = $request->post();
+
+        $files = Utils::getFilesFromRequest($request, 'rastuce_financial_reports');
+        if($files != null && $files != [ 'filelink' => '', 'filename' => '']) {
+            $data['rastuce_financial_reports'] = $files;
+        }
+
+        $files = Utils::getFilesFromRequest($request, 'rastuce_cvs');
+        if($files != null && $files != [ 'filelink' => '', 'filename' => '']) {
+            $data['rastuce_cvs'] = $files;
+        }
+
+        $files = Utils::getFilesFromRequest($request, 'rastuce_presentation');
+        if($files != null && $files != [ 'filelink' => '', 'filename' => '']) {
+            $data['rastuce_presentation'] = $files;
+        }
+
+        if(isset($data['instance_id'])) {
+            $program = ProgramFactory::resolve($data['instance_id']);
+            $program->setData($data);
+        } else {
+            $data['init_workflow'] = true;
+            $data['ntp'] = 1;
+            $program = ProgramFactory::create(Program::$RASTUCE_KOMPANIJE, $data);
+            $profile = Profile::find($data['profile_id']);
+            $profile->addProgram($profile);
+            $situation = $profile->addSituationByData(__('Applying'), [
+                'program_type' => Program::$RASTUCE_KOMPANIJE,
+                'program_name' => $program->getValue('program_name'),
+            ]);
+            $program->addSituation($situation);
+            $profile->setValue('profile_status', 2);
+            DB::table('program_caches')
+            ->insert([
+                'program_id' => $program->getId(),
+                'program_type' => $program->getValue('program_type'),
+                'program_type_text' => __('RASTUĆE KOMPANIJE'),
+                'profile_name' => $profile->getValue('name'),
+                'profile_logo' => $profile->getValue('profile_logo')['filelink'],
+                'program_status' => $program->getStatus(),
+                'program_status_text' => $program->getStatusText(),
+                'program_name' => $program->getValue('program_name'),
+                'ntp_text' => $profile->getText('ntp'),
+                'ntp' => $profile->getValue('ntp'),
+                'year' => date('Y'),
+                'opstina' => $program->getValue('opstine') ?? 0,
+                'opstina_text' => $program->getValue('opstine') != null ? $program->getText('opstine') : __('Nije uneseno')
+            ]);
+        }
+
+        return redirect(route('programs.profile', ['program' => $program->getId()]));
 
     }
 
@@ -647,6 +756,8 @@ class ProgramController extends Controller
                     'program_name' => $program->getValue('program_name'),
                     'ntp_text' => $program->getText('ntp'),
                     'year' => date('Y'),
+                    'opstina' => $program->getValue('opstine') ?? 0,
+                    'opstina_text' => $program->getValue('opstine') != null ? $program->getText('opstine') : __('Nije uneseno')
                 ]);
         }
 
@@ -757,7 +868,7 @@ class ProgramController extends Controller
                     'program_status_text' => $program->getStatusText(),
                     'ntp' => $program->getValue('ntp'),
                     'ntp_text' => $program->getText('ntp'),
-                    'year' => date('Y', strtotime('+ 1 year', strtotime(now()))),
+                    'year' => $program->getValue('program_type') == Program::$RAISING_STARTS ? date('Y', strtotime('+ 1 year', strtotime(now()))) : date('Y'),
                 ]);
 
         }

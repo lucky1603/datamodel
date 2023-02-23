@@ -42,23 +42,18 @@
             <div class="jumbotron bg-white">
                 <span class="h1 font-weight-light">Raising Starteri dobrodošli u zajednicu!</span>
                 <hr class="my-4" style="height: 1px; background-color: #313a46; border: none"/>
-                <p>
-                    Agendu programa možete skinuti
-                    <a href="https://docs.google.com/document/d/1fWvvOE3NL12SdsAUvJo4vUdqESV1EEngpwECE7zKQMw/edit?usp=sharing" target="_blank">ovde</a>.
-                </p>
+
                 <p>Tokom Faze 1 radionice i mentorske sesije (njihovi datumi, prijavni linkovi,
                     prateći materijali) se prate putem softvera, dok domaći kačite u Google
                     Drive folder koji će NTP tim kreirati za vas.</p>
-                <p>Možete nas zapratiti na društvenim mrežama <a href="https://www.facebook.com/NTPBeograd" target="_blank">NTP Facebook</a> ,
-                    <a href="https://www.instagram.com/ntpbeograd/?hl=en" target="_blank">NTP Instagram</a>,
-                    <a href="https://www.linkedin.com/company/22314474/admin/" target="_blank">Linkedin</a>,
+                <p>Možete nas zapratiti na društvenim mrežama
                     <a href="https://www.facebook.com/raising.starts/?ref=pages_you_manage" target="_blank">RS Facebook</a>,
                     <a href="https://www.instagram.com/raising.starts/?hl=en" target="_blank">RS Instagram</a> kao i na
                     <a href="https://www.youtube.com/channel/UC_m0WcITw_RYVaGfM-S0_-w" target="_blank">YT kanalu</a> gde možete pronaći
                     dosta zanimljivih  webinara.</p>
                 <p>Uvek nas možete kontaktirati i putem e-maila na <a href="mailto://info@ntpark.rs" target="_blank">info@ntpark.rs</a></p>
                 <p>Vaš,
-                    NTP tim
+                    Raising Starts tim
                 </p>
             </div>
 

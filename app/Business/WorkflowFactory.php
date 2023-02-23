@@ -12,6 +12,8 @@ class WorkflowFactory
                 return new RaisingStartsWorkflow(['instance_id' => $instanceId]);
             case Program::$INKUBACIJA_BITF:
                 return new IncubationWorkflow(['instance_id' => $instanceId]);
+            case Program::$RASTUCE_KOMPANIJE:
+                return new RastuceWorkflow(['instance_id' => $instanceId]);
             default:
                 return null;
         }

@@ -2,6 +2,7 @@
 
 namespace App\Business;
 
+use App\Report;
 use App\AttributeGroup;
 use Illuminate\Support\Collection;
 
@@ -16,7 +17,9 @@ class RastuceProgram extends Program
         $groups->add(AttributeGroup::get('rastuce_razvoj_trzista'));
         $groups->add(AttributeGroup::get('rastuce_rast_godisnji'));
         $groups->add(AttributeGroup::get('rastuce_saradnja_nio'));
-        $groups->add(AttributeGroup::get('rastuce_potpis'));
+        $groups->add(AttributeGroup::get('rastuce_attachments'));
+
+
 
         return $groups;
     }
@@ -26,6 +29,42 @@ class RastuceProgram extends Program
             $this->setWorkflow(new RastuceWorkflow());
         }
         $this->workflow->setCurrentIndex($this->getStatus() - 1);
+    }
+
+    public function initReports()
+    {
+        $profile = $this->getProfile();
+
+        $lastPhase = $this->getWorkflow()->getPhases()->last();
+        if(!($lastPhase instanceof Contract)) {
+            return;
+        }
+
+        $contract_date = $lastPhase->getValue('signed_at');
+
+        // Add two reports with one year difference.
+        $report = Report::create([
+            'company_name' =>  $profile->getValue('name'),
+            'program_name' => $this->getValue('program_name'),
+            'report_name' => 'Prvi izveštaj',
+            'report_description' => 'Prvi periodični izveštaj',
+            'contract_start' => $contract_date,
+            'contract_check' => date('Y-m-d', strtotime('+ 1 year', strtotime($contract_date))),
+        ]);
+
+        $this->addReport($report);
+
+        // Add two reports with 3 months difference.
+        $report = Report::create([
+            'company_name' =>  $profile->getValue('name'),
+            'program_name' => $this->getValue('program_name'),
+            'report_name' => 'Drugi izveštaj',
+            'report_description' => 'Drugi periodični izveštaj',
+            'contract_start' => $contract_date,
+            'contract_check' => date('Y-m-d', strtotime('+ 2 years', strtotime($contract_date))),
+        ]);
+
+        $this->addReport($report);
     }
 
     protected function updateProgramData() {
@@ -63,6 +102,7 @@ class RastuceProgram extends Program
                 return parent::getTextForStatus($status);
         }
     }
+
 
     public static function getAttributesDefinition(): Collection
     {
@@ -134,7 +174,6 @@ class RastuceProgram extends Program
             $innovative_phase1->addOption(["value" => 2, 'text' => 'Prototip u laboratoriji ili eksperimentalnom okruženju']);
             $innovative_phase1->addOption(["value" => 3, 'text' => 'Testiran prototip']);
             $innovative_phase1->addOption(["value" => 4, 'text' => 'Minimalno održivi proizvod - MVP']);
-            $innovative_phase1->addOption(["value" => 5, 'text' => 'Ideja ili nacrt']);
         }
 
         $attributes->add($ag_innovative->addAttribute($innovative_phase1));
@@ -147,7 +186,6 @@ class RastuceProgram extends Program
             $innovative_phase2->addOption(["value" => 2, 'text' => 'Prototip u laboratoriji ili eksperimentalnom okruženju']);
             $innovative_phase2->addOption(["value" => 3, 'text' => 'Testiran prototip']);
             $innovative_phase2->addOption(["value" => 4, 'text' => 'Minimalno održivi proizvod - MVP']);
-            $innovative_phase2->addOption(["value" => 5, 'text' => 'Ideja ili nacrt']);
         }
 
         $attributes->add($ag_innovative->addAttribute($innovative_phase2));
@@ -160,7 +198,6 @@ class RastuceProgram extends Program
             $innovative_phase3->addOption(["value" => 2, 'text' => 'Prototip u laboratoriji ili eksperimentalnom okruženju']);
             $innovative_phase3->addOption(["value" => 3, 'text' => 'Testiran prototip']);
             $innovative_phase3->addOption(["value" => 4, 'text' => 'Minimalno održivi proizvod - MVP']);
-            $innovative_phase3->addOption(["value" => 5, 'text' => 'Ideja ili nacrt']);
         }
 
         $attributes->add($ag_innovative->addAttribute($innovative_phase3));
@@ -258,66 +295,77 @@ class RastuceProgram extends Program
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['stalno_zaposleni_t', 'Broj stalno zaposlenih trenutno', 'integer', NULL, 23])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['stalno_zaposleni_t1', 'Broj stalno zaposlenih t+1', 'integer', NULL, 24])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['stalno_zaposleni_t2', 'Broj stalno zaposlenih t+2', 'integer', NULL, 25])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['stalno_zaposleni_t3', 'Broj stalno zaposlenih t+3', 'integer', NULL, 125])));
 
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['angazovani_2t', 'Broj angazovanih t-2', 'integer', NULL, 26])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['angazovani_1t', 'Broj angazovanih t-1', 'integer', NULL, 27])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['angazovani_t', 'Broj angazovanih trenutno', 'integer', NULL, 28])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['angazovani_t1', 'Broj angazovanih t+1', 'integer', NULL, 29])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['angazovani_t2', 'Broj angazovanih t+2', 'integer', NULL, 30])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['angazovani_t3', 'Broj angazovanih t+3', 'integer', NULL, 130])));
 
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['praktikanti_2t', 'Broj praktikanata t-2', 'integer', NULL, 31])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['praktikanti_1t', 'Broj praktikanata t-1', 'integer', NULL, 32])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['praktikanti_t', 'Broj praktikanata trenutno', 'integer', NULL, 33])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['praktikanti_t1', 'Broj praktikanata t+1', 'integer', NULL, 34])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['praktikanti_t2', 'Broj praktikanata t+2', 'integer', NULL, 35])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['praktikanti_t3', 'Broj praktikanata t+2', 'integer', NULL, 135])));
 
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_stalno_zaposleni_2t', 'Broj stalno zaposlenih maticne kompanije t-2', 'integer', NULL, 36])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_stalno_zaposleni_1t', 'Broj stalno zaposlenih maticne kompanije t-1', 'integer', NULL, 37])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_stalno_zaposleni_t', 'Broj stalno zaposlenih maticne kompanije trenutno', 'integer', NULL, 38])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_stalno_zaposleni_t1', 'Broj stalno zaposlenih maticne kompanije t+1', 'integer', NULL, 39])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_stalno_zaposleni_t2', 'Broj stalno zaposlenih maticne kompanije t+2', 'integer', NULL, 40])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_stalno_zaposleni_t3', 'Broj stalno zaposlenih maticne kompanije t+3', 'integer', NULL, 140])));
 
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_angazovani_2t', 'Broj angazovanih maticne kompanije t-2', 'integer', NULL, 41])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_angazovani_1t', 'Broj angazovanih maticne kompanije t-1', 'integer', NULL, 42])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_angazovani_t', 'Broj angazovanih maticne kompanije trenutno', 'integer', NULL, 43])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_angazovani_t1', 'Broj angazovanih maticne kompanije t+1', 'integer', NULL, 44])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_angazovani_t2', 'Broj angazovanih maticne kompanije t+2', 'integer', NULL, 45])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_angazovani_t3', 'Broj angazovanih maticne kompanije t+3', 'integer', NULL, 145])));
 
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_praktikanti_2t', 'Broj praktikanata maticne kompanije t-2', 'integer', NULL, 46])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_praktikanti_1t', 'Broj praktikanata maticne kompanije t-1', 'integer', NULL, 47])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_praktikanti_t', 'Broj praktikanata maticne kompanije trenutno', 'integer', NULL, 48])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_praktikanti_t1', 'Broj praktikanata maticne kompanije t+1', 'integer', NULL, 49])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_praktikanti_t2', 'Broj praktikanata maticne kompanije t+2', 'integer', NULL, 50])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['maticna_praktikanti_t3', 'Broj praktikanata maticne kompanije t+3', 'integer', NULL, 150])));
 
-        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_2t', 'Ukupno prihodi (u EUR) t-2', 'integer', NULL, 51])));
-        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_1t', 'Ukupno prihodi (u EUR) t-1', 'integer', NULL, 52])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_2t', 'Ukupno prihodi (u 000 EUR) t-2', 'integer', NULL, 51])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_1t', 'Ukupno prihodi (u 000 EUR) t-1', 'integer', NULL, 52])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_t', 'Ukupno prihodi (u EUR) trenutno', 'integer', NULL, 53])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_t1', 'Ukupno prihodi (u EUR) t+1', 'integer', NULL, 54])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_t2', 'Ukupno prihodi (u EUR) t+2', 'integer', NULL, 55])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_t3', 'Ukupno prihodi (u EUR) t+3', 'integer', NULL, 155])));
 
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_commercialization_2t', 'Ukupni prihodi od komercijalizacije inovativnog proizvoda (u EUR) t-2', 'integer', NULL, 56])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_commercialization_1t', 'Ukupni prihodi od komercijalizacije inovativnog proizvoda (u EUR) t-1', 'integer', NULL, 57])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_commercialization_t', 'Ukupni prihodi od komercijalizacije inovativnog proizvoda (u EUR) trenutno', 'integer', NULL, 58])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_commercialization_t1', 'Ukupni prihodi od komercijalizacije inovativnog proizvoda (u EUR) t+1', 'integer', NULL, 59])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_commercialization_t2', 'Ukupni prihodi od komercijalizacije inovativnog proizvoda (u EUR) t+2', 'integer', NULL, 60])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_commercialization_t3', 'Ukupni prihodi od komercijalizacije inovativnog proizvoda (u EUR) t+3', 'integer', NULL, 160])));
 
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_export_2t', 'Ukupni izvoz (u EUR) t-2', 'integer', NULL, 61])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_export_1t', 'Ukupni izvoz (u EUR) t-1', 'integer', NULL, 62])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_export_t', 'Ukupni izvoz (u EUR) trenutno', 'integer', NULL, 63])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_export_t1', 'Ukupni izvoz (u EUR) t+1', 'integer', NULL, 64])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_export_t2', 'Ukupni izvoz (u EUR) t+2', 'integer', NULL, 65])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_export_t3', 'Ukupni izvoz (u EUR) t+3', 'integer', NULL, 165])));
 
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_maticna_2t', 'Ukupno prihodi (u EUR) t-2', 'integer', NULL, 51])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_maticna_1t', 'Ukupno prihodi (u EUR) t-1', 'integer', NULL, 52])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_maticna_t', 'Ukupno prihodi (u EUR) trenutno', 'integer', NULL, 53])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_maticna_t1', 'Ukupno prihodi (u EUR) t+1', 'integer', NULL, 54])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_maticna_t2', 'Ukupno prihodi (u EUR) t+2', 'integer', NULL, 55])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_income_maticna_t3', 'Ukupno prihodi (u EUR) t+3', 'integer', NULL, 155])));
 
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_export_maticna_2t', 'Ukupni izvoz (u EUR) t-2', 'integer', NULL, 61])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_export_maticna_1t', 'Ukupni izvoz (u EUR) t-1', 'integer', NULL, 62])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_export_maticna_t', 'Ukupni izvoz (u EUR) trenutno', 'integer', NULL, 63])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_export_maticna_t1', 'Ukupni izvoz (u EUR) t+1', 'integer', NULL, 64])));
         $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_export_maticna_t2', 'Ukupni izvoz (u EUR) t+2', 'integer', NULL, 65])));
+        $attributes->add($ag_annualgrowth->addAttribute(self::selectOrCreateAttribute(['total_export_maticna_t3', 'Ukupni izvoz (u EUR) t+3', 'integer', NULL, 165])));
 
         // Saradnja sa NIO
         $ag_saradnjanio = AttributeGroup::get('rastuce_saradnja_nio');

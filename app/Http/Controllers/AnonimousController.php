@@ -260,7 +260,9 @@ class AnonimousController extends Controller
             'program_status_text' => $program->getStatusText(),
             'program_name' => $program->getValue('program_name'),
             'ntp_text' => $program->getText('ntp') ?? '',
-            'year' => date('Y')
+            'year' => date('Y'),
+            'opstina' => $program->getValue('opstine') ?? 0,
+            'opstina_text' => $program->getValue('opstine') != null ? $program->getText('opstine') : __('Nije uneseno')
         ]);
 
         // Go to confirmation page.
@@ -271,11 +273,13 @@ class AnonimousController extends Controller
 
     public function createRastuce() {
         $attributeData = RastuceProgram::getAttributesDefinition();
+        if(auth()->user() == null) $mode = 'anonimous'; else $mode = auth()->user()->roles->first()->name;
 
         return view('anonimous.createRastuce',
         [
             'attributes' => $attributeData['attributes'],
-            'attributeGroups' => $attributeData['attributeGroups']
+            'attributeGroups' => $attributeData['attributeGroups'],
+            'mode' => $mode
         ]);
     }
 
@@ -299,6 +303,8 @@ class AnonimousController extends Controller
         if($fileData != null) {
             $data['rastuce_presentation'] = $fileData;
         }
+
+        $data['ntp'] = 1;
 
         // Create Profile
         $profileData = [
@@ -397,7 +403,7 @@ class AnonimousController extends Controller
             'business_branch' => $profile->getValue('business_branch') ?? 0,
             'business_branch_text' => $profile->getText('business_branch') ?? '',
             'website' => $profile->getValue('profile_webpage') ?? '',
-            'program_name' => $program->getValue('program_name') ?? ''
+            'program_name' => $program->getValue('program_name') ?? '',
         ]);
 
         // Update program cache
@@ -412,6 +418,9 @@ class AnonimousController extends Controller
             'program_status_text' => $program->getStatusText(),
             'program_name' => $program->getValue('program_name'),
             'ntp_text' => $program->getText('ntp') ?? '',
+            'ntp' => $program->getValue('ntp'),
+            'opstina' => $program->getValue('opstine') ?? 0,
+            'opstina_text' => $program->getValue('opstine') != null ? $program->getText('opstine') : __('Nije uneseno'),
             'year' => date('Y')
         ]);
 
@@ -617,6 +626,8 @@ class AnonimousController extends Controller
             'ntp' => $program->getValue('ntp'),
             'ntp_text' => $program->getText('ntp'),
             'year' => date('Y', strtotime('+ 1 year', strtotime(now()))),
+            'opstina' => $program->getValue('opstine') ?? 0,
+            'opstina_text' => $program->getValue('opstine') != null ? $program->getText('opstine') : __('Nije uneseno')
         ]);
 
         // Go to confirmation page.

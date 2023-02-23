@@ -19,8 +19,6 @@ export default {
         async getData() {
             await axios.get(this.source)
             .then(response => {
-                console.log('Training candidates');
-                console.log(response.data);
                 this.originalItems.length = 0;
 
                 let programs = response.data;
@@ -43,10 +41,12 @@ export default {
         }
     },
     mounted() {
-        console.log("input values");
-        console.log(this.value);
+        // The timeout here is because the child component (item selector)
+        // is always loaded before the data of the selected companies is being retrieved.
+        // Therefore there is a need to set the timeout so there is enough time for the data
+        // to be retrieved before the item selector control is loaded. (S.Ristic 22.02.2023.)
         setTimeout(this.getData, 1500);
-        // await this.getData();
+
     },
     data() {
         return {
