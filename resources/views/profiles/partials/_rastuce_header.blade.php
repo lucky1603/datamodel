@@ -1,5 +1,3 @@
-<h3 class="text-center attribute-label m-4">{{ mb_strtoupper(__('Namere')) }}</h3>
-
 @foreach (['intention', 'company_type', 'apply_for_membership_type'] as $attname)
 <div class="form-group row">
     @php
