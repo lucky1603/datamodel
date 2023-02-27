@@ -24,6 +24,11 @@
     </div>
     @error('gdpr') <div class="alert alert-danger">{{ $message }}</div> @enderror
 
+    <div class="d-flex align-items-center justify-content-center mt-4 mb-4">
+        <span class="attribute-label font-14 ">U nastavku se možete informativno upoznati sa pitanjima koja vas čekaju prilikom popunjavanja prijave.
+        Prijavu popunjavate na linku koji dobijate nakon što registrujete svoj profil.</span>
+    </div>
+
     <div class="row mt-4">
         <div class="col-md-4"></div>
         <div class="form-group col-md-3">
