@@ -114,7 +114,7 @@
       >
       </find-criteria>
       <find-criteria
-        v-if="bBusinessBranch"
+        v-if="bProductType"
         :title="_('gui.rs_dashboard_type_of_product_service_text')"
         source="/analytics/splitOptions/how_innovative"
         class="mr-3"
@@ -123,7 +123,7 @@
       >
       </find-criteria>
       <find-criteria
-        v-if="bProductType"
+        v-if="bBusinessBranch"
         :title="_('gui.rs_dashboard_field_of_product_service_text')"
         source="/analytics/splitOptions/product_type"
         class="mr-3"
