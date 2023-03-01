@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Attribute;
+use App\ProfileCache;
 use App\Business\Program;
 use App\Business\Training;
-use App\ProfileCache;
+use App\Exports\RSDashboardExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AnalyticsController extends Controller
 {
@@ -399,5 +401,39 @@ class AnalyticsController extends Controller
         return $resultData;
     }
 
+    public function exportRaisingStartsDashboard($year)
+    {
+        $exportData = [];
 
+        // Startup types.
+        $request = new Request([],[
+            'project_type' => Program::$RAISING_STARTS,
+            'year' => $year,
+        ], [], [], [], [], null);
+
+        $exportData['startupTypes'] = $this->startupTypes($request);
+
+        // Program statuses
+        $exportData['programStatuses'] = $this->programStatuses($request);
+
+        // Workshops and sessions.
+        $exportData['workshopsAndSessionStats'] = $this->getWorkshopAndSessionStats($request);
+
+        // Distributerion by NTP
+        $exportData['ntp'] = $this->ntp($request);
+
+        // Distribution by Cities
+        $exportData['prijavePoGradovima'] = $this->prijave_po_gradovima($request);
+
+        // Distribution by Municipalities
+        $exportData['prijavePoOpstinama'] = $this->prijave_po_opstinama($request);
+
+        $exportData['devPhaseTech'] = $this->splitOptions('dev_phase_tech', 2023);
+        $exportData['year'] = $year;
+
+        // var_dump($exportData);
+        // die();
+
+        return Excel::download(new RSDashboardExport("Raising Starts Statistika", $exportData),'rs_statistics.xlsx');
+    }
 }

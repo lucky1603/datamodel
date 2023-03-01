@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div class="d-flex align-items-center justify-content-center w-100">
 
+    <div class="d-flex align-items-center justify-content-center w-100">
         <div class="d-flex flex-row w-25 my-1 mx-2">
             <label style="width: 100px; padding: 7px">Godina: </label>
             <b-form-select v-model="year" :options="years" @change="selectionChanged"></b-form-select>
         </div>
+        <b-button variant="primary" @click="myExport">Export</b-button>
     </div>
     <basic-dashboard :program_type="program_type" :token="token" :year="year"></basic-dashboard>
     <div v-if="program_type == 2" class="d-flex flex-wrap">
@@ -114,17 +115,17 @@
       >
       </find-criteria>
       <find-criteria
-        v-if="bProductType"
-        :title="_('gui.rs_dashboard_type_of_product_service_text')"
-        source="/analytics/splitOptions/how_innovative"
+        v-if="bBusinessBranch"
+        :title="_('gui.rs_dashboard_field_of_product_service_text')"
+        source="/analytics/splitOptions/innovative_area"
         class="mr-3"
         style="max-width: 335px"
         :year="year"
       >
       </find-criteria>
       <find-criteria
-        v-if="bBusinessBranch"
-        :title="_('gui.rs_dashboard_field_of_product_service_text')"
+        v-if="bProductType"
+        :title="_('gui.rs_dashboard_type_of_product_service_text')"
         source="/analytics/splitOptions/product_type"
         class="mr-3"
         style="max-width: 335px"
@@ -136,6 +137,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import BasicDashboard from "./BasicDashboard.vue";
 export default {
   components: { BasicDashboard },
@@ -146,6 +148,9 @@ export default {
   methods: {
     selectionChanged() {
         Dispecer.$emit('refresh-components');
+    },
+    async myExport() {
+        location.href = "/analytics/exportRaisingStartsDashboard/" + this.year;
     }
   },
   async mounted() {},

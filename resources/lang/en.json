@@ -22,5 +22,14 @@
     "DRUGI IZVEŠTAJ" : "SECOND REPORT",
     "DODATNI IZVEŠTAJ" : "ADDITIONAL REPORT",
     "Dodatni izveštaj" : "Additional Report",
-    "Nije uneseno" : "Not entered"
+    "Nije uneseno" : "Not entered",
+    "startupCount": "Startup Count",
+    "companyCount" : "Company Count",
+    "total" : "Total",
+    "applied" : "Applied",
+    "sent" : "Application Sent",
+    "inProgram" : "In Program",
+    "outOfProgram" : "Out of Program",
+    "workshops" : "Workshops",
+    "sessions" : "Sessions"
 }

@@ -361,5 +361,14 @@
     "This password reset link will expire in :count minutes." : "Link za reset lozinke važi sledećih :count minuta.",
     "If you did not request a password reset, no further action is required." : "Ako vi niste tražili izmenu lozinke, ne morate da preduzimate nikakvu akciju.",
     "Regards" : "Srdačan pozdrav",
-    "Forgot Your Password?" : "Zaboravili ste lozinku?"
+    "Forgot Your Password?" : "Zaboravili ste lozinku?",
+    "startupCount": "Broj startapa",
+    "companyCount" : "Broj kompanija",
+    "total" : "Ukupno",
+    "applied" : "Prijavljeni",
+    "sent" : "Poslate prijave",
+    "inProgram" : "U programu",
+    "outOfProgram" : "Van programa",
+    "workshops" : "Radionice",
+    "sessions" : "Sesije"
 }
