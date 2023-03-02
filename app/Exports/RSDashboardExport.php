@@ -112,37 +112,31 @@ class RSDashboardExport implements WithMultipleSheets, WithTitle
             ],
             [
                 'name' => 'intellectual_property',
-                'label' => __('rs_dashboard_intellectual_property_text'),
+                'label' => __('gui.rs_dashboard_intellectual_property_text'),
             ],
             [
-                'name' => 'how_innovative',
-                'label' => __('rs_dashboard_type_of_product_service_text'),
+                'name' => 'innovative_area',
+                'label' =>  __('gui.rs_dashboard_field_of_product_service_text'),
             ],
             [
                 'name' => 'product_type',
-                'label' => __('rs_dashboard_field_of_product_service_text'),
+                'label' => __('gui.rs_dashboard_type_of_product_service_text'),
             ],
-            [
-                'name' => '',
-                'label' => __(''),
-            ],
-            [
-                'name' => '',
-                'label' => __(''),
-            ],
-            [
-                'name' => '',
-                'label' => __(''),
-            ],
+
 
         ];
 
-        $petaKolekcija = collect([]);
-        $dev_phase_tech = $this->exportData['devPhaseTech']['items'];
-        foreach($dev_phase_tech as $item) {
-            $petaKolekcija->add([$item['text'], $item['count']]);
+
+        foreach($parametri as $parametar) {
+            $kolekcija = collect([]);
+            $stavke = $this->exportData[$parametar['name']]['items'];
+
+            foreach($stavke as $stavka) {
+                $kolekcija->add([$stavka['text'], $stavka['count']]);
+            }
+
+            $sheets[] = new RSDStatisticsSheet($parametar['label'], $kolekcija);
         }
-        $sheets[] = new RSDStatisticsSheet("Tehnoloske faze razvoja", $petaKolekcija);
 
         return $sheets;
     }
