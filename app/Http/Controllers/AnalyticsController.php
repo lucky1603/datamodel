@@ -428,8 +428,6 @@ class AnalyticsController extends Controller
         // Distribution by Municipalities
         $exportData['prijavePoOpstinama'] = $this->prijave_po_opstinama($request);
 
-        $exportData['devPhaseTech'] = $this->splitOptions('dev_phase_tech', 2023);
-
         $parametri = [
             'how_innovative',
             'dev_phase_tech',

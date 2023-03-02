@@ -1,13 +1,16 @@
 <template>
   <div>
-
-    <div class="d-flex align-items-center justify-content-center w-100">
-        <div class="d-flex flex-row w-25 my-1 mx-2">
-            <label style="width: 100px; padding: 7px">Godina: </label>
-            <b-form-select v-model="year" :options="years" @change="selectionChanged"></b-form-select>
-        </div>
-        <b-button variant="primary" @click="myExport">Export</b-button>
-    </div>
+    <b-row>
+        <b-col>
+            <div class="d-flex flex-row w-100 my-1 mx-2">
+                <label style="width: 100px; padding: 7px">Godina: </label>
+                <b-form-select v-model="year" :options="years" @change="selectionChanged" style="width: 150px"></b-form-select>
+            </div>
+        </b-col>
+        <b-col>
+            <b-button variant="outline-secondary" @click="myExport" class="float-right my-1"><i class="dripicons-export"></i> {{ _('gui.rs_dashboard_export') }}</b-button>
+        </b-col>
+    </b-row>
     <basic-dashboard :program_type="program_type" :token="token" :year="year"></basic-dashboard>
     <div v-if="program_type == 2" class="d-flex flex-wrap">
       <h5 class="mr-2 mt-0 pt-0 attribute-label">

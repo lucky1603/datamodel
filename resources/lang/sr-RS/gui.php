@@ -130,6 +130,7 @@ return [
     'rs_dashboard_intellectual_property_text' => 'DA LI STE SPROVODILI NEKE AKTIVNOSTI U CILJU ZAŠTITE PRAVA INTELEKTUALNE SVOJINE?',
     'rs_dashboard_type_of_product_service_text' => 'TIP PROZVODA ILI USLUGE',
     'rs_dashboard_field_of_product_service_text' => 'KOJOJ OBLASTI PRIPADA INOVATIVNI PROIZVOD I/ILI USLUGA KOJU RAZVIJATE?',
+    'rs_dashboard_export' => 'Izvoz',
 
     /**
      * Profile statistics

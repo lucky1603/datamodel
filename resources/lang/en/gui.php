@@ -129,6 +129,7 @@ return [
     'rs_dashboard_type_of_product_service_text' => 'Type of Product or Service',
     'rs_dashboard_field_of_product_service' => 'Field of Product/Service',
     'rs_dashboard_field_of_product_service_text' => 'To which field belongs the product or service, You have been developing?',
+    'rs_dashboard_export' => 'Export',
 
 
 
