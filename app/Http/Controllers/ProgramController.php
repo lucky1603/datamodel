@@ -936,31 +936,47 @@ class ProgramController extends Controller
         $program = ProgramFactory::resolve($programId);
 
         $attendances = $program->getAttendances();
-
         $data = $request->post();
+        $query = [];
 
         if($data['name'] != NULL) {
-            $attendances = $attendances->where('training_name', $data['name']);
+            $query['name'] = $data['name'];
         }
 
         if($data['eventType'] != 0) {
-            $attendances = $attendances->where('training_type', $data['eventType']);
-        }
+            $query['eventType'] = $data['eventType'];        }
 
         if(isset($data['eventStatus']) && $data['eventStatus'] != 0) {
-            $attendances = $attendances->where('event_status', $data['eventStatus']);
+            $query['eventStatus'] = $data['eventStatus'];
+        }
+
+        if(count($query) > 0) {
+            $attendances = $attendances->where($query);
         }
 
         $resultData = [];
-        foreach($attendances as $attendance) {
-            $trainingData = $attendance->getTraining()->getData();
+
+        $trainingProxies = $attendances->map(function($attendance) {
+            $training = $attendance->getTraining();
+            return [
+                'date' => strtotime($training->getValue('training_start_date')),
+                'training' => $training,
+                'attendance' => $attendance,
+            ];
+        })
+        ->sortBy('date');
+
+        $resultData = [];
+        foreach($trainingProxies as $trainingProxy) {
+            $training = $trainingProxy['training'];
+            $attendance = $trainingProxy['attendance'];
             $resultData[] = [
-                'id' => $trainingData['id'],
-                'name' => $trainingData['training_name'],
-                'date' => date('d.m.Y', strtotime($trainingData['training_start_date'])),
-                'type' => $trainingData['training_type'],
-                'status' => $trainingData['event_status'],
-                'location' => $trainingData['location'],
+                'id' => $training->getId(),
+                'name' => $training->getValue('training_name'),
+                'date' => date('d.m.Y', strtotime($training->getValue('training_start_date'))),
+                'type' => $training->getValue('training_type'),
+                'status' => $training->getValue('event_status'),
+                'location' => $training->getValue('location'),
                 'attendance' => $attendance->getValue('attendance')
             ];
         }

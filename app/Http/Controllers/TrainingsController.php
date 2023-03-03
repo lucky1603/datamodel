@@ -31,9 +31,9 @@ class TrainingsController extends Controller
      * @return Application|Factory|View
      */
     public function index() {
-        $trainings = Training::sortByDate();
+        // $trainings = Training::sortByDate();
 
-        return view('trainings.index', ['trainings' => $trainings]);
+        return view('trainings.index'/* , ['trainings' => $trainings] */);
     }
 
     public function mine() {

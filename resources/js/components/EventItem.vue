@@ -9,7 +9,7 @@
             </div>
             <div class="row">
                 <div class="col-8">
-                    <h4 class="ml-2">{{ title }}</h4>
+                    <h5 class="ml-2">{{ title }}</h5>
                 </div>
                 <div class="col-4 text-center">
                     <img :src="tilePhoto" alt="Tile Photo" style="width: 50px">

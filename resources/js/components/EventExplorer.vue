@@ -83,7 +83,6 @@ export default {
             }
             await axios.post(this.source, data)
             .then(response => {
-                console.log(response.data);
                 this.items = response.data;
             });
 
