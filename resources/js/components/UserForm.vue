@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form action="#" method="post" enctype="multipart/form-data" @submit.prevent="onSubmit">
+        <form action="#" method="post" enctype="multipart/form-data" @submit.prevent="send">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="d-flex flex-column">
@@ -30,6 +30,7 @@
                             v-model="userdata.name"
                             placeholder="Unesite ime korisnika">
                         </b-form-input>
+                        <span v-if="errors.name" class="text-danger">{{ errors.name}}</span>
                     </b-form-group>
                     <b-form-group
                         id="lblEmail"
@@ -39,10 +40,11 @@
                         <b-form-input
                             type="email"
                             size="sm"
-                            id="name"
+                            id="email"
                             v-model="userdata.email" :disabled="userId != 0"
-                            placeholder="Unesite ime korisnika">
+                            placeholder="Unesite email korisnika">
                         </b-form-input>
+                        <span v-if="errors.email" class="text-danger">{{ errors.email}}</span>
                     </b-form-group>
                     <b-form-group
                         v-if="this.userId == 0"
@@ -71,6 +73,7 @@
                             v-model="userdata.password_confirmation"
                             placeholder="Unesite lozinku">
                         </b-form-input>
+                        <span v-if="errors.password" class="text-danger">{{ errors.password}}</span>
                     </b-form-group>
                     <b-form-group
                         id="lblPozicija"
@@ -83,13 +86,14 @@
                             id="pozicija"
                             v-model="userdata.position">
                         </b-form-input>
+                        <span v-if="errors.position" class="text-danger">{{ errors.position}}</span>
                     </b-form-group>
                 </div>
             </div>
             <hr>
             <div class="d-flex align-items-center justify-content-center">
-                <b-button type="submit" variant="primary" style="width: 120px; margin-right: 20px">Prihvati</b-button>
-                <b-button type="button" variant="outline-primary" style="width: 120px;" @click="onCancel">Zatvori</b-button>
+                <b-button type="submit" variant="primary" style="width: 150px; margin-right: 20px"><b-spinner v-if="sending" label="Loading..." style="height: 20px; width: 20px; margin-right: 10px"></b-spinner>Prihvati</b-button>
+                <b-button type="button" variant="outline-primary" style="width: 150px;" @click="onCancel">Zatvori</b-button>
             </div>
         </form>
     </div>
@@ -115,7 +119,8 @@ export default {
             console.log('Button clicked');
             $('#photo').trigger('click');
         },
-        onSubmit() {
+        send() {
+            this.sending = true;
             let formData = new FormData();
             for(let property in this.userdata) {
                 if(property === 'photo')
@@ -140,11 +145,17 @@ export default {
             .then(response => {
                 console.log(response.data);
                 this.$emit('submitted');
+                // this.sending = false;
             })
             .catch(error => {
-                console.log(error);
+                console.log(error.response.data.message);
+                this.errors = {};
+                for(let err in error.response.data.errors) {
+                    this.errors[err] = error.response.data.errors[err][0];
+                }
+                console.log(this.errors);
+                this.sending = false;
             });
-
 
         },
         onCancel() {
@@ -173,6 +184,7 @@ export default {
         if(this.userId != 0) {
             await this.getData();
         }
+        // this.sending = true;
     },
     data() {
         return {
@@ -184,6 +196,8 @@ export default {
                 password: '',
                 password_confirmation: '',
             },
+            errors: {},
+            sending: false,
         }
     }
 }
