@@ -289,6 +289,7 @@ class TrainingsController extends Controller
     public function filter(Request $request): array
     {
         $data = $request->post();
+
         $filterData = [];
         if($data['name'] != NULL) {
             $filterData['training_name'] = $data['name'];
@@ -303,9 +304,9 @@ class TrainingsController extends Controller
         }
 
         if(count($filterData) > 0) {
-            $events = Training::sortByDate($filterData);
+            $events = Training::sortByDate($data['year'], $filterData);
         } else {
-            $events = Training::sortByDate();
+            $events = Training::sortByDate($data['year']);
         }
 
         $resultData = [];

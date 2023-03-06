@@ -8,7 +8,12 @@
 @endsection
 
 @section('profile-content')
-    <event-explorer source="{{ route('programs.attendances', ['program' => $program->getId()]) }}" :can_create="false" :is_client="true" :program_id="{{ $program->getId() }}" :item_height="250"></event-explorer>
+    <event-explorer source="{{ route('programs.attendances', ['program' => $program->getId()]) }}"
+        :can_create="false"
+        :is_client="true"
+        :program_id="{{ $program->getId() }}"
+        :item_height="250"
+        :show_year="false"></event-explorer>
 @endsection
 
 

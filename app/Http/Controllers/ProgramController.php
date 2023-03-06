@@ -936,6 +936,7 @@ class ProgramController extends Controller
         $program = ProgramFactory::resolve($programId);
 
         $attendances = $program->getAttendances();
+
         $data = $request->post();
         $query = [];
 
@@ -946,22 +947,41 @@ class ProgramController extends Controller
         if($data['eventType'] != 0) {
             $query['eventType'] = $data['eventType'];        }
 
-        if(isset($data['eventStatus']) && $data['eventStatus'] != 0) {
-            $query['eventStatus'] = $data['eventStatus'];
-        }
-
-        if(count($query) > 0) {
-            $attendances = $attendances->where($query);
-        }
-
         $resultData = [];
 
         $trainingProxies = $attendances->map(function($attendance) {
             $training = $attendance->getTraining();
             return [
-                'date' => strtotime($training->getValue('training_start_date')),
                 'training' => $training,
                 'attendance' => $attendance,
+            ];
+        })->filter(function($trainingAttendance) use($query) {
+            if(count($query) > 0) {
+                $trainingData['name'] = $trainingAttendance['training']->getValue('training_name');
+                $trainingData['eventType'] = $trainingAttendance['training']->getValue('training_type');
+                $trainingData['eventStatus'] = $trainingAttendance['training']->getValue('event_status');
+
+                $result = true;
+                foreach($query as $key=>$value) {
+                    if($key == 'name') {
+                        $result = $result && str_contains($trainingData[$key], $value);
+                    } else {
+                        $result = $result && $value == $trainingData[$key];
+                    }
+
+                }
+
+                return $result;
+            }
+
+            return true;
+        })
+        ->map(function($trainingAttendance) {
+            $training = $trainingAttendance['training'];
+            return [
+                'date' => strtotime($training->getValue('training_start_date')),
+                'training' => $training,
+                'attendance' => $trainingAttendance['attendance'],
             ];
         })
         ->sortBy('date');
