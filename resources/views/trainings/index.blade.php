@@ -15,7 +15,7 @@
         }
     @endphp
 
-    <event-explorer :can_create="true"></event-explorer>
+    <event-explorer :can_create="true" :default_year="2023"></event-explorer>
 @endsection
 
 

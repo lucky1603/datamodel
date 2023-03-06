@@ -72,7 +72,8 @@ export default {
         item_height: { typeof: Number, default: 225 },
         row_count : { typeof: Number, default: 2},
         col_count : { typeof: Number, default: 4},
-        show_year: { typeof: Boolean, default: true }
+        show_year: { typeof: Boolean, default: true },
+        default_year : { typeof: Number, default: 0 }
     },
     computed: {
         itemsPerPage() {
@@ -157,6 +158,7 @@ export default {
 
     async mounted() {
         this.itemsPerPage = this.itemsperpage;
+        this.form.year = this.default_year;
         await this.getData();
         await this.showCurrentPage();
         Dispecer.$on('refresh', this.shouldRefresh);
@@ -181,7 +183,7 @@ export default {
             form: {
                 name: '',
                 eventType: 0,
-                year: 0
+                year: 2023
             },
             rows: []
         }
