@@ -113,7 +113,7 @@ return [
     'starts_with' => 'Morate izabrati neke od vrednosti iz liste.',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid zone.',
-    'unique' => 'Vrednost parametra :attribute je već zauzeta.',
+    'unique' => 'Vrednost parametra :attribute već postoji u bazi. Izaberite drugu vrednost.',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'Neispravan format web stranice.',
     'uuid' => 'The :attribute must be a valid UUID.',
