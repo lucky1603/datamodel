@@ -209,7 +209,7 @@
             ref="trainingDescription"
             id="training_description"
             hidden
-            v-model="form.training_description"
+            v-model="form.training_description" style="height: 400px"
           ></b-form-textarea>
         </div>
 
@@ -319,7 +319,7 @@ export default {
     },
     initTextArea() {
       $("#sinisa").summernote({
-        height: 250,
+        height: 400,
         colorButton: {
           foreColor: "#000000",
           backColor: "transparent",

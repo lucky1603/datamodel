@@ -131,7 +131,7 @@
         <div
           id="trainingDescriptionHtml"
           class="p-2 overflow-auto border"
-          style="height: 15vh"
+          style="height: 400px"
         ></div>
       </div>
 
