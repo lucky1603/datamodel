@@ -181,6 +181,28 @@ class ProgramController extends Controller
                     Mail::to($profile->getValue('contact_email'))->send($phase->getEntryEmailTemplate());
                 }
             }
+        }
+        else if($data['passed'] == 'rejected') {
+            $program->setStatus(Program::$PROGRAM_APP_DENIED);
+            $phase = $program->getWorkflow()->getCurrentPhase();
+            $phase->setData($data);
+
+            if($phase->requiresExitSituation()) {
+                $profile->addSituation($phase->getExitSituation());
+                $program->addSituation($phase->getExitSituation());
+            } else {
+                $situation = new Situation([
+                    'name' => 'PRIJAVA JE ODBIJENA',
+                    'description' => 'Klijent je odbijen u jer podaci iz prijave ne zadovoljavaju kriterijume za završetak prijave ne program.',
+                    'sender' => 'NTP'
+                ]);
+                $profile->addSituation($situation);
+                $program->addSituation($situation);
+            }
+
+            if($phase->requiresExitEmail()) {
+                Mail::to($profile->getValue('contact_email'))->send($phase->getExitEmailTemplate());
+            }
         } else {
             $program->setStatus(Program::$PROGRAM_SUSPENDED);
             $phase = $program->getWorkflow()->getCurrentPhase();

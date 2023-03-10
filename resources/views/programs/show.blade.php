@@ -57,7 +57,7 @@
                     </div>
                 @endfor
             </div>
-        @else
+        @elseif($status == -1 || $status == -4)
             @php
                 $phaseCount = $workflow->getPhases()->count();
             @endphp
@@ -98,10 +98,54 @@
                     </div>
                 @endfor
             </div>
-        {{-- @elseif($status == -2)
-            <div class="d-flex align-items-center justify-content-center w-100 h-100">
-                <h1 class="display-1">PRIJAVA ODBIJENA</h1>
-            </div> --}}
+        @elseif(in_array($status, [-2,-3,-5]))
+            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                @php
+                    $phase = $workflow->getPhase(1);
+                @endphp
+                <li class="nav-item">
+                    <a href="{{ $phase->getDisplayId() }}" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                        <span class="d-none d-md-block">{{ $phase->getDisplayName() }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#myStatus" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                        <i class="mdi mdi-face-agent d-md-none d-block"></i>
+                        <span class="d-none d-md-block">STATUS</span>
+                    </a>
+                </li>
+
+            </ul>
+            <div class="tab-content overflow-auto h-100">
+                @php
+                    $phase = $workflow->getPhase(1);
+                    $attributesData = $phase->getAttributesData();
+                    $attributesData['status'] = $status;
+                    $attributesData['validStatus'] = 1;
+                @endphp
+
+                <div class="tab-pane show active h-100 overflow-auto"  id="{{ ltrim($phase->getDisplayId(), '#') }}">
+                    @include($phase->getDisplayForm(), $attributesData)
+                </div>
+
+                <div class="tab-pane h-100 overflow-auto" id="myStatus">
+                    @switch($status)
+                        @case(-2)
+                            <h4 class="display-4 text-center">PRIJAVA ODBIJENA</h4>
+                            <p class="mt-4 p-2">Na osnovu podataka popunjenih u prijavi za program, komisija je zaključila da kriterijum za nastavak prijave na program nije ispunjen.</p>
+                            @break
+                        @case(-5)
+                            <h4 class="display-4 text-center">PRIJAVA NIJE POSLATA</h4>
+                            <p class="mt-4 p-2">Aplikant nije poslao prijavu u predviđenom vremenskom roku.</p>
+                            @break
+                        @default
+                            <h4 class="display-4">PREKID PROGRAMA</h4>
+                            <p class="mt-4 p-2">Dalje izvršavanje programa je suspendovano.</p>
+                    @endswitch
+                </div>
+
+            </div>
         @endif
     </div>
 
@@ -208,7 +252,7 @@
             $('#btnRejectDecision').click(function() {
                 $('#button_spinner_reject').attr('hidden', false);
                 let formData = new FormData($('form#myAppEvalForm')[0]);
-                formData.append('passed', 'off');
+                formData.append('passed', 'rejected');
                 axios.post('/programs/evalPhase', formData)
                     .then(response => {
                         console.log(response.data);

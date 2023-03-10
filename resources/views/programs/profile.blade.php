@@ -26,7 +26,7 @@
 @section('status')
     @if($status > 1)
         @include($program->getWorkflow()->getPhase($status)->getClientDisplayForm())
-    @elseif($status == -1)
+    @elseif($status == -1 && $status == -4)
         <div class="card border" style="height: 70%">
             <div class="card-header bg-dark text-light">
                 {{ mb_strtoupper( __("In Program"))}}
@@ -41,6 +41,20 @@
                 @include($appform, $attributesData)
             </div>
         </div>
+    @elseif(in_array($status, [-2,-3,-5]))
+        @switch($status)
+            @case(-2)
+                <h4 class="display-4 text-center">PRIJAVA ODBIJENA</h4>
+                <p class="mt-4 p-2">Na osnovu podataka popunjenih u prijavi za program, komisija je zaključila da kriterijum za nastavak prijave na program nije ispunjen.</p>
+                @break
+            @case(-5)
+                <h4 class="display-4 text-center">PRIJAVA NIJE POSLATA</h4>
+                <p class="mt-4 p-2">Aplikant nije poslao prijavu u predviđenom vremenskom roku.</p>
+                @break
+            @default
+                <h4 class="display-4">PREKID PROGRAMA</h4>
+                <p class="mt-4 p-2">Dalje izvršavanje programa je suspendovano.</p>
+        @endswitch
     @endif
 @endsection
 
