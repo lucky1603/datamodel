@@ -82,9 +82,11 @@
                                     {{ mb_strtoupper(__('You are already on that program')) }}
                                 </a>
                             @else
-                            <a href="{{ route('programs.apply', ['program' => \App\Business\Program::$RAISING_STARTS, 'profile' => $profile->getId()]) }}"
+                            {{-- <a href="{{ route('programs.apply', ['program' => \App\Business\Program::$RAISING_STARTS, 'profile' => $profile->getId()]) }}"
                                class="btn btn-primary"
-                               >{{ __('gui.Apply-Yourself') }}</a>
+                               >{{ __('gui.Apply-Yourself') }}</a> --}}
+
+                            <p class='card-text'>Prijave su zatvorene za ovaj tip programa do sledećeg konkursa.</p>
                             @endif
                         </div> <!-- end card-body-->
                     </div> <!-- end col -->
