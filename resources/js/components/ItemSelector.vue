@@ -42,7 +42,7 @@ export default {
         getSelectedItems() {
             if(this.originalItems != null && this.searchSelected.length > 0) {
                 return this.originalItems.filter(item => {
-                    return (item.text != null && item.text.includes(this.searchSelected) && item.selected);
+                    return (item.text != null && item.text.toLowerCase().includes(this.searchSelected.toLowerCase()) && item.selected);
                 });
             }
 
@@ -53,7 +53,7 @@ export default {
         getOriginalItems() {
             if(this.originalItems != null && this.searchOriginal.length > 0) {
                 return this.originalItems.filter(item => {
-                    return (item.text != null && item.text.includes(this.searchOriginal) && !item.selected);
+                    return (item.text != null && item.text.toLowerCase().includes(this.searchOriginal.toLowerCase()) && !item.selected);
                 });
             }
 
