@@ -22,6 +22,8 @@ return [
     "NoProfile" => 'Nema profila sa ovim ID brojem - :profileid',
     "MailSentSuccess" => 'Mail uspešno poslat na :email',
     "CancelNotSent" => 'Otkaži neposlate',
+    "Ok" => "Prihvatam",
+    "Cancel" => "Odustajem",
 
     /*
      * Attribute Groups
@@ -337,4 +339,14 @@ return [
         'file_group_editor_placeholder' => 'Izaberite datoteke ili ih prevucite ovde...',
         'file_group_editor_note' => 'Napomena',
         'file_group_editor_note_placeholder' => 'Unesite napomenu ako je imate ...',
+
+        /**
+         * Programs explorer
+         */
+        'program_explorer_cancel_unsent_info' => "Stavi sve koji nisu poslali prijavu na neaktivne/odustale.",
+        'program_explorer_dialog_title' => "Eliminacija",
+        'program_explorer_dialog_text' => 'Ukoliko izaberete ovu opciju, svi korisnici koji nisu dosada poslali svoje prijave će promeniti status u neaktivne. Da li ste sigurni?',
+        'program_explorer_dialog_ok' => 'Prihvatam',
+        'program_explorer_dialog_cancel' => 'Odustajem',
+
 ];

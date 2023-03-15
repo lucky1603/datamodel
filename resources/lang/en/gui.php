@@ -22,6 +22,9 @@ return [
     "NoProfile" => 'No profile with this ID - :profileid',
     "MailSentSuccess" => 'Mail successfully sent to :email',
     "CancelNotSent" => 'Cancel Unsent',
+    "Ok" => "Ok",
+    "Cancel" => "Cancel",
+
 
     /*
      * Attribute Groups
@@ -340,6 +343,15 @@ return [
         'file_group_editor_placeholder' => 'Browse for the files or simply drag them here ...',
         'file_group_editor_note' => 'Note',
         'file_group_editor_note_placeholder' => 'Enter notes if there are any ...',
+
+        /**
+         * Programs explorer
+         */
+        'program_explorer_cancel_unsent_info' => "Put all that haven't applied to in-active",
+        'program_explorer_dialog_title' => "Elimination",
+        'program_explorer_dialog_text' => "Should You choose this option, all candidates that haven't applied yet will change their status to in-active. Are you sure?",
+        'program_explorer_dialog_ok' => 'Ok',
+        'program_explorer_dialog_cancel' => 'Cancel',
 
 
 

@@ -65,7 +65,7 @@
             <a
                 href=""
                 role="button"
-                class="btn btn-sm btn-success m-2 position-relative float-right" title="Sve koji nisu poslali formu stavi na neaktivne." @click.prevent="sravnjivanje"
+                class="btn btn-sm btn-success m-2 position-relative float-right" :title="_('gui.program_explorer_cancel_unsent_info')" @click.prevent="sravnjivanje"
                 ><i class="dripicons-archive"></i><span class="ml-2 mt-2">{{ _('gui.CancelNotSent') }}</span><b-spinner v-if="sendReject" small class="ml-2"></b-spinner>
             </a>
 
@@ -104,9 +104,17 @@
       aria-controls="profileTable"
       align="right"
     ></b-pagination>
-    <b-modal ref="sravnjivanje-modal" id="sravnjivanje-modal" header-bg-variant="dark" header-text-variant="light" @ok="handleOk" title="Eliminacija">
+    <b-modal
+        ref="sravnjivanje-modal"
+        id="sravnjivanje-modal"
+        header-bg-variant="dark"
+        header-text-variant="light"
+        @ok="handleOk">
+        <template #modal-title>{{ _('gui.program_explorer_dialog_title') }}</template>
+        <template #modal-ok>{{ _('gui.Ok') }}</template>
+        <template #modal-cancel>{{ _('gui.Cancel') }}</template>
         <div class="d-flex align-items-center justify-content-center">
-            Ukoliko izaberete ovu opciju, svi korisnici koji nisu dosada poslali svoje prijave će promeniti status u neaktivne. Da li ste sigurni?
+            {{ _('gui.program_explorer_dialog_text') }}
         </div>
     </b-modal>
   </div>
