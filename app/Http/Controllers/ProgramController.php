@@ -402,6 +402,25 @@ class ProgramController extends Controller
 
     }
 
+    public function rejectUnsent() {
+        $programIds = DB::table('program_caches')->where('program_status' , 1)->pluck('program_id');
+        $counter = 0;
+        foreach($programIds as $id) {
+            Program::find($id)->setStatus(-5);
+            $counter ++;
+        }
+
+        DB::table('program_caches')
+        ->whereIn('program_id', $programIds)
+        ->update(
+            [
+                'program_status' => -5,
+                'program_status_text' => 'ODUSTAO'
+            ]);
+
+        return $counter;
+    }
+
     public function backToForm(Request $request) {
         $programId = $request->post('program_id');
         $program = Program::find($programId);

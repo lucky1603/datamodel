@@ -41,7 +41,7 @@
             @change="onSubmit"
           ></b-form-select>
         </b-col>
-        <b-col xl="2" lg="2" style="display: flex; justify-content: left">
+        <b-col xl="2" lg="2" clas="border border-danger" style="display: flex; justify-content: left">
             <b-form-select
               size="sm"
               class="m-2 w-100"
@@ -50,14 +50,25 @@
               @change="onSubmit"
             ></b-form-select>
           </b-col>
+        <!-- <b-col xl="2" lg="2">
+            <button>Sravnjivanje</button>
+        </b-col> -->
         <b-col xl="3" lg="2" class="d-flex flex-row flex-lg-row-reverse">
+
             <a
                 href="/profiles/exportRaisingStarts"
                 role="button"
                 style="top: 5px"
-                class="text-secondary m-2 position-relative float-right"
-                ><i class="dripicons-export"></i> EXPORT</a
-            >
+                class="btn btn-sm text-secondary m-2 position-relative float-right"
+                ><i class="dripicons-export"></i> EXPORT
+            </a>
+            <a
+                href=""
+                role="button"
+                class="btn btn-sm btn-success m-2 position-relative float-right" title="Sve koji nisu poslali formu stavi na neaktivne." @click.prevent="sravnjivanje"
+                ><i class="dripicons-archive"></i><span class="ml-2 mt-2">SRAVNJIVANJE</span><b-spinner v-if="sendReject" small class="ml-2"></b-spinner>
+            </a>
+
         </b-col>
       </b-row>
     </b-form>
@@ -93,6 +104,11 @@
       aria-controls="profileTable"
       align="right"
     ></b-pagination>
+    <b-modal ref="sravnjivanje-modal" id="sravnjivanje-modal" header-bg-variant="dark" header-text-variant="light" @ok="handleOk" title="Eliminacija">
+        <div class="d-flex align-items-center justify-content-center">
+            Ukoliko izaberete ovu opciju, svi korisnici koji nisu dosada poslali svoje prijave će promeniti status u neaktivne. Da li ste sigurni?
+        </div>
+    </b-modal>
   </div>
 </template>
 
@@ -118,6 +134,16 @@ export default {
     },
   },
   methods: {
+    async handleOk() {
+        this.sendReject = true;
+        await axios.get('/programs/rejectUnsent')
+        .then(response => {
+            console.log(response.data);
+            this.sendReject = false;
+        });
+
+        await this.getData();
+    },
     async getData() {
       let formData = new FormData();
       for (const property in this.form) {
@@ -207,6 +233,9 @@ export default {
           break;
       }
     },
+    sravnjivanje() {
+        this.$refs['sravnjivanje-modal'].show();
+    },
     // pageChanged(ctx) {
     //   console.log(`Page changed ${this.currentPage}`);
     //   let data = new FormData();
@@ -229,6 +258,7 @@ export default {
   },
   data() {
     return {
+      sendReject: false,
       programs: [],
       currentPage: 1,
       form: {
