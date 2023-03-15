@@ -21,6 +21,7 @@ return [
     "Founders" => 'Ime i prezime osnivača ili planiranih osnivača, ukoliko društvo nije još uvek registrovano:',
     "NoProfile" => 'Nema profila sa ovim ID brojem - :profileid',
     "MailSentSuccess" => 'Mail uspešno poslat na :email',
+    "CancelNotSent" => 'Otkaži neposlate',
 
     /*
      * Attribute Groups

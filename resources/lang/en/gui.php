@@ -21,6 +21,7 @@ return [
     "Founders" => 'Names of the founders or planned founders, if the society was not registered yet:',
     "NoProfile" => 'No profile with this ID - :profileid',
     "MailSentSuccess" => 'Mail successfully sent to :email',
+    "CancelNotSent" => 'Cancel Unsent',
 
     /*
      * Attribute Groups

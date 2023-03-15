@@ -66,7 +66,7 @@
                 href=""
                 role="button"
                 class="btn btn-sm btn-success m-2 position-relative float-right" title="Sve koji nisu poslali formu stavi na neaktivne." @click.prevent="sravnjivanje"
-                ><i class="dripicons-archive"></i><span class="ml-2 mt-2">SRAVNJIVANJE</span><b-spinner v-if="sendReject" small class="ml-2"></b-spinner>
+                ><i class="dripicons-archive"></i><span class="ml-2 mt-2">{{ _('gui.CancelNotSent') }}</span><b-spinner v-if="sendReject" small class="ml-2"></b-spinner>
             </a>
 
         </b-col>
