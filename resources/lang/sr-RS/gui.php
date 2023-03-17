@@ -134,6 +134,8 @@ return [
     'rs_dashboard_type_of_product_service_text' => 'TIP PROZVODA ILI USLUGE',
     'rs_dashboard_field_of_product_service_text' => 'KOJOJ OBLASTI PRIPADA INOVATIVNI PROIZVOD I/ILI USLUGA KOJU RAZVIJATE?',
     'rs_dashboard_export' => 'Izvoz',
+    'rs_dashboard_municipality_distribution' => 'RASPODELA PO OPŠTINAMA',
+    'rs_dashboard_municipality_distribution_text' => 'Raspodela prijavljenih firmi po opštinama',
 
     /**
      * Profile statistics

@@ -77,6 +77,44 @@ class AnalyticsController extends Controller
         return $query->get()->toArray();
     }
 
+    public function splitPoOpstinama($programType, $year) {
+        $selectString = "opstina_text as text, COUNT('opstina') as count";
+        $query = DB::table('program_caches')
+            ->selectRaw($selectString)
+            ->groupBy(['opstina', 'opstina_text']);
+
+        $queryData = [];
+        if($programType != 0) {
+            $queryData['program_type'] = $programType;
+        }
+
+        if($year != 0) {
+            $queryData['year'] = $year;
+        }
+
+        if(count($queryData) > 0) {
+            $query = $query->where($queryData);
+        }
+
+        $rows = $query->get();
+
+        $items = [];
+        $total = 0;
+        foreach($rows as $row) {
+            $items[] = [
+                'text' => $row->text,
+                'count' => $row->count,
+            ];
+            $total += $row->count;
+        }
+
+        return [
+            'items' => $items,
+            'total' => $total
+        ];
+
+    }
+
     public function prijave_po_opstinama(Request $request) {
         $program_type = $request->post('program_type');
         $year = $request->post('year');
@@ -253,6 +291,8 @@ class AnalyticsController extends Controller
         $result = $this->howDidUHear();
         return $result['items'];
     }
+
+
 
     public function splitOptions($attributeName, $year): array
     {

@@ -37,6 +37,7 @@ Route::post('analytics/ntp', 'AnalyticsController@ntp')->name('analytics.ntp');
 Route::post('analytics/prijaveGradovi', 'AnalyticsController@prijave_po_gradovima')->name('analytics.prijaveGradovi');
 Route::post('analytics/prijaveOpstine', 'AnalyticsController@prijave_po_opstinama')->name('analytics.prijaveOpstine');
 Route::get('analytics/exportRaisingStartsDashboard/{year}', 'AnalyticsController@exportRaisingStartsDashboard')->name('analytics.exportRaisingStartsDashboard');
+Route::get('analytics/splitPoOpstinama/{type}/{year}', 'AnalyticsController@splitPoOpstinama')->name('analytics.splitPoOpstinama');
 
 
 Route::get('/edituser', 'Auth\EditUserController@index')->name('users');

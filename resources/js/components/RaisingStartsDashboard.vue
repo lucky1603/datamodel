@@ -71,6 +71,16 @@
           {{ _("gui.rs_dashboard_type_of_product_service") }}
         </b-form-checkbox>
       </div>
+      <div class="d-flex">
+        <b-form-checkbox
+          v-model="bMunicipalityDistribution"
+          name="check-button"
+          switch
+          class="mr-2"
+        >
+          {{ _("gui.rs_dashboard_municipality_distribution") }}
+        </b-form-checkbox>
+      </div>
     </div>
     <div v-if="program_type == 2" class="d-flex flex-wrap mt-2 mx-0 p-0">
       <find-criteria
@@ -135,6 +145,15 @@
         :year="year"
       >
       </find-criteria>
+      <find-criteria
+        v-if="bMunicipalityDistribution"
+        :title="_('gui.rs_dashboard_municipality_distribution_text')"
+        :source="opstineSource"
+        class="mr-3"
+        style="max-width: 335px"
+        :year="year"
+      >
+      </find-criteria>
     </div>
   </div>
 </template>
@@ -147,6 +166,11 @@ export default {
   name: "RaisingStartsDashboard",
   props: {
     token: { typeof: String, default: "" },
+  },
+  computed: {
+    opstineSource() {
+        return "/analytics/splitPoOpstinama/" + this.program_type;
+    }
   },
   methods: {
     selectionChanged() {
@@ -166,6 +190,7 @@ export default {
       bIntellectualProperty: false,
       bBusinessBranch: false,
       bProductType: false,
+      bMunicipalityDistribution: false,
       year: 2023,
       years: [
         { value: 0, text: 'SVE'},
