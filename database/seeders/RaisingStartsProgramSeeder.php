@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Business\Profile;
 use App\Business\Program;
 use App\Business\RaisingStartsProgram;
