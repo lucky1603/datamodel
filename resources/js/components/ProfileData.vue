@@ -84,11 +84,12 @@ export default {
             }
         },
         backgroundImage() {
-            if(this.profile.profile_background == '') {
-                return '/images/custom/backdefault.jpg';
-            }
+            // if(this.profile.profile_background == null || this.profile.profile_background == '') {
+            //     return '/images/custom/backdefault.jpg';
+            // }
 
-            return this.profile.profile_background;
+            // return this.profile.profile_background;
+            return '/images/custom/backdefault.jpg';
         },
         profileImageSource() {
             if(this.profile.profile_logo == '') {
