@@ -46,7 +46,7 @@ class replaceUrl extends Command
         File::all()->each(function($file) use($oldUrl, $newUrl) {
             $filelink = $file->filelink;
             $newLink = str_replace($oldUrl, $newUrl, $filelink);
-            $filelink->filelink = $newLink;
+            $file->filelink = $newLink;
             $file->save();
         });
 
