@@ -54,7 +54,7 @@ class replaceUrl extends Command
         $fileObjects = DB::table('file_values')->select(['id', 'link'])->get();
         $fileObjects->each(function($fileObject) {
             $link = $fileObject->link;
-            $newLink = str_replace("https://platforma.ntpark.rs", "http://localhost", $link);
+            $newLink = str_replace($this->argument("old_url"), $this->argument('new_url'), $link);
             DB::table('file_values')->where('id', $fileObject->id)->update(['link' => $newLink]);
         });
 
