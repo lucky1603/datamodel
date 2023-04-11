@@ -36,7 +36,7 @@
                                 </a>
                             @else
                             <a
-                                {{-- href="{{ route('programs.apply', ['program' => \App\Business\Program::$INKUBACIJA_BITF, 'profile' => $profile->getId()]) }}" --}}
+                                href="{{ route('programs.apply', ['program' => \App\Business\Program::$INKUBACIJA_BITF, 'profile' => $profile->getId()]) }}"
                                 class="btn btn-primary"
                                 >{{ __('gui.Apply-Yourself') }}</a>
                             @endif
@@ -55,7 +55,17 @@
                         <div class="card-body">
                             <h5 class="card-title">RASTUĆE KOMPANIJE</h5>
                             <p class="card-text">Podrška kompanijama u zrelijim fazama razvoja - umnrežavanje, pristup talentima, vidljivost i promocija.</p>
-                            <a  class="btn btn-primary">{{ __('gui.Apply-Yourself') }}</a>
+
+                            @if($programId > 0)
+                                <a href="{{ route('programs.profile', ['program' => $programId]) }}" class="font-weight-bold">
+                                    {{ mb_strtoupper(__('You are already on that program')) }}
+                                </a>
+                            @else
+                            <a
+                                href="{{ route('programs.apply', ['program' => \App\Business\Program::$RASTUCE_KOMPANIJE, 'profile' => $profile->getId()]) }}"
+                                class="btn btn-primary"
+                                >{{ __('gui.Apply-Yourself') }}</a>
+                            @endif
                         </div> <!-- end card-body-->
                     </div> <!-- end col -->
                 </div> <!-- end row-->
@@ -77,14 +87,14 @@
                                 $programId = $profile->hasProgram(\App\Business\Program::$RAISING_STARTS);
                             @endphp
                             @if($programId > 0)
-{{--                                <p class="h4 text-primary text-center mt-4">{{ mb_strtoupper(__('You are already on that program')) }}</p>--}}
+                               <p class="h4 text-primary text-center mt-4">{{ mb_strtoupper(__('You are already on that program')) }}</p>
                                 <a href="{{ route('programs.profile', ['program' => $programId]) }}" class="font-weight-bold">
                                     {{ mb_strtoupper(__('You are already on that program')) }}
                                 </a>
                             @else
-                            {{-- <a href="{{ route('programs.apply', ['program' => \App\Business\Program::$RAISING_STARTS, 'profile' => $profile->getId()]) }}"
+                            <a href="{{ route('programs.apply', ['program' => \App\Business\Program::$RAISING_STARTS, 'profile' => $profile->getId()]) }}"
                                class="btn btn-primary"
-                               >{{ __('gui.Apply-Yourself') }}</a> --}}
+                               >{{ __('gui.Apply-Yourself') }}</a>
 
                             <p class='card-text'>Prijave su zatvorene za ovaj tip programa do sledećeg konkursa.</p>
                             @endif

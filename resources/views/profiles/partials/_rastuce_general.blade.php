@@ -3,7 +3,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'company_name')->first();
-        $value = $attribute->getValue()  ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) ) ;
+        $value = $attribute->getValue()  ?? ( isset($model) ? $model->getValue('name') : old($attribute->name) ) ;
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -56,7 +56,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'webpage')->first();
-        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue('profile_webpage') : old($attribute->name) );
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -65,7 +65,7 @@
                class="mandatory-field form-control form-control-sm @error($attribute->name) is-invalid @enderror"
                id="{{ $attribute->name }}"
                name="{{ $attribute->name }}"
-               value="{{ $value }}" @if(isset($model) && isset($instance_id) && $value != null ) disabled @endif>
+               value="{{ $value }}" >
         @error($attribute->name)
             <div class="alert alert-danger">{{ $message }}</div>
         @endif
@@ -82,7 +82,7 @@
     <div class="col-lg-10">
         <select id="{{$attribute->name}}"
                 name="{{$attribute->name}}"
-                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field" @if(isset($model) && $value != null) disabled @endif>
+                class="form-control form-control-sm @error($attribute->name) is-invalid @enderror mandatory-field" >
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $val)
                 <option value="{{$key}}" @if($key == $value) selected @endif>{{$val}}</option>
@@ -97,7 +97,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'responsible_person')->first();
-        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue('contact_person') : old($attribute->name) );
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -116,7 +116,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'responsible_person_email')->first();
-        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue('contact_email') : old($attribute->name) );
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>
@@ -135,7 +135,7 @@
 <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'responsible_person_phone')->first();
-        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue($attribute->name) : old($attribute->name) );
+        $value = $attribute->getValue() ?? ( isset($model) ? $model->getValue('contact_phone') : old($attribute->name) );
     @endphp
 
     <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ $attribute->label }}</label>

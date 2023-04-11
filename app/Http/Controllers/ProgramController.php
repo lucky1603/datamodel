@@ -34,6 +34,15 @@ class ProgramController extends Controller
         return view('programs.create', ['profile' => $profile]);
     }
 
+    public function createForProfile($profileId) {
+        if(auth()->user()->isAdmin) {
+            $profile = Profile::find($profileId);
+            return view('programs.create', ['profile' => $profile]);
+        }
+
+        abort(401);
+    }
+
     public function show($programId) {
         $this->authorize('read_program', $programId);
         $program = ProgramFactory::resolve($programId,true);
@@ -77,6 +86,8 @@ class ProgramController extends Controller
         if($programType == Program::$RAISING_STARTS)
         {
             $attributeData = RaisingStartsProgram::getAttributesDefinition();
+        } else if($programType == Program::$RASTUCE_KOMPANIJE) {
+            $attributeData = RastuceProgram::getAttributesDefinition();
         } else {
             $attributeData = IncubationProgram::getAttributesDefinition();
         }
@@ -714,7 +725,7 @@ class ProgramController extends Controller
             $data['ntp'] = 1;
             $program = ProgramFactory::create(Program::$RASTUCE_KOMPANIJE, $data);
             $profile = Profile::find($data['profile_id']);
-            $profile->addProgram($profile);
+            $profile->addProgram($program);
             $situation = $profile->addSituationByData(__('Applying'), [
                 'program_type' => Program::$RASTUCE_KOMPANIJE,
                 'program_name' => $program->getValue('program_name'),
