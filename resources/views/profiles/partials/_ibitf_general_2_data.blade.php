@@ -3,7 +3,7 @@
     $value = $attribute->getValue() ?? old($attribute->name);
 @endphp
 <div class="form-group mt-4">
-    <label for="{{ $attribute->name }}" class="@if($mode == 'anonimous') attribute-grayed @else attribute-label mandatory-label @endif">{!! $attribute->label !!}</label>
+    <label for="{{ $attribute->name }}" class="@if($mode == 'anonimous') attribute-grayed @else attribute-label mandatory-label @endif">Program</label>
     <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if ($mode == 'anonimous') disabled @endif>{{ $value }}</textarea>
 </div>
 
@@ -12,7 +12,7 @@
     $value = $attribute->getValue() ?? old($attribute->name);
 @endphp
 <div class="form-group mt-2">
-    <label for="{{ $attribute->name }}" class="@if($mode == 'anonimous') attribute-grayed @else attribute-label mandatory-label @endif">{!! $attribute->label !!}</label><br/>
+    <label for="{{ $attribute->name }}" class="@if($mode == 'anonimous') attribute-grayed @else attribute-label mandatory-label @endif">Kratak opis programa</label><br/>
     <span class="mt-0" style="font-size: 12px; position: relative; top: -10px">Jasna poruka kojom objašnjavate šta radite. Zašto ste jedinstveni? Šta nudite korisniku/kupcu?</span>
     <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if ($mode == 'anonimous') disabled @endif>{{ $value }}</textarea>
 </div>
@@ -45,7 +45,7 @@
 @endphp
 <div class="form-group mt-2">
     <label for="{{ $attribute->name }}" class="@if($mode == 'anonimous') attribute-grayed @else attribute-label mandatory-label @endif">{!! $attribute->label !!}</label><br/>
-    <span class="mt-0" style="font-size: 12px; position: relative; top: -10px">Navedite 3 najvažnija rešenja koja nudite potencijalnom
+    <span class="mt-0" style="font-size: 12px; position: relative; top: -10px">Navedite do 3 najvažnija rešenja koja nudite potencijalnom
         korisniku/kupcu. Definišite elemente vaše usluge/proizvoda i šta je to što ga čini važnim alatom za korisnikove potrebe.</span>
     <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if ($mode == 'anonimous') disabled @endif>{{ $value }}</textarea>
 </div>
@@ -69,7 +69,7 @@
 <div class="form-group mt-2">
     <label for="{{ $attribute->name }}" class="@if($mode == 'anonimous') attribute-grayed @else attribute-label mandatory-label @endif">{!! $attribute->label !!}</label><br/>
     <span class="mt-0" style="font-size: 12px; position: relative; top: -10px">Ko čini vaš tim? Koja je kvalifikaciona struktura tima,
-        uloga u timu. Planirano novo zapošljavanje u naredne 3 godine - u brojevima. </span>
+        uloga u timu. Planirano novo zapošljavanje u narednih godinu dana - u brojevima. </span>
     <textarea class="form-control" id="{{$attribute->name}}" name="{{$attribute->name}}" rows="3" @if ($mode == 'anonimous') disabled @endif>{{ $value }}</textarea>
 </div>
 

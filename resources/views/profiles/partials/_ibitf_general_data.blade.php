@@ -88,7 +88,7 @@
         $attvalue = $attribute->getValue() ?? isset($model) ? $model->getAttribute('business_branch')->getValue() : old($attribute->name);
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{!! $attribute->label !!}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm mandatory-label">{{ __('gui.incubation_form_business_branch') }}</label>
     <div class="col-sm-10">
         <select id="{{$attribute->name}}" name="{{$attribute->name}}" class="form-control form-control-sm @error($attribute->name) is-invalid @enderror">
             <option value="0" @if( $attvalue == 0) selected @endif>Choose...</option>
@@ -117,7 +117,7 @@
     </div>
 </div>
 
-<div class="form-group row">
+{{-- <div class="form-group row">
     @php
         $attribute = $attributes->where('name', 'number_of_participants')->first();
     @endphp
@@ -126,7 +126,7 @@
     <div class="col-sm-10">
         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
     </div>
-</div>
+</div> --}}
 
 <div class="form-group row">
     @php
@@ -134,7 +134,7 @@
         $value = $attribute->getValue() ?? old($attribute->name);
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ __('gui.incubation_form_web_address') }}</label>
     <div class="col-sm-10">
         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $value }}">
         <div class="font-12 text-dark">Naziv web stranice mora obavezno imati prefix http:// ili https:// </div>

@@ -78,8 +78,8 @@
         trebalo više da se posvetite.</p>
     <p>Poslovno tehnološkom inkubatoru tehničkih fakulteta će ovaj obrazac biti polazna osnova
         za plan podrške razvoju vašeg biznisa. </p>
-    <p>Imajte u vidu da će popunjen obrazac biti dostupan samo zaposlenima na poslovima podrške
-        u Poslovno-tehnološkom inkubatoru tehničkih fakulteta i da ima tretman poslovne tajne.</p>
+    <p>Dostavljene informacije o poslovanju, unutrašnjoj organizaciji, podaci o ličnosti, kao
+        i informacije koje se smatraju poslovnom tajnom označavaju se kao poverljive.</p>
 
     <h5>UZ PRIJAVU POTREBNO JE PRILOŽITI:</h5>
     <ol>

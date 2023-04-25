@@ -98,7 +98,7 @@
         $attribute = $attributes->where('name', 'responsible_function')->first();
     @endphp
 
-    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ $attribute->label }}</label>
+    <label for="{{ $attribute->name }}" class="col-sm-2 attribute-label col-form-label col-form-label-sm">{{ __('gui.incubation_form_startup_position') }}</label>
     <div class="col-sm-10">
         <input type="text" class="form-control form-control-sm" id="{{ $attribute->name }}" name="{{ $attribute->name }}" value="{{ $attribute->getValue() }}">
     </div>

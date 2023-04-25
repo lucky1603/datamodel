@@ -6,7 +6,7 @@
             <thead class="bg-dark text-light text-sm-center">
             <tr>
                 <th>Ime i prezime</th>
-                <th>Završeni fakultet</th>
+                <th>Završeni fakultet / trenutne studije</th>
                 <th>Okvirno planirani udeo u %</th>
             </tr>
             </thead>

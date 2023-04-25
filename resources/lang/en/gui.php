@@ -355,6 +355,13 @@ return [
         'program_explorer_dialog_ok' => 'Ok',
         'program_explorer_dialog_cancel' => 'Cancel',
 
+        /**
+         * Incubation Form
+         */
+        'incubation_form_business_branch' => "Business Branch",
+        'incubation_form_web_address' => "Web Address",
+        'incubation_form_startup_position' => "Position in the Startup",
+        'incubation_form_project' => "Project",
 
 
 

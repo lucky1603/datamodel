@@ -351,4 +351,12 @@ return [
         'program_explorer_dialog_ok' => 'Prihvatam',
         'program_explorer_dialog_cancel' => 'Odustajem',
 
+        /**
+         * Incubation Form
+         */
+        'incubation_form_business_branch' => "Oblast poslovanja",
+        'incubation_form_web_address' => "Web adresa",
+        'incubation_form_startup_position' => "Pozicija u startapu",
+        'incubation_form_project' => "Projekat",
+
 ];
