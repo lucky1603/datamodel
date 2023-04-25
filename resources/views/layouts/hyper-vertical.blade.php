@@ -222,7 +222,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header modal-colored-header bg-primary">
-                            <h4 class="modal-title" id="primary-header-modalLabel">Modal Heading</h4>
+                            <h4 class="modal-title" id="primary-header-modalLabel">PROVERA</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
@@ -231,8 +231,8 @@
                         <div class="modal-footer">
                             <div class="flex-fill">
                                 <div class="flex-column">
-                                    <button type="button" id="messageButtonOk" class="btn btn-primary" data-dismiss="modal">Ok</button>
-                                    <button type="button" id="messageButtonCancel" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="button" id="messageButtonOk" class="btn btn-primary" data-dismiss="modal">Da</button>
+                                    <button type="button" id="messageButtonCancel" class="btn btn-secondary" data-dismiss="modal">Ne</button>
                                 </div>
                             </div>
                         </div>

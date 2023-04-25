@@ -209,16 +209,25 @@
 
             // Back status to form
             $('#buttonBackToForm').click(function() {
-                $('#button_backstatus_spinner').attr('hidden', false);
-                let data = new FormData();
-                data.append('_token', "<?= csrf_token() ?>");
-                data.append('program_id', "<?= $program->getId() ?>");
-                axios.post('/programs/backToForm', data)
-                .then(response => {
-                    $('#button_backstatus_spinner').attr('hidden', true);
-                    console.log(response.data);
-                    location.reload();
+                $('#messageButtonOk').off('click');
+                $('#messageButtonOk').click(function() {
+                    $('#button_backstatus_spinner').attr('hidden', false);
+                    let data = new FormData();
+                    data.append('_token', "<?= csrf_token() ?>");
+                    data.append('program_id', "<?= $program->getId() ?>");
+                    axios.post('/programs/backToForm', data)
+                    .then(response => {
+                        $('#button_backstatus_spinner').attr('hidden', true);
+                        console.log(response.data);
+                        location.reload();
+                    });
                 });
+
+                $('.modal-title').text('POTVRDA')
+                $('.modal-message').text("Status će biti vraćen na prijavu, da li ste sigurni?");
+                $('#messageBox').modal('show');
+
+
             });
 
             // A P P   E V A L U A T I O N
@@ -250,15 +259,24 @@
             });
 
             $('#btnRejectDecision').click(function() {
-                $('#button_spinner_reject').attr('hidden', false);
-                let formData = new FormData($('form#myAppEvalForm')[0]);
-                formData.append('passed', 'rejected');
-                axios.post('/programs/evalPhase', formData)
-                    .then(response => {
-                        console.log(response.data);
-                        $('#button_spinner_reject').attr('hidden', true);
-                        location.reload();
-                    });
+                $('#messageButtonOk').off('click');
+                $('#messageButtonOk').click(function() {
+                    $('#button_spinner_reject').attr('hidden', false);
+                    let formData = new FormData($('form#myAppEvalForm')[0]);
+                    formData.append('passed', 'rejected');
+                    axios.post('/programs/evalPhase', formData)
+                        .then(response => {
+                            console.log(response.data);
+                            $('#button_spinner_reject').attr('hidden', true);
+                            location.reload();
+                        });
+                });
+
+                $('.modal-title').text('PROVERA');
+                $('.modal-message').text("Jeste li sigurni da odbijate prijavu?");
+                $('#messageBox').modal('show');
+
+
             });
 
             // P R E S E L E C T I O N
@@ -290,20 +308,31 @@
             });
 
             $('#btnPreselectionFailed').click(function(evt) {
-                $('#button_spinner_cancel').attr('hidden', false);
-                let formData = new FormData($('form#myForm')[0]);
-                formData.append('passed', 'off');
 
-                axios.post('/programs/evalPhase', formData)
-                    .then(response => {
-                        console.log(response.data);
-                        $('#button_spinner_cancel').attr('hidden', true);
-                        location.reload();
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        $('#button_spinner_cancel').attr('hidden', true);
-                    });
+                $('#messageButtonOk').off('click');
+                $('#messageButtonOk').click(function() {
+
+                    $('#button_spinner_cancel').attr('hidden', false);
+                    let formData = new FormData($('form#myForm')[0]);
+                    formData.append('passed', 'off');
+
+                    axios.post('/programs/evalPhase', formData)
+                        .then(response => {
+                            console.log(response.data);
+                            $('#button_spinner_cancel').attr('hidden', true);
+                            location.reload();
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            $('#button_spinner_cancel').attr('hidden', true);
+                        });
+
+                });
+
+                $('.modal-title').text('PROVERA');
+                $('.modal-message').text("Jeste li sigurni da odbijate prijavu?");
+                $('#messageBox').modal('show');
+
             });
 
             // S E L E C T I O N
@@ -340,20 +369,31 @@
             });
 
             $('#btnSelectionFailed').click(function(evt) {
-                $('#button_spinner_sel_failed').attr('hidden', false);
-                let formData = new FormData($('form#myFormSelection')[0]);
-                formData.append('passed', 'off');
 
-                axios.post('/programs/evalPhase', formData)
-                    .then(response => {
-                        console.log(response.data);
-                        $('#button_spinner_sel_failed').attr('hidden', true);
-                        location.reload();
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        $('#button_spinner_sel_failed').attr('hidden', true);
-                    });
+                $('#messageButtonOk').off('click');
+                $('#messageButtonOk').click(function() {
+
+                    $('#button_spinner_sel_failed').attr('hidden', false);
+                    let formData = new FormData($('form#myFormSelection')[0]);
+                    formData.append('passed', 'off');
+
+                    axios.post('/programs/evalPhase', formData)
+                        .then(response => {
+                            console.log(response.data);
+                            $('#button_spinner_sel_failed').attr('hidden', true);
+                            location.reload();
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            $('#button_spinner_sel_failed').attr('hidden', true);
+                        });
+
+                });
+
+                $('.modal-title').text('PROVERA');
+                $('.modal-message').text("Jeste li sigurni da odbijate prijavu?");
+                $('#messageBox').modal('show');
+
             });
 
             // F A Z A   1
@@ -386,30 +426,50 @@
             });
 
             $('#btnFaza1Rejected').click(function() {
-                $('#button_spinner_reject').attr('hidden', false);
-                let formData = new FormData($('form#myFaza1Form')[0]);
-                formData.append('passed', 'off');
 
-                axios.post('/programs/evalPhase', formData)
-                    .then(response => {
-                        console.log(response.data);
-                        $('#button_spinner_reject').attr('hidden', true);
-                        location.reload();
-                    });
+                $('#messageButtonOk').off('click');
+                $('#messageButtonOk').click(function() {
+                    $('#button_spinner_reject').attr('hidden', false);
+                    let formData = new FormData($('form#myFaza1Form')[0]);
+                    formData.append('passed', 'off');
+
+                    axios.post('/programs/evalPhase', formData)
+                        .then(response => {
+                            console.log(response.data);
+                            $('#button_spinner_reject').attr('hidden', true);
+                            location.reload();
+                        });
+                });
+
+                $('.modal-title').text('PROVERA');
+                $('.modal-message').text("Jeste li sigurni da odbijate prijavu?");
+                $('#messageBox').modal('show');
+
+
+
             });
 
             $('#btnFaza1Rollback').click(function() {
-                $('#button_spinner_rollback').attr('hidden', false);
-                // setTimeout(() => {
-                //     $('#button_spinner_rollback').attr('hidden', true);
-                // }, 2000);
-                let formData = new FormData($('form#myFaza1Form')[0]);
-                axios.post('/faza1/rollback', formData)
-                    .then(response => {
-                        console.log(response.data);
-                        $('#button_spinner_rollback').attr('hidden', true);
-                        location.reload();
-                    });
+
+                $('#messageButtonOk').off('click');
+                $('#messageButtonOk').click(function() {
+                    $('#button_spinner_rollback').attr('hidden', false);
+                    // setTimeout(() => {
+                    //     $('#button_spinner_rollback').attr('hidden', true);
+                    // }, 2000);
+                    let formData = new FormData($('form#myFaza1Form')[0]);
+                    axios.post('/faza1/rollback', formData)
+                        .then(response => {
+                            console.log(response.data);
+                            $('#button_spinner_rollback').attr('hidden', true);
+                            location.reload();
+                        });
+                });
+
+                $('.modal-title').text('PROVERA');
+                $('.modal-message').text("Status predmeta će biti vraćen na stanje pre slanja fajlova, kako bi klijent ponovo mogao da ih pošalje. Da li ste sigurni da to želite?");
+                $('#messageBox').modal('show');
+
             });
 
 
@@ -428,16 +488,28 @@
             });
 
             $('#btnDemoDayRejected').click(function() {
-                $('#button_spinner_demoday_reject').attr('hidden', false);
-                let formData = new FormData($('form#myDemoDayForm')[0]);
-                formData.append('passed' ,'off');
-                // const token = $('form#myDemoDayForm input[name="_token"]').val();
-                axios.post('/programs/evalPhase', formData)
-                    .then(response => {
-                        console.log(response.data);
-                        $('#button_spinner_demoday_reject').attr('hidden', true);
-                        location.reload();
-                    });
+
+                $('#messageButtonOk').off('click');
+                $('#messageButtonOk').click(function() {
+
+                    $('#button_spinner_demoday_reject').attr('hidden', false);
+                    let formData = new FormData($('form#myDemoDayForm')[0]);
+                    formData.append('passed' ,'off');
+                    // const token = $('form#myDemoDayForm input[name="_token"]').val();
+                    axios.post('/programs/evalPhase', formData)
+                        .then(response => {
+                            console.log(response.data);
+                            $('#button_spinner_demoday_reject').attr('hidden', true);
+                            location.reload();
+                        });
+
+                });
+
+                $('.modal-title').text('PROVERA');
+                $('.modal-message').text("Jeste li sigurni da odbijate prijavu?");
+                $('#messageBox').modal('show');
+
+
             });
 
             // C O N T R A C T
@@ -473,17 +545,27 @@
             });
 
             $('#btnCSReject').click(function(evt) {
-                $('#button_spinner_contract_reject').attr('hidden', false);
-                let formData = new FormData($('form#myFormContract')[0]);
-                // var token = $('form#myFormContract input[name="_token"]').val();
 
-                formData.append('passed', 'off');
-                axios.post('/programs/evalPhase', formData)
-                    .then(response => {
-                        $('#button_spinner_contract_reject').attr('hidden', true);
-                        console.log(response.data);
-                        location.reload();
-                    });
+                $('#messageButtonOk').off('click');
+                $('#messageButtonOk').click(function() {
+
+                    $('#button_spinner_contract_reject').attr('hidden', false);
+                    let formData = new FormData($('form#myFormContract')[0]);
+                    // var token = $('form#myFormContract input[name="_token"]').val();
+
+                    formData.append('passed', 'off');
+                    axios.post('/programs/evalPhase', formData)
+                        .then(response => {
+                            $('#button_spinner_contract_reject').attr('hidden', true);
+                            console.log(response.data);
+                            location.reload();
+                        });
+
+                });
+
+                $('.modal-title').text('PROVERA');
+                $('.modal-message').text("Jeste li sigurni da odbijate prijavu?");
+                $('#messageBox').modal('show');
 
             });
 
