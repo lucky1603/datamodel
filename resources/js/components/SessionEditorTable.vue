@@ -173,10 +173,12 @@ export default {
         },
         async newSession1() {
             this.testInput = {};
+            this.addsessiontitle = "Dodajte novu sesiju";
             Dispecer.$emit('tile-selected', 0);
             this.$refs['addSituationModal1'].show();
         },
         async cloneSession() {
+            this.addsessiontitle = "Klonirajte sesiju iz postojeće";
             await axios.get('/sessions/cloningData/' + this.sessionId)
             .then(response => {
                 console.log(response.data);
