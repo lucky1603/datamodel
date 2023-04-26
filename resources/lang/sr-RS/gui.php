@@ -311,6 +311,7 @@ return [
         'session_form_title_create' => 'Kreiraj novu sesiju',
         'session_form_title_edit' => 'Izmeni detalje sesije',
         'session_form_title_duplicate' => 'Napravi duplikat sesije',
+        'session_form_title_delete' => 'Obriši sesiju',
 
         /**
          * Session form

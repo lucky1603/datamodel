@@ -314,6 +314,7 @@ return [
         'session_form_title_create' => 'Create New Session',
         'session_form_title_edit' => 'Edit Session Details',
         'session_form_title_duplicate' => 'Duplicate Session',
+        'session_form_title_delete' => 'Delete session',
 
         /**
          * Session form

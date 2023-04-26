@@ -14,15 +14,21 @@
 
                 <b-button
                     class="float-right mx-1"
-                    variant="primary"
+                    variant="outline-primary"
                     @click="editSession"
                     :title="_('gui.session_form_title_edit')"><i class="dripicons-pencil"></i></b-button>
 
                 <b-button
                     class="float-right mx-1"
-                    variant="primary"
+                    variant="outline-primary"
                     @click="cloneSession"
                     :title="_('gui.session_form_title_duplicate')"><i class="dripicons-duplicate"></i></b-button>
+
+                <b-button
+                    class="float-right mx-1"
+                    variant="danger"
+                    @click="deleteSession"
+                    :title="_('gui.session_form_title_duplicate')"><i class="dripicons-cross"></i></b-button>
             </div>
             <div class="card-body overflow-auto" style="display: flex; flex-wrap: wrap">
                 <tile-item
@@ -63,6 +69,14 @@
             <template #modal-footer>
                 <b-button variant="primary" @click="onEditSession">{{ _('gui.accept') }}</b-button>
                 <b-button variant="light" @click="onCancelEditSession">{{ _('gui.cancel')}}</b-button>
+            </template>
+        </b-modal>
+        <b-modal id="confirmationDialog" ref="confirmationDialog" size="lg" header-bg-variant="dark" header-text-variant="light">
+            <template #modal-title>POTVRDA</template>
+            <p>Da li ste sigurni da hocete da obrisete sesiju {{ this.sessionId }}?</p>
+            <template #modal-footer>
+                <b-button variant="primary" @click="onOk">{{ _('gui.accept') }}</b-button>
+                <b-button variant="light" @click="onCancel">{{ _('gui.cancel')}}</b-button>
             </template>
         </b-modal>
     </div>
@@ -124,18 +138,19 @@ export default {
             console.log(`Tile ${id} selected`);
             this.sessionId = id;
         },
-        onOk() {
-            const form = document.getElementById('mySessionEditForm');
-            const data = new FormData(form);
-            axios.post(`/sessions/edit`, data)
-                .then(response => {
-                    this.$refs['viewSituationModal'].hide();
-                    this.getSessions();
-                })
-                .catch(error => {
-                    console.log(error);
-                    this.$refs['viewSituationModal'].hide();
-                });
+        async onOk() {
+            var data = new FormData();
+            data.append('_token', this.token);
+            data.append('session_id', this.sessionId);
+            await axios.post('/sessions/delete', data)
+            .then(response => {
+                this.getSessions();
+                this.$refs['confirmationDialog'].hide();
+            });
+
+        },
+        onCancel() {
+            this.$refs['confirmationDialog'].hide();
         },
         onAddOk() {
             const form = document.getElementById('mySessionCreateForm');
@@ -149,9 +164,6 @@ export default {
                     console.log(error);
                     this.$refs['addSituationModal'].hide();
                 });
-        },
-        onCancel() {
-            this.$refs['viewSituationModal'].hide();
         },
         onAddCancel() {
             this.$refs['addSituationModal'].hide();
@@ -174,11 +186,13 @@ export default {
             this.$refs['addSituationModal1'].show();
         },
         editSession() {
-            console.log('edit session clicked');
-            console.log(this.sessionId);
-
             if(this.sessionId != 0) {
                 this.$refs['viewSituationModal1'].show();
+            }
+        },
+        deleteSession() {
+            if(this.sessionId != 0) {
+                this.$refs['confirmationDialog'].show();
             }
         },
         onAddSession() {
