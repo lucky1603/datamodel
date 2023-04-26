@@ -69,7 +69,7 @@ export default {
     },
     methods: {
         imgClicked() {
-            this.$emit('tile-clicked', this.id);
+            this.$emit('round-clicked', this.id);
         },
         imgSelected(id) {
             console.log('Dobio poruku ' + id);
@@ -86,7 +86,7 @@ export default {
         }
     },
     mounted() {
-        Dispecer.$on('tile-selected', this.imgSelected );
+        Dispecer.$on('round-selected', this.imgSelected );
     }
 }
 </script>

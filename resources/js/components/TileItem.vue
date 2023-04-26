@@ -94,6 +94,7 @@ export default {
   methods: {
     tileClicked() {
       this.$emit("tile-clicked", this.id);
+      Dispecer.$emit('tile-selected', this.id);
     },
 
     tileSelected(id) {

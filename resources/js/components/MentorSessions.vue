@@ -22,13 +22,13 @@
                         </div>
                         <div class="card-body overflow-auto" style="display:flex; flex-wrap: wrap">
                             <round-item v-for="(program, index) in programs"
-                                        :title="program.name"
-                                        :subtitle="program.programName"
-                                        :id="program.id"
-                                        :key="program.id"
-                                        :photo="program.photo"
-                                        class="mr-2"
-                                        @tile-clicked="tileClicked(program.id)"></round-item>
+                                :title="program.name"
+                                :subtitle="program.programName"
+                                :id="program.id"
+                                :key="program.id"
+                                :photo="program.photo"
+                                class="mr-2"
+                                @round-clicked="tileClicked(program.id)"></round-item>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ export default {
         selectProgram(programid) {
             Dispecer.$emit('program-selected', programid);
             this.programId = programid;
-            Dispecer.$emit('tile-selected', programid);
+            Dispecer.$emit('round-selected', programid);
             console.log('Selektovao program ' + programid);
         },
         async saveSelectedProgram(programId) {

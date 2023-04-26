@@ -107,7 +107,9 @@ export default {
         action: { typeof: String, default: ''},
         token: { typeof: String, default: '' },
         session_id: { typeof: Number, default: 0 },
-        user_type: { typeof: String, default: 'administrator' }
+        user_type: { typeof: String, default: 'administrator' },
+        testInput: { type: Object },
+        createNew: false
     },
     methods: {
         send() {
@@ -115,6 +117,8 @@ export default {
             var data = new FormData();
             data.append('_token', this.token);
             for(let property in this.form) {
+                if(this.form[property] == null || this.form[property] == '')
+                    continue;
                 data.append(property, this.form[property]);
             }
             data.append('programid', this.program_id);
@@ -153,12 +157,31 @@ export default {
                     this.form[property] = response.data[property];
                 }
             });
-        }
+        },
+
     },
     async mounted() {
-        if(this.sessionId != 0) {
+        if(!this.createNew) {
             await this.getSessionData();
+        } else {
+            // this.form.session_title = null;
+            // this.form.session_start_date = null;
+            // this.form.session_start_time = null;
+            // this.form.session_duration = 0;
+            // this.form.session_duration_unit = 0;
+            // this.form.session_short_note = null;
+            // this.form.client_feedback = null;
+            // this.form.mentor_feedback = null;
+            // this.form.session_is_finished = false;
+
+            this.form = {};
+
+            for(var property in this.testInput) {
+                this.form[property] = this.testInput[property];
+            }
         }
+
+        console.log('Session form mounted!');
     },
     data() {
         return {

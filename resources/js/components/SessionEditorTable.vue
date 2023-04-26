@@ -7,10 +7,22 @@
                 </div>
 
                 <b-button
-                    class="float-right"
+                    class="float-right mx-1"
                     variant="primary"
                     @click="newSession1"
-                    :title="_('gui.session_form_title_create')"><i class="dripicons-user-group"></i></b-button>
+                    :title="_('gui.session_form_title_create')"><i class="dripicons-plus"></i></b-button>
+
+                <b-button
+                    class="float-right mx-1"
+                    variant="primary"
+                    @click="editSession"
+                    :title="_('gui.session_form_title_edit')"><i class="dripicons-pencil"></i></b-button>
+
+                <b-button
+                    class="float-right mx-1"
+                    variant="primary"
+                    @click="cloneSession"
+                    :title="_('gui.session_form_title_duplicate')"><i class="dripicons-duplicate"></i></b-button>
             </div>
             <div class="card-body overflow-auto" style="display: flex; flex-wrap: wrap">
                 <tile-item
@@ -20,33 +32,19 @@
                     :key="session.id"
                     :label="{ show: session.isFinished, type: 3, text: 'Završena'}"
                     :titleMaxLength = 40
-                    class="mr-2" photo="/images/custom/sesije.png"
-                    @tile-clicked="tileClicked"></tile-item>
+                    class="mr-2" photo="/images/custom/sesije.png" @tile-clicked="tileClicked"></tile-item>
             </div>
         </div>
-        <b-modal id="viewSituationModal" ref="viewSituationModal" size="lg" header-bg-variant="dark" header-text-variant="light">
-            <template #modal-title >{{ viewsessiontitle }}</template>
-            <span v-html="viewContent"></span>
-            <template #modal-footer>
-                <b-button variant="primary" @click="onOk">Prihvati</b-button>
-                <b-button variant="light" @click="onCancel">Zatvori</b-button>
-            </template>
-        </b-modal>
-        <b-modal id="addSituationModal" ref="addSituationModal" size="lg" header-bg-variant="dark" header-text-variant="light">
-            <template #modal-title>{{ addsessiontitle }}</template>
-            <span v-html="formContent"></span>
-            <template #modal-footer>
-                <b-button variant="primary" @click="onAddOk">Prihvati</b-button>
-                <b-button variant="light" @click="onAddCancel">Odustani</b-button>
-            </template>
-        </b-modal>
+
         <b-modal id="addSituationModal1" ref="addSituationModal1" size="lg" header-bg-variant="dark" header-text-variant="light">
             <template #modal-title>{{ addsessiontitle }}</template>
             <session-form
-                ref="sessions_form"
+                ref="addSessionsForm"
                 :mentor_id="mentorid"
                 :program_id="programid"
-                :token="token"
+                :session_id="sessionId"
+                :create-new="true"
+                :token="token" :test-input="testInput"
                 action="/sessions/create" :user_type="user_type"></session-form>
             <template #modal-footer>
                 <b-button variant="primary" @click="onAddSession">{{ _('gui.accept') }}</b-button>
@@ -56,9 +54,10 @@
         <b-modal id="viewSituationModal1" ref="viewSituationModal1" size="lg" header-bg-variant="dark" header-text-variant="light">
             <template #modal-title>{{ viewsessiontitle }}</template>
             <session-form
-                ref="sessions_form"
+                ref="editSessionsForm"
                 :mentor_id="mentorid"
                 :program_id="programid"
+                :create-new="false"
                 :token="token" action="/sessions/edit"
                 :session_id="sessionId" :user_type="user_type"></session-form>
             <template #modal-footer>
@@ -112,24 +111,7 @@ export default {
                 });
 
         },
-        async viewSession() {
-            let content = null;
-            await axios.get(`/sessions/edit/${this.sessionId}`)
-                .then(response => {
-                    let content = $(response.data).find('form#mySessionEditForm').first().parent().html();
-                    this.$refs['viewSituationModal'].show();
-                    this.viewContent = content;
-                });
-        },
-        async newSession() {
-            let content = null;
-            await axios.get(`/sessions/create/${this.programId}/${this.mentorId}`)
-                .then(response => {
-                    let content = $(response.data).find('form#mySessionCreateForm').first().parent().html();
-                    this.$refs['addSituationModal'].show();
-                    this.formContent = content;
-                });
-        },
+
         mentorSelected(mentorid) {
             this.mentorId = mentorid;
             this.getSessions();
@@ -141,8 +123,6 @@ export default {
         tileClicked(id) {
             console.log(`Tile ${id} selected`);
             this.sessionId = id;
-            // this.viewSession();
-            this.editSession();
         },
         onOk() {
             const form = document.getElementById('mySessionEditForm');
@@ -179,14 +159,30 @@ export default {
         closePreview() {
             this.$refs['viewSituationModal'].hide();
         },
-        newSession1() {
+        async newSession1() {
+            this.testInput = {};
+            Dispecer.$emit('tile-selected', 0);
+            this.$refs['addSituationModal1'].show();
+        },
+        async cloneSession() {
+            await axios.get('/sessions/cloningData/' + this.sessionId)
+            .then(response => {
+                console.log(response.data);
+                this.testInput = response.data;
+            });
+
             this.$refs['addSituationModal1'].show();
         },
         editSession() {
-            this.$refs['viewSituationModal1'].show();
+            console.log('edit session clicked');
+            console.log(this.sessionId);
+
+            if(this.sessionId != 0) {
+                this.$refs['viewSituationModal1'].show();
+            }
         },
         onAddSession() {
-            this.$refs['sessions_form'].send()
+            this.$refs['addSessionsForm'].send()
             .then(response => {
                 this.getSessions();
                 this.$refs['addSituationModal1'].hide();
@@ -200,7 +196,7 @@ export default {
             this.$refs['addSituationModal1'].hide();
         },
         onEditSession() {
-            this.$refs['sessions_form'].send()
+            this.$refs['editSessionsForm'].send()
             .then(response => {
                 this.getSessions();
                 this.$refs['viewSituationModal1'].hide();
@@ -219,7 +215,8 @@ export default {
             rows: [],
             mentorId : 0,
             programId : 0,
-            sessionId : 0
+            sessionId : 0,
+            testInput: {}
         }
     },
     mounted() {

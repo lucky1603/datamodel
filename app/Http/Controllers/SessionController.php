@@ -90,7 +90,10 @@ class SessionController extends Controller
         $time = $data['session_start_time'];
         $data['session_start_time'] = $date." ".$time;
 
-        $data['session_is_finished'] = $data['session_is_finished'] == 'true' ? true : false;
+        if(isset($data['session_is_finished'])) {
+            $data['session_is_finished'] = $data['session_is_finished'] == 'true' ? true : false;
+        }
+
 
         $session->setData($data);
         return $session->getData();
@@ -117,5 +120,85 @@ class SessionController extends Controller
         }
 
         return $sessionData;
+    }
+
+    /**
+     * API call
+     * Clone session and return the new session id.
+     */
+    public function cloneSession(Request $request) {
+        $sessionId = $request->post('session_id');
+        $programId = $request->post('program_id');
+        $mentorId = $request->post('mentor_id');
+        $originalSession = Session::find($sessionId);
+        $originalSessionData = $originalSession->getData();
+
+        $attKeys = [
+            'session_start_date',
+            'session_start_time',
+            'session_duration',
+            'session_duration_unit',
+            'session_short_note'
+        ];
+
+        $newSessionData = [];
+        foreach($attKeys as $attKey) {
+            $newSessionData[$attKey] = $originalSessionData[$attKey];
+        }
+
+        $session = new Session($newSessionData);
+        if($session->instance != null) {
+            $program = Program::find($programId);
+            $program->addSession($session);
+            $mentor = Mentor::find($mentorId);
+            $mentor->addSession($session);
+        }
+
+        return $session->getId();
+    }
+
+    public function dataForCloning($sessionId) {
+        $session = Session::find($sessionId);
+        $data = $session->getData();
+        $attKeys = [
+            'session_start_date',
+            'session_start_time',
+            'session_duration',
+            'session_duration_unit',
+            'session_short_note'
+        ];
+
+        $resultData = [];
+        foreach($attKeys as $attKey) {
+            if($attKey == 'session_start_time') {
+                $time = $data['session_start_time'];
+                $time_tokens = explode(" ", $time);
+                $data['session_start_time'] = $time_tokens[1];
+            }
+
+            $resultData[$attKey] = $data[$attKey];
+        }
+
+        return $resultData;
+    }
+
+    /**
+     * Delete session.
+     */
+    public function deleteSession(Request $request) {
+        $sessionId = $request->post("session_id");
+        $session = Session::find($sessionId);
+        if($session == null) {
+            return [
+                'code' => 1,
+                'message' => 'No session with this id.'
+            ];
+        }
+
+        $session->delete();
+        return [
+            'code' => 0,
+            'message' => "Session (#".$sessionId.") successfully deleted"
+        ];
     }
 }
