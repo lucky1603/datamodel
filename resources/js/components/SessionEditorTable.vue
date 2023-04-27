@@ -18,13 +18,13 @@
                     @click="editSession"
                     :title="_('gui.session_form_title_edit')"><i class="dripicons-pencil"></i></b-button>
 
-                <b-button
+                <b-button v-if="user_type == 'administrator'"
                     class="float-right mx-1"
                     variant="outline-primary"
                     @click="cloneSession"
                     :title="_('gui.session_form_title_duplicate')"><i class="dripicons-duplicate"></i></b-button>
 
-                <b-button
+                <b-button v-if="user_type == 'administrator'"
                     class="float-right mx-1"
                     variant="danger"
                     @click="deleteSession"

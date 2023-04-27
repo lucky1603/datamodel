@@ -1,7 +1,7 @@
 <template>
   <div class="card w-100" style="height: 100%">
     <div v-if="mentors.length > 0" class="card-header bg-dark text-light">
-      {{ title.toUpperCase() }} {{ $t("Events") }}
+      {{ title.toUpperCase() }}
     </div>
     <div v-if="mentors.length > 0" class="card-body">
       <div class="row h-100">
