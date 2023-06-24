@@ -1,0 +1,108 @@
+<template>
+    <div class="card shadow-sm">
+        <div class="card-header mt-1">
+            <h4 class="header-title mt-1">{{ title }}</h4>
+        </div>
+        <div class="card-body">
+            <div v-for="item in items">
+                <h5 class="mb-1 mt-0 font-weight-normal">{{ item.text }}</h5>
+                <div class="progress-w-percent">
+                    <span class="progress-value font-weight-bold">{{ item.count}}</span>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar" role="progressbar" :style="'width:' + item.percentage + '%;'" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: "Distribution",
+    props: {
+        title: { typeof: String, default: 'Title'},
+        source: { typeof: String, default: '/analytics/statistics'},
+        input_items: { typeof: Array, default: []},
+        item_count: { typeof: Number, default: 0 },
+        year: { typeof: Number, default: 2023 },
+        token: { typeof: String, default: ''}
+    },
+    computed: {
+
+    },
+    watch: {
+        year: function() {
+            this.getData();
+        }
+    },
+    methods: {
+        async getData() {
+                let formData = new FormData();
+                formData.append('_token', this.token);
+                formData.append('year', this.year);
+                await axios.post(this.source, formData)
+                .then(response => {
+                    let items = response.data.items;
+                    console.log("input items are ")
+                    console.log(items);
+                    this.items = [];
+                    for(let property in items) {
+                        let count = items[property];
+                        this.items.push({
+                            text: property,
+                            count: count
+                        });
+                    }
+                    this.total = response.data.total;
+
+                    if(this.items.length > 0 && this.total > 0) {
+                        for (let i = 0; i < this.items.length; i++) {
+                            this.items[i].percentage = ((this.items[i].count / this.total) * 100).toFixed(0);
+                        }
+                    }
+                });
+
+
+        },
+        getItemPercentage(count) {
+            if(this.total == 0) {
+                return 0;
+            }
+
+            return (count / this.total).toFixed(0);
+        },
+
+    },
+    async mounted() {
+        if( this.source != '') {
+            await this.getData();
+            Dispecer.$on('refresh-components', this.getData);
+        } else {
+            setTimeout(() => {
+                this.total = this.item_count;
+                for(let i = 0; i < this.input_items.length; i++) {
+                    this.items.push(this.input_items[i]);
+                    this.items[i].percentage = ((this.items[i].count / this.total) * 100).toFixed(0);
+                }
+
+                console.log(this.items);
+            }, 1000);
+
+        }
+
+
+
+    },
+    data() {
+        return {
+            items: [],
+            total: 0
+        }
+    }
+}
+</script>
+
+<style scoped>
+
+</style>

@@ -98,6 +98,8 @@ Vue.component('basic-dashboard', require('./components/BasicDashboard.vue').defa
 Vue.component('incubation-dashboard', require('./components/IncubationDashboard.vue').default);
 Vue.component('mentor-form', require('./components/MentorForm.vue').default);
 Vue.component('activity-flow', require('./components/ActivityFlow.vue').default);
+Vue.component('event-dashboard', require('./components/EventDashboard.vue').default);
+Vue.component('distribution', require('./components/Distribution.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

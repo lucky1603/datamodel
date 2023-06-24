@@ -329,6 +329,53 @@ class TrainingsController extends Controller
         return $resultData;
     }
 
+    public function showStatistics() {
+        return view('trainings.statistics', ['token' => csrf_token()]);
+    }
+
+    public function statistics(Request $request) {
+        $data = $request->post();
+
+        $filterData = [];
+        if(isset($data['program_type']) && $data['program_type'] != NULL) {
+            $filterData['program_type'] = $data['program_type'];
+        }
+
+        if( isset($data['status']) && $data['status'] != NULL) {
+            $filterData['event_status'] = $data['status'];
+        }
+
+        if(count($filterData) > 0) {
+            $events = Training::sortByDate($data['year'], $filterData);
+        } else {
+            $events = Training::sortByDate($data['year']);
+        }
+
+        $results = [
+            __('Workshop') => 0,
+            __('Session') => 0,
+            __("Meetup") => 0
+
+        ];
+
+
+        $count = 0;
+        foreach($events as $event) {
+            $eventType = __($event->getText('training_type'));
+            if(!isset($results[$eventType])) {
+                $results[$eventType] = 1;
+            } else {
+                $results[$eventType] += 1;
+            }
+            $count ++;
+        }
+
+        return [
+            "items" => $results,
+            "total" => $count,
+        ];
+    }
+
     public function fetch($trainingId): array
     {
         $training = Training::find($trainingId);

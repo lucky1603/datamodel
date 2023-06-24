@@ -68,12 +68,27 @@
         </a>
     </li>
 
-    <li class="side-nav-item">
+    {{-- <li class="side-nav-item">
         <a href="{{ route('trainings') }}" class="side-nav-link">
             <i class="uil-rss-alt"></i>
             <span>{{ mb_strtoupper(__('Events')) }}</span>
         </a>
+    </li> --}}
+
+
+    <li class="side-nav-item">
+        <a href="javascript:void(0);" class="side-nav-link" aria-expanded="false">
+            <i class="uil-dashboard"></i>
+            <span>{{ mb_strtoupper( __('Events') ) }}</span>
+            <span class="menu-arrow"></span>
+        </a>
+        <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
+            <li><a href="{{ route('trainings') }}">{{ mb_strtoupper(__('List')) }}</a></li>
+            <li><a href="{{ route('trainings.showStatistics') }}">{{ mb_strtoupper(__('Statistics')) }}</a></li>
+        </ul>
     </li>
+
+
     @elseif(\Illuminate\Support\Facades\Auth::user()->isRole('client'))
         <li class="side-nav-item" id="link_profile">
             <a href="{{route('clients.profile', \Illuminate\Support\Facades\Auth::user()->client()->getId())}}" class="side-nav-link">

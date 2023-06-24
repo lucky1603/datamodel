@@ -75,13 +75,6 @@
                             </span>
                         @enderror
                     </div>
-{{--                    <div class="form-group mb-3">--}}
-{{--                        <div class="custom-control custom-checkbox">--}}
-{{--                            <input type="checkbox" class="custom-control-input" id="remember" name="remember">--}}
-{{--                            <label class="custom-control-label" for="checkbox-signin">{{ __('Remember me') }}</label>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-
 
                     <div class="form-group row mb-3">
                         <div class="col-md-6">
@@ -103,24 +96,6 @@
                             </a>
                         @endif
                     </div>
-{{--                    <!-- social-->--}}
-{{--                    <div class="text-center mt-4">--}}
-{{--                        <p class="text-muted font-16">{{ __('Sign in with') }}</p>--}}
-{{--                        <ul class="social-list list-inline mt-3">--}}
-{{--                            <li class="list-inline-item">--}}
-{{--                                <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>--}}
-{{--                            </li>--}}
-{{--                            <li class="list-inline-item">--}}
-{{--                                <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>--}}
-{{--                            </li>--}}
-{{--                            <li class="list-inline-item">--}}
-{{--                                <a href="javascript: void(0);" class="social-list-item border-info text-info"><i class="mdi mdi-twitter"></i></a>--}}
-{{--                            </li>--}}
-{{--                            <li class="list-inline-item">--}}
-{{--                                <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i class="mdi mdi-github-circle"></i></a>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
-{{--                    </div>--}}
                 </form>
                 <!-- end form-->
 

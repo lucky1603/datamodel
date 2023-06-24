@@ -25,14 +25,17 @@ export default {
         source: { typeof: String, default: '/analytics/howDidUHear'},
         input_items: { typeof: Array, default: []},
         item_count: { typeof: Number, default: 0 },
-        year: { typeof: Number, default: 2023 }
+        year: { typeof: Number, default: 2023 },
+        doPost: { typeof: Boolean, default: false },
+        token: { typeof: String, default: ''}
     },
     computed: {
 
     },
     methods: {
         async getData() {
-            await axios.get(this.source + '/' + this.year)
+            if(!this.doPost) {
+                await axios.get(this.source + '/' + this.year)
                 .then(response => {
                     this.items = response.data.items;
                     this.total = response.data.total;
@@ -43,6 +46,23 @@ export default {
                         }
                     }
                 });
+            } else {
+                let formData = new FormData();
+                formData.append('_token', this.token);
+                formData.append('year', this,year);
+                await axios.post(this.source, formData)
+                .then(response => {
+                    this.items = response.data.items;
+                    this.total = response.data.total;
+
+                    if(this.items.length > 0 && this.total > 0) {
+                        for (let i = 0; i < this.items.length; i++) {
+                            this.items[i].percentage = ((this.items[i].count / this.total) * 100).toFixed(0);
+                        }
+                    }
+                });
+            }
+
         },
         getItemPercentage(count) {
             if(this.total == 0) {
