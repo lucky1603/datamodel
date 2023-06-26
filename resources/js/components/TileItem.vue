@@ -12,7 +12,7 @@
                     <span>{{ label.text }}</span>
                 </div>
                 <div :class="tileClass">
-                    <div class="d-flex align-items-top p-1 flex-column" >
+                    <div class="d-flex align-items-center justify-content-center p-1 flex-column" >
                         <img :src="imageSource" style="width:80px; height: 60px" />
                         <img
                             v-if="show_alert"
