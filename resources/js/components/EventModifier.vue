@@ -19,80 +19,98 @@
           type="hidden"
           name="training_type"
           ref="eventType"
-          :value="form.training_type"
+          v-model="form.training_type"
         />
-        <div class="row" style="height: 160px">
-          <div class="offset-2 col-8 h-100">
-            <div class="card h-100 shadow">
-              <div
-                class="card-body h-100 p-1"
-                style="display: flex; justify-content: center"
-              >
-                <tile-item
-                  :id="1"
-                  role="button"
-                  photo="/images/custom/radionice.png"
-                  title="RADIONICA"
-                  :padding="2"
-                  :width="120"
-                  @tile-clicked="tileClicked"
-                ></tile-item>
-                <div
-                  class="h-100 ml-2 mr-2"
-                  style="display: flex; flex-direction: column; justify-content: center"
-                >
-                  <div
-                    class="border rounded-circle"
-                    style="
-                      width: 30px;
-                      height: 30px;
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                    "
-                  >
-                    ili
-                  </div>
-                </div>
-                <tile-item
-                  :id="2"
-                  role="button"
-                  photo="/images/custom/sesije.png"
-                  title="SESIJA"
-                  :padding="2"
-                  :width="120"
-                  @tile-clicked="tileClicked"
-                ></tile-item>
-                <div
-                  class="h-100 ml-2 mr-2"
-                  style="display: flex; flex-direction: column; justify-content: center"
-                >
-                  <div
-                    class="border rounded-circle"
-                    style="
-                      width: 30px;
-                      height: 30px;
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                    "
-                  >
-                    ili
-                  </div>
-                </div>
-                <tile-item
-                  :id="3"
-                  role="button"
-                  photo="/images/custom/meetup.png"
-                  title="MEETUP"
-                  :padding="2"
-                  :width="120"
-                  @tile-clicked="tileClicked"
-                ></tile-item>
-              </div>
-            </div>
-          </div>
+        <div class="card-body h-100 p-1" style="display: flex; justify-content: center; flex-wrap: wrap">
+            <tile-item
+                class="m-1"
+                :id="1"
+                role="button"
+                photo="/images/custom/radionice.png"
+                title="RADIONICA"
+                :padding="2"
+                :width="120"
+                @tile-clicked="tileClicked"
+            ></tile-item>
+
+            <tile-item
+                :id="2"
+                class="m-1"
+                role="button"
+                photo="/images/custom/sesije.png"
+                title="SESIJA"
+                :padding="2"
+                :width="120"
+                @tile-clicked="tileClicked"
+            ></tile-item>
+
+            <tile-item
+                :id="3"
+                class="m-1"
+                role="button"
+                photo="/images/custom/meetup.png"
+                title="MEETUP"
+                :padding="2"
+                :width="120"
+                @tile-clicked="tileClicked"
+            ></tile-item>
+
+            <tile-item
+                :id="4"
+                class="m-1"
+                role="button"
+                photo="/images/custom/event.png"
+                title="SAVETOVANJE"
+                :padding="2"
+                :width="120"
+                @tile-clicked="tileClicked"
+            ></tile-item>
+
+            <tile-item
+                :id="5"
+                class="m-1"
+                role="button"
+                photo="/images/custom/event.png"
+                title="TEHNIČKA PODRŠKA"
+                :padding="2"
+                :width="120"
+                @tile-clicked="tileClicked"
+            ></tile-item>
+
+            <tile-item
+                :id="6"
+                class="m-1"
+                role="button"
+                photo="/images/custom/event.png"
+                title="Pristup finansijama / fondovima"
+                :padding="2"
+                :width="120"
+                @tile-clicked="tileClicked"
+            ></tile-item>
+
+            <tile-item
+                :id="7"
+                class="m-1"
+                role="button"
+                photo="/images/custom/event.png"
+                title="VIDLJIVOST / PROMOCIJA"
+                :padding="2"
+                :width="120"
+                @tile-clicked="tileClicked"
+            ></tile-item>
+
+            <tile-item
+                :id="8"
+                class="m-1"
+                role="button"
+                photo="/images/custom/event.png"
+                title="TRANSFER ZNANJA"
+                :padding="2"
+                :width="120"
+                @tile-clicked="tileClicked"
+            ></tile-item>
         </div>
+
         <div class="row">
           <div class="col-lg-9">
             <div class="form-group mt-3">
@@ -297,13 +315,23 @@ export default {
   },
   computed: {
     getEventType() {
-      switch (this.eventType) {
+      switch (this.form.training_type) {
         case 1:
           return "RADIONICA";
         case 2:
           return "SESIJA";
-        default:
+        case 3:
           return "MEETUP";
+        case 4:
+            return "SAVETOVANJE";
+        case 5:
+            return "TEHNIČKA PODRŠKA";
+        case 6:
+            return "PRISTUP FINANSIJAMA/FONDOVIMA";
+        case 7:
+            return "VIDLJIVOST/PROMOCIJA";
+        default:
+            return "TRANSFER ZNANJA";
       }
     },
   },
@@ -312,10 +340,9 @@ export default {
       this.selectEventType(id);
     },
     selectEventType(id) {
-      if (id < 1 || id > 3) id = 1;
-      this.eventType = id;
-      this.$refs["eventType"].value = this.eventType.toString();
-      Dispecer.$emit("tile-selected", this.eventType);
+      this.form.training_type = id;
+      Dispecer.$emit("tile-selected", this.form.training_type);
+
     },
     initTextArea() {
       $("#sinisa").summernote({
@@ -408,7 +435,6 @@ export default {
   },
   data() {
     return {
-      eventType: { typeof: Number, default: 1 },
       file1: [],
       selected: [],
       description: null,

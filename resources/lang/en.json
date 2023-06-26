@@ -31,5 +31,9 @@
     "inProgram" : "In Program",
     "outOfProgram" : "Out of Program",
     "workshops" : "Workshops",
-    "sessions" : "Sessions"
+    "sessions" : "Sessions",
+    "Savetovanje": "Counceling",
+    "Tehnička podrška": "Technical support",
+    "Pristup finansijama/fondovima": "Access to finances/funds",
+    "Transfer znanja": "Knowledge transfer"
 }

@@ -234,21 +234,33 @@ export default {
     eventTypeDescription() {
       switch (this.eventType) {
         case 1:
-          return "RADIONICA";
+            return "RADIONICA";
         case 2:
-          return "SESIJA";
+            return "SESIJA";
+        case 3:
+            return "MEETUP";
+        case 4:
+            return "SAVETOVANJE";
+        case 5:
+            return "TEHNIČKA PODRŠKA";
+        case 6:
+            return "PRISTUP FINANSIJAMA/FONDOVIMA";
+        case 7:
+            return "VIDLJIVOST/PROMOCIJA";
         default:
-          return "MEETUP";
+            return "TRANSFER ZNANJA";
       }
     },
     eventTypeImage() {
       switch (this.eventType) {
         case 1:
-          return "/images/custom/radionice.png";
+            return "/images/custom/radionice.png";
         case 2:
-          return "/images/custom/sesije.png";
+            return "/images/custom/sesije.png";
+        case 3:
+            return "/images/custom/meetup.png";
         default:
-          return "/images/custom/meetup.png";
+            return "/images/custom/event.png";
       }
     },
     eventStatusText() {

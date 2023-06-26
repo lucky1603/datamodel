@@ -13,8 +13,8 @@
                 </div>
                 <div class="col-4 text-center">
                     <img :src="tilePhoto" alt="Tile Photo" style="width: 50px">
-                    <div class="text-center">
-                        <span class="font-10">{{ eventTypeText }}</span>
+                    <div class="d-flex align-items-center justify-content-center flex-wrap w-100">
+                        <span class="font-10 w-100 text-center">{{ eventTypeText }}</span>
                     </div>
                 </div>
             </div>
@@ -76,8 +76,10 @@ export default {
                     return "/images/custom/radionice.png";
                 case 2:
                     return '/images/custom/sesije.png';
-                default:
+                case 3:
                     return '/images/custom/meetup.png';
+                default:
+                    return '/images/custom/event.png';
             }
         },
         eventTypeText() {
@@ -86,8 +88,18 @@ export default {
                     return "RADIONICA";
                 case 2:
                     return "SESIJA";
-                default:
+                case 3:
                     return "MEETUP";
+                case 4:
+                    return 'SAVETOVANJE';
+                case 5:
+                    return 'TEHNIČKA PODRŠKA';
+                case 6:
+                    return "PRISTUP FINANSIJAMA/FONDOVIMA";
+                case 7:
+                    return "VIDLJIVOST/PROMOCIJA";
+                default:
+                    return "TRANSFER ZNANJA";
             }
         },
         attendanceIcon() {

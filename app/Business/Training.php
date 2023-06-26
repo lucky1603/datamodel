@@ -59,6 +59,11 @@ class Training extends BusinessModel
             $training_type->addOption(['value' => 1, 'text' => __('Workshop')]);
             $training_type->addOption(['value' => 2, 'text' => __('Session')]);
             $training_type->addOption(['value' => 3, 'text' => __('Meetup')]);
+            $training_type->addOption(['value' => 4, 'text' => __('Savetovanje')]);
+            $training_type->addOption(['value' => 5, 'text' => __('Tehnička podrška')]);
+            $training_type->addOption(['value' => 6, 'text' => __('Pristup finansijama/fondovima')]);
+            $training_type->addOption(['value' => 7, 'text' => __('Vidljivost/Promocija')]);
+            $training_type->addOption(['value' => 8, 'text' => __('Transfer znanja')]);
 
         }
 
