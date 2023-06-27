@@ -24,8 +24,8 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex align-items-center justify-content-center bg-primary text-light my-0 flex-wrap" style="width: 100px">
-            <span class="font-10 text-center w-100">{{ dTitle }}</span>
+        <div class="d-flex align-items-center justify-content-center bg-primary my-0 flex-wrap" style="width: 100px">
+            <span :class="titleClass">{{ dTitle }}</span>
         </div>
     </div>
 
@@ -76,6 +76,13 @@ export default {
 
       return this.title;
     },
+    titleClass() {
+      if(this.isSelected) {
+        return "font-10 text-center w-100 text-selected";
+      }
+
+      return "font-10 text-center w-100 text-light";
+    }
   },
   props: {
     id: { typeof: Number, default: 0 },
@@ -115,6 +122,9 @@ export default {
 
 <style scoped>
 .bg-selected {
-    background-color: #aaccff;
+    background-color:yellow;
+}
+.text-selected {
+  color:yellow;
 }
 </style>
