@@ -825,5 +825,53 @@ class Profile extends SituationsModel
 
     }
 
+    public static function updateDates() {
+        Program::find()
+            ->filter(function ($program) {
+            $status = $program->getStatus();
+            return $status > 1 || ($status <= -1 && $status > -5);
+            })
+            ->map(function ($program) {
+                $profile = $program->getProfile();
+                $status = $program->getStatus();
+
+                $dateSent = '';
+                $dateContract = '';
+
+                $mySituations = $program->getSituations()->filter(function ($situation) {
+                    return $situation->getValue('name') == 'Poslata prijava' ||
+                    $situation->getValue('name') == 'U PROGRAMU';
+                });
+
+                if ($mySituations->count() > 0) {
+                    $count = $mySituations->count();
+                    $dateSent = $mySituations->values()[0]->getValue('occurred_at');
+
+                    if ($count > 1) {
+                    $dateContract = $mySituations->values()[1]->getValue('occurred_at');
+                    }
+                }
+
+
+                if($dateSent != '') {
+                    if($dateContract != '') {
+                        DB::table('program_caches')
+                        ->where('program_id', $program->getId())
+                        ->update([
+                            'application_sent' => $dateSent,
+                            'contract_signed' => $dateContract
+                        ]);
+                    } else {
+                        DB::table('program_caches')
+                        ->where('program_id', $program->getId())
+                        ->update([
+                            'application_sent' => $dateSent
+                        ]);
+                    }
+                }
+
+            });
+    }
+
 
 }
