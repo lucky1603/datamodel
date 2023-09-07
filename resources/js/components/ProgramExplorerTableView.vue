@@ -292,7 +292,8 @@ export default {
       years: [
         { value: 0, text: "Po godini" },
         { value: 2022, text: "2022" },
-        { value: 2023, text: "2023" }
+        { value: 2023, text: "2023" },
+        { value: 2024, text: "2024"},
       ],
       fields: [
         {

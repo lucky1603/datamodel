@@ -48,7 +48,7 @@
                         Važna napomena: Jednom kada budete krenuli sa popunjavanjem prijave, molimo vas da pažljivo pročitate
                         pitanja, popunite prijavu, i budete što precizniji u odgovorima kako bi prijava bila adekvatno ocenjena.
                         Nedovoljno sadržajno popunjene prijave biće slabije ocenjene. Pre popunjavanja prijavnog obrasca obavezno
-                        pročitajte <a href="https://mailtrack.io/trace/link/bd94a5d9aed7b6370b2be6b22aac4259d9489691?url=https%3A%2F%2Fntpark.rs%2Fwp-content%2Fuploads%2F2022%2F11%2FRaising-Starts_javni-poziv_3_0.pdf&userId=9049544&signature=e1175754422be665"
+                        pročitajte <a href="https://ntpark.rs/wp-content/uploads/2023/09/RS-4-0-javni-poziv.pdf"
                         target="_blank">Javni poziv</a> i <a href="https://mailtrack.io/trace/link/4f37663aee6d8fa02577432cb853e86b7b4291c2?url=https%3A%2F%2Fntpark.rs%2Fwp-content%2Fuploads%2F2022%2F11%2FRaising-Starts-Vodic-2022.pdf&userId=9049544&signature=38201a7e586b69a1"
                         target="_blank">vodič</a> kroz Raising Starts program.<br />
                         <span style="color: #ff0000">U Prilogu 1 Vodiča (strana 17) pogledajte detaljno uputstvo kojim se definiše

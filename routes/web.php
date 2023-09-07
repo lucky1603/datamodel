@@ -36,6 +36,8 @@ Route::post('analytics/programStatuses', 'AnalyticsController@programStatuses')-
 Route::post('analytics/ntp', 'AnalyticsController@ntp')->name('analytics.ntp');
 Route::post('analytics/prijaveGradovi', 'AnalyticsController@prijave_po_gradovima')->name('analytics.prijaveGradovi');
 Route::post('analytics/prijaveOpstine', 'AnalyticsController@prijave_po_opstinama')->name('analytics.prijaveOpstine');
+Route::post('analytics/kompanijeProgrami','AnalyticsController@kompanijePoProgramima')->name('analytics.kompanijePoProgramima');
+Route::post('analytics/prijaveProgrami','AnalyticsController@prijavePoProgramima')->name('analytics.prijavePoProgramima');
 Route::get('analytics/exportRaisingStartsDashboard/{year}', 'AnalyticsController@exportRaisingStartsDashboard')->name('analytics.exportRaisingStartsDashboard');
 Route::get('analytics/splitPoOpstinama/{type}/{year}', 'AnalyticsController@splitPoOpstinama')->name('analytics.splitPoOpstinama');
 

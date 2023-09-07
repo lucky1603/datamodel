@@ -18,5 +18,11 @@
 
 @section('content')
     <profile-statistics></profile-statistics>
+    <div class="container">
+
+        <statistics-4 token="{{ csrf_token() }}"></statistics-4>
+
+    </div>
+
 @endsection
 

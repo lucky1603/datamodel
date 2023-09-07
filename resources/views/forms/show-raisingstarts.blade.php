@@ -18,3 +18,12 @@
         </a>
     </li>
 @endsection
+
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#okSpinner').hide();
+        $('#cancelSpinner').hide();
+    })
+</script>
+@endsection

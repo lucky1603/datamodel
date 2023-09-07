@@ -53,6 +53,63 @@ class AnalyticsController extends Controller
         return $query->get()->toArray();
     }
 
+    public function prijavePoProgramima(Request $request) {
+        $data = $request->post();
+        $startDate = $data['from'] != '' ? $data['from'] : null;
+        $endDate = $data['to'] != '' ? $data['to'] : null;
+
+        $totals = DB::table('program_caches')
+            ->selectRaw( "program_name as text , COUNT(program_name) as count");
+
+        $totals  = $totals->where(function($query) {
+            $query->where('program_status', ">", 1)
+                ->orWhere('program_status', 'in', [-1, -2, -3, -4]);
+        });
+
+        if($startDate != null) {
+            $totals = $totals->where('application_sent', '>=', $startDate);
+        }
+
+        if($endDate != null) {
+            $totals = $totals->where('application_sent', '<=', $endDate);
+        }
+
+        $totals = $totals->groupBy(['program_name']);
+
+        return $totals->get()->toArray();
+
+    }
+
+    public function kompanijePoProgramima(Request $request) {
+        $data = $request->post();
+        $startDate = $data['from'] != '' ? $data['from'] : null;
+        $endDate = $data['to'] != '' ? $data['to'] : null;
+
+        $query = DB::table('program_caches')
+            ->selectRaw( "program_name , COUNT(program_name) as count")
+            ->groupBy(['program_name']);
+
+        // Gledamo samo ko je u programu.
+        // $query = $query
+        //     ->where('status', '>=', 1)
+        //     ->orWhere('status', 'in', [-1, -2, -3, -4]);
+
+        // Zanimaju nas samo potpisani ugovori.
+        $query = $query
+            ->where('program_status', -1);
+
+        if($startDate != null) {
+            $query = $query->where('contract_signed', '>=', $startDate);
+        }
+
+        if($endDate != null) {
+            $query = $query->where('contract_signed', '<=', $endDate);
+        }
+
+        return $query->get()->toArray();
+
+    }
+
     public function prijave_po_gradovima(Request $request) {
         $program_type = $request->post('program_type');
         $year = $request->post('year');
@@ -175,7 +232,7 @@ class AnalyticsController extends Controller
         $appliedGroups = $query->get();
 
         $startapi = count($appliedGroups) > 0 ? $appliedGroups[0]->count : 0;
-        $kompanije = count($appliedGroups) > 0 ? $appliedGroups[1]->count : 0;
+        $kompanije = count($appliedGroups) > 1 ? $appliedGroups[1]->count : 0;
 
         return [
             'startupCount' => $startapi,
@@ -191,21 +248,22 @@ class AnalyticsController extends Controller
      */
     public function howDidUHear(): array
     {
-        $attr = Attribute::where('name', 'rstarts_howdiduhear')->first();
-        $attrOptions = $attr->getOptions();
-
         $items = [];
         $total = 0;
 
-        foreach($attrOptions as $key=>$value) {
-            $count = Program::find(['rstarts_howdiduhear' => $key])->count();
-            $name = $value;
-            $items[] = [
-                'text' => $name,
-                'count' => $count
-            ];
+        $attr = Attribute::where('name', 'rstarts_howdiduhear')->first();
+        if($attr != null) {
+            $attrOptions = $attr->getOptions();
+            foreach($attrOptions as $key=>$value) {
+                $count = Program::find(['rstarts_howdiduhear' => $key])->count();
+                $name = $value;
+                $items[] = [
+                    'text' => $name,
+                    'count' => $count
+                ];
 
-            $total += $count;
+                $total += $count;
+            }
         }
 
         return [

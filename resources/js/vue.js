@@ -100,6 +100,8 @@ Vue.component('mentor-form', require('./components/MentorForm.vue').default);
 Vue.component('activity-flow', require('./components/ActivityFlow.vue').default);
 Vue.component('event-dashboard', require('./components/EventDashboard.vue').default);
 Vue.component('distribution', require('./components/Distribution.vue').default);
+Vue.component('statistics-4', require('./components/Statistics4.vue').default);
+Vue.component('distribution-from-to', require('./components/DistributionFromTo.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

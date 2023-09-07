@@ -40,4 +40,12 @@
         Takođe se slažem da me NTP Beograd obaveštava o svojim budućim programima i aktivnostima koje su namenjene startapovima.
         U bilo kom trenutku možete zatražiti brisanje podataka i NTP Beograd vas više neće obaveštavati.
     </p>
+    <p>
+        Ovim potvrđujem da sam pročitao/la i razumeo/la
+        <a
+            href="https://ntpark.rs/wp-content/uploads/2023/09/Obavestenje-o-prikupljanju-cuvanju-i-obradi-podataka.pdf"
+            target="_blank">
+                obaveštenje o prikupljanju, čuvanju i obradi podataka o ličnosti
+        </a> i saglasan/a sam da se obrada podataka o ličnosti vrši na navedeni način.
+    </p>
 </div>

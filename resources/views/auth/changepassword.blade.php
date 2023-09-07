@@ -17,7 +17,7 @@
                         name="password"
                         class="form-control @error('password') is-invalid @enderror"
                         required
-                        autocomplete="new-password" placeholder="Unesite kombinaciju od minimum 8 karaktera.">
+                        autocomplete="new-password" placeholder="Unesite kombinaciju od minimum 8 karaktera.">                    
 
                 </div>
                 <div class="form-group">
