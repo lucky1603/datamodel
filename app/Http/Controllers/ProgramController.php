@@ -363,13 +363,13 @@ class ProgramController extends Controller
 
         } else if($programType == Program::$RAISING_STARTS) {
 
-            if(strtotime(now()) >= strtotime("2022-12-28 14:00:00"))
-            {
-                return json_encode([
-                    'code' => 0,
-                    'message' => 'Prošao je rok za slanje prijave!'
-                ]);
-            }
+            // if(strtotime(now()) >= strtotime("2022-12-28 14:00:00"))
+            // {
+            //     return json_encode([
+            //         'code' => 0,
+            //         'message' => 'Prošao je rok za slanje prijave!'
+            //     ]);
+            // }
 
             $assertion = $this->checkRaisingStartsProgramData($program);
             if($assertion['code'] == 0) {
