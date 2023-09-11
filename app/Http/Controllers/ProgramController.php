@@ -911,6 +911,9 @@ class ProgramController extends Controller
                 $data['rstarts_founder_cvs'] = $files;
             }
 
+            // var_dump($data);
+            // die();
+
         }
 
         // Check if the program already exists and is attached to the profile.
@@ -928,6 +931,10 @@ class ProgramController extends Controller
             // Add it to the profile.
             $profile = Profile::find($data['profile_id']);
             $profile->addProgram($program);
+
+            if($program->getValue('rstarts_logo') == null) {
+                $program->setValue('rstarts_logo', $profile->getValue('profile_logo'));
+            }
 
             // Generate the start situation and add it both to profile and program.
             $situation = $profile->addSituationByData(__('Applying') , [
