@@ -16,6 +16,7 @@ use App\Http\Requests\UpdateIncubationRequest;
 use App\Http\Requests\UpdateRaisingStartsRequest;
 use App\Mail\ApplicationSuccess;
 use App\ProfileCache;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -523,6 +524,39 @@ class ProgramController extends Controller
     private function checkRaisingStartsProgramData(RaisingStartsProgram $program): array
     {
         $data = $program->getData();
+
+        $mandatory_parameters = collect([]);
+
+        $group_parameters = AttributeGroup::get('rstarts_general')->attributes->map(function($attribute, $key) {
+            return $attribute->name;
+        });
+
+        $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
+
+
+        $group_parameters = AttributeGroup::get('rstarts_applicant')->attributes->map(function($attribute, $key) {
+            return $attribute->name;
+        });
+
+        $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
+
+        foreach($mandatory_parameters as $mandatory_parameter) {
+            $attribute = $program->getAttribute($mandatory_parameter);
+            if($attribute->name == 'rstarts_logo')
+                continue;
+            if($attribute->type != 'select' && $attribute->getValue() == null) {
+                return [
+                    'code' => 0,
+                    'message' => 'Unesite parametar - "'.$attribute->label.'"',
+                ];
+            } else if($attribute->type == 'select' && $attribute->getValue() == 0) {
+                return [
+                    'code' => 0,
+                    'message' => 'Morate odabrati vrednost za parametar - "'.$attribute->label.'"',
+                ];
+            }
+        }
+
 
         if($data['rstarts_product_type'] == 0) {
             $attribute = $program->getAttribute('rstarts_product_type');
