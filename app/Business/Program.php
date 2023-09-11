@@ -535,8 +535,12 @@ class Program extends SituationsModel
     public function delete()
     {
         DB::table('program_caches')->where('program_id', $this->instance->id)->delete();
-
+        $profile = $this->getProfile();
         parent::delete();
+
+        if($profile != null) {
+            $profile->delete();
+        }
     }
 
     protected function getEntity()

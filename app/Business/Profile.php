@@ -707,8 +707,16 @@ class Profile extends SituationsModel
         });
         DB::table('program_caches')->whereIn('program_id', $programIds)->delete();
 
-        // Delete.
+        // Get profile users.
+        $users = $this->getUsers();
+
+        // Delete profile.
         parent::delete();
+
+        // Delete profile users.
+        foreach($users as $user) {
+            $user->delete();
+        }
     }
 
     public function updateState() {
