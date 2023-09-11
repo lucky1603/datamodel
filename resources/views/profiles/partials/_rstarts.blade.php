@@ -22,8 +22,7 @@
     <div class="col-lg-10">
         <select id="{{$attribute->name}}" name="{{$attribute->name}}"
                 class="form-control form-control-sm mandatory-field"
-                @error($attribute->name) is-error @enderror
-                @if(isset($model) && $value != null) disabled @endif>
+                @error($attribute->name) is-error @enderror>
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $val)
                 <option value="{{$key}}" @if($key == $value) selected @endif>{{$val}}</option>
@@ -47,8 +46,7 @@
         <select id="{{$attribute->name}}"
                 name="{{$attribute->name}}"
                 class="form-control form-control-sm mandatory-field"
-                @error($attribute->name) is-error @enderror
-                @if(isset($model)  && $value != null) disabled @endif>
+                @error($attribute->name) is-error @enderror>
             <option value="0" @if( $value == 0) selected @endif>Izaberite...</option>
             @foreach($attribute->getOptions() as $key => $val)
                 <option value="{{$key}}" @if($key == $value) selected @endif>{{$val}}</option>

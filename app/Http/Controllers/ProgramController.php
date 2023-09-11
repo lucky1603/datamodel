@@ -836,6 +836,8 @@ class ProgramController extends Controller
 
     public function saveApplicationData(UpdateRaisingStartsRequest $request) {
         $data = $request->post();
+        // var_dump($data);
+        // die();
 
         if($data['programType'] == Program::$INKUBACIJA_BITF) {
             $fileData = $this->addFileToData($request, 'resenje_fajl');
@@ -918,8 +920,8 @@ class ProgramController extends Controller
                     'profile_type' => $profile->getValue('is_company') ? 1 : 0,
                     'program_status' => $program->getStatus(),
                     'program_status_text' => $program->getStatusText(),
-                    'ntp' => $program->getValue('ntp'),
-                    'ntp_text' => $program->getText('ntp'),
+                    'ntp' => $program->getValue('ntp') ?? 1,
+                    'ntp_text' => $program->getText('ntp') ?? "Naučno-tehnološki park - Beograd",
                     'year' => $program->getValue('program_type') == Program::$RAISING_STARTS ? date('Y', strtotime('+ 1 year', strtotime(now()))) : date('Y'),
                     'opstina' => $program->getValue('opstine') ?? 0,
                     'opstina_text' => $program->getValue('opstine') != null ? $program->getText('opstine') : __('Nije uneseno')
