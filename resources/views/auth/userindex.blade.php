@@ -41,24 +41,26 @@
             @php
                 $users = $profile->getUsers();
             @endphp
-            @foreach($users as $user)
-                <tr>
-                    <td style="width: 10%">
-                        @if($user->photo == null && $user->photo != ['filelink' => '', 'filename' => ''])
-                            <img src=" /images/custom/nophoto2.png" class="rounded-circle" width="24" height="24">
-                        @else
-                            <img src="{{ $user->photo }}" class="rounded-circle" width="24" height="24">
-                        @endif
-                    </td>
-                    <td style="width: 20%">{{ $user->name }}</td>
-                    <td style="width: 20%">{{ $user->email }}</td>
-                    <td style="width: 40%">{{ $user->position }}</td>
-                    <td style="width: 10%">
-                        <a href="{{ route('user.edit', $user->id) }}" class="edituser" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-pencil mr-2"></i></a>
-                        <a href="{{ route('user.delete', $user->id) }}" class="edituser" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-delete mr-2"></i></a>
-                    </td>
-                </tr>
-            @endforeach
+            @if($users->count() > 0)
+                @foreach($users as $user)
+                    <tr>
+                        <td style="width: 10%">
+                            @if($user->photo == null && $user->photo != ['filelink' => '', 'filename' => ''])
+                                <img src=" /images/custom/nophoto2.png" class="rounded-circle" width="24" height="24">
+                            @else
+                                <img src="{{ $user->photo }}" class="rounded-circle" width="24" height="24">
+                            @endif
+                        </td>
+                        <td style="width: 20%">{{ $user->name }}</td>
+                        <td style="width: 20%">{{ $user->email }}</td>
+                        <td style="width: 40%">{{ $user->position }}</td>
+                        <td style="width: 10%">
+                            <a href="{{ route('user.edit', $user->id) }}" class="edituser" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-pencil mr-2"></i></a>
+                            <a href="{{ route('user.delete', $user->id) }}" class="edituser" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-delete mr-2"></i></a>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
         </table>
     @endforeach
 
