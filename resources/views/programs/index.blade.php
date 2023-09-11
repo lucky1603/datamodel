@@ -28,11 +28,18 @@
             $page = 1;
         }
 
+        if(\Illuminate\Support\Facades\Session::has('year')) {
+            $year =  \Illuminate\Support\Facades\Session::get('year');
+        } else {
+            $year = 0;
+        }
+
         $alltogether = [
             'page' => $page,
             'status' => $program_status,
             'name' => $name,
-            'type' => $program_type
+            'type' => $program_type,
+            'year' => $year
         ] ;
 
     @endphp
@@ -40,7 +47,7 @@
         page_size="15"
         f_name="{{ $name }}"
         :f_program_type="{{ $program_type }}"
-        :f_program_status="{{ $program_status }}" :f_page="{{ $page }}">
+        :f_program_status="{{ $program_status }}" :f_page="{{ $page }}" :f_year="{{ $year }}">
     </program-explorer-table-view>
 @endsection
 

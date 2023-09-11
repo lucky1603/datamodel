@@ -131,6 +131,7 @@ export default {
     f_program_type: { typeof: Number, default: 0 },
     f_program_status: { typeof: Number, default: 0 },
     f_page: { typeof: Number, default: 1 },
+    f_year: { typeof: Number, default: 0 }
   },
   watch: {
     currentPage: function (val, oldVal) {
@@ -258,6 +259,7 @@ export default {
     this.form.name = this.f_name;
     this.form.program_type = this.f_program_type;
     this.form.program_status = this.f_program_status;
+    this.form.year = this.f_year;
 
     await this.getData();
     this.updateProgramStatuses();
@@ -273,7 +275,7 @@ export default {
         name: "",
         program_type: 0,
         program_status: 0,
-        year: 2023,
+        year: 2024,
       },
       programTypes: [
         { value: 0, text: "Po tipu" },
