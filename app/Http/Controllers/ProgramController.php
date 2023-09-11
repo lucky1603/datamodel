@@ -921,6 +921,8 @@ class ProgramController extends Controller
                     'ntp' => $program->getValue('ntp'),
                     'ntp_text' => $program->getText('ntp'),
                     'year' => $program->getValue('program_type') == Program::$RAISING_STARTS ? date('Y', strtotime('+ 1 year', strtotime(now()))) : date('Y'),
+                    'opstina' => $program->getValue('opstine') ?? 0,
+                    'opstina_text' => $program->getValue('opstine') != null ? $program->getText('opstine') : __('Nije uneseno')
                 ]);
 
         }
