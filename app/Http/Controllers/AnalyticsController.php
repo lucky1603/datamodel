@@ -48,7 +48,8 @@ class AnalyticsController extends Controller
             $query = $query->where($queryData);
         }
 
-        $query = $query->whereNotIn('program_status', [0,1]);
+        // $query = $query->whereNotIn('program_status', [0,1]);
+        $query = $query->where('program_status', '<>', 0);
 
         return $query->get()->toArray();
     }
