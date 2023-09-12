@@ -1,3 +1,7 @@
+@php
+    $appType = $program->getValue('app_type');
+    $omitParams = ['rstarts_founding_date', 'rstarts_id_number'];
+@endphp
 @if($program->getAttributeGroups()->count() > 0)
     <div id="applicationData" class="accordion" style="max-height: 400px">
         @foreach($program->getAttributeGroups() as $attributeGroup)
@@ -112,6 +116,9 @@
                             <table class="w-100 table table-sm table-bordered font-12">
                                 <tbody>
                                 @foreach($attributes as $attribute)
+                                    @if($appType == 1 && in_array($attribute->name, $omitParams))
+                                        @continue
+                                    @endif
                                     <tr style="height: 40px">
                                         <td class="w-25 bg-primary text-light text-center" >
                                             {{ $attribute->label }}

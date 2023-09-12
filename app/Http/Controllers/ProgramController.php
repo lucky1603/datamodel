@@ -530,14 +530,20 @@ class ProgramController extends Controller
         $group_parameters = AttributeGroup::get('rstarts_general')->attributes->map(function($attribute, $key) {
             return $attribute->name;
         });
-
         $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
 
-
-        $group_parameters = AttributeGroup::get('rstarts_applicant')->attributes->map(function($attribute, $key) {
-            return $attribute->name;
-        });
-
+        $applicantsAttGroup = AttributeGroup::get('rstarts_applicant');
+        if($program->getValue('app_type') == 1 /* Startup */) {
+            $group_parameters = $applicantsAttGroup->attributes->filter(function($attribute) {
+                return !in_array($attribute->name, ['rstarts_founding_date', 'rstarts_id_number', 'rstarts_basic_registered_activity']);
+            })->map(function($attribute) {
+                return $attribute->name;
+            });
+        } else /* Company */ {
+            $group_parameters = $applicantsAttGroup->attributes->map(function($attribute, $key) {
+                return $attribute->name;
+            });
+        }
         $mandatory_parameters = $mandatory_parameters->concat($group_parameters);
 
         foreach($mandatory_parameters as $mandatory_parameter) {
@@ -554,17 +560,22 @@ class ProgramController extends Controller
                     'code' => 0,
                     'message' => 'Morate odabrati vrednost za parametar - "'.$attribute->label.'"',
                 ];
+            } else if($attribute->type == 'text' && $attribute->getValue() == '') {
+                return [
+                    'code' => 0,
+                    'message' => 'Unesite parametar - "'.$attribute->label.'"',
+                ];
             }
         }
 
 
-        if($data['rstarts_product_type'] == 0) {
-            $attribute = $program->getAttribute('rstarts_product_type');
-            return [
-                'code' => 0,
-                'message' => 'Nevalidna vrednost za parametar "'.$attribute->label.'"',
-            ];
-        }
+        // if($data['rstarts_product_type'] == 0) {
+        //     $attribute = $program->getAttribute('rstarts_product_type');
+        //     return [
+        //         'code' => 0,
+        //         'message' => 'Nevalidna vrednost za parametar "'.$attribute->label.'"',
+        //     ];
+        // }
 
         // Check for the team members.
         if($program->getTeamMembers()->count() < 2) {
