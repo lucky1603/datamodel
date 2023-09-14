@@ -943,7 +943,7 @@ class ProgramController extends Controller
             $profile = Profile::find($data['profile_id']);
             $profile->addProgram($program);
 
-            if($program->getValue('rstarts_logo') == null) {
+            if($program->getValue('rstarts_logo') == null || $program->getValue('rstarts_logo') == ['filelink' => '', 'filename' => '']) {
                 $program->setValue('rstarts_logo', $profile->getValue('profile_logo'));
             }
 
