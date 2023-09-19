@@ -313,6 +313,7 @@ class RaisingStartsProgram extends Program
             "Žagubica",
             "Žitište",
             "Žitorađa",
+            "Kruševac"
         ];
 
         $opstineCount = count($opstineData);
