@@ -475,7 +475,7 @@ class RaisingStartsProgram extends Program
     public static function makeCache() {
         DB::table("raising_starts_caches")->delete();
         RaisingStartsProgram::find()->each(function($program) {
-            $profileId = $program->getProfile()->getId();
+            $programId = $program->getId();
             $howInnovative = $program->getValue("rstarts_how_innovative") ?? 0;
             $howInnovativeText = $program->getText("rstarts_how_innovative") ?? __("Not Selected");
             $devPhaseTech = $program->getValue('rstarts_dev_phase_tech') ?? 0;
@@ -519,7 +519,7 @@ class RaisingStartsProgram extends Program
             }
 
             DB::table('raising_starts_caches')->insert([
-                'profile_id' => $profileId,
+                'program_id' => $programId,
                 'how_innovative' => $howInnovative,
                 'how_innovative_text' => $howInnovativeText,
                 'dev_phase_tech' => $devPhaseTech,
