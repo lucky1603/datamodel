@@ -1022,6 +1022,9 @@ class ProgramController extends Controller
             } else {
                 $program->removeAllFounders();
             }
+
+            // Update Raising Starts Cache.
+            RaisingStartsProgram::updateCache($program->getId());
         }
 
         return redirect(route('programs.profile', ['program' => $program->getId()]));

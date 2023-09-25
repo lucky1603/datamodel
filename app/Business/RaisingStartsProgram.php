@@ -540,4 +540,97 @@ class RaisingStartsProgram extends Program
         });
 
     }
+
+    public static function updateCache($programId) {
+        $program = Program::find($programId);
+        if($program == null)
+            return false;
+
+        $howInnovative = $program->getValue("rstarts_how_innovative") ?? 0;
+        $howInnovativeText = $program->getText("rstarts_how_innovative") ?? __("Not Selected");
+        $devPhaseTech = $program->getValue('rstarts_dev_phase_tech') ?? 0;
+        $devPhaseTechText = $program->getText('rstarts_dev_phase_tech') ?? __("Not Selected");
+        $devPhaseBusiness = $program->getValue('rstarts_dev_phase_bussines') ?? 0;
+        $devPhaseBusinessText = $program->getText('rstarts_dev_phase_bussines') ?? __("Not Selected");
+        $howDidUHear = $program->getValue('rstarts_howdiduhear') ?? 0;
+        $howDidUHearText = $program->getText('rstarts_howdiduhear') ?? __("Not Selected");
+        $intellectualProperty = $program->getValue('rstarts_intellectual_property') ?? 0;
+        $intellectualPropertyText = $program->getText('rstarts_intellectual_property') ?? __("Not Selected");
+        $productType = $program->getValue("rstarts_product_type") ?? 0;
+        $productTypeText = $program->getText("rstarts_product_type") ?? __("Not Selected");
+        $innovativeArea = $program->getValue('rstarts_innovative_area') ?? 0;
+        $innovativeAreaText = $program->getText('rstarts_innovative_area') ?? __('Not Selected');
+        $program_status = $program->getStatus();
+
+        $year = 1996;
+        $workflow = $program->getWorkflow();
+        if($workflow != null) {
+            $contract = $program->getWorkflow()->getPhases()->filter(function($phase) {
+                return $phase instanceof Contract;
+            })->first();
+
+            if($contract != null) {
+                $contract_date = $contract->getValue('signed_at');
+                if($contract_date != '') {
+                    $year = date("Y", strtotime($contract_date));
+                } else {
+                    $year = date('Y', strtotime($program->instance->created_at));
+                    $year += 1;
+                }
+
+            } else {
+                $year = date('Y', strtotime($program->instance->created_at));
+                $year += 1;
+            }
+        }
+        else {
+            $year = date('Y', strtotime($program->instance->created_at));
+            $year += 1;
+        }
+
+        $programCache = DB::table('raising_starts_caches')->where('program_id', $programId)->get();
+        if($programCache != null) {
+            DB::table('raising_starts_caches')
+                ->where('program_id', $programId)
+                ->update([
+                    'how_innovative' => $howInnovative,
+                    'how_innovative_text' => $howInnovativeText,
+                    'dev_phase_tech' => $devPhaseTech,
+                    'dev_phase_tech_text' => $devPhaseTechText,
+                    'dev_phase_business' => $devPhaseBusiness,
+                    'dev_phase_business_text' => $devPhaseBusinessText,
+                    'howdiduhear' => $howDidUHear,
+                    'howdiduhear_text' => $howDidUHearText,
+                    'intellectual_property' => $intellectualProperty,
+                    'intellectual_property_text' => $intellectualPropertyText,
+                    'product_type' => $productType,
+                    'product_type_text' => $productTypeText,
+                    'innovative_area' => $innovativeArea,
+                    'innovative_area_text' => $innovativeAreaText,
+                    'program_status' => $program_status,
+                ]);
+        } else {
+            DB::table('raising_starts_caches')
+                ->insert([
+                    'program_id' => $programId,
+                    'how_innovative' => $howInnovative,
+                    'how_innovative_text' => $howInnovativeText,
+                    'dev_phase_tech' => $devPhaseTech,
+                    'dev_phase_tech_text' => $devPhaseTechText,
+                    'dev_phase_business' => $devPhaseBusiness,
+                    'dev_phase_business_text' => $devPhaseBusinessText,
+                    'howdiduhear' => $howDidUHear,
+                    'howdiduhear_text' => $howDidUHearText,
+                    'intellectual_property' => $intellectualProperty,
+                    'intellectual_property_text' => $intellectualPropertyText,
+                    'product_type' => $productType,
+                    'product_type_text' => $productTypeText,
+                    'innovative_area' => $innovativeArea,
+                    'innovative_area_text' => $innovativeAreaText,
+                    'program_status' => $program_status,
+                ]);
+        }
+
+        return true;
+    }
 }
