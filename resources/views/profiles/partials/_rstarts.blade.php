@@ -77,7 +77,9 @@
 
     <div class="d-flex align-items-center justify-content-center mt-4 mb-4">
         <span class="attribute-label font-14 ">U nastavku se možete informativno upoznati sa pitanjima koja vas čekaju prilikom popunjavanja prijave.
-        Prijavu popunjavate na linku koji dobijate nakon što registrujete svoj profil.</span>
+        Prijavu popunjavate na linku koji dobijate nakon što registrujete svoj profil. Ukoliko imate već kreiran profil,
+        <a href="{{ route('home') }}" target="_blank">prijavite se na njega</a>, i odaberite opciju korisničkog menija 'MOJI PROGRAMI',
+        odakle možete kreirati novu prijavu na program.</span>
     </div>
 
     <div class="row mt-4">
