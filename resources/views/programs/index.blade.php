@@ -47,7 +47,7 @@
         page_size="15"
         f_name="{{ $name }}"
         :f_program_type="{{ $program_type }}"
-        :f_program_status="{{ $program_status }}" :f_page="{{ $page }}" :f_year="{{ $year }}">
+        :f_program_status="{{ $program_status }}" :f_page="{{ $page }}" :f_year="{{ $year }}" :show-reject="false">
     </program-explorer-table-view>
 @endsection
 

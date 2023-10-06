@@ -63,6 +63,7 @@
                 ><i class="dripicons-export"></i> EXPORT
             </a>
             <a
+                v-if="showReject"
                 href=""
                 role="button"
                 class="btn btn-sm btn-success m-2 position-relative float-right" :title="_('gui.program_explorer_cancel_unsent_info')" @click.prevent="sravnjivanje"
@@ -131,7 +132,8 @@ export default {
     f_program_type: { typeof: Number, default: 0 },
     f_program_status: { typeof: Number, default: 0 },
     f_page: { typeof: Number, default: 1 },
-    f_year: { typeof: Number, default: 0 }
+    f_year: { typeof: Number, default: 0 },
+    showReject: { type: Boolean, default: true }
   },
   watch: {
     currentPage: function (val, oldVal) {
