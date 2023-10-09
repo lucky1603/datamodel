@@ -435,9 +435,9 @@ class AnonimousController extends Controller
 
        if(auth()->user() == null) {
             $mode = 'anonimous';
-            // if(strtotime(now()) >= strtotime("2022-12-28 12:00:00")) {
-            //     return view('anonimous.application-closed');
-            // }
+            if(strtotime(now()) >= strtotime("2023-10-11 12:00:00")) {
+                return view('anonimous.application-closed');
+            }
        } else if(auth()->user()->roles->first()->name == 'profile') {
             return redirect(route('home'));
        } else {
