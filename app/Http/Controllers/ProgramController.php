@@ -364,7 +364,7 @@ class ProgramController extends Controller
 
         } else if($programType == Program::$RAISING_STARTS) {
 
-            if(strtotime(now()) >= strtotime("2023-10-11 12:00:00"))
+            if(strtotime(now()) >= strtotime("2023-10-11 13:00:00"))
             {
                 return json_encode([
                     'code' => 0,

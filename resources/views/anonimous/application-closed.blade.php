@@ -18,7 +18,7 @@
         <div class="col-6 offset-3 h-100" style="display: flex; flex-direction: column; justify-content: center">
             <div class="font-18" style="font-family: 'Roboto Light'; display: flex; flex-direction: column; align-items: center; justify-content: center" >
                 <p>
-                    Konkurs za prijavljivanje za "Raising Starts" program je prošao. Prijave se više ne prihvataju.
+                    Prijave za Raising Starts 4.0 su zatvorene.
                 </p>
             </div>
             <div class="text-center mt-5">
