@@ -175,8 +175,6 @@ Route::get('trainings/attendance/{training}/{program}', 'TrainingsController@get
 Route::get('/trainings/{training}', 'TrainingsController@show')->name('trainings.show');
 Route::post('trainings/{training}', 'TrainingsController@updateAttendances')->name('trainings.updateAttendances');
 
-
-
 Route::get('mentors', 'MentorController@index')->name('mentors.index');
 Route::get('mentors/create', 'MentorController@create')->name('mentors.create');
 Route::post('mentors/create', 'MentorController@store')->name('mentors.store');

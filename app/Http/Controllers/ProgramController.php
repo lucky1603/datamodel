@@ -1105,6 +1105,8 @@ class ProgramController extends Controller
                 'id' => $training->getId(),
                 'name' => $training->getValue('training_name'),
                 'date' => date('d.m.Y', strtotime($training->getValue('training_start_date'))),
+                'time' => date('h:i', strtotime($training->getValue('training_start_time'))),
+                'duration' => $training->getValue('training_duration'),
                 'type' => $training->getValue('training_type'),
                 'status' => $training->getValue('event_status'),
                 'location' => $training->getValue('location'),
