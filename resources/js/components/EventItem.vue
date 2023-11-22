@@ -28,7 +28,7 @@
                     <b-row class="m-0 border-bottom border-secondary" >
                         <b-col class="bg-dark text-light d-flex justify-content-center"><span class="font-10">{{ date}}</span></b-col>
                         <b-col class="bg-light text-dark d-flex justify-content-center"><span class="font-10">{{ time }} h</span></b-col>
-                        <b-col class="bg-dark text-light d-flex justify-content-center"><span class="font-10">{{ duration}} {{ duration_unit}}</span></b-col>
+                        <b-col class="bg-dark text-light d-flex justify-content-center"><span class="font-10">{{ duration}} {{ durationUnit}}</span></b-col>
                     </b-row>
                 </div>
             </div>
@@ -140,7 +140,7 @@ export default {
         attendance: { typeof: Number, default: 1 },
         time: { typeof: String, default: '10:00 AM' },
         duration: { typeof: Number, default: 0},
-        duration_unit: { typeof: Number, default: 'm'}
+        durationUnit: { typeof: Number, default: 'm'}
     },
     methods: {
         tileClicked() {
