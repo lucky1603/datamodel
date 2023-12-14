@@ -13,6 +13,19 @@ class CreateCompanyStatsTable extends Migration
      */
     public function up()
     {
+        // Schema::disableForeignKeyConstraints();	
+        // Schema::dropIfExists('reports');
+        // Schema::dropIfExists('company_stat_country');        
+        // Schema::dropIfExists('company_stats');
+        // Schema::dropIfExists('countries');
+        // Schema::enableForeignKeyConstraints();
+
+        Schema::create("countries", function (Blueprint $table) {
+            $table->id("id");
+            $table->string("code", 2)->nullable();
+            $table->string("country",44)->nullable();
+        });
+
         Schema::create('company_stats', function (Blueprint $table) {
             $table->id();
             $table->decimal('iznos_prihoda')->default(0.0);
@@ -70,12 +83,13 @@ class CreateCompanyStatsTable extends Migration
      */
     public function down()
     {
-        Schema::table('reports', function(Blueprint $table) {
-            $table->dropForeign('reports_company_stat_id_foreign');
-            $table->dropColumn('company_stat_id');
-        });
+        // Schema::table('reports', function(Blueprint $table) {
+        //     $table->dropForeign('reports_company_stat_id_foreign');
+        //     $table->dropColumn('company_stat_id');
+        // });
 
-        Schema::dropIfExists('company_stat_country');
+        Schema::dropIfExists('company1_stat_country');
+        Schema::dropIfExists('reports');
         Schema::dropIfExists('company_stats');
     }
 }

@@ -61,7 +61,7 @@ class ClientTraining extends Migration
      */
     public function down()
     {
-        chema::dropIfExists('client_training');
+        Schema::dropIfExists('client_training');
         Schema::dropIfExists('menthor_training');
     }
 }
