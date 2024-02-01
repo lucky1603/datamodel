@@ -134,6 +134,7 @@ export default {
       applied: 0,
       sent: 0,
       inProgram: 0,
+      gaveUp: 0,
       total: 0,
       outOfProgram: 0,
       workshops: 0,
@@ -175,7 +176,8 @@ export default {
         .then((response) => {
           this.applied = response.data.applied;
           this.total = response.data.total;
-          this.sent = this.total - this.applied;
+          this.gaveUp = response.data.gaveUp;
+          this.sent = this.total - this.applied - this.gaveUp;
           this.inProgram = response.data.inProgram;
           this.outOfProgram = response.data.outOfProgram;
         });

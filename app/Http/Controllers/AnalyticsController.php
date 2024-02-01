@@ -321,6 +321,8 @@ class AnalyticsController extends Controller
         $inProgram = 0;
         $outOfProgram = 0;
         $total = 0;
+        $gaveUp = 0;
+
         foreach($programStatuses as $programStatus) {
             $total += $programStatus->count;
             if($programStatus->id == 1) {
@@ -331,8 +333,12 @@ class AnalyticsController extends Controller
                 $inProgram = $programStatus->count;
             }
 
-            if($programStatus->id < -1) {
+            if(in_array($programStatus->id, [-2, -3])) {
                 $outOfProgram = $programStatus->count;
+            }
+
+            if($programStatus->id == -5) {
+                $gaveUp = $programStatus->count;
             }
         }
 
@@ -341,6 +347,7 @@ class AnalyticsController extends Controller
             'sent' => $total - $applied,
             'inProgram' => $inProgram,
             'outOfProgram' => $outOfProgram,
+            'gaveUp' => $gaveUp,
             'total' => $total
         ];
 
