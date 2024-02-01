@@ -106,14 +106,16 @@ class AppFormEvaluation extends PhaseImpl
             return new Situation([
                 'name' => 'Prijava prihvaćena',
                 'description' => 'Komisija je, na osnovu podataka u prijavi, prihvatila prijavu na program',
-                'sender' => 'NTP'
+                'sender' => 'NTP',
+                'occurred_at' => $this->getValue('assertion_date')
             ]);
         }
 
         $exitSituation = new Situation([
             'name' => 'Prijava odbijena',
             'description' => 'Komisija je, na osnovu podataka iz prijavi, procenila da nema dovoljno elemenata za učestvovanje u programu',
-            'sender' => 'NTP'
+            'sender' => 'NTP',
+            'occurred_at' => $this->getValue('assertion_date')
         ]);
 
         $exitSituation->addAttribute(self::selectOrCreateAttribute(['note', NULL, NULL, NULL, 0]));
