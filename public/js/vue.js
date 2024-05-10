@@ -14756,6 +14756,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(response.data);
                   _this3.items = response.data;
                   _this3.workshops = 0;
+                  _this3.chartOptions.labels = [];
+                  _this3.chartValues = [];
                   for (var property in _this3.items) {
                     var item = _this3.items[property];
                     _this3.workshops += item.count;
@@ -121142,6 +121144,7 @@ var render = function () {
                 _c(
                   "b-card",
                   {
+                    staticClass: "w-100",
                     attrs: {
                       header: "GRAFIČKA PODELA PRIJAVA PO PROGRAMIMA",
                       "header-bg-variant": "white",
@@ -121174,8 +121177,7 @@ var render = function () {
             _c(
               "div",
               {
-                staticClass:
-                  "d-flex align-items-center justify-content-center border border-danger",
+                staticClass: "d-flex align-items-center justify-content-center",
               },
               [
                 _c(

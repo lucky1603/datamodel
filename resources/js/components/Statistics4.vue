@@ -31,7 +31,7 @@
             </b-col>
             <b-col lg="4" sm="12">
                 <div class="d-flex align-items-center justify-content-center">
-                    <b-card header="GRAFIČKA PODELA PRIJAVA PO PROGRAMIMA" header-bg-variant="white" >
+                    <b-card header="GRAFIČKA PODELA PRIJAVA PO PROGRAMIMA" header-bg-variant="white" class="w-100" >
                         <b-card-text>
                             <apexchart
                                 type="pie"
@@ -45,7 +45,7 @@
 
             </b-col>
             <b-col lg="4" sm="12">
-                <div class="d-flex align-items-center justify-content-center border border-danger">
+                <div class="d-flex align-items-center justify-content-center">
                     <b-card header="GRAFIČKA PODELA PRIJAVA PO PROGRAMIMA" header-bg-variant="white" >
                         <b-card-text>
                             <apexchart
@@ -115,6 +115,9 @@ export default {
                 console.log(response.data);
                 this.items = response.data;
                 this.workshops = 0;
+
+                this.chartOptions.labels = [];
+                this.chartValues = [];
                 for(let property in this.items) {
                     let item = this.items[property];
                     this.workshops += item.count;
