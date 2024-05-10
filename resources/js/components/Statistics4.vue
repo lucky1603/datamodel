@@ -134,6 +134,8 @@ export default {
                 console.log(response.data);
                 this.companyItems = response.data;
                 this.companies = 0;
+                this.companyChartOptions.labels = [];
+                this.companyChartValues = [];
                 for(let property in this.companyItems) {
                     let item = this.companyItems[property];
                     this.companies += item.count;

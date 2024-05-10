@@ -14772,6 +14772,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(response.data);
                   _this3.companyItems = response.data;
                   _this3.companies = 0;
+                  _this3.companyChartOptions.labels = [];
+                  _this3.companyChartValues = [];
                   for (var property in _this3.companyItems) {
                     var item = _this3.companyItems[property];
                     _this3.companies += item.count;
