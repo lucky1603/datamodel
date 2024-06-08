@@ -155,6 +155,10 @@ class Instance extends Model
         $this->users()->sync($user, false);
     }
 
+    public function removeUser($user) {
+        $this->users()->detach($user->id);
+    }
+
     /**
      * Returns the array of attribute key-value pairs.
      * @return array

@@ -1686,4 +1686,13 @@ class ProfileController extends Controller
 
     }
 
+    public function lista() {
+        return Profile::all()->map(function($profile) {
+            return [
+                'id' => $profile->getId(),
+                'name' => $profile->getValue('name')
+            ];
+        });
+    }
+
 }

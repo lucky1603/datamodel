@@ -6,6 +6,7 @@ use App\Business\Client;
 use App\Business\Profile;
 use App\Http\Controllers\Controller;
 use App\Mail\ChangePassword;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,11 +67,18 @@ class EditUserController extends Controller
     public function userData($userId): array
     {
         $user = User::find($userId);
+        $roleId = $user->roles->count() > 0 ? $user->roles->first()->id : null;
+        if($roleId != null && Role::find($roleId)->name == 'profile') {
+            $profileId = $user->profiles()->first()->getId();
+        }
+
         return [
             'name' => $user->name,
             'photo' => $user->photo,
             'email' => $user->email,
             'position' => $user->position,
+            'role' => $roleId,
+            'profile' => isset($profileId) ? $profileId : null
         ];
     }
 
@@ -100,6 +108,14 @@ class EditUserController extends Controller
             $path = asset($path);
             $user->photo = $path;
         }
+
+        $photo1 = $request->file('photo1');
+        if($photo1 != null) {
+            $originalFileName1 = $photo1->getClientOriginalName();
+            $path = $photo1->store('documents');
+            $path = asset($path);
+        }
+
 
         if(isset($data['name'])) {
             $user->name = $data['name'];
@@ -194,7 +210,8 @@ class EditUserController extends Controller
 
         Session::remove('usereditbackto');
 
-        return view('auth.userindex', ['users' => $users, 'profiles' => $profiles]);
+        // return view('auth.userindex', ['users' => $users, 'profiles' => $profiles]);
+        return view('auth.userindex1');
     }
 
     /**
@@ -394,5 +411,24 @@ class EditUserController extends Controller
         );
     }
 
+    public function filterUsers(Request $request) {
+        $data = $request->post();
+        $query = [];
+
+        return User::all()->map(function($user) {
+            $role = $user->roles->first();
+            $profile = $user->profile();
+            
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,                
+                'position' => $user->position,
+                'role' => $role != null ? $role->name : 'Nema',
+                'profile' => $profile != null ? $profile->getValue('name') : "Nema",
+                'photo' => $user->photo,
+            ];
+        });
+    }
 
 }

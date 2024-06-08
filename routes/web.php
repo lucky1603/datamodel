@@ -1,7 +1,9 @@
 <?php
 
+use Auth\EditUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +62,11 @@ Route::post('/edituser/{user}', 'Auth\EditUserController@update')->name('user.up
 Route::post('/edituser/added/{client}', 'Auth\EditUserController@added')->name('user.added');
 Route::get('/edituser/delete/{client}', 'Auth\EditUserController@delete')->name('user.delete');
 Route::get('/edituser/editfromadminpreview/{client}', 'Auth\EditUserController@editFromAdminPreview')->name('user.editfromadminpreview');
+Route::post('/editusers/filterUsers', 'Auth\EditUserController@filterUsers');
+
+Route::post('/users/create', 'UserController@store');
+Route::post('/users/edit/{user}', 'UserController@update');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/testuser/{user}', 'AnonimousController@testuser')->name('user.test');
@@ -97,6 +104,7 @@ Route::get('profiles/bulkMail', 'ProfileController@prepareMail')->name('profiles
 Route::post('profiles/bulkMail', 'ProfileController@sendMail')->name('profiles.sendMail');
 Route::get('profiles/mailClients', 'ProfileController@getMailClients')->name('profiles.mailClients');
 Route::get('profiles/list', 'ProfileController@list')->name('profiles.list');
+Route::get('profiles/lista', 'ProfileController@lista');
 Route::post('profiles/filter', 'ProfileController@filter')->name('profiles.filter');
 Route::post('profiles/filterCache', 'ProfileController@filterCache')->name('profiles.filterCache');
 Route::get('profiles/create', 'ProfileController@create')->name('profiles.create');
@@ -243,6 +251,8 @@ Route::get('reports/programReportsInfo/{program}', 'ReportController@programRepo
 Route::get('forms/showRaisingStarts', 'FormController@showRaisingStarts')->name('forms.showRaisingStarts');
 Route::get('forms/showIncubation', 'FormController@showIncubation')->name('forms.showIncubation');
 Route::get('forms/showForms', 'FormController@showForms')->name('forms.showForms');
+
+Route::get('roles/list','RoleController@list');
 
 Route::get('/lang-{lang}.js', 'LanguageController@show');
 

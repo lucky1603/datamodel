@@ -14,9 +14,10 @@
                 </div>
             </div>
         </div>
-        <b-modal ref="add-modal" id="add-modal" hide-footer header-bg-variant="dark" header-text-variant="light" title="">
+        <b-modal ref="add-modal" id="add-modal" hide-footer header-bg-variant="dark" header-text-variant="light" title="" size="lg">
             <template #modal-title >{{ modalTitle }}</template>
             <user-form :profileId="profile_id" :token="token" :userId="userId" @cancelled="hideModalAddUser" @submitted="userFormSubmitted"></user-form>
+            <!-- <user-manager-form :user-id="userId" @submitted="userFormSubmitted" @cancelled="hideModalAddUser"></user-manager-form> -->
         </b-modal>
         <b-modal ref="delete-modal" id="delete-modal" header-bg-variant="dark" header-text-variant="light" @ok="handleOk" title="Brisanje korisnika">
             <div class="d-flex align-items-center justify-content-center">

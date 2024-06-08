@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+    <abilities-manager></abilities-manager>
     <h5 class="p-1 user-group-header" style="display: flex">
         <span class="float-left flex-grow-1">{{ __('Administrators') }}</span>
         <a href="{{ route('user.addadmin') }}" class="text-light edituser" role="button" data-toggle="modal" data-target="#dialogHost"><i class="mdi mdi-text-account float-right flex-grow-0"></i></a>

@@ -11,10 +11,12 @@
                             name="photo"
                             ref="photo"
                             class="d-none bg-transparent" @input="imageSelected">
+                        <!-- <b-form-file ref="reserveInput" v-model="myphoto" plain /> -->
                         <b-button
                             size="sm"
                             variant="primary"
                             @click="buttonClicked">Izmeni sliku</b-button>
+                        
                     </div>
                 </div>
                 <div class="col-lg-8">
@@ -107,6 +109,12 @@ export default {
         profileId: { typeof: Number, default: 0 },
         userId: { typeof: Number, default: 0 },
     },
+    watch: {
+        myphoto(newVal, oldVal) {
+            console.log("My photo is ...");
+            console.log(newVal);
+        }
+    },
     computed: {
         userPhotoSource() {
             if(this.userdata.photo == null)
@@ -117,7 +125,9 @@ export default {
     methods: {
         buttonClicked() {
             console.log('Button clicked');
-            $('#photo').trigger('click');
+            // $('#photo').trigger('click');
+            this.$refs.photo.click();
+
         },
         send() {
             this.sending = true;
@@ -166,7 +176,8 @@ export default {
             let fileReader = new FileReader();
             fileReader.onload = function () {
                 let data = fileReader.result;
-                $('#userPhotoPreview').attr('src', data);
+                // $('#userPhotoPreview').attr('src', data);
+                document.getElementById('userPhotoPreview').src = data;
             };
             fileReader.readAsDataURL($(el)[0].files[0]);
         },
@@ -195,6 +206,7 @@ export default {
                 email: '',
                 password: '',
                 password_confirmation: '',
+                photo1: null
             },
             errors: {},
             sending: false,

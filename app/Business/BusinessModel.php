@@ -239,6 +239,10 @@ class BusinessModel
         $this->instance->attachUser($user);
     }
 
+    public function removeUser($user) {
+        $this->instance->removeUser($user);
+    }
+
     public function getUsers()
     {
         return $this->instance->users;
