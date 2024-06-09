@@ -64,6 +64,7 @@ Route::get('/edituser/delete/{client}', 'Auth\EditUserController@delete')->name(
 Route::get('/edituser/editfromadminpreview/{client}', 'Auth\EditUserController@editFromAdminPreview')->name('user.editfromadminpreview');
 Route::post('/editusers/filterUsers', 'Auth\EditUserController@filterUsers');
 
+Route::get('/users/delete/{user}', 'UserController@delete');
 Route::post('/users/create', 'UserController@store');
 Route::post('/users/edit/{user}', 'UserController@update');
 

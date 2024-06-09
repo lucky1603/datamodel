@@ -15265,6 +15265,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'UserManager',
@@ -15272,6 +15312,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     pageSize: {
       "typeof": Number,
       "default": 10
+    }
+  },
+  computed: {
+    deleteUserMessage: function deleteUserMessage() {
+      return window.i18n['gui']["delete_user_question"] + " " + this.selectedUserName + "?";
+    },
+    deleteUserTitle: function deleteUserTitle() {
+      return window.i18n['gui']["delete_user_title"];
     }
   },
   data: function data() {
@@ -15309,11 +15357,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         label: "Akcija",
         sortable: true
       }],
+      filter: {
+        name: null,
+        email: null,
+        role: null,
+        profile: null
+      },
       rows: [],
       currentPage: 1,
       selectedUserId: 0,
+      selectedUserName: '',
       changeUserTitle: "Promeni podatke korisnika",
-      modalVisible: false
+      modalVisible: false,
+      deleteDialogVisible: false,
+      roles: [],
+      profiles: []
     };
   },
   mounted: function mounted() {
@@ -15323,9 +15381,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              _this.getRoles();
+              _this.getProfiles();
+              _context.next = 4;
               return _this.getData();
-            case 2:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -15337,16 +15397,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var formData, property;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
-                return axios.post('/editusers/filterUsers', new FormData()).then(function (response) {
+                formData = new FormData();
+                for (property in _this2.filter) {
+                  formData.append(property, _this2.filter[property]);
+                }
+                _context2.next = 4;
+                return axios.post('/editusers/filterUsers', formData).then(function (response) {
                   console.log(response.data);
-                  _this2.rows = response.data;
+                  var users = response.data;
+                  _this2.rows = [];
+                  for (var _property in users) {
+                    _this2.rows.push(users[_property]);
+                  }
                 });
-              case 2:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -15372,12 +15441,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    deleteUser: function deleteUser(id) {
+    addUser: function addUser() {
+      var _this4 = this;
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
+                _this4.selectedUserId = 0;
+                _this4.$refs.ChangeUserForm.show();
+              case 2:
               case "end":
                 return _context4.stop();
             }
@@ -15385,28 +15458,102 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
-    onCancel: function onCancel() {
-      this.$refs.ChangeUserForm.hide();
+    deleteUser: function deleteUser(id, name) {
+      this.selectedUserId = id;
+      this.selectedUserName = name;
+      this.deleteDialogVisible = true;
     },
-    onSubmit: function onSubmit() {
-      var _this4 = this;
+    handleOk: function handleOk() {
+      var _this5 = this;
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return _this4.getData();
+                return axios.get('/users/delete/' + _this5.selectedUserId).then(function (response) {
+                  console.log(response.data);
+                  _this5.getData();
+                });
               case 2:
-                _this4.$refs.ChangeUserForm.hide();
-                _this4.selectedUserId = 0;
-              case 4:
               case "end":
                 return _context5.stop();
             }
           }
         }, _callee5);
       }))();
+    },
+    onCancel: function onCancel() {
+      this.$refs.ChangeUserForm.hide();
+    },
+    onSubmit: function onSubmit() {
+      var _this6 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return _this6.getData();
+              case 2:
+                _this6.$refs.ChangeUserForm.hide();
+                _this6.selectedUserId = 0;
+              case 4:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
+    },
+    submitFilter: function submitFilter() {
+      var _this7 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.next = 2;
+                return _this7.getData();
+              case 2:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }))();
+    },
+    getProfiles: function getProfiles() {
+      var _this8 = this;
+      axios.get('/profiles/lista').then(function (response) {
+        var profili = response.data;
+        _this8.profiles.push({
+          value: null,
+          text: "Po profilu"
+        });
+        for (var property in profili) {
+          _this8.profiles.push({
+            value: profili[property].id,
+            text: profili[property].name
+          });
+        }
+      });
+    },
+    getRoles: function getRoles() {
+      var _this9 = this;
+      axios.get('/roles/list').then(function (response) {
+        var role = response.data;
+        _this9.roles.push({
+          value: null,
+          text: "Po roli"
+        });
+        for (var property in role) {
+          _this9.roles.push({
+            value: role[property].id,
+            text: role[property].name
+          });
+        }
+      });
     }
   }
 });
@@ -15514,12 +15661,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              _this.getRoles();
+              _this.getProfiles();
               if (!(_this.userId != 0)) {
                 _context.next = 5;
                 break;
               }
-              _this.getRoles();
-              _this.getProfiles();
               _context.next = 5;
               return _this.getData();
             case 5:
@@ -122296,6 +122443,90 @@ var render = function () {
   return _c(
     "div",
     [
+      _c(
+        "div",
+        { staticClass: "d-flex align-items-center justify-content-center" },
+        [
+          _c(
+            "b-button",
+            {
+              staticClass:
+                "rounded-circle my-4 d-flex align-items-center justify-content-center",
+              staticStyle: { width: "30px", height: "30px" },
+              attrs: { variant: "primary" },
+              on: { click: _vm.addUser },
+            },
+            [_c("i", { staticClass: "mdi mdi-account-plus font-20" })]
+          ),
+          _vm._v(" "),
+          _c("span", { staticClass: "mx-2" }, [
+            _vm._v(_vm._s(_vm._("gui.AddAccount"))),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-form",
+        { attrs: { inline: "" }, on: { submit: _vm.submitFilter } },
+        [
+          _c("b-form-input", {
+            staticClass: "mx-1",
+            attrs: { placeholder: "Po imenu" },
+            on: { change: _vm.submitFilter },
+            model: {
+              value: _vm.filter.name,
+              callback: function ($$v) {
+                _vm.$set(_vm.filter, "name", $$v)
+              },
+              expression: "filter.name",
+            },
+          }),
+          _vm._v(" "),
+          _c("b-form-input", {
+            staticClass: "mx-1",
+            attrs: { placeholder: "Po imejlu" },
+            on: { change: _vm.submitFilter },
+            model: {
+              value: _vm.filter.email,
+              callback: function ($$v) {
+                _vm.$set(_vm.filter, "email", $$v)
+              },
+              expression: "filter.email",
+            },
+          }),
+          _vm._v(" "),
+          _c("b-form-select", {
+            staticClass: "mx-1",
+            attrs: { options: _vm.roles, placeholder: "Po roli" },
+            on: { change: _vm.submitFilter },
+            model: {
+              value: _vm.filter.role,
+              callback: function ($$v) {
+                _vm.$set(_vm.filter, "role", $$v)
+              },
+              expression: "filter.role",
+            },
+          }),
+          _vm._v(" "),
+          _vm.filter.role == 3
+            ? _c("b-form-select", {
+                staticClass: "mx-1",
+                attrs: { options: _vm.profiles, placeholder: "Po profilu" },
+                on: { change: _vm.submitFilter },
+                model: {
+                  value: _vm.filter.profile,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.filter, "profile", $$v)
+                  },
+                  expression: "filter.profile",
+                },
+              })
+            : _vm._e(),
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("b-table", {
         staticClass: "shadow-sm",
         attrs: {
@@ -122358,7 +122589,7 @@ var render = function () {
                         on: {
                           click: function ($event) {
                             $event.preventDefault()
-                            return _vm.deleteUser(data.item.id)
+                            return _vm.deleteUser(data.item.id, data.item.name)
                           },
                         },
                       },
@@ -122420,6 +122651,36 @@ var render = function () {
           }),
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "DeleteDialog",
+          attrs: {
+            "header-bg-variant": "dark",
+            "header-text-variant": "light",
+            size: "lg",
+          },
+          on: { ok: _vm.handleOk },
+          scopedSlots: _vm._u([
+            {
+              key: "modal-title",
+              fn: function () {
+                return [_vm._v(_vm._s(_vm.deleteUserTitle))]
+              },
+              proxy: true,
+            },
+          ]),
+          model: {
+            value: _vm.deleteDialogVisible,
+            callback: function ($$v) {
+              _vm.deleteDialogVisible = $$v
+            },
+            expression: "deleteDialogVisible",
+          },
+        },
+        [_vm._v("\n    " + _vm._s(_vm.deleteUserMessage) + "\n  ")]
       ),
     ],
     1

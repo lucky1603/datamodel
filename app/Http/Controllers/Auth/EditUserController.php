@@ -10,6 +10,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -414,8 +415,71 @@ class EditUserController extends Controller
     public function filterUsers(Request $request) {
         $data = $request->post();
         $query = [];
+        
+        if(isset($data['name']) && !in_array($data['name'], ['null', 'undefined'])) {
+            $query[] = ['name', 'like', $data['name'].'%'];
+        }
+        
+        if(isset($data['email']) && !in_array($data['email'], ['null', 'undefined'])) {
+            $query[] = ['email', 'like', $data['email'].'%'];
+        }
 
-        return User::all()->map(function($user) {
+        // if(isset($data['role']) && !in_array($data['role'], ['null', 'undefined'])) {
+        //     $query[] = ['r.id', '=', $data['role']];
+        // }
+
+        // $resultQuery = DB::table('users as u')
+        //     ->join('role_user as ru', 'u.id','=', 'ru.user_id')
+        //     ->join('roles as r', 'ru.role_id', '=', 'r.id');
+
+        // if(count($query) > 0) {
+        //     $resultQuery = $resultQuery->where($query);
+        // }
+
+        // $resultQuery->select([
+        //     'u.id as id',
+        //     'u.name as name',
+        //     'u.email as email',
+        //     'u.position as position',
+        //     'r.name as role'
+        // ])
+
+        if(count($query) > 0) {
+            $results = User::where($query)->get();
+        } else {
+            $results = User::all();
+        }
+
+        $results = $results->filter(function($user) use($data) {
+            $result = false;
+            if(isset($data['role']) && !in_array($data['role'], ['null', 'undefined'])) {
+                if($user->roles->count() > 0 && $user->roles->first()->id == $data['role']) {
+                    if($data['role'] == 3) {
+                        if(isset($data['profile']) && !in_array($data['profile'],['null', 'undefined'])) {
+                            $profile = $user->profile();
+                            if($profile != null && $profile->getId() == $data['profile']) {
+                                $result = true;
+                            } else {
+                                $result = false;
+                            }
+                        } else {
+                            $result = true;
+                        }
+                    } else {
+                        $result = true;
+                    }
+                } else {
+                    $result = false;
+                }
+            } else {
+                $result = true;
+            }
+
+            return $result;
+        });
+        
+
+        return $results->map(function($user) {
             $role = $user->roles->first();
             $profile = $user->profile();
             

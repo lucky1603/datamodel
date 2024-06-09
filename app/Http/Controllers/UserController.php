@@ -123,6 +123,26 @@ class UserController extends Controller
 
     }
 
+    public function delete($id) {
+        $user = User::find($id);
+
+        // First, remove user from profile, if contained.
+        if($user != null && $user->isRole('profile')) {
+            $profile = $user->profile();
+            if($profile != null) {
+                $profile->removeUser($user);
+            }
+        }
+
+        // Now, delete the user.
+        $user->delete();
+
+        return [
+            'code' => 0,
+            'message' => 'Success'
+        ];
+    }
+
     public function getSessionValue($key) {
         $value = Session::get($key);
         if(isset($value)) {

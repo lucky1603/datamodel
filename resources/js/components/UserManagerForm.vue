@@ -76,9 +76,9 @@ export default {
   },
 
   async mounted() {
-    if(this.userId != 0) {
-      this.getRoles();
-      this.getProfiles();
+    this.getRoles();
+    this.getProfiles();
+    if(this.userId != 0) {      
       await this.getData();
     }
   },

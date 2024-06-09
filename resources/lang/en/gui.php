@@ -24,6 +24,15 @@ return [
     "CancelNotSent" => 'Cancel Unsent',
     "Ok" => "Ok",
     "Cancel" => "Cancel",
+    'AddAccount' => 'Add New Account',
+
+    /*
+     * Filter form by user manager
+     */
+    'ByName' => 'By Name',
+    'ByEmail' => 'By Email',
+    'ByRole' => 'By Role',
+    'ByProfile' => 'By Profile',
 
 
     /*
@@ -57,6 +66,8 @@ return [
     'linkedin_founders' => 'Links to Linkedin profiles, if any, for each person',
     'founders_cv' => 'A file with short biographies of all the founders',
     'demoday_note' => 'You have passed the preselection and have to send the required files for the demo day.',
+    'delete_user_question' => "Are you sure that you want to delete the user",
+    'delete_user_title' => "Deleting User",
 
     /*
      * PRESELECTION form

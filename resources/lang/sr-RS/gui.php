@@ -24,6 +24,15 @@ return [
     "CancelNotSent" => 'Otkaži neposlate',
     "Ok" => "Prihvatam",
     "Cancel" => "Odustajem",
+    'AddAccount' => 'Dodaj novog korisnika',
+
+    /*
+     * Filter form by user manager
+     */
+    'ByName' => 'Po imenu',
+    'ByEmail' => 'Po Email-u',
+    'ByRole' => 'Po roli',
+    'ByProfile' => 'Po profilu',
 
     /*
      * Attribute Groups
@@ -56,6 +65,8 @@ return [
     'linkedin_founders' => 'Linkovi ka Linkedin profilima, ukoliko postoje, za svako lice',
     'founders_cv' => 'Fajl sa kratkim biografijama svih osnivača',
     'demoday_note' => 'Prošli ste proces predselekcije i sada je neophodno da posaljete trazene dokumente.',
+    'delete_user_question' => "Da li ste sigurni da hoćete da obrišene korisnika",
+    'delete_user_title' => "Brisanje korisnika",
 
     /*
      * PRESELECTION form
