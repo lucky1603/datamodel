@@ -104,6 +104,7 @@ Vue.component('statistics-4', require('./components/Statistics4.vue').default);
 Vue.component('distribution-from-to', require('./components/DistributionFromTo.vue').default);
 Vue.component('user-manager', require('./components/UserManager.vue').default);
 Vue.component('user-manager-form', require('./components/UserManagerForm.vue').default);
+Vue.component('abilities-manager', require('./components/AbilitiesManager.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

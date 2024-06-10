@@ -254,6 +254,8 @@ Route::get('forms/showIncubation', 'FormController@showIncubation')->name('forms
 Route::get('forms/showForms', 'FormController@showForms')->name('forms.showForms');
 
 Route::get('roles/list','RoleController@list');
+Route::get('abilities', 'AbilityController@index');
+Route::get('abilities/list', 'AbilityController@list');
 
 Route::get('/lang-{lang}.js', 'LanguageController@show');
 

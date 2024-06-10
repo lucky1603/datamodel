@@ -13,11 +13,7 @@ class AbilityController extends Controller
     }
 
     public function index() {
-        if(!auth()->user()->isAdmin)
-            return abort(401);
-
-        $abilities = Ability::all();
-        return view('abilities.index', ['abilities' => $abilities]);
+        return view('auth.abilityindex');
     }
 
     public function create() {
@@ -30,6 +26,10 @@ class AbilityController extends Controller
     public function store() {
         if(!auth()->user()->isAdmin)
             return abort(401);
+    }
+
+    public function list() {
+        return Ability::all();
     }
 
 
