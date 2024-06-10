@@ -55,6 +55,13 @@ class Report extends Model
         $this->file_groups()->detach();
         foreach($ids as $id) {
             $fileGroup = FileGroup::find($id);
+            
+            // Delete files from file group.
+            $fileGroup->files->each(function($file) {
+                $file->delete();
+            });
+
+            // Delete file group.
             $fileGroup->delete();
         }
 
