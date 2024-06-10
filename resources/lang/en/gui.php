@@ -68,6 +68,7 @@ return [
     'demoday_note' => 'You have passed the preselection and have to send the required files for the demo day.',
     'delete_user_question' => "Are you sure that you want to delete the user",
     'delete_user_title' => "Deleting User",
+    'init_password_change' => "Require Password Change",
 
     /*
      * PRESELECTION form

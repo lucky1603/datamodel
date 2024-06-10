@@ -67,6 +67,7 @@ return [
     'demoday_note' => 'Prošli ste proces predselekcije i sada je neophodno da posaljete trazene dokumente.',
     'delete_user_question' => "Da li ste sigurni da hoćete da obrišene korisnika",
     'delete_user_title' => "Brisanje korisnika",
+    'init_password_change' => "Iniciraj promenu lozinke",
 
     /*
      * PRESELECTION form

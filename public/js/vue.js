@@ -15305,6 +15305,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'UserManager',
@@ -15347,10 +15348,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         key: "profile",
         label: "Kompanija",
-        sortable: true
-      }, {
-        key: "photo",
-        label: "Slika",
         sortable: true
       }, {
         key: "action",
@@ -15620,6 +15617,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'UserManagerForm',
@@ -15797,6 +15797,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     onCancel: function onCancel() {
       this.$emit('cancelled');
+    },
+    initPasswordChange: function initPasswordChange() {
+      var _this6 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var formData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                formData = new FormData();
+                formData.append('user_id', _this6.userId);
+                _context4.next = 4;
+                return axios.post('/edituser/initSendPassword', formData).then(function (response) {
+                  console.log(response.data);
+                });
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     }
   }
 });
@@ -122468,63 +122490,118 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-form",
-        { attrs: { inline: "" }, on: { submit: _vm.submitFilter } },
+        {
+          staticClass: "bg-light p-2",
+          attrs: { inline: "" },
+          on: { submit: _vm.submitFilter },
+        },
         [
-          _c("b-form-input", {
-            staticClass: "mx-1",
-            attrs: { placeholder: "Po imenu" },
-            on: { change: _vm.submitFilter },
-            model: {
-              value: _vm.filter.name,
-              callback: function ($$v) {
-                _vm.$set(_vm.filter, "name", $$v)
-              },
-              expression: "filter.name",
+          _c(
+            "div",
+            {
+              staticClass:
+                "d-flex align-items-center justify-content-start flex-wrap",
             },
-          }),
-          _vm._v(" "),
-          _c("b-form-input", {
-            staticClass: "mx-1",
-            attrs: { placeholder: "Po imejlu" },
-            on: { change: _vm.submitFilter },
-            model: {
-              value: _vm.filter.email,
-              callback: function ($$v) {
-                _vm.$set(_vm.filter, "email", $$v)
-              },
-              expression: "filter.email",
-            },
-          }),
-          _vm._v(" "),
-          _c("b-form-select", {
-            staticClass: "mx-1",
-            attrs: { options: _vm.roles, placeholder: "Po roli" },
-            on: { change: _vm.submitFilter },
-            model: {
-              value: _vm.filter.role,
-              callback: function ($$v) {
-                _vm.$set(_vm.filter, "role", $$v)
-              },
-              expression: "filter.role",
-            },
-          }),
-          _vm._v(" "),
-          _vm.filter.role == 3
-            ? _c("b-form-select", {
+            [
+              _c("span", { staticClass: "mx-1" }, [_vm._v("FILTER")]),
+              _vm._v(" "),
+              _c(
+                "b-input-group",
+                {
+                  attrs: { size: "sm" },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "append",
+                      fn: function () {
+                        return [
+                          _c("b-input-group-text", [_c("b-icon-zoom-in")], 1),
+                        ]
+                      },
+                      proxy: true,
+                    },
+                  ]),
+                },
+                [
+                  _c("b-form-input", {
+                    staticClass: "mx-1",
+                    attrs: { placeholder: "Po imenu" },
+                    on: { change: _vm.submitFilter },
+                    model: {
+                      value: _vm.filter.name,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.filter, "name", $$v)
+                      },
+                      expression: "filter.name",
+                    },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-input-group",
+                {
+                  attrs: { size: "sm" },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "append",
+                      fn: function () {
+                        return [
+                          _c("b-input-group-text", [_c("b-icon-zoom-in")], 1),
+                        ]
+                      },
+                      proxy: true,
+                    },
+                  ]),
+                },
+                [
+                  _c("b-form-input", {
+                    staticClass: "mx-1",
+                    attrs: { placeholder: "Po imejlu" },
+                    on: { change: _vm.submitFilter },
+                    model: {
+                      value: _vm.filter.email,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.filter, "email", $$v)
+                      },
+                      expression: "filter.email",
+                    },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-form-select", {
                 staticClass: "mx-1",
-                attrs: { options: _vm.profiles, placeholder: "Po profilu" },
+                attrs: { options: _vm.roles, placeholder: "Po roli" },
                 on: { change: _vm.submitFilter },
                 model: {
-                  value: _vm.filter.profile,
+                  value: _vm.filter.role,
                   callback: function ($$v) {
-                    _vm.$set(_vm.filter, "profile", $$v)
+                    _vm.$set(_vm.filter, "role", $$v)
                   },
-                  expression: "filter.profile",
+                  expression: "filter.role",
                 },
-              })
-            : _vm._e(),
-        ],
-        1
+              }),
+              _vm._v(" "),
+              _vm.filter.role == 3
+                ? _c("b-form-select", {
+                    staticClass: "mx-1",
+                    attrs: { options: _vm.profiles, placeholder: "Po profilu" },
+                    on: { change: _vm.submitFilter },
+                    model: {
+                      value: _vm.filter.profile,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.filter, "profile", $$v)
+                      },
+                      expression: "filter.profile",
+                    },
+                  })
+                : _vm._e(),
+            ],
+            1
+          ),
+        ]
       ),
       _vm._v(" "),
       _c("b-table", {
@@ -122857,6 +122934,27 @@ var render = function () {
                               expression: "form.repeatPassword",
                             },
                           }),
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.userId != 0
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex align-items-center justify-content-center",
+                        },
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "primary" },
+                              on: { click: _vm.initPasswordChange },
+                            },
+                            [_vm._v(_vm._s(_vm._("gui.init_password_change")))]
+                          ),
                         ],
                         1
                       )

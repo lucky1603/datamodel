@@ -490,7 +490,6 @@ class EditUserController extends Controller
                 'position' => $user->position,
                 'role' => $role != null ? $role->name : 'Nema',
                 'profile' => $profile != null ? $profile->getValue('name') : "Nema",
-                'photo' => $user->photo,
             ];
         });
     }

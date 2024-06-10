@@ -12,24 +12,25 @@
       </b-button>
       <span class="mx-2">{{ _('gui.AddAccount') }}</span>
     </div>
-    <b-form inline @submit="submitFilter">
-      <!-- <b-form-group :label="_('gui.ByName')" label-cols="6" content-cols="6">
-        <b-form-input v-model="filter.name" @change="submitFilter"></b-form-input>
-      </b-form-group>
-      <b-form-group :label="_('gui.ByEmail')" label-cols="6" content-cols="6">
-        <b-form-input v-model="filter.email" @change="submitFilter"></b-form-input>
-      </b-form-group>
-      <b-form-group :label="_('gui.ByRole')" label-cols="6" content-cols="6">
-        <b-form-select v-model="filter.role" :options="roles" @change="submitFilter"></b-form-select>
-      </b-form-group>
-      <b-form-group v-if="filter.role == 3" :label="_('gui.ByProfile')" label-cols="6" content-cols="6">
-        <b-form-select v-model="filter.profile" :options="profiles" @change="submitFilter"></b-form-select>
-      </b-form-group> -->
-
-      <b-form-input v-model="filter.name" @change="submitFilter" placeholder="Po imenu" class="mx-1"></b-form-input>
-      <b-form-input v-model="filter.email" @change="submitFilter" placeholder="Po imejlu" class="mx-1"></b-form-input>
-      <b-form-select v-model="filter.role" :options="roles" @change="submitFilter" placeholder="Po roli" class="mx-1"></b-form-select>
-      <b-form-select v-if="filter.role == 3" v-model="filter.profile" :options="profiles" @change="submitFilter" placeholder="Po profilu" class="mx-1"></b-form-select>
+    <b-form inline @submit="submitFilter" class="bg-light p-2">
+      <div class="d-flex align-items-center justify-content-start flex-wrap">
+        <span class="mx-1">FILTER</span>
+        <b-input-group size="sm">
+          <b-form-input v-model="filter.name" @change="submitFilter" placeholder="Po imenu" class="mx-1"></b-form-input>
+          <template #append>
+            <b-input-group-text><b-icon-zoom-in></b-icon-zoom-in></b-input-group-text>
+          </template>
+        </b-input-group>
+        <b-input-group size="sm">
+          <b-form-input v-model="filter.email" @change="submitFilter" placeholder="Po imejlu" class="mx-1"></b-form-input>
+          <template #append>
+            <b-input-group-text><b-icon-zoom-in></b-icon-zoom-in></b-input-group-text>
+          </template>
+        </b-input-group>        
+        <b-form-select v-model="filter.role" :options="roles" @change="submitFilter" placeholder="Po roli" class="mx-1"></b-form-select>
+        <b-form-select v-if="filter.role == 3" v-model="filter.profile" :options="profiles" @change="submitFilter" placeholder="Po profilu" class="mx-1"></b-form-select>
+      </div>
+      
     </b-form>
     <b-table
       :items="rows"
@@ -99,7 +100,6 @@ export default {
         { key: "position", label: "Pozicija", sortable: true },
         { key: "role", label: "Rola", sortable: true },
         { key: "profile", label: "Kompanija", sortable: true },
-        { key: "photo", label: "Slika", sortable: true },
         { key: "action", label: "Akcija", sortable: true },
       ],
       filter: {

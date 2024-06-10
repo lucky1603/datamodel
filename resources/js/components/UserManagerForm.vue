@@ -22,6 +22,9 @@
           <b-form-group v-if="userId == 0" label="Ponovite lozinku">
             <b-form-input v-model="form.repeatPassword" type="password" placeholder="Unesite lozinku korisnika" required />
           </b-form-group>
+          <div v-if="userId != 0" class="d-flex align-items-center justify-content-center">
+            <b-button variant="primary" @click="initPasswordChange">{{ _('gui.init_password_change')}}</b-button>
+          </div>
           <b-form-group label="Pozicija" description="Pozicija/zaposlenje u firmi">
             <b-form-input v-model="form.position" required />
           </b-form-group>
@@ -170,6 +173,14 @@ export default {
     },
     onCancel() {
       this.$emit('cancelled');
+    },
+    async initPasswordChange() {
+      let formData = new FormData();
+      formData.append('user_id', this.userId);
+      await axios.post('/edituser/initSendPassword', formData)
+      .then(response => {
+        console.log(response.data);
+      });
     }
   },
 };
