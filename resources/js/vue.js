@@ -105,6 +105,9 @@ Vue.component('distribution-from-to', require('./components/DistributionFromTo.v
 Vue.component('user-manager', require('./components/UserManager.vue').default);
 Vue.component('user-manager-form', require('./components/UserManagerForm.vue').default);
 Vue.component('abilities-manager', require('./components/AbilitiesManager.vue').default);
+Vue.component('ability-manager-form', require('./components/AbilityManagerForm.vue').default);
+Vue.component('role-manager', require('./components/RoleManager.vue').default);
+Vue.component('role-manager-form', require('./components/RoleManagerForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -20,11 +20,14 @@
     </b-table>
     <b-pagination
       v-model="currentPage"
-      :total-rows="rows.length"
+      :total-rows="abilities.length"
       :per-page="pageSize"
-      aria-controls="profileTable"
-      align="right"
+      aria-controls="roleTable"
+      align="center"
     ></b-pagination>
+    <b-modal id="formModal" ref="formModal" :title="modalTitle">
+      <ability-manager-form :id="selectedId"></ability-manager-form>
+    </b-modal>
   </div>
 </template>
 
@@ -40,11 +43,13 @@ export default {
         abilities: [],
         fields: [
           { key: 'id', label: 'ID', sortable: true },
-          { key: 'name', label: 'Ime', sortable: true },
+          { key: 'name', label: 'Naziv', sortable: true },
           { key: 'label', label: 'Opis', sortable: true },
           { key: 'action', label: 'Akcije'}
         ],
         currentPage: 1,
+        modalTitle: "Naslov",
+        selectedId: 0
     };
   },
 
@@ -60,13 +65,16 @@ export default {
         });
     },
     editAbility(id) {
-
+      this.selectedId = id;
+      this.modalTitle = "Promeni postojecu sposobnost";
+      this.$bvModal.show('formModal');
     },
     deleteAbility(id,name) {
 
     },
     addAbility() {
-
+      this.selectedId = 0;
+      this.modalTitle = "Dodaj novu sposobnost";
     }
   },
 };

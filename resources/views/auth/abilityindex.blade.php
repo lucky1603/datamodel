@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')    
-    <ability-manager></ability-manager>
+    <abilities-manager></abilities-manager>
 @endsection

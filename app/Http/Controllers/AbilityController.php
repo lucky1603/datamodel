@@ -32,5 +32,9 @@ class AbilityController extends Controller
         return Ability::all();
     }
 
+    public function data($id) {
+        $ability = Ability::find($id);
+        return $ability->load('roles');
+    }
 
 }
