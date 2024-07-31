@@ -3,10 +3,10 @@
     <!-- -->
     <b-form @submit.prevent="send">
       <b-form-group label="Naziv" description="Naziv korisničke mogućnosti">
-        <b-form-input v-model="form.ability" placeholder="Unesite naziv mogućnosti" required />
+        <b-form-input v-model="form.name" placeholder="Unesite naziv mogućnosti" required />
       </b-form-group>
       <b-form-group label="Opis" description="Opis korisničke mogućnosti">
-        <b-form-textarea v-model="form.desc" placeholder="Unesite opis korisničke mogućnosti" rows="3" max-rows="6"></b-form-textarea>
+        <b-form-textarea v-model="form.label" placeholder="Unesite opis korisničke mogućnosti" rows="3" max-rows="6"></b-form-textarea>
       </b-form-group>
       <b-form-group label="Role" description="Role kojima pripada">
         <div class="d-flex flex-wrap">
@@ -44,7 +44,22 @@ export default {
 
   methods: {
     async send() {
-        
+        var action = '/abilities/create';
+        if(this.id != 0) {
+          action = '/abilities/edit/' + this.id;
+        }
+
+        let formData = new FormData();
+        formData.append('name', this.form.name);
+        formData.append('label', this.form.label);
+        this.form.roles.forEach(element => {
+          formData.append('roles[]', element );
+        });
+
+        await axios.post(action, formData)
+        .then(response => {
+          console.log(response);                    
+        });
     },
     getAllRoles() {
       axios.get('/roles/list')

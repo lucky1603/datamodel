@@ -67,7 +67,24 @@ export default {
         });
     },
     async send() {
+      let formData = new FormData();
+      formData.append('name', this.form.name);
+      formData.append('label', this.form.label);
+      this.form.abilities.forEach(element => {
+        formData.append('abilities[]', element);
+      });
+      // formData.append('abilities', this.form.abilities);
 
+      var action = '/roles/create';
+      if(this.id != 0) {
+        action = '/roles/edit/' + this.id;
+      }
+
+      await axios.post(action, formData)
+      .then(response => {
+        console.log(response.data);
+        this.$emit('succeded');
+      });
     }
   },
 };

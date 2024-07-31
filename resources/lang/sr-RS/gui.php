@@ -25,7 +25,9 @@ return [
     "Ok" => "Prihvatam",
     "Cancel" => "Odustajem",
     'AddAccount' => 'Dodaj novog korisnika',
-
+    'AddRole' => 'Dodaj novu rolu',
+    'AddAbility' => 'Dodaj novu mogućnost',
+    
     /*
      * Filter form by user manager
      */

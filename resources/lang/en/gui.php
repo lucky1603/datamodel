@@ -25,6 +25,8 @@ return [
     "Ok" => "Ok",
     "Cancel" => "Cancel",
     'AddAccount' => 'Add New Account',
+    'AddRole' => 'Add New Role',
+    'AddAbility' => 'Add New Ability',
 
     /*
      * Filter form by user manager

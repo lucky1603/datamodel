@@ -17,7 +17,7 @@ class RoleController extends Controller
             return [
                 'id' => $role->id,
                 'name' => $role->name,
-                'desc' => $role->desc,
+                'label' => $role->label,
             ];
         });
     }
@@ -31,5 +31,38 @@ class RoleController extends Controller
                 return $ability->id;
             })
         ];
+    }
+
+    public function store(Request $request) {
+        $data = $request->post();
+
+        $role = Role::create([
+            'name' => $data['name'],
+            'label' => $data['label'],            
+        ]);
+
+        $abilities = $data['abilities'];
+        $role->abilities()->sync($abilities);
+        
+
+        return $role;
+    }
+
+    public function update(Request $request, int $id) {
+        $role = Role::find($id);    
+        $data = $request->post();
+
+        $role->update([
+            'name' => $data['name'],
+            'label' => $data['label']
+        ]);
+
+        $role->abilities()->sync($data['abilities']);
+
+        return $role;
+    }
+
+    public function delete($id) {
+        return Role::find($id)->delete();
     }
 }

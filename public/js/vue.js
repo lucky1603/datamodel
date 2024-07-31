@@ -2139,6 +2139,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AbilitiesManager',
@@ -2169,7 +2184,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }],
       currentPage: 1,
       modalTitle: "Naslov",
-      selectedId: 0
+      selectedId: 0,
+      showFormDialog: false,
+      showDeleteDialog: false,
+      deleteTitle: 'Brisanje',
+      deleteMessage: 'Brisanje'
     };
   },
   mounted: function mounted() {
@@ -2212,12 +2231,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     editAbility: function editAbility(id) {
       this.selectedId = id;
       this.modalTitle = "Promeni postojecu sposobnost";
-      this.$bvModal.show('formModal');
+      this.showFormDialog = true;
     },
-    deleteAbility: function deleteAbility(id, name) {},
     addAbility: function addAbility() {
       this.selectedId = 0;
       this.modalTitle = "Dodaj novu sposobnost";
+      this.showFormDialog = true;
+    },
+    alertOk: function alertOk() {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.$refs.abilityManagerForm.send();
+              case 2:
+                _context3.next = 4;
+                return _this3.getData();
+              case 4:
+                _this3.selectedId = 0;
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    showDelete: function showDelete(id, name) {
+      this.selectedId = id;
+      this.deleteMessage = "Da li hoćete da obrišete '" + name + "'?";
+      this.showDeleteDialog = true;
+    },
+    alertDelete: function alertDelete() {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios.get('/abilities/delete/' + _this4.selectedId);
+              case 2:
+                _context4.next = 4;
+                return _this4.getData();
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     }
   }
 });
@@ -2301,11 +2367,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     send: function send() {
+      var _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var action, formData;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                action = '/abilities/create';
+                if (_this2.id != 0) {
+                  action = '/abilities/edit/' + _this2.id;
+                }
+                formData = new FormData();
+                formData.append('name', _this2.form.name);
+                formData.append('label', _this2.form.label);
+                _this2.form.roles.forEach(function (element) {
+                  formData.append('roles[]', element);
+                });
+                _context2.next = 8;
+                return axios.post(action, formData).then(function (response) {
+                  console.log(response);
+                });
+              case 8:
               case "end":
                 return _context2.stop();
             }
@@ -2314,12 +2397,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     getAllRoles: function getAllRoles() {
-      var _this2 = this;
+      var _this3 = this;
       axios.get('/roles/list').then(function (response) {
         var roles = response.data;
-        _this2.allRoles = [];
+        _this3.allRoles = [];
         for (var property in roles) {
-          _this2.allRoles.push({
+          _this3.allRoles.push({
             value: roles[property].id,
             text: roles[property].name
           });
@@ -2327,25 +2410,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     getData: function getData() {
-      var _this3 = this;
+      var _this4 = this;
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                if (!(_this3.id != 0)) {
+                if (!(_this4.id != 0)) {
                   _context3.next = 3;
                   break;
                 }
                 _context3.next = 3;
-                return axios.get('/abilities/data/' + _this3.id).then(function (response) {
+                return axios.get('/abilities/data/' + _this4.id).then(function (response) {
                   var ability = response.data;
                   var roles = ability.roles;
-                  _this3.form.name = ability.name;
-                  _this3.form.desc = ability.desc;
-                  _this3.form.roles = [];
+                  _this4.form.name = ability.name;
+                  _this4.form.desc = ability.desc;
+                  _this4.form.roles = [];
                   for (var property in roles) {
-                    _this3.form.roles.push(roles[property].id);
+                    _this4.form.roles.push(roles[property].id);
                   }
                 });
               case 3:
@@ -13591,6 +13674,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'RoleManager',
@@ -13612,7 +13711,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         label: 'Naziv',
         sortable: true
       }, {
-        key: 'desc',
+        key: 'label',
         label: 'Opis',
         sortable: true
       }, {
@@ -13622,7 +13721,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }],
       currentPage: 1,
       modalTitle: 'Naslov',
-      selectedId: 0
+      selectedId: 0,
+      componentKey: 1,
+      deleteTitle: "Brisanje",
+      deleteMessage: "Brisanje",
+      showDeleteDialog: false
     };
   },
   mounted: function mounted() {
@@ -13664,8 +13767,80 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     editRole: function editRole(id) {
       this.selectedId = id;
       this.$bvModal.show('formModal');
+      this.componentKey++;
     },
-    deleteRole: function deleteRole(id, name) {}
+    addRole: function addRole() {
+      this.selectedId = 0;
+      this.$bvModal.show('formModal');
+    },
+    deleteRole: function deleteRole(id, name) {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this3.deleteMessage = "Da li hoćete da obrišete rolu '" + name + "'?";
+                _this3.showDeleteDialog = true;
+                _this3.selectedId = id;
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    alertOk: function alertOk() {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return _this4.$refs.managerForm.send();
+              case 2:
+                _context4.next = 4;
+                return _this4.getData();
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    alertCancel: function alertCancel() {},
+    succeded: function succeded() {
+      console.log('uspeh');
+      this.componentKey++;
+      this.selectedId = 0;
+    },
+    alertDelete: function alertDelete() {
+      var _this5 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return axios.get('/roles/delete/' + _this5.selectedId).then(function (response) {
+                  console.log(response.data);
+                });
+              case 2:
+                _context5.next = 4;
+                return _this5.getData();
+              case 4:
+                _this5.selectedId = 0;
+              case 5:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
   }
 });
 
@@ -13783,11 +13958,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     send: function send() {
+      var _this4 = this;
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var formData, action;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
+                formData = new FormData();
+                formData.append('name', _this4.form.name);
+                formData.append('label', _this4.form.label);
+                _this4.form.abilities.forEach(function (element) {
+                  formData.append('abilities[]', element);
+                });
+                // formData.append('abilities', this.form.abilities);
+                action = '/roles/create';
+                if (_this4.id != 0) {
+                  action = '/roles/edit/' + _this4.id;
+                }
+                _context3.next = 8;
+                return axios.post(action, formData).then(function (response) {
+                  console.log(response.data);
+                  _this4.$emit('succeded');
+                });
+              case 8:
               case "end":
                 return _context3.stop();
             }
@@ -110023,6 +110217,29 @@ var render = function () {
   return _c(
     "div",
     [
+      _c(
+        "div",
+        { staticClass: "d-flex align-items-center justify-content-center" },
+        [
+          _c(
+            "b-button",
+            {
+              staticClass:
+                "rounded-circle my-4 d-flex align-items-center justify-content-center",
+              staticStyle: { width: "30px", height: "30px" },
+              attrs: { variant: "primary" },
+              on: { click: _vm.addAbility },
+            },
+            [_c("i", { staticClass: "mdi mdi-account-plus font-20" })]
+          ),
+          _vm._v(" "),
+          _c("span", { staticClass: "mx-2" }, [
+            _vm._v(_vm._s(_vm._("gui.AddAbility"))),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("b-table", {
         staticClass: "shadow-sm",
         attrs: {
@@ -110070,10 +110287,7 @@ var render = function () {
                         on: {
                           click: function ($event) {
                             $event.preventDefault()
-                            return _vm.deleteAbility(
-                              data.item.id,
-                              data.item.name
-                            )
+                            return _vm.showDelete(data.item.id, data.item.name)
                           },
                         },
                       },
@@ -110109,9 +110323,41 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-modal",
-        { ref: "formModal", attrs: { id: "formModal", title: _vm.modalTitle } },
-        [_c("ability-manager-form", { attrs: { id: _vm.selectedId } })],
+        {
+          ref: "formModal",
+          attrs: { id: "formModal", title: _vm.modalTitle },
+          on: { ok: _vm.alertOk },
+          model: {
+            value: _vm.showFormDialog,
+            callback: function ($$v) {
+              _vm.showFormDialog = $$v
+            },
+            expression: "showFormDialog",
+          },
+        },
+        [
+          _c("ability-manager-form", {
+            ref: "abilityManagerForm",
+            attrs: { id: _vm.selectedId },
+          }),
+        ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: { id: "deleteConfirm", title: _vm.deleteTitle },
+          on: { ok: _vm.alertDelete },
+          model: {
+            value: _vm.showDeleteDialog,
+            callback: function ($$v) {
+              _vm.showDeleteDialog = $$v
+            },
+            expression: "showDeleteDialog",
+          },
+        },
+        [_c("p", [_vm._v(_vm._s(_vm.deleteMessage))])]
       ),
     ],
     1
@@ -110169,11 +110415,11 @@ var render = function () {
                   required: "",
                 },
                 model: {
-                  value: _vm.form.ability,
+                  value: _vm.form.name,
                   callback: function ($$v) {
-                    _vm.$set(_vm.form, "ability", $$v)
+                    _vm.$set(_vm.form, "name", $$v)
                   },
-                  expression: "form.ability",
+                  expression: "form.name",
                 },
               }),
             ],
@@ -110196,11 +110442,11 @@ var render = function () {
                   "max-rows": "6",
                 },
                 model: {
-                  value: _vm.form.desc,
+                  value: _vm.form.label,
                   callback: function ($$v) {
-                    _vm.$set(_vm.form, "desc", $$v)
+                    _vm.$set(_vm.form, "label", $$v)
                   },
-                  expression: "form.desc",
+                  expression: "form.label",
                 },
               }),
             ],
@@ -121776,7 +122022,31 @@ var render = function () {
   return _c(
     "div",
     [
+      _c(
+        "div",
+        { staticClass: "d-flex align-items-center justify-content-center" },
+        [
+          _c(
+            "b-button",
+            {
+              staticClass:
+                "rounded-circle my-4 d-flex align-items-center justify-content-center",
+              staticStyle: { width: "30px", height: "30px" },
+              attrs: { variant: "primary" },
+              on: { click: _vm.addRole },
+            },
+            [_c("i", { staticClass: "mdi mdi-account-plus font-20" })]
+          ),
+          _vm._v(" "),
+          _c("span", { staticClass: "mx-2" }, [
+            _vm._v(_vm._s(_vm._("gui.AddRole"))),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("b-table", {
+        key: _vm.componentKey,
         staticClass: "shadow-sm",
         attrs: {
           items: _vm.roles,
@@ -121859,9 +122129,34 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-modal",
-        { attrs: { id: "formModal", title: _vm.modalTitle } },
-        [_c("role-manager-form", { attrs: { id: _vm.selectedId } })],
+        {
+          attrs: { id: "formModal", title: _vm.modalTitle },
+          on: { ok: _vm.alertOk, cancel: _vm.alertCancel },
+        },
+        [
+          _c("role-manager-form", {
+            ref: "managerForm",
+            attrs: { id: _vm.selectedId },
+            on: { succeded: _vm.succeded },
+          }),
+        ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: { id: "deleteConfirm", title: _vm.deleteTitle },
+          on: { ok: _vm.alertDelete, cancel: _vm.alertCancel },
+          model: {
+            value: _vm.showDeleteDialog,
+            callback: function ($$v) {
+              _vm.showDeleteDialog = $$v
+            },
+            expression: "showDeleteDialog",
+          },
+        },
+        [_c("p", [_vm._v(_vm._s(_vm.deleteMessage))])]
       ),
     ],
     1

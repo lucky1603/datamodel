@@ -1,5 +1,17 @@
 <template>
   <div>
+    <div class="d-flex align-items-center justify-content-center">
+      <b-button 
+       variant="primary" 
+       class="rounded-circle my-4 d-flex align-items-center justify-content-center" 
+       style="width: 30px; height: 30px" 
+       @click="addRole"
+       >
+        <!-- <b-icon icon="plus" class="font-20"></b-icon> -->
+        <i class="mdi mdi-account-plus font-20"></i>
+      </b-button>
+      <span class="mx-2">{{ _('gui.AddRole') }}</span>
+    </div>
     <b-table 
         :items="roles"
         :fields="fields"
@@ -10,6 +22,7 @@
         bordered 
         class="shadow-sm"
         hover
+        :key="componentKey"
     >
     <template #cell(action)="data">
         <div class="d-flex align-items-center justify-content-center">
@@ -25,8 +38,11 @@
       aria-controls="profileTable"
       align="center"
     ></b-pagination>
-    <b-modal id="formModal" :title="modalTitle">
-      <role-manager-form :id="selectedId"></role-manager-form>
+    <b-modal id="formModal" :title="modalTitle" @ok="alertOk" @cancel="alertCancel">
+      <role-manager-form :id="selectedId" ref="managerForm" @succeded="succeded"></role-manager-form>
+    </b-modal>
+    <b-modal v-model="showDeleteDialog" id="deleteConfirm" :title="deleteTitle" @ok="alertDelete" @cancel="alertCancel">
+      <p>{{ deleteMessage }}</p>
     </b-modal>
   </div>
 </template>
@@ -43,13 +59,16 @@ export default {
       fields: [
         { key: 'id', label: 'ID', sortable: true},
         { key: 'name', label: 'Naziv', sortable: true},
-        { key: 'desc', label: 'Opis', sortable: true},
+        { key: 'label', label: 'Opis', sortable: true},
         { key: 'action', label: 'Akcije', sortable: true},
       ],
       currentPage: 1,
       modalTitle: 'Naslov',
-      selectedId: 0
-
+      selectedId: 0,
+      componentKey: 1,
+      deleteTitle: "Brisanje",     
+      deleteMessage: "Brisanje",
+      showDeleteDialog: false
     };
   },
 
@@ -67,10 +86,39 @@ export default {
     editRole(id) {
       this.selectedId = id;
       this.$bvModal.show('formModal');
+      this.componentKey ++;
     },
 
-    deleteRole(id, name) {
+    addRole() {
+      this.selectedId = 0;
+      this.$bvModal.show('formModal');
+    },
 
+    async deleteRole(id, name) {
+      this.deleteMessage = "Da li hoćete da obrišete rolu '" + name + "'?";
+      this.showDeleteDialog = true;
+      this.selectedId = id;
+    },
+    async alertOk() {
+      await this.$refs.managerForm.send();
+      await this.getData();
+    },
+    alertCancel() {
+      
+    },
+    succeded() {
+      console.log('uspeh');
+      this.componentKey ++;
+      this.selectedId = 0;
+    },
+    async alertDelete() {
+      await axios.get('/roles/delete/' + this.selectedId)
+      .then(response => {
+        console.log(response.data);
+      });
+
+      await this.getData();
+      this.selectedId = 0;
     }
   },
 };

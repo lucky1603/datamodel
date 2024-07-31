@@ -256,9 +256,17 @@ Route::get('forms/showForms', 'FormController@showForms')->name('forms.showForms
 Route::get('roles', 'RoleController@index');
 Route::get('roles/list','RoleController@list');
 Route::get('roles/data/{role}', 'RoleController@data');
+Route::get('roles/delete/{role}', 'RoleController@delete');
+Route::post('/roles/create', 'RoleController@store');
+Route::post('/roles/edit/{role}', 'RoleController@update');
+
 Route::get('abilities', 'AbilityController@index');
 Route::get('abilities/list', 'AbilityController@list');
 Route::get('abilities/data/{ability}', 'AbilityController@data');
+Route::get('abilities/delete/{ability}', 'AbilityController@delete');
+Route::post('abilities/create', 'AbilityController@store');
+Route::post('abilities/edit/{ability}', 'AbilityController@update');
+
 
 Route::get('/lang-{lang}.js', 'LanguageController@show');
 
