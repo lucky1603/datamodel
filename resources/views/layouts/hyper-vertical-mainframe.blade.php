@@ -54,11 +54,24 @@
         </a>
     </li>
 
-    <li class="side-nav-item">
+    {{-- <li class="side-nav-item">
         <a href="{{ route('users') }}" class="side-nav-link">
             <i class="uil-users-alt"></i>
             <span>{{ strtoupper(__('Users')) }}</span>
         </a>
+    </li> --}}
+
+    <li class="side-nav-item">
+        <a href="javascript:void(0);" class="side-nav-link" aria-expanded="false">
+            <i class="uil-bag"></i>
+            <span>{{ mb_strtoupper( __('Administration') ) }}</span>
+            <span class="menu-arrow"></span>
+        </a>
+        <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
+            <li><a href="{{ route('abilities') }}">{{ mb_strtoupper(__('Abilities'))  }}</a></li>
+            <li><a href="{{ route('roles') }}">{{ mb_strtoupper(__('Roles'))  }}</a></li>
+            <li><a href="{{ route('users') }}">{{ mb_strtoupper(__('Users')) }}</a></li>
+        </ul>
     </li>
 
     <li class="side-nav-item">
