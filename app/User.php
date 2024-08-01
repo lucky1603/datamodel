@@ -116,4 +116,16 @@ class User extends Authenticatable
 
         return $this->profiles()->first();
     }
+
+    public function removeProfiles() {
+        $this->instances->each(function($instance) {
+            if($instance->entity_name == 'Profile') {
+                $this->instances()->detach($instance->id);
+            }
+        });
+    }
+
+    public function addProfile($profileId) {
+        $this->instances()->sync($profileId);
+    }
 }

@@ -70,7 +70,12 @@ class EditUserController extends Controller
         $user = User::find($userId);
         $roleId = $user->roles->count() > 0 ? $user->roles->first()->id : null;
         if($roleId != null && Role::find($roleId)->name == 'profile') {
-            $profileId = $user->profiles()->first()->getId();
+            $profile = $user->profiles()->first();
+
+            if($profile != null) {
+                $profileId = $profile->getId();
+            }
+            
         }
 
         return [
