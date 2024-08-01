@@ -21,8 +21,8 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function root() {
-        return redirect(route('home'));
+    public function admin() {
+        return view('admin');
     }
 
     /**
@@ -33,32 +33,62 @@ class HomeController extends Controller
     public function index()
     {
 
-        if(auth()->user()->isAdmin() === false) {
-            $instance = auth()->user()->instances->first();
-            if(isset($instance) && $instance->entity->name === 'Profile') {
-                $profile = Profile::find($instance->id);
-                $program = $profile->getPrograms()->filter(function($program) {
-                    return $program->getStatus() == 1;
-                })->first();
+        // if(auth()->user()->isAdmin() === false) {
+        //     $instance = auth()->user()->instances->first();
+        //     if(isset($instance) && $instance->entity->name === 'Profile') {
+        //         $profile = Profile::find($instance->id);
+        //         $program = $profile->getPrograms()->filter(function($program) {
+        //             return $program->getStatus() == 1;
+        //         })->first();
 
-                if($program != null) {
-                    return redirect(route('programs.profile', ['program' => $program->getId()]));
+        //         if($program != null) {
+        //             return redirect(route('programs.profile', ['program' => $program->getId()]));
+        //         }
+
+        //         return redirect(route('profiles.show', ['profile' => $profile->getId()]));
+
+        //     }
+        //     else if(isset($instance) && $instance->entity->name === 'Mentor') {
+        //         $mentor = Mentor::find($instance->id);
+        //         return redirect(route('mentors.profile', $mentor->getId()));
+        //     }
+        //     else {
+        //         return redirect('/');
+        //     }
+        // }
+
+        // return view('home');
+
+
+        $user = auth()->user();
+        $role = $user->role();
+        switch($role->name) {
+            case 'profile':
+                $profile = $user->profile();
+                if($profile != null) {
+                    $program = $profile->getActiveProgram();
+                    if($program != null) {
+                        return redirect(route('programs.profile', ['program' => $program->getId()]));
+                    }
+                    return redirect(route('profiles.show', ['profile' => $profile->getId()]));
                 }
 
-                return redirect(route('profiles.show', ['profile' => $profile->getId()]));
+                return abort(404);
+                
+            case 'mentor':
+                $instance = $user->instances->filter(function($instance) {
+                    return $instance->entity->name == 'Mentor';
+                })->first();
+                if($instance != null) {
+                    $mentor = Mentor::find($instance->id);
+                    return redirect(route('mentors.profile', $mentor->getId())); 
+                } 
 
-            }
-            else if(isset($instance) && $instance->entity->name === 'Mentor') {
-                $mentor = Mentor::find($instance->id);
-                return redirect(route('mentors.profile', $mentor->getId()));
-            }
-            else {
-                return redirect('/');
-            }
+                return abort(404);
+
+            default:
+                return redirect(route($role->start_route));
         }
-
-        return view('home');
-//        return view('dashboard');
     }
 
 

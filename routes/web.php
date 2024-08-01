@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::get('/', 'HomeController@root');
+Route::get('/', function() {
+    return redirect('home');
+});
 
 Auth::routes();
 
@@ -70,6 +72,7 @@ Route::post('/users/edit/{user}', 'UserController@update');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('admin', 'HomeController@admin')->name('admin');
 Route::get('/testuser/{user}', 'AnonimousController@testuser')->name('user.test');
 Route::get('/verify/{token}', 'AnonimousController@verify')->name('user.verify');
 Route::get('notify', 'AnonimousController@notifyUser')->name('user.notify');
