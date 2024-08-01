@@ -13,6 +13,7 @@
 @section('sidemenu')
     @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
 
+    @can('read_statistics')
     <li class="side-nav-item">
         <a href="javascript:void(0);" class="side-nav-link" aria-expanded="false">
             <i class="uil-dashboard"></i>
@@ -26,7 +27,9 @@
 
         </ul>
     </li>
+    @endcan
 
+    @can('list_client_profiles')
     <li class="side-nav-item">
         <a href="javascript:void(0);" class="side-nav-link" aria-expanded="false">
             <i class="uil-bag"></i>
@@ -35,32 +38,33 @@
         </a>
         <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
             <li><a href="{{ route('profiles.index') }}">{{ mb_strtoupper(__('List'))  }}</a></li>
-            <li><a href="{{ route('profiles.create') }}">{{ mb_strtoupper(__('Create New'))  }}</a></li>
-            <li><a href="{{ route('profiles.prepareMail') }}">{{ mb_strtoupper(__('Send Reminder')) }}</a></li>
+            @can('manage_client_profiles')
+                <li><a href="{{ route('profiles.create') }}">{{ mb_strtoupper(__('Create New'))  }}</a></li>
+                <li><a href="{{ route('profiles.prepareMail') }}">{{ mb_strtoupper(__('Send Reminder')) }}</a></li>
+            @endcan
         </ul>
     </li>
+    @endcan
 
+    @can('list_programs')
     <li class="side-nav-item">
         <a href="{{ route('programs.index') }}" class="side-nav-link">
             <i class="uil-laptop-cloud"></i>
             <span>{{ mb_strtoupper(__('Programs')) }}</span>
         </a>
     </li>
+    @endcan
 
+    @can('list_mentors')
     <li class="side-nav-item">
         <a href="{{ route('mentors.index') }}" class="side-nav-link">
             <i class="uil-chat-bubble-user"></i>
             <span>{{ strtoupper(__('Mentors')) }}</span>
         </a>
     </li>
+    @endcan
 
-    {{-- <li class="side-nav-item">
-        <a href="{{ route('users') }}" class="side-nav-link">
-            <i class="uil-users-alt"></i>
-            <span>{{ strtoupper(__('Users')) }}</span>
-        </a>
-    </li> --}}
-
+    @canany('read_user_data', 'manage_forms')
     <li class="side-nav-item">
         <a href="javascript:void(0);" class="side-nav-link" aria-expanded="false">
             <i class="uil-bag"></i>
@@ -68,18 +72,17 @@
             <span class="menu-arrow"></span>
         </a>
         <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
-            <li><a href="{{ route('abilities') }}">{{ mb_strtoupper(__('Abilities'))  }}</a></li>
-            <li><a href="{{ route('roles') }}">{{ mb_strtoupper(__('Roles'))  }}</a></li>
-            <li><a href="{{ route('users') }}">{{ mb_strtoupper(__('Users')) }}</a></li>
+            @can('read_user_data')
+                <li><a href="{{ route('abilities') }}">{{ mb_strtoupper(__('Abilities'))  }}</a></li>
+                <li><a href="{{ route('roles') }}">{{ mb_strtoupper(__('Roles'))  }}</a></li>
+                <li><a href="{{ route('users') }}">{{ mb_strtoupper(__('Users')) }}</a></li>
+            @endcan
+            @can('manage_forms')
+                <li><a href="{{ route('forms.showForms') }}">{{ mb_strtoupper(__('Forms')) }}</a></li>
+            @endcan
         </ul>
     </li>
-
-    <li class="side-nav-item">
-        <a href="{{ route('forms.showForms') }}" class="side-nav-link">
-            <i class="uil-book-alt"></i>
-            <span>{{ mb_strtoupper(__('Forms')) }}</span>
-        </a>
-    </li>
+    @endcan
 
     {{-- <li class="side-nav-item">
         <a href="{{ route('trainings') }}" class="side-nav-link">
@@ -88,7 +91,7 @@
         </a>
     </li> --}}
 
-
+    @can('read_event_data')
     <li class="side-nav-item">
         <a href="javascript:void(0);" class="side-nav-link" aria-expanded="false">
             <i class="uil-dashboard"></i>
@@ -100,6 +103,7 @@
             <li><a href="{{ route('trainings.showStatistics') }}">{{ mb_strtoupper(__('Statistics')) }}</a></li>
         </ul>
     </li>
+    @endcan
 
 
     @elseif(\Illuminate\Support\Facades\Auth::user()->isRole('client'))
