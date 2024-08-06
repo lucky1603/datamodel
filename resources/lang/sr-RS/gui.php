@@ -251,6 +251,10 @@ return [
         'profile_table_ntp' => 'NTP',
         'profile_table_program' => 'Program',
         'profile_table_astype' => 'Tip društva',
+        'profile_table_action' => 'Akcija',
+        'profile_table_edit_profile' => 'Prikaži detalje', 
+        'profile_table_delete_profile' => 'Izbriši program',
+        'profile_table_delete_message' => 'Obriši profil ',
 
         /**
          * Profile bulk mail

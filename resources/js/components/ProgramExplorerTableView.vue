@@ -98,8 +98,8 @@
       </template>
       <template #cell(action)="data">
         <div class="d-flex align-items-center justify-content-center">
-          <a @click.prevent="rowClicked1(data.item.id)" role="button" class="mx-1"><i class='mdi mdi-pencil font-20'></i></a>
-          <a v-if="canDelete" @click.prevent="deleteProgram(data.item.id, data.item.company)" role="button" class="mx-1"><i class='mdi mdi-trash-can-outline font-20'></i></a>
+          <a @click.prevent="rowClicked1(data.item.id)" role="button" class="mx-1" :title="_('gui.profile_table_edit_profile')"><i class='mdi mdi-magnify font-20'></i></a>
+          <a v-if="canDelete" @click.prevent="deleteProgram(data.item.id, data.item.company)" role="button" class="mx-1" :title="_('gui.profile_table_delete_profile')"><i class='mdi mdi-trash-can-outline font-20'></i></a>
         </div>
       </template>
     </b-table>

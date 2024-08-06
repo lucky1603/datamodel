@@ -48,6 +48,10 @@
             $page = 1;
         }
 
+        $canDelete = false;
+        if(auth()->user()->abilities()->contains('can_delete')) {
+            $canDelete = true;
+        }
 
     @endphp
 
@@ -59,6 +63,7 @@
         f_ntp="{{ $ntp }}"
         f_is_company="{{ $is_company }}"
         f_page="{{ $page }}" role="{{ $role }}"
+        :can-delete="{{ $canDelete ? 'true' : 'false' }}"
     ></profile-explorer-table-view>
 @endsection
 

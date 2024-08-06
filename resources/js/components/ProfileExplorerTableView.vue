@@ -79,7 +79,6 @@
       :busy.sync="isBusy"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
-      @row-clicked="rowClicked"
       @context-changed="pageChanged"
     >
       <template #cell(name)="data">
@@ -94,6 +93,12 @@
       <template #cell(website)="data">
         <a :href="data.value" target="_blank">{{ data.value }}</a>
       </template>
+      <template #cell(action)="data">
+        <div class="d-flex align-items-center justify-content-center">
+          <a @click.prevent="rowClicked1(data.item.id)" role="button" class="mx-1" :title="_('gui.profile_table_edit_profile')"><i class='mdi mdi-magnify font-20'></i></a>
+          <a v-if="canDelete" @click.prevent="deleteProfile(data.item.id, data.item.name)" role="button" class="mx-1" :title="_('gui.profile_table_delete_profile')"><i class='mdi mdi-trash-can-outline font-20'></i></a>
+        </div>
+      </template>
       <!--            <template #cell(contact_email)="data">-->
       <!--                <a :href="'mailto://' + data.value" target="_blank">{{ data.value }}</a>-->
       <!--            </template>-->
@@ -105,6 +110,14 @@
       aria-controls="profileTable"
       align="right"
     ></b-pagination>
+    <b-modal v-model="showDeleteDialog" id="deleteDialog" header-bg-variant="dark" header-text-variant="light" @ok="confirmDeleteProfile">
+      <template #modal-title>{{ _('gui.profile_table_delete_profile') }}</template>
+      <template #modal-ok>{{ _('gui.Ok') }}</template>
+      <template #modal-cancel>{{ _('gui.Cancel') }}</template>
+      <div class="d-flex align-items-center justify-content-start">
+        <span>{{ _('gui.profile_table_delete_message') + " "}}</span> <span class="mx-1"><strong> {{ selectedProfileName }}</strong>?</span>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -121,6 +134,7 @@ export default {
     show_header: { typeof: Boolean, default: true },
     source: { typeof: String, default: "/profiles/filterCache" },
     role: { typeof: String, default: "profile" },
+    canDelete: { type: Boolean, default: true }
   },
   computed: {
     tableFields() {
@@ -178,6 +192,10 @@ export default {
             label: window.i18n.gui.profile_table_ntp,
             sortable: true,
           },
+          {
+            key: "action",
+            label: window.i18n.gui.profile_table_action,
+          }
         ];
       }
     },
@@ -240,6 +258,21 @@ export default {
       $("body").css("cursor", "progress");
       Dispecer.$emit("profile-clicked", item.id);
     },
+    rowClicked1(id) {
+      window.location.href='/profiles/' + id;
+    },
+    deleteProfile(id, name) {
+      this.selectedProfileId = id;
+      this.selectedProfileName = name;
+      this.deleteDialogMessage = 
+      this.showDeleteDialog = true;      
+    },
+    async confirmDeleteProfile() {
+      await axios.get('/profiles/delete/' + this.selectedProfileId);
+      this.selectedProfileId = 0;
+      this.selectedProfileName = '';
+      await this.getData();
+    },
     pageChanged(ctx) {
       console.log(`Page changed ${this.currentPage}`);
       let data = new FormData();
@@ -262,6 +295,10 @@ export default {
   },
   data() {
     return {
+      selectedProfileId: 0,
+      selectedProfileName: '',
+      showDeleteDialog: false,
+      deleteDialogMessage: 'Obriši profil',
       sortBy: "name",
       sortDesc: false,
       profiles: [],

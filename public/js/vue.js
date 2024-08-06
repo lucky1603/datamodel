@@ -9176,6 +9176,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProfileExplorerTableView",
@@ -9215,6 +9228,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     role: {
       "typeof": String,
       "default": "profile"
+    },
+    canDelete: {
+      type: Boolean,
+      "default": true
     }
   },
   computed: {
@@ -9264,6 +9281,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           key: "ntp",
           label: window.i18n.gui.profile_table_ntp,
           sortable: true
+        }, {
+          key: "action",
+          label: window.i18n.gui.profile_table_action
         }];
       }
     }
@@ -9353,6 +9373,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $("body").css("cursor", "progress");
       Dispecer.$emit("profile-clicked", item.id);
     },
+    rowClicked1: function rowClicked1(id) {
+      window.location.href = '/profiles/' + id;
+    },
+    deleteProfile: function deleteProfile(id, name) {
+      this.selectedProfileId = id;
+      this.selectedProfileName = name;
+      this.deleteDialogMessage = this.showDeleteDialog = true;
+    },
+    confirmDeleteProfile: function confirmDeleteProfile() {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.get('/profiles/delete/' + _this3.selectedProfileId);
+              case 2:
+                _this3.selectedProfileId = 0;
+                _this3.selectedProfileName = '';
+                _context3.next = 6;
+                return _this3.getData();
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
     pageChanged: function pageChanged(ctx) {
       console.log("Page changed ".concat(this.currentPage));
       var data = new FormData();
@@ -9363,30 +9413,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    var _this3 = this;
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+    var _this4 = this;
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              _this3.form.name = _this3.f_name;
-              _this3.form.profile_state = _this3.f_profile_state;
-              _this3.form.ntp = _this3.f_ntp;
-              _this3.form.is_company = _this3.f_is_company;
-              _context3.next = 6;
-              return _this3.getData();
+              _this4.form.name = _this4.f_name;
+              _this4.form.profile_state = _this4.f_profile_state;
+              _this4.form.ntp = _this4.f_ntp;
+              _this4.form.is_company = _this4.f_is_company;
+              _context4.next = 6;
+              return _this4.getData();
             case 6:
-              _this3.currentPage = _this3.f_page;
+              _this4.currentPage = _this4.f_page;
             case 7:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }))();
   },
   data: function data() {
     return {
+      selectedProfileId: 0,
+      selectedProfileName: '',
+      showDeleteDialog: false,
+      deleteDialogMessage: 'Obriši profil',
       sortBy: "name",
       sortDesc: false,
       profiles: [],
@@ -116775,7 +116829,6 @@ var render = function () {
           "update:sort-desc": function ($event) {
             _vm.sortDesc = $event
           },
-          "row-clicked": _vm.rowClicked,
           "context-changed": _vm.pageChanged,
         },
         scopedSlots: _vm._u([
@@ -116821,6 +116874,66 @@ var render = function () {
               ]
             },
           },
+          {
+            key: "cell(action)",
+            fn: function (data) {
+              return [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex align-items-center justify-content-center",
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "mx-1",
+                        attrs: {
+                          role: "button",
+                          title: _vm._("gui.profile_table_edit_profile"),
+                        },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.rowClicked1(data.item.id)
+                          },
+                        },
+                      },
+                      [_c("i", { staticClass: "mdi mdi-magnify font-20" })]
+                    ),
+                    _vm._v(" "),
+                    _vm.canDelete
+                      ? _c(
+                          "a",
+                          {
+                            staticClass: "mx-1",
+                            attrs: {
+                              role: "button",
+                              title: _vm._("gui.profile_table_delete_profile"),
+                            },
+                            on: {
+                              click: function ($event) {
+                                $event.preventDefault()
+                                return _vm.deleteProfile(
+                                  data.item.id,
+                                  data.item.name
+                                )
+                              },
+                            },
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "mdi mdi-trash-can-outline font-20",
+                            }),
+                          ]
+                        )
+                      : _vm._e(),
+                  ]
+                ),
+              ]
+            },
+          },
         ]),
       }),
       _vm._v(" "),
@@ -116839,6 +116952,69 @@ var render = function () {
           expression: "currentPage",
         },
       }),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            id: "deleteDialog",
+            "header-bg-variant": "dark",
+            "header-text-variant": "light",
+          },
+          on: { ok: _vm.confirmDeleteProfile },
+          scopedSlots: _vm._u([
+            {
+              key: "modal-title",
+              fn: function () {
+                return [
+                  _vm._v(_vm._s(_vm._("gui.profile_table_delete_profile"))),
+                ]
+              },
+              proxy: true,
+            },
+            {
+              key: "modal-ok",
+              fn: function () {
+                return [_vm._v(_vm._s(_vm._("gui.Ok")))]
+              },
+              proxy: true,
+            },
+            {
+              key: "modal-cancel",
+              fn: function () {
+                return [_vm._v(_vm._s(_vm._("gui.Cancel")))]
+              },
+              proxy: true,
+            },
+          ]),
+          model: {
+            value: _vm.showDeleteDialog,
+            callback: function ($$v) {
+              _vm.showDeleteDialog = $$v
+            },
+            expression: "showDeleteDialog",
+          },
+        },
+        [
+          _vm._v(" "),
+          _vm._v(" "),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "d-flex align-items-center justify-content-start" },
+            [
+              _c("span", [
+                _vm._v(_vm._s(_vm._("gui.profile_table_delete_message") + " ")),
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "mx-1" }, [
+                _c("strong", [_vm._v(" " + _vm._s(_vm.selectedProfileName))]),
+                _vm._v("?"),
+              ]),
+            ]
+          ),
+        ]
+      ),
     ],
     1
   )
@@ -119191,7 +119367,10 @@ var render = function () {
                       "a",
                       {
                         staticClass: "mx-1",
-                        attrs: { role: "button" },
+                        attrs: {
+                          role: "button",
+                          title: _vm._("gui.profile_table_edit_profile"),
+                        },
                         on: {
                           click: function ($event) {
                             $event.preventDefault()
@@ -119199,7 +119378,7 @@ var render = function () {
                           },
                         },
                       },
-                      [_c("i", { staticClass: "mdi mdi-pencil font-20" })]
+                      [_c("i", { staticClass: "mdi mdi-magnify font-20" })]
                     ),
                     _vm._v(" "),
                     _vm.canDelete
@@ -119207,7 +119386,10 @@ var render = function () {
                           "a",
                           {
                             staticClass: "mx-1",
-                            attrs: { role: "button" },
+                            attrs: {
+                              role: "button",
+                              title: _vm._("gui.profile_table_delete_profile"),
+                            },
                             on: {
                               click: function ($event) {
                                 $event.preventDefault()

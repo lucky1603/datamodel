@@ -1695,4 +1695,13 @@ class ProfileController extends Controller
         });
     }
 
+    public function deleteProfile($id) {
+        $this->authorize('delete_profile');
+
+        $profile = Profile::find($id);
+        if($profile != null) {
+            $profile->delete();
+        }
+    }
+
 }

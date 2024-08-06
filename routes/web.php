@@ -118,6 +118,7 @@ Route::get('profiles/programsForProfile/{profile}', 'ProfileController@getProgra
 Route::get('profiles/profileUsers/{profile}', 'ProfileController@getProfileUsers')->name('profiles.profileUsers');
 Route::post('profiles/programAttendances/{profile}', 'ProfileController@programAttendances')->name('profiles.programAttendances');
 Route::get('profiles/edit/{profile}', 'ProfileController@edit')->name('profiles.edit');
+Route::get('profiles/delete/{profile}', 'ProfileController@deleteProfile')->name('profiles.delete');
 Route::get('profiles/statistics/{profile}', 'ProfileController@getStatistics')->name('profiles.getStatistics');
 Route::post('profiles/statistics', 'ProfileController@updateStatistics')->name('profiles.updateStatistics');
 Route::post('profiles/edit', 'ProfileController@update')->name('profiles.update');

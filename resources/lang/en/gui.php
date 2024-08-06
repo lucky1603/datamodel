@@ -254,6 +254,10 @@ return [
         'profile_table_ntp' => 'STP',
         'profile_table_program' => 'Program',
         'profile_table_astype' => 'Association Type',
+        'profile_table_action' => 'Action',
+        'profile_table_edit_profile' => 'Show Details', 
+        'profile_table_delete_profile' => 'Delete',
+        'profile_table_delete_message' => 'Delete profile ',
 
         /**
          * Profile bulk mail
