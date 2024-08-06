@@ -38,8 +38,8 @@ class TrainingsController extends Controller
 
     public function mine() {
         $user = Auth::user();
-        if($user->isAdmin()) {
-            return Response::deny("This action is not for admin!");
+        if(!$user->isRole('profile')) {
+            return Response::deny("This action is only for profile!");
         }
 
         $profile = $user->profile();
@@ -235,7 +235,7 @@ class TrainingsController extends Controller
         $training = Training::find($id);
         $user = Auth::user();
         $backroute = Route::currentRouteName();
-        if($user->isAdmin()) {
+        if(!$user->isRole('profile')) {
             return view('trainings.show1', ['training' => $training, 'backroute' => route('trainings')]);
         } else {
             $profile = $user->profile();

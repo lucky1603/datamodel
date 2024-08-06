@@ -10,7 +10,7 @@
 @endphp
 
 @section('sidemenu')
-    @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+    @if(!\Illuminate\Support\Facades\Auth::user()->isRole('profile'))
         <li class="side-nav-item" id="navProfile">
             <a href="{{route('programs.show', ['program' => $program->getId()])}}" class="side-nav-link">
                 <i class="uil-dashboard"></i>

@@ -9,7 +9,7 @@
 @endphp
 
 @section('sidemenu')
-    @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+    @if(!\Illuminate\Support\Facades\Auth::user()->isRole('profile'))
         <li class="side-nav-item">
             <a href="{{ route('profiles.index') }}" class="side-nav-link">
                 <i class="uil-backspace"></i>

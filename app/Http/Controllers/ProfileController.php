@@ -72,7 +72,7 @@ class ProfileController extends Controller
         $this->authorize('read_client_profile', $id);
         session(['usereditbackto' => route(Route::currentRouteName(), $id)]);
 
-        if(auth()->user()->isAdmin()) {
+        if(!auth()->user()->isRole('profile')) {
             $request->session()->put('backroute', route('profiles.index'));
         } else {
 
