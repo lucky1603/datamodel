@@ -371,6 +371,7 @@ return [
         'program_explorer_dialog_text' => "Should You choose this option, all candidates that haven't applied yet will change their status to in-active. Are you sure?",
         'program_explorer_dialog_ok' => 'Ok',
         'program_explorer_dialog_cancel' => 'Cancel',
+        'program_explorer_delete_program' => 'Delete program',
 
         /**
          * Incubation Form

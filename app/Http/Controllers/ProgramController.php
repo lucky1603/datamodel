@@ -1171,6 +1171,15 @@ class ProgramController extends Controller
 
     }
 
+    public function deleteProgram($id) {
+        $this->authorize('delete_program');
+
+        $program = Program::find($id);
+        if($program != null) {
+            $program->delete();
+        }
+    }
+
     private function addFileToData(Request $request, $filename): ?array
     {
         $file = $request->file($filename);
@@ -1186,6 +1195,8 @@ class ProgramController extends Controller
 
         return null;
     }
+
+
 
 
 }

@@ -11133,6 +11133,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProgramExplorerTableView",
@@ -11170,6 +11183,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       "default": 0
     },
     showReject: {
+      type: Boolean,
+      "default": true
+    },
+    canDelete: {
       type: Boolean,
       "default": true
     }
@@ -11246,6 +11263,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       Dispecer.$emit("program-clicked", item.id);
       // window.location.href = '/programs/' + item.id;
     },
+    rowClicked1: function rowClicked1(id) {
+      window.location.href = '/programs/' + id;
+    },
+    deleteProgram: function deleteProgram(id, name) {
+      this.selectedProgramId = id;
+      this.selectedProgramName = name;
+      this.showDeleteDialog = true;
+    },
+    confirmDeleteProgram: function confirmDeleteProgram() {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.get('/programs/delete/' + _this3.selectedProgramId);
+              case 2:
+                _this3.selectedProgramId = 0;
+                _this3.selectedProgramName = '';
+                _context3.next = 6;
+                return _this3.getData();
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
     getLogo: function getLogo(logo) {
       if (logo == null || logo === "") {
         return "/images/custom/nophoto2.png";
@@ -11272,23 +11319,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return retval;
     },
     onSubmit: function onSubmit() {
-      var _this3 = this;
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                _context3.next = 2;
-                return _this3.getData();
+                _context4.next = 2;
+                return _this4.getData();
               case 2:
                 // Update statusa
-                _this3.updateProgramStatuses();
+                _this4.updateProgramStatuses();
               case 3:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }))();
     },
     updateProgramStatuses: function updateProgramStatuses() {
@@ -11377,31 +11424,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // },
   },
   mounted: function mounted() {
-    var _this4 = this;
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+    var _this5 = this;
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
-              _this4.form.name = _this4.f_name;
-              _this4.form.program_type = _this4.f_program_type;
-              _this4.form.program_status = _this4.f_program_status;
-              _this4.form.year = _this4.f_year;
-              _context4.next = 6;
-              return _this4.getData();
+              _this5.form.name = _this5.f_name;
+              _this5.form.program_type = _this5.f_program_type;
+              _this5.form.program_status = _this5.f_program_status;
+              _this5.form.year = _this5.f_year;
+              _context5.next = 6;
+              return _this5.getData();
             case 6:
-              _this4.updateProgramStatuses();
-              _this4.currentPage = _this4.f_page;
+              _this5.updateProgramStatuses();
+              _this5.currentPage = _this5.f_page;
             case 8:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4);
+      }, _callee5);
     }))();
   },
   data: function data() {
     return {
+      selectedProgramId: 0,
+      selectedProgramName: '',
+      showDeleteDialog: false,
+      deleteDialogMessage: 'Naslov',
       sendReject: false,
       programs: [],
       currentPage: 1,
@@ -11472,6 +11523,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         key: "year",
         label: "Godina",
         sortable: true
+      }, {
+        key: "action",
+        label: "Akcija"
       }]
     };
   }
@@ -119088,7 +119142,7 @@ var render = function () {
           bordered: "",
           hover: "",
         },
-        on: { "row-clicked": _vm.rowClicked, "page-click": _vm.pageChanged },
+        on: { "page-click": _vm.pageChanged },
         scopedSlots: _vm._u([
           {
             key: "cell(company)",
@@ -119119,6 +119173,60 @@ var render = function () {
                 _c("span", { class: _vm.getStatusClass(data.value) }, [
                   _vm._v(_vm._s(data.item.statusText.toUpperCase())),
                 ]),
+              ]
+            },
+          },
+          {
+            key: "cell(action)",
+            fn: function (data) {
+              return [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex align-items-center justify-content-center",
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "mx-1",
+                        attrs: { role: "button" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.rowClicked1(data.item.id)
+                          },
+                        },
+                      },
+                      [_c("i", { staticClass: "mdi mdi-pencil font-20" })]
+                    ),
+                    _vm._v(" "),
+                    _vm.canDelete
+                      ? _c(
+                          "a",
+                          {
+                            staticClass: "mx-1",
+                            attrs: { role: "button" },
+                            on: {
+                              click: function ($event) {
+                                $event.preventDefault()
+                                return _vm.deleteProgram(
+                                  data.item.id,
+                                  data.item.company
+                                )
+                              },
+                            },
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "mdi mdi-trash-can-outline font-20",
+                            }),
+                          ]
+                        )
+                      : _vm._e(),
+                  ]
+                ),
               ]
             },
           },
@@ -119190,6 +119298,73 @@ var render = function () {
                   _vm._s(_vm._("gui.program_explorer_dialog_text")) +
                   "\n      "
               ),
+            ]
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            id: "deleteDialog",
+            "header-bg-variant": "dark",
+            "header-text-variant": "light",
+          },
+          on: { ok: _vm.confirmDeleteProgram },
+          scopedSlots: _vm._u([
+            {
+              key: "modal-title",
+              fn: function () {
+                return [
+                  _vm._v(_vm._s(_vm._("gui.program_explorer_delete_program"))),
+                ]
+              },
+              proxy: true,
+            },
+            {
+              key: "modal-ok",
+              fn: function () {
+                return [_vm._v(_vm._s(_vm._("gui.Ok")))]
+              },
+              proxy: true,
+            },
+            {
+              key: "modal-cancel",
+              fn: function () {
+                return [_vm._v(_vm._s(_vm._("gui.Cancel")))]
+              },
+              proxy: true,
+            },
+          ]),
+          model: {
+            value: _vm.showDeleteDialog,
+            callback: function ($$v) {
+              _vm.showDeleteDialog = $$v
+            },
+            expression: "showDeleteDialog",
+          },
+        },
+        [
+          _vm._v(" "),
+          _vm._v(" "),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "d-flex align-items-center justify-content-start" },
+            [
+              _c("span", [
+                _vm._v(
+                  _vm._s(_vm._("gui.program_explorer_delete_program") + " ")
+                ),
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "mx-1" }, [
+                _c("strong", [
+                  _vm._v(" '" + _vm._s(_vm.selectedProgramName) + "'"),
+                ]),
+                _vm._v("?"),
+              ]),
             ]
           ),
         ]

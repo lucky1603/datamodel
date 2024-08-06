@@ -42,12 +42,17 @@
             'year' => $year
         ] ;
 
+        $canDelete = false;
+        if(auth()->user()->abilities()->contains('delete_program')) {
+            $canDelete = true;
+        }
+
     @endphp
     <program-explorer-table-view
         page_size="15"
         f_name="{{ $name }}"
         :f_program_type="{{ $program_type }}"
-        :f_program_status="{{ $program_status }}" :f_page="{{ $page }}" :f_year="{{ $year }}" :show-reject="true">
+        :f_program_status="{{ $program_status }}" :f_page="{{ $page }}" :f_year="{{ $year }}" :show-reject="true" :can-delete="{{ $canDelete ? 'true' : 'false' }}">
     </program-explorer-table-view>
 @endsection
 

@@ -82,9 +82,8 @@
       small
       bordered
       class="shadow-sm"
-      hover
-      @row-clicked="rowClicked"
-      @page-click="pageChanged"
+      hover      
+      @page-click="pageChanged"      
     >
       <template #cell(company)="data">
         <img :src="data.item.logo" width="24px" class="mr-2" /> {{ data.value }}
@@ -96,6 +95,12 @@
         <span :class="getStatusClass(data.value)">{{
           data.item.statusText.toUpperCase()
         }}</span>
+      </template>
+      <template #cell(action)="data">
+        <div class="d-flex align-items-center justify-content-center">
+          <a @click.prevent="rowClicked1(data.item.id)" role="button" class="mx-1"><i class='mdi mdi-pencil font-20'></i></a>
+          <a v-if="canDelete" @click.prevent="deleteProgram(data.item.id, data.item.company)" role="button" class="mx-1"><i class='mdi mdi-trash-can-outline font-20'></i></a>
+        </div>
       </template>
     </b-table>
     <b-pagination
@@ -118,6 +123,14 @@
             {{ _('gui.program_explorer_dialog_text') }}
         </div>
     </b-modal>
+    <b-modal v-model="showDeleteDialog" id="deleteDialog" header-bg-variant="dark" header-text-variant="light" @ok="confirmDeleteProgram">
+      <template #modal-title>{{ _('gui.program_explorer_delete_program') }}</template>
+      <template #modal-ok>{{ _('gui.Ok') }}</template>
+        <template #modal-cancel>{{ _('gui.Cancel') }}</template>
+      <div class="d-flex align-items-center justify-content-start">
+        <span>{{ _('gui.program_explorer_delete_program') + " "}}</span> <span class="mx-1"><strong> '{{ selectedProgramName }}'</strong>?</span>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -133,7 +146,8 @@ export default {
     f_program_status: { typeof: Number, default: 0 },
     f_page: { typeof: Number, default: 1 },
     f_year: { typeof: Number, default: 0 },
-    showReject: { type: Boolean, default: true }
+    showReject: { type: Boolean, default: true },
+    canDelete: { type: Boolean, default: true }
   },
   watch: {
     currentPage: function (val, oldVal) {
@@ -181,7 +195,21 @@ export default {
       Dispecer.$emit("program-clicked", item.id);
       // window.location.href = '/programs/' + item.id;
     },
-
+    rowClicked1(id) {
+      window.location.href='/programs/' + id;
+    },
+    deleteProgram(id, name) {
+      this.selectedProgramId = id;
+      this.selectedProgramName = name;
+      this.showDeleteDialog = true;
+      
+    },
+    async confirmDeleteProgram() {
+      await axios.get('/programs/delete/' + this.selectedProgramId);
+      this.selectedProgramId = 0;
+      this.selectedProgramName = '';
+      await this.getData();
+    },
     getLogo(logo) {
       if (logo == null || logo === "") {
         return "/images/custom/nophoto2.png";
@@ -270,6 +298,10 @@ export default {
   },
   data() {
     return {
+      selectedProgramId: 0,
+      selectedProgramName: '',
+      showDeleteDialog: false,
+      deleteDialogMessage: 'Naslov',
       sendReject: false,
       programs: [],
       currentPage: 1,
@@ -319,6 +351,10 @@ export default {
            key: "year",
            label: "Godina",
            sortable: true,
+        },
+        {
+          key: "action",
+          label: "Akcija",
         }
       ],
     };
