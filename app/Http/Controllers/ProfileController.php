@@ -1222,7 +1222,7 @@ class ProfileController extends Controller
     {
         $candidates = DB::table('program_caches')
             ->where('program_type', 2)
-            ->where('program_status', '>=', 3)
+            ->whereRaw('program_status >= 3 OR program_status = -1')
             ->get()
             ->map(function($program) {
                 return [
