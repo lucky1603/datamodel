@@ -68,7 +68,7 @@ class AbilityRoleSeeder extends Seeder
             /* 2 */ "client" => ["Klijent", "default"],  
             /* 3 */ "profile" => ["Profil",'default'],
             /* 4 */ "mentor" => ["Mentor","default"],
-            /* 5 */ "operator" => ["Operator","admin"],
+            /* 5 */ "manager" => ["Program manager","admin"],
         ];
 
         foreach ($roles as $key => $value) {
