@@ -6,6 +6,9 @@
       <b-form-group label="Opis" description="Opis role">
         <b-form-textarea v-model="form.label" placeholder="Unesite opis role" rows="3" max-rows="6"></b-form-textarea>
       </b-form-group>
+      <b-form-group label="Startna ruta" description="Ruta početne stranice">        
+        <b-form-input v-model="form.startRoute" placeholder="Unesite startnu rutu"/>
+      </b-form-group>
       <b-form-group label="Mogućnosti" description="Mogućnosti koje poseduje">
         <div class="d-flex flex-wrap">
           <b-checkbox-group 
@@ -28,6 +31,7 @@ export default {
       form: {
         name: null,
         label: null,
+        startRoute: 'default',
         abilities: []
       },
       allAbilities: []
@@ -63,6 +67,7 @@ export default {
             let role = response.data;
             this.form.name = role.name;
             this.form.label = role.label;
+            this.form.startRoute = role.startRoute;
             this.form.abilities = role.abilities;
         });
     },
@@ -70,6 +75,7 @@ export default {
       let formData = new FormData();
       formData.append('name', this.form.name);
       formData.append('label', this.form.label);
+      formData.append('startRoute', this.form.startRoute);
       this.form.abilities.forEach(element => {
         formData.append('abilities[]', element);
       });

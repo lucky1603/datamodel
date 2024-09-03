@@ -48,7 +48,7 @@ class AbilityRoleSeeder extends Seeder
             /* 22 */ "read_program" => "Citanje podataka programa",
             /* 23 */ "read_statistics" => "Pregled podataka statistike",
             /* 24 */ "manage_program" => "Dodavanje/brisanje programa",
-            /* 25 */ "list_programs  " => "Prikaz liste programa",
+            /* 25 */ "list_programs" => "Prikaz liste programa",
             /* 26 */ "list_mentors" => "Pregled liste mentora",
             /* 27 */ "manage_mentors" => "Izmena podataka mentora",
             /* 28 */ "manage_forms" => "Upravljanje formama za prijavu",
@@ -64,17 +64,18 @@ class AbilityRoleSeeder extends Seeder
         }
 
         $roles = [
-            /* 1 */ "admin" => "Administrator",
-            /* 2 */ "client" => "Klijent",  
-            /* 3 */ "profile" => "Profil",
-            /* 4 */ "mentor" => "Mentor",
-            /* 5 */ "operator" => "Operator",
+            /* 1 */ "admin" => ["Administrator", "admin"],
+            /* 2 */ "client" => ["Klijent", "default"],  
+            /* 3 */ "profile" => ["Profil",'default'],
+            /* 4 */ "mentor" => ["Mentor","default"],
+            /* 5 */ "operator" => ["Operator","admin"],
         ];
 
         foreach ($roles as $key => $value) {
             DB::table('roles')->insert([
                 'name' => $key,
-                'label' => $value
+                'label' => $value[0],
+                'start_route' => $value[1]
             ]);
         }   
 

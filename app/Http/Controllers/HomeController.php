@@ -85,7 +85,8 @@ class HomeController extends Controller
                 } 
 
                 return abort(404);
-
+            case 'admin': 
+                return redirect(route('admin'));
             default:
                 return redirect(route($role->start_route));
         }

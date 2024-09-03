@@ -27,6 +27,7 @@ class RoleController extends Controller
         return [
             'name' => $role->name,
             'label' => $role->label,
+            'startRoute' => $role->start_route,
             'abilities' => $role->abilities->map(function($ability) {
                 return $ability->id;
             })
@@ -35,16 +36,21 @@ class RoleController extends Controller
 
     public function store(Request $request) {
         $data = $request->post();
+        
+        $startRoute = "default";
+        if(isset($data['startRoute']) && !in_array($data['startRoute'], ['null', 'undefined'])) {
+            $startRoute = $data['startRoute'];
+        }
 
         $role = Role::create([
             'name' => $data['name'],
             'label' => $data['label'],            
+            'start_route' => $startRoute
         ]);
 
         $abilities = $data['abilities'];
         $role->abilities()->sync($abilities);
         
-
         return $role;
     }
 
@@ -54,7 +60,8 @@ class RoleController extends Controller
 
         $role->update([
             'name' => $data['name'],
-            'label' => $data['label']
+            'label' => $data['label'],
+            'start_route' => $data['startRoute']
         ]);
 
         $role->abilities()->sync($data['abilities']);

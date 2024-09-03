@@ -60,7 +60,7 @@ class User extends Authenticatable
             $role = Role::whereName($role)->firstOrFail();
         }
 
-        $this->roles()->sync($role, false);
+        $this->roles()->sync($role, true);
     }
 
     /**

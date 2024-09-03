@@ -96,14 +96,17 @@ class UserController extends Controller
         $user->refresh();
 
         // Profile
-        if(isset($data['profile'])) {
+        if(isset($data['profile']) && !in_array($data['profile'], ['null', 'undefined'])) {
             $user->addProfile($data['profile']);
         }
 
-        $oldRole = $user->roles()->first()->id;
-        if($oldRole != $data['role']) {
-            $user->assignRole(Role::find($data['role']));
+        if(isset($data['role']) && !in_array($data['role'], ['null', 'undefined'])) {
+            $user->assignRole(Role::find($data['role'])); 
         }
+        // $oldRole = $user->roles()->first()->id;
+        // if($oldRole != $data['role']) {
+        //     $user->assignRole(Role::find($data['role']));
+        // }
 
         if($data['role'] == 3) {
             $profile = $user->profile();

@@ -59,7 +59,7 @@ export default {
       fields: [
         { key: 'id', label: 'ID', sortable: true},
         { key: 'name', label: 'Naziv', sortable: true},
-        { key: 'label', label: 'Opis', sortable: true},
+        { key: 'label', label: 'Opis', sortable: true},        
         { key: 'action', label: 'Akcije', sortable: true},
       ],
       currentPage: 1,

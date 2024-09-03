@@ -13989,6 +13989,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'RoleManagerForm',
@@ -14003,6 +14006,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       form: {
         name: null,
         label: null,
+        startRoute: 'default',
         abilities: []
       },
       allAbilities: []
@@ -14055,6 +14059,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   var role = response.data;
                   _this3.form.name = role.name;
                   _this3.form.label = role.label;
+                  _this3.form.startRoute = role.startRoute;
                   _this3.form.abilities = role.abilities;
                 });
               case 1:
@@ -14076,6 +14081,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 formData = new FormData();
                 formData.append('name', _this4.form.name);
                 formData.append('label', _this4.form.label);
+                formData.append('startRoute', _this4.form.startRoute);
                 _this4.form.abilities.forEach(function (element) {
                   formData.append('abilities[]', element);
                 });
@@ -14084,12 +14090,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (_this4.id != 0) {
                   action = '/roles/edit/' + _this4.id;
                 }
-                _context3.next = 8;
+                _context3.next = 9;
                 return axios.post(action, formData).then(function (response) {
                   console.log(response.data);
                   _this4.$emit('succeded');
                 });
-              case 8:
+              case 9:
               case "end":
                 return _context3.stop();
             }
@@ -122579,6 +122585,29 @@ var render = function () {
                 _vm.$set(_vm.form, "label", $$v)
               },
               expression: "form.label",
+            },
+          }),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-form-group",
+        {
+          attrs: {
+            label: "Startna ruta",
+            description: "Ruta početne stranice",
+          },
+        },
+        [
+          _c("b-form-input", {
+            attrs: { placeholder: "Unesite startnu rutu" },
+            model: {
+              value: _vm.form.startRoute,
+              callback: function ($$v) {
+                _vm.$set(_vm.form, "startRoute", $$v)
+              },
+              expression: "form.startRoute",
             },
           }),
         ],
