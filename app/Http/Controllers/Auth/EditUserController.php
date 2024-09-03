@@ -217,7 +217,7 @@ class EditUserController extends Controller
         Session::remove('usereditbackto');
 
         // return view('auth.userindex', ['users' => $users, 'profiles' => $profiles]);
-        return view('auth.userindex1');
+        return view('auth.userIndex1');
     }
 
     /**
