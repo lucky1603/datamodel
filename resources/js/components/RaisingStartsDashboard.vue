@@ -180,7 +180,9 @@ export default {
         location.href = "/analytics/exportRaisingStartsDashboard/" + this.year;
     }
   },
-  async mounted() {},
+  async mounted() {
+
+  },
   data() {
     return {
       bInnovation: false,
@@ -191,12 +193,13 @@ export default {
       bBusinessBranch: false,
       bProductType: false,
       bMunicipalityDistribution: false,
-      year: 2023,
+      year: 2024,
       years: [
         { value: 0, text: 'SVE'},
         { value: 2022, text: '2022'},
         { value: 2023, text: '2023'},
         { value: 2024, text: '2024'},
+        { value: 2025, text: '2025'}
       ],
       program_type: 2,
       programTypes: [

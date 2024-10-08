@@ -33,23 +33,12 @@ class AnalyticsController extends Controller
 
         $query = DB::table('program_caches')
             ->selectRaw("ntp_text as ntp, COUNT(ntp) as count")
+            ->where([
+                'program_type' => $program_type,
+                'year' => $year
+            ])
+            ->whereNotIn('program_status', [0, -5])
             ->groupBy(["ntp", "ntp_text"]);
-
-        $queryData = [];
-        if($program_type != 0) {
-            $queryData['program_type'] = $program_type;
-        }
-
-        if($year != 0) {
-            $queryData['year'] = $year;
-        }
-
-        if(count($queryData) > 0) {
-            $query = $query->where($queryData);
-        }
-
-        // $query = $query->whereNotIn('program_status', [0,1]);
-        $query = $query->where('program_status', '<>', 0);
 
         return $query->get()->toArray();
     }
@@ -179,20 +168,12 @@ class AnalyticsController extends Controller
 
         $query = DB::table('program_caches')
             ->selectRaw("opstina_text as opstina, COUNT(opstina) as count")
+            ->where([
+                'program_type' => $program_type,
+                'year' => $year
+            ])
+            ->whereNotIn('program_status', [0, -5])
             ->groupBy(["opstina", "opstina_text"]);
-
-        $queryData = [];
-        if($program_type != 0) {
-            $queryData['program_type'] = $program_type;
-        }
-
-        if($year != 0) {
-            $queryData['year'] = $year;
-        }
-
-        if(count($queryData) > 0) {
-            $query = $query->where($queryData);
-        }
 
         return $query->get()->toArray();
     }

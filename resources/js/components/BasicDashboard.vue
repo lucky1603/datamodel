@@ -93,8 +93,8 @@
                     <div class="card-body">
                     <apexchart
                         type="donut"
-                        :options="chartOptionsGradovi"
-                        :series="chartValuesGradovi"
+                        :options="chartOptions"
+                        :series="chartValues"
                         height="100%"
                     ></apexchart>
                     </div>

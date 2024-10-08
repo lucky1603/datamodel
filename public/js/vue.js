@@ -12796,7 +12796,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       bBusinessBranch: false,
       bProductType: false,
       bMunicipalityDistribution: false,
-      year: 2023,
+      year: 2024,
       years: [{
         value: 0,
         text: 'SVE'
@@ -12809,6 +12809,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         value: 2024,
         text: '2024'
+      }, {
+        value: 2025,
+        text: '2025'
       }],
       program_type: 2,
       programTypes: [{
@@ -111030,8 +111033,8 @@ var render = function () {
                 _c("apexchart", {
                   attrs: {
                     type: "donut",
-                    options: _vm.chartOptionsGradovi,
-                    series: _vm.chartValuesGradovi,
+                    options: _vm.chartOptions,
+                    series: _vm.chartValues,
                     height: "100%",
                   },
                 }),
