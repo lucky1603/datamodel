@@ -55,7 +55,7 @@ export default {
             for(let property in abilities) {
                 this.allAbilities.push({
                     value: abilities[property].id,
-                    text: abilities[property].name
+                    text: abilities[property].label
                 });
             }
             

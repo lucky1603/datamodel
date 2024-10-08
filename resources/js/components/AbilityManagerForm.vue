@@ -30,7 +30,7 @@ export default {
     return {
       form: {
         name: null,
-        desc: null,
+        label: null,
         roles: []
       },
       allRoles: []
@@ -69,7 +69,7 @@ export default {
         for(let property in roles) {
           this.allRoles.push({
             value: roles[property].id,
-            text: roles[property].name 
+            text: roles[property].label 
           });
         }
       });
@@ -81,7 +81,7 @@ export default {
           let ability = response.data;
           let roles = ability.roles;
           this.form.name = ability.name;
-          this.form.desc = ability.desc;
+          this.form.label = ability.label;
           this.form.roles = [];
           for(let property in roles) {
             this.form.roles.push(roles[property].id);
