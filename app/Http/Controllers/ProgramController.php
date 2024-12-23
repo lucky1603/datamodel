@@ -15,8 +15,11 @@ use App\Business\Training;
 use App\Http\Requests\UpdateIncubationRequest;
 use App\Http\Requests\UpdateRaisingStartsRequest;
 use App\Mail\ApplicationSuccess;
+use App\Mail\CustomMessage;
 use App\ProfileCache;
+use App\ProgramCache;
 use App\Role;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -411,6 +414,26 @@ class ProgramController extends Controller
             'code' => 1,
             'message' => "Prijava uspešno popunjena i poslata! Sačekajte da budete preusmereni."
         ]);
+
+    }
+
+    public function rejectSelected(Request $request) {
+        $programIds = $request->post('ids');
+        $counter = 0;
+        foreach($programIds as $programId) {
+            Program::find($programId)->setStatus(-5);
+            $counter ++;
+        }
+
+        DB::table('program_caches')
+        ->whereIn('program_id', $programIds)
+        ->update(
+            [
+                'program_status' => -5,
+                'program_status_text' => 'ODUSTAO'
+            ]);
+
+        return $counter;
 
     }
 
@@ -1180,6 +1203,49 @@ class ProgramController extends Controller
         }
     }
 
+    public function deleteSelectedPrograms(Request $request) {
+        $this->authorize('delete_program');
+        
+        $data = $request->post();
+        foreach($data['ids'] as $id) {
+            $this->deleteProgram($id);
+        }
+    }
+
+    public function prepareMail() {
+        $token = csrf_token();
+        $content = "<p>Poštovani/a ,</p>
+                    <p>Uskoro ističe rok za slanje prijava na program 'Raising Starts'.</p>
+                    <p>Podsećamo Vas, da Vašu prijavu možete poslati najkasnije do 28.12. u 12:00h. Sve prijave poslate posle tog roka neće biti uzete u razmatranje.</p>
+                    <p>Srdačan pozdrav,</p>
+                    <p>Vaš NTP</p>";
+
+        return view('programs.preparemail', ['content' => $content, 'token' => $token]);
+
+    }
+
+    public function sendMail(Request $request) {
+        try {
+            $data = $request->post();
+            $programIds = $data['recipients'] ?? [];
+            $content = $data['content'] ?? '';
+
+            $programs = ProgramCache::whereIn('program_id', $programIds)->get();
+
+            foreach($programs as $program) {                
+                $profile = ProfileCache::where('name', $program->profile_name)->first();         
+                $email = $profile->contact_person_email;
+                Mail::to($email)->send(new CustomMessage($content));   
+            }
+                        
+            // Mail::to("info@ntpark.rs")->bcc($emails)->send(new CustomMessage($content));
+            return redirect(route('profiles.index'));
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        
+    }
+
     private function addFileToData(Request $request, $filename): ?array
     {
         $file = $request->file($filename);
@@ -1195,8 +1261,5 @@ class ProgramController extends Controller
 
         return null;
     }
-
-
-
 
 }

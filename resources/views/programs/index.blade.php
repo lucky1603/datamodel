@@ -52,7 +52,8 @@
         page_size="15"
         f_name="{{ $name }}"
         :f_program_type="{{ $program_type }}"
-        :f_program_status="{{ $program_status }}" :f_page="{{ $page }}" :f_year="{{ $year }}" :show-reject="true" :can-delete="{{ $canDelete ? 'true' : 'false' }}">
+        :f_program_status="{{ $program_status }}" :f_page="{{ $page }}" :f_year="{{ $year }}" :show-reject="true" :can-delete="{{ $canDelete ? 'true' : 'false' }}"
+        token={{ csrf_token() }}>
     </program-explorer-table-view>
 @endsection
 

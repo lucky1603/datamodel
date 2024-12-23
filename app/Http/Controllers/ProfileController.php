@@ -2,36 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use \Illuminate\Support\Collection;
 use App\Attribute;
-use App\ProfileCache;
-use App\ProgramCache;
 use App\AttributeGroup;
+use App\Business\IncubationProgram;
 use App\Business\Mentor;
 use App\Business\Profile;
 use App\Business\Program;
-use App\Business\Training;
-use App\Mail\CustomMessage;
-use Illuminate\Support\Str;
-use App\Mail\ProfileCreated;
-use Illuminate\Http\Request;
-use App\Exports\ProfileExport;
 use App\Business\ProgramFactory;
+use App\Business\RaisingStartsProgram;
+use App\Business\Training;
+use App\Exports\ProfileExport;
+use App\Exports\RaisingStartsProgramExport;
+use App\Http\Requests\StoreProfileRequest;
+use App\Http\Requests\UpdateRaisingStartsRequest;
 use App\Mail\ApplicationSuccess;
+use App\Mail\CustomMessage;
 use App\Mail\MeetingNotification;
-use Illuminate\Support\Facades\DB;
-use \Illuminate\Support\Collection;
-use App\Business\IncubationProgram;
+use App\Mail\ProfileCreated;
+use App\ProfileCache;
+use App\ProgramCache;
+use App\User;
+use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
-use App\Business\RaisingStartsProgram;
 use Illuminate\Support\Facades\Session;
-use App\Http\Requests\StoreProfileRequest;
-use App\Exports\RaisingStartsProgramExport;
-use App\Http\Requests\UpdateRaisingStartsRequest;
+use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\RequestMatcher;
 
 class ProfileController extends Controller
@@ -1471,26 +1472,23 @@ class ProfileController extends Controller
     }
 
     public function sendMail(Request $request) {
-        $data = $request->post();
-        var_dump($data);
+        try {
+            $data = $request->post();
 
-        $profileIds = $data['recipients'];
-        $content = $data['content'];
+            $profileIds = $data['recipients'];
+            $content = $data['content'];
 
-        // $ems = ProfileCache::whereIn('profile_id', $profileIds)->get()->map(function($profile) use($content) {
-        //     $email = $profile->getValue('contact_email');
-        //     Mail::to($email)->send(new CustomMessage($content));
-        // });
+            ProfileCache::whereIn('profile_id', $profileIds)->get()->each(function($profile) use($content) {
+                $email = $profile->getValue('contact_email');
+                Mail::to($email)->send(new CustomMessage($content));
+            });
 
-        $emails = Profile::find()->filter(function($profile) use($profileIds) {
-            return in_array($profile->getId(), $profileIds);
-        })->map(function($profile) use($content) {
-            return $profile->getValue('contact_email');
-        });
-
-        Mail::to($emails)->send(new CustomMessage($content));
-        // Mail::to("info@ntpark.rs")->bcc($emails)->send(new CustomMessage($content));
-        return redirect(route('profiles.index'));
+            // Mail::to("info@ntpark.rs")->bcc($emails)->send(new CustomMessage($content));
+            return redirect(route('profiles.index'));
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        
     }
 
     public function getMailClients(): array

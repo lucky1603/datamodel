@@ -17,23 +17,29 @@ export default {
     },
     methods: {
         async getData() {
-            await axios.get(this.source)
-            .then(response => {
-                this.originalItems.length = 0;
+            if(this.source != null && this.source != '') {
+                await axios.get(this.source)
+                .then(response => {
+                    this.originalItems.length = 0;
 
-                let programs = response.data;
-                programs.forEach(program => {
-                    let item = {value: program.id, text: program.profile, selected: false};
-                    if(this.value.includes(item.value)) {
-                        item.selected = true;
-                    }
+                    let programs = response.data;
+                    programs.forEach(program => {
+                        let item = {value: program.id, text: program.profile, selected: false};
+                        if(this.value.includes(item.value)) {
+                            item.selected = true;
+                        }
 
-                    this.originalItems.push(item);
+                        this.originalItems.push(item);
+                    });
+
                 });
+            }
 
-            });
-
-
+            if(this.value.length > 0) {
+                this.value.forEach(element => {
+                    this.originalItems.push(element);
+                });
+            }
 
         },
         selectionChanged() {

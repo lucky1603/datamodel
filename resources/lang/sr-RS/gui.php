@@ -27,6 +27,7 @@ return [
     'AddAccount' => 'Dodaj novog korisnika',
     'AddRole' => 'Dodaj novu rolu',
     'AddAbility' => 'Dodaj novu mogućnost',
+    'Send' => 'Pošalji',
     
     /*
      * Filter form by user manager
@@ -372,6 +373,8 @@ return [
         'program_explorer_dialog_ok' => 'Prihvatam',
         'program_explorer_dialog_cancel' => 'Odustajem',
         'program_explorer_delete_program' => 'Brisanje programa',
+        'program_explorer_delete_programs' => 'Brisanje izabranih programa',
+        'program_explorer_dialog_text_selected_reject' => "Ukoliko izaberete ovu opciju, selektovani korisnici koji nisu dosada poslali svoje prijave će promeniti status u neaktivne. Da li ste sigurni?",
 
         /**
          * Incubation Form

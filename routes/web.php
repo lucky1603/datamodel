@@ -96,8 +96,11 @@ Route::get('universities','AnonimousController@universities')->name('universitie
 Route::get('programs/statistics/{program}', 'ProgramController@getStatistics')->name('program.getStatistics');
 Route::post('programs/statistics', 'ProgramController@updateStatistics')->name('program.updateStatistics');
 Route::post('programs/backToForm', 'ProgramController@backToForm')->name('programs.backToForm');
+Route::post('programs/rejectSelected', 'ProgramController@rejectSelected')->name('programs.rejectSelected');
 Route::get('programs/rejectUnsent', 'ProgramController@rejectUnsent')->name('programs.rejectUnsent');
 Route::get('programs/delete/{program}', 'ProgramController@deleteProgram')->name('programs.delete');
+Route::post('programs/deleteSelected', 'ProgramController@deleteSelectedPrograms')->name('programs.deleteSelected');
+Route::post('programs/bulkMail', 'ProgramController@sendMail')->name('programs.sendMail');
 
 Route::get('profiles', 'ProfileController@index')->name('profiles.index');
 Route::get('profiles/situations/{profile}', 'ProfileController@getSituations')->name('profiles.situations');

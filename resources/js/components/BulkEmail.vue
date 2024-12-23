@@ -13,12 +13,14 @@
                   <companies-selector v-model="form.recipients" :source="items_source"></companies-selector>
               </div>
               <div class="form-group">
-                  <b-form-textarea v-model="form.content" ref="content" hidden></b-form-textarea>
+                  <b-form-textarea v-model="form.content" ref="content" hidden>
+                    <slot></slot>
+                  </b-form-textarea>
                   <div id="sinisa" ref="sinisa"></div>
               </div>
-              <div class="text-center">
+              <div v-if="!hideButtons" class="text-center">
                   <b-button ref="sendButton" id="sendButton" type="submit" class="mt-3" variant="primary" size="sm" :disabled="form.recipients.length == 0">
-                      <span id="okSpinner" ref="okSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      <b-spinner v-if="showSpinner" small class="ml-2"></b-spinner>
                       {{ _('gui.send')}}
                   </b-button>
                   <b-button
@@ -40,7 +42,10 @@ export default {
     props: {
         token: '',
         content: '',
-        items_source: {typeof: String, default:'/profiles/mailClients'}
+        items_source: {typeof: String, default:'/profiles/mailClients'},
+        recipients: {typeof: Array, default: []},
+        hideButtons: {typeof: Boolean, default: false},
+        sendAction: {typeof: String, default: '/profiles/bulkMail'}
     },
     methods: {
         initTextArea() {
@@ -57,21 +62,22 @@ export default {
 
             $('#sinisa').summernote('code', this.content);
         },
-        onSubmit() {
+        async onSubmit() {
             this.form.content = $('#sinisa').summernote('code');
-            this.$refs.okSpinner.hidden = false;
+            this.showSpinner = true;
             let data = new FormData();
             for(let i = 0; i < this.form.recipients.length; i++) {
-                data.append('recipients[]', this.form.recipients[i]);
+                data.append('recipients[]', this.form.recipients[i].value);
             }
 
             data.append('content', this.form.content);
             data.append('_token', this.token);
 
-            axios.post('/profiles/bulkMail', data)
+            await axios.post(this.sendAction, data)
             .then(response => {
-                this.$refs.okSpinner.hidden = true;
-                location.href='/profiles';
+                console.log(response.data);
+                this.showSpinner = false;
+                // location.href='/profiles';
             });
 
         },
@@ -80,15 +86,15 @@ export default {
         }
     },
     mounted() {
-        this.$refs.okSpinner.hidden = true;
         setTimeout(this.initTextArea, 1000);
     },
     data() {
         return {
             form: {
-                recipients: [],
+                recipients: this.recipients,
                 content: this.content
-            }
+            },
+            showSpinner: false
         }
     }
 }

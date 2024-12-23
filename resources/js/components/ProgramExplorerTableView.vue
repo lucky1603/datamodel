@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @key.down.escape="escapeClicked">    
     <b-form v-if="show_header" id="filterForm" inline class="w-100 bg-light">
       <b-row id="toolbar" class="row w-100">
         <b-col xl="1" lg="1" class="pt-1">
@@ -42,14 +42,14 @@
           ></b-form-select>
         </b-col>
         <b-col xl="2" lg="2" clas="border border-danger" style="display: flex; justify-content: left">
-            <b-form-select
-              size="sm"
-              class="m-2 w-100"
-              v-model="form.year"
-              :options="years"
-              @change="onSubmit"
-            ></b-form-select>
-          </b-col>
+          <b-form-select
+            size="sm"
+            class="m-2 w-100"
+            v-model="form.year"
+            :options="years"
+            @change="onSubmit"
+          ></b-form-select>
+        </b-col>
         <!-- <b-col xl="2" lg="2">
             <button>Sravnjivanje</button>
         </b-col> -->
@@ -67,13 +67,35 @@
                 href=""
                 role="button"
                 class="btn btn-sm btn-success m-2 position-relative float-right" :title="_('gui.program_explorer_cancel_unsent_info')" @click.prevent="sravnjivanje"
-                ><i class="dripicons-archive"></i><span class="ml-2 mt-2">{{ _('gui.CancelNotSent') }}</span><b-spinner v-if="sendReject" small class="ml-2"></b-spinner>
+                ><i class="mdi mdi-file-cancel-outline"></i><span class="ml-2 mt-2">{{ _('gui.CancelNotSent') }}</span><b-spinner v-if="sendReject" small class="ml-2"></b-spinner>
             </a>
 
         </b-col>
       </b-row>
     </b-form>
+    <div v-if="selectedPrograms.length > 0" class="d-flex justify-content-between shadow my-2 p-1 bg-light" >
+      <div class="d-flex align-items-center justify-content-left">
+        <span class="h5">AKCIJE ZA SELEKTOVANE:</span>
+      </div>  
+      <div class="d-flex align-items-center justify-content-left">        
+        <b-button variant="success" class="m-1 float-right" @click="sravnjivanje" size="sm" title="Zaključavanje - svi koji nisu poslali prijave prebacuju se u status - odustali">
+          <b-spinner v-if="sendReject" small class="ml-2"></b-spinner>
+          <i class='mdi mdi-lock'></i>        
+        </b-button>
+        <b-button variant="danger" class="m-1 float-right" @click="showMultipleDeletionDialog" size="sm" title="Obriši selektovane programe iz baze">
+          <i class='mdi mdi-trash-can'></i>
+        </b-button>
+        <b-button variant="info" class="m-1 float-right" size="sm" title="Pošalji podsetnike" @click="sendBulkMail">
+          <i class='mdi mdi-email-outline'></i>
+        </b-button>
+
+      </div>      
+    </div>
     <b-table
+      :key="componentKey"
+      ref="programTable"
+      selectable
+      select-mode="range"
       :items="programs"
       :fields="fields"
       :per-page="page_size"
@@ -82,9 +104,10 @@
       small
       bordered
       class="shadow-sm"
-      hover      
       @page-click="pageChanged"      
-    >
+      @row-selected="onRowSelected"
+      @key-down.escape="escapeClicked"
+    >      
       <template #cell(company)="data">
         <img :src="data.item.logo" width="24px" class="mr-2" /> {{ data.value }}
       </template>
@@ -120,22 +143,47 @@
         <template #modal-ok>{{ _('gui.Ok') }}</template>
         <template #modal-cancel>{{ _('gui.Cancel') }}</template>
         <div class="d-flex align-items-center justify-content-center">
-            {{ _('gui.program_explorer_dialog_text') }}
+            {{ rejectDialogMessage }}
         </div>
     </b-modal>
-    <b-modal v-model="showDeleteDialog" id="deleteDialog" header-bg-variant="dark" header-text-variant="light" @ok="confirmDeleteProgram">
+    <b-modal
+      size="xl"
+      v-model="showBulkMailDialog"
+      ref="bulkMailDialog"
+      id="bulkMailDialog"
+      header-bg-variant="dark"
+      header-text-variant="light" @ok="confirmSendMail">
+      <template #modal-title>Posalji email</template>
+      <template #modal-ok>{{ _('gui.Send') }}</template><template #modal-cancel>{{ _('gui.Cancel') }}</template>
+      <div class="d-flex align-items-center justify-content-center">
+        <bulk-mail ref="bulkMail" :recipients="emailRecipients" items_source="" :content="mailContent" :hide-buttons="true" :token="token" send-action="/programs/bulkMail">
+        </bulk-mail>
+      </div>
+      
+    </b-modal>
+    <b-modal v-model="showDeleteDialog" id="deleteDialog" header-bg-variant="dark" header-text-variant="light" @ok="confirmDeleteProgram" >
       <template #modal-title>{{ _('gui.program_explorer_delete_program') }}</template>
       <template #modal-ok>{{ _('gui.Ok') }}</template>
-        <template #modal-cancel>{{ _('gui.Cancel') }}</template>
+      <template #modal-cancel>{{ _('gui.Cancel') }}</template>
       <div class="d-flex align-items-center justify-content-start">
         <span>{{ _('gui.program_explorer_delete_program') + " "}}</span> <span class="mx-1"><strong> '{{ selectedProgramName }}'</strong>?</span>
+      </div>
+    </b-modal>
+    <b-modal v-model="showMultipleDeleteDialog" id="multipleDeleteDialog" header-bg-variant="dark" header-text-variant="light" @ok="deleteSelected">
+      <template #modal-title>{{ _('gui.program_explorer_delete_programs') }}</template>
+      <template #modal-ok>{{ _('gui.Ok') }}</template>
+      <template #modal-cancel>{{ _('gui.Cancel') }}</template>
+      <div class="d-flex align-items-center justify-content-start">
+        <span>{{ _('gui.program_explorer_delete_programs') }}?</span>
       </div>
     </b-modal>
   </div>
 </template>
 
 <script>
-export default {
+import BulkEmail from './BulkEmail.vue';
+
+export default { 
   name: "ProgramExplorerTableView",
   props: {
     source: { typeof: String, default: "/programs/filterCache" },
@@ -147,7 +195,8 @@ export default {
     f_page: { typeof: Number, default: 1 },
     f_year: { typeof: Number, default: 0 },
     showReject: { type: Boolean, default: true },
-    canDelete: { type: Boolean, default: true }
+    canDelete: { type: Boolean, default: true },
+    token: { typeof: String, default: "" },
   },
   watch: {
     currentPage: function (val, oldVal) {
@@ -159,13 +208,29 @@ export default {
     },
   },
   methods: {
+    onRowSelected(items) {
+      this.selectedPrograms = items;
+    },
     async handleOk() {
         this.sendReject = true;
-        await axios.get('/programs/rejectUnsent')
-        .then(response => {
-            console.log(response.data);
+        if(this.selectedPrograms.length > 0) {
+          let data = new FormData();
+          for (let i = 0; i < this.selectedPrograms.length; i++) {
+            data.append('ids[]', this.selectedPrograms[i].id);
+          }
+
+          await axios.post('/programs/rejectSelected', data)
+          .then(response => {
             this.sendReject = false;
-        });
+            this.$refs.programTable.clearSelected();
+          });     
+        } else {
+          await axios.get('/programs/rejectUnsent')
+          .then(response => {
+              this.sendReject = false;
+          });
+        }
+        
 
         await this.getData();
     },
@@ -181,6 +246,8 @@ export default {
           console.log(response.data);
           this.programs = [];
           for (const property in response.data) {
+            let program = response.data[property];
+            program.selected = false;
             this.programs.push(response.data[property]);
           }
         })
@@ -209,6 +276,11 @@ export default {
       this.selectedProgramId = 0;
       this.selectedProgramName = '';
       await this.getData();
+    },
+    async confirmSendMail() {
+      await this.$refs.bulkMail.onSubmit();
+      this.$refs.programTable.clearSelected();
+
     },
     getLogo(logo) {
       if (logo == null || logo === "") {
@@ -273,18 +345,58 @@ export default {
       }
     },
     sravnjivanje() {
+        if(this.selectedPrograms.length == 0) {
+          this.rejectDialogMessage = window.i18n['gui']['program_explorer_dialog_text'];
+        } else {
+          this.rejectDialogMessage = window.i18n['gui']["program_explorer_dialog_text_selected_reject"];
+        }
+        
         this.$refs['sravnjivanje-modal'].show();
     },
-    // pageChanged(ctx) {
-    //   console.log(`Page changed ${this.currentPage}`);
-    //   let data = new FormData();
-    //   data.append("page", this.currentPage);
-    //   axios.post("/profiles/setSessionVars", data).then((response) => {
-    //     console.log("Page changed ...");
-    //     console.log(response.data);
-    //   });
-    // },
+    showMultipleDeletionDialog() {
+      if(this.selectedPrograms.length == 0) {
+        return;
+      }
+
+      this.showMultipleDeleteDialog = true;
+    },
+    async deleteSelected() {
+      let data = new FormData();
+      for (let i = 0; i < this.selectedPrograms.length; i++) {
+        data.append('ids[]', this.selectedPrograms[i].id);
+      }
+
+      await axios.post('/programs/deleteSelected', data);
+
+      this.$refs.programTable.clearSelected();
+      await this.getData();
+      // this.componentKey += 1;
+    },
+    escapeClicked() {
+      cvonsole.log('escape');
+      this.$refs.programTable.clearSelected();
+    },
+
+    handleKeyDown(event) {
+      if(event.key == 'Escape' || event.keycode == 27) {
+        console.log('escape');
+        this.$refs.programTable.clearSelected();
+      }
+    },
+    sendBulkMail() {
+      this.selectedPrograms.forEach(program => {
+        this.emailRecipients.push({
+          value: program.id,
+          text: program.company,
+          selected: true
+        });
+      });
+
+      this.showBulkMailDialog = true;
+    }
+
   },
+
   async mounted() {
     this.form.name = this.f_name;
     this.form.program_type = this.f_program_type;
@@ -293,11 +405,21 @@ export default {
 
     await this.getData();
     this.updateProgramStatuses();
-
     this.currentPage = this.f_page;
+
+    this.mailContent = "<p>Poštovani/a ,</p><p>Uskoro ističe rok za slanje prijava na program 'Raising Starts'.</p><p>Podsećamo Vas, da Vašu prijavu možete poslati najkasnije do 28.12. u 12:00h. Sve prijave poslate posle tog roka neće biti uzete u razmatranje.</p><p>Srdačan pozdrav,</p><p>Vaš NTP</p>";
+
+    window.addEventListener('keydown', this.handleKeyDown);
   },
   data() {
     return {
+      componentKey: 0,
+      showMultipleDeleteDialog: false,
+      showBulkMailDialog: false,
+      mailContent: '',
+      emailRecipients: [],
+      rejectDialogMessage: 'Poruka',
+      selectedPrograms: [],
       selectedProgramId: 0,
       selectedProgramName: '',
       showDeleteDialog: false,

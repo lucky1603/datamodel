@@ -27,6 +27,7 @@ return [
     'AddAccount' => 'Add New Account',
     'AddRole' => 'Add New Role',
     'AddAbility' => 'Add New Ability',
+    'Send' => 'Send',
 
     /*
      * Filter form by user manager
@@ -376,6 +377,8 @@ return [
         'program_explorer_dialog_ok' => 'Ok',
         'program_explorer_dialog_cancel' => 'Cancel',
         'program_explorer_delete_program' => 'Delete program',
+        'program_explorer_delete_programs' => 'Delete selected programs',
+        'program_explorer_dialog_text_selected_reject' => "Should You choose this option, the selected candidates that haven't applied yet will change their status to in-active. Are you sure?",
 
         /**
          * Incubation Form
