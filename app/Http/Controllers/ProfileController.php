@@ -51,7 +51,7 @@ class ProfileController extends Controller
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index() {
-        $this->authorize('manage_client_profiles');
+        $this->authorize('list_client_profiles');
         $profiles = Profile::find();
         $role = Auth::user()->roles()->first()->name;
         $token = csrf_token();
