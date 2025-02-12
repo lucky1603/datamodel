@@ -278,5 +278,9 @@ Route::post('abilities/edit/{ability}', 'AbilityController@update');
 
 Route::get('/lang-{lang}.js', 'LanguageController@show');
 
+Route::post('public-calls/edit', 'PublicCallController@update')->name('public-calls.update');
+Route::get('public-calls/list', 'PublicCallController@list')->name('public-calls.list');
+Route::get('public-calls/data/{id}', 'PublicCallController@data')->name('public-calls.data');
+
 
 

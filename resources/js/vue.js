@@ -108,6 +108,7 @@ Vue.component('abilities-manager', require('./components/AbilitiesManager.vue').
 Vue.component('ability-manager-form', require('./components/AbilityManagerForm.vue').default);
 Vue.component('role-manager', require('./components/RoleManager.vue').default);
 Vue.component('role-manager-form', require('./components/RoleManagerForm.vue').default);
+Vue.component('public-call-manager', require('./components/PublicCallManager.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

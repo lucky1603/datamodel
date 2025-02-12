@@ -378,5 +378,7 @@
     "inProgram" : "U programu",
     "outOfProgram" : "Van programa",
     "workshops" : "Radionice",
-    "sessions" : "Sesije"
+    "sessions" : "Sesije",
+    "Unlock Public Call" : "Otključaj javni poziv", 
+    "Public Calls Management" : "Upravljanje javnim pozivima"
 }

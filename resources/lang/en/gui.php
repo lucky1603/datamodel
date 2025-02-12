@@ -388,6 +388,15 @@ return [
         'incubation_form_startup_position' => "Position in the Startup",
         'incubation_form_project' => "Project",
 
+        /**
+         * Public call form
+         */
+        "unlock_public_call" => "Unlock Public Call",
+        "public_call_start" => "Start",
+        "public_call_end" => "End",
+        "public_call_start_text" => "Date when program public call starts",
+        "public_call_end_text" => "Date when program public call ends",
+
 
 
 ];

@@ -5,6 +5,9 @@
         <h1 class="text-center w-100 my-4">Raising Starts Formular</h1>
         <hr>
         @include('profiles.partials._rstarts')
+        <hr class="my-4 text-dark"/>
+        <h1 class="my-4 text-center">{{ __('Public Calls Management') }}</h1>
+        <public-call-manager :call-id="2" :key="2"></public-call-manager>
     </div>
 
 @endsection

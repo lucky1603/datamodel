@@ -5,6 +5,9 @@
         <h1 class="text-center w-100 my-4">Incubation BITF Formular</h1>
         <hr>
         @include('profiles.partials._ibitf')
+        <hr class="my-4 text-dark"/>
+        <h1 class="my-4 text-center">{{ __('Public Calls Management') }}</h1>
+        <public-call-manager :call-id="1" :key="1"></public-call-manager>
     </div>
 
 @endsection

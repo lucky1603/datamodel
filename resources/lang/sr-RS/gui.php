@@ -384,4 +384,14 @@ return [
         'incubation_form_startup_position' => "Pozicija u startapu",
         'incubation_form_project' => "Projekat",
 
+        /**
+         * Public call form
+         */
+        "unlock_public_call" => "Otključaj javni poziv",
+        "public_call_start" => "Početak",
+        "public_call_end" => "Kraj",
+        "public_call_start_text" => "Datum početka javnog poziva",
+        "public_call_end_text" => "Datum kraja javnog poziva",
+
+
 ];
