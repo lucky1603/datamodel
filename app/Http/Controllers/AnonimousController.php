@@ -2,32 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Entity;
 use App\Attribute;
-use Hamcrest\Util;
-use App\University;
-use App\ProfileCache;
-use App\Mail\TestMail;
-use PHPUnit\Util\Test;
 use App\AttributeGroup;
+use App\Business\IncubationProgram;
 use App\Business\Profile;
 use App\Business\Program;
-use Illuminate\Support\Str;
-use App\Mail\ProfileCreated;
-use Illuminate\Http\Request;
-use App\Business\RastuceProgram;
-use Illuminate\Support\Facades\DB;
-use App\Business\IncubationProgram;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use App\Business\RaisingStartsProgram;
-use App\Http\Requests\StorePostRequest;
-use PharIo\Manifest\InvalidEmailException;
+use App\Business\RastuceProgram;
+use App\Entity;
 use App\Http\Requests\CreateProfileRequest;
 use App\Http\Requests\StoreIncubationRequest;
+use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\StoreRastuceRequest;
+use App\Mail\ProfileCreated;
+use App\Mail\TestMail;
+use App\ProfileCache;
+use App\PublicCall;
+use App\University;
+use App\User;
+use Hamcrest\Util;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use PharIo\Manifest\InvalidEmailException;
+use PHPUnit\Util\Test;
 
 class AnonimousController extends Controller
 {
@@ -98,7 +99,21 @@ class AnonimousController extends Controller
 
     public function createIncubationBITF() {
         $attributeData = IncubationProgram::getAttributesDefinition();
-        if(auth()->user() == null) $mode = 'anonimous'; else $mode = auth()->user()->roles->first()->name;
+        if(auth()->user() == null) {
+            $mode = 'anonimous'; 
+
+            $publicCall = PublicCall::where('id', 1 /* INCUBATION */)->first();
+            if($publicCall != null) {
+                if($publicCall->active == 0 || $publicCall->public_call_date > now() || $publicCall->public_call_end_date < now()) {
+                    return view('anonimous.application-closed');
+                }
+            }
+        } else if(auth()->user()->roles->first()->name == 'profile') {
+            return redirect(route('home'));
+        } else {
+            $mode = auth()->user()->roles->first()->name;
+        }
+        
         return view(
             'anonimous.createIncubationBITF',
             [
@@ -435,9 +450,15 @@ class AnonimousController extends Controller
 
        if(auth()->user() == null) {
             $mode = 'anonimous';
-            if(strtotime(now()) >= strtotime("2023-10-11 12:00:00")) {
-                return view('anonimous.application-closed');
+            $publicCall = PublicCall::where('id', 2 /* RAISING STARTS */)->first();
+            if($publicCall != null) {
+                if($publicCall->active == 0 || $publicCall->public_call_date > now() || $publicCall->public_call_end_date < now()) {
+                    return view('anonimous.application-closed');
+                }
             }
+            // if(strtotime(now()) >= strtotime("2023-10-11 12:00:00")) {
+            //     return view('anonimous.application-closed');
+            // }
        } else if(auth()->user()->roles->first()->name == 'profile') {
             return redirect(route('home'));
        } else {
