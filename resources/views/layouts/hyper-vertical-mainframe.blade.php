@@ -62,7 +62,7 @@
     </li>
     @endcan
 
-    @canany('read_user_data', 'manage_forms')
+    @canany(['read_user_data', 'manage_forms'])
     <li class="side-nav-item">
         <a href="javascript:void(0);" class="side-nav-link" aria-expanded="false">
             <i class="uil-bag"></i>
